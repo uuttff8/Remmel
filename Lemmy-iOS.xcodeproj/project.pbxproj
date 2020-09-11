@@ -9,13 +9,15 @@
 /* Begin PBXBuildFile section */
 		4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */; };
 		4ECCEEAC250B8B6B0075F921 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEAB250B8B6B0075F921 /* SceneDelegate.swift */; };
-		4ECCEEAE250B8B6B0075F921 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEAD250B8B6B0075F921 /* ViewController.swift */; };
-		4ECCEEB1250B8B6B0075F921 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ECCEEAF250B8B6B0075F921 /* Main.storyboard */; };
+		4ECCEEAE250B8B6B0075F921 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEAD250B8B6B0075F921 /* LoginViewController.swift */; };
 		4ECCEEB4250B8B6B0075F921 /* Lemmy_iOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEB2250B8B6B0075F921 /* Lemmy_iOS.xcdatamodeld */; };
 		4ECCEEB6250B8B6E0075F921 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4ECCEEB5250B8B6E0075F921 /* Assets.xcassets */; };
 		4ECCEEB9250B8B6E0075F921 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ECCEEB7250B8B6E0075F921 /* LaunchScreen.storyboard */; };
 		4ECCEEC4250B8B6F0075F921 /* Lemmy_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEC3250B8B6F0075F921 /* Lemmy_iOSTests.swift */; };
 		4ECCEECF250B8B6F0075F921 /* Lemmy_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEECE250B8B6F0075F921 /* Lemmy_iOSUITests.swift */; };
+		4ECCEEDD250B8D930075F921 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEDC250B8D930075F921 /* AppCoordinator.swift */; };
+		4ECCEEE0250B8DEE0075F921 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEDF250B8DEE0075F921 /* Coordinator.swift */; };
+		4ECCEEE7250B8FA80075F921 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEE6250B8FA80075F921 /* LoginCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,8 +41,7 @@
 		4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lemmy-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4ECCEEAB250B8B6B0075F921 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4ECCEEAD250B8B6B0075F921 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		4ECCEEB0250B8B6B0075F921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4ECCEEAD250B8B6B0075F921 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4ECCEEB3250B8B6B0075F921 /* Lemmy_iOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lemmy_iOS.xcdatamodel; sourceTree = "<group>"; };
 		4ECCEEB5250B8B6E0075F921 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4ECCEEB8250B8B6E0075F921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +52,9 @@
 		4ECCEECA250B8B6F0075F921 /* Lemmy-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Lemmy-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ECCEECE250B8B6F0075F921 /* Lemmy_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lemmy_iOSUITests.swift; sourceTree = "<group>"; };
 		4ECCEED0250B8B6F0075F921 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4ECCEEDC250B8D930075F921 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		4ECCEEDF250B8DEE0075F921 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		4ECCEEE6250B8FA80075F921 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,10 +105,9 @@
 		4ECCEEA8250B8B6B0075F921 /* Lemmy-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */,
-				4ECCEEAB250B8B6B0075F921 /* SceneDelegate.swift */,
-				4ECCEEAD250B8B6B0075F921 /* ViewController.swift */,
-				4ECCEEAF250B8B6B0075F921 /* Main.storyboard */,
+				4ECCEEE2250B8F4A0075F921 /* Features */,
+				4ECCEEE1250B8E1C0075F921 /* App */,
+				4ECCEEDE250B8DDF0075F921 /* Base */,
 				4ECCEEB5250B8B6E0075F921 /* Assets.xcassets */,
 				4ECCEEB7250B8B6E0075F921 /* LaunchScreen.storyboard */,
 				4ECCEEBA250B8B6E0075F921 /* Info.plist */,
@@ -129,6 +132,41 @@
 				4ECCEED0250B8B6F0075F921 /* Info.plist */,
 			);
 			path = "Lemmy-iOSUITests";
+			sourceTree = "<group>";
+		};
+		4ECCEEDE250B8DDF0075F921 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				4ECCEEDF250B8DEE0075F921 /* Coordinator.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		4ECCEEE1250B8E1C0075F921 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */,
+				4ECCEEAB250B8B6B0075F921 /* SceneDelegate.swift */,
+				4ECCEEDC250B8D930075F921 /* AppCoordinator.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		4ECCEEE2250B8F4A0075F921 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				4ECCEEE3250B8F690075F921 /* Login */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		4ECCEEE3250B8F690075F921 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				4ECCEEAD250B8B6B0075F921 /* LoginViewController.swift */,
+				4ECCEEE6250B8FA80075F921 /* LoginCoordinator.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,7 +275,6 @@
 			files = (
 				4ECCEEB9250B8B6E0075F921 /* LaunchScreen.storyboard in Resources */,
 				4ECCEEB6250B8B6E0075F921 /* Assets.xcassets in Resources */,
-				4ECCEEB1250B8B6B0075F921 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,7 +300,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4ECCEEB4250B8B6B0075F921 /* Lemmy_iOS.xcdatamodeld in Sources */,
-				4ECCEEAE250B8B6B0075F921 /* ViewController.swift in Sources */,
+				4ECCEEAE250B8B6B0075F921 /* LoginViewController.swift in Sources */,
+				4ECCEEE7250B8FA80075F921 /* LoginCoordinator.swift in Sources */,
+				4ECCEEE0250B8DEE0075F921 /* Coordinator.swift in Sources */,
+				4ECCEEDD250B8D930075F921 /* AppCoordinator.swift in Sources */,
 				4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */,
 				4ECCEEAC250B8B6B0075F921 /* SceneDelegate.swift in Sources */,
 			);
@@ -301,14 +341,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		4ECCEEAF250B8B6B0075F921 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4ECCEEB0250B8B6B0075F921 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		4ECCEEB7250B8B6E0075F921 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
