@@ -1,0 +1,6 @@
+framework module Pods_Lemmy_iOS {
+  umbrella header "Pods-Lemmy-iOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

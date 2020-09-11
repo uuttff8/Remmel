@@ -18,6 +18,10 @@
 		4ECCEEDD250B8D930075F921 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEDC250B8D930075F921 /* AppCoordinator.swift */; };
 		4ECCEEE0250B8DEE0075F921 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEDF250B8DEE0075F921 /* Coordinator.swift */; };
 		4ECCEEE7250B8FA80075F921 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEE6250B8FA80075F921 /* LoginCoordinator.swift */; };
+		4ECCEEEA250BA6230075F921 /* WSLemmy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEE9250BA6230075F921 /* WSLemmy.swift */; };
+		4ECCEEED250BE8870075F921 /* FrontPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEEC250BE8870075F921 /* FrontPageViewController.swift */; };
+		4ECCEEEF250BE89B0075F921 /* FrontPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEEE250BE89B0075F921 /* FrontPageCoordinator.swift */; };
+		921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +59,12 @@
 		4ECCEEDC250B8D930075F921 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		4ECCEEDF250B8DEE0075F921 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		4ECCEEE6250B8FA80075F921 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
+		4ECCEEE9250BA6230075F921 /* WSLemmy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSLemmy.swift; sourceTree = "<group>"; };
+		4ECCEEEC250BE8870075F921 /* FrontPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageViewController.swift; sourceTree = "<group>"; };
+		4ECCEEEE250BE89B0075F921 /* FrontPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageCoordinator.swift; sourceTree = "<group>"; };
+		AF9E5291792018DE1B6050FA /* Pods-Lemmy-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.release.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lemmy_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8130B334E7F53B10E26E71F /* Pods-Lemmy-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +100,8 @@
 				4ECCEEC2250B8B6F0075F921 /* Lemmy-iOSTests */,
 				4ECCEECD250B8B6F0075F921 /* Lemmy-iOSUITests */,
 				4ECCEEA7250B8B6B0075F921 /* Products */,
+				9295FD3B10BE5390706449EA /* Pods */,
+				750E6997D470E00BE92AFA4E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,8 +118,9 @@
 		4ECCEEA8250B8B6B0075F921 /* Lemmy-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				4ECCEEE2250B8F4A0075F921 /* Features */,
 				4ECCEEE1250B8E1C0075F921 /* App */,
+				4ECCEEE2250B8F4A0075F921 /* Features */,
+				4ECCEEE8250BA6040075F921 /* Networking */,
 				4ECCEEDE250B8DDF0075F921 /* Base */,
 				4ECCEEB5250B8B6E0075F921 /* Assets.xcassets */,
 				4ECCEEB7250B8B6E0075F921 /* LaunchScreen.storyboard */,
@@ -155,6 +169,7 @@
 		4ECCEEE2250B8F4A0075F921 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				4ECCEEEB250BE85B0075F921 /* FrontPage */,
 				4ECCEEE3250B8F690075F921 /* Login */,
 			);
 			path = Features;
@@ -169,6 +184,40 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		4ECCEEE8250BA6040075F921 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				4ECCEEE9250BA6230075F921 /* WSLemmy.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		4ECCEEEB250BE85B0075F921 /* FrontPage */ = {
+			isa = PBXGroup;
+			children = (
+				4ECCEEEC250BE8870075F921 /* FrontPageViewController.swift */,
+				4ECCEEEE250BE89B0075F921 /* FrontPageCoordinator.swift */,
+			);
+			path = FrontPage;
+			sourceTree = "<group>";
+		};
+		750E6997D470E00BE92AFA4E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9295FD3B10BE5390706449EA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F8130B334E7F53B10E26E71F /* Pods-Lemmy-iOS.debug.xcconfig */,
+				AF9E5291792018DE1B6050FA /* Pods-Lemmy-iOS.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -176,6 +225,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4ECCEED3250B8B6F0075F921 /* Build configuration list for PBXNativeTarget "Lemmy-iOS" */;
 			buildPhases = (
+				A16D6AA48269C83E850CEE76 /* [CP] Check Pods Manifest.lock */,
 				4ECCEEA2250B8B6B0075F921 /* Sources */,
 				4ECCEEA3250B8B6B0075F921 /* Frameworks */,
 				4ECCEEA4250B8B6B0075F921 /* Resources */,
@@ -294,17 +344,45 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A16D6AA48269C83E850CEE76 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Lemmy-iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4ECCEEA2250B8B6B0075F921 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				4ECCEEB4250B8B6B0075F921 /* Lemmy_iOS.xcdatamodeld in Sources */,
+				4ECCEEEF250BE89B0075F921 /* FrontPageCoordinator.swift in Sources */,
 				4ECCEEAE250B8B6B0075F921 /* LoginViewController.swift in Sources */,
 				4ECCEEE7250B8FA80075F921 /* LoginCoordinator.swift in Sources */,
 				4ECCEEE0250B8DEE0075F921 /* Coordinator.swift in Sources */,
 				4ECCEEDD250B8D930075F921 /* AppCoordinator.swift in Sources */,
 				4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */,
+				4ECCEEED250BE8870075F921 /* FrontPageViewController.swift in Sources */,
+				4ECCEEEA250BA6230075F921 /* WSLemmy.swift in Sources */,
 				4ECCEEAC250B8B6B0075F921 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -468,6 +546,7 @@
 		};
 		4ECCEED4250B8B6F0075F921 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F8130B334E7F53B10E26E71F /* Pods-Lemmy-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -486,6 +565,7 @@
 		};
 		4ECCEED5250B8B6F0075F921 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AF9E5291792018DE1B6050FA /* Pods-Lemmy-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

@@ -9,11 +9,19 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-
+    
     override func viewDidLoad() {
-        super.viewDidLoad()        
+        super.viewDidLoad()
+        
+        let ws = WSLemmy()
+        
+        let data = """
+{"sort": "Hot","limit": 6}
+"""
+        
+        ws.send(on: LemmyEndpoint.Community.listCommunities, data: Data(data.utf8))
+        
     }
-
-
+    
 }
 
