@@ -173,9 +173,12 @@
 		4ECCEEE2250B8F4A0075F921 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				4ECCEEF0250C03910075F921 /* LemmyTabBar */,
+				4ECCEEF8250C0E390075F921 /* CreateCommunity */,
+				4ECCEEF7250C0E330075F921 /* CreatePost */,
+				4ECCEEF5250C0E230075F921 /* Communities */,
 				4ECCEEEB250BE85B0075F921 /* FrontPage */,
 				4ECCEEE3250B8F690075F921 /* Login */,
+				4ECCEEF0250C03910075F921 /* LemmyTabBar */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -213,6 +216,27 @@
 				4ECCEEF3250C04280075F921 /* LemmyTabBarController.swift */,
 			);
 			path = LemmyTabBar;
+			sourceTree = "<group>";
+		};
+		4ECCEEF5250C0E230075F921 /* Communities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Communities;
+			sourceTree = "<group>";
+		};
+		4ECCEEF7250C0E330075F921 /* CreatePost */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CreatePost;
+			sourceTree = "<group>";
+		};
+		4ECCEEF8250C0E390075F921 /* CreateCommunity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CreateCommunity;
 			sourceTree = "<group>";
 		};
 		750E6997D470E00BE92AFA4E /* Frameworks */ = {
