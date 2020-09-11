@@ -16,7 +16,7 @@ class LemmyTabBarController: UITabBarController {
         self.coordinator?.store(coordinator: frontPageCoordinator)
         let frontPageNc = UINavigationController(rootViewController: frontPageCoordinator.rootViewController)
         frontPageCoordinator.rootViewController.tabBarItem = UITabBarItem(title: "",
-                                                                          image: UIImage(systemName: "folder.badge.person.crop"),
+                                                                          image: UIImage(systemName: "bolt.circle"),
                                                                           tag: 0)
         
         self.viewControllers = [frontPageNc]
