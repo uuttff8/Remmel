@@ -8,15 +8,16 @@
 
 import UIKit
 
-class LoginCoordinator : BaseCoordinator {
-
+class LoginCoordinator : Coordinator {
+    var childCoordinators: [Coordinator] = []
+    
     var navigationController: UINavigationController?
 
     init(navigationController :UINavigationController?) {
         self.navigationController = navigationController
     }
 
-    override func start() {
+    func start() {
 
         let viewController = LoginViewController()
         navigationController?.pushViewController(viewController, animated: true)

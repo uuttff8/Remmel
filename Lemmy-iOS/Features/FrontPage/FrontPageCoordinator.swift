@@ -8,16 +8,20 @@
 
 import UIKit
 
-class FrontPageCoordinator : BaseCoordinator {
-
+class FrontPageCoordinator : Coordinator {
+    var rootViewController: FrontPageViewController
+    var childCoordinators: [Coordinator] = []
+    
     var navigationController: UINavigationController?
 
-    init(navigationController :UINavigationController?) {
+    init(navigationController: UINavigationController?) {
+        self.rootViewController = FrontPageViewController()
         self.navigationController = navigationController
     }
 
-    override func start() {
-        let viewController = LoginViewController()
-        navigationController?.pushViewController(viewController, animated: true)
+    func start() {
+        let coordinator = FrontPageCoordinator(navigationController: navigationController)
+        self.store(coordinator: coordinator)
+        navigationController?.pushViewController(coordinator.rootViewController, animated: true)
     }
 }

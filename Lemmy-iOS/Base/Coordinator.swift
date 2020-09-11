@@ -6,29 +6,34 @@
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-protocol Coordinator : class {
-    var childCoordinators : [Coordinator] { get set }
+protocol Coordinator: AnyObject {
+    var childCoordinators: [Coordinator] { get set }
+    var navigationController: UINavigationController? { get set }
+    
     func start()
+    
+    // extension implemented
+    func removeDependency(_ coordinator: Coordinator?)
 }
 
 extension Coordinator {
-
+    func removeDependency(_ coordinator: Coordinator?) {
+        guard
+            childCoordinators.isEmpty == false,
+            let coordinator = coordinator
+            else { return }
+        
+        for (index, element) in childCoordinators.enumerated() {
+            if element === coordinator {
+                childCoordinators.remove(at: index)
+                break
+            }
+        }
+    }
+    
     func store(coordinator: Coordinator) {
         childCoordinators.append(coordinator)
-    }
-
-    func free(coordinator: Coordinator) {
-        childCoordinators = childCoordinators.filter { $0 !== coordinator }
-    }
-}
-
-class BaseCoordinator : Coordinator {
-    var childCoordinators : [Coordinator] = []
-    var isCompleted: (() -> ())?
-
-    func start() {
-        fatalError("Children should implement `start`.")
     }
 }

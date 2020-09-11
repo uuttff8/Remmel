@@ -12,6 +12,7 @@ class FrontPageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.title = "Lemmy"
+        self.view.backgroundColor = UIColor.red
     }
 }

@@ -8,30 +8,25 @@
 
 import UIKit
 
-class AppCoordinator : BaseCoordinator {
+class AppCoordinator :  Coordinator {
+    var childCoordinators: [Coordinator] = []
+    
+    var navigationController: UINavigationController?
 
     let window : UIWindow
 
     init(window: UIWindow) {
         self.window = window
-        super.init()
     }
 
-    override func start() {
-        // preparing root view
-        let navigationController = UINavigationController()
-        let myCoordinator = LoginCoordinator(navigationController: navigationController)
-
+    func start() {
+        let myCoordinator = LemmyTabBarCoordinator()
+        
         // store child coordinator
         self.store(coordinator: myCoordinator)
         myCoordinator.start()
 
-        window.rootViewController = navigationController
+        window.rootViewController = myCoordinator.rootViewController
         window.makeKeyAndVisible()
-
-        // detect when free it
-        myCoordinator.isCompleted = { [weak self] in
-            self?.free(coordinator: myCoordinator)
-        }
     }
 }

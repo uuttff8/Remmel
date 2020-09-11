@@ -21,6 +21,8 @@
 		4ECCEEEA250BA6230075F921 /* WSLemmy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEE9250BA6230075F921 /* WSLemmy.swift */; };
 		4ECCEEED250BE8870075F921 /* FrontPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEEC250BE8870075F921 /* FrontPageViewController.swift */; };
 		4ECCEEEF250BE89B0075F921 /* FrontPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEEE250BE89B0075F921 /* FrontPageCoordinator.swift */; };
+		4ECCEEF2250C03A40075F921 /* LemmyTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEF1250C03A40075F921 /* LemmyTabBarCoordinator.swift */; };
+		4ECCEEF4250C04280075F921 /* LemmyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEF3250C04280075F921 /* LemmyTabBarController.swift */; };
 		921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +64,8 @@
 		4ECCEEE9250BA6230075F921 /* WSLemmy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSLemmy.swift; sourceTree = "<group>"; };
 		4ECCEEEC250BE8870075F921 /* FrontPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageViewController.swift; sourceTree = "<group>"; };
 		4ECCEEEE250BE89B0075F921 /* FrontPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageCoordinator.swift; sourceTree = "<group>"; };
+		4ECCEEF1250C03A40075F921 /* LemmyTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyTabBarCoordinator.swift; sourceTree = "<group>"; };
+		4ECCEEF3250C04280075F921 /* LemmyTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyTabBarController.swift; sourceTree = "<group>"; };
 		AF9E5291792018DE1B6050FA /* Pods-Lemmy-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.release.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lemmy_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8130B334E7F53B10E26E71F /* Pods-Lemmy-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -169,6 +173,7 @@
 		4ECCEEE2250B8F4A0075F921 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				4ECCEEF0250C03910075F921 /* LemmyTabBar */,
 				4ECCEEEB250BE85B0075F921 /* FrontPage */,
 				4ECCEEE3250B8F690075F921 /* Login */,
 			);
@@ -199,6 +204,15 @@
 				4ECCEEEE250BE89B0075F921 /* FrontPageCoordinator.swift */,
 			);
 			path = FrontPage;
+			sourceTree = "<group>";
+		};
+		4ECCEEF0250C03910075F921 /* LemmyTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				4ECCEEF1250C03A40075F921 /* LemmyTabBarCoordinator.swift */,
+				4ECCEEF3250C04280075F921 /* LemmyTabBarController.swift */,
+			);
+			path = LemmyTabBar;
 			sourceTree = "<group>";
 		};
 		750E6997D470E00BE92AFA4E /* Frameworks */ = {
@@ -384,6 +398,8 @@
 				4ECCEEED250BE8870075F921 /* FrontPageViewController.swift in Sources */,
 				4ECCEEEA250BA6230075F921 /* WSLemmy.swift in Sources */,
 				4ECCEEAC250B8B6B0075F921 /* SceneDelegate.swift in Sources */,
+				4ECCEEF4250C04280075F921 /* LemmyTabBarController.swift in Sources */,
+				4ECCEEF2250C03A40075F921 /* LemmyTabBarCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
