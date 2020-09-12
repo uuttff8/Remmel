@@ -68,6 +68,7 @@ extension FrontPageModel: UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
             }
             let postCell = PostContentTableCell()
+            postCell.delegate = self
             postCell.bind(with: posts[indexPath.row])
             return postCell
         }
@@ -82,6 +83,24 @@ extension FrontPageModel: UITableViewDelegate, UITableViewDataSource {
         case .header:
             tableView.deselectRow(at: indexPath, animated: true)
         }
+    }
+}
+
+extension FrontPageModel: PostContentTableCellDelegate {
+    func usernameTapped(in post: LemmyApiStructs.PostView) {
+        print(post.creatorName)
+    }
+    
+    func communityTapped(in post: LemmyApiStructs.PostView) {
+        print(post.communityName)
+    }
+    
+    func upvote(post: LemmyApiStructs.PostView) {
+        print("upvote")
+    }
+    
+    func downvote(post: LemmyApiStructs.PostView) {
+        print("downvote")
     }
 }
 

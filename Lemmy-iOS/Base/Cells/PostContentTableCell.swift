@@ -9,7 +9,16 @@
 import UIKit
 import Nuke
 
+protocol PostContentTableCellDelegate: AnyObject {
+    func upvote(post: LemmyApiStructs.PostView)
+    func downvote(post: LemmyApiStructs.PostView)
+    func usernameTapped(in post: LemmyApiStructs.PostView)
+    func communityTapped(in post: LemmyApiStructs.PostView)
+}
+
 class PostContentTableCell: UITableViewCell {
+    
+    weak var delegate: PostContentTableCellDelegate?
     
     private let paddingView = UIView()
     private let headerView = PostContentHeaderView()
@@ -27,6 +36,7 @@ class PostContentTableCell: UITableViewCell {
     
     func bind(with post: LemmyApiStructs.PostView) {
         setupUI()
+        setupTargets(with: post)
         
         headerView.bind(with:
             PostContentHeaderView.ViewData(
@@ -55,6 +65,23 @@ class PostContentTableCell: UITableViewCell {
         
     }
     
+    private func setupTargets(with post: LemmyApiStructs.PostView) {
+        headerView.communityButtonTap = { [weak self] in
+            self?.delegate?.communityTapped(in: post)
+        }
+        
+        headerView.usernameButtonTap = { [weak self] in
+            self?.delegate?.usernameTapped(in: post)
+        }
+        
+        footerView.downvoteButtonTap = { [weak self] in
+            self?.delegate?.downvote(post: post)
+        }
+        
+        footerView.upvoteButtonTap = { [weak self] in
+            self?.delegate?.upvote(post: post)
+        }
+    }
     
     private func setupUI() {
         
@@ -104,6 +131,9 @@ class PostContentTableCell: UITableViewCell {
 }
 
 private class PostContentFooterView: UIView {
+    var upvoteButtonTap: (() -> Void)?
+    var downvoteButtonTap: (() -> Void)?
+    
     private let iconSize = CGSize(width: 20, height: 20)
     
     struct ViewData {
@@ -141,6 +171,10 @@ private class PostContentFooterView: UIView {
     }
     
     func bind(with data: PostContentFooterView.ViewData) {
+        upvoteBtn.setTitle(String(data.upvote), for: .normal)
+        downvoteBtn.setTitle(String(data.downvote), for: .normal)
+        commentBtn.setTitle(String(data.numberOfComments), for: .normal)
+
         self.addSubview(stackView)
         self.stackView.alignment = .center
         stackView.spacing = 8
@@ -150,26 +184,16 @@ private class PostContentFooterView: UIView {
         
         upvoteBtn.imageView?.transform = CGAffineTransform(rotationAngle: .pi * 1.5)
         downvoteBtn.imageView?.transform = CGAffineTransform(rotationAngle: .pi * 0.5)
-
-        upvoteBtn.snp.makeConstraints { (make) in
-            make.height.equalTo(30)
-            make.width.equalTo(50)
-        }
-        
-        downvoteBtn.snp.makeConstraints { (make) in
-            make.height.equalTo(30)
-            make.width.equalTo(50)
-        }
-        
-        commentBtn.snp.makeConstraints { (make) in
-            make.height.equalTo(30)
-            make.width.equalTo(50)
-        }
         
         [commentBtn, upvoteBtn, downvoteBtn].forEach { (btn) in
             self.stackView.addArrangedSubview(btn)
             btn.setTitleColor(UIColor.label, for: .normal)
             btn.setInsets(forContentPadding: UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5), imageTitlePadding: 5)
+            
+            btn.snp.makeConstraints { (make) in
+                make.height.equalTo(30)
+                make.width.equalTo(50)
+            }
         }
         self.stackView.addArrangedSubview(UIView())
         
@@ -177,7 +201,21 @@ private class PostContentFooterView: UIView {
         upvoteBtn.setTitle(String(data.upvote), for: .normal)
         downvoteBtn.setTitle(String(data.downvote), for: .normal)
         commentBtn.setTitle(String(data.numberOfComments), for: .normal)
-
+        
+        setupButtonTaps()
+    }
+    
+    func setupButtonTaps() {
+        downvoteBtn.addTarget(self, action: #selector(downvoteButtonTapped(sender:)), for: .touchUpInside)
+        upvoteBtn.addTarget(self, action: #selector(upvoteButtonTapped(sender:)), for: .touchUpInside)
+    }
+    
+    @objc private func upvoteButtonTapped(sender: UIButton!) {
+        upvoteButtonTap?()
+    }
+    
+    @objc private func downvoteButtonTapped(sender: UIButton!) {
+        downvoteButtonTap?()
     }
     
     override var intrinsicContentSize: CGSize {
@@ -263,6 +301,9 @@ private class PostContentCenterView: UIView {
 }
 
 private class PostContentHeaderView: UIView {
+    var communityButtonTap: (() -> Void)?
+    var usernameButtonTap: (() -> Void)?
+    
     private let imageSize = CGSize(width: 32, height: 32)
     
     struct ViewData {
@@ -279,21 +320,28 @@ private class PostContentHeaderView: UIView {
         ava.clipsToBounds = true
         return ava
     }()
-    let usernameTitle: UILabel = {
-        let title = UILabel()
-        title.textColor = UIColor(red: 0/255, green: 123/255, blue: 255/255, alpha: 1)
-        return title
+    let usernameButton: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(UIColor(red: 0/255, green: 123/255, blue: 255/255, alpha: 1), for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        return button
     }()
-    let communityTitle: UILabel = {
-        let title = UILabel()
-        title.textColor = UIColor(red: 241/255, green: 100/255, blue: 30/255, alpha: 1)
-        return title
+    let communityButton: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(UIColor(red: 241/255, green: 100/255, blue: 30/255, alpha: 1), for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        return button
     }()
-    let publishedTitle = UILabel()
+    let publishedTitle: UILabel = {
+        let lbl = UILabel()
+        lbl.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        return lbl
+    }()
     let toTitle: UILabel = {
         let title = UILabel()
         title.text = "to"
         title.textColor = UIColor(red: 108/255, green: 117/255, blue: 125/255, alpha: 1)
+        title.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         return title
     }()
     
@@ -308,9 +356,10 @@ private class PostContentHeaderView: UIView {
     }
     
     func bind(with data: PostContentHeaderView.ViewData) {
-        usernameTitle.text = data.username
-        usernameTitle.text = "@" + usernameTitle.text!
-        communityTitle.text = data.community
+        let usernameButtonText = "@" + data.username
+        
+        usernameButton.setTitle(usernameButtonText, for: .normal)
+        communityButton.setTitle(data.community, for: .normal)
         publishedTitle.text = data.published
         
         setupViews(data)
@@ -330,12 +379,26 @@ private class PostContentHeaderView: UIView {
         publishedTitle.snp.makeConstraints { (make) in
             make.width.equalTo(60)
         }
+        
+        setupTargets()
+    }
+    
+    private func setupTargets() {
+        usernameButton.addTarget(self, action: #selector(usernameButtonTapped(sender:)), for: .touchUpInside)
+        communityButton.addTarget(self, action: #selector(communityButtonTapped(sender:)), for: .touchUpInside)
+    }
+    
+    @objc private func usernameButtonTapped(sender: UIButton!) {
+        usernameButtonTap?()
+    }
+    
+    @objc private func communityButtonTapped(sender: UIButton!) {
+        communityButtonTap?()
     }
     
     private func setupViews(_ data: PostContentHeaderView.ViewData) {
-        [usernameTitle, toTitle, communityTitle, publishedTitle].forEach { (label) in
+        [usernameButton, toTitle, communityButton, publishedTitle].forEach { (label) in
             self.stackView.addArrangedSubview(label)
-            label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         }
         if let avatarUrl = data.avatarImageUrl {
             Nuke.loadImage(with: ImageRequest(url: URL(string: avatarUrl)!), into: avatarView)

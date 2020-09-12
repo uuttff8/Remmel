@@ -38,6 +38,7 @@ class FrontPageViewController: UIViewController {
         
         setupTableView()
         setupNavigationItem()
+        
         model.loadPosts()
         model.postsLoaded = {
             self.tableView.reloadData()
