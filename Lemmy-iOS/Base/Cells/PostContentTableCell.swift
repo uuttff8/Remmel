@@ -11,10 +11,11 @@ import Nuke
 
 class PostContentTableCell: UITableViewCell {
     
-    private var paddingView = UIView()
-    private var headerView = PostContentHeaderView()
-    private var centerView = PostContentCenterView()
-    private var separatorView: UIView = {
+    private let paddingView = UIView()
+    private let headerView = PostContentHeaderView()
+    private let centerView = PostContentCenterView()
+    private let footerView = PostContentFooterView()
+    private let separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1)
         return view
@@ -41,6 +42,14 @@ class PostContentTableCell: UITableViewCell {
                 imageUrl: post.thumbnailUrl,
                 title: post.name,
                 subtitle: post.body
+            )
+        )
+        
+        footerView.bind(with:
+            PostContentFooterView.ViewData(
+                upvote: post.upvotes,
+                downvote: post.downvotes,
+                numberOfComments: post.numberOfComments
             )
         )
         
@@ -80,9 +89,99 @@ class PostContentTableCell: UITableViewCell {
         centerView.snp.makeConstraints { (make) in
             make.top.equalTo(headerView.snp.bottom)
             make.leading.trailing.equalToSuperview()
+        }
+        
+        // footer view
+        paddingView.addSubview(footerView)
+        
+        footerView.snp.makeConstraints { (make) in
+            make.top.equalTo(centerView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview() // SELF SIZE BOTTOM HERE
         }
         
+    }
+}
+
+private class PostContentFooterView: UIView {
+    private let iconSize = CGSize(width: 20, height: 20)
+    
+    struct ViewData {
+        let upvote: Int
+        let downvote: Int
+        let numberOfComments: Int
+    }
+    
+    private let upvoteBtn: UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(named: "arrow-20"), for: .normal)
+        return btn
+    }()
+    
+    private let downvoteBtn: UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(named: "arrow-20"), for: .normal)
+        return btn
+    }()
+    
+    private let commentBtn: UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(named: "comments"), for: .normal)
+        return btn
+    }()
+    
+    private let stackView = UIStackView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func bind(with data: PostContentFooterView.ViewData) {
+        self.addSubview(stackView)
+        self.stackView.alignment = .center
+        stackView.spacing = 8
+        stackView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalToSuperview()
+        }
+        
+        upvoteBtn.imageView?.transform = CGAffineTransform(rotationAngle: .pi * 1.5)
+        downvoteBtn.imageView?.transform = CGAffineTransform(rotationAngle: .pi * 0.5)
+
+        upvoteBtn.snp.makeConstraints { (make) in
+            make.height.equalTo(30)
+            make.width.equalTo(50)
+        }
+        
+        downvoteBtn.snp.makeConstraints { (make) in
+            make.height.equalTo(30)
+            make.width.equalTo(50)
+        }
+        
+        commentBtn.snp.makeConstraints { (make) in
+            make.height.equalTo(30)
+            make.width.equalTo(50)
+        }
+        
+        [commentBtn, upvoteBtn, downvoteBtn].forEach { (btn) in
+            self.stackView.addArrangedSubview(btn)
+            
+            btn.setTitleColor(UIColor.label, for: .normal)
+        }
+        self.stackView.addArrangedSubview(UIView())
+        
+        
+        upvoteBtn.setTitle(String(data.upvote), for: .normal)
+        downvoteBtn.setTitle(String(data.downvote), for: .normal)
+        commentBtn.setTitle(String(data.numberOfComments), for: .normal)
+
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        CGSize(width: UIView.noIntrinsicMetric, height: 30)
     }
 }
 

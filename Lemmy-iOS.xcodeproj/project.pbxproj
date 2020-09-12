@@ -23,7 +23,7 @@
 		4ECCEEEF250BE89B0075F921 /* FrontPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEEE250BE89B0075F921 /* FrontPageCoordinator.swift */; };
 		4ECCEEF2250C03A40075F921 /* LemmyTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEF1250C03A40075F921 /* LemmyTabBarCoordinator.swift */; };
 		4ECCEEF4250C04280075F921 /* LemmyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEF3250C04280075F921 /* LemmyTabBarController.swift */; };
-		4ECCEEFB250C13240075F921 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 4ECCEEFA250C13240075F921 /* SwiftPackageProductDependency */; };
+		4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4ECCEEFA250C13240075F921 /* SnapKit */; };
 		4ECCEEFE250CA30E0075F921 /* FrontPageHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEFD250CA30E0075F921 /* FrontPageHeaderCell.swift */; };
 		4ECCEF00250CB4260075F921 /* FrontPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEFF250CB4260075F921 /* FrontPageModel.swift */; };
 		4ECCEF03250CB4E00075F921 /* LemmyApiStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF02250CB4E00075F921 /* LemmyApiStructs.swift */; };
@@ -32,6 +32,7 @@
 		4ECCEF0C250CCD3E0075F921 /* PostRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF0B250CCD3E0075F921 /* PostRequests.swift */; };
 		4ECCEF0E250CDA5A0075F921 /* LemmyApiStructs+Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF0D250CDA5A0075F921 /* LemmyApiStructs+Post.swift */; };
 		4ECCEF13250CF0290075F921 /* PostContentTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF12250CF0290075F921 /* PostContentTableCell.swift */; };
+		4ECCEF16250D2D9F0075F921 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF15250D2D9F0075F921 /* Extensions.swift */; };
 		921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +84,7 @@
 		4ECCEF0B250CCD3E0075F921 /* PostRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequests.swift; sourceTree = "<group>"; };
 		4ECCEF0D250CDA5A0075F921 /* LemmyApiStructs+Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LemmyApiStructs+Post.swift"; sourceTree = "<group>"; };
 		4ECCEF12250CF0290075F921 /* PostContentTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentTableCell.swift; sourceTree = "<group>"; };
+		4ECCEF15250D2D9F0075F921 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		AF9E5291792018DE1B6050FA /* Pods-Lemmy-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.release.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lemmy_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8130B334E7F53B10E26E71F /* Pods-Lemmy-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -94,7 +96,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */,
-				4ECCEEFB250C13240075F921 /* BuildFile in Frameworks */,
+				4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,6 +177,7 @@
 			children = (
 				4ECCEF0F250CEFF80075F921 /* Cells */,
 				4ECCEEDF250B8DEE0075F921 /* Coordinator.swift */,
+				4ECCEF15250D2D9F0075F921 /* Extensions.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -341,7 +344,7 @@
 			);
 			name = "Lemmy-iOS";
 			packageProductDependencies = (
-				4ECCEEFA250C13240075F921 /* SwiftPackageProductDependency */,
+				4ECCEEFA250C13240075F921 /* SnapKit */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */;
@@ -416,7 +419,7 @@
 			);
 			mainGroup = 4ECCEE9D250B8B6B0075F921;
 			packageReferences = (
-				4ECCEEF9250C13240075F921 /* RemoteSwiftPackageReference */,
+				4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
@@ -515,6 +518,7 @@
 				4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */,
 				4ECCEEED250BE8870075F921 /* FrontPageViewController.swift in Sources */,
 				4ECCEEEA250BA6230075F921 /* WSLemmy.swift in Sources */,
+				4ECCEF16250D2D9F0075F921 /* Extensions.swift in Sources */,
 				4ECCEF00250CB4260075F921 /* FrontPageModel.swift in Sources */,
 				4ECCEF13250CF0290075F921 /* PostContentTableCell.swift in Sources */,
 				4ECCEEAC250B8B6B0075F921 /* SceneDelegate.swift in Sources */,
@@ -846,7 +850,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4ECCEEF9250C13240075F921 /* RemoteSwiftPackageReference */ = {
+		4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
 			requirement = {
@@ -857,9 +861,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4ECCEEFA250C13240075F921 /* SwiftPackageProductDependency */ = {
+		4ECCEEFA250C13240075F921 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4ECCEEF9250C13240075F921 /* RemoteSwiftPackageReference */;
+			package = 4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
