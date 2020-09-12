@@ -214,7 +214,7 @@
 				4ECCEF0A250CCD2E0075F921 /* Requests */,
 				4ECCEF05250CC3330075F921 /* ApiManager.swift */,
 				4ECCEF07250CC39A0075F921 /* Objects */,
-				4ECCEF01250CB4BB0075F921 /* ApiSctructs */,
+				4ECCEF01250CB4BB0075F921 /* ApiStructs */,
 				4ECCEEE9250BA6230075F921 /* WSLemmy.swift */,
 			);
 			path = Networking;
@@ -269,13 +269,13 @@
 			path = cells;
 			sourceTree = "<group>";
 		};
-		4ECCEF01250CB4BB0075F921 /* ApiSctructs */ = {
+		4ECCEF01250CB4BB0075F921 /* ApiStructs */ = {
 			isa = PBXGroup;
 			children = (
 				4ECCEF02250CB4E00075F921 /* LemmyApiStructs.swift */,
 				4ECCEF0D250CDA5A0075F921 /* LemmyApiStructs+Post.swift */,
 			);
-			path = ApiSctructs;
+			path = ApiStructs;
 			sourceTree = "<group>";
 		};
 		4ECCEF07250CC39A0075F921 /* Objects */ = {
