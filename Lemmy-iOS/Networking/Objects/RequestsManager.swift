@@ -9,13 +9,15 @@
 import Foundation
 
 class RequestsManager {
+    let wsClient = WSLemmy()
+    
     func requestDecodable<Req: Codable, Res: Codable>(
         path: String,
         parameters: Req,
         parsingFromRootKey rootKey: String? = nil,
         completion: @escaping ((Result<Res, Error>) -> Void)
     ) {
-        WSLemmy().send(on: path, data: parameters) { (outString) in
+        wsClient.send(on: path, data: parameters) { (outString) in
             self.decode(data: outString.data(using: .utf8)!, rootKey: rootKey, completion: completion)
         }
     }

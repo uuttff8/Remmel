@@ -29,6 +29,7 @@
 		4ECCEF03250CB4E00075F921 /* LemmyApiStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF02250CB4E00075F921 /* LemmyApiStructs.swift */; };
 		4ECCEF06250CC3330075F921 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF05250CC3330075F921 /* ApiManager.swift */; };
 		4ECCEF09250CC3A60075F921 /* RequestsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF08250CC3A60075F921 /* RequestsManager.swift */; };
+		4ECCEF0C250CCD3E0075F921 /* PostRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF0B250CCD3E0075F921 /* PostRequests.swift */; };
 		921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +78,7 @@
 		4ECCEF02250CB4E00075F921 /* LemmyApiStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyApiStructs.swift; sourceTree = "<group>"; };
 		4ECCEF05250CC3330075F921 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		4ECCEF08250CC3A60075F921 /* RequestsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsManager.swift; sourceTree = "<group>"; };
+		4ECCEF0B250CCD3E0075F921 /* PostRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequests.swift; sourceTree = "<group>"; };
 		AF9E5291792018DE1B6050FA /* Pods-Lemmy-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.release.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lemmy_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8130B334E7F53B10E26E71F /* Pods-Lemmy-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 		4ECCEEE8250BA6040075F921 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				4ECCEF0A250CCD2E0075F921 /* Requests */,
 				4ECCEF05250CC3330075F921 /* ApiManager.swift */,
 				4ECCEF07250CC39A0075F921 /* Objects */,
 				4ECCEF01250CB4BB0075F921 /* ApiSctructs */,
@@ -278,6 +281,14 @@
 				4ECCEF08250CC3A60075F921 /* RequestsManager.swift */,
 			);
 			path = Objects;
+			sourceTree = "<group>";
+		};
+		4ECCEF0A250CCD2E0075F921 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				4ECCEF0B250CCD3E0075F921 /* PostRequests.swift */,
+			);
+			path = Requests;
 			sourceTree = "<group>";
 		};
 		750E6997D470E00BE92AFA4E /* Frameworks */ = {
@@ -466,6 +477,7 @@
 				4ECCEEE7250B8FA80075F921 /* LoginCoordinator.swift in Sources */,
 				4ECCEEE0250B8DEE0075F921 /* Coordinator.swift in Sources */,
 				4ECCEEFE250CA30E0075F921 /* FrontPageHeaderCell.swift in Sources */,
+				4ECCEF0C250CCD3E0075F921 /* PostRequests.swift in Sources */,
 				4ECCEEDD250B8D930075F921 /* AppCoordinator.swift in Sources */,
 				4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */,
 				4ECCEEED250BE8870075F921 /* FrontPageViewController.swift in Sources */,

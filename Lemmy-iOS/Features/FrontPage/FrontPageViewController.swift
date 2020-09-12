@@ -50,18 +50,16 @@ class FrontPageViewController: UIViewController {
                                                               communityName: nil,
                                                               auth: nil)
         
-        ApiManager.shared.requestsManager.requestDecodable(
-            path: LemmyEndpoint.Post.getPosts.endpoint,
+        ApiManager.shared.requestsManager.getPosts(
             parameters: parameters,
-            parsingFromRootKey: "data"
-        ) { (dec: Result<LemmyApiStructs.Post.GetPostsResponse, Error>) in
+            completion: { (dec: Result<LemmyApiStructs.Post.GetPostsResponse, Error>) in
                 switch dec {
                 case .success(let sss):
                     print(sss)
                 case .failure(let error):
                     print(error)
                 }
-        }
+        })
     }
 }
 
