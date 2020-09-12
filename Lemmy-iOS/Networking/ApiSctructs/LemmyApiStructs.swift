@@ -160,7 +160,7 @@ extension LemmyApiStructs {
         }
     }
     
-    struct CommunityView {
+    struct CommunityView: Codable, Equatable {
         let id: Int
         let name, title: String
         let icon, banner, description: String?
@@ -267,11 +267,12 @@ extension LemmyApiStructs {
             let auth: String?
         }
         
-//        struct GetPostResponse: Codable, Equatable {
-//            let post: PostView
-//            let comments: Array<CommentView>
-//            let community:
-//        }
+        struct GetPostResponse: Codable, Equatable {
+            let post: PostView
+            let comments: Array<CommentView>
+            let community: CommunityView
+            let moderators: Array<CommunityModeratorView>
+        }
         
     }
 }
