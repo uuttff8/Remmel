@@ -62,7 +62,9 @@ extension FrontPageModel: UITableViewDelegate, UITableViewDataSource {
         
         switch section {
         case .header:
-            return FrontPageHeaderCell()
+            let cell = FrontPageHeaderCell()
+            cell.delegate = self
+            return cell
         case .content:
             guard let posts = postsDataSource else {
                 return UITableViewCell()
@@ -104,6 +106,14 @@ extension FrontPageModel: PostContentTableCellDelegate {
     }
 }
 
+extension FrontPageModel: FrontPageHeaderCellDelegate {
+    func contentTypeChanged(to content: LemmyContentType) {
+        
+    }
+    
+    func feedTypeChanged(to feed: LemmyFeedType) {
+    }
+}
 
 private enum FrontPageCells: CaseIterable {
     case header

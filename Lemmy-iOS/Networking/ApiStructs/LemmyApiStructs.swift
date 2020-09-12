@@ -8,6 +8,29 @@
 
 import UIKit
 
+enum LemmyContentType: CaseIterable {
+    case posts
+    case comments
+    
+    var label: String {
+        switch self {
+        case .posts: return "Posts"
+        case .comments: return "Comments"
+        }
+    }
+}
+
+enum LemmyFeedType: CaseIterable {
+    case subscribed
+    case all
+    
+    var label: String {
+        switch self {
+        case .all: return "All"
+        case .subscribed: return "Subscribed"
+        }
+    }
+}
 
 enum LemmyApiStructs {
     

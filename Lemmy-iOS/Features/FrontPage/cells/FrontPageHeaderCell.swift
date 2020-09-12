@@ -8,28 +8,69 @@
 
 import UIKit
 
+protocol FrontPageHeaderCellDelegate: AnyObject {
+    func contentTypeChanged(to content: LemmyContentType)
+    func feedTypeChanged(to feed: LemmyFeedType)
+}
+
 class FrontPageHeaderCell: UITableViewCell {
     
+    weak var delegate: FrontPageHeaderCellDelegate?
+    
+    let contentTypeSegment: FrontPageSwitcher
+    let feedTypeSegment: FrontPageSwitcher
+    
     init() {
+        self.contentTypeSegment = FrontPageSwitcher(
+            data: (LemmyContentType.posts.label, LemmyContentType.comments.label),
+            selectedIndex: 0
+        )
+        
+        self.feedTypeSegment = FrontPageSwitcher(
+            data: (LemmyFeedType.subscribed.label, LemmyFeedType.all.label),
+            selectedIndex: 1
+        )
+
         super.init(style: .default, reuseIdentifier: nil)
         
         self.contentView.snp.remakeConstraints { (make) in
             make.height.equalTo(40)
         }
         
-        let frontPagePostsType = FrontPageSwitcher(data: ("Posts", "Comments"), selectedIndex: 0)
-        self.addSubview(frontPagePostsType)
-        frontPagePostsType.snp.makeConstraints { (make) in
+        
+        contentTypeSegment.segmentControl.addTarget(
+            self,
+            action: #selector(segmentContentTypeChanged(_:)),
+            for: .valueChanged
+        )
+        feedTypeSegment.segmentControl.addTarget(
+            self,
+            action: #selector(segmentFeedTypeChanged(_:)),
+            for: .valueChanged
+        )
+        
+        self.addSubview(contentTypeSegment)
+        self.addSubview(feedTypeSegment)
+        
+        contentTypeSegment.snp.makeConstraints { (make) in
             make.bottom.top.leading.equalToSuperview()
             make.trailing.equalToSuperview().dividedBy(2)
         }
         
-        let frontPageFeed = FrontPageSwitcher(data: ("Subscribed", "All"), selectedIndex: 1)
-        self.addSubview(frontPageFeed)
-        frontPageFeed.snp.makeConstraints { (make) in
+        feedTypeSegment.snp.makeConstraints { (make) in
             make.bottom.top.trailing.equalToSuperview()
-            make.leading.equalTo(frontPagePostsType.snp.trailing)
+            make.leading.equalTo(contentTypeSegment.snp.trailing)
         }
+    }
+    
+    @objc func segmentContentTypeChanged(_ sender: Any) {
+        let contentType = LemmyContentType.allCases[contentTypeSegment.segmentControl.selectedSegmentIndex]
+        self.delegate?.contentTypeChanged(to: contentType)
+    }
+    
+    @objc func segmentFeedTypeChanged(_ sender: Any) {
+        let feedType = LemmyFeedType.allCases[feedTypeSegment.segmentControl.selectedSegmentIndex]
+        self.delegate?.feedTypeChanged(to: feedType)
     }
     
     required init?(coder: NSCoder) {
@@ -68,7 +109,6 @@ class FrontPageSwitcher: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     func setupView() {
         self.addSubview(segmentControl)
