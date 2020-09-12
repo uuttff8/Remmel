@@ -181,48 +181,30 @@ enum LemmyEndpoint {
 }
 
 class WSLemmy {
-    func send(on endpoint: LemmyEndpoint.User, data: Data? = nil) {
-        wrapper(url: endpoint.endpoint, data: data)
+    func send<D: Codable>(on endpoint: String, data: D? = nil, completion: @escaping (String) -> Void) {
+        wrapper(url: endpoint, data: data, completion: completion)
     }
     
-    func send(on endpoint: LemmyEndpoint.Site, data: Data? = nil) {
-        wrapper(url: endpoint.endpoint, data: data)
-    }
-    
-    func send(on endpoint: LemmyEndpoint.Post, data: Data? = nil) {
-        wrapper(url: endpoint.endpoint, data: data)
-    }
-    
-    func send(on endpoint: LemmyEndpoint.AdminActions, data: Data? = nil) {
-        wrapper(url: endpoint.endpoint, data: data)
-    }
-    
-    func send(on endpoint: LemmyEndpoint.Comment, data: Data? = nil) {
-        wrapper(url: endpoint.endpoint, data: data)
-    }
-    
-    func send(on endpoint: LemmyEndpoint.Community, data: Data? = nil) {
-        wrapper(url: endpoint.endpoint, data: data)
-    }
-    
-    func send(on endpoint: LemmyEndpoint.Authentication, data: Data? = nil) {
-        wrapper(url: endpoint.endpoint, data: data)
-    }
-    
-    func wrapper(url: String, data: Data? = nil) {
+    func wrapper<D: Codable>(url: String, data: D? = nil, completion: @escaping (String) -> Void) {
         let reqStr: String
         if let data = data {
+            
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+            let orderJsonData = try! encoder.encode(data)
+            let sss = String(data: orderJsonData, encoding: .utf8)!
+            
             reqStr = """
-            {"op": "\(url)","data": \(String(decoding: data, as: UTF8.self))}
+            {"op": "\(url)","data": \(sss)}
             """
         } else {
             reqStr = """
             {
-                "op": \(url)
+            "op": \(url)
             }
-"""
+            """
         }
-         
+        
         print(reqStr)
         
         let wsTask = URLSessionWebSocketTask.Message.string(reqStr)
@@ -243,7 +225,7 @@ class WSLemmy {
             case .success(let messageType):
                 switch messageType {
                 case .string(let outString):
-                    print(outString)
+                    completion(outString)
                 case .data(let outData):
                     print(outData)
                 @unknown default:
@@ -251,5 +233,23 @@ class WSLemmy {
                 }
             }
         }
+    }
+}
+
+
+extension Encodable {
+    func asDictionary() throws -> [String: Any] {
+        let data = try JSONEncoder().encode(self)
+        guard let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
+            throw NSError()
+        }
+        return dictionary
+    }
+}
+
+extension Encodable {
+    var dictionary: [String: Any]? {
+        guard let data = try? JSONEncoder().encode(self) else { return nil }
+        return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)).flatMap { $0 as? [String: Any] }
     }
 }

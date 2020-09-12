@@ -30,7 +30,7 @@ class FrontPageViewController: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-                
+        
         self.view.addSubview(tableView)
         
         tableView.keyboardDismissMode = .onDrag
@@ -40,6 +40,28 @@ class FrontPageViewController: UIViewController {
         navigationItem.titleView = searchController.searchBar
         navigationItem.titleView?.frame.size.width = UIScreen.main.bounds.width
         self.view.backgroundColor = UIColor.systemBackground
+        
+        
+        let parameters = LemmyApiStructs.Post.GetPostsRequest(type_: "All",
+                                                              sort: "Active",
+                                                              page: 1,
+                                                              limit: 20,
+                                                              communityId: nil,
+                                                              communityName: nil,
+                                                              auth: nil)
+        
+        ApiManager.shared.requestsManager.requestDecodable(
+            path: LemmyEndpoint.Post.getPosts.endpoint,
+            parameters: parameters,
+            parsingFromRootKey: "data"
+        ) { (dec: Result<LemmyApiStructs.Post.GetPostsResponse, Error>) in
+                switch dec {
+                case .success(let sss):
+                    print(sss)
+                case .failure(let error):
+                    print(error)
+                }
+        }
     }
 }
 
