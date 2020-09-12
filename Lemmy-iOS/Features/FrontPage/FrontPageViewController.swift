@@ -11,26 +11,34 @@ import SnapKit
 
 class FrontPageViewController: UIViewController {
     
-    let tableView = UITableView()
-    let searchController = UISearchController()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        tableView.delegate = self
-        tableView.dataSource = self
+    let tableView: UITableView = {
+        let tableView = UITableView()
         tableView.tableFooterView = UIView()
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 40
-        
+        return tableView
+    }()
+    
+    let searchController: UISearchController = {
+        let search = UISearchController()
+        search.hidesNavigationBarDuringPresentation = false
+        search.obscuresBackgroundDuringPresentation = true
+        return search
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
+                
         self.view.addSubview(tableView)
         
+        tableView.keyboardDismissMode = .onDrag
         tableView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        
-        navigationItem.searchController = searchController
-        navigationItem.title = "Lemmy"
+        navigationItem.titleView = searchController.searchBar
+        navigationItem.titleView?.frame.size.width = UIScreen.main.bounds.width
         self.view.backgroundColor = UIColor.systemBackground
     }
 }
