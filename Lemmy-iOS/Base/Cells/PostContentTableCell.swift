@@ -168,8 +168,8 @@ private class PostContentFooterView: UIView {
         
         [commentBtn, upvoteBtn, downvoteBtn].forEach { (btn) in
             self.stackView.addArrangedSubview(btn)
-            
             btn.setTitleColor(UIColor.label, for: .normal)
+            btn.setInsets(forContentPadding: UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5), imageTitlePadding: 5)
         }
         self.stackView.addArrangedSubview(UIView())
         

@@ -72,6 +72,17 @@ extension FrontPageModel: UITableViewDelegate, UITableViewDataSource {
             return postCell
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let section = FrontPageCells.allCases[indexPath.section]
+        
+        switch section {
+        case .content:
+            tableView.deselectRow(at: indexPath, animated: true)
+        case .header:
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
 }
 
 
