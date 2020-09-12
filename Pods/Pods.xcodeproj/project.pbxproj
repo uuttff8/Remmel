@@ -3,63 +3,163 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		15B1D02597808F21BBCD8D94618240FC /* Pods-Lemmy-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 17478644528CE73F7F9EBA7D2D1AC40C /* Pods-Lemmy-iOS-dummy.m */; };
-		75C817057D83AFF47B8446516F25B89D /* Pods-Lemmy-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9432F5B48D3253768E0120FD5E6BAE5B /* Pods-Lemmy-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E04A573FA5EF176F028B25FB9DB88869 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		2CC1EEC410C399C6C1B6BAB608B7CE4F /* Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE98A2FB397D71DCD3249171DA1A625C /* Internal.swift */; };
+		33DA77EE1506C87C374EAC4598286B07 /* Nuke-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AEAA810720E9C527DA6409A6EAEFF38 /* Nuke-dummy.m */; };
+		33E19BC096B66CDE9AF092BE4B1EE4D2 /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9027317E86259E0E5353A8D3DF7B11 /* DataLoader.swift */; };
+		3DDF693E323B755DC6A79C0AF027FC60 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		47DE514FFAFC77339A281C88DC9D26C5 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493A90BA1863333897D23588AE0DD4E3 /* ImageCache.swift */; };
+		531E8E961587F0E6885690056718AAB4 /* ImagePreheater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6688ED2B85B0AF4C2E7A2762CEBEFA0E /* ImagePreheater.swift */; };
+		57B31AE955ABBC6ACA9E7157844E1003 /* ImageTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14EDC75533C3B8BE419B7BF06694622 /* ImageTask.swift */; };
+		5857E4CC0AAF89BB24A5DA2EC2CB6481 /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFEB262F8ED21CF98A65C8558E84E03 /* ImageRequest.swift */; };
+		5DA2B11F9A41C6EAEC8B31F281A6E549 /* ImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C18FE58E60CA23AD45F9237CE576133 /* ImageViewExtensions.swift */; };
+		7A38D7188792F42AA0B525259BBE3118 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485B1E9290122417DEE202E487FA1F49 /* Task.swift */; };
+		844BB8D9B204161C40D80A1EDC17F73A /* Nuke-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A4FD5AC7763D99A5224581161E0D0C6E /* Nuke-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8A8ECA607EA4E9DDA4A2F1404F1AA4A2 /* ImageDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6710E79816B486775922BD82A1AA2B7 /* ImageDecoding.swift */; };
+		9709E3F173B809B967703466AC838112 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		9D36E15B981166952D88ACDA7EF1FCEF /* ImagePipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AEFE344E567DFDA0022830792F96D6 /* ImagePipeline.swift */; };
+		A198E44609AC439B57F319EBA10C42DA /* ImageProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4D1F7C0FC24A0CF7F719E0ADD0C36 /* ImageProcessing.swift */; };
+		AB1778BEF12E281DCA6520DB182C0A30 /* ImagePipelineConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A89C0F0EF455F1A707A406BD9439AE /* ImagePipelineConfiguration.swift */; };
+		C2B4C43E316156C7BAA89EF72C3BC209 /* ImageEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B283FA9A8E817A4D8E1E61E89B5ABE93 /* ImageEncoding.swift */; };
+		E113BFF705F231576AB1BC02E8CD31FF /* Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9014C3287F1B4F249FE5060306157CB3 /* Deprecated.swift */; };
+		E1F3D10813CF63354916B9F41886DEA1 /* Pods-Lemmy-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CE67BE3B4127E8690CEA1E8BBAF7E4A /* Pods-Lemmy-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F09ACB2C5062701272570EBBE36BB7C7 /* DataCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45A05FECEC145B123B69397390B34B7 /* DataCache.swift */; };
+		FE0946431A6DC2639675F1A3A01C1BEF /* Pods-Lemmy-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E04C2D476663F2EBD7A9D5E3A712A935 /* Pods-Lemmy-iOS-dummy.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		261BFEA9655E62F97C826EDFC38B8E14 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 062A64896E847A6749F58B6BA9A931B1;
+			remoteInfo = Nuke;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		081773036E5446EE50971FB4DA2537FE /* Pods-Lemmy-iOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Lemmy-iOS-acknowledgements.plist"; sourceTree = "<group>"; };
-		17478644528CE73F7F9EBA7D2D1AC40C /* Pods-Lemmy-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Lemmy-iOS-dummy.m"; sourceTree = "<group>"; };
+		18D80C9A4ED02EE48684F2DA0BF3BD15 /* Nuke.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Nuke.debug.xcconfig; sourceTree = "<group>"; };
+		1AEAA810720E9C527DA6409A6EAEFF38 /* Nuke-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Nuke-dummy.m"; sourceTree = "<group>"; };
+		23A27A1EFC28E6C1B796E3B5024413DA /* Pods-Lemmy-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Lemmy-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		2AE50097D6845D584AA5C0C9AB434A4F /* Pods-Lemmy-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Lemmy-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		2C18FE58E60CA23AD45F9237CE576133 /* ImageViewExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageViewExtensions.swift; path = Sources/ImageViewExtensions.swift; sourceTree = "<group>"; };
+		2DAD7D76FC007F48AE48F2FD15BF01BB /* Nuke.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Nuke.framework; path = Nuke.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F2F3B9D81CC775B8456AC51F3A67333 /* Pods-Lemmy-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Lemmy-iOS.modulemap"; sourceTree = "<group>"; };
 		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		4F02352AC1D7AEE458BE612AD31F2432 /* Pods-Lemmy-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Lemmy-iOS-Info.plist"; sourceTree = "<group>"; };
-		569B7BA7CEA715B65FC2B75D3A400A14 /* Pods-Lemmy-iOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Lemmy-iOS-acknowledgements.markdown"; sourceTree = "<group>"; };
-		7341624CA1ABE94D9EC47120A503B76C /* Pods-Lemmy-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Lemmy-iOS.release.xcconfig"; sourceTree = "<group>"; };
-		7D2D7D64C9030EDE618EE72518734216 /* Pods-Lemmy-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Lemmy-iOS.modulemap"; sourceTree = "<group>"; };
-		9432F5B48D3253768E0120FD5E6BAE5B /* Pods-Lemmy-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Lemmy-iOS-umbrella.h"; sourceTree = "<group>"; };
-		9D09174FE3BA225EF215A0BBF21B3690 /* Pods-Lemmy-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Lemmy-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		358398E5E0ADCECF7E0FB34FA1135EF2 /* Nuke-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Nuke-prefix.pch"; sourceTree = "<group>"; };
+		3CE4D1F7C0FC24A0CF7F719E0ADD0C36 /* ImageProcessing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageProcessing.swift; path = Sources/ImageProcessing.swift; sourceTree = "<group>"; };
+		44AEFE344E567DFDA0022830792F96D6 /* ImagePipeline.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImagePipeline.swift; path = Sources/ImagePipeline.swift; sourceTree = "<group>"; };
+		46CFEB4CE1596C5296F1CADAF2DFAB63 /* Nuke.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Nuke.modulemap; sourceTree = "<group>"; };
+		485B1E9290122417DEE202E487FA1F49 /* Task.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Task.swift; path = Sources/Task.swift; sourceTree = "<group>"; };
+		493A90BA1863333897D23588AE0DD4E3 /* ImageCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageCache.swift; path = Sources/ImageCache.swift; sourceTree = "<group>"; };
+		4CE67BE3B4127E8690CEA1E8BBAF7E4A /* Pods-Lemmy-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Lemmy-iOS-umbrella.h"; sourceTree = "<group>"; };
+		55A89C0F0EF455F1A707A406BD9439AE /* ImagePipelineConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImagePipelineConfiguration.swift; path = Sources/ImagePipelineConfiguration.swift; sourceTree = "<group>"; };
+		6610A026A2EDAC4809D48AFA405B5E9D /* Pods-Lemmy-iOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Lemmy-iOS-acknowledgements.markdown"; sourceTree = "<group>"; };
+		6688ED2B85B0AF4C2E7A2762CEBEFA0E /* ImagePreheater.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImagePreheater.swift; path = Sources/ImagePreheater.swift; sourceTree = "<group>"; };
+		6BE70DE02795DA910DC8C960D4F5594B /* Pods-Lemmy-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Lemmy-iOS-Info.plist"; sourceTree = "<group>"; };
+		7D9027317E86259E0E5353A8D3DF7B11 /* DataLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataLoader.swift; path = Sources/DataLoader.swift; sourceTree = "<group>"; };
+		9014C3287F1B4F249FE5060306157CB3 /* Deprecated.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Deprecated.swift; path = Sources/Deprecated.swift; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A4FD5AC7763D99A5224581161E0D0C6E /* Nuke-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Nuke-umbrella.h"; sourceTree = "<group>"; };
+		B283FA9A8E817A4D8E1E61E89B5ABE93 /* ImageEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageEncoding.swift; path = Sources/ImageEncoding.swift; sourceTree = "<group>"; };
+		B6710E79816B486775922BD82A1AA2B7 /* ImageDecoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageDecoding.swift; path = Sources/ImageDecoding.swift; sourceTree = "<group>"; };
+		CE98A2FB397D71DCD3249171DA1A625C /* Internal.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Internal.swift; path = Sources/Internal.swift; sourceTree = "<group>"; };
+		D14EDC75533C3B8BE419B7BF06694622 /* ImageTask.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageTask.swift; path = Sources/ImageTask.swift; sourceTree = "<group>"; };
 		D1E1DF14CA560388EC32826039586B55 /* Pods_Lemmy_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Lemmy_iOS.framework; path = "Pods-Lemmy-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAEB5D8A88B4AF4DD8082F70F02CB62B /* Nuke.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Nuke.release.xcconfig; sourceTree = "<group>"; };
+		DCE976BA64586EA6CD5611BE582DD76F /* Pods-Lemmy-iOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Lemmy-iOS-acknowledgements.plist"; sourceTree = "<group>"; };
+		DD65A8066D9920C0F4D80A0845F9B894 /* Nuke-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Nuke-Info.plist"; sourceTree = "<group>"; };
+		E04C2D476663F2EBD7A9D5E3A712A935 /* Pods-Lemmy-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Lemmy-iOS-dummy.m"; sourceTree = "<group>"; };
+		F45A05FECEC145B123B69397390B34B7 /* DataCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataCache.swift; path = Sources/DataCache.swift; sourceTree = "<group>"; };
+		F9E21291154DA5A8F9A700D8C2EAE2D0 /* Pods-Lemmy-iOS-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Lemmy-iOS-frameworks.sh"; sourceTree = "<group>"; };
+		FFFEB262F8ED21CF98A65C8558E84E03 /* ImageRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageRequest.swift; path = Sources/ImageRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3E4B9618716E79D8CCF7846793604FA9 /* Frameworks */ = {
+		510AB642A70AB77937F7CC965EE214B7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E04A573FA5EF176F028B25FB9DB88869 /* Foundation.framework in Frameworks */,
+				9709E3F173B809B967703466AC838112 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA3568AA4AFE557F7111A4352BA5849C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DDF693E323B755DC6A79C0AF027FC60 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9FB6A69C36C78CD78EEC5829B51CC305 /* Products */ = {
+		1B78050287F92BC56E58C00B4EF23C6E /* Pods-Lemmy-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				D1E1DF14CA560388EC32826039586B55 /* Pods_Lemmy_iOS.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		A95790D1C330EB77EF6424FB0457A2A9 /* Pods-Lemmy-iOS */ = {
-			isa = PBXGroup;
-			children = (
-				7D2D7D64C9030EDE618EE72518734216 /* Pods-Lemmy-iOS.modulemap */,
-				569B7BA7CEA715B65FC2B75D3A400A14 /* Pods-Lemmy-iOS-acknowledgements.markdown */,
-				081773036E5446EE50971FB4DA2537FE /* Pods-Lemmy-iOS-acknowledgements.plist */,
-				17478644528CE73F7F9EBA7D2D1AC40C /* Pods-Lemmy-iOS-dummy.m */,
-				4F02352AC1D7AEE458BE612AD31F2432 /* Pods-Lemmy-iOS-Info.plist */,
-				9432F5B48D3253768E0120FD5E6BAE5B /* Pods-Lemmy-iOS-umbrella.h */,
-				9D09174FE3BA225EF215A0BBF21B3690 /* Pods-Lemmy-iOS.debug.xcconfig */,
-				7341624CA1ABE94D9EC47120A503B76C /* Pods-Lemmy-iOS.release.xcconfig */,
+				2F2F3B9D81CC775B8456AC51F3A67333 /* Pods-Lemmy-iOS.modulemap */,
+				6610A026A2EDAC4809D48AFA405B5E9D /* Pods-Lemmy-iOS-acknowledgements.markdown */,
+				DCE976BA64586EA6CD5611BE582DD76F /* Pods-Lemmy-iOS-acknowledgements.plist */,
+				E04C2D476663F2EBD7A9D5E3A712A935 /* Pods-Lemmy-iOS-dummy.m */,
+				F9E21291154DA5A8F9A700D8C2EAE2D0 /* Pods-Lemmy-iOS-frameworks.sh */,
+				6BE70DE02795DA910DC8C960D4F5594B /* Pods-Lemmy-iOS-Info.plist */,
+				4CE67BE3B4127E8690CEA1E8BBAF7E4A /* Pods-Lemmy-iOS-umbrella.h */,
+				23A27A1EFC28E6C1B796E3B5024413DA /* Pods-Lemmy-iOS.debug.xcconfig */,
+				2AE50097D6845D584AA5C0C9AB434A4F /* Pods-Lemmy-iOS.release.xcconfig */,
 			);
 			name = "Pods-Lemmy-iOS";
 			path = "Target Support Files/Pods-Lemmy-iOS";
+			sourceTree = "<group>";
+		};
+		2455AC57533DA9B6FEE190E58A2ED10C /* Nuke */ = {
+			isa = PBXGroup;
+			children = (
+				F45A05FECEC145B123B69397390B34B7 /* DataCache.swift */,
+				7D9027317E86259E0E5353A8D3DF7B11 /* DataLoader.swift */,
+				9014C3287F1B4F249FE5060306157CB3 /* Deprecated.swift */,
+				493A90BA1863333897D23588AE0DD4E3 /* ImageCache.swift */,
+				B6710E79816B486775922BD82A1AA2B7 /* ImageDecoding.swift */,
+				B283FA9A8E817A4D8E1E61E89B5ABE93 /* ImageEncoding.swift */,
+				44AEFE344E567DFDA0022830792F96D6 /* ImagePipeline.swift */,
+				55A89C0F0EF455F1A707A406BD9439AE /* ImagePipelineConfiguration.swift */,
+				6688ED2B85B0AF4C2E7A2762CEBEFA0E /* ImagePreheater.swift */,
+				3CE4D1F7C0FC24A0CF7F719E0ADD0C36 /* ImageProcessing.swift */,
+				FFFEB262F8ED21CF98A65C8558E84E03 /* ImageRequest.swift */,
+				D14EDC75533C3B8BE419B7BF06694622 /* ImageTask.swift */,
+				2C18FE58E60CA23AD45F9237CE576133 /* ImageViewExtensions.swift */,
+				CE98A2FB397D71DCD3249171DA1A625C /* Internal.swift */,
+				485B1E9290122417DEE202E487FA1F49 /* Task.swift */,
+				8664D1C34A17FC672B1C3E947D977D6F /* Support Files */,
+			);
+			name = Nuke;
+			path = Nuke;
+			sourceTree = "<group>";
+		};
+		707FD04B4172A8897A55AFB37968797A /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				1B78050287F92BC56E58C00B4EF23C6E /* Pods-Lemmy-iOS */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		8664D1C34A17FC672B1C3E947D977D6F /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				46CFEB4CE1596C5296F1CADAF2DFAB63 /* Nuke.modulemap */,
+				1AEAA810720E9C527DA6409A6EAEFF38 /* Nuke-dummy.m */,
+				DD65A8066D9920C0F4D80A0845F9B894 /* Nuke-Info.plist */,
+				358398E5E0ADCECF7E0FB34FA1135EF2 /* Nuke-prefix.pch */,
+				A4FD5AC7763D99A5224581161E0D0C6E /* Nuke-umbrella.h */,
+				18D80C9A4ED02EE48684F2DA0BF3BD15 /* Nuke.debug.xcconfig */,
+				DAEB5D8A88B4AF4DD8082F70F02CB62B /* Nuke.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Nuke";
 			sourceTree = "<group>";
 		};
 		C0834CEBB1379A84116EF29F93051C60 /* iOS */ = {
@@ -70,13 +170,31 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
+		C6EA83D1F11C2EB6AB4FE56C55240680 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2DAD7D76FC007F48AE48F2FD15BF01BB /* Nuke.framework */,
+				D1E1DF14CA560388EC32826039586B55 /* Pods_Lemmy_iOS.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C763A4CF8B98BA319553D5BBCF10B060 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2455AC57533DA9B6FEE190E58A2ED10C /* Nuke */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
-				9FB6A69C36C78CD78EEC5829B51CC305 /* Products */,
-				F1355E96DC27C9BAEB87A6BAC40544A1 /* Targets Support Files */,
+				C763A4CF8B98BA319553D5BBCF10B060 /* Pods */,
+				C6EA83D1F11C2EB6AB4FE56C55240680 /* Products */,
+				707FD04B4172A8897A55AFB37968797A /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -88,40 +206,59 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F1355E96DC27C9BAEB87A6BAC40544A1 /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				A95790D1C330EB77EF6424FB0457A2A9 /* Pods-Lemmy-iOS */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		F2F9D40BA7443C1C293F0325DE829CCD /* Headers */ = {
+		C44D679F7F971AED15E2C9354C128609 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				75C817057D83AFF47B8446516F25B89D /* Pods-Lemmy-iOS-umbrella.h in Headers */,
+				844BB8D9B204161C40D80A1EDC17F73A /* Nuke-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5D14D334E253D4FEB015A4CBA19020E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1F3D10813CF63354916B9F41886DEA1 /* Pods-Lemmy-iOS-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		647D9C1C65B4235663031EE1D9FC4B48 /* Pods-Lemmy-iOS */ = {
+		062A64896E847A6749F58B6BA9A931B1 /* Nuke */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1F0EC338B6F4A300539E03DCA9419F41 /* Build configuration list for PBXNativeTarget "Pods-Lemmy-iOS" */;
+			buildConfigurationList = 2E1BEB9F8A32F7EBA4BCACF4FD0560CF /* Build configuration list for PBXNativeTarget "Nuke" */;
 			buildPhases = (
-				F2F9D40BA7443C1C293F0325DE829CCD /* Headers */,
-				5758841FFFE962C724E9395C661D4369 /* Sources */,
-				3E4B9618716E79D8CCF7846793604FA9 /* Frameworks */,
-				2C73CCE179B152EA209483751B2A2781 /* Resources */,
+				C44D679F7F971AED15E2C9354C128609 /* Headers */,
+				632E5F6B7C79E5F66A05123E334F4641 /* Sources */,
+				DA3568AA4AFE557F7111A4352BA5849C /* Frameworks */,
+				BEC01ECE71CB572D70B4AC6400F9A919 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+			);
+			name = Nuke;
+			productName = Nuke;
+			productReference = 2DAD7D76FC007F48AE48F2FD15BF01BB /* Nuke.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		647D9C1C65B4235663031EE1D9FC4B48 /* Pods-Lemmy-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 089CDEAFD7B88681F3A49017920BE026 /* Build configuration list for PBXNativeTarget "Pods-Lemmy-iOS" */;
+			buildPhases = (
+				C5D14D334E253D4FEB015A4CBA19020E /* Headers */,
+				F80F99C038D63C8A2115F0ECA56CE8C9 /* Sources */,
+				510AB642A70AB77937F7CC965EE214B7 /* Frameworks */,
+				1625997A8A8541FA612940EE65F64E34 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				71E8F17FD8E69B3982258B9389B9646A /* PBXTargetDependency */,
 			);
 			name = "Pods-Lemmy-iOS";
 			productName = "Pods-Lemmy-iOS";
@@ -138,7 +275,7 @@
 				LastUpgradeCheck = 1100;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -146,17 +283,25 @@
 				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = 9FB6A69C36C78CD78EEC5829B51CC305 /* Products */;
+			productRefGroup = C6EA83D1F11C2EB6AB4FE56C55240680 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				062A64896E847A6749F58B6BA9A931B1 /* Nuke */,
 				647D9C1C65B4235663031EE1D9FC4B48 /* Pods-Lemmy-iOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		2C73CCE179B152EA209483751B2A2781 /* Resources */ = {
+		1625997A8A8541FA612940EE65F64E34 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BEC01ECE71CB572D70B4AC6400F9A919 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -166,17 +311,85 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		5758841FFFE962C724E9395C661D4369 /* Sources */ = {
+		632E5F6B7C79E5F66A05123E334F4641 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15B1D02597808F21BBCD8D94618240FC /* Pods-Lemmy-iOS-dummy.m in Sources */,
+				F09ACB2C5062701272570EBBE36BB7C7 /* DataCache.swift in Sources */,
+				33E19BC096B66CDE9AF092BE4B1EE4D2 /* DataLoader.swift in Sources */,
+				E113BFF705F231576AB1BC02E8CD31FF /* Deprecated.swift in Sources */,
+				47DE514FFAFC77339A281C88DC9D26C5 /* ImageCache.swift in Sources */,
+				8A8ECA607EA4E9DDA4A2F1404F1AA4A2 /* ImageDecoding.swift in Sources */,
+				C2B4C43E316156C7BAA89EF72C3BC209 /* ImageEncoding.swift in Sources */,
+				9D36E15B981166952D88ACDA7EF1FCEF /* ImagePipeline.swift in Sources */,
+				AB1778BEF12E281DCA6520DB182C0A30 /* ImagePipelineConfiguration.swift in Sources */,
+				531E8E961587F0E6885690056718AAB4 /* ImagePreheater.swift in Sources */,
+				A198E44609AC439B57F319EBA10C42DA /* ImageProcessing.swift in Sources */,
+				5857E4CC0AAF89BB24A5DA2EC2CB6481 /* ImageRequest.swift in Sources */,
+				57B31AE955ABBC6ACA9E7157844E1003 /* ImageTask.swift in Sources */,
+				5DA2B11F9A41C6EAEC8B31F281A6E549 /* ImageViewExtensions.swift in Sources */,
+				2CC1EEC410C399C6C1B6BAB608B7CE4F /* Internal.swift in Sources */,
+				33DA77EE1506C87C374EAC4598286B07 /* Nuke-dummy.m in Sources */,
+				7A38D7188792F42AA0B525259BBE3118 /* Task.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F80F99C038D63C8A2115F0ECA56CE8C9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE0946431A6DC2639675F1A3A01C1BEF /* Pods-Lemmy-iOS-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		71E8F17FD8E69B3982258B9389B9646A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Nuke;
+			target = 062A64896E847A6749F58B6BA9A931B1 /* Nuke */;
+			targetProxy = 261BFEA9655E62F97C826EDFC38B8E14 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		1142B436FC405DD389FE0AE87CEA7770 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 18D80C9A4ED02EE48684F2DA0BF3BD15 /* Nuke.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Nuke/Nuke-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Nuke/Nuke-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Nuke/Nuke.modulemap";
+				PRODUCT_MODULE_NAME = Nuke;
+				PRODUCT_NAME = Nuke;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		1422B121EAEAEA11307496903FA623C6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -237,9 +450,9 @@
 			};
 			name = Release;
 		};
-		2BA60B5C8B1C697E51570C74FD07D241 /* Debug */ = {
+		2D5F6AC4F7AD29CC22AB5243A0988D3D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9D09174FE3BA225EF215A0BBF21B3690 /* Pods-Lemmy-iOS.debug.xcconfig */;
+			baseConfigurationReference = 23A27A1EFC28E6C1B796E3B5024413DA /* Pods-Lemmy-iOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -275,9 +488,46 @@
 			};
 			name = Debug;
 		};
-		4EBB82BEFD891BF35AA07C95FB0D8420 /* Release */ = {
+		E68FD10E2CB21180D0FE84644EDBA939 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7341624CA1ABE94D9EC47120A503B76C /* Pods-Lemmy-iOS.release.xcconfig */;
+			baseConfigurationReference = DAEB5D8A88B4AF4DD8082F70F02CB62B /* Nuke.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Nuke/Nuke-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Nuke/Nuke-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Nuke/Nuke.modulemap";
+				PRODUCT_MODULE_NAME = Nuke;
+				PRODUCT_NAME = Nuke;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E6CA1857CA55E3FACB59E107F5965443 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2AE50097D6845D584AA5C0C9AB434A4F /* Pods-Lemmy-iOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -381,11 +631,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1F0EC338B6F4A300539E03DCA9419F41 /* Build configuration list for PBXNativeTarget "Pods-Lemmy-iOS" */ = {
+		089CDEAFD7B88681F3A49017920BE026 /* Build configuration list for PBXNativeTarget "Pods-Lemmy-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2BA60B5C8B1C697E51570C74FD07D241 /* Debug */,
-				4EBB82BEFD891BF35AA07C95FB0D8420 /* Release */,
+				2D5F6AC4F7AD29CC22AB5243A0988D3D /* Debug */,
+				E6CA1857CA55E3FACB59E107F5965443 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2E1BEB9F8A32F7EBA4BCACF4FD0560CF /* Build configuration list for PBXNativeTarget "Nuke" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1142B436FC405DD389FE0AE87CEA7770 /* Debug */,
+				E68FD10E2CB21180D0FE84644EDBA939 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

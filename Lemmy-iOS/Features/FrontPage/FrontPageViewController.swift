@@ -26,6 +26,8 @@ class FrontPageViewController: UIViewController {
         return search
     }()
     
+    var posts: Array<LemmyApiStructs.PostView>?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -34,6 +36,7 @@ class FrontPageViewController: UIViewController {
         self.view.addSubview(tableView)
         
         tableView.keyboardDismissMode = .onDrag
+        tableView.separatorStyle = .none
         tableView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
@@ -55,7 +58,10 @@ class FrontPageViewController: UIViewController {
             completion: { (dec: Result<LemmyApiStructs.Post.GetPostsResponse, Error>) in
                 switch dec {
                 case .success(let sss):
-                    print(sss)
+                    self.posts = sss.posts
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
                 case .failure(let error):
                     print(error)
                 }
@@ -75,7 +81,10 @@ extension FrontPageViewController: UITableViewDelegate, UITableViewDataSource {
         case .header:
             return 1
         case .content:
-            return 3
+            guard let posts = posts else {
+                return 0
+            }
+            return posts.count
         }
     }
     
@@ -86,9 +95,12 @@ extension FrontPageViewController: UITableViewDelegate, UITableViewDataSource {
         case .header:
             return FrontPageHeaderCell()
         case .content:
-            let cell = UITableViewCell()
-            cell.backgroundColor = .red
-            return cell
+            guard let posts = posts else {
+                return UITableViewCell()
+            }
+            let postCell = PostContentTableCell()
+            postCell.bind(with: posts[indexPath.row])
+            return postCell
         }
     }
 }

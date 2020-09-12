@@ -23,7 +23,7 @@
 		4ECCEEEF250BE89B0075F921 /* FrontPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEEE250BE89B0075F921 /* FrontPageCoordinator.swift */; };
 		4ECCEEF2250C03A40075F921 /* LemmyTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEF1250C03A40075F921 /* LemmyTabBarCoordinator.swift */; };
 		4ECCEEF4250C04280075F921 /* LemmyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEF3250C04280075F921 /* LemmyTabBarController.swift */; };
-		4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4ECCEEFA250C13240075F921 /* SnapKit */; };
+		4ECCEEFB250C13240075F921 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 4ECCEEFA250C13240075F921 /* SwiftPackageProductDependency */; };
 		4ECCEEFE250CA30E0075F921 /* FrontPageHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEFD250CA30E0075F921 /* FrontPageHeaderCell.swift */; };
 		4ECCEF00250CB4260075F921 /* FrontPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEFF250CB4260075F921 /* FrontPageModel.swift */; };
 		4ECCEF03250CB4E00075F921 /* LemmyApiStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF02250CB4E00075F921 /* LemmyApiStructs.swift */; };
@@ -31,6 +31,7 @@
 		4ECCEF09250CC3A60075F921 /* RequestsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF08250CC3A60075F921 /* RequestsManager.swift */; };
 		4ECCEF0C250CCD3E0075F921 /* PostRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF0B250CCD3E0075F921 /* PostRequests.swift */; };
 		4ECCEF0E250CDA5A0075F921 /* LemmyApiStructs+Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF0D250CDA5A0075F921 /* LemmyApiStructs+Post.swift */; };
+		4ECCEF13250CF0290075F921 /* PostContentTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF12250CF0290075F921 /* PostContentTableCell.swift */; };
 		921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,7 @@
 		4ECCEF08250CC3A60075F921 /* RequestsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsManager.swift; sourceTree = "<group>"; };
 		4ECCEF0B250CCD3E0075F921 /* PostRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequests.swift; sourceTree = "<group>"; };
 		4ECCEF0D250CDA5A0075F921 /* LemmyApiStructs+Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LemmyApiStructs+Post.swift"; sourceTree = "<group>"; };
+		4ECCEF12250CF0290075F921 /* PostContentTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentTableCell.swift; sourceTree = "<group>"; };
 		AF9E5291792018DE1B6050FA /* Pods-Lemmy-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.release.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lemmy_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8130B334E7F53B10E26E71F /* Pods-Lemmy-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -92,7 +94,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */,
-				4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */,
+				4ECCEEFB250C13240075F921 /* BuildFile in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,6 +173,7 @@
 		4ECCEEDE250B8DDF0075F921 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				4ECCEF0F250CEFF80075F921 /* Cells */,
 				4ECCEEDF250B8DEE0075F921 /* Coordinator.swift */,
 			);
 			path = Base;
@@ -294,6 +297,14 @@
 			path = Requests;
 			sourceTree = "<group>";
 		};
+		4ECCEF0F250CEFF80075F921 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				4ECCEF12250CF0290075F921 /* PostContentTableCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		750E6997D470E00BE92AFA4E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -322,6 +333,7 @@
 				4ECCEEA2250B8B6B0075F921 /* Sources */,
 				4ECCEEA3250B8B6B0075F921 /* Frameworks */,
 				4ECCEEA4250B8B6B0075F921 /* Resources */,
+				E11AFFA1835005D5587B3DED /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -329,7 +341,7 @@
 			);
 			name = "Lemmy-iOS";
 			packageProductDependencies = (
-				4ECCEEFA250C13240075F921 /* SnapKit */,
+				4ECCEEFA250C13240075F921 /* SwiftPackageProductDependency */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */;
@@ -404,7 +416,7 @@
 			);
 			mainGroup = 4ECCEE9D250B8B6B0075F921;
 			packageReferences = (
-				4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				4ECCEEF9250C13240075F921 /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
@@ -466,6 +478,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E11AFFA1835005D5587B3DED /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -487,6 +516,7 @@
 				4ECCEEED250BE8870075F921 /* FrontPageViewController.swift in Sources */,
 				4ECCEEEA250BA6230075F921 /* WSLemmy.swift in Sources */,
 				4ECCEF00250CB4260075F921 /* FrontPageModel.swift in Sources */,
+				4ECCEF13250CF0290075F921 /* PostContentTableCell.swift in Sources */,
 				4ECCEEAC250B8B6B0075F921 /* SceneDelegate.swift in Sources */,
 				4ECCEF03250CB4E00075F921 /* LemmyApiStructs.swift in Sources */,
 				4ECCEEF4250C04280075F921 /* LemmyTabBarController.swift in Sources */,
@@ -816,7 +846,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		4ECCEEF9250C13240075F921 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
 			requirement = {
@@ -827,9 +857,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4ECCEEFA250C13240075F921 /* SnapKit */ = {
+		4ECCEEFA250C13240075F921 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = 4ECCEEF9250C13240075F921 /* RemoteSwiftPackageReference */;
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
