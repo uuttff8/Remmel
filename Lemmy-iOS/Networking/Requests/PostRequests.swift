@@ -10,6 +10,7 @@ import Foundation
 
 private protocol LemmyPostRequestManagerProtocol {
     func getPosts<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping ((Result<Res, Error>) -> Void))
+    func getPost<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping ((Result<Res, Error>) -> Void))
 }
 
 extension RequestsManager: LemmyPostRequestManagerProtocol {
@@ -26,5 +27,15 @@ extension RequestsManager: LemmyPostRequestManagerProtocol {
         )
     }
     
-    
+    func getPost<Req: Codable, Res: Codable>(
+        parameters: Req,
+        completion: @escaping ((Result<Res, Error>) -> Void)
+    ) {
+        return requestDecodable(
+            path: LemmyEndpoint.Post.getPost.endpoint,
+            parameters: parameters,
+            parsingFromRootKey: "data",
+            completion: completion
+        )
+    }
 }

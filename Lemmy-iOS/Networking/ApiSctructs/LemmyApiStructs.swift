@@ -116,5 +116,16 @@ extension LemmyApiStructs {
             let posts: Array<PostView>
         }
         
+        struct GetPostRequest: Codable, Equatable {
+            let id: Int
+            let auth: String?
+        }
+        
+//        struct GetPostResponse: Codable, Equatable {
+//            let post: PostView
+//            let comments: Array<CommentView>
+//            let community:
+//        }
+        
     }
 }
