@@ -9,9 +9,13 @@
 import UIKit
 
 class FrontPageModel: NSObject {
-    var postsLoaded: (() -> Void)?
+    var dataLoaded: (() -> Void)?
+    
+    // at init always posts
+    var currentContentType = LemmyContentType.posts
     
     var postsDataSource: Array<LemmyApiStructs.PostView>?
+    var commentsDataSource: Array<LemmyApiStructs.CommentView>?
     
     func loadPosts() {
         let parameters = LemmyApiStructs.Post.GetPostsRequest(type_: "All",
@@ -29,12 +33,16 @@ class FrontPageModel: NSObject {
                 case .success(let posts):
                     self.postsDataSource = posts.posts
                     DispatchQueue.main.async {
-                        self.postsLoaded?()
+                        self.dataLoaded?()
                     }
                 case .failure(let error):
                     print(error)
                 }
         })
+    }
+    
+    func loadComments() {
+        
     }
 }
 
@@ -108,10 +116,16 @@ extension FrontPageModel: PostContentTableCellDelegate {
 
 extension FrontPageModel: FrontPageHeaderCellDelegate {
     func contentTypeChanged(to content: LemmyContentType) {
+        currentContentType = content
         
+        switch currentContentType {
+        case .comments: self.loadComments()
+        case .posts: self.loadPosts()
+        }
     }
     
     func feedTypeChanged(to feed: LemmyFeedType) {
+        
     }
 }
 

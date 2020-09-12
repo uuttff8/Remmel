@@ -8,9 +8,9 @@
 
 import UIKit
 
-enum LemmyContentType: CaseIterable {
-    case posts
-    case comments
+enum LemmyContentType: String, Codable, CaseIterable {
+    case posts = "Posts"
+    case comments = "Comments"
     
     var label: String {
         switch self {
@@ -20,9 +20,9 @@ enum LemmyContentType: CaseIterable {
     }
 }
 
-enum LemmyFeedType: CaseIterable {
-    case subscribed
-    case all
+enum LemmyFeedType: String, Codable, CaseIterable {
+    case subscribed = "Subscribed"
+    case all = "All"
     
     var label: String {
         switch self {

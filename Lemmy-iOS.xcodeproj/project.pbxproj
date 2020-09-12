@@ -33,6 +33,7 @@
 		4ECCEF0E250CDA5A0075F921 /* LemmyApiStructs+Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF0D250CDA5A0075F921 /* LemmyApiStructs+Post.swift */; };
 		4ECCEF13250CF0290075F921 /* PostContentTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF12250CF0290075F921 /* PostContentTableCell.swift */; };
 		4ECCEF16250D2D9F0075F921 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF15250D2D9F0075F921 /* Extensions.swift */; };
+		4ECCEF1A250D62580075F921 /* LemmyApiStructs+Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF19250D62580075F921 /* LemmyApiStructs+Comment.swift */; };
 		921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -85,6 +86,7 @@
 		4ECCEF0D250CDA5A0075F921 /* LemmyApiStructs+Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LemmyApiStructs+Post.swift"; sourceTree = "<group>"; };
 		4ECCEF12250CF0290075F921 /* PostContentTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentTableCell.swift; sourceTree = "<group>"; };
 		4ECCEF15250D2D9F0075F921 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		4ECCEF19250D62580075F921 /* LemmyApiStructs+Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LemmyApiStructs+Comment.swift"; sourceTree = "<group>"; };
 		AF9E5291792018DE1B6050FA /* Pods-Lemmy-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.release.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lemmy_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8130B334E7F53B10E26E71F /* Pods-Lemmy-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 			children = (
 				4ECCEF02250CB4E00075F921 /* LemmyApiStructs.swift */,
 				4ECCEF0D250CDA5A0075F921 /* LemmyApiStructs+Post.swift */,
+				4ECCEF19250D62580075F921 /* LemmyApiStructs+Comment.swift */,
 			);
 			path = ApiStructs;
 			sourceTree = "<group>";
@@ -505,6 +508,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4ECCEF1A250D62580075F921 /* LemmyApiStructs+Comment.swift in Sources */,
 				4ECCEF06250CC3330075F921 /* ApiManager.swift in Sources */,
 				4ECCEEB4250B8B6B0075F921 /* Lemmy_iOS.xcdatamodeld in Sources */,
 				4ECCEEEF250BE89B0075F921 /* FrontPageCoordinator.swift in Sources */,

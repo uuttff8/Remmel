@@ -40,7 +40,7 @@ class FrontPageViewController: UIViewController {
         setupNavigationItem()
         
         model.loadPosts()
-        model.postsLoaded = {
+        model.dataLoaded = {
             self.tableView.reloadData()
         }
     }
