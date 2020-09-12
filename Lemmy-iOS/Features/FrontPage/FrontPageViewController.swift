@@ -20,6 +20,8 @@ class FrontPageViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 40
         
         self.view.addSubview(tableView)
         
@@ -54,7 +56,7 @@ extension FrontPageViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch section {
         case .header:
-            return UITableViewCell()
+            return FrontPageHeaderCell()
         case .content:
             let cell = UITableViewCell()
             cell.backgroundColor = .red
