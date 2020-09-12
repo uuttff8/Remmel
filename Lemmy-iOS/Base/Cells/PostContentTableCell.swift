@@ -12,7 +12,8 @@ import Nuke
 class PostContentTableCell: UITableViewCell {
     
     private var paddingView = UIView()
-    private var headerView = PostContentHeaderInfoView()
+    private var headerView = PostContentHeaderView()
+    private var centerView = PostContentCenterView()
     private var separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1)
@@ -21,13 +22,39 @@ class PostContentTableCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    func bind(with post: LemmyApiStructs.PostView) {
+        setupUI()
         
+        headerView.bind(with:
+            PostContentHeaderView.ViewData(
+                avatarImageUrl: post.creatorAvatar,
+                username: post.creatorName,
+                community: post.communityName,
+                published: post.published
+            )
+        )
+        
+        centerView.bind(with:
+            PostContentCenterView.ViewData(
+                imageUrl: post.thumbnailUrl,
+                title: post.name,
+                subtitle: post.body
+            )
+        )
+        
+    }
+    
+    
+    private func setupUI() {
+        
+        // padding and separator
         self.contentView.addSubview(paddingView)
         self.contentView.addSubview(separatorView)
         paddingView.snp.makeConstraints { (make) in
-            make.top.leading.equalToSuperview().offset(10)
+            make.top.leading.equalToSuperview().offset(10) // SELF SIZE TOP HERE
             make.bottom.trailing.equalToSuperview().inset(10)
-            make.height.equalTo(100)
         }
         separatorView.snp.makeConstraints { (make) in
             make.height.equalTo(1)
@@ -40,29 +67,105 @@ class PostContentTableCell: UITableViewCell {
         selBackView.backgroundColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1)
         self.selectedBackgroundView = selBackView
         
-    }
-    
-    func bind(with post: LemmyApiStructs.PostView) {
-        
-        headerView.bind(with:
-            PostContentHeaderInfoView.ViewData(
-                avatarImageUrl: post.creatorAvatar,
-                username: post.creatorName,
-                community: post.communityName,
-                published: post.published
-            )
-        )
-        
+        // header view
         paddingView.addSubview(headerView)
         
         headerView.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalToSuperview()
         }
+        
+        // center view
+        paddingView.addSubview(centerView)
+        
+        centerView.snp.makeConstraints { (make) in
+            make.top.equalTo(headerView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview() // SELF SIZE BOTTOM HERE
+        }
+        
     }
-    
 }
 
-private class PostContentHeaderInfoView: UIView {
+private class PostContentCenterView: UIView {
+    private let imageSize = CGSize(width: 110, height: 60)
+    
+    struct ViewData {
+        let imageUrl: String?
+        let title: String
+        let subtitle: String?
+    }
+    
+    private let titleLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.font = UIFont.systemFont(ofSize: 21, weight: .semibold)
+        lbl.numberOfLines = 3
+        return lbl
+    }()
+    
+    private lazy var subtitleLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        lbl.numberOfLines = 6
+        return lbl
+    }()
+    
+    private lazy var thumbailImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 5
+        imageView.layer.masksToBounds = false
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+    
+    private let stackView = UIStackView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func bind(with data: PostContentCenterView.ViewData) {
+        titleLabel.text = data.title
+        if let subtitle = data.subtitle, subtitle.count > 0 {
+            subtitleLabel.text = subtitle
+        }
+        
+        self.addSubview(stackView)
+        stackView.addArrangedSubview(titleLabel)
+        
+        if let image = data.imageUrl {
+            Nuke.loadImage(with: ImageRequest(url: URL(string: image)!), into: thumbailImageView)
+            stackView.addArrangedSubview(thumbailImageView)
+            thumbailImageView.snp.makeConstraints { (make) in
+                make.size.equalTo(imageSize)
+            }
+        }
+        
+        self.stackView.alignment = .center
+        self.stackView.spacing = 8
+        stackView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalToSuperview()
+        }
+        
+        self.addSubview(subtitleLabel)
+        subtitleLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(stackView.snp.bottom)
+            make.leading.trailing.bottom.equalToSuperview()
+        }
+    }
+    
+    
+    override var intrinsicContentSize: CGSize {
+        CGSize(width: UIScreen.main.bounds.width, height: UIView.noIntrinsicMetric)
+    }
+}
+
+private class PostContentHeaderView: UIView {
+    private let imageSize = CGSize(width: 32, height: 32)
+    
     struct ViewData {
         let avatarImageUrl: String?
         let username: String
@@ -72,7 +175,7 @@ private class PostContentHeaderInfoView: UIView {
     
     lazy var avatarView: UIImageView = {
         let ava = UIImageView()
-        ava.layer.cornerRadius = 32 / 2
+        ava.layer.cornerRadius = imageSize.width / 2
         ava.layer.masksToBounds = false
         ava.clipsToBounds = true
         return ava
@@ -105,7 +208,7 @@ private class PostContentHeaderInfoView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind(with data: PostContentHeaderInfoView.ViewData) {
+    func bind(with data: PostContentHeaderView.ViewData) {
         usernameTitle.text = data.username
         usernameTitle.text = "@" + usernameTitle.text!
         communityTitle.text = data.community
@@ -130,7 +233,7 @@ private class PostContentHeaderInfoView: UIView {
         }
     }
     
-    private func setupViews(_ data: PostContentHeaderInfoView.ViewData) {
+    private func setupViews(_ data: PostContentHeaderView.ViewData) {
         [usernameTitle, toTitle, communityTitle, publishedTitle].forEach { (label) in
             self.stackView.addArrangedSubview(label)
             label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
@@ -138,7 +241,7 @@ private class PostContentHeaderInfoView: UIView {
         if let avatarUrl = data.avatarImageUrl {
             Nuke.loadImage(with: ImageRequest(url: URL(string: avatarUrl)!), into: avatarView)
             avatarView.snp.makeConstraints { (make) in
-                make.size.equalTo(32)
+                make.size.equalTo(imageSize.height)
             }
             self.stackView.insertArrangedSubview(avatarView, at: 0)
         }

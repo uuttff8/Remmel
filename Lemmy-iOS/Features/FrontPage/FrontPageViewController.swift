@@ -36,6 +36,8 @@ class FrontPageViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.systemBackground
         
+        setupTableView()
+        setupNavigationItem()
         model.loadPosts()
         model.postsLoaded = {
             self.tableView.reloadData()
