@@ -8,10 +8,8 @@
 
 import UIKit
 
-enum LemmyApiStructs { }
 
-// Posts
-extension LemmyApiStructs {
+enum LemmyApiStructs {
     
     // MARK: - PostView -
     struct PostView: Codable, Equatable {
