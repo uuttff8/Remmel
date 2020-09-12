@@ -18,6 +18,13 @@ enum LemmyContentType: String, Codable, CaseIterable {
         case .comments: return "Comments"
         }
     }
+    
+    var index: Int {
+        switch self {
+        case .posts: return 0
+        case .comments: return 1
+        }
+    }
 }
 
 enum LemmyFeedType: String, Codable, CaseIterable {

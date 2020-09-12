@@ -20,10 +20,10 @@ class FrontPageHeaderCell: UITableViewCell {
     let contentTypeSegment: FrontPageSwitcher
     let feedTypeSegment: FrontPageSwitcher
     
-    init() {
+    init(contentSelectedIndex: LemmyContentType) {
         self.contentTypeSegment = FrontPageSwitcher(
             data: (LemmyContentType.posts.label, LemmyContentType.comments.label),
-            selectedIndex: 0
+            selectedIndex: contentSelectedIndex.index
         )
         
         self.feedTypeSegment = FrontPageSwitcher(

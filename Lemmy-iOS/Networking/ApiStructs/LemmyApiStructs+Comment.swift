@@ -12,15 +12,15 @@ extension LemmyApiStructs {
     enum Comment {
         
         // MARK: - GetComments -
-        struct GetCommentsRequest: Codable {
+        struct GetCommentsRequest: Codable, Equatable {
+            let type_: LemmyFeedType
+            let sort: String
             let page: Int
             let limit: Int
-            let sort: LemmyFeedType
-            let type_: LemmyContentType
             let auth: String?
         }
         
-        struct GetComments {
+        struct GetCommentsResponse: Codable, Equatable {
             let comments: Array<CommentView>
         }
     }

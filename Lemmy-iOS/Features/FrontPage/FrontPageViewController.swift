@@ -41,7 +41,7 @@ class FrontPageViewController: UIViewController {
         
         model.loadPosts()
         model.dataLoaded = {
-            self.tableView.reloadData()
+            self.tableView.reloadData()            
         }
     }
     

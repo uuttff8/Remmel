@@ -12,7 +12,11 @@ class FrontPageModel: NSObject {
     var dataLoaded: (() -> Void)?
     
     // at init always posts
-    var currentContentType = LemmyContentType.posts
+    var currentContentType: LemmyContentType = LemmyContentType.posts {
+        didSet {
+            print(currentContentType)
+        }
+    }
     
     var postsDataSource: Array<LemmyApiStructs.PostView>?
     var commentsDataSource: Array<LemmyApiStructs.CommentView>?
@@ -35,13 +39,34 @@ class FrontPageModel: NSObject {
                     DispatchQueue.main.async {
                         self.dataLoaded?()
                     }
+                    
                 case .failure(let error):
                     print(error)
                 }
         })
+        
     }
     
     func loadComments() {
+        let parameters = LemmyApiStructs.Comment.GetCommentsRequest(type_: LemmyFeedType.all,
+                                                                    sort: "Active",
+                                                                    page: 1,
+                                                                    limit: 20,
+                                                                    auth: nil)
+        
+        ApiManager.shared.requestsManager.getComments(parameters: parameters)
+        { (res: Result<LemmyApiStructs.Comment.GetCommentsResponse, Error>) in
+            switch res {
+            case .success(let response):
+                self.commentsDataSource = response.comments
+                DispatchQueue.main.async {
+                    self.dataLoaded?()
+                    print(self.currentContentType)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
         
     }
 }
@@ -58,10 +83,15 @@ extension FrontPageModel: UITableViewDelegate, UITableViewDataSource {
         case .header:
             return 1
         case .content:
-            guard let posts = postsDataSource else {
-                return 0
+            switch currentContentType {
+            case .posts:
+                guard let posts = postsDataSource else {
+                    return 0
+                }
+                return posts.count
+            case .comments:
+                return 4
             }
-            return posts.count
         }
     }
     
@@ -70,17 +100,20 @@ extension FrontPageModel: UITableViewDelegate, UITableViewDataSource {
         
         switch section {
         case .header:
-            let cell = FrontPageHeaderCell()
+            let cell = FrontPageHeaderCell(contentSelectedIndex: currentContentType)
             cell.delegate = self
             return cell
         case .content:
-            guard let posts = postsDataSource else {
-                return UITableViewCell()
+            
+            switch currentContentType {
+            case .posts:
+                return handleCellForPosts(indexPath: indexPath)
+            case .comments:
+                let cell = UITableViewCell()
+                cell.backgroundColor = UIColor.red
+                return cell
             }
-            let postCell = PostContentTableCell()
-            postCell.delegate = self
-            postCell.bind(with: posts[indexPath.row])
-            return postCell
+            
         }
     }
     
@@ -93,6 +126,16 @@ extension FrontPageModel: UITableViewDelegate, UITableViewDataSource {
         case .header:
             tableView.deselectRow(at: indexPath, animated: true)
         }
+    }
+    
+    private func handleCellForPosts(indexPath: IndexPath) -> UITableViewCell {
+        guard let posts = postsDataSource else {
+            return UITableViewCell()
+        }
+        let postCell = PostContentTableCell()
+        postCell.delegate = self
+        postCell.bind(with: posts[indexPath.row])
+        return postCell
     }
 }
 

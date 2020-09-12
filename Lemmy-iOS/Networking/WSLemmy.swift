@@ -164,6 +164,7 @@ enum LemmyEndpoint {
         case removeComment
         case markCommentAsRead
         case saveComment
+        case getComments
         case createCommentLike // score can be 0, -1, or 1
         
         var endpoint: String {
@@ -174,6 +175,7 @@ enum LemmyEndpoint {
             case .removeComment: return "RemoveComment"
             case .markCommentAsRead: return "MarkCommentAsRead"
             case .saveComment: return "SaveComment"
+            case .getComments: return "GetComments"
             case .createCommentLike: return "CreateCommentLike"
             }
         }
