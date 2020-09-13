@@ -13,8 +13,8 @@ extension LemmyApiStructs {
         
         // MARK: - GetPosts -
         struct GetPostsRequest: Codable, Equatable {
-            let type_: String
-            let sort: String
+            let type_: LemmyFeedType
+            let sort: LemmySortType
             let page: Int?
             let limit: Int?
             let communityId: Int?

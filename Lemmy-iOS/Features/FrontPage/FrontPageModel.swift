@@ -22,8 +22,8 @@ class FrontPageModel: NSObject {
     var commentsDataSource: Array<LemmyApiStructs.CommentView>?
     
     func loadPosts() {
-        let parameters = LemmyApiStructs.Post.GetPostsRequest(type_: "All",
-                                                              sort: "Active",
+        let parameters = LemmyApiStructs.Post.GetPostsRequest(type_: LemmyFeedType.all,
+                                                              sort: LemmySortType.active,
                                                               page: 1,
                                                               limit: 20,
                                                               communityId: nil,
@@ -49,7 +49,7 @@ class FrontPageModel: NSObject {
     
     func loadComments() {
         let parameters = LemmyApiStructs.Comment.GetCommentsRequest(type_: LemmyFeedType.all,
-                                                                    sort: "Active",
+                                                                    sort: LemmySortType.hot,
                                                                     page: 1,
                                                                     limit: 20,
                                                                     auth: nil)

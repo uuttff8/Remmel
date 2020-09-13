@@ -14,7 +14,7 @@ extension LemmyApiStructs {
         // MARK: - GetComments -
         struct GetCommentsRequest: Codable, Equatable {
             let type_: LemmyFeedType
-            let sort: String
+            let sort: LemmySortType
             let page: Int
             let limit: Int
             let auth: String?
