@@ -34,8 +34,6 @@ class CommentContentTableCell: UITableViewCell {
             )
         )
         
-        
-        
     }
     
     private func setupTargets(with comment: LemmyApiStructs.CommentView) {

@@ -90,7 +90,10 @@ extension FrontPageModel: UITableViewDelegate, UITableViewDataSource {
                 }
                 return posts.count
             case .comments:
-                return 4
+                guard let comments = commentsDataSource else {
+                    return 0
+                }
+                return comments.count
             }
         }
     }
