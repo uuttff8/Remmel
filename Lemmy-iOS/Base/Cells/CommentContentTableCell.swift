@@ -13,6 +13,7 @@ class CommentContentTableCell: UITableViewCell {
     
     private let paddingView = UIView()
     private let headerView = CommentHeaderView()
+    private let centerView = CommentCenterView()
     private let separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1)
@@ -31,6 +32,12 @@ class CommentContentTableCell: UITableViewCell {
                 published: comment.published,
                 score: comment.score,
                 postName: comment.postName
+            )
+        )
+        
+        centerView.bind(with:
+            CommentCenterView.ViewData(
+                comment: comment.content
             )
         )
         
@@ -67,7 +74,14 @@ class CommentContentTableCell: UITableViewCell {
         
         headerView.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview() // SELF SIZE BOTTOM HERE
+        }
+        
+        // center view
+        paddingView.addSubview(centerView)
+        
+        centerView.snp.makeConstraints { (make) in
+            make.top.equalTo(headerView.snp.bottom)
+            make.bottom.trailing.leading.equalToSuperview() // // SELF SIZE BOTTOM HERE
         }
     }
 }
@@ -185,5 +199,45 @@ private class CommentHeaderView: UIView {
             make.top.equalTo(stackView.snp.bottom)
             make.leading.bottom.equalToSuperview()
         }
+    }
+}
+
+
+private class CommentCenterView: UIView {
+    
+    struct ViewData {
+        let comment: String
+    }
+    
+    private let commentLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        lbl.numberOfLines = 0
+        return lbl
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func bind(with data: CommentCenterView.ViewData) {
+        commentLabel.text = data.comment
+        setupUI()
+    }
+    
+    private func setupUI() {
+        self.addSubview(commentLabel)
+        
+        commentLabel.snp.makeConstraints { (make) in
+            make.top.leading.trailing.bottom.equalToSuperview()
+        }
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        CGSize(width: UIScreen.main.bounds.width, height: 30)
     }
 }
