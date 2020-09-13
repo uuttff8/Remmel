@@ -29,7 +29,8 @@ class CommentContentTableCell: UITableViewCell {
                 username: comment.creatorName,
                 community: comment.communityName,
                 published: comment.published,
-                score: comment.score
+                score: comment.score,
+                postName: comment.postName
             )
         )
         
@@ -82,6 +83,7 @@ private class CommentHeaderView: UIView {
         let community: String
         let published: String
         let score: Int
+        let postName: String
     }
     
     lazy var avatarView: UIImageView = {
@@ -125,6 +127,13 @@ private class CommentHeaderView: UIView {
         return lbl
     }()
     
+    let postNameButton: UIButton = {
+        let btn = UIButton()
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        btn.setTitleColor(UIColor(red: 241/255, green: 100/255, blue: 30/255, alpha: 1), for: .normal)
+        return btn
+    }()
+    
     let stackView = UIStackView()
     
     override init(frame: CGRect) {
@@ -142,33 +151,41 @@ private class CommentHeaderView: UIView {
         communityButton.setTitle(comment.community, for: .normal)
         publishedTitle.text = comment.published
         scoreLabel.set(text: String(comment.score), leftIcon: UIImage(systemName: "bolt.fill")!)
+        postNameButton.setTitle(comment.postName, for: .normal)
         
         setupViews(comment)
         
     }
     
     private func setupViews(_ comment: CommentHeaderView.ViewData) {
-        [usernameButton, toTitle, communityButton, scoreLabel].forEach { (label) in
-            self.stackView.addArrangedSubview(label)
+        publishedTitle.snp.makeConstraints { (make) in
+            make.width.equalTo(60)
+        }
+        
+        [usernameButton, toTitle, communityButton, scoreLabel, publishedTitle].forEach { (label) in
+            stackView.addArrangedSubview(label)
         }
         if let avatarUrl = comment.avatarImageUrl {
             Nuke.loadImage(with: ImageRequest(url: URL(string: avatarUrl)!), into: avatarView)
             avatarView.snp.makeConstraints { (make) in
                 make.size.equalTo(imageSize.height)
             }
-            self.stackView.insertArrangedSubview(avatarView, at: 0)
-        }
-        
-        self.snp.makeConstraints { (make) in
-            make.height.equalTo(30)
+            
+            stackView.insertArrangedSubview(avatarView, at: 0)
         }
         
         self.addSubview(stackView)
+        self.addSubview(postNameButton)
         
-        self.stackView.alignment = .center
-        self.stackView.spacing = 8
+        stackView.alignment = .center
+        stackView.spacing = 8
         stackView.snp.makeConstraints { (make) in
-            make.top.bottom.leading.equalToSuperview()
+            make.top.leading.equalToSuperview()
+        }
+        
+        self.postNameButton.snp.makeConstraints { (make) in
+            make.top.equalTo(stackView.snp.bottom)
+            make.leading.bottom.equalToSuperview()
         }
     }
 }
