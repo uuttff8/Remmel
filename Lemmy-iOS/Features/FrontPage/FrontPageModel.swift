@@ -109,11 +109,8 @@ extension FrontPageModel: UITableViewDelegate, UITableViewDataSource {
             case .posts:
                 return handleCellForPosts(indexPath: indexPath)
             case .comments:
-                let cell = UITableViewCell()
-                cell.backgroundColor = UIColor.red
-                return cell
+                return handleCellForComments(indexPath: indexPath)
             }
-            
         }
     }
     
@@ -136,6 +133,15 @@ extension FrontPageModel: UITableViewDelegate, UITableViewDataSource {
         postCell.delegate = self
         postCell.bind(with: posts[indexPath.row])
         return postCell
+    }
+    
+    private func handleCellForComments(indexPath: IndexPath) -> UITableViewCell {
+        guard let comments = commentsDataSource else {
+            return UITableViewCell()
+        }
+        let commentCell = CommentContentTableCell()
+        commentCell.bind(with: comments[indexPath.row])
+        return commentCell
     }
 }
 
@@ -168,7 +174,7 @@ extension FrontPageModel: FrontPageHeaderCellDelegate {
     }
     
     func feedTypeChanged(to feed: LemmyFeedType) {
-        
+        // TODO: Do change feed type for current content type
     }
 }
 
