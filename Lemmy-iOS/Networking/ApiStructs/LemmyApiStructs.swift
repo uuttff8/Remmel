@@ -8,6 +8,41 @@
 
 import UIKit
 
+enum LemmySortType: String, Codable, CaseIterable {
+    case active = "Active"
+    case hot = "Hot"
+    case new = "New"
+    
+    case topDay = "TopDay"
+    case week = "Week"
+    case month = "Month"
+    case all = "All"
+    
+    var label: String {
+        switch self {
+        case .active: return "Active"
+        case .hot: return "Hot"
+        case .new: return "New"
+        case .topDay: return "Top day"
+        case .week: return "Week"
+        case .month: return "Month"
+        case .all: return "All"
+        }
+    }
+    
+    var index: Int {
+        switch self {
+        case .active: return 0
+        case .hot: return 1
+        case .new: return 2
+        case .topDay: return 3
+        case .week: return 4
+        case .month: return 5
+        case .all: return 6
+        }
+    }
+}
+
 enum LemmyContentType: String, Codable, CaseIterable {
     case posts = "Posts"
     case comments = "Comments"
