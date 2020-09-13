@@ -7,26 +7,37 @@
 //
 
 import UIKit
+import Nuke
 
 class CommentContentTableCell: UITableViewCell {
     
     private let paddingView = UIView()
-    
+    private let headerView = CommentHeaderView()
     private let separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1)
         return view
     }()
     
-    func bind(with: LemmyApiStructs.CommentView) {
+    func bind(with comment: LemmyApiStructs.CommentView) {
+        setupUI()
+        setupTargets(with: comment)
+        
+        headerView.bind(with:
+            CommentHeaderView.ViewData(
+                avatarImageUrl: comment.creatorAvatar,
+                username: comment.creatorName,
+                community: comment.communityName,
+                published: comment.published,
+                score: comment.score
+            )
+        )
+        
+        
         
     }
     
     private func setupTargets(with comment: LemmyApiStructs.CommentView) {
-    }
-    
-    private func setupUI() {
-        setupPaddingAndSeparatorUI()
     }
     
     private func setupPaddingAndSeparatorUI() {
@@ -47,6 +58,18 @@ class CommentContentTableCell: UITableViewCell {
         let selBackView = UIView()
         selBackView.backgroundColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1)
         self.selectedBackgroundView = selBackView
+    }
+    
+    private func setupUI() {
+        setupPaddingAndSeparatorUI()
+        
+        // header view
+        paddingView.addSubview(headerView)
+        
+        headerView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview() // SELF SIZE BOTTOM HERE
+        }
     }
 }
 
@@ -103,7 +126,7 @@ private class CommentHeaderView: UIView {
     }()
     
     let stackView = UIStackView()
-        
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
     }
@@ -113,9 +136,39 @@ private class CommentHeaderView: UIView {
     }
     
     func bind(with comment: CommentHeaderView.ViewData) {
+        let usernameButtonText = "@" + comment.username
+        
+        usernameButton.setTitle(usernameButtonText, for: .normal)
+        communityButton.setTitle(comment.community, for: .normal)
+        publishedTitle.text = comment.published
         scoreLabel.set(text: String(comment.score), leftIcon: UIImage(systemName: "bolt.fill")!)
         
+        setupViews(comment)
         
     }
     
+    private func setupViews(_ comment: CommentHeaderView.ViewData) {
+        [usernameButton, toTitle, communityButton, scoreLabel].forEach { (label) in
+            self.stackView.addArrangedSubview(label)
+        }
+        if let avatarUrl = comment.avatarImageUrl {
+            Nuke.loadImage(with: ImageRequest(url: URL(string: avatarUrl)!), into: avatarView)
+            avatarView.snp.makeConstraints { (make) in
+                make.size.equalTo(imageSize.height)
+            }
+            self.stackView.insertArrangedSubview(avatarView, at: 0)
+        }
+        
+        self.snp.makeConstraints { (make) in
+            make.height.equalTo(30)
+        }
+        
+        self.addSubview(stackView)
+        
+        self.stackView.alignment = .center
+        self.stackView.spacing = 8
+        stackView.snp.makeConstraints { (make) in
+            make.top.bottom.leading.equalToSuperview()
+        }
+    }
 }
