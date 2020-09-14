@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 enum LemmySortType: String, Codable, CaseIterable {
     case active = "Active"
     case hot = "Hot"
@@ -18,6 +19,10 @@ enum LemmySortType: String, Codable, CaseIterable {
     case month = "Month"
     case all = "All"
     
+    // used in listCommunities
+    // case topAll = "TopAll"
+    // LemmySortType(rawValue: "TopAll")
+    
     var label: String {
         switch self {
         case .active: return "Active"
@@ -27,6 +32,7 @@ enum LemmySortType: String, Codable, CaseIterable {
         case .week: return "Week"
         case .month: return "Month"
         case .all: return "All"
+//        case .topAll: return "TopAll"
         }
     }
     
@@ -39,6 +45,7 @@ enum LemmySortType: String, Codable, CaseIterable {
         case .week: return 4
         case .month: return 5
         case .all: return 6
+//        case .topAll: return 7
         }
     }
 }
