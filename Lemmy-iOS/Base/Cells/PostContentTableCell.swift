@@ -144,13 +144,19 @@ private class PostContentFooterView: UIView {
     
     private let upvoteBtn: UIButton = {
         let btn = UIButton()
-        btn.setImage(UIImage(named: "arrow-20"), for: .normal)
+        let image = UIImage(systemName: "arrow.up")?
+            .withTintColor(UIColor.black, renderingMode: .alwaysOriginal)
+        
+        btn.setImage(image, for: .normal)
         return btn
     }()
     
     private let downvoteBtn: UIButton = {
         let btn = UIButton()
-        btn.setImage(UIImage(named: "arrow-20"), for: .normal)
+        let image = UIImage(systemName: "arrow.down")?
+            .withTintColor(UIColor.black, renderingMode: .alwaysOriginal)
+        
+        btn.setImage(image, for: .normal)
         return btn
     }()
     
@@ -181,10 +187,7 @@ private class PostContentFooterView: UIView {
         stackView.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalToSuperview()
         }
-        
-        upvoteBtn.imageView?.transform = CGAffineTransform(rotationAngle: .pi * 1.5)
-        downvoteBtn.imageView?.transform = CGAffineTransform(rotationAngle: .pi * 0.5)
-        
+                
         [commentBtn, upvoteBtn, downvoteBtn].forEach { (btn) in
             self.stackView.addArrangedSubview(btn)
             btn.setTitleColor(UIColor.label, for: .normal)
