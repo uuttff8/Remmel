@@ -10,6 +10,6 @@ import UIKit
 
 class CommunitiesViewController: UIViewController {
     override func viewDidLoad() {
-        
+        self.view.backgroundColor = UIColor.systemBackground
     }
 }

@@ -12,6 +12,7 @@ class LemmyTabBarController: UITabBarController {
     weak var coordinator: LemmyTabBarCoordinator?
     
     override func viewDidLoad() {
+        
         let frontPageCoordinator = FrontPageCoordinator(navigationController: nil)
         self.coordinator?.store(coordinator: frontPageCoordinator)
         frontPageCoordinator.start()
@@ -20,7 +21,15 @@ class LemmyTabBarController: UITabBarController {
                                                                           image: UIImage(systemName: "bolt.circle"),
                                                                           tag: 0)
         
-        self.viewControllers = [frontPageNc]
+        let communitiesCoordinator = CommunitiesCoordinator(navigationController: nil)
+        self.coordinator?.store(coordinator: communitiesCoordinator)
+        communitiesCoordinator.start()
+        let communitiesNc = UINavigationController(rootViewController: communitiesCoordinator.rootViewController)
+        communitiesCoordinator.rootViewController.tabBarItem = UITabBarItem(title: "",
+                                                                            image: UIImage(systemName: "person.2.fill"),
+                                                                            tag: 1)
+        
+        self.viewControllers = [frontPageNc, communitiesNc]
         
         self.selectedIndex = 0
         
