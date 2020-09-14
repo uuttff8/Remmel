@@ -12,14 +12,14 @@ extension LemmyApiStructs {
     enum Community {
         
         // MARK: - ListCommunities
-        struct ListCommunitiesRequest {
-            let sort: LemmySortType
+        struct ListCommunitiesRequest: Codable, Equatable {
+            let sort: String // TopAll case in LemmyFeedType is not exists
             let limit: Int
             let page: Int
             let auth: String?
         }
         
-        struct ListCommunitiesResponse {
+        struct ListCommunitiesResponse: Codable, Equatable {
             let communities: Array<CommunityView>
         }
     }

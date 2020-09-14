@@ -16,7 +16,7 @@ private protocol LemmyPostRequestManagerProtocol {
 extension RequestsManager: LemmyPostRequestManagerProtocol {
     func getPosts<Req, Res>(
         parameters: Req,
-        completion: @escaping ((Result<Res, Error>) -> Void)
+        completion: @escaping (Result<Res, Error>) -> Void
     ) where Req : Codable, Res : Codable {
         
         return requestDecodable(
