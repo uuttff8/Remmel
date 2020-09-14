@@ -168,12 +168,16 @@ extension FrontPageModel: PostContentTableCellDelegate {
 }
 
 extension FrontPageModel: CommentContentTableCellDelegate {
-    func usernameTapped(in post: LemmyApiStructs.CommentView) {
-        print(post.creatorName)
+    func postNameTapped(in comment: LemmyApiStructs.CommentView) {
+        print("post name tapped in \(comment.id)")
     }
     
-    func communityTapped(in post: LemmyApiStructs.CommentView) {
-        print(post.communityName)
+    func usernameTapped(in comment: LemmyApiStructs.CommentView) {
+        print(comment.creatorName)
+    }
+    
+    func communityTapped(in comment: LemmyApiStructs.CommentView) {
+        print(comment.communityName)
     }
     
     func upvote(comment: LemmyApiStructs.CommentView) {

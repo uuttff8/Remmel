@@ -10,8 +10,9 @@ import UIKit
 import Nuke
 
 protocol CommentContentTableCellDelegate: AnyObject {
-    func usernameTapped(in post: LemmyApiStructs.CommentView)
-    func communityTapped(in post: LemmyApiStructs.CommentView)
+    func usernameTapped(in comment: LemmyApiStructs.CommentView)
+    func communityTapped(in comment: LemmyApiStructs.CommentView)
+    func postNameTapped(in comment: LemmyApiStructs.CommentView)
     func upvote(comment: LemmyApiStructs.CommentView)
     func downvote(comment: LemmyApiStructs.CommentView)
     func showContext(in comment: LemmyApiStructs.CommentView)
@@ -69,6 +70,10 @@ class CommentContentTableCell: UITableViewCell {
         
         headerView.usernameButtonTap = { [weak self] in
             self?.delegate?.usernameTapped(in: comment)
+        }
+        
+        headerView.postNameButtonTap = { [weak self] in
+            self?.delegate?.postNameTapped(in: comment)
         }
     }
     
