@@ -72,6 +72,13 @@ enum LemmyFeedType: String, Codable, CaseIterable {
         case .subscribed: return "Subscribed"
         }
     }
+    
+    var index: Int {
+        switch self {
+        case .subscribed: return 0
+        case .all: return 1
+        }
+    }
 }
 
 enum LemmyApiStructs {

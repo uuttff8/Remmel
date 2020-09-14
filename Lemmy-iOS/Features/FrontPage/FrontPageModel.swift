@@ -18,11 +18,18 @@ class FrontPageModel: NSObject {
         }
     }
     
+    // at init always all
+    var currentFeedType: LemmyFeedType = LemmyFeedType.all {
+        didSet {
+            print(currentFeedType)
+        }
+    }
+    
     var postsDataSource: Array<LemmyApiStructs.PostView>?
     var commentsDataSource: Array<LemmyApiStructs.CommentView>?
     
     func loadPosts() {
-        let parameters = LemmyApiStructs.Post.GetPostsRequest(type_: LemmyFeedType.all,
+        let parameters = LemmyApiStructs.Post.GetPostsRequest(type_: self.currentFeedType,
                                                               sort: LemmySortType.active,
                                                               page: 1,
                                                               limit: 20,
@@ -48,7 +55,7 @@ class FrontPageModel: NSObject {
     }
     
     func loadComments() {
-        let parameters = LemmyApiStructs.Comment.GetCommentsRequest(type_: LemmyFeedType.all,
+        let parameters = LemmyApiStructs.Comment.GetCommentsRequest(type_: self.currentFeedType,
                                                                     sort: LemmySortType.hot,
                                                                     page: 1,
                                                                     limit: 20,
@@ -103,7 +110,7 @@ extension FrontPageModel: UITableViewDelegate, UITableViewDataSource {
         
         switch section {
         case .header:
-            let cell = FrontPageHeaderCell(contentSelectedIndex: currentContentType)
+            let cell = FrontPageHeaderCell(contentSelected: currentContentType, feedType: currentFeedType)
             cell.delegate = self
             return cell
         case .content:
@@ -203,7 +210,7 @@ extension FrontPageModel: CommentContentTableCellDelegate {
 
 extension FrontPageModel: FrontPageHeaderCellDelegate {
     func contentTypeChanged(to content: LemmyContentType) {
-        currentContentType = content
+        self.currentContentType = content
         
         switch currentContentType {
         case .comments: self.loadComments()
@@ -213,6 +220,12 @@ extension FrontPageModel: FrontPageHeaderCellDelegate {
     
     func feedTypeChanged(to feed: LemmyFeedType) {
         // TODO: Do change feed type for current content type
+        self.currentFeedType = feed
+        
+        switch currentContentType {
+        case .comments: self.loadComments()
+        case .posts: self.loadPosts()
+        }
     }
 }
 
