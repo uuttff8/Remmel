@@ -25,12 +25,12 @@ class CommunityPreviewTableCell: UITableViewCell {
     }()
     
     
-    func bind(with data: CommunityPreviewTableCell.ViewData) {
-        if let imageUrl = data.imageUrl {
+    func bind(with community: LemmyApiStructs.CommunityView) {
+        if let imageUrl = community.icon {
             Nuke.loadImage(with: ImageRequest(url: URL(string: imageUrl)!), into: self.imageView!)
         }
         
-        self.textLabel?.text = data.name
-        self.detailTextLabel?.text = data.category
+        self.textLabel?.text = community.name
+        self.detailTextLabel?.text = community.categoryName
     }
 }

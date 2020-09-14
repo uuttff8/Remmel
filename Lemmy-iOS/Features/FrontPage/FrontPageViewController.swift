@@ -29,9 +29,7 @@ class FrontPageViewController: UIViewController {
         search.obscuresBackgroundDuringPresentation = true
         return search
     }()
-    
-    var posts: Array<LemmyApiStructs.PostView>?
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.systemBackground

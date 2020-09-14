@@ -9,24 +9,40 @@
 import UIKit
 
 class CommunitiesViewController: UIViewController {
+    
+    let model = CommunitiesModel()
+    
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.tableFooterView = UIView()
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 40
+        tableView.keyboardDismissMode = .onDrag
+        tableView.separatorStyle = .none
+        return tableView
+    }()
+
+    
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.systemBackground
         
-        let parameters = LemmyApiStructs.Community.ListCommunitiesRequest(sort: "TopAll",
-                                                                          limit: 100,
-                                                                          page: 1,
-                                                                          auth: nil)
-        
-        ApiManager.shared.requestsManager
-            .listCommunities(parameters: parameters)
-            { (res: Result<LemmyApiStructs.Community.ListCommunitiesResponse, Error>) in
-                
-                switch res {
-                case .success(let data):
-                    print(data)
-                case .failure(let error):
-                    print(error)
-                }
+        setupTableView()
+        model.loadCommunities()
+        model.dataLoaded = { [weak self] in
+            guard let self = self else { return }
+            self.tableView.reloadData()
         }
     }
+    
+    private func setupTableView() {
+        tableView.delegate = model
+        tableView.dataSource = model
+        
+        self.view.addSubview(tableView)
+        
+        tableView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+    }
+
 }
