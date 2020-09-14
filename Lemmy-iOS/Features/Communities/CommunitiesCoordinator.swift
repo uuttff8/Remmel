@@ -1,21 +1,21 @@
 //
-//  FrontPageCoordinator.swift
+//  CommunitiesCoordinator.swift
 //  Lemmy-iOS
 //
-//  Created by uuttff8 on 9/11/20.
+//  Created by uuttff8 on 9/14/20.
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
 import UIKit
 
-class FrontPageCoordinator : Coordinator {
-    var rootViewController: FrontPageViewController
+class CommunitiesCoordinator : Coordinator {
+    var rootViewController: CommunitiesViewController
     var childCoordinators: [Coordinator] = []
     
     var navigationController: UINavigationController?
 
     init(navigationController: UINavigationController?) {
-        self.rootViewController = FrontPageViewController()
+        self.rootViewController = CommunitiesViewController()
         self.navigationController = navigationController
     }
 

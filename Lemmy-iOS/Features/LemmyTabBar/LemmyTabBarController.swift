@@ -14,6 +14,7 @@ class LemmyTabBarController: UITabBarController {
     override func viewDidLoad() {
         let frontPageCoordinator = FrontPageCoordinator(navigationController: nil)
         self.coordinator?.store(coordinator: frontPageCoordinator)
+        frontPageCoordinator.start()
         let frontPageNc = UINavigationController(rootViewController: frontPageCoordinator.rootViewController)
         frontPageCoordinator.rootViewController.tabBarItem = UITabBarItem(title: "",
                                                                           image: UIImage(systemName: "bolt.circle"),
