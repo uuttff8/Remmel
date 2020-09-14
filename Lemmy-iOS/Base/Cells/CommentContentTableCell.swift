@@ -64,6 +64,8 @@ class CommentContentTableCell: UITableViewCell {
     }
     
     private func setupTargets(with comment: LemmyApiStructs.CommentView) {
+        
+        // header view
         headerView.communityButtonTap = { [weak self] in
             self?.delegate?.communityTapped(in: comment)
         }
@@ -74,6 +76,27 @@ class CommentContentTableCell: UITableViewCell {
         
         headerView.postNameButtonTap = { [weak self] in
             self?.delegate?.postNameTapped(in: comment)
+        }
+        
+        // footer view
+        footerView.showContextTap = { [weak self] in
+            self?.delegate?.showContext(in: comment)
+        }
+        
+        footerView.upvoteTap = { [weak self] in
+            self?.delegate?.upvote(comment: comment)
+        }
+        
+        footerView.downvoteTap = { [weak self] in
+            self?.delegate?.downvote(comment: comment)
+        }
+        
+        footerView.replyTap = { [weak self] in
+            self?.delegate?.reply(to: comment)
+        }
+        
+        footerView.showMoreTap = { [weak self] in
+            self?.delegate?.showMoreAction(in: comment)
         }
     }
     
@@ -306,6 +329,11 @@ private class CommentCenterView: UIView {
 
 // MARK: - Footer -
 private class CommentFooterView: UIView {
+    var showContextTap: (() -> Void)?
+    var upvoteTap: (() -> Void)?
+    var downvoteTap: (() -> Void)?
+    var replyTap: (() -> Void)?
+    var showMoreTap: (() -> Void)?
     
     // MARK: - Constants
     private let iconSize = CGSize(width: 20, height: 20)
@@ -376,6 +404,15 @@ private class CommentFooterView: UIView {
     
     func bind(with: CommentFooterView.ViewData) {
         setupUI()
+        setupTargets()
+    }
+    
+    private func setupTargets() {
+        showContextButton.addTarget(self, action: #selector(showContextButtonTapped(sender:)), for: .touchUpInside)
+        upvoteButton.addTarget(self, action: #selector(upvoteButtonTapped(sender:)), for: .touchUpInside)
+        downvoteButton.addTarget(self, action: #selector(downvoteButtonTapped(sender:)), for: .touchUpInside)
+        replyButton.addTarget(self, action: #selector(replyButtonTapped(sender:)), for: .touchUpInside)
+        showMoreButton.addTarget(self, action: #selector(showMoreButtonTapped(sender:)), for: .touchUpInside)
     }
     
     func setupUI() {
@@ -400,6 +437,26 @@ private class CommentFooterView: UIView {
         }
         
         self.stackView.addArrangedSubview(UIView())
+    }
+    
+    @objc private func showContextButtonTapped(sender: UIButton!) {
+        showContextTap?()
+    }
+    
+    @objc private func upvoteButtonTapped(sender: UIButton!) {
+        upvoteTap?()
+    }
+
+    @objc private func downvoteButtonTapped(sender: UIButton!) {
+        downvoteTap?()
+    }
+
+    @objc private func replyButtonTapped(sender: UIButton!) {
+        replyTap?()
+    }
+
+    @objc private func showMoreButtonTapped(sender: UIButton!) {
+        showMoreTap?()
     }
     
     // MARK: - Content Size
