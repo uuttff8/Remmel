@@ -14,6 +14,7 @@ class CommentContentTableCell: UITableViewCell {
     private let paddingView = UIView()
     private let headerView = CommentHeaderView()
     private let centerView = CommentCenterView()
+    private let footerView = CommentFooterView()
     private let separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1)
@@ -38,6 +39,12 @@ class CommentContentTableCell: UITableViewCell {
         centerView.bind(with:
             CommentCenterView.ViewData(
                 comment: comment.content
+            )
+        )
+        
+        footerView.bind(with:
+            CommentFooterView.ViewData(
+                id: comment.id
             )
         )
         
@@ -80,8 +87,16 @@ class CommentContentTableCell: UITableViewCell {
         paddingView.addSubview(centerView)
         
         centerView.snp.makeConstraints { (make) in
-            make.top.equalTo(headerView.snp.bottom)
-            make.bottom.trailing.leading.equalToSuperview() // // SELF SIZE BOTTOM HERE
+            make.top.equalTo(headerView.snp.bottom).offset(5)
+            make.trailing.leading.equalToSuperview()
+        }
+        
+        // footer view
+        paddingView.addSubview(footerView)
+        
+        footerView.snp.makeConstraints { (make) in
+            make.top.equalTo(centerView.snp.bottom).offset(10)
+            make.leading.trailing.bottom.equalToSuperview() // SELF SIZE BOTTOM HERE
         }
     }
 }
@@ -239,6 +254,110 @@ private class CommentCenterView: UIView {
         }
     }
     
+    override var intrinsicContentSize: CGSize {
+        CGSize(width: UIScreen.main.bounds.width, height: 30)
+    }
+}
+
+// MARK: - Footer -
+private class CommentFooterView: UIView {
+    
+    // MARK: - Constants
+    private let iconSize = CGSize(width: 20, height: 20)
+    
+    // MARK: - Data
+    struct ViewData {
+        let id: Int
+    }
+    
+    // MARK: - UI Elements
+    private let showContextButton: UIButton = {
+        let btn = UIButton()
+        let image = UIImage(systemName: "link")?
+            .withTintColor(UIColor.label, renderingMode: .alwaysOriginal)
+        
+        btn.setImage(image, for: .normal)
+        return btn
+    }()
+    
+    private let upvoteButton: UIButton = {
+        let btn = UIButton()
+        let image = UIImage(systemName: "arrow.up")?
+            .withTintColor(UIColor.label, renderingMode: .alwaysOriginal)
+        
+        btn.setImage(image, for: .normal)
+        return btn
+        
+    }()
+    
+    private let downvoteButton: UIButton = {
+        let btn = UIButton()
+        let image = UIImage(systemName: "arrow.down")?
+            .withTintColor(UIColor.label, renderingMode: .alwaysOriginal)
+        
+        btn.setImage(image, for: .normal)
+        return btn
+    }()
+    
+    private let replyButton: UIButton = {
+        let btn = UIButton()
+        let image = UIImage(systemName: "arrowshape.turn.up.left.fill")?
+            .withTintColor(UIColor.label, renderingMode: .alwaysOriginal)
+        
+        btn.setImage(image, for: .normal)
+        return btn
+    }()
+    
+    private let showMoreButton: UIButton = {
+        let btn = UIButton()
+        
+        let image = UIImage(systemName: "ellipsis")?
+            .withTintColor(UIColor.label, renderingMode: .alwaysOriginal)
+        
+        btn.setImage(image, for: .normal)
+        return btn
+    }()
+    
+    private let stackView = UIStackView()
+    
+    // MARK: - Init
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func bind(with: CommentFooterView.ViewData) {
+        setupUI()
+    }
+    
+    func setupUI() {
+        
+        // settup up stack view
+        self.addSubview(stackView)
+        self.stackView.alignment = .center
+        stackView.spacing = 40
+        
+        // constraints
+        stackView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalToSuperview()
+        }
+        
+        [showContextButton, upvoteButton, downvoteButton, replyButton, showMoreButton].forEach { (btn) in
+            self.stackView.addArrangedSubview(btn)
+            
+            btn.snp.makeConstraints { (make) in
+                make.height.equalTo(20)
+                make.width.equalTo(20)
+            }
+        }
+        
+        self.stackView.addArrangedSubview(UIView())
+    }
+    
+    // MARK: - Content Size
     override var intrinsicContentSize: CGSize {
         CGSize(width: UIScreen.main.bounds.width, height: 30)
     }
