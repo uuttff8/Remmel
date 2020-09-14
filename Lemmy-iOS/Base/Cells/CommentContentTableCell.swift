@@ -9,7 +9,19 @@
 import UIKit
 import Nuke
 
+protocol CommentContentTableCellDelegate: AnyObject {
+    func usernameTapped(in post: LemmyApiStructs.CommentView)
+    func communityTapped(in post: LemmyApiStructs.CommentView)
+    func upvote(comment: LemmyApiStructs.CommentView)
+    func downvote(comment: LemmyApiStructs.CommentView)
+    func showContext(in comment: LemmyApiStructs.CommentView)
+    func reply(to comment: LemmyApiStructs.CommentView)
+    func showMoreAction(in comment: LemmyApiStructs.CommentView)
+}
+
 class CommentContentTableCell: UITableViewCell {
+    
+    weak var delegate: CommentContentTableCellDelegate?
     
     private let paddingView = UIView()
     private let headerView = CommentHeaderView()
@@ -51,6 +63,13 @@ class CommentContentTableCell: UITableViewCell {
     }
     
     private func setupTargets(with comment: LemmyApiStructs.CommentView) {
+        headerView.communityButtonTap = { [weak self] in
+            self?.delegate?.communityTapped(in: comment)
+        }
+        
+        headerView.usernameButtonTap = { [weak self] in
+            self?.delegate?.usernameTapped(in: comment)
+        }
     }
     
     private func setupPaddingAndSeparatorUI() {
@@ -102,6 +121,10 @@ class CommentContentTableCell: UITableViewCell {
 }
 
 private class CommentHeaderView: UIView {
+    var communityButtonTap: (() -> Void)?
+    var usernameButtonTap: (() -> Void)?
+    var postNameButtonTap: (() -> Void)?
+    
     private let imageSize = CGSize(width: 32, height: 32)
     
     struct ViewData {
@@ -183,7 +206,7 @@ private class CommentHeaderView: UIView {
         postNameButton.setTitle(comment.postName, for: .normal)
         
         setupViews(comment)
-        
+        setupButtonTargets()
     }
     
     private func setupViews(_ comment: CommentHeaderView.ViewData) {
@@ -217,8 +240,25 @@ private class CommentHeaderView: UIView {
             make.leading.bottom.equalToSuperview()
         }
     }
+    
+    func setupButtonTargets() {
+        usernameButton.addTarget(self, action: #selector(usernameButtonTapped(sender:)), for: .touchUpInside)
+        communityButton.addTarget(self, action: #selector(communityButtonTapped(sender:)), for: .touchUpInside)
+        postNameButton.addTarget(self, action: #selector(postNameButtonTapped(sender:)), for: .touchUpInside)
+    }
+    
+    @objc private func communityButtonTapped(sender: UIButton!) {
+        communityButtonTap?()
+    }
+    
+    @objc private func usernameButtonTapped(sender: UIButton!) {
+        usernameButtonTap?()
+    }
+    
+    @objc private func postNameButtonTapped(sender: UIButton!) {
+        postNameButtonTap?()
+    }
 }
-
 
 private class CommentCenterView: UIView {
     

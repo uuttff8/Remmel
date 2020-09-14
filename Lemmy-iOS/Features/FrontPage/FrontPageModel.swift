@@ -143,6 +143,7 @@ extension FrontPageModel: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         let commentCell = CommentContentTableCell()
+        commentCell.delegate = self
         commentCell.bind(with: comments[indexPath.row])
         return commentCell
     }
@@ -163,6 +164,36 @@ extension FrontPageModel: PostContentTableCellDelegate {
     
     func downvote(post: LemmyApiStructs.PostView) {
         print("downvote")
+    }
+}
+
+extension FrontPageModel: CommentContentTableCellDelegate {
+    func usernameTapped(in post: LemmyApiStructs.CommentView) {
+        print(post.creatorName)
+    }
+    
+    func communityTapped(in post: LemmyApiStructs.CommentView) {
+        print(post.communityName)
+    }
+    
+    func upvote(comment: LemmyApiStructs.CommentView) {
+        print("\(comment) upvoted")
+    }
+    
+    func downvote(comment: LemmyApiStructs.CommentView) {
+        print("\(comment) downvoted")
+    }
+    
+    func showContext(in comment: LemmyApiStructs.CommentView) {
+        print("show context in \(comment.id)")
+    }
+    
+    func reply(to comment: LemmyApiStructs.CommentView) {
+        print("reply to \(comment.id)")
+    }
+    
+    func showMoreAction(in comment: LemmyApiStructs.CommentView) {
+        print("show more in \(comment.id)")
     }
 }
 
