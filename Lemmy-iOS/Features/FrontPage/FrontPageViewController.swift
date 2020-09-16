@@ -23,13 +23,8 @@ class FrontPageViewController: UIViewController {
         return tableView
     }()
     
-    let searchController: UISearchController = {
-        let search = UISearchController()
-        search.hidesNavigationBarDuringPresentation = false
-        search.obscuresBackgroundDuringPresentation = true
-        return search
-    }()
-        
+    let searchBarView = LemmySearchBarView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.systemBackground
@@ -55,7 +50,10 @@ class FrontPageViewController: UIViewController {
     }
     
     private func setupNavigationItem() {
-        navigationItem.titleView = searchController.searchBar
+        navigationItem.titleView = searchBarView
+        self.searchBarView.snp.makeConstraints { (make) in
+            make.trailing.leading.equalToSuperview().inset(10)
+        }
         navigationItem.titleView?.frame.size.width = UIScreen.main.bounds.width
     }
 }
