@@ -25,6 +25,7 @@ class CommunitiesViewController: UIViewController {
     
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.systemBackground
+        self.navigationItem.title = "Communities"
         
         setupTableView()
         model.loadCommunities()
