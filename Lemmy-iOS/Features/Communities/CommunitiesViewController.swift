@@ -44,5 +44,4 @@ class CommunitiesViewController: UIViewController {
             make.edges.equalToSuperview()
         }
     }
-
 }

@@ -9,28 +9,58 @@
 import UIKit
 import Nuke
 
+protocol CommunityPreviewTableCellDelegate: AnyObject {
+    func follow(to community: LemmyApiStructs.CommunityView)
+}
+
 class CommunityPreviewTableCell: UITableViewCell {
-    private let iconSize = CGSize(width: 20, height: 20)
-    
     struct ViewData {
         let imageUrl: String?
         let name: String
         let category: String
         let subscribers: Int
     }
-        
-    private let subscribersLabel: UILabel = {
-        let lbl = UILabel()
-        return lbl
+    
+    weak var delegate: CommunityPreviewTableCellDelegate?
+    
+    let community: LemmyApiStructs.CommunityView
+    
+    private let iconSize = CGSize(width: 20, height: 20)
+    private let followButton: UIButton = {
+        let btn = UIButton()
+        return btn
     }()
     
+    init(community: LemmyApiStructs.CommunityView) {
+        self.community = community
+        super.init(style: .subtitle, reuseIdentifier: nil)
+        bind()
+    }
     
-    func bind(with community: LemmyApiStructs.CommunityView) {
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func bind() {
         if let imageUrl = community.icon {
             Nuke.loadImage(with: ImageRequest(url: URL(string: imageUrl)!), into: self.imageView!)
         }
         
         self.textLabel?.text = community.name
         self.detailTextLabel?.text = community.categoryName
+        self.followButton.setTitle("Follow", for: .normal)
+        self.followButton.setTitleColor(UIColor.systemBlue, for: .normal)
+        
+        self.addSubview(followButton)
+        
+        followButton.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().inset(16)
+        }
+        followButton.addTarget(self, action: #selector(followButtonTapped(sender:)), for: .touchUpInside)
+    }
+    
+    @objc func followButtonTapped(sender: UIButton!) {
+        self.delegate?.follow(to: community)
     }
 }

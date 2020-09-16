@@ -49,12 +49,17 @@ extension CommunitiesModel: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let communities = communitiesDataSource else {
-            return UITableViewCell()
-        }
+        guard let communities = communitiesDataSource
+            else { return UITableViewCell() }
         
-        let cell = CommunityPreviewTableCell()
-        cell.bind(with: communities[indexPath.row])
+        let cell = CommunityPreviewTableCell(community: communities[indexPath.row])
+        cell.delegate = self
         return cell
+    }
+}
+
+extension CommunitiesModel: CommunityPreviewTableCellDelegate {
+    func follow(to community: LemmyApiStructs.CommunityView) {
+        print("followed to: \(community.name)")
     }
 }
