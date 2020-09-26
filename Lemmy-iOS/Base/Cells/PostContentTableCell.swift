@@ -18,6 +18,29 @@ protocol PostContentTableCellDelegate: AnyObject {
 
 class PostContentTableCell: UITableViewCell {
     
+    let postContentView = PostContentView()
+    
+    func bind(with post: LemmyApiStructs.PostView) {
+        self.contentView.addSubview(postContentView)
+        
+        self.postContentView.snp.makeConstraints { (make) in
+            make.top.bottom.leading.trailing.equalToSuperview()
+        }
+        
+        postContentView.bind(with: post)
+        
+        setupUI()
+    }
+    
+    func setupUI() {
+        let selBackView = UIView()
+        selBackView.backgroundColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1)
+        self.selectedBackgroundView = selBackView
+    }
+}
+
+class PostContentView: UIView {
+    
     weak var delegate: PostContentTableCellDelegate?
     
     private let paddingView = UIView()
@@ -29,10 +52,6 @@ class PostContentTableCell: UITableViewCell {
         view.backgroundColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1)
         return view
     }()
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
     
     func bind(with post: LemmyApiStructs.PostView) {
         setupUI()
@@ -86,8 +105,8 @@ class PostContentTableCell: UITableViewCell {
     private func setupUI() {
         
         // padding and separator
-        self.contentView.addSubview(paddingView)
-        self.contentView.addSubview(separatorView)
+        self.addSubview(paddingView)
+        self.addSubview(separatorView)
         paddingView.snp.makeConstraints { (make) in
             make.top.leading.equalToSuperview().offset(10) // SELF SIZE TOP HERE
             make.bottom.trailing.equalToSuperview().inset(10)
@@ -98,10 +117,6 @@ class PostContentTableCell: UITableViewCell {
             make.trailing.equalToSuperview().inset(10)
             make.leading.equalToSuperview().offset(10)
         }
-        
-        let selBackView = UIView()
-        selBackView.backgroundColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1)
-        self.selectedBackgroundView = selBackView
         
         // header view
         paddingView.addSubview(headerView)

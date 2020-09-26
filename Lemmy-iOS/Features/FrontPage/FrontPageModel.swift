@@ -131,23 +131,31 @@ extension FrontPageModel: UITableViewDelegate, UITableViewDataSource {
         case .content:
             switch currentContentType {
             case .comments:
-                break
+                handleDidSelectForComments(indexPath: indexPath)
             case .posts:
-                break
+                handleDidSelectForPosts(indexPath: indexPath)
             }
 
-            tableView.deselectRow(at: indexPath, animated: true)
         case .header:
-            tableView.deselectRow(at: indexPath, animated: true)
+            break
         }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+
     }
+    
+    // TODO(uuttff8): go to posts
+    private func handleDidSelectForPosts(indexPath: IndexPath) { }
+    
+    // TODO(uuttff8): go to comments
+    private func handleDidSelectForComments(indexPath: IndexPath) { }
     
     private func handleCellForPosts(indexPath: IndexPath) -> UITableViewCell {
         guard let posts = postsDataSource else {
             return UITableViewCell()
         }
         let postCell = PostContentTableCell()
-        postCell.delegate = self
+        postCell.postContentView.delegate = self
         postCell.bind(with: posts[indexPath.row])
         return postCell
     }
