@@ -8,30 +8,23 @@
 
 import UIKit
 
-class LemmySearchBarView: UIView {
-    
-    let searchView = LemmySearchBar()
+class LemmySearchBarController: UISearchController {
 
+    private lazy var customSearchBar = LemmySearchBar()
+    
+    override var searchBar: UISearchBar {
+        customSearchBar
+    }
+    
     init() {
-        super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        bind()
+        super.init(nibName: nil, bundle: nil)
+        self.hidesNavigationBarDuringPresentation = false
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind() {
-        self.addSubview(searchView)
-        
-        searchView.snp.makeConstraints { (make) in
-            make.top.bottom.trailing.leading.equalToSuperview()
-        }
-    }
-    
-    override var intrinsicContentSize: CGSize {
-        CGSize(width: UIScreen.main.bounds.width, height: UIView.noIntrinsicMetric)
-    }
 }
 
 class LemmySearchBar: UISearchBar, UISearchBarDelegate {

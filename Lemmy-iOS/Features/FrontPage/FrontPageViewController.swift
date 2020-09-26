@@ -23,7 +23,7 @@ class FrontPageViewController: UIViewController {
         return tableView
     }()
     
-    let searchBarView = LemmySearchBarView()
+    let navBar = LemmyFrontPageNavBar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,10 +50,9 @@ class FrontPageViewController: UIViewController {
     }
     
     private func setupNavigationItem() {
-        navigationItem.titleView = searchBarView
-        self.searchBarView.snp.makeConstraints { (make) in
-            make.leading.equalToSuperview().inset(10)
-            make.trailing.equalToSuperview().inset(60)
+        navigationItem.titleView = navBar
+        self.navBar.snp.makeConstraints { (make) in
+            make.leading.trailing.equalToSuperview()
         }
         navigationItem.titleView?.frame.size.width = UIScreen.main.bounds.width
     }
