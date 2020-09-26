@@ -10,6 +10,7 @@ import UIKit
 
 class FrontPageModel: NSObject {
     var dataLoaded: (() -> Void)?
+    var goToPostScreen: ((LemmyApiStructs.PostView) -> ())?
     
     // at init always posts
     var currentContentType: LemmyContentType = LemmyContentType.posts {
@@ -145,7 +146,12 @@ extension FrontPageModel: UITableViewDelegate, UITableViewDataSource {
     }
     
     // TODO(uuttff8): go to posts
-    private func handleDidSelectForPosts(indexPath: IndexPath) { }
+    private func handleDidSelectForPosts(indexPath: IndexPath) {
+        guard let posts = postsDataSource else {
+            return
+        }
+        self.goToPostScreen?(posts[indexPath.row])
+    }
     
     // TODO(uuttff8): go to comments
     private func handleDidSelectForComments(indexPath: IndexPath) { }

@@ -20,6 +20,7 @@ class LemmyTabBarController: UITabBarController {
         frontPageCoordinator.rootViewController.tabBarItem = UITabBarItem(title: "",
                                                                           image: UIImage(systemName: "bolt.circle"),
                                                                           tag: 0)
+        frontPageCoordinator.navigationController = frontPageNc
         
         let communitiesCoordinator = CommunitiesCoordinator(navigationController: nil)
         self.coordinator?.store(coordinator: communitiesCoordinator)
@@ -28,6 +29,7 @@ class LemmyTabBarController: UITabBarController {
         communitiesCoordinator.rootViewController.tabBarItem = UITabBarItem(title: "",
                                                                             image: UIImage(systemName: "person.2.fill"),
                                                                             tag: 1)
+        communitiesCoordinator.navigationController = communitiesNc
         
         self.viewControllers = [frontPageNc, communitiesNc]
         

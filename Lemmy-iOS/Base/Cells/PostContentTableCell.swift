@@ -141,7 +141,10 @@ class PostContentView: UIView {
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview() // SELF SIZE BOTTOM HERE
         }
-        
+    }
+    
+    func setupUIForPost() {
+        self.centerView.setupUIForPost()
     }
 }
 
@@ -309,6 +312,10 @@ private class PostContentCenterView: UIView {
             make.top.equalTo(stackView.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
         }
+    }
+    
+    func setupUIForPost() {
+        self.subtitleLabel.numberOfLines = 0
     }
     
     

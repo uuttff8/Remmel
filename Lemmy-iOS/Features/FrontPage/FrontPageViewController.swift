@@ -11,6 +11,8 @@ import SnapKit
 
 class FrontPageViewController: UIViewController {
     
+    weak var coordinator: FrontPageCoordinator?
+    
     let model = FrontPageModel()
     
     let tableView: UITableView = {
@@ -35,6 +37,9 @@ class FrontPageViewController: UIViewController {
         model.loadPosts()
         model.dataLoaded = {
             self.tableView.reloadData()            
+        }
+        model.goToPostScreen = { (post) in
+            self.coordinator?.goToPostScreen(post: post)
         }
     }
     

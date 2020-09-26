@@ -20,6 +20,13 @@ class FrontPageCoordinator : Coordinator {
     }
 
     func start() {
+        self.store(coordinator: self)
+        rootViewController.coordinator = self
         navigationController?.pushViewController(self.rootViewController, animated: true)
+    }
+    
+    func goToPostScreen(post: LemmyApiStructs.PostView) {
+        let postScreen = PostScreenViewController(post: post)
+        self.navigationController?.pushViewController(postScreen, animated: true)
     }
 }
