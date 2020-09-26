@@ -10,12 +10,7 @@ import UIKit
 
 class LemmySearchBarView: UIView {
     
-    let searchController: UISearchController = {
-        let search = UISearchController()
-        search.hidesNavigationBarDuringPresentation = false
-        search.obscuresBackgroundDuringPresentation = true
-        return search
-    }()
+    let searchView = LemmySearchBar()
 
     init() {
         super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
@@ -27,9 +22,9 @@ class LemmySearchBarView: UIView {
     }
     
     func bind() {
-        self.addSubview(searchController.searchBar)
+        self.addSubview(searchView)
         
-        searchController.searchBar.snp.makeConstraints { (make) in
+        searchView.snp.makeConstraints { (make) in
             make.top.bottom.trailing.leading.equalToSuperview()
         }
     }
@@ -39,6 +34,14 @@ class LemmySearchBarView: UIView {
     }
 }
 
-private class LemmySearchBar: UISearchBar, UISearchBarDelegate {
+class LemmySearchBar: UISearchBar, UISearchBarDelegate {
+    init() {
+        super.init(frame: .zero)
+        
+        self.placeholder = "Search"
+    }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

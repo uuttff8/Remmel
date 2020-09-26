@@ -52,7 +52,8 @@ class FrontPageViewController: UIViewController {
     private func setupNavigationItem() {
         navigationItem.titleView = searchBarView
         self.searchBarView.snp.makeConstraints { (make) in
-            make.trailing.leading.equalToSuperview().inset(10)
+            make.leading.equalToSuperview().inset(10)
+            make.trailing.equalToSuperview().inset(60)
         }
         navigationItem.titleView?.frame.size.width = UIScreen.main.bounds.width
     }
