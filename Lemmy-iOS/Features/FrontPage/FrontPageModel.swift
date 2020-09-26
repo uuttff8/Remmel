@@ -129,6 +129,13 @@ extension FrontPageModel: UITableViewDelegate, UITableViewDataSource {
         
         switch section {
         case .content:
+            switch currentContentType {
+            case .comments:
+                break
+            case .posts:
+                break
+            }
+
             tableView.deselectRow(at: indexPath, animated: true)
         case .header:
             tableView.deselectRow(at: indexPath, animated: true)

@@ -195,7 +195,6 @@ private class PostContentFooterView: UIView {
             
             btn.snp.makeConstraints { (make) in
                 make.height.equalTo(30)
-                make.width.equalTo(50)
             }
         }
         self.stackView.addArrangedSubview(UIView())
