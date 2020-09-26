@@ -10,6 +10,7 @@ import UIKit
 
 class LemmyFrontPageNavBar: UIView {
     let searchBar = LemmySearchBar()
+    let profileIcon = LemmyProfileIconView()
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -22,10 +23,18 @@ class LemmyFrontPageNavBar: UIView {
     
     func bind() {
         self.addSubview(searchBar)
+        self.addSubview(profileIcon)
+        
         self.searchBar.snp.makeConstraints { (make) in
             make.top.bottom.equalToSuperview()
             make.leading.equalToSuperview().inset(10)
-            make.trailing.equalToSuperview().inset(60)
+            make.trailing.equalToSuperview().inset(50)
+        }
+        
+        self.profileIcon.snp.makeConstraints { (make) in
+            make.top.bottom.equalToSuperview()
+            make.leading.equalTo(searchBar.snp.trailing).offset(10)
+            make.trailing.equalToSuperview().inset(10)
         }
     }
 }
