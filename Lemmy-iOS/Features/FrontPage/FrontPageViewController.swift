@@ -53,6 +53,7 @@ class FrontPageViewController: UIViewController {
         navigationItem.titleView = navBar
         self.navBar.snp.makeConstraints { (make) in
             make.leading.trailing.equalToSuperview()
+            make.height.equalTo(40)
         }
         navigationItem.titleView?.frame.size.width = UIScreen.main.bounds.width
     }

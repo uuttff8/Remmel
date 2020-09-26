@@ -11,6 +11,7 @@ import UIKit
 class LemmyProfileIconView: UIView {
     let imageButton: UIButton = {
         let btn = UIButton()
+        btn.setImage(UIImage(systemName: "person"), for: .normal)
         return btn
     }()
     
@@ -18,11 +19,13 @@ class LemmyProfileIconView: UIView {
         super.init(frame: .zero)
         
         self.addSubview(imageButton)
+        
         imageButton.snp.makeConstraints { (make) in
             make.top.bottom.leading.trailing.equalToSuperview()
-            make.height.equalTo(30)
         }
-        self.backgroundColor = UIColor.red
+//        imageButton.imageView?.snp.makeConstraints({ (make) in
+//            make.size.equalTo(30)
+//        })
     }
     
     required init?(coder: NSCoder) {
