@@ -11,6 +11,12 @@ import UIKit
 class PostScreenViewController: UIViewController {
     let postInfo: LemmyApiStructs.PostView
     
+    lazy var customView = PostScreenUI(post: postInfo)
+    
+    override func loadView() {
+        self.view = customView
+    }
+    
     init(post: LemmyApiStructs.PostView) {
         self.postInfo = post
         
@@ -21,11 +27,7 @@ class PostScreenViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func loadView() {
-        self.view = PostScreenUI(post: postInfo)
-    }
-    
     override func viewDidLoad() {
-        self.view.backgroundColor = UIColor.systemBackground
+        
     }
 }

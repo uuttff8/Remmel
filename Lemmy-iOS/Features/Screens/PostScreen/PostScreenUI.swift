@@ -17,6 +17,7 @@ class PostScreenUI: UIView {
         self.postInfo = post
         super.init(frame: .zero)
         
+        createSubviews()
         setupUI()
     }
     
@@ -24,18 +25,19 @@ class PostScreenUI: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupUI() {
+    private func createSubviews() {
+        // post header view
         postHeaderView.bind(with: postInfo)
         postHeaderView.setupUIForPost()
+        
         self.addSubview(postHeaderView)
         
-        self.snp.makeConstraints { (make) in
-            make.height.equalTo(500)
-            make.width.equalTo(UIScreen.main.bounds.width)
-        }
-        
         self.postHeaderView.snp.makeConstraints { (make) in
-            make.bottom.top.trailing.leading.equalToSuperview()
+            make.top.trailing.leading.equalTo(self.safeAreaLayoutGuide)
         }
+    }
+    
+    func setupUI() {
+        self.backgroundColor = UIColor.systemBackground
     }
 }
