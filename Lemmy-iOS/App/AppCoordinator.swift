@@ -25,7 +25,7 @@ class AppCoordinator :  Coordinator {
         // store child coordinator
         self.store(coordinator: myCoordinator)
         myCoordinator.start()
-
+        
         window.rootViewController = myCoordinator.rootViewController
         window.makeKeyAndVisible()
     }

@@ -20,7 +20,6 @@ class FrontPageCoordinator : Coordinator {
     }
 
     func start() {
-        self.store(coordinator: self)
         rootViewController.coordinator = self
         navigationController?.pushViewController(self.rootViewController, animated: true)
     }

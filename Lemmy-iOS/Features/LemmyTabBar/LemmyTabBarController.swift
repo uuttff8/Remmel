@@ -13,6 +13,9 @@ class LemmyTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         
+    }
+    
+    func createTabs() {
         let frontPageCoordinator = FrontPageCoordinator(navigationController: nil)
         self.coordinator?.store(coordinator: frontPageCoordinator)
         frontPageCoordinator.start()
@@ -32,8 +35,8 @@ class LemmyTabBarController: UITabBarController {
         communitiesCoordinator.navigationController = communitiesNc
         
         self.viewControllers = [frontPageNc, communitiesNc]
-        
+                
         self.selectedIndex = 0
-        
+
     }
 }

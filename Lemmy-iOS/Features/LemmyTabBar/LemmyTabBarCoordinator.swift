@@ -22,5 +22,6 @@ final class LemmyTabBarCoordinator: Coordinator {
         
     func start() {
         rootViewController.coordinator = self
+        rootViewController.createTabs()
     }
 }
