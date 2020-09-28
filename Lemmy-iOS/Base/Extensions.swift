@@ -97,7 +97,7 @@ extension UILabel {
     }
 }
 
-extension UIColor{
+extension UIColor {
     convenience init(rgb: UInt, alphaVal: CGFloat) {
         self.init(
             red: CGFloat((rgb & 0xFF0000) >> 16) / 255.0,
@@ -105,5 +105,16 @@ extension UIColor{
             blue: CGFloat(rgb & 0x0000FF) / 255.0,
             alpha: alphaVal
         )
+    }
+}
+
+extension Date {
+    static func toLemmyDate(str: String?) -> Date {
+        guard let str = str else { return Date() }
+        let dateFormatter = ISO8601DateFormatter()
+        dateFormatter.formatOptions = [.withFullDate, .withFractionalSeconds, .withTime, .withColonSeparatorInTime]
+        dateFormatter.timeZone = TimeZone.current
+        // Safety: if error here then backend returned not valid sent date in string
+        return dateFormatter.date(from: str)!
     }
 }
