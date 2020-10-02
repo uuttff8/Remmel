@@ -46,13 +46,16 @@ class LemmyGreenOutlinePostEmbed: UIView {
         
         if viewData.title == nil {
             titleLabel.isHidden = true
+            titleLabel.removeFromSuperview()
         }
         if viewData.description == nil {
             descriptionLabel.isHidden = true
+            descriptionLabel.removeFromSuperview()
         }
         
         if viewData.description == nil && viewData.title == nil {
             self.isHidden = true
+            self.removeFromSuperview()
             self.frame.size.height = 0
         }
     }
@@ -71,11 +74,17 @@ class LemmyGreenOutlinePostEmbed: UIView {
             make.trailing.equalToSuperview().inset(10)
         }
         
-        descriptionLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.leading.equalToSuperview().inset(10)
-            make.trailing.equalToSuperview().inset(10)
-            make.bottom.equalToSuperview().inset(10)
+        if viewData.description != nil {
+            descriptionLabel.snp.makeConstraints { (make) in
+                make.top.equalTo(titleLabel.snp.bottom).offset(10)
+                make.leading.equalToSuperview().inset(10)
+                make.trailing.equalToSuperview().inset(10)
+                make.bottom.equalToSuperview().inset(10)
+            }
+        } else {
+            titleLabel.snp.remakeConstraints { (make) in
+                make.top.leading.bottom.trailing.equalToSuperview().inset(10)
+            }
         }
-    }    
+    }
 }
