@@ -32,12 +32,7 @@ class FrontPageHeaderCell: UITableViewCell {
         )
 
         super.init(style: .default, reuseIdentifier: nil)
-        
-        self.contentView.snp.remakeConstraints { (make) in
-            make.height.equalTo(40)
-        }
-        
-        
+                
         contentTypeSegment.segmentControl.addTarget(
             self,
             action: #selector(segmentContentTypeChanged(_:)),
@@ -58,6 +53,7 @@ class FrontPageHeaderCell: UITableViewCell {
         }
         
         feedTypeSegment.snp.makeConstraints { (make) in
+            make.height.equalTo(40)
             make.bottom.top.trailing.equalToSuperview()
             make.leading.equalTo(contentTypeSegment.snp.trailing)
         }

@@ -228,7 +228,7 @@ class WSLemmy {
                 switch messageType {
                 case .string(let outString):
                     completion(outString)
-                case .data(let outData):
+                case .data(_):
                     break
 //                    print(outData)
                 @unknown default:
