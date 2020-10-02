@@ -55,9 +55,7 @@ class CommentListingSort {
         return repliesOnly
     }
     
-    func createTreeOfReplies() -> Array<CommentNode> {
-        // TODO: Create tree of replies
-        
+    func createTreeOfReplies() -> Array<CommentNode> {        
         let notReplies = findNotReplyComments(in: comments)
         var nodes = [CommentNode]()
         

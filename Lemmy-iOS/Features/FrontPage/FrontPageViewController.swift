@@ -41,6 +41,10 @@ class FrontPageViewController: UIViewController {
         model.goToPostScreen = { (post) in
             self.coordinator?.goToPostScreen(post: post)
         }
+        
+        model.newDataLoaded = {
+            // TODO: implement it
+        }
     }
     
     private func setupTableView() {

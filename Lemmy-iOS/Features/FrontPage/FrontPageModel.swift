@@ -10,7 +10,9 @@ import UIKit
 
 class FrontPageModel: NSObject {
     var dataLoaded: (() -> Void)?
+    var newDataLoaded: (() -> Void)?
     var goToPostScreen: ((LemmyApiStructs.PostView) -> ())?
+    var isFetchingNewContent = false
     
     // at init always posts
     var currentContentType: LemmyContentType = LemmyContentType.posts {
@@ -52,7 +54,32 @@ class FrontPageModel: NSObject {
                     print(error)
                 }
         })
+    }
+    
+    func loadMorePosts() {
+        let parameters = LemmyApiStructs.Post.GetPostsRequest(type_: self.currentFeedType,
+                                                              sort: LemmySortType.active,
+                                                              page: 2,
+                                                              limit: 20,
+                                                              communityId: nil,
+                                                              communityName: nil,
+                                                              auth: nil)
         
+        ApiManager.shared.requestsManager.getPosts(
+            parameters: parameters,
+            completion: { (dec: Result<LemmyApiStructs.Post.GetPostsResponse, Error>) in
+                switch dec {
+                case .success(let posts):
+                    self.postsDataSource = posts.posts
+                    DispatchQueue.main.async {
+                        self.newDataLoaded?()
+                    }
+                    
+                case .failure(let error):
+                    print(error)
+                }
+        })
+
     }
     
     func loadComments() {
@@ -145,7 +172,41 @@ extension FrontPageModel: UITableViewDelegate, UITableViewDataSource {
 
     }
     
-    // TODO(uuttff8): go to posts
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        
+        let section = FrontPageCells.allCases[indexPath.section]
+        let indexPathRow = indexPath.row
+        
+        switch section {
+        case .content:
+            switch currentContentType {
+            case .comments:
+                guard let comments = commentsDataSource else { return }
+                
+                if indexPathRow >= comments.count - 21 {
+                    guard !self.isFetchingNewContent else { return }
+                    
+                    
+                }
+            case .posts:
+                guard let posts = postsDataSource else { return }
+                
+                if indexPathRow >= posts.count - 21 {
+                    guard !self.isFetchingNewContent else { return }
+                    
+                    
+                    
+                }
+            }
+
+        case .header:
+            break
+        }
+
+        
+    }
+    
     private func handleDidSelectForPosts(indexPath: IndexPath) {
         guard let posts = postsDataSource else {
             return
@@ -240,7 +301,6 @@ extension FrontPageModel: FrontPageHeaderCellDelegate {
     }
     
     func feedTypeChanged(to feed: LemmyFeedType) {
-        // TODO: Do change feed type for current content type
         self.currentFeedType = feed
         
         switch currentContentType {
