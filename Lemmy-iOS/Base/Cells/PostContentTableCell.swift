@@ -62,7 +62,7 @@ class PostContentView: UIView {
                 avatarImageUrl: post.creatorAvatar,
                 username: post.creatorName,
                 community: post.communityName,
-                published: post.published
+                published: Date.toLemmyDate(str: post.published).toRelativeDate()
             )
         )
         
@@ -398,11 +398,7 @@ private class PostContentHeaderView: UIView {
         self.stackView.spacing = 8
         stackView.snp.makeConstraints { (make) in
             make.top.bottom.leading.equalToSuperview()
-        }
-        
-        publishedTitle.snp.makeConstraints { (make) in
-            make.width.equalTo(60)
-        }
+        }        
         
         setupTargets()
     }

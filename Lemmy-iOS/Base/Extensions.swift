@@ -117,4 +117,11 @@ extension Date {
         // Safety: if error here then backend returned not valid sent date in string
         return dateFormatter.date(from: str)!
     }
+    
+    func toRelativeDate() -> String {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .short
+        
+        return formatter.localizedString(for: self, relativeTo: Date())
+    }
 }

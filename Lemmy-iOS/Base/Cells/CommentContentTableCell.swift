@@ -65,7 +65,7 @@ class CommentContentView: UIView {
                 avatarImageUrl: comment.creatorAvatar,
                 username: comment.creatorName,
                 community: comment.communityName,
-                published: comment.published,
+                published: Date.toLemmyDate(str: comment.published).toRelativeDate(),
                 score: comment.score,
                 postName: comment.postName
             )
@@ -257,9 +257,6 @@ private class CommentHeaderView: UIView {
     }
     
     private func setupViews(_ comment: CommentHeaderView.ViewData) {
-        publishedTitle.snp.makeConstraints { (make) in
-            make.width.equalTo(60)
-        }
         
         [usernameButton, toTitle, communityButton, scoreLabel, publishedTitle].forEach { (label) in
             stackView.addArrangedSubview(label)
