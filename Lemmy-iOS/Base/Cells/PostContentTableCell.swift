@@ -212,7 +212,7 @@ private class PostContentFooterView: UIView {
             btn.setInsets(forContentPadding: UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5), imageTitlePadding: 5)
             
             btn.snp.makeConstraints { (make) in
-                make.height.equalTo(30)
+                make.height.equalTo(30).labeled("BUTTONS_COMMENT_UPVOTE")
             }
         }
         self.stackView.addArrangedSubview(UIView())
@@ -386,11 +386,7 @@ private class PostContentHeaderView: UIView {
         communityButton.setTitle(data.community, for: .normal)
         publishedTitle.text = data.published
         
-        setupViews(data)
-        
-        self.snp.makeConstraints { (make) in
-            make.height.equalTo(30)
-        }
+        setupViews(data)        
         
         self.addSubview(stackView)
         
