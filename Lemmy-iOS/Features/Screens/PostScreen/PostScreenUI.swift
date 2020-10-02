@@ -22,7 +22,7 @@ class PostScreenUI: UIView {
         
         tableView.separatorStyle = .none
         tableView.delegate = self
-        tableView.dataSource = self
+        tableView.dataSource = self        
     }
     
     required init?(coder: NSCoder) {
@@ -78,6 +78,12 @@ private class PostScreenUITableCell: UITableViewCell {
             make.trailing.leading.equalToSuperview().inset(10)
             make.bottom.equalToSuperview()
         }
+        
+        if self.postGreenOutlineView.isHidden == true {
+            self.postHeaderView.snp.remakeConstraints { (make) in
+                make.top.trailing.leading.bottom.equalToSuperview()
+            }
+        }
     }
     
     func setupUI() {
@@ -86,8 +92,23 @@ private class PostScreenUITableCell: UITableViewCell {
 }
 
 extension PostScreenUI: UITableViewDelegate, UITableViewDataSource {
+    enum PostScreenTableCellType: Equatable, Comparable, CaseIterable {
+        case post, comments
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return PostScreenTableCellType.allCases.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        let types = PostScreenTableCellType.allCases[section]
+        
+        switch types {
+        case .post:
+            return 1
+        case .comments:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -95,3 +116,5 @@ extension PostScreenUI: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 }
+
+
