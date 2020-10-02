@@ -12,6 +12,7 @@ class PostScreenViewController: UIViewController {
     let postInfo: LemmyApiStructs.PostView
     
     lazy var customView = PostScreenUI(post: postInfo)
+    lazy var model = PostScreenModel(post: postInfo)
     
     override func loadView() {
         self.view = customView
@@ -28,20 +29,9 @@ class PostScreenViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        let parameters = LemmyApiStructs.Post.GetPostRequest(id: postInfo.id,
-                                                             auth: nil)
-        
-        ApiManager.shared.requestsManager.getPost(parameters: parameters) { (res: Result<LemmyApiStructs.Post.GetPostResponse, Error>) in
-            switch res {
-            case .success(let data):
-                print(data)
-                
-                let rr = CommentListingSort(comments: data.comments).createTreeOfReplies()
-                print(rr)
-                
-            case .failure(let error):
-                print(error)
-            }
+        model.loadComments()
+        model.commentsLoaded = { [self] (comments) in
+            customView.commentsDataSource = comments
         }
     }
 }

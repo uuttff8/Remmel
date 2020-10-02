@@ -13,6 +13,19 @@ class PostScreenUI: UIView {
     let tableView = UITableView()
         
     let postInfo: LemmyApiStructs.PostView
+    var commentsDataSource: Array<LemmyApiStructs.CommentView> = [] {
+        didSet {
+            self.commentListing = CommentListingSort(comments: self.commentsDataSource)
+            self.commentTrees = commentListing?.createTreeOfReplies()
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
+            }
+        }
+    }
+    
+    private var commentListing: CommentListingSort?
+    private var commentTrees: [CommentNode]?
     
     init(post: LemmyApiStructs.PostView) {
         self.postInfo = post
@@ -32,6 +45,46 @@ class PostScreenUI: UIView {
     override func layoutSubviews() {
         self.tableView.snp.makeConstraints { (make) in
             make.top.bottom.leading.trailing.equalToSuperview()
+        }
+    }
+}
+
+extension PostScreenUI: UITableViewDelegate, UITableViewDataSource {
+    enum PostScreenTableCellType: Equatable, Comparable, CaseIterable {
+        case post, comments
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return PostScreenTableCellType.allCases.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let types = PostScreenTableCellType.allCases[section]
+        
+        switch types {
+        case .post:
+            return 1
+        case .comments:
+            if let commentTrees = commentTrees {
+                return commentTrees.count
+            }
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let types = PostScreenTableCellType.allCases[indexPath.section]
+        
+        switch types {
+        case .post:
+            let cell = PostScreenUITableCell(post: postInfo)
+            return cell
+        case .comments:
+            guard let commentTrees = commentTrees else { return UITableViewCell() }
+            
+            let cell = CommentTreeTableCell()
+            cell.bind(with: commentTrees[indexPath.row])
+            return cell
         }
     }
 }
@@ -90,31 +143,3 @@ private class PostScreenUITableCell: UITableViewCell {
         self.backgroundColor = UIColor.systemBackground
     }
 }
-
-extension PostScreenUI: UITableViewDelegate, UITableViewDataSource {
-    enum PostScreenTableCellType: Equatable, Comparable, CaseIterable {
-        case post, comments
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return PostScreenTableCellType.allCases.count
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let types = PostScreenTableCellType.allCases[section]
-        
-        switch types {
-        case .post:
-            return 1
-        case .comments:
-            return 0
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = PostScreenUITableCell(post: postInfo)
-        return cell
-    }
-}
-
-

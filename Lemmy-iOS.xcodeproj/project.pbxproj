@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4E106F5D25273A0C009EABDA /* CommentTreeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106F5C25273A0C009EABDA /* CommentTreeTableCell.swift */; };
+		4E106F6525274325009EABDA /* PostScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106F6425274325009EABDA /* PostScreenModel.swift */; };
 		4EB89AF8251F47A7007129BF /* PostScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */; };
 		4EB89B00251F4882007129BF /* PostScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AFF251F4882007129BF /* PostScreenUI.swift */; };
 		4EB89B052521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */; };
@@ -75,6 +76,7 @@
 
 /* Begin PBXFileReference section */
 		4E106F5C25273A0C009EABDA /* CommentTreeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTreeTableCell.swift; sourceTree = "<group>"; };
+		4E106F6425274325009EABDA /* PostScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenModel.swift; sourceTree = "<group>"; };
 		4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenViewController.swift; sourceTree = "<group>"; };
 		4EB89AFF251F4882007129BF /* PostScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenUI.swift; sourceTree = "<group>"; };
 		4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyGreenOutlinePostDescription.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 			children = (
 				4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */,
 				4EB89AFF251F4882007129BF /* PostScreenUI.swift */,
+				4E106F6425274325009EABDA /* PostScreenModel.swift */,
 			);
 			path = PostScreen;
 			sourceTree = "<group>";
@@ -634,6 +637,7 @@
 				4ECCEF23250FB3DE0075F921 /* CommunitiesViewController.swift in Sources */,
 				4ECCEEAC250B8B6B0075F921 /* SceneDelegate.swift in Sources */,
 				4EB89B052521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift in Sources */,
+				4E106F6525274325009EABDA /* PostScreenModel.swift in Sources */,
 				4EB89AF8251F47A7007129BF /* PostScreenViewController.swift in Sources */,
 				4ECCEF03250CB4E00075F921 /* LemmyApiStructs.swift in Sources */,
 				4ECCEF31251F24AD0075F921 /* LemmyFrontPageNavBar.swift in Sources */,

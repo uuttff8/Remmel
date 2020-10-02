@@ -20,14 +20,14 @@ class CommentTreeTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind(with comment: LemmyApiStructs.CommentView) {
+    func bind(with comment: CommentNode) {
         self.contentView.addSubview(commentContentView)
         
         self.commentContentView.snp.makeConstraints { (make) in
             make.top.bottom.leading.trailing.equalToSuperview()
         }
         
-        commentContentView.bind(with: comment)
+        commentContentView.bind(with: comment.comment)
         
         setupUI()
     }
@@ -36,6 +36,5 @@ class CommentTreeTableCell: UITableViewCell {
         let selBackView = UIView()
         selBackView.backgroundColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1)
         self.selectedBackgroundView = selBackView
-    }    
-    
+    }
 }
