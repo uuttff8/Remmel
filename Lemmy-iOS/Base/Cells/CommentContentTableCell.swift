@@ -21,6 +21,28 @@ protocol CommentContentTableCellDelegate: AnyObject {
 }
 
 class CommentContentTableCell: UITableViewCell {
+    let commentContentView = CommentContentView()
+    
+    func bind(with comment: LemmyApiStructs.CommentView) {
+        self.contentView.addSubview(commentContentView)
+        
+        self.commentContentView.snp.makeConstraints { (make) in
+            make.top.bottom.leading.trailing.equalToSuperview()
+        }
+        
+        commentContentView.bind(with: comment)
+        
+        setupUI()
+    }
+    
+    func setupUI() {
+        let selBackView = UIView()
+        selBackView.backgroundColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1)
+        self.selectedBackgroundView = selBackView
+    }
+}
+
+class CommentContentView: UIView {
     
     weak var delegate: CommentContentTableCellDelegate?
     
@@ -102,8 +124,8 @@ class CommentContentTableCell: UITableViewCell {
     
     private func setupPaddingAndSeparatorUI() {
         // padding and separator
-        self.contentView.addSubview(paddingView)
-        self.contentView.addSubview(separatorView)
+        self.addSubview(paddingView)
+        self.addSubview(separatorView)
         paddingView.snp.makeConstraints { (make) in
             make.top.leading.equalToSuperview().offset(10) // SELF SIZE TOP HERE
             make.bottom.trailing.equalToSuperview().inset(10)
@@ -114,10 +136,6 @@ class CommentContentTableCell: UITableViewCell {
             make.trailing.equalToSuperview().inset(10)
             make.leading.equalToSuperview().offset(10)
         }
-        
-        let selBackView = UIView()
-        selBackView.backgroundColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1)
-        self.selectedBackgroundView = selBackView
     }
     
     private func setupUI() {

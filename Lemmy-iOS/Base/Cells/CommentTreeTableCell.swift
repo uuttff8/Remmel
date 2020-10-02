@@ -10,6 +10,8 @@ import UIKit
 
 class CommentTreeTableCell: UITableViewCell {
     
+    let commentContentView = CommentContentView()
+    
     init() {
         super.init(style: .default, reuseIdentifier: .none)
     }
@@ -18,9 +20,22 @@ class CommentTreeTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
+    func bind(with comment: LemmyApiStructs.CommentView) {
+        self.contentView.addSubview(commentContentView)
         
+        self.commentContentView.snp.makeConstraints { (make) in
+            make.top.bottom.leading.trailing.equalToSuperview()
+        }
+        
+        commentContentView.bind(with: comment)
+        
+        setupUI()
     }
     
+    func setupUI() {
+        let selBackView = UIView()
+        selBackView.backgroundColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1)
+        self.selectedBackgroundView = selBackView
+    }    
     
 }

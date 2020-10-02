@@ -171,7 +171,7 @@ extension FrontPageModel: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         let commentCell = CommentContentTableCell()
-        commentCell.delegate = self
+        commentCell.commentContentView.delegate = self
         commentCell.bind(with: comments[indexPath.row])
         return commentCell
     }

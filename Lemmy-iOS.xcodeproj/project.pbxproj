@@ -380,8 +380,8 @@
 			children = (
 				4ECCEF12250CF0290075F921 /* PostContentTableCell.swift */,
 				4ECCEF1E250DFBC90075F921 /* CommentContentTableCell.swift */,
-				4ECCEF2A250FF56A0075F921 /* CommunityPreviewTableCell.swift */,
 				4E106F5C25273A0C009EABDA /* CommentTreeTableCell.swift */,
+				4ECCEF2A250FF56A0075F921 /* CommunityPreviewTableCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
