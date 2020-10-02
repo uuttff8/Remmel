@@ -229,7 +229,8 @@ class WSLemmy {
                 case .string(let outString):
                     completion(outString)
                 case .data(let outData):
-                    print(outData)
+                    break
+//                    print(outData)
                 @unknown default:
                     break
                 }

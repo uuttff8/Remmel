@@ -25,9 +25,7 @@ class PostScreenModel {
             (res: Result<LemmyApiStructs.Post.GetPostResponse, Error>) in
             
             switch res {
-            case .success(let data):
-                print(data)
-                
+            case .success(let data):                
                 commentsLoaded?(data.comments)
                 
             case .failure(let error):
