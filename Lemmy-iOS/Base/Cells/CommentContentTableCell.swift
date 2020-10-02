@@ -209,8 +209,9 @@ private class CommentHeaderView: UIView {
         let btn = UIButton()
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         btn.setTitleColor(UIColor(red: 241/255, green: 100/255, blue: 30/255, alpha: 1), for: .normal)
+        btn.titleLabel?.lineBreakMode = .byTruncatingTail
+        btn.contentHorizontalAlignment = .left
         btn.titleLabel?.numberOfLines = 0
-        btn.titleLabel?.textAlignment = .left
         return btn
     }()
     
@@ -264,8 +265,8 @@ private class CommentHeaderView: UIView {
         }
         
         self.postNameButton.snp.makeConstraints { (make) in
-            make.top.equalTo(stackView.snp.bottom)
-            make.leading.bottom.equalToSuperview()
+            make.top.equalTo(stackView.snp.bottom).offset(10)
+            make.leading.trailing.bottom.equalToSuperview()
         }
     }
     
