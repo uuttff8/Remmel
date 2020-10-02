@@ -36,7 +36,9 @@ class PostScreenViewController: UIViewController {
             case .success(let data):
                 print(data)
                 
-                CommentListingSort(comments: data.comments).sortComments()
+                let rr = CommentListingSort(comments: data.comments).createTreeOfReplies()
+                print(rr)
+                
             case .failure(let error):
                 print(error)
             }

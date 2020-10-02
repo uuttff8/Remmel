@@ -8,6 +8,11 @@
 
 import Foundation
 
+struct CommentNode {
+    let comment: LemmyApiStructs.CommentView
+    var replies: [CommentNode]
+}
+
 class CommentListingSort {
     let comments: Array<LemmyApiStructs.CommentView>
     
@@ -38,8 +43,46 @@ class CommentListingSort {
         return notReply
     }
     
-    func createTreeOfReplies(in comments: Array<LemmyApiStructs.CommentView>) -> Array<LemmyApiStructs.CommentView> {
+    func findCommentsExcludeNotReply(in comments: Array<LemmyApiStructs.CommentView>) -> Array<LemmyApiStructs.CommentView> {
+        var repliesOnly = [LemmyApiStructs.CommentView]()
+        
+        for comm in comments {
+            if let _ = comm.parentId {
+                repliesOnly.append(comm)
+            }
+        }
+        
+        return repliesOnly
+    }
+    
+    func createTreeOfReplies() -> Array<CommentNode> {
         // TODO: Create tree of replies
-        return []
+        
+        let notReplies = findNotReplyComments(in: comments)
+        var nodes = [CommentNode]()
+        
+        for notReply in notReplies {
+            nodes.append(createReplyTree(for: notReply))
+        }
+        
+        
+        return nodes
+    }
+    
+    func createReplyTree(for comment: LemmyApiStructs.CommentView) -> CommentNode {
+        var replies = [CommentNode]()
+        var node = CommentNode(comment: comment, replies: replies)
+        
+        for repliedComm in self.comments {
+            
+            if repliedComm.parentId == comment.id {
+                replies.append(createReplyTree(for: repliedComm))
+            }
+            
+        }
+        
+        node.replies = replies
+        
+        return node
     }
 }
