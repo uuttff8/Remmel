@@ -27,14 +27,18 @@ class LemmyFrontPageNavBar: UIView {
         
         self.searchBar.snp.makeConstraints { (make) in
             make.top.bottom.equalToSuperview()
-            make.leading.equalToSuperview().inset(10)
+            make.leading.equalToSuperview()
             make.trailing.equalToSuperview().inset(50)
         }
         
         self.profileIcon.snp.makeConstraints { (make) in
             make.top.bottom.equalToSuperview()
-            make.leading.equalTo(searchBar.snp.trailing).offset(10)
-            make.trailing.equalToSuperview().inset(10)
+            make.leading.equalTo(searchBar.snp.trailing)
+            make.trailing.equalToSuperview().offset(10)
         }
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        CGSize(width: UIScreen.main.bounds.width, height: UIView.noIntrinsicMetric)
     }
 }

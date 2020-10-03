@@ -61,8 +61,8 @@ class FrontPageViewController: UIViewController {
     private func setupNavigationItem() {
         // BUG: when navigation bar goes back, then constraits for nav bar gets broken
         navigationItem.titleView = navBar
-        self.navBar.snp.makeConstraints { (make) in
-            make.bottom.top.leading.trailing.equalToSuperview()
-        }
+//        self.navBar.snp.makeConstraints { (make) in
+//            make.bottom.top.leading.trailing.equalToSuperview()
+//        }
     }
 }
