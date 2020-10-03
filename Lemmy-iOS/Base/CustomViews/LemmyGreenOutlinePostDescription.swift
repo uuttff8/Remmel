@@ -56,25 +56,27 @@ class LemmyGreenOutlinePostEmbed: UIView {
         if viewData.description == nil && viewData.title == nil {
             self.isHidden = true
             self.removeFromSuperview()
-            self.frame.size.height = 0
         }
     }
     
     func setupUI() {
+        guard let _ = viewData.title else { return }
+        
         self.layer.cornerRadius = 10
         self.layer.borderWidth = 2
         self.layer.borderColor = UIColor.systemGreen.cgColor
         self.backgroundColor = UIColor.lightGray
         
         self.addSubview(titleLabel)
-        self.addSubview(descriptionLabel)
-        
+
         titleLabel.snp.makeConstraints { (make) in
             make.top.leading.equalToSuperview().inset(10)
             make.trailing.equalToSuperview().inset(10)
         }
         
-        if viewData.description != nil {
+        if let _ = viewData.description {
+            self.addSubview(descriptionLabel)
+            
             descriptionLabel.snp.makeConstraints { (make) in
                 make.top.equalTo(titleLabel.snp.bottom).offset(10)
                 make.leading.equalToSuperview().inset(10)

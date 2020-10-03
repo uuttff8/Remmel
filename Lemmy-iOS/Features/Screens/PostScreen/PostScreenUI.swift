@@ -126,13 +126,13 @@ private class PostScreenUITableCell: UITableViewCell {
             make.top.trailing.leading.equalToSuperview()
         }
         
-        self.postGreenOutlineView.snp.makeConstraints { (make) in
-            make.top.equalTo(postHeaderView.snp.bottom).offset(10)
-            make.trailing.leading.equalToSuperview().inset(10)
-            make.bottom.equalToSuperview()
-        }
-        
-        if self.postGreenOutlineView.isHidden == true {
+        if !postGreenOutlineView.isHidden {
+            self.postGreenOutlineView.snp.makeConstraints { (make) in
+                make.top.equalTo(postHeaderView.snp.bottom).offset(10)
+                make.trailing.leading.equalToSuperview().inset(10)
+                make.bottom.equalToSuperview()
+            }
+        } else {
             self.postHeaderView.snp.remakeConstraints { (make) in
                 make.top.trailing.leading.bottom.equalToSuperview()
             }
