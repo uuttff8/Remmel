@@ -106,7 +106,7 @@ private class PostScreenUITableCell: UITableViewCell {
         super.init(style: .default, reuseIdentifier: nil)
         
         createSubviews()
-        setupUI()
+        setupUI()        
     }
     
     required init?(coder: NSCoder) {

@@ -89,6 +89,9 @@ enum LemmyFeedType: String, Codable, CaseIterable {
 }
 
 enum LemmyApiStructs {
+    enum PostType {
+        case link, pictureAndText, plainText
+    }
     
     // MARK: - PostView -
     struct PostView: Codable, Equatable {
@@ -169,6 +172,18 @@ enum LemmyApiStructs {
              case userId = "user_id"
              case myVote = "my_vote", subscribed, read, saved
          }
+        
+        var postType: PostType {
+            if self.url != nil {
+                return PostType.link
+            }
+            
+            if ((self.url?.contains("https://dev.lemmy.ml/pictrs/image")) != nil) {
+                return PostType.pictureAndText
+            }
+            
+            return PostType.plainText
+        }
      }
     
     // MARK: - CommentView -
