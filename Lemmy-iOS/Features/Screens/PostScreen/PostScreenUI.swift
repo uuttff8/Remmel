@@ -82,8 +82,7 @@ extension PostScreenUI: UITableViewDelegate, UITableViewDataSource {
         case .comments:
             guard let commentTrees = commentTrees else { return UITableViewCell() }
             
-            let cell = CommentTreeTableCell()
-            cell.bind(with: commentTrees[indexPath.row])
+            let cell = CommentTreeTableCell(commentNode: commentTrees[indexPath.row])
             return cell
         }
     }
