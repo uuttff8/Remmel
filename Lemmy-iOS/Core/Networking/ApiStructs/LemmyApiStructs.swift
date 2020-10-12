@@ -332,4 +332,40 @@ enum LemmyApiStructs {
             case communityIcon = "community_icon"
         }
     }
+    
+    // MARK: - UserView -
+    struct UserView: Codable, Equatable {
+        let id: Int
+        let actorId: Int
+        let name: Int
+        let preferredUsername: String?
+        let avatar: String?
+        let banner: String?
+        let matrixUserId: String?
+        let bio: String?
+        let local: Bool
+        let admin: Bool
+        let banned: Bool
+        let published: String
+        let numberOfPosts: Int
+        let postScore: Int
+        let numberOfComments: Int
+        let commentScore: Int
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case actorId = "actor_id"
+            case name
+            case preferredUsername = "preferred_username"
+            case avatar, banner
+            case matrixUserId = "matrix_user_id"
+            case bio, local, admin, banned, published
+            case numberOfPosts = "number_of_posts"
+            case postScore = "post_score"
+            case numberOfComments = "number_of_comments"
+            case commentScore = "comment_score"
+        }
+    }
+    
+    
 }
