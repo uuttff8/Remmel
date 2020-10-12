@@ -8,7 +8,26 @@
 
 import UIKit
 
+class SelfSizedTableView: UITableView {
+    var maxHeight: CGFloat = UIScreen.main.bounds.size.height
+    
+    override func reloadData() {
+        super.reloadData()
+        self.invalidateIntrinsicContentSize()
+        self.layoutIfNeeded()
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        setNeedsLayout()
+        layoutIfNeeded()
+        let height = min(contentSize.height, maxHeight)
+        return CGSize(width: contentSize.width, height: height)
+    }
+}
+
 class CommentTreeTableCell: UITableViewCell {
+    
+    var frameHeight: CGFloat = 0
     let tableView: UITableView = {
         let tv = UITableView()
         tv.isScrollEnabled = false
@@ -22,7 +41,7 @@ class CommentTreeTableCell: UITableViewCell {
         super.init(style: .default, reuseIdentifier: .none)
         bind()
     }
-        
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -60,13 +79,12 @@ class CommentTreeTableCell: UITableViewCell {
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
+        
         self.contentView.addSubview(tableView)
         self.tableView.snp.makeConstraints { (make) in
             make.top.equalTo(commentContentView.snp.bottom)
-            // fix: make table view cells self-size
-            make.height.equalTo(10000)
             make.bottom.leading.trailing.equalToSuperview()
-        }        
+        }
     }
 }
 
@@ -81,7 +99,8 @@ extension CommentTreeTableCell: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let commentSectionData = commentNode.replies[indexPath.section]
-        return CommentTreeTableCell(commentNode: commentSectionData)
-//        return UITableViewCell()
+        let cell = CommentTreeTableCell(commentNode: commentSectionData)
+        return cell
+        //        return UITableViewCell()
     }
 }

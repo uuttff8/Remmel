@@ -231,11 +231,9 @@ extension FrontPageModel: UITableViewDelegate, UITableViewDataSource {
         guard let comments = commentsDataSource else {
             return UITableViewCell()
         }
-        let data =  LemmyApiStructs.CommentView(id: 18586, creatorId: 13582, postId: 41020, postName: "Welcoming Gitter to Matrix!", parentId: Optional(18583), content: "Matrix is a federated FOSS chat platform. I would probably consider it part of the fediverse (which is just sort of the family of federated social media: Mastodon, Pixelfed, PeerTube, Diaspora, Hubzilla, etc.)", removed: false, published: "2020-10-01T03:29:20.947623", updated: nil, deleted: false, apId: "https://dev.lemmy.ml/comment/18586", local: true, communityId: 16, communityActorId: "https://dev.lemmy.ml/c/technology", communityLocal: true, communityName: "technology", communityIcon: nil, banned: false, bannedFromCommunity: false, creatorActorId: "https://dev.lemmy.ml/u/tskaalgard", creatorLocal: true, creatorName: "tskaalgard", creatorPreferredUsername: Optional("Travis Skaalgard"), creatorPublished: "2020-07-28T16:20:02.616950", creatorAvatar: Optional("https://dev.lemmy.ml/pictrs/image/5gBhH5wYW5.png"), score: 5, upvotes: 5, downvotes: 0, hotRank: 3, hotRankActive: 3, userId: nil, myVote: nil, subscribed: nil, read: true, saved: nil)
-        
         let commentCell = CommentContentTableCell()
         commentCell.commentContentView.delegate = self
-        commentCell.bind(with: data)
+        commentCell.bind(with: comments[indexPath.row])
         return commentCell
     }
 }
