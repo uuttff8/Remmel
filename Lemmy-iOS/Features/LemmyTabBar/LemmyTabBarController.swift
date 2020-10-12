@@ -12,7 +12,7 @@ class LemmyTabBarController: UITabBarController {
     weak var coordinator: LemmyTabBarCoordinator?
     
     override func viewDidLoad() {
-        
+        self.delegate = self
     }
     
     func createTabs() {
@@ -47,5 +47,21 @@ class LemmyTabBarController: UITabBarController {
         
         self.selectedIndex = 0
         
+    }
+}
+
+extension LemmyTabBarController: UITabBarControllerDelegate {
+    func tabBarController(
+        _ tabBarController: UITabBarController,
+        shouldSelect viewController: UIViewController
+    ) -> Bool {
+        
+        if viewController is CreatePostOrCommunityViewController {
+            
+            // TODO: Make LoginViewAlert to login
+            return false
+        }
+        
+        return true
     }
 }
