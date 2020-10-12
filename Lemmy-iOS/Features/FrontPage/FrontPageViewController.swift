@@ -14,55 +14,115 @@ class FrontPageViewController: UIViewController {
     weak var coordinator: FrontPageCoordinator?
     
     let model = FrontPageModel()
+    let navBar = LemmyFrontPageNavBar()
+    let headerSegmentView = FrontPageHeaderView(contentSelected: LemmyContentType.comments,
+                                                feedType: LemmyFeedType.all)
     
-    let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.tableFooterView = UIView()
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 40
-        tableView.keyboardDismissMode = .onDrag
-        tableView.separatorStyle = .none
-        return tableView
+    // at init always posts
+    var currentContentType: LemmyContentType = LemmyContentType.posts {
+        didSet {
+            print(currentContentType)
+            
+            switch currentContentType {
+            case .comments:
+                currentViewController = commentsViewController
+            case .posts:
+                currentViewController = postsViewController
+            }
+        }
+    }
+    
+    // at init always all
+    var currentFeedType: LemmyFeedType = LemmyFeedType.all {
+        didSet {
+            print(currentFeedType)
+        }
+    }
+    
+    private lazy var toolbar: UIToolbar = {
+        let tool = UIToolbar()
+        return tool
     }()
     
-    let navBar = LemmyFrontPageNavBar()
+    private lazy var postsViewController: PostsFrontPageViewController = {
+        let vc = PostsFrontPageViewController()
+        return vc
+    }()
+    
+    private lazy var commentsViewController: CommentsFrontPageViewController = {
+        let vc = CommentsFrontPageViewController()
+        return vc
+    }()
+    
+    var currentViewController: UIViewController! {
+        didSet {
+            if oldValue != currentViewController {
+//                self.navigationController?.navigationBar.setItems([currentViewController.navigationItem], animated: false)
+                
+                self.commentsViewController.view.isHidden = currentViewController != self.commentsViewController
+                self.postsViewController.view.isHidden = currentViewController != self.postsViewController
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.systemBackground
+        self.headerSegmentView.delegate = self
         
-        setupTableView()
+        setupToolbar()
         setupNavigationItem()
+        setupContainered()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        model.loadPosts()
-        model.dataLoaded = {
-            self.tableView.reloadData()            
-        }
-        model.goToPostScreen = { (post) in
-            self.coordinator?.goToPostScreen(post: post)
-        }
+        self.currentViewController = postsViewController
+    }
+    
+    private func setupToolbar() {
+        let barButtonItem = UIBarButtonItem(customView: headerSegmentView)
         
-        model.newDataLoaded = {
-            // TODO: implement it
+        self.view.addSubview(toolbar)
+        self.toolbar.setItems([barButtonItem], animated: true)
+        self.toolbar.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
-    private func setupTableView() {
-        tableView.delegate = model
-        tableView.dataSource = model
+    private func setupContainered() {
+        setupContaineredView(for: self.postsViewController)
+        setupContaineredView(for: self.commentsViewController)
+    }
+    
+    private func setupContaineredView(for viewController: UIViewController) {
+        self.view.insertSubview(viewController.view, belowSubview: self.toolbar)
+        self.addChild(viewController)
+        viewController.didMove(toParent: self)
         
-        self.view.addSubview(tableView)
-        
-        tableView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+        self.addContainerViewConstraints(viewController: viewController, containerView: self.view)
+    }
+    
+    private func addContainerViewConstraints(viewController: UIViewController, containerView: UIView) {
+        viewController.view.snp.makeConstraints { (make) in
+            make.top.equalTo(self.toolbar.snp.bottom)
+            make.leading.trailing.bottom.equalToSuperview()
+            make.centerX.equalToSuperview()
         }
     }
     
     private func setupNavigationItem() {
-        // BUG: when navigation bar goes back, then constraits for nav bar gets broken
         navigationItem.titleView = navBar
-//        self.navBar.snp.makeConstraints { (make) in
-//            make.bottom.top.leading.trailing.equalToSuperview()
-//        }
+    }
+}
+
+extension FrontPageViewController: FrontPageHeaderCellDelegate {
+    func contentTypeChanged(to content: LemmyContentType) {
+        self.currentContentType = content
+    }
+    
+    func feedTypeChanged(to feed: LemmyFeedType) {
+        self.currentFeedType = feed        
     }
 }

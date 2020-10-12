@@ -14,6 +14,7 @@
 		4E10705B253476FC009EABDA /* PostsFrontPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10705A253476FC009EABDA /* PostsFrontPageModel.swift */; };
 		4E1070602534770B009EABDA /* CommentsFrontPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10705F2534770B009EABDA /* CommentsFrontPageViewController.swift */; };
 		4E1070652534771C009EABDA /* CommentsFrontPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1070642534771C009EABDA /* CommentsFrontPageModel.swift */; };
+		4E10706B253477C1009EABDA /* LemmyUITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10706A253477C1009EABDA /* LemmyUITableView.swift */; };
 		4EB89AF8251F47A7007129BF /* PostScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */; };
 		4EB89B00251F4882007129BF /* PostScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AFF251F4882007129BF /* PostScreenUI.swift */; };
 		4EB89B052521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */; };
@@ -87,6 +88,7 @@
 		4E10705A253476FC009EABDA /* PostsFrontPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsFrontPageModel.swift; sourceTree = "<group>"; };
 		4E10705F2534770B009EABDA /* CommentsFrontPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsFrontPageViewController.swift; sourceTree = "<group>"; };
 		4E1070642534771C009EABDA /* CommentsFrontPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsFrontPageModel.swift; sourceTree = "<group>"; };
+		4E10706A253477C1009EABDA /* LemmyUITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyUITableView.swift; sourceTree = "<group>"; };
 		4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenViewController.swift; sourceTree = "<group>"; };
 		4EB89AFF251F4882007129BF /* PostScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenUI.swift; sourceTree = "<group>"; };
 		4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyGreenOutlinePostDescription.swift; sourceTree = "<group>"; };
@@ -187,6 +189,14 @@
 			path = Comments;
 			sourceTree = "<group>";
 		};
+		4E10706925347780009EABDA /* BaseViews */ = {
+			isa = PBXGroup;
+			children = (
+				4E10706A253477C1009EABDA /* LemmyUITableView.swift */,
+			);
+			path = BaseViews;
+			sourceTree = "<group>";
+		};
 		4EB89AF5251F4783007129BF /* Screens */ = {
 			isa = PBXGroup;
 			children = (
@@ -271,6 +281,7 @@
 		4ECCEEDE250B8DDF0075F921 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				4E10706925347780009EABDA /* BaseViews */,
 				4EB89B3925220DB0007129BF /* Logic */,
 				4ECCEF2C2512535F0075F921 /* CustomViews */,
 				4ECCEF0F250CEFF80075F921 /* Cells */,
@@ -677,6 +688,7 @@
 				4ECCEF03250CB4E00075F921 /* LemmyApiStructs.swift in Sources */,
 				4ECCEF31251F24AD0075F921 /* LemmyFrontPageNavBar.swift in Sources */,
 				4ECCEF33251F27170075F921 /* LemmyProfileIconView.swift in Sources */,
+				4E10706B253477C1009EABDA /* LemmyUITableView.swift in Sources */,
 				4ECCEEF4250C04280075F921 /* LemmyTabBarController.swift in Sources */,
 				4E1070652534771C009EABDA /* CommentsFrontPageModel.swift in Sources */,
 				4E106F5D25273A0C009EABDA /* CommentTreeTableCell.swift in Sources */,

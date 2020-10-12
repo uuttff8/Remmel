@@ -13,8 +13,7 @@ protocol FrontPageHeaderCellDelegate: AnyObject {
     func feedTypeChanged(to feed: LemmyFeedType)
 }
 
-class FrontPageHeaderCell: UITableViewCell {
-    
+class FrontPageHeaderView: UIView {
     weak var delegate: FrontPageHeaderCellDelegate?
     
     let contentTypeSegment: FrontPageSwitcher
@@ -31,11 +30,7 @@ class FrontPageHeaderCell: UITableViewCell {
             selectedIndex: feedType.index
         )
 
-        super.init(style: .default, reuseIdentifier: nil)
-        
-        self.contentView.snp.remakeConstraints { (make) in
-            make.height.equalTo(40)
-        }
+        super.init(frame: .zero)
         
         contentTypeSegment.segmentControl.addTarget(
             self,
@@ -47,6 +42,9 @@ class FrontPageHeaderCell: UITableViewCell {
             action: #selector(segmentFeedTypeChanged(_:)),
             for: .valueChanged
         )
+        
+        contentTypeSegment.segmentControl.selectedSegmentIndex = 0
+        feedTypeSegment.segmentControl.selectedSegmentIndex = 0
         
         self.addSubview(contentTypeSegment)
         self.addSubview(feedTypeSegment)
@@ -62,6 +60,10 @@ class FrontPageHeaderCell: UITableViewCell {
         }
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     @objc func segmentContentTypeChanged(_ sender: Any) {
         let contentType = LemmyContentType.allCases[contentTypeSegment.segmentControl.selectedSegmentIndex]
         self.delegate?.contentTypeChanged(to: contentType)
@@ -70,6 +72,26 @@ class FrontPageHeaderCell: UITableViewCell {
     @objc func segmentFeedTypeChanged(_ sender: Any) {
         let feedType = LemmyFeedType.allCases[feedTypeSegment.segmentControl.selectedSegmentIndex]
         self.delegate?.feedTypeChanged(to: feedType)
+    }
+}
+
+class FrontPageHeaderCell: UITableViewCell {    
+    
+    let customView: FrontPageHeaderView
+    
+    init(contentSelected: LemmyContentType, feedType: LemmyFeedType) {
+        self.customView = FrontPageHeaderView(contentSelected: contentSelected, feedType: feedType)
+
+        super.init(style: .default, reuseIdentifier: nil)
+        
+        self.contentView.addSubview(customView)
+        self.customView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.bottom.equalToSuperview()
+        }
+        self.contentView.snp.remakeConstraints { (make) in
+            make.height.equalTo(40)
+            make.width.equalToSuperview()
+        }
     }
     
     required init?(coder: NSCoder) {

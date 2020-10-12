@@ -139,7 +139,7 @@ extension FrontPageModel: UITableViewDelegate, UITableViewDataSource {
         switch section {
         case .header:
             let cell = FrontPageHeaderCell(contentSelected: currentContentType, feedType: currentFeedType)
-            cell.delegate = self
+            cell.customView.delegate = self
             return cell
         case .content:
             
