@@ -11,9 +11,9 @@ import UIKit
 class CreatePostOrCommunityViewController: UIViewController {
     
     weak var coordinator: CreatePostOrCommunityCoordinator?
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.backgroundColor = UIColor.red
     }
 }

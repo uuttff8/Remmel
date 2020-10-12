@@ -21,6 +21,5 @@ class CreatePostOrCommunityCoordinator : Coordinator {
 
     func start() {
         rootViewController.coordinator = self
-        navigationController?.pushViewController(self.rootViewController, animated: true)
     }
 }

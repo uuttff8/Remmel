@@ -34,15 +34,18 @@ class LemmyTabBarController: UITabBarController {
                                                                             tag: 1)
         communitiesCoordinator.navigationController = communitiesNc
         
-        let createPostOrCommCoordinator = CreatePostOrCommunityCoordinator(navigationController: nil)
-        self.coordinator?.store(coordinator: createPostOrCommCoordinator)
-        createPostOrCommCoordinator.start()
-        createPostOrCommCoordinator.rootViewController.tabBarItem = UITabBarItem(title: "",
-                                                                                 image: UIImage(systemName: "plus.circle"),
-                                                                                 tag: 2)
+        // its wrapper, real controller created in this method
+        // func tabBarController(
+        // _ tabBarController: UITabBarController,
+        // shouldSelect viewController: UIViewController
+        // ) -> Bool
+        let createPostOrCommentController = CreatePostOrCommunityViewController()
+        createPostOrCommentController.tabBarItem = UITabBarItem(title: "",
+                                                                image: UIImage(systemName: "plus.circle"),
+                                                                tag: 2)
         
         self.viewControllers = [ frontPageNc,
-                                 createPostOrCommCoordinator.rootViewController,
+                                 createPostOrCommentController,
                                  communitiesNc ]
         
         self.selectedIndex = 0
@@ -59,6 +62,17 @@ extension LemmyTabBarController: UITabBarControllerDelegate {
         if viewController is CreatePostOrCommunityViewController {
             
             // TODO: Make LoginViewAlert to login
+            let showView_debug = false
+            
+            if showView_debug /*logined*/ {
+                let createPostOrCommCoordinator = CreatePostOrCommunityCoordinator(navigationController: nil)
+                self.coordinator?.store(coordinator: createPostOrCommCoordinator)
+                createPostOrCommCoordinator.start()
+                tabBarController.present(CreatePostOrCommunityViewController(), animated: true, completion: nil)
+            } else {
+                
+            }
+            
             return false
         }
         
