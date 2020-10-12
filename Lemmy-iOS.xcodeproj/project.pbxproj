@@ -20,6 +20,7 @@
 		4E10707E2534F5EC009EABDA /* LemmyCheckLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10707D2534F5EC009EABDA /* LemmyCheckLogin.swift */; };
 		4E1070842534F742009EABDA /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E1070832534F742009EABDA /* KeychainSwift */; };
 		4E10708E2534F7A7009EABDA /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10708D2534F7A7009EABDA /* LoginData.swift */; };
+		4E107093253500DA009EABDA /* LemmyApiStructs+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E107092253500DA009EABDA /* LemmyApiStructs+User.swift */; };
 		4EB89AF8251F47A7007129BF /* PostScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */; };
 		4EB89B00251F4882007129BF /* PostScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AFF251F4882007129BF /* PostScreenUI.swift */; };
 		4EB89B052521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */; };
@@ -98,6 +99,7 @@
 		4E1070782534E97E009EABDA /* CreatePostOrCommunityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostOrCommunityCoordinator.swift; sourceTree = "<group>"; };
 		4E10707D2534F5EC009EABDA /* LemmyCheckLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyCheckLogin.swift; sourceTree = "<group>"; };
 		4E10708D2534F7A7009EABDA /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
+		4E107092253500DA009EABDA /* LemmyApiStructs+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LemmyApiStructs+User.swift"; sourceTree = "<group>"; };
 		4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenViewController.swift; sourceTree = "<group>"; };
 		4EB89AFF251F4882007129BF /* PostScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenUI.swift; sourceTree = "<group>"; };
 		4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyGreenOutlinePostDescription.swift; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 				4ECCEF0D250CDA5A0075F921 /* LemmyApiStructs+Post.swift */,
 				4ECCEF19250D62580075F921 /* LemmyApiStructs+Comment.swift */,
 				4ECCEF26250FB62F0075F921 /* LemmyApiStructs+Community.swift */,
+				4E107092253500DA009EABDA /* LemmyApiStructs+User.swift */,
 			);
 			path = ApiStructs;
 			sourceTree = "<group>";
@@ -706,6 +709,7 @@
 				4ECCEF29250FB8260075F921 /* CommunityRequests.swift in Sources */,
 				4EB89B3B25220DC6007129BF /* CommentListingSort.swift in Sources */,
 				4ECCEF13250CF0290075F921 /* PostContentTableCell.swift in Sources */,
+				4E107093253500DA009EABDA /* LemmyApiStructs+User.swift in Sources */,
 				4ECCEF23250FB3DE0075F921 /* CommunitiesViewController.swift in Sources */,
 				4ECCEEAC250B8B6B0075F921 /* SceneDelegate.swift in Sources */,
 				4EB89B052521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift in Sources */,

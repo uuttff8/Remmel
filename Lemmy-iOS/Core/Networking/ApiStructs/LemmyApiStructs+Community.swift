@@ -13,7 +13,7 @@ extension LemmyApiStructs {
         
         // MARK: - ListCommunities
         struct ListCommunitiesRequest: Codable, Equatable {
-            let sort: String // TopAll case in LemmyFeedType is not exists
+            let sort: String // TopAll case in LemmyFeedType does not exists
             let limit: Int
             let page: Int
             let auth: String?
