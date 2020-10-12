@@ -142,7 +142,6 @@ extension PostsFrontPageModel: PostContentTableCellDelegate {
     }
 }
 
-
 extension PostsFrontPageModel: FrontPageHeaderCellDelegate {
     func contentTypeChanged(to content: LemmyContentType) {
         self.currentContentType = content

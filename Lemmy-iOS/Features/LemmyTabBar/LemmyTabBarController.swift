@@ -34,9 +34,18 @@ class LemmyTabBarController: UITabBarController {
                                                                             tag: 1)
         communitiesCoordinator.navigationController = communitiesNc
         
-        self.viewControllers = [frontPageNc, communitiesNc]
-                
+        let createPostOrCommCoordinator = CreatePostOrCommunityCoordinator(navigationController: nil)
+        self.coordinator?.store(coordinator: createPostOrCommCoordinator)
+        createPostOrCommCoordinator.start()
+        createPostOrCommCoordinator.rootViewController.tabBarItem = UITabBarItem(title: "",
+                                                                                 image: UIImage(systemName: "plus.circle"),
+                                                                                 tag: 2)
+        
+        self.viewControllers = [ frontPageNc,
+                                 createPostOrCommCoordinator.rootViewController,
+                                 communitiesNc ]
+        
         self.selectedIndex = 0
-
+        
     }
 }
