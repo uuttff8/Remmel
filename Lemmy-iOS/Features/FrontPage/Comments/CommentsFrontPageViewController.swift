@@ -10,6 +10,7 @@ import UIKit
 
 class CommentsFrontPageViewController: UIViewController {
     
+    weak var coordinator: FrontPageCoordinator?
     
     let model = CommentsFrontPageModel()
     let tableView = LemmyUITableView(style: .plain)
@@ -29,6 +30,5 @@ class CommentsFrontPageViewController: UIViewController {
         model.dataLoaded = { [self] in
             tableView.reloadData()
         }
-
     }
 }

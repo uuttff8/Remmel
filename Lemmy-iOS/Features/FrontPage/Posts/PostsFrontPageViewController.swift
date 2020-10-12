@@ -9,6 +9,9 @@
 import UIKit
 
 class PostsFrontPageViewController: UIViewController {
+    
+    weak var coordinator: FrontPageCoordinator?
+    
     let model = PostsFrontPageModel()
     let tableView = LemmyUITableView(style: .plain)
     
@@ -23,10 +26,12 @@ class PostsFrontPageViewController: UIViewController {
             make.edges.equalToSuperview()
         }
 
-        
         model.loadPosts()
         model.dataLoaded = { [self] in
             tableView.reloadData()
+        }
+        model.goToPostScreen = { [self] (post: LemmyApiStructs.PostView) in
+            coordinator?.goToPostScreen(post: post)
         }
     }
 }

@@ -25,9 +25,9 @@ class FrontPageViewController: UIViewController {
             
             switch currentContentType {
             case .comments:
-                currentViewController = commentsViewController
+                currentViewController = coordinator?.commentsViewController
             case .posts:
-                currentViewController = postsViewController
+                currentViewController = coordinator?.postsViewController
             }
         }
     }
@@ -43,24 +43,13 @@ class FrontPageViewController: UIViewController {
         let tool = UIToolbar()
         return tool
     }()
-    
-    private lazy var postsViewController: PostsFrontPageViewController = {
-        let vc = PostsFrontPageViewController()
-        return vc
-    }()
-    
-    private lazy var commentsViewController: CommentsFrontPageViewController = {
-        let vc = CommentsFrontPageViewController()
-        return vc
-    }()
-    
+        
     var currentViewController: UIViewController! {
         didSet {
             if oldValue != currentViewController {
 //                self.navigationController?.navigationBar.setItems([currentViewController.navigationItem], animated: false)
                 
-                self.commentsViewController.view.isHidden = currentViewController != self.commentsViewController
-                self.postsViewController.view.isHidden = currentViewController != self.postsViewController
+                self.coordinator?.switchViewController()
             }
         }
     }
@@ -78,7 +67,7 @@ class FrontPageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.currentViewController = postsViewController
+        self.currentViewController = coordinator?.postsViewController
     }
     
     private func setupToolbar() {
@@ -92,8 +81,9 @@ class FrontPageViewController: UIViewController {
     }
     
     private func setupContainered() {
-        setupContaineredView(for: self.postsViewController)
-        setupContaineredView(for: self.commentsViewController)
+        guard let coordinator = coordinator else { return }
+        setupContaineredView(for: coordinator.postsViewController)
+        setupContaineredView(for: coordinator.commentsViewController)
     }
     
     private func setupContaineredView(for viewController: UIViewController) {

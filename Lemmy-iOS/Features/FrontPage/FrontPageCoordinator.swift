@@ -13,6 +13,16 @@ class FrontPageCoordinator : Coordinator {
     var childCoordinators: [Coordinator] = []
     
     var navigationController: UINavigationController?
+    
+    lazy var postsViewController: PostsFrontPageViewController = {
+        let vc = PostsFrontPageViewController()
+        return vc
+    }()
+    
+    lazy var commentsViewController: CommentsFrontPageViewController = {
+        let vc = CommentsFrontPageViewController()
+        return vc
+    }()
 
     init(navigationController: UINavigationController?) {
         self.rootViewController = FrontPageViewController()
@@ -21,7 +31,17 @@ class FrontPageCoordinator : Coordinator {
 
     func start() {
         rootViewController.coordinator = self
+        postsViewController.coordinator = self
+        commentsViewController.coordinator = self
         navigationController?.pushViewController(self.rootViewController, animated: true)
+    }
+    
+    func switchViewController() {
+        self.commentsViewController.view.isHidden =
+            rootViewController.currentViewController != self.commentsViewController
+        
+        self.postsViewController.view.isHidden =
+            rootViewController.currentViewController != self.postsViewController
     }
     
     func goToPostScreen(post: LemmyApiStructs.PostView) {

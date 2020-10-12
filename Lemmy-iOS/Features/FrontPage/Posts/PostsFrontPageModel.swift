@@ -100,25 +100,15 @@ extension PostsFrontPageModel: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         handleDidSelectForPosts(indexPath: indexPath)
-        
-        
-        
         tableView.deselectRow(at: indexPath, animated: true)
-        
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        
         let indexPathRow = indexPath.row
-        
         
         if indexPathRow >= postsDataSource.count - 21 {
             guard !self.isFetchingNewContent else { return }
         }
-        
-        
-        
     }
     
     private func handleDidSelectForPosts(indexPath: IndexPath) {

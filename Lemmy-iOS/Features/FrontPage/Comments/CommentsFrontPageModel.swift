@@ -51,9 +51,7 @@ class CommentsFrontPageModel: NSObject {
                 print(error)
             }
         }
-        
     }
-    
 }
 
 extension CommentsFrontPageModel: UITableViewDelegate, UITableViewDataSource {
@@ -62,16 +60,15 @@ extension CommentsFrontPageModel: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return commentsDataSource.count
+        return commentsDataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-            return handleCellForComments(indexPath: indexPath)
+        return handleCellForComments(indexPath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            handleDidSelectForComments(indexPath: indexPath)
+        handleDidSelectForComments(indexPath: indexPath)
         
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -82,10 +79,10 @@ extension CommentsFrontPageModel: UITableViewDelegate, UITableViewDataSource {
         
         let indexPathRow = indexPath.row
         
-            if indexPathRow >= commentsDataSource.count - 21 {
-                guard !self.isFetchingNewContent else { return }
-            }
-            
+        if indexPathRow >= commentsDataSource.count - 21 {
+            guard !self.isFetchingNewContent else { return }
+        }
+        
         
         
     }
