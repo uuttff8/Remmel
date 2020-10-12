@@ -367,5 +367,35 @@ enum LemmyApiStructs {
         }
     }
     
-    
+    struct CommunityFollowerView: Codable, Equatable {
+        let id: Int
+        let communityId: Int
+        let userId: Int
+        let published: String
+        let userActorId: String
+        let userLocal: Bool
+        let userName: String
+        let userPreferredUsername: String?
+        let avatar: String?
+        let communityActorId: String
+        let communityLocal: Bool
+        let communityName: String
+        let communityIcon: String?
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case communityId = "community_id"
+            case userId = "user_id"
+            case published
+            case userActorId = "user_actor_id"
+            case userLocal = "user_local"
+            case userName = "user_name"
+            case userPreferredUsername = "user_preferred_username"
+            case avatar
+            case communityActorId = "community_actor_id"
+            case communityLocal = "community_local"
+            case communityName = "community_name"
+            case communityIcon = "community_icon"
+        }
+    }
 }
