@@ -125,3 +125,12 @@ extension Date {
         return formatter.localizedString(for: self, relativeTo: Date())
     }
 }
+
+extension UserDefaults {
+    func resetDefaults() {
+        let dictionary = self.dictionaryRepresentation()
+        dictionary.keys.forEach { key in
+            self.removeObject(forKey: key)
+        }
+    }
+}

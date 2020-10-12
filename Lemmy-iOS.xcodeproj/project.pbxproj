@@ -17,6 +17,9 @@
 		4E10706B253477C1009EABDA /* LemmyUITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10706A253477C1009EABDA /* LemmyUITableView.swift */; };
 		4E1070712534E970009EABDA /* CreatePostOrCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1070702534E96F009EABDA /* CreatePostOrCommunityViewController.swift */; };
 		4E1070792534E97E009EABDA /* CreatePostOrCommunityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1070782534E97E009EABDA /* CreatePostOrCommunityCoordinator.swift */; };
+		4E10707E2534F5EC009EABDA /* LemmyCheckLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10707D2534F5EC009EABDA /* LemmyCheckLogin.swift */; };
+		4E1070842534F742009EABDA /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E1070832534F742009EABDA /* KeychainSwift */; };
+		4E10708E2534F7A7009EABDA /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10708D2534F7A7009EABDA /* LoginData.swift */; };
 		4EB89AF8251F47A7007129BF /* PostScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */; };
 		4EB89B00251F4882007129BF /* PostScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AFF251F4882007129BF /* PostScreenUI.swift */; };
 		4EB89B052521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */; };
@@ -93,6 +96,8 @@
 		4E10706A253477C1009EABDA /* LemmyUITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyUITableView.swift; sourceTree = "<group>"; };
 		4E1070702534E96F009EABDA /* CreatePostOrCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostOrCommunityViewController.swift; sourceTree = "<group>"; };
 		4E1070782534E97E009EABDA /* CreatePostOrCommunityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostOrCommunityCoordinator.swift; sourceTree = "<group>"; };
+		4E10707D2534F5EC009EABDA /* LemmyCheckLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyCheckLogin.swift; sourceTree = "<group>"; };
+		4E10708D2534F7A7009EABDA /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
 		4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenViewController.swift; sourceTree = "<group>"; };
 		4EB89AFF251F4882007129BF /* PostScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenUI.swift; sourceTree = "<group>"; };
 		4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyGreenOutlinePostDescription.swift; sourceTree = "<group>"; };
@@ -153,6 +158,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E1070842534F742009EABDA /* KeychainSwift in Frameworks */,
 				921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */,
 				4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */,
 			);
@@ -210,6 +216,23 @@
 			path = CreatePostOrCommunity;
 			sourceTree = "<group>";
 		};
+		4E1070882534F78D009EABDA /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				4E10708C2534F79D009EABDA /* Data */,
+				4ECCEEE8250BA6040075F921 /* Networking */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		4E10708C2534F79D009EABDA /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				4E10708D2534F7A7009EABDA /* LoginData.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		4EB89AF5251F4783007129BF /* Screens */ = {
 			isa = PBXGroup;
 			children = (
@@ -263,7 +286,7 @@
 			children = (
 				4ECCEEE1250B8E1C0075F921 /* App */,
 				4ECCEEE2250B8F4A0075F921 /* Features */,
-				4ECCEEE8250BA6040075F921 /* Networking */,
+				4E1070882534F78D009EABDA /* Core */,
 				4ECCEEDE250B8DDF0075F921 /* Base */,
 				4ECCEEB5250B8B6E0075F921 /* Assets.xcassets */,
 				4ECCEEB7250B8B6E0075F921 /* LaunchScreen.storyboard */,
@@ -439,6 +462,7 @@
 				4EB89B092521FA73007129BF /* LoginOrRegisterButton.swift */,
 				4EB89B2F2521FDBE007129BF /* LemmyLinkedClickableUILabel.swift */,
 				4EB89B3425220B81007129BF /* LemmyCommentView.swift */,
+				4E10707D2534F5EC009EABDA /* LemmyCheckLogin.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -488,6 +512,7 @@
 			name = "Lemmy-iOS";
 			packageProductDependencies = (
 				4ECCEEFA250C13240075F921 /* SnapKit */,
+				4E1070832534F742009EABDA /* KeychainSwift */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */;
@@ -563,6 +588,7 @@
 			mainGroup = 4ECCEE9D250B8B6B0075F921;
 			packageReferences = (
 				4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
@@ -667,7 +693,9 @@
 				4ECCEF0C250CCD3E0075F921 /* PostRequests.swift in Sources */,
 				4E107053253476EE009EABDA /* PostsFrontPageViewController.swift in Sources */,
 				4ECCEF0E250CDA5A0075F921 /* LemmyApiStructs+Post.swift in Sources */,
+				4E10707E2534F5EC009EABDA /* LemmyCheckLogin.swift in Sources */,
 				4ECCEEDD250B8D930075F921 /* AppCoordinator.swift in Sources */,
+				4E10708E2534F7A7009EABDA /* LoginData.swift in Sources */,
 				4E1070602534770B009EABDA /* CommentsFrontPageViewController.swift in Sources */,
 				4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */,
 				4ECCEEED250BE8870075F921 /* FrontPageViewController.swift in Sources */,
@@ -1022,6 +1050,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 19.0.0;
+			};
+		};
 		4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -1033,6 +1069,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4E1070832534F742009EABDA /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
+		};
 		4ECCEEFA250C13240075F921 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */;
