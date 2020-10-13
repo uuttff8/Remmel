@@ -69,11 +69,13 @@ class SignInView: UIView {
         emailOrUsernameTextField.snp.makeConstraints { (make) in
             make.top.equalTo(signInLabel.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(35)
         }
         
         passwordTextField.snp.makeConstraints { (make) in
             make.top.equalTo(emailOrUsernameTextField.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(35)
         }
         
         loginButton.snp.makeConstraints { (make) in
