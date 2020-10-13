@@ -90,9 +90,28 @@ extension LemmyApiStructs {
             let auth: String
         }
         
-        // TODO(uuttff8): Create ReplyView
         struct GetRepliesResponse: Codable, Equatable {
-//            let replies: Array<ReplyView>
+            let replies: Array<ReplyView>
+        }
+        
+        // MARK: - GetUserMentions
+        struct GetUserMentionsRequest: Codable, Equatable {
+            let sort: LemmySortType
+            let page: Int
+            let limit: Int?
+            let unreadOnly: Bool
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case sort, page, limit
+                case unreadOnly = "unread_only"
+                case auth
+            }
+        }
+        
+        // TODO: add UserMentionView
+        struct GetUserMentionsResponse: Codable, Equatable {
+//            let mentions: Array<UserMentionView>
         }
     }
 }
