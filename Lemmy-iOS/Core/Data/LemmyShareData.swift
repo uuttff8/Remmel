@@ -11,6 +11,8 @@ import UIKit
 // work after auth
 class LemmyShareData {
     
+    let loginData = LoginData()
+    
     enum Constants {
         static let accessToken = "access_token"
         static let userId = "userId"

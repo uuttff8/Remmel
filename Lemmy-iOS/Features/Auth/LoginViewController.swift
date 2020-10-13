@@ -9,9 +9,19 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+    private let signInView = SignInView()
+    
+    var customView: SignInView {
+        signInView
+    }
+    
+    override func loadView() {
+        self.view = signInView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         
     }
     

@@ -23,10 +23,10 @@ extension UIImage {
                             width: size.width, height: size.height))
             let rotatedImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
-
+            
             return rotatedImage ?? self
         }
-
+        
         return self
     }
 }
@@ -53,9 +53,9 @@ extension UIButton {
 
 
 extension UILabel {
-
+    
     func set(text:String, leftIcon: UIImage? = nil, rightIcon: UIImage? = nil) {
-
+        
         let leftAttachment = NSTextAttachment()
         leftAttachment.image = leftIcon
         leftAttachment.bounds = CGRect(x: 0, y: -2.5, width: 20, height: 20)
@@ -63,15 +63,15 @@ extension UILabel {
             leftAttachment.bounds = CGRect(x: 0, y: -2.5, width: leftIcon.size.width, height: leftIcon.size.height)
         }
         let leftAttachmentStr = NSAttributedString(attachment: leftAttachment)
-
+        
         let myString = NSMutableAttributedString(string: "")
-
+        
         let rightAttachment = NSTextAttachment()
         rightAttachment.image = rightIcon
         rightAttachment.bounds = CGRect(x: 0, y: -5, width: 20, height: 20)
         let rightAttachmentStr = NSAttributedString(attachment: rightAttachment)
-
-
+        
+        
         if semanticContentAttribute == .forceRightToLeft {
             if rightIcon != nil {
                 myString.append(rightAttachmentStr)
@@ -131,6 +131,44 @@ extension UserDefaults {
         let dictionary = self.dictionaryRepresentation()
         dictionary.keys.forEach { key in
             self.removeObject(forKey: key)
+        }
+    }
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
+extension UIAlertController {
+    static func createOkAlert(message: String) {
+        let controller = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        controller.addAction(okAction)
+        guard let vc = UIApplication.getTopMostViewController() else { return }
+        vc.present(controller, animated: true, completion: nil)
+    }
+}
+
+
+extension UIApplication {
+
+    class func getTopMostViewController() -> UIViewController? {
+        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        if var topController = keyWindow?.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+            return topController
+        } else {
+            return nil
         }
     }
 }

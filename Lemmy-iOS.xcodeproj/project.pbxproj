@@ -22,6 +22,7 @@
 		4E10708E2534F7A7009EABDA /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10708D2534F7A7009EABDA /* LoginData.swift */; };
 		4E107093253500DA009EABDA /* LemmyApiStructs+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E107092253500DA009EABDA /* LemmyApiStructs+User.swift */; };
 		4E1070982535DF4F009EABDA /* LemmyShareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1070972535DF4F009EABDA /* LemmyShareData.swift */; };
+		4E10709D25361846009EABDA /* LoginScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10709C25361846009EABDA /* LoginScreenUI.swift */; };
 		4EB89AF8251F47A7007129BF /* PostScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */; };
 		4EB89B00251F4882007129BF /* PostScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AFF251F4882007129BF /* PostScreenUI.swift */; };
 		4EB89B052521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */; };
@@ -102,6 +103,7 @@
 		4E10708D2534F7A7009EABDA /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
 		4E107092253500DA009EABDA /* LemmyApiStructs+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LemmyApiStructs+User.swift"; sourceTree = "<group>"; };
 		4E1070972535DF4F009EABDA /* LemmyShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyShareData.swift; sourceTree = "<group>"; };
+		4E10709C25361846009EABDA /* LoginScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenUI.swift; sourceTree = "<group>"; };
 		4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenViewController.swift; sourceTree = "<group>"; };
 		4EB89AFF251F4882007129BF /* PostScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenUI.swift; sourceTree = "<group>"; };
 		4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyGreenOutlinePostDescription.swift; sourceTree = "<group>"; };
@@ -350,19 +352,20 @@
 				4EB89AF5251F4783007129BF /* Screens */,
 				4ECCEEF5250C0E230075F921 /* Communities */,
 				4ECCEEEB250BE85B0075F921 /* FrontPage */,
-				4ECCEEE3250B8F690075F921 /* Login */,
+				4ECCEEE3250B8F690075F921 /* Auth */,
 				4ECCEEF0250C03910075F921 /* LemmyTabBar */,
 			);
 			path = Features;
 			sourceTree = "<group>";
 		};
-		4ECCEEE3250B8F690075F921 /* Login */ = {
+		4ECCEEE3250B8F690075F921 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				4E10709C25361846009EABDA /* LoginScreenUI.swift */,
 				4ECCEEAD250B8B6B0075F921 /* LoginViewController.swift */,
 				4ECCEEE6250B8FA80075F921 /* LoginCoordinator.swift */,
 			);
-			path = Login;
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		4ECCEEE8250BA6040075F921 /* Networking */ = {
@@ -724,6 +727,7 @@
 				4ECCEF31251F24AD0075F921 /* LemmyFrontPageNavBar.swift in Sources */,
 				4ECCEF33251F27170075F921 /* LemmyProfileIconView.swift in Sources */,
 				4E10706B253477C1009EABDA /* LemmyUITableView.swift in Sources */,
+				4E10709D25361846009EABDA /* LoginScreenUI.swift in Sources */,
 				4ECCEEF4250C04280075F921 /* LemmyTabBarController.swift in Sources */,
 				4E1070652534771C009EABDA /* CommentsFrontPageModel.swift in Sources */,
 				4E106F5D25273A0C009EABDA /* CommentTreeTableCell.swift in Sources */,

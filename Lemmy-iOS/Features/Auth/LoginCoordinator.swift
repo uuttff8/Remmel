@@ -9,18 +9,18 @@
 import UIKit
 
 class LoginCoordinator : Coordinator {
+    var rootViewController: LoginViewController
     var childCoordinators: [Coordinator] = []
     
     var navigationController: UINavigationController?
 
-    init(navigationController :UINavigationController?) {
+    init(navigationController: UINavigationController?) {
+        self.rootViewController = LoginViewController()
         self.navigationController = navigationController
     }
 
     func start() {
-
-        let viewController = LoginViewController()
-        navigationController?.pushViewController(viewController, animated: true)
+        navigationController?.pushViewController(rootViewController, animated: true)
     }
 }
 

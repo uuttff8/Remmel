@@ -68,12 +68,17 @@ extension LemmyTabBarController: UITabBarControllerDelegate {
                 let createPostOrCommCoordinator = CreatePostOrCommunityCoordinator(navigationController: nil)
                 self.coordinator?.store(coordinator: createPostOrCommCoordinator)
                 createPostOrCommCoordinator.start()
-                tabBarController.present(CreatePostOrCommunityViewController(), animated: true, completion: nil)
+                tabBarController.present(createPostOrCommCoordinator.rootViewController, animated: true, completion: nil)
             } else {
                 let alertController = UIAlertController(title: nil, message: "Create an account to continue", preferredStyle: .alert)
                 
                 let loginAction = UIAlertAction(title: "Login", style: .default) { (_) in
-                    print("login")
+                    
+                    let loginCoordinator = LoginCoordinator(navigationController: nil)
+                    self.coordinator?.store(coordinator: loginCoordinator)
+                    loginCoordinator.start()
+                    
+                    tabBarController.present(loginCoordinator.rootViewController, animated: true, completion: nil)
                 }
                 
                 let signUpAction = UIAlertAction(title: "Sign up", style: .default) { (_) in
