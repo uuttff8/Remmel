@@ -109,9 +109,8 @@ extension LemmyApiStructs {
             }
         }
         
-        // TODO: add UserMentionView
         struct GetUserMentionsResponse: Codable, Equatable {
-//            let mentions: Array<UserMentionView>
+            let mentions: Array<UserMentionView>
         }
     }
 }
