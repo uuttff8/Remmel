@@ -9,6 +9,8 @@
 import UIKit
 
 class SignInView: UIView {
+    var onSignIn: ((_ emailOrUsername: String, _ password: String) -> Void)?
+    
     private lazy var signInLabel: UILabel = {
         let lbl = UILabel()
         lbl.text = "Sign in"
@@ -52,6 +54,12 @@ class SignInView: UIView {
         if (!passwordTextField.hasText) || (!emailOrUsernameTextField.hasText) {
             UIAlertController.createOkAlert(message: "Please fill correct email or username or password")
         }
+        
+        guard let emailOrUsername = emailOrUsernameTextField.text,
+              let password = passwordTextField.text
+        else { return }
+        
+        onSignIn?(emailOrUsername, password)
     }
     
     required init?(coder: NSCoder) {

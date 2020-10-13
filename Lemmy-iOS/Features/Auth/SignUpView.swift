@@ -9,6 +9,7 @@
 import UIKit
 
 class SignUpView: UIView {
+    var onSignUp: ((_ username: String, _ email: String, _ password: String?, _ passwordVerify: String) -> Void)?
     
     private lazy var signUpLabel: UILabel = {
         let lbl = UILabel()
@@ -83,6 +84,16 @@ class SignUpView: UIView {
             UIAlertController.createOkAlert(message: "Passwords don't match")
             return
         }
+        
+        guard let username = usernameTextField.text,
+              let email = emailTextField.text,
+              let password = passwordTextField.text,
+              let passwordVerify = passwordVerifyTextField.text else { return }
+              
+        onSignUp?(username,
+                  email,
+                  password,
+                  passwordVerify)
     }
     
     required init?(coder: NSCoder) {

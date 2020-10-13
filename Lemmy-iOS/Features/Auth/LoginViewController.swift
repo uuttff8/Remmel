@@ -14,6 +14,9 @@ enum LemmyAuthMethod {
 
 class LoginViewController: UIViewController {
     
+    var signInView: SignInView?
+    var signUpView: SignUpView?
+    
     let authMethod: LemmyAuthMethod
     
     init(authMethod: LemmyAuthMethod) {
@@ -28,17 +31,26 @@ class LoginViewController: UIViewController {
     override func loadView() {
         switch authMethod {
         case .signin:
-            self.view = SignInView()
+            let signIn = SignInView()
+            self.signInView = signIn
+            self.view = signIn
         case .signup:
-            self.view = SignUpView()
-        default:
-            break
+            let signUp = SignUpView()
+            self.signUpView = signUp
+            self.view = signUp
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
+        
+        signInView?.onSignIn = { (emailOrUsername, password) in
+            
+        }
+        
+        signUpView?.onSignUp = { (username, email, password, passwordVerify) in
+        }
     }
 }
 
