@@ -25,6 +25,7 @@
 		4E10709D25361846009EABDA /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10709C25361846009EABDA /* SignInView.swift */; };
 		4E886C17253626950076B162 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C16253626950076B162 /* SignUpView.swift */; };
 		4E886C1C25364DD70076B162 /* AuthRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C1B25364DD70076B162 /* AuthRequests.swift */; };
+		4E886C2125364EC30076B162 /* UserRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C2025364EC30076B162 /* UserRequests.swift */; };
 		4EB89AF8251F47A7007129BF /* PostScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */; };
 		4EB89B00251F4882007129BF /* PostScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AFF251F4882007129BF /* PostScreenUI.swift */; };
 		4EB89B052521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */; };
@@ -108,6 +109,7 @@
 		4E10709C25361846009EABDA /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		4E886C16253626950076B162 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		4E886C1B25364DD70076B162 /* AuthRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequests.swift; sourceTree = "<group>"; };
+		4E886C2025364EC30076B162 /* UserRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequests.swift; sourceTree = "<group>"; };
 		4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenViewController.swift; sourceTree = "<group>"; };
 		4EB89AFF251F4882007129BF /* PostScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenUI.swift; sourceTree = "<group>"; };
 		4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyGreenOutlinePostDescription.swift; sourceTree = "<group>"; };
@@ -452,6 +454,7 @@
 				4ECCEF1C250D63BE0075F921 /* CommentRequests.swift */,
 				4ECCEF28250FB8260075F921 /* CommunityRequests.swift */,
 				4E886C1B25364DD70076B162 /* AuthRequests.swift */,
+				4E886C2025364EC30076B162 /* UserRequests.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -739,6 +742,7 @@
 				4E1070652534771C009EABDA /* CommentsFrontPageModel.swift in Sources */,
 				4E106F5D25273A0C009EABDA /* CommentTreeTableCell.swift in Sources */,
 				4ECCEF2B250FF56A0075F921 /* CommunityPreviewTableCell.swift in Sources */,
+				4E886C2125364EC30076B162 /* UserRequests.swift in Sources */,
 				4EB89B00251F4882007129BF /* PostScreenUI.swift in Sources */,
 				4ECCEF09250CC3A60075F921 /* RequestsManager.swift in Sources */,
 				4ECCEF1F250DFBC90075F921 /* CommentContentTableCell.swift in Sources */,
