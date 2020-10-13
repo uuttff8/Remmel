@@ -80,5 +80,19 @@ extension LemmyApiStructs {
         struct SaveUserSettingsResponse: Codable, Equatable {
             let jwt: String
         }
+        
+        // MARK: - Get Replies / Inbox
+        struct GetRepliesRequest: Codable, Equatable {
+            let sort: LemmySortType
+            let page: Int?
+            let limit: Int?
+            let unread_only: Bool
+            let auth: String
+        }
+        
+        // TODO(uuttff8): Create ReplyView
+        struct GetRepliesResponse: Codable, Equatable {
+//            let replies: Array<ReplyView>
+        }
     }
 }
