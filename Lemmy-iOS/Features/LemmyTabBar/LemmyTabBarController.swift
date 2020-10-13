@@ -74,7 +74,7 @@ extension LemmyTabBarController: UITabBarControllerDelegate {
                 
                 let loginAction = UIAlertAction(title: "Login", style: .default) { (_) in
                     
-                    let loginCoordinator = LoginCoordinator(navigationController: nil)
+                    let loginCoordinator = LoginCoordinator(navigationController: nil, authMethod: .signin)
                     self.coordinator?.store(coordinator: loginCoordinator)
                     loginCoordinator.start()
                     
@@ -82,7 +82,11 @@ extension LemmyTabBarController: UITabBarControllerDelegate {
                 }
                 
                 let signUpAction = UIAlertAction(title: "Sign up", style: .default) { (_) in
-                    print("sign up")
+                    let loginCoordinator = LoginCoordinator(navigationController: nil, authMethod: .signup)
+                    self.coordinator?.store(coordinator: loginCoordinator)
+                    loginCoordinator.start()
+                    
+                    tabBarController.present(loginCoordinator.rootViewController, animated: true, completion: nil)
                 }
                 
                 let cancelAction = UIAlertAction(title: "Cancel", style: .destructive) { (_) in
