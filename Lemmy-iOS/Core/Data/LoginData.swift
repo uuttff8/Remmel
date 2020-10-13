@@ -9,15 +9,11 @@
 import Foundation
 import KeychainSwift
 
-struct ShareDataConstants {
-    static let accessToken = "access_token"
-    static let userId = "userId"
-    static let userdata = "userdata"
-}
-
 extension UserDefaults {
+    static let appSuiteName = "userDefaults.uuttff8.LemmyiOS"
+    
     static var appShared: UserDefaults {
-        UserDefaults(suiteName: "userDefaults.uuttff8.LemmyiOS")!
+        UserDefaults(suiteName: UserDefaults.appSuiteName)!
     }
 }
 
@@ -26,12 +22,11 @@ class LoginData {
     
     private let keychain = KeychainSwift()
     private let userDefaults = UserDefaults.appShared
+    private let shareData = LemmyShareData()
     
     func logout() {
-        // proof
         keychain.clear()
-        keychain.clear()
-        userDefaults.removeSuite(named: "userDefaults.uuttff8.LemmyiOS")
+        userDefaults.removeSuite(named: UserDefaults.appSuiteName)
         userDefaults.resetDefaults()
         URLCache.shared.removeAllCachedResponses()
     }
@@ -40,10 +35,9 @@ class LoginData {
         self.userId = userId
     }
     
-    // TODO: uncomment when LemmyApiStructs.UserView is added
-//    var currentUser: LemmyApiStructs.UserView? {
-//        ShareData().userdata
-//    }
+    var currentUser: LemmyApiStructs.UserView? {
+        shareData.userdata
+    }
     
     // LEGACY
     func isLoggedIn() -> Bool {
@@ -51,13 +45,13 @@ class LoginData {
     }
     
     var accessToken: String? {
-        get { keychain.get(ShareDataConstants.accessToken) }
-        set { keychain.set(newValue!, forKey: ShareDataConstants.accessToken) }
+        get { keychain.get(LemmyShareData.Constants.accessToken) }
+        set { keychain.set(newValue!, forKey: LemmyShareData.Constants.accessToken) }
     }
     
     var userId: String? {
-        get { userDefaults.string(forKey: ShareDataConstants.userId) }
-        set { userDefaults.set(newValue, forKey: ShareDataConstants.userId) }
+        get { userDefaults.string(forKey: LemmyShareData.Constants.userId) }
+        set { userDefaults.set(newValue, forKey: LemmyShareData.Constants.userId) }
     }
 
     func clear() {
@@ -66,6 +60,6 @@ class LoginData {
     }
     
     private func clearUserId() {
-        userDefaults.removeObject(forKey: "userId")
+        userDefaults.removeObject(forKey: LemmyShareData.Constants.userId)
     }
 }
