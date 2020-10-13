@@ -398,4 +398,75 @@ enum LemmyApiStructs {
             case communityIcon = "community_icon"
         }
     }
+    
+    struct ReplyView: Codable, Equatable {
+        let id: Int
+        let creatorId: Int
+        let postId: Int
+        let postName: String
+        let parentId: Int?
+        let content: String
+        let removed: Bool
+        let read: Bool
+        let published: String // Timestamp
+        let updated: String? // Timestamp
+        let deleted: Bool
+        let apId: String
+        let local: Bool
+        let communityId: Int
+        let communityActorId: String
+        let communityLocal: Bool
+        let communityName: String
+        let communityIcon: String?
+        let banned: Bool
+        let bannedFromCommunity: Bool
+        let creatorActorId: String
+        let creatorLocal: Bool
+        let creatorName: String
+        let creatorPreferredUsername: String?
+        let creatorAvatar: String?
+        let creatorPublished: String // Timestamp
+        let score: Int
+        let upvotes: Int
+        let downvotes: Int
+        let hotRank: Int
+        let hotRankActive: Int
+        let userId: Int?
+        let myVote: Int?
+        let subscribed: Bool?
+        let saved: Bool?
+        let recipientId: Int
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case creatorId = "creator_id"
+            case postId = "post_id"
+            case postName = "post_name"
+            case parentId = "parent_id"
+            case content, removed, read
+            case published, updated, deleted
+            case apId = "ap_id"
+            case local
+            case communityId = "community_id"
+            case communityActorId = "community_actor_id"
+            case communityLocal = "community_local"
+            case communityName = "community_name"
+            case communityIcon = "communityIcon"
+            case banned
+            case bannedFromCommunity = "banned_from_community"
+            case creatorActorId = "creator_actor_id"
+            case creatorLocal = "creator_local"
+            case creatorName = "creator_name"
+            case creatorPreferredUsername = "creator_preferred_username"
+            case creatorAvatar = "creator_avatar"
+            case creatorPublished = "creator_published"
+            case score, upvotes, downvotes
+            case hotRank = "hot_rank"
+            case hotRankActive = "hot_rank_active"
+            case userId = "user_id"
+            case myVote = "my_vote"
+            case subscribed, saved
+            case recipientId = "recipient_id"
+        }
+    }
 }
