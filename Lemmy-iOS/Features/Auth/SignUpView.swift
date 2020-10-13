@@ -90,6 +90,7 @@ class SignUpView: UIView {
               let password = passwordTextField.text,
               let passwordVerify = passwordVerifyTextField.text else { return }
               
+        // TODO(uuttff8): Make Captcha support
         onSignUp?(username,
                   email,
                   password,
