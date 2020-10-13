@@ -25,7 +25,7 @@ class LoginData {
     private let shareData = LemmyShareData()
     
     func logout() {
-        keychain.clear()
+        self.clear()
         userDefaults.removeSuite(named: UserDefaults.appSuiteName)
         userDefaults.resetDefaults()
         URLCache.shared.removeAllCachedResponses()
