@@ -373,6 +373,7 @@ enum LemmyApiStructs {
     }
     
     // MARK: - MyUser -
+    // inner struct in lemmy backend called User_, that is why its not a *View
     struct MyUser: Codable, Equatable {
         let id: Int
         let name: String
