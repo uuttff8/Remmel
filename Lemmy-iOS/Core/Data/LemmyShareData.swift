@@ -11,6 +11,7 @@ import UIKit
 // work after auth
 class LemmyShareData {
     
+    static let shared = LemmyShareData()
     let loginData = LoginData()
     
     enum Constants {
@@ -21,11 +22,11 @@ class LemmyShareData {
     
     let userDefaults = UserDefaults.appShared
     
-    var userdata: LemmyApiStructs.UserView? {
+    var userdata: LemmyApiStructs.MyUser? {
         get {
             guard let data = userDefaults.data(forKey: Constants.userdata)
                 else { return nil }
-            return try? JSONDecoder().decode(LemmyApiStructs.UserView.self, from: data)
+            return try? JSONDecoder().decode(LemmyApiStructs.MyUser.self, from: data)
         } set {
             let data = try? JSONEncoder().encode(newValue)
             userDefaults.set(data, forKey: Constants.userdata)

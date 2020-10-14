@@ -17,9 +17,7 @@ extension UserDefaults {
     }
 }
 
-class LoginData {
-    static let shared = LoginData()
-    
+class LoginData {    
     private let keychain = KeychainSwift()
     private let userDefaults = UserDefaults.appShared
     private let shareData = LemmyShareData()
@@ -35,7 +33,7 @@ class LoginData {
         URLCache.shared.removeAllCachedResponses()
     }
     
-    var currentUser: LemmyApiStructs.UserView? {
+    var currentUser: LemmyApiStructs.MyUser? {
         shareData.userdata
     }
     

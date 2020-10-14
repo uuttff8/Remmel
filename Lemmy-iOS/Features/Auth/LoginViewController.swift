@@ -16,7 +16,7 @@ class LoginViewController: UIViewController {
     
     var signInView: SignInView?
     var signUpView: SignUpView?
-    let loginData = LoginData()
+    let shareData = LemmyShareData.shared
     
     let authMethod: LemmyAuthMethod
     
@@ -58,8 +58,15 @@ class LoginViewController: UIViewController {
                         UIAlertController.createOkAlert(message: error as! String)
                     }
                 case let .success(loginJwt):
-                    self.loginData.login(jwt: loginJwt.jwt)
-                    
+                    self.shareData.loginData.login(jwt: loginJwt.jwt)
+                    self.loadUserOnSuccessLogin(jwt: loginJwt.jwt) { (myUser) in
+                        self.shareData.userdata = myUser
+                        
+                        
+                        DispatchQueue.main.async {
+                            
+                        }
+                    }
                 }
             }
         }
@@ -68,8 +75,23 @@ class LoginViewController: UIViewController {
         }
     }
     
-    private func loadUserOnSuccessLogin(completion: @escaping ((LemmyApiStructs.UserView) -> Void)) {
+    private func loadUserOnSuccessLogin(jwt: String, completion: @escaping ((LemmyApiStructs.MyUser) -> Void)) {
+        let params = LemmyApiStructs.Site.GetSiteRequest(auth: jwt)
         
+        ApiManager.shared.requestsManager.getSite(parameters: params)
+        { (res: Result<LemmyApiStructs.Site.GetSiteResponse, Error>) in
+            switch res {
+            case let .failure(error):
+                print(error)
+            case let .success(data):
+                guard let myUser = data.myUser else { return }
+                completion(myUser)
+            }
+        }
+    }
+    
+    private func loginSuccessed() {
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

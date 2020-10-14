@@ -10,7 +10,9 @@ import UIKit
 
 class LemmyContinueIfLogined {
     
-    init(onViewController: UIViewController?, do: () -> Void) {
-        
+    init(onViewController: UIViewController?, doAction: () -> Void) {
+        if let _ = LemmyShareData.shared.jwtToken {
+            doAction()
+        }
     }
 }
