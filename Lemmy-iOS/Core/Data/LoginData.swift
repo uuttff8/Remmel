@@ -17,10 +17,11 @@ extension UserDefaults {
     }
 }
 
-class LoginData {    
+class LoginData {
+    static let shared = LoginData()
+    
     private let keychain = KeychainSwift()
     private let userDefaults = UserDefaults.appShared
-    private let shareData = LemmyShareData()
     
     func login(jwt: String) {
         self.jwtToken = jwt
@@ -31,10 +32,6 @@ class LoginData {
         userDefaults.removeSuite(named: UserDefaults.appSuiteName)
         userDefaults.resetDefaults()
         URLCache.shared.removeAllCachedResponses()
-    }
-    
-    var currentUser: LemmyApiStructs.MyUser? {
-        shareData.userdata
     }
     
     // LEGACY

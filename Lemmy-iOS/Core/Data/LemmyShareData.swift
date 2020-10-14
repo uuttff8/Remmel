@@ -12,7 +12,7 @@ import UIKit
 class LemmyShareData {
     
     static let shared = LemmyShareData()
-    let loginData = LoginData()
+    let loginData = LoginData.shared
     
     enum Constants {
         static let jwt = "jwt"

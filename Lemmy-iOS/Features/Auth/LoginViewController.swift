@@ -64,7 +64,7 @@ class LoginViewController: UIViewController {
                         
                         
                         DispatchQueue.main.async {
-                            
+                            self.loginSuccessed()
                         }
                     }
                 }

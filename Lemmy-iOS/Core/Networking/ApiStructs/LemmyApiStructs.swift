@@ -341,8 +341,8 @@ enum LemmyApiStructs {
     // MARK: - UserView -
     struct UserView: Codable, Equatable {
         let id: Int
-        let actorId: Int
-        let name: Int
+        let actorId: String
+        let name: String
         let preferredUsername: String?
         let avatar: String?
         let banner: String?
@@ -380,7 +380,7 @@ enum LemmyApiStructs {
         let preferredUsername: String?
         let passwordEncrypted: String
         let email: String
-        let avatar: String
+        let avatar: String?
         let admin: Bool
         let banned: Bool
         let published: String // Timestamp
