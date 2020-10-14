@@ -91,6 +91,7 @@ class LoginViewController: UIViewController {
     }
     
     private func loginSuccessed() {
+        NotificationCenter.default.post(name: .didLogin, object: nil)
         self.dismiss(animated: true, completion: nil)
     }
 }

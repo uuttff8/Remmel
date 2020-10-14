@@ -23,9 +23,6 @@ class LemmyProfileIconView: UIView {
         imageButton.snp.makeConstraints { (make) in
             make.top.bottom.leading.trailing.equalToSuperview()
         }
-//        imageButton.imageView?.snp.makeConstraints({ (make) in
-//            make.size.equalTo(30)
-//        })
     }
     
     required init?(coder: NSCoder) {
