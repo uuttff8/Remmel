@@ -372,6 +372,57 @@ enum LemmyApiStructs {
         }
     }
     
+    // MARK: - MyUser -
+    struct MyUser: Codable, Equatable {
+        let id: Int
+        let name: String
+        let preferredUsername: String?
+        let passwordEncrypted: String
+        let email: String
+        let avatar: String
+        let admin: Bool
+        let banned: Bool
+        let published: String // Timestamp
+        let updated: String? // Timestamp
+        let showNsfw: Bool
+        let theme: String
+        let defaultSortType: Int
+        let defaultListingType: Int
+        let lang: String
+        let showAvatars: Bool
+        let sendNotificationsToEmail: Bool
+        let matrixUserId: String?
+        let actorId: String
+        let bio: String?
+        let local: Bool
+        let privateKey: String?
+        let publicKey: String?
+        let lastRefreshedAt: String // Timestamp
+        let banner: String?
+
+        enum CodingKeys: String, CodingKey {
+            case id, name
+            case preferredUsername = "preferred_username"
+            case passwordEncrypted = "password_encrypted"
+            case email, avatar, admin, banned
+            case published, updated
+            case showNsfw = "show_nsfw"
+            case theme
+            case defaultSortType = "default_sort_type"
+            case defaultListingType = "default_listing_type"
+            case lang
+            case showAvatars = "show_avatars"
+            case sendNotificationsToEmail = "send_notifications_to_email"
+            case matrixUserId = "matrix_user_id"
+            case actorId = "actor_id"
+            case bio, local
+            case privateKey = "private_key"
+            case publicKey = "public_key"
+            case lastRefreshedAt = "last_refreshed_at"
+            case banner
+        }
+    }
+    
     
     // MARK: - CommunityFollowerView -
     struct CommunityFollowerView: Codable, Equatable {
