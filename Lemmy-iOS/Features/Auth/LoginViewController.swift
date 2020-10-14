@@ -16,6 +16,7 @@ class LoginViewController: UIViewController {
     
     var signInView: SignInView?
     var signUpView: SignUpView?
+    let loginData = LoginData()
     
     let authMethod: LemmyAuthMethod
     
@@ -46,11 +47,29 @@ class LoginViewController: UIViewController {
         self.hideKeyboardWhenTappedAround()
         
         signInView?.onSignIn = { (emailOrUsername, password) in
+            let parameters = LemmyApiStructs.Authentication
+                .LoginRequest(usernameOrEmail: emailOrUsername, password: password)
             
+            ApiManager.shared.requestsManager.login(parameters: parameters)
+            { (res: Result<LemmyApiStructs.Authentication.LoginResponse, Error>) in
+                switch res {
+                case let .failure(error):
+                    DispatchQueue.main.async {
+                        UIAlertController.createOkAlert(message: error as! String)
+                    }
+                case let .success(loginJwt):
+                    self.loginData.login(jwt: loginJwt.jwt)
+                    
+                }
+            }
         }
         
         signUpView?.onSignUp = { (username, email, password, passwordVerify) in
         }
+    }
+    
+    private func loadUserOnSuccessLogin(completion: @escaping ((LemmyApiStructs.UserView) -> Void)) {
+        
     }
 }
 

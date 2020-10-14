@@ -14,7 +14,7 @@ class LemmyShareData {
     let loginData = LoginData()
     
     enum Constants {
-        static let accessToken = "access_token"
+        static let jwt = "jwt"
         static let userId = "userId"
         static let userdata = "userdata"
     }
@@ -30,5 +30,9 @@ class LemmyShareData {
             let data = try? JSONEncoder().encode(newValue)
             userDefaults.set(data, forKey: Constants.userdata)
         }
+    }
+    
+    var jwtToken: String? {
+        loginData.jwtToken
     }
 }

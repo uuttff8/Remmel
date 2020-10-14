@@ -93,6 +93,11 @@ enum LemmyApiStructs {
         case link, pictureAndText, plainText
     }
     
+    // MARK: - Error -
+    struct ErrorResponse: Codable, Equatable {
+        let error: String
+    }
+    
     // MARK: - PostView -
     struct PostView: Codable, Equatable {
          let id: Int
@@ -367,6 +372,8 @@ enum LemmyApiStructs {
         }
     }
     
+    
+    // MARK: - CommunityFollowerView -
     struct CommunityFollowerView: Codable, Equatable {
         let id: Int
         let communityId: Int
@@ -399,6 +406,7 @@ enum LemmyApiStructs {
         }
     }
     
+    // MARK: - ReplyView -
     struct ReplyView: Codable, Equatable {
         let id: Int
         let creatorId: Int
@@ -470,6 +478,7 @@ enum LemmyApiStructs {
         }
     }
     
+    // MARK: - UserMentionView -
     struct UserMentionView: Codable, Equatable {
         let id: Int
         let userMentionId: Int

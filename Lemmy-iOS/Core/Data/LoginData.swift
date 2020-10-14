@@ -24,15 +24,15 @@ class LoginData {
     private let userDefaults = UserDefaults.appShared
     private let shareData = LemmyShareData()
     
+    func login(jwt: String) {
+        self.jwtToken = jwt
+    }
+    
     func logout() {
         self.clear()
         userDefaults.removeSuite(named: UserDefaults.appSuiteName)
         userDefaults.resetDefaults()
         URLCache.shared.removeAllCachedResponses()
-    }
-    
-    func setLoggedIn(_ userId:String) {
-        self.userId = userId
     }
     
     var currentUser: LemmyApiStructs.UserView? {
@@ -41,12 +41,12 @@ class LoginData {
     
     // LEGACY
     func isLoggedIn() -> Bool {
-        return accessToken != nil && userId != nil
+        return jwtToken != nil && userId != nil
     }
     
-    var accessToken: String? {
-        get { keychain.get(LemmyShareData.Constants.accessToken) }
-        set { keychain.set(newValue!, forKey: LemmyShareData.Constants.accessToken) }
+    var jwtToken: String? {
+        get { keychain.get(LemmyShareData.Constants.jwt) }
+        set { keychain.set(newValue!, forKey: LemmyShareData.Constants.jwt) }
     }
     
     var userId: String? {

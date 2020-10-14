@@ -34,6 +34,13 @@ class RequestsManager {
             do {
                 let dict = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                 guard dict?.keys.firstIndex(of: rootKey) != nil, let items = dict?[rootKey] else {
+                    
+                    // if no root key it maybe an error from backend
+                    if let backendError = try? JSONDecoder().decode(LemmyApiStructs.ErrorResponse.self, from: data) {
+                        completion(.failure(backendError.error))
+                        return
+                    }
+                    
                     completion(.failure("Root key not found"))
                     return
                 }

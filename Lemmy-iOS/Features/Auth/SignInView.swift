@@ -21,12 +21,14 @@ class SignInView: UIView {
     private lazy var emailOrUsernameTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Email or username"
+        textField.autocapitalizationType = .none
         return textField
     }()
     
     private lazy var passwordTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Password"
+        tf.isSecureTextEntry = true
         return tf
     }()
     
