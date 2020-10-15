@@ -9,7 +9,7 @@
 import UIKit
 
 class SignUpView: UIView {
-    var onSignUp: ((_ username: String, _ email: String, _ password: String?, _ passwordVerify: String) -> Void)?
+    var onSignUp: ((_ username: String, _ email: String, _ password: String?, _ passwordVerify: String, _ captchaCode: String) -> Void)?
     
     let model = SignUpModel()
     
@@ -53,7 +53,7 @@ class SignUpView: UIView {
         tf.placeholder = "Verify Password"
         return tf
     }()
-
+    
     private lazy var registerButton: UIButton = {
         let btn = UIButton()
         btn.setTitle("Register", for: .normal)
@@ -68,9 +68,16 @@ class SignUpView: UIView {
         return iv
     }()
     
+    private lazy var captchaTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "Captcha code"
+        return tf
+    }()
+    
     init() {
         super.init(frame: .zero)
         self.backgroundColor = UIColor.systemBackground
+        
         model.getCaptcha { [self] (res) in
             switch res {
             case .success(let image):
@@ -81,37 +88,52 @@ class SignUpView: UIView {
             }
         }
         
-        
-        [signUpLabel, usernameTextField, emailTextField, emailDescription,
-        passwordTextField, passwordVerifyTextField, captchaImageView, registerButton].forEach { [self] (view) in
+        [
+            signUpLabel,
+            usernameTextField,
+            emailTextField, emailDescription,
+            passwordTextField, passwordVerifyTextField,
+            captchaImageView, captchaTextField,
+            registerButton
+        ].forEach { [self] (view) in
             self.addSubview(view)
         }
         
         registerButton.addTarget(self, action: #selector(registerButtonTapped(sender:)), for: .touchUpInside)
-
+        
     }
     
     @objc func registerButtonTapped(sender: UIButton!) {
-        if (!passwordTextField.hasText) || (!usernameTextField.hasText) || (!passwordVerifyTextField.hasText) {
+        guard (!passwordTextField.hasText) || (!usernameTextField.hasText) || (!passwordVerifyTextField.hasText)
+        else {
             UIAlertController.createOkAlert(message: "Please fill correct email or username or password")
             return
         }
         
-        if (passwordTextField.text != passwordVerifyTextField.text) {
+        guard (passwordTextField.text != passwordVerifyTextField.text)
+        else {
             UIAlertController.createOkAlert(message: "Passwords don't match")
+            return
+        }
+        
+        guard (!captchaTextField.hasText)
+        else {
+            UIAlertController.createOkAlert(message: "Please fill captcha")
             return
         }
         
         guard let username = usernameTextField.text,
               let email = emailTextField.text,
               let password = passwordTextField.text,
-              let passwordVerify = passwordVerifyTextField.text else { return }
-              
+              let passwordVerify = passwordVerifyTextField.text,
+              let captchaCode = captchaTextField.text else { return }
+        
         // TODO(uuttff8): Make Captcha support
         onSignUp?(username,
                   email,
                   password,
-                  passwordVerify)
+                  passwordVerify,
+                  captchaCode)
     }
     
     required init?(coder: NSCoder) {
@@ -163,11 +185,16 @@ class SignUpView: UIView {
             make.width.equalTo(200)
         }
         
+        captchaTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(captchaImageView.snp.bottom).offset(10)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(35)
+        }
+        
         registerButton.snp.makeConstraints { (make) in
-            make.top.equalTo(captchaImageView.snp.bottom).offset(20)
+            make.top.equalTo(captchaTextField.snp.bottom).offset(20)
             make.leading.equalToSuperview().inset(20)
             make.width.equalTo(100)
         }
-        
     }
 }

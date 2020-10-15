@@ -71,7 +71,8 @@ class LoginViewController: UIViewController {
             }
         }
         
-        signUpView?.onSignUp = { (username, email, password, passwordVerify) in
+        signUpView?.onSignUp = { (username, email, password, passwordVerify, captchaCode) in
+            
         }
     }
     
