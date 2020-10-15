@@ -46,34 +46,96 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         
-        signInView?.onSignIn = { (emailOrUsername, password) in
-            let parameters = LemmyApiStructs.Authentication
-                .LoginRequest(usernameOrEmail: emailOrUsername, password: password)
-            
-            ApiManager.shared.requestsManager.login(parameters: parameters)
-            { (res: Result<LemmyApiStructs.Authentication.LoginResponse, Error>) in
-                switch res {
-                case let .failure(error):
+        let barItemTitle: String
+        
+        switch authMethod {
+        case .login:
+            barItemTitle = "Login"
+        case .register:
+            barItemTitle = "Register"
+        }
+        
+        let barItem = UIBarButtonItem(title: barItemTitle, style: .plain, target: self, action: #selector(onLoginOrRegisterSelector(sender:)))
+        navigationItem.rightBarButtonItem = barItem
+    }
+    
+    @objc func onLoginOrRegisterSelector(sender: UIBarButtonItem!) {
+        switch authMethod {
+        case .login:
+            onSignIn()
+        case .register:
+            onSignUp()
+        }
+    }
+    
+    private func onSignUp() {
+        guard let signUpView = signUpView else { return }
+        
+        guard (signUpView.passwordTextField.hasText)
+                || (signUpView.usernameTextField.hasText)
+                || (signUpView.passwordVerifyTextField.hasText)
+        else {
+            UIAlertController.createOkAlert(message: "Please fill correct email or username or password")
+            return
+        }
+        
+        guard (signUpView.passwordTextField.text == signUpView.passwordVerifyTextField.text)
+        else {
+            UIAlertController.createOkAlert(message: "Passwords don't match")
+            return
+        }
+        
+        guard (signUpView.captchaTextField.hasText)
+        else {
+            UIAlertController.createOkAlert(message: "Please fill captcha")
+            return
+        }
+        
+        guard let username = signUpView.usernameTextField.text,
+              let email = signUpView.emailTextField.text,
+              let password = signUpView.passwordTextField.text,
+              let passwordVerify = signUpView.passwordVerifyTextField.text,
+              let captchaCode = signUpView.captchaTextField.text else { return }
+        
+
+    }
+    
+    private func onSignIn() {
+        guard let signInView = signInView else { return }
+        
+        if (!signInView.passwordTextField.hasText) || (!signInView.emailOrUsernameTextField.hasText) {
+            UIAlertController.createOkAlert(message: "Please fill correct email or username or password")
+        }
+        
+        guard let emailOrUsername = signInView.emailOrUsernameTextField.text,
+              let password = signInView.passwordTextField.text
+        else { return }
+        
+        
+        
+        let parameters = LemmyApiStructs.Authentication
+            .LoginRequest(usernameOrEmail: emailOrUsername, password: password)
+        
+        ApiManager.shared.requestsManager.login(parameters: parameters)
+        { (res: Result<LemmyApiStructs.Authentication.LoginResponse, Error>) in
+            switch res {
+            case let .failure(error):
+                DispatchQueue.main.async {
+                    UIAlertController.createOkAlert(message: error as! String)
+                }
+            case let .success(loginJwt):
+                self.shareData.loginData.login(jwt: loginJwt.jwt)
+                self.loadUserOnSuccessLogin(jwt: loginJwt.jwt) { (myUser) in
+                    self.shareData.userdata = myUser
+                    
+                    
                     DispatchQueue.main.async {
-                        UIAlertController.createOkAlert(message: error as! String)
-                    }
-                case let .success(loginJwt):
-                    self.shareData.loginData.login(jwt: loginJwt.jwt)
-                    self.loadUserOnSuccessLogin(jwt: loginJwt.jwt) { (myUser) in
-                        self.shareData.userdata = myUser
-                        
-                        
-                        DispatchQueue.main.async {
-                            self.loginSuccessed()
-                        }
+                        self.loginSuccessed()
                     }
                 }
             }
         }
         
-        signUpView?.onSignUp = { (username, email, password, passwordVerify, captchaCode) in
-            
-        }
     }
     
     private func loadUserOnSuccessLogin(jwt: String, completion: @escaping ((LemmyApiStructs.MyUser) -> Void)) {

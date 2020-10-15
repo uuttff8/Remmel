@@ -14,7 +14,7 @@ class LoginCoordinator : Coordinator {
     
     var navigationController: UINavigationController?
 
-    init(navigationController: UINavigationController?, authMethod: LemmyAuthMethod) {
+    init(navigationController: UINavigationController, authMethod: LemmyAuthMethod) {
         self.rootViewController = LoginViewController(authMethod: authMethod)
         self.navigationController = navigationController
     }

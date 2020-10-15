@@ -33,10 +33,15 @@ final class LemmyTabBarCoordinator: Coordinator {
     }
     
     func goToLoginScreen(authMethod: LemmyAuthMethod) {
-        let loginCoordinator = LoginCoordinator(navigationController: nil, authMethod: authMethod)
+        let loginCoordinator = LoginCoordinator(navigationController: UINavigationController(), authMethod: authMethod)
         self.store(coordinator: loginCoordinator)
         loginCoordinator.start()
         
-        rootViewController.present(loginCoordinator.rootViewController, animated: true, completion: nil)
+        guard let loginNavController = loginCoordinator.navigationController else {
+            print("\(#file) loginCoordinator.navigationController is nil")
+            return
+        }
+        
+        rootViewController.present(loginNavController, animated: true, completion: nil)
     }
 }
