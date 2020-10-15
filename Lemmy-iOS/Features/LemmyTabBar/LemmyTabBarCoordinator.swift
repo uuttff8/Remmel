@@ -33,7 +33,7 @@ final class LemmyTabBarCoordinator: Coordinator {
     }
     
     func goToLoginScreen(authMethod: LemmyAuthMethod) {
-        let loginCoordinator = LoginCoordinator(navigationController: nil, authMethod: .login)
+        let loginCoordinator = LoginCoordinator(navigationController: nil, authMethod: authMethod)
         self.store(coordinator: loginCoordinator)
         loginCoordinator.start()
         
