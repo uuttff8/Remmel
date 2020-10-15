@@ -67,20 +67,13 @@ class SignUpView: UIView {
         tf.autocapitalizationType = .none
         return tf
     }()
-    
-    let checkFieldStackView = UIStackView()
-    
-    lazy var checkText: UILabel = {
-        let lbl = UILabel()
-        lbl.text = "Show NSFW content"
-        return lbl
-    }()
-    
-    lazy var showNsfwCheck: UISwitch = {
-        let swt = UISwitch()
-        return swt
-    }()
         
+    lazy var showNsfwSwitch: LemmyTextWithSwitch = {
+        let switcher = LemmyTextWithSwitch()
+        switcher.checkText = "Show NSFW content"
+        return switcher
+    }()
+    
     init() {
         super.init(frame: .zero)
         self.backgroundColor = UIColor.systemBackground
@@ -90,18 +83,14 @@ class SignUpView: UIView {
         captchaImageView.addTap { [self] in
             getCaptcha()
         }
-        
-        checkFieldStackView.axis = .horizontal
-        checkFieldStackView.addArrangedSubview(checkText)
-        checkFieldStackView.addArrangedSubview(showNsfwCheck)
-        
+                
         [
             signUpLabel,
             usernameTextField,
             emailTextField, emailDescription,
             passwordTextField, passwordVerifyTextField,
             captchaImageView, captchaTextField,
-            checkFieldStackView
+            showNsfwSwitch
         ].forEach { [self] (view) in
             self.addSubview(view)
         }
@@ -175,7 +164,7 @@ class SignUpView: UIView {
             make.height.equalTo(35)
         }
         
-        checkFieldStackView.snp.makeConstraints { (make) in
+        showNsfwSwitch.snp.makeConstraints { (make) in
             make.top.equalTo(captchaTextField.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)
         }

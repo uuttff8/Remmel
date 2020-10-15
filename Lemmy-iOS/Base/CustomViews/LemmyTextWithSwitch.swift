@@ -1,0 +1,50 @@
+//
+//  LemmyTextWithSwitch.swift
+//  Lemmy-iOS
+//
+//  Created by uuttff8 on 10/15/20.
+//  Copyright © 2020 Anton Kuzmin. All rights reserved.
+//
+
+import UIKit
+
+class LemmyTextWithSwitch: UIView {
+    let checkFieldStackView = UIStackView()
+    
+    var checkText: String = "YOUR CHECK TEXT HERE" {
+        didSet {
+            checkTextLabel.text = checkText
+        }
+    }
+    
+    lazy var checkTextLabel: UILabel = {
+        let lbl = UILabel()
+        return lbl
+    }()
+    
+    lazy var switcher: UISwitch = {
+        let swt = UISwitch()
+        return swt
+    }()
+    
+    init() {
+        super.init(frame: .zero)
+        
+        self.addSubview(checkFieldStackView)
+        
+        checkFieldStackView.axis = .horizontal
+        checkFieldStackView.addArrangedSubview(checkTextLabel)
+        checkFieldStackView.addArrangedSubview(switcher)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        checkFieldStackView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.bottom.equalToSuperview()
+        }
+    }
+}

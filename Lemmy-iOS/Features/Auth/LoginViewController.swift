@@ -99,7 +99,7 @@ class LoginViewController: UIViewController {
         
         guard let uuid = signUpView.model.uuid else { return }
         
-        let showNsfw = signUpView.showNsfwCheck.isOn
+        let showNsfw = signUpView.showNsfwSwitch.switcher.isOn
         var email = signUpView.emailTextField.text
         if email == "" {
             email = nil
