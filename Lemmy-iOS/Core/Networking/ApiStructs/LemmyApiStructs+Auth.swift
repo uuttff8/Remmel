@@ -33,6 +33,7 @@ extension LemmyApiStructs {
             let password: String
             let passwordVerify: String
             let admin: Bool
+            let showNsfw: Bool
             let captchaUuid: String?
             let captchaAnswer: String?
             
@@ -41,6 +42,7 @@ extension LemmyApiStructs {
                 case password
                 case passwordVerify = "password_verify"
                 case admin
+                case showNsfw = "show_nsfw"
                 case captchaUuid = "captcha_uuid"
                 case captchaAnswer = "captcha_answer"
             }

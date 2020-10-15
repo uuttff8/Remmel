@@ -97,7 +97,29 @@ class LoginViewController: UIViewController {
               let passwordVerify = signUpView.passwordVerifyTextField.text,
               let captchaCode = signUpView.captchaTextField.text else { return }
         
-
+        guard let uuid = signUpView.model.uuid else { return }
+        
+        // TODO(uuttff8): Add UI for show nsfw check
+        let params = LemmyApiStructs.Authentication.RegisterRequest(username: username,
+                                                                    email: email,
+                                                                    password: password,
+                                                                    passwordVerify: passwordVerify,
+                                                                    admin: false,
+                                                                    showNsfw: true,
+                                                                    captchaUuid: uuid,
+                                                                    captchaAnswer: captchaCode)
+        
+        ApiManager.requests.register(parameters: params) { (result: Result<LemmyApiStructs.Authentication.RegisterResponse, Error>) in
+            switch result {
+            case let .success(response):
+                print(response)
+            case let .failure(error):
+                print(error)
+                DispatchQueue.main.async {
+                    UIAlertController.createOkAlert(message: error as! String)
+                }
+            }
+        }
     }
     
     private func onSignIn() {
