@@ -11,6 +11,8 @@ import UIKit
 class SignUpView: UIView {
     var onSignUp: ((_ username: String, _ email: String, _ password: String?, _ passwordVerify: String) -> Void)?
     
+    let model = SignUpModel()
+    
     private lazy var signUpLabel: UILabel = {
         let lbl = UILabel()
         lbl.text = "Sign up"
@@ -61,12 +63,27 @@ class SignUpView: UIView {
         return btn
     }()
     
+    private lazy var captchaImageView: UIImageView = {
+        let iv = UIImageView()
+        return iv
+    }()
+    
     init() {
         super.init(frame: .zero)
         self.backgroundColor = UIColor.systemBackground
+        model.getCaptcha { [self] (res) in
+            switch res {
+            case .success(let image):
+                DispatchQueue.main.async {
+                    captchaImageView.image = image
+                }
+            default: break
+            }
+        }
+        
         
         [signUpLabel, usernameTextField, emailTextField, emailDescription,
-        passwordTextField, passwordVerifyTextField, registerButton].forEach { [self] (view) in
+        passwordTextField, passwordVerifyTextField, captchaImageView, registerButton].forEach { [self] (view) in
             self.addSubview(view)
         }
         
@@ -138,8 +155,16 @@ class SignUpView: UIView {
             make.height.equalTo(35)
         }
         
+        captchaImageView.snp.makeConstraints { (make) in
+            make.top.equalTo(passwordVerifyTextField.snp.bottom).offset(10)
+            make.leading.equalToSuperview().inset(20)
+            make.trailing.lessThanOrEqualToSuperview().inset(20)
+            make.height.equalTo(100)
+            make.width.equalTo(200)
+        }
+        
         registerButton.snp.makeConstraints { (make) in
-            make.top.equalTo(passwordVerifyTextField.snp.bottom).offset(20)
+            make.top.equalTo(captchaImageView.snp.bottom).offset(20)
             make.leading.equalToSuperview().inset(20)
             make.width.equalTo(100)
         }

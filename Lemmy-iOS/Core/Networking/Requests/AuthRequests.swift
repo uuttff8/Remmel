@@ -49,7 +49,7 @@ extension RequestsManager: AuthRequestManagerProtocol {
         return requestDecodable(
             path: LemmyEndpoint.Authentication.getCaptcha.endpoint,
             parameters: Optional<LemmyApiStructs.Authentication.GetCaptchaRequest>.none,
-            parsingFromRootKey: "ok",
+            parsingFromRootKey: "data",
             completion: completion
         )
     }

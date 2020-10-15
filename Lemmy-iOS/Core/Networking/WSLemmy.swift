@@ -201,9 +201,7 @@ class WSLemmy {
             """
         } else {
             reqStr = """
-            {
-            "op": \(url)
-            }
+            {"op":"\(url)","data":{}}
             """
         }
         

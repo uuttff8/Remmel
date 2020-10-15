@@ -55,6 +55,10 @@ extension LemmyApiStructs {
         
         // Will be undefined if captchas are disabled
         struct GetCaptchaResponse: Codable, Equatable {
+            let ok: GetCaptchaResponseOk?
+        }
+        
+        struct GetCaptchaResponseOk: Codable, Equatable {
             let png: String // A Base64 encoded png
             let wav: String? //  A Base64 encoded wav audio file
             let uuid: String

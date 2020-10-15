@@ -175,9 +175,11 @@ extension UIApplication {
 
 extension String {
     func base64ToImage() -> UIImage? {
-        if let url = URL(string: self),let data = try? Data(contentsOf: url),let image = UIImage(data: data) {
-            return image
+        let newImageData = Data(base64Encoded: self)
+        if let newImageData = newImageData {
+           return UIImage(data: newImageData)
         }
+        
         return nil
     }
 }
