@@ -10,9 +10,11 @@ import UIKit
 
 class PostsFrontPageModel: NSObject {
     var goToPostScreen: ((LemmyApiStructs.PostView) -> ())?
-    var newDataLoaded: (() -> Void)?
+    var newDataLoaded: ((Array<LemmyApiStructs.PostView>) -> Void)?
     var dataLoaded: (() -> Void)?
-    var isFetchingNewContent = false
+    
+    private var isFetchingNewContent = false
+    private var currentPage = 1
     
     var postsDataSource: Array<LemmyApiStructs.PostView> = []
     
@@ -55,10 +57,10 @@ class PostsFrontPageModel: NSObject {
             })
     }
     
-    func loadMorePosts() {
+    func loadMorePosts(completion: @escaping (() -> Void)) {
         let parameters = LemmyApiStructs.Post.GetPostsRequest(type_: self.currentFeedType,
                                                               sort: LemmySortType.active,
-                                                              page: 2,
+                                                              page: currentPage,
                                                               limit: 20,
                                                               communityId: nil,
                                                               communityName: nil,
@@ -68,17 +70,16 @@ class PostsFrontPageModel: NSObject {
             parameters: parameters,
             completion: { (dec: Result<LemmyApiStructs.Post.GetPostsResponse, Error>) in
                 switch dec {
-                case .success(let posts):
-                    self.postsDataSource = posts.posts
+                case let .success(posts):
+                    self.postsDataSource.append(contentsOf: posts.posts)
                     DispatchQueue.main.async {
-                        self.newDataLoaded?()
+                        self.newDataLoaded?(posts.posts)
                     }
-                    
+                    completion()
                 case .failure(let error):
                     print(error)
                 }
             })
-        
     }
 }
 
@@ -103,16 +104,22 @@ extension PostsFrontPageModel: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let indexPathRow = indexPath.row
+        let bottomItems = self.postsDataSource.count - 5
         
-        if indexPathRow >= postsDataSource.count - 21 {
+        if indexPathRow >= bottomItems {
             guard !self.isFetchingNewContent else { return }
+            
+            self.isFetchingNewContent = true
+            self.currentPage += 1
+            self.loadMorePosts {
+                self.isFetchingNewContent = false
+            }
         }
     }
     
     private func handleDidSelectForPosts(indexPath: IndexPath) {
         self.goToPostScreen?(postsDataSource[indexPath.row])
     }
-    
     
     private func handleCellForPosts(indexPath: IndexPath) -> UITableViewCell {
         let postCell = PostContentTableCell()

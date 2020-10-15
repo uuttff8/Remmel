@@ -10,9 +10,13 @@ import UIKit
 
 class CommentsFrontPageModel: NSObject {
     var dataLoaded: (() -> Void)?
-    var newDataLoaded: (() -> Void)?
+    var newDataLoaded: ((Array<LemmyApiStructs.CommentView>) -> Void)?
     var goToCommentScreen: ((LemmyApiStructs.CommentView) -> ())?
-    var isFetchingNewContent = false
+    
+    private var isFetchingNewContent = false
+    private var currentPage = 1
+    
+    var commentsDataSource: Array<LemmyApiStructs.CommentView> = []
     
     // at init always posts
     var currentContentType: LemmyContentType = LemmyContentType.posts {
@@ -28,9 +32,6 @@ class CommentsFrontPageModel: NSObject {
         }
     }
     
-    var commentsDataSource: Array<LemmyApiStructs.CommentView> = []
-    
-    
     func loadComments() {
         let parameters = LemmyApiStructs.Comment.GetCommentsRequest(type_: self.currentFeedType,
                                                                     sort: LemmySortType.hot,
@@ -45,13 +46,35 @@ class CommentsFrontPageModel: NSObject {
                 self.commentsDataSource = response.comments
                 DispatchQueue.main.async {
                     self.dataLoaded?()
-                    print(self.currentContentType)
                 }
             case .failure(let error):
                 print(error)
             }
         }
     }
+    
+    func loadMoreComments(completion: @escaping (() -> Void)) {
+        let parameters = LemmyApiStructs.Comment.GetCommentsRequest(type_: self.currentFeedType,
+                                                                    sort: LemmySortType.hot,
+                                                                    page: currentPage,
+                                                                    limit: 20,
+                                                                    auth: nil)
+        
+        ApiManager.shared.requestsManager.getComments(parameters: parameters)
+        { (res: Result<LemmyApiStructs.Comment.GetCommentsResponse, Error>) in
+            switch res {
+            case .success(let response):
+                self.commentsDataSource.append(contentsOf: response.comments)
+                DispatchQueue.main.async {
+                    self.newDataLoaded?(response.comments)
+                }
+                completion()
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+
 }
 
 extension CommentsFrontPageModel: UITableViewDelegate, UITableViewDataSource {
@@ -79,9 +102,16 @@ extension CommentsFrontPageModel: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let indexPathRow = indexPath.row
+        let bottomItems = self.commentsDataSource.count - 5
         
-        if indexPathRow >= commentsDataSource.count - 21 {
+        if indexPathRow >= bottomItems {
             guard !self.isFetchingNewContent else { return }
+            
+            self.isFetchingNewContent = true
+            self.currentPage += 1
+            self.loadMoreComments {
+                self.isFetchingNewContent = false
+            }
         }
     }
     

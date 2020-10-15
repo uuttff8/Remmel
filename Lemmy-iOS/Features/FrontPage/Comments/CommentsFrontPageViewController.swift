@@ -25,10 +25,26 @@ class CommentsFrontPageViewController: UIViewController {
         tableView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-
+        
+        
         model.loadComments()
-        model.dataLoaded = { [self] in
+        model.dataLoaded = { [self]  in
             tableView.reloadData()
+        }
+        
+        model.newDataLoaded = { [self] (newComments) in
+            let startIndex = model.commentsDataSource.count - newComments.count
+            let endIndex = startIndex + newComments.count
+            
+            let newIndexpaths =
+                Array(startIndex ..< endIndex)
+                .map { (index) in
+                    IndexPath(row: index, section: 0)
+                }
+            
+            tableView.performBatchUpdates {
+                tableView.insertRows(at: newIndexpaths, with: .automatic)
+            }
         }
     }
 }

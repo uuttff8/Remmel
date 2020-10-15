@@ -13,7 +13,6 @@ class FrontPageViewController: UIViewController {
     
     weak var coordinator: FrontPageCoordinator?
     
-    let model = FrontPageModel()
     let navBar = LemmyFrontPageNavBar()
     let headerSegmentView = FrontPageHeaderView(contentSelected: LemmyContentType.comments,
                                                 feedType: LemmyFeedType.all)
