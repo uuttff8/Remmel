@@ -44,12 +44,14 @@ class SignUpView: UIView {
     
     lazy var passwordTextField: UITextField = {
         let textField = UITextField()
+        textField.isSecureTextEntry = true
         textField.placeholder = "Password"
         return textField
     }()
     
     lazy var passwordVerifyTextField: UITextField = {
         let tf = UITextField()
+        tf.isSecureTextEntry = true
         tf.placeholder = "Verify Password"
         return tf
     }()
@@ -62,13 +64,55 @@ class SignUpView: UIView {
     lazy var captchaTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Captcha code"
+        tf.autocapitalizationType = .none
         return tf
     }()
     
+    let checkFieldStackView = UIStackView()
+    
+    lazy var checkText: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "Show NSFW content"
+        return lbl
+    }()
+    
+    lazy var showNsfwCheck: UISwitch = {
+        let swt = UISwitch()
+        return swt
+    }()
+        
     init() {
         super.init(frame: .zero)
         self.backgroundColor = UIColor.systemBackground
         
+        getCaptcha()
+        
+        captchaImageView.addTap { [self] in
+            getCaptcha()
+        }
+        
+        checkFieldStackView.axis = .horizontal
+        checkFieldStackView.addArrangedSubview(checkText)
+        checkFieldStackView.addArrangedSubview(showNsfwCheck)
+        
+        [
+            signUpLabel,
+            usernameTextField,
+            emailTextField, emailDescription,
+            passwordTextField, passwordVerifyTextField,
+            captchaImageView, captchaTextField,
+            checkFieldStackView
+        ].forEach { [self] (view) in
+            self.addSubview(view)
+        }
+    }
+    
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func getCaptcha() {
         model.getCaptcha { [self] (res) in
             switch res {
             case .success(let image):
@@ -78,21 +122,6 @@ class SignUpView: UIView {
             default: break
             }
         }
-        
-        [
-            signUpLabel,
-            usernameTextField,
-            emailTextField, emailDescription,
-            passwordTextField, passwordVerifyTextField,
-            captchaImageView, captchaTextField,
-        ].forEach { [self] (view) in
-            self.addSubview(view)
-        }
-    }
-    
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func layoutSubviews() {
@@ -144,6 +173,11 @@ class SignUpView: UIView {
             make.top.equalTo(captchaImageView.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(35)
-        }        
+        }
+        
+        checkFieldStackView.snp.makeConstraints { (make) in
+            make.top.equalTo(captchaTextField.snp.bottom).offset(10)
+            make.leading.trailing.equalToSuperview().inset(20)
+        }
     }
 }

@@ -92,22 +92,28 @@ class LoginViewController: UIViewController {
         }
         
         guard let username = signUpView.usernameTextField.text,
-              let email = signUpView.emailTextField.text,
               let password = signUpView.passwordTextField.text,
               let passwordVerify = signUpView.passwordVerifyTextField.text,
-              let captchaCode = signUpView.captchaTextField.text else { return }
+              let captchaCode = signUpView.captchaTextField.text
+              else { return }
         
         guard let uuid = signUpView.model.uuid else { return }
         
-        // TODO(uuttff8): Add UI for show nsfw check
+        let showNsfw = signUpView.showNsfwCheck.isOn
+        var email = signUpView.emailTextField.text
+        if email == "" {
+            email = nil
+        }
+        
         let params = LemmyApiStructs.Authentication.RegisterRequest(username: username,
                                                                     email: email,
                                                                     password: password,
                                                                     passwordVerify: passwordVerify,
                                                                     admin: false,
-                                                                    showNsfw: true,
+                                                                    showNsfw: showNsfw,
                                                                     captchaUuid: uuid,
                                                                     captchaAnswer: captchaCode)
+        
         
         ApiManager.requests.register(parameters: params) { (result: Result<LemmyApiStructs.Authentication.RegisterResponse, Error>) in
             switch result {
