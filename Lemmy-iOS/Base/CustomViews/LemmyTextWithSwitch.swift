@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LemmyTextWithSwitch: UIView {
+class LemmyLabelWithSwitch: UIView {
     let checkFieldStackView = UIStackView()
     
     var checkText: String = "YOUR CHECK TEXT HERE" {
