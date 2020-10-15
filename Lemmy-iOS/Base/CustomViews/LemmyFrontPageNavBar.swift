@@ -39,13 +39,12 @@ class LemmyFrontPageNavBar: UIView {
     }
     
     @objc func updateProfileIcon(_ notification: Notification) {
-        guard let photoUrl = LemmyShareData.shared.userdata?.avatar else { return }
+        guard let photoStr = LemmyShareData.shared.userdata?.avatar,
+              let photoUrl = URL(string: photoStr)
+        else { return }
         
         ImagePipeline.shared.loadImage(
-            with: URL(string: photoUrl)!,
-            progress: { _, completed, total in
-                print("progress updated")
-            },
+            with: photoUrl,
             completion: { (result: Result<ImageResponse, ImagePipeline.Error>) in
                 switch result {
                 case let .success(response):
@@ -54,7 +53,6 @@ class LemmyFrontPageNavBar: UIView {
                 }
             }
         )
-        
     }
     
     override func layoutSubviews() {

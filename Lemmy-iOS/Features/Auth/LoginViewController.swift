@@ -9,7 +9,7 @@
 import UIKit
 
 enum LemmyAuthMethod {
-    case signin, signup
+    case login, register
 }
 
 class LoginViewController: UIViewController {
@@ -31,11 +31,11 @@ class LoginViewController: UIViewController {
     
     override func loadView() {
         switch authMethod {
-        case .signin:
+        case .login:
             let signIn = SignInView()
             self.signInView = signIn
             self.view = signIn
-        case .signup:
+        case .register:
             let signUp = SignUpView()
             self.signUpView = signUp
             self.view = signUp

@@ -24,4 +24,19 @@ final class LemmyTabBarCoordinator: Coordinator {
         rootViewController.coordinator = self
         rootViewController.createTabs()
     }
+    
+    func goToCreateOrPostScreen() {
+        let createPostOrCommCoordinator = CreatePostOrCommunityCoordinator(navigationController: nil)
+        self.store(coordinator: createPostOrCommCoordinator)
+        createPostOrCommCoordinator.start()
+        rootViewController.present(createPostOrCommCoordinator.rootViewController, animated: true, completion: nil)
+    }
+    
+    func goToLoginScreen(authMethod: LemmyAuthMethod) {
+        let loginCoordinator = LoginCoordinator(navigationController: nil, authMethod: .login)
+        self.store(coordinator: loginCoordinator)
+        loginCoordinator.start()
+        
+        rootViewController.present(loginCoordinator.rootViewController, animated: true, completion: nil)
+    }
 }
