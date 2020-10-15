@@ -184,6 +184,12 @@ extension String {
     }
 }
 
+extension UIScreen {
+    static var isDarkMode: Bool {
+        return UIScreen.main.traitCollection.userInterfaceStyle == .dark
+    }
+}
+
 extension UIView {
     private static var tapKey = "tapKey"
 

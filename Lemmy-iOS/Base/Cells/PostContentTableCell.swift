@@ -19,6 +19,7 @@ protocol PostContentTableCellDelegate: AnyObject {
 class PostContentTableCell: UITableViewCell {
     
     let postContentView = PostContentView()
+    let selBackView = UIView()
     
     func bind(with post: LemmyApiStructs.PostView) {
         self.contentView.addSubview(postContentView)
@@ -33,9 +34,12 @@ class PostContentTableCell: UITableViewCell {
     }
     
     func setupUI() {
-        let selBackView = UIView()
-        selBackView.backgroundColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1)
+        selBackView.backgroundColor = Config.Color.highlightCell
         self.selectedBackgroundView = selBackView
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        selBackView.backgroundColor = Config.Color.highlightCell
     }
 }
 
@@ -49,7 +53,7 @@ class PostContentView: UIView {
     private let footerView = PostContentFooterView()
     private let separatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1)
+        view.backgroundColor = Config.Color.separator
         return view
     }()
     
@@ -141,6 +145,10 @@ class PostContentView: UIView {
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview() // SELF SIZE BOTTOM HERE
         }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        separatorView.backgroundColor = Config.Color.separator
     }
     
     func setupUIForPost() {

@@ -74,6 +74,9 @@ extension CommentsFrontPageModel: UITableViewDelegate, UITableViewDataSource {
         
     }
     
+    // TODO(uuttff8): go to comments
+    private func handleDidSelectForComments(indexPath: IndexPath) { }
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let indexPathRow = indexPath.row
         

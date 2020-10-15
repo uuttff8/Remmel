@@ -21,7 +21,6 @@ class CommunitiesViewController: UIViewController {
         tableView.separatorStyle = .none
         return tableView
     }()
-
     
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.systemBackground
