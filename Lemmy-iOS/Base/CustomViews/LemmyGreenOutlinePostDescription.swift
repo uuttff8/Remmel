@@ -65,7 +65,6 @@ class LemmyGreenOutlinePostEmbed: UIView {
         self.layer.cornerRadius = 10
         self.layer.borderWidth = 2
         self.layer.borderColor = UIColor.systemGreen.cgColor
-        self.backgroundColor = UIColor.lightGray
         
         self.addSubview(titleLabel)
 

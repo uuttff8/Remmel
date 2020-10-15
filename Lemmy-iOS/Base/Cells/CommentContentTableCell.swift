@@ -257,7 +257,7 @@ private class CommentHeaderView: UIView {
         usernameButton.setTitle(usernameButtonText, for: .normal)
         communityButton.setTitle(comment.community, for: .normal)
         publishedTitle.text = comment.published
-        scoreLabel.set(text: String(comment.score), leftIcon: UIImage(systemName: "bolt.fill")!)
+        scoreLabel.set(text: String(comment.score), leftIcon: Config.Image.boltFill)
         postNameButton.setTitle(comment.postName, for: .normal)
         
         setupViews(comment)
@@ -370,17 +370,14 @@ private class CommentFooterView: UIView {
     // MARK: - UI Elements
     private let showContextButton: UIButton = {
         let btn = UIButton()
-        let image = UIImage(systemName: "link")?
-            .withTintColor(UIColor.label, renderingMode: .alwaysOriginal)
-        
+        let image = Config.Image.link
         btn.setImage(image, for: .normal)
         return btn
     }()
     
     private let upvoteButton: UIButton = {
         let btn = UIButton()
-        let image = UIImage(systemName: "arrow.up")?
-            .withTintColor(UIColor.label, renderingMode: .alwaysOriginal)
+        let image = Config.Image.arrowUp
         
         btn.setImage(image, for: .normal)
         return btn
@@ -389,8 +386,7 @@ private class CommentFooterView: UIView {
     
     private let downvoteButton: UIButton = {
         let btn = UIButton()
-        let image = UIImage(systemName: "arrow.down")?
-            .withTintColor(UIColor.label, renderingMode: .alwaysOriginal)
+        let image = Config.Image.arrowDown
         
         btn.setImage(image, for: .normal)
         return btn
@@ -398,8 +394,7 @@ private class CommentFooterView: UIView {
     
     private let replyButton: UIButton = {
         let btn = UIButton()
-        let image = UIImage(systemName: "arrowshape.turn.up.left.fill")?
-            .withTintColor(UIColor.label, renderingMode: .alwaysOriginal)
+        let image = Config.Image.arrowshapeTurnUp
         
         btn.setImage(image, for: .normal)
         return btn
@@ -408,9 +403,7 @@ private class CommentFooterView: UIView {
     private let showMoreButton: UIButton = {
         let btn = UIButton()
         
-        let image = UIImage(systemName: "ellipsis")?
-            .withTintColor(UIColor.label, renderingMode: .alwaysOriginal)
-        
+        let image = Config.Image.ellipsis
         btn.setImage(image, for: .normal)
         return btn
     }()
@@ -429,6 +422,14 @@ private class CommentFooterView: UIView {
     func bind(with: CommentFooterView.ViewData) {
         setupUI()
         setupTargets()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        replyButton.setImage(Config.Image.arrowshapeTurnUp, for: .normal)
+        showMoreButton.setImage(Config.Image.ellipsis, for: .normal)
+        upvoteButton.setImage(Config.Image.arrowUp, for: .normal)
+        downvoteButton.setImage(Config.Image.arrowDown, for: .normal)
+        showContextButton.setImage(Config.Image.link, for: .normal)
     }
     
     private func setupTargets() {

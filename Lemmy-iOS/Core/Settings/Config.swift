@@ -64,5 +64,30 @@ extension Config {
                     .withTintColor(UIColor.black, renderingMode: .alwaysOriginal)
             }
         }
+        
+        static var ellipsis: UIImage {
+            if UIScreen.isDarkMode {
+                return UIImage(systemName: "ellipsis")!
+                    .withTintColor(UIColor.white, renderingMode: .alwaysOriginal)
+            } else {
+                return UIImage(systemName: "ellipsis")!
+                    .withTintColor(UIColor.black, renderingMode: .alwaysOriginal)
+            }
+        }
+        
+        static var arrowshapeTurnUp: UIImage {
+            UIImage(systemName: "arrowshape.turn.up.left.fill")!
+                .withTintColor(UIColor.label, renderingMode: .alwaysOriginal)
+        }
+        
+        static var link: UIImage {
+            UIImage(systemName: "link")!
+                .withTintColor(UIColor.label, renderingMode: .alwaysOriginal)
+        }
+        
+        static var boltFill: UIImage {
+            UIImage(systemName: "bolt.fill")!
+                .withTintColor(UIColor.label, renderingMode: .alwaysOriginal)
+        }
     }
 }

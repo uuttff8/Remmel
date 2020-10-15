@@ -227,8 +227,6 @@ extension UIView {
     }
 }
 
-
-
 extension Notification.Name {
     static let didLogin = Notification.Name("LemmyiOS.didLogin")
 }
