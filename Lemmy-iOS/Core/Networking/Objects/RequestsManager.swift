@@ -13,7 +13,7 @@ class RequestsManager {
     
     func requestDecodable<Req: Codable, Res: Codable>(
         path: String,
-        parameters: Req,
+        parameters: Req? = nil,
         parsingFromRootKey rootKey: String? = nil,
         completion: @escaping ((Result<Res, Error>) -> Void)
     ) {

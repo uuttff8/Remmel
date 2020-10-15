@@ -11,9 +11,10 @@ import Foundation
 private protocol AuthRequestManagerProtocol {
     func login<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping (Result<Res, Error>) -> Void)
     func register<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping (Result<Res, Error>) -> Void)
+    func getCaptcha<Res: Codable>(completion: @escaping (Result<Res, Error>) -> Void)
 }
 
-extension RequestsManager: AuthRequestManagerProtocol {
+extension RequestsManager: AuthRequestManagerProtocol {    
     func login<Req, Res>(
         parameters: Req,
         completion: @escaping (Result<Res, Error>) -> Void
@@ -39,5 +40,17 @@ extension RequestsManager: AuthRequestManagerProtocol {
             completion: completion
         )
     }
-
+    
+    func getCaptcha<Res>(
+        completion: @escaping (Result<Res, Error>) -> Void
+    ) where Res : Codable {
+        
+        // EXTRA: here is "ok" rootKey
+        return requestDecodable(
+            path: LemmyEndpoint.Authentication.getCaptcha.endpoint,
+            parameters: Optional<LemmyApiStructs.Authentication.GetCaptchaRequest>.none,
+            parsingFromRootKey: "ok",
+            completion: completion
+        )
+    }
 }

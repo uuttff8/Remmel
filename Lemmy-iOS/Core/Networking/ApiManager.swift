@@ -13,4 +13,8 @@ final class ApiManager {
     
     // MARK: - Internal properties
     lazy var requestsManager = RequestsManager()
+    
+    static var requests: RequestsManager {
+        ApiManager.shared.requestsManager
+    }
 }
