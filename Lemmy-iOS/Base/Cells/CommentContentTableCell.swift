@@ -22,6 +22,7 @@ protocol CommentContentTableCellDelegate: AnyObject {
 
 class CommentContentTableCell: UITableViewCell {
     let commentContentView = CommentContentView()
+    let selBackView = UIView()
     
     func bind(with comment: LemmyApiStructs.CommentView) {
         self.contentView.addSubview(commentContentView)
@@ -35,9 +36,12 @@ class CommentContentTableCell: UITableViewCell {
         setupUI()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        selBackView.backgroundColor = Config.Color.highlightCell
+    }
+    
     func setupUI() {
-        let selBackView = UIView()
-        selBackView.backgroundColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1)
+        selBackView.backgroundColor = Config.Color.highlightCell
         self.selectedBackgroundView = selBackView
     }
 }
@@ -52,7 +56,7 @@ class CommentContentView: UIView {
     private let footerView = CommentFooterView()
     private let separatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1)
+        view.backgroundColor = Config.Color.separator
         return view
     }()
     
@@ -83,6 +87,10 @@ class CommentContentView: UIView {
             )
         )
         
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        self.separatorView.backgroundColor = Config.Color.separator
     }
     
     private func setupTargets(with comment: LemmyApiStructs.CommentView) {

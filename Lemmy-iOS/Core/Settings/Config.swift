@@ -35,6 +35,34 @@ extension Config {
 
 extension Config {
     struct Image {
-
+        static var arrowUp: UIImage {
+            if UIScreen.isDarkMode {
+                return UIImage(systemName: "arrow.up")!
+                    .withTintColor(UIColor.white, renderingMode: .alwaysOriginal)
+            } else {
+                return UIImage(systemName: "arrow.up")!
+                    .withTintColor(UIColor.black, renderingMode: .alwaysOriginal)
+            }
+        }
+        
+        static var arrowDown: UIImage {
+            if UIScreen.isDarkMode {
+                return UIImage(systemName: "arrow.down")!
+                    .withTintColor(UIColor.white, renderingMode: .alwaysOriginal)
+            } else {
+                return UIImage(systemName: "arrow.down")!
+                    .withTintColor(UIColor.black, renderingMode: .alwaysOriginal)
+            }
+        }
+        
+        static var comments: UIImage {
+            if UIScreen.isDarkMode {
+                return UIImage(named: "comments")!
+                    .withTintColor(UIColor.white, renderingMode: .alwaysOriginal)
+            } else {
+                return UIImage(named: "comments")!
+                    .withTintColor(UIColor.black, renderingMode: .alwaysOriginal)
+            }
+        }
     }
 }

@@ -35,6 +35,7 @@ class CommentTreeTableCell: UITableViewCell {
     }()
     let commentContentView = CommentContentView()
     let commentNode: CommentNode
+    let selBackView = UIView()
     
     init(commentNode: CommentNode) {
         self.commentNode = commentNode
@@ -61,9 +62,12 @@ class CommentTreeTableCell: UITableViewCell {
     }
     
     func setupUI() {
-        let selBackView = UIView()
-        selBackView.backgroundColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1)
+        selBackView.backgroundColor = Config.Color.highlightCell
         self.selectedBackgroundView = selBackView
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        selBackView.backgroundColor = Config.Color.highlightCell
     }
     
     func layoutCommentWithoutReplies() {

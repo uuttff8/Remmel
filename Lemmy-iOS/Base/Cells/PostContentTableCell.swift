@@ -133,7 +133,7 @@ class PostContentView: UIView {
         paddingView.addSubview(centerView)
         
         centerView.snp.makeConstraints { (make) in
-            make.top.equalTo(headerView.snp.bottom)
+            make.top.equalTo(headerView.snp.bottom).offset(5)
             make.leading.trailing.equalToSuperview()
         }
         
@@ -141,7 +141,7 @@ class PostContentView: UIView {
         paddingView.addSubview(footerView)
         
         footerView.snp.makeConstraints { (make) in
-            make.top.equalTo(centerView.snp.bottom)
+            make.top.equalTo(centerView.snp.bottom).offset(15)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview() // SELF SIZE BOTTOM HERE
         }
@@ -170,8 +170,7 @@ private class PostContentFooterView: UIView {
     
     private let upvoteBtn: UIButton = {
         let btn = UIButton()
-        let image = UIImage(systemName: "arrow.up")?
-            .withTintColor(UIColor.black, renderingMode: .alwaysOriginal)
+        let image = Config.Image.arrowUp
         
         btn.setImage(image, for: .normal)
         return btn
@@ -179,16 +178,14 @@ private class PostContentFooterView: UIView {
     
     private let downvoteBtn: UIButton = {
         let btn = UIButton()
-        let image = UIImage(systemName: "arrow.down")?
-            .withTintColor(UIColor.black, renderingMode: .alwaysOriginal)
-        
+        let image = Config.Image.arrowDown
         btn.setImage(image, for: .normal)
         return btn
     }()
     
     private let commentBtn: UIButton = {
         let btn = UIButton()
-        btn.setImage(UIImage(named: "comments"), for: .normal)
+        btn.setImage(Config.Image.comments, for: .normal)
         return btn
     }()
     
@@ -231,6 +228,12 @@ private class PostContentFooterView: UIView {
         commentBtn.setTitle(String(data.numberOfComments), for: .normal)
         
         setupButtonTaps()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        upvoteBtn.setImage(Config.Image.arrowUp, for: .normal)
+        downvoteBtn.setImage(Config.Image.arrowDown, for: .normal)
+        commentBtn.setImage(Config.Image.comments, for: .normal)
     }
     
     func setupButtonTaps() {
@@ -279,10 +282,16 @@ private class PostContentCenterView: UIView {
         imageView.layer.cornerRadius = 5
         imageView.layer.masksToBounds = false
         imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
-    private let stackView = UIStackView()
+    private let stackView: UIStackView = {
+        let stack = UIStackView()
+        stack.alignment = .top
+        stack.spacing = 8
+        return stack
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -298,6 +307,7 @@ private class PostContentCenterView: UIView {
             subtitleLabel.text = subtitle
         }
         
+        self.addSubview(subtitleLabel)
         self.addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
         
@@ -309,15 +319,12 @@ private class PostContentCenterView: UIView {
             }
         }
         
-        self.stackView.alignment = .center
-        self.stackView.spacing = 8
         stackView.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalToSuperview()
         }
         
-        self.addSubview(subtitleLabel)
         subtitleLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(stackView.snp.bottom)
+            make.top.equalTo(stackView.snp.bottom).offset(10)
             make.leading.trailing.bottom.equalToSuperview()
         }
     }
