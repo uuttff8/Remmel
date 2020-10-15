@@ -75,20 +75,12 @@ extension CommentsFrontPageModel: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        
         let indexPathRow = indexPath.row
         
         if indexPathRow >= commentsDataSource.count - 21 {
             guard !self.isFetchingNewContent else { return }
         }
-        
-        
-        
     }
-    
-    // TODO(uuttff8): go to comments
-    private func handleDidSelectForComments(indexPath: IndexPath) { }
     
     private func handleCellForComments(indexPath: IndexPath) -> UITableViewCell {
         let commentCell = CommentContentTableCell()
@@ -135,20 +127,12 @@ extension CommentsFrontPageModel: CommentContentTableCellDelegate {
 extension CommentsFrontPageModel: FrontPageHeaderCellDelegate {
     func contentTypeChanged(to content: LemmyContentType) {
         self.currentContentType = content
-        
-        switch currentContentType {
-        case .comments: self.loadComments()
-        case .posts: break
-        }
+        self.loadComments()
     }
     
     func feedTypeChanged(to feed: LemmyFeedType) {
         self.currentFeedType = feed
-        
-        switch currentContentType {
-        case .comments: self.loadComments()
-        case .posts: break
-        }
+        self.loadComments()
     }
 }
 

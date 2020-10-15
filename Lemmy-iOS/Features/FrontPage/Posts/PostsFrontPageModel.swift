@@ -145,19 +145,11 @@ extension PostsFrontPageModel: PostContentTableCellDelegate {
 extension PostsFrontPageModel: FrontPageHeaderCellDelegate {
     func contentTypeChanged(to content: LemmyContentType) {
         self.currentContentType = content
-        
-        switch currentContentType {
-        case .comments: break
-        case .posts: self.loadPosts()
-        }
+        self.loadPosts()
     }
     
     func feedTypeChanged(to feed: LemmyFeedType) {
         self.currentFeedType = feed
-        
-        switch currentContentType {
-        case .comments: break
-        case .posts: self.loadPosts()
-        }
+        self.loadPosts()
     }
 }

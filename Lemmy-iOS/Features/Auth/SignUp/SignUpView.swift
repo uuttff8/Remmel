@@ -68,8 +68,8 @@ class SignUpView: UIView {
         return tf
     }()
         
-    lazy var showNsfwSwitch: LemmyTextWithSwitch = {
-        let switcher = LemmyTextWithSwitch()
+    lazy var showNsfwSwitch: LemmyLabelWithSwitch = {
+        let switcher = LemmyLabelWithSwitch()
         switcher.checkText = "Show NSFW content"
         return switcher
     }()
