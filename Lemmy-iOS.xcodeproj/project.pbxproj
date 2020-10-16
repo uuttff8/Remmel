@@ -57,7 +57,6 @@
 		4ECCEEF4250C04280075F921 /* LemmyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEF3250C04280075F921 /* LemmyTabBarController.swift */; };
 		4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4ECCEEFA250C13240075F921 /* SnapKit */; };
 		4ECCEEFE250CA30E0075F921 /* FrontPageHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEFD250CA30E0075F921 /* FrontPageHeaderCell.swift */; };
-		4ECCEF00250CB4260075F921 /* FrontPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEFF250CB4260075F921 /* FrontPageModel.swift */; };
 		4ECCEF03250CB4E00075F921 /* LemmyApiStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF02250CB4E00075F921 /* LemmyApiStructs.swift */; };
 		4ECCEF06250CC3330075F921 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF05250CC3330075F921 /* ApiManager.swift */; };
 		4ECCEF09250CC3A60075F921 /* RequestsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF08250CC3A60075F921 /* RequestsManager.swift */; };
@@ -152,7 +151,6 @@
 		4ECCEEF1250C03A40075F921 /* LemmyTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyTabBarCoordinator.swift; sourceTree = "<group>"; };
 		4ECCEEF3250C04280075F921 /* LemmyTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyTabBarController.swift; sourceTree = "<group>"; };
 		4ECCEEFD250CA30E0075F921 /* FrontPageHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageHeaderCell.swift; sourceTree = "<group>"; };
-		4ECCEEFF250CB4260075F921 /* FrontPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageModel.swift; sourceTree = "<group>"; };
 		4ECCEF02250CB4E00075F921 /* LemmyApiStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyApiStructs.swift; sourceTree = "<group>"; };
 		4ECCEF05250CC3330075F921 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		4ECCEF08250CC3A60075F921 /* RequestsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsManager.swift; sourceTree = "<group>"; };
@@ -423,7 +421,6 @@
 				4E107051253476D4009EABDA /* Comments */,
 				4E10704F253476C7009EABDA /* Posts */,
 				4ECCEEFC250C151A0075F921 /* cells */,
-				4ECCEEFF250CB4260075F921 /* FrontPageModel.swift */,
 				4ECCEEEC250BE8870075F921 /* FrontPageViewController.swift */,
 				4ECCEEEE250BE89B0075F921 /* FrontPageCoordinator.swift */,
 			);
@@ -757,7 +754,6 @@
 				4ECCEF25250FB3E50075F921 /* CommunitiesModel.swift in Sources */,
 				4E886C26253744AB0076B162 /* LemmyApiStructs+Auth.swift in Sources */,
 				4ECCEF16250D2D9F0075F921 /* Extensions.swift in Sources */,
-				4ECCEF00250CB4260075F921 /* FrontPageModel.swift in Sources */,
 				4ECCEF29250FB8260075F921 /* CommunityRequests.swift in Sources */,
 				4EB89B3B25220DC6007129BF /* CommentListingSort.swift in Sources */,
 				4ECCEF13250CF0290075F921 /* PostContentTableCell.swift in Sources */,
