@@ -192,7 +192,7 @@ enum LemmyApiStructs {
     }
     
     // MARK: - CommentView -
-    struct CommentView: Codable, Equatable {
+    struct CommentView: Codable, Equatable, Hashable {
         let id: Int
         let creatorId: Int
         let postId: Int

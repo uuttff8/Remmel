@@ -21,8 +21,6 @@ class PostsFrontPageViewController: UIViewController {
     private lazy var dataSource = makeDataSource()
     private var snapshot = NSDiffableDataSourceSnapshot<Section, LemmyApiStructs.PostView>()
     
-    private var nonMainThread = DispatchQueue(label: "posts.nonMain")
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = model

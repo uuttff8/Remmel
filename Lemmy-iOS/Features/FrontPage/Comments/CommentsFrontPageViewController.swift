@@ -10,18 +10,22 @@ import UIKit
 
 class CommentsFrontPageViewController: UIViewController {
     
+    enum Section {
+        case main
+    }
+    
     weak var coordinator: FrontPageCoordinator?
     
     let model = CommentsFrontPageModel()
+    
     let tableView = LemmyUITableView(style: .plain)
+    private lazy var dataSource = makeDataSource()
+    private var snapshot = NSDiffableDataSourceSnapshot<Section, LemmyApiStructs.CommentView>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = model
-        tableView.dataSource = model
-        
-        tableView.register(CommentContentTableCell.self, forCellReuseIdentifier: CommentContentTableCell.reuseId)
-        
+                
         self.view.addSubview(tableView)
         
         tableView.snp.makeConstraints { (make) in
@@ -29,23 +33,38 @@ class CommentsFrontPageViewController: UIViewController {
         }
         
         model.loadComments()
-        model.dataLoaded = { [self]  in
-            tableView.reloadData()
+        
+        model.dataLoaded = { [self] newComments in
+            addFirstRows(with: newComments)
         }
         
-        model.newDataLoaded = { [self] (newComments) in
-            let startIndex = model.commentsDataSource.count - newComments.count
-            let endIndex = startIndex + newComments.count
-            
-            let newIndexpaths =
-                Array(startIndex ..< endIndex)
-                .map { (index) in
-                    IndexPath(row: index, section: 0)
-                }
-            
-            tableView.performBatchUpdates {
-                tableView.insertRows(at: newIndexpaths, with: .automatic)
-            }
+        model.newDataLoaded = { [self] newComments in
+            addRows(with: newComments)
         }
+    }
+    
+    func addRows(with list: Array<LemmyApiStructs.CommentView>, animate: Bool = true) {
+        snapshot.insertItems(list, afterItem: model.commentsDataSource.last!)
+        self.model.commentsDataSource.append(contentsOf: list)
+        dataSource.apply(snapshot, animatingDifferences: false)
+    }
+    
+    func addFirstRows(with list: Array<LemmyApiStructs.CommentView>, animate: Bool = true) {
+        snapshot.appendSections([.main])
+        snapshot.appendItems(list)
+        dataSource.apply(snapshot, animatingDifferences: false)
+    }
+
+    
+    private func makeDataSource() -> UITableViewDiffableDataSource<Section, LemmyApiStructs.CommentView> {
+        return UITableViewDiffableDataSource<Section, LemmyApiStructs.CommentView>(
+            tableView: tableView,
+            cellProvider: { (tableView, indexPath, postView) -> UITableViewCell? in
+                let cell = CommentContentTableCell()
+                cell.commentContentView.delegate = self.model
+                cell.bind(with: self.model.commentsDataSource[indexPath.row])
+                
+                return cell
+        })
     }
 }

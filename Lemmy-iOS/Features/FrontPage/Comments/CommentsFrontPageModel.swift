@@ -9,7 +9,7 @@
 import UIKit
 
 class CommentsFrontPageModel: NSObject {
-    var dataLoaded: (() -> Void)?
+    var dataLoaded: ((Array<LemmyApiStructs.CommentView>) -> Void)?
     var newDataLoaded: ((Array<LemmyApiStructs.CommentView>) -> Void)?
     var goToCommentScreen: ((LemmyApiStructs.CommentView) -> ())?
     
@@ -45,7 +45,7 @@ class CommentsFrontPageModel: NSObject {
             case .success(let response):
                 self.commentsDataSource = response.comments
                 DispatchQueue.main.async {
-                    self.dataLoaded?()
+                    self.dataLoaded?(response.comments)
                 }
             case .failure(let error):
                 print(error)
@@ -64,7 +64,6 @@ class CommentsFrontPageModel: NSObject {
         { (res: Result<LemmyApiStructs.Comment.GetCommentsResponse, Error>) in
             switch res {
             case .success(let response):
-                self.commentsDataSource.append(contentsOf: response.comments)
                 DispatchQueue.main.async {
                     self.newDataLoaded?(response.comments)
                 }
@@ -77,18 +76,7 @@ class CommentsFrontPageModel: NSObject {
     
 }
 
-extension CommentsFrontPageModel: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return commentsDataSource.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return handleCellForComments(tableView: tableView, indexPath: indexPath)
-    }
+extension CommentsFrontPageModel: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         handleDidSelectForComments(indexPath: indexPath)
@@ -104,15 +92,15 @@ extension CommentsFrontPageModel: UITableViewDelegate, UITableViewDataSource {
         let indexPathRow = indexPath.row
         let bottomItems = self.commentsDataSource.count - 5
         
-//        if indexPathRow >= bottomItems {
-//            guard !self.isFetchingNewContent else { return }
-//            
-//            self.isFetchingNewContent = true
-//            self.currentPage += 1
-//            self.loadMoreComments {
-//                self.isFetchingNewContent = false
-//            }
-//        }
+        if indexPathRow >= bottomItems {
+            guard !self.isFetchingNewContent else { return }
+            
+            self.isFetchingNewContent = true
+            self.currentPage += 1
+            self.loadMoreComments {
+                self.isFetchingNewContent = false
+            }
+        }
     }
     
     private func handleCellForComments(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
