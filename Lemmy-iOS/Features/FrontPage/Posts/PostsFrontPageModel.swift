@@ -94,7 +94,7 @@ extension PostsFrontPageModel: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return handleCellForPosts(indexPath: indexPath)
+        return handleCellForPosts(tableView: tableView, indexPath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -121,11 +121,21 @@ extension PostsFrontPageModel: UITableViewDelegate, UITableViewDataSource {
         self.goToPostScreen?(postsDataSource[indexPath.row])
     }
     
-    private func handleCellForPosts(indexPath: IndexPath) -> UITableViewCell {
-        let postCell = PostContentTableCell()
-        postCell.postContentView.delegate = self
-        postCell.bind(with: postsDataSource[indexPath.row])
-        return postCell
+    private func handleCellForPosts(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell: UITableViewCell = {
+            guard let postCell =
+                    tableView.dequeueReusableCell(withIdentifier: PostContentTableCell.reuseId) as? PostContentTableCell
+            else {
+                return UITableViewCell(style: .default, reuseIdentifier: "cell")
+            }
+            postCell.postContentView.delegate = self
+            postCell.bind(with: postsDataSource[indexPath.row])
+
+            return postCell
+        }()
+        
+        return cell
     }
 }
 

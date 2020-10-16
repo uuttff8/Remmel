@@ -17,6 +17,7 @@ protocol PostContentTableCellDelegate: AnyObject {
 }
 
 class PostContentTableCell: UITableViewCell {
+    static let reuseId = "PostContentTableCell"
     
     let postContentView = PostContentView()
     let selBackView = UIView()

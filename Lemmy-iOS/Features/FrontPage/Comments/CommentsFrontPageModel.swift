@@ -74,7 +74,7 @@ class CommentsFrontPageModel: NSObject {
             }
         }
     }
-
+    
 }
 
 extension CommentsFrontPageModel: UITableViewDelegate, UITableViewDataSource {
@@ -87,7 +87,7 @@ extension CommentsFrontPageModel: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return handleCellForComments(indexPath: indexPath)
+        return handleCellForComments(tableView: tableView, indexPath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -115,11 +115,19 @@ extension CommentsFrontPageModel: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    private func handleCellForComments(indexPath: IndexPath) -> UITableViewCell {
-        let commentCell = CommentContentTableCell()
-        commentCell.commentContentView.delegate = self
-        commentCell.bind(with: commentsDataSource[indexPath.row])
-        return commentCell
+    private func handleCellForComments(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell = {
+            guard let commentCell =
+                    tableView.dequeueReusableCell(withIdentifier: CommentContentTableCell.reuseId) as? CommentContentTableCell
+            else {
+                return UITableViewCell(style: .default, reuseIdentifier: "cell")
+            }
+            commentCell.commentContentView.delegate = self
+            commentCell.bind(with: commentsDataSource[indexPath.row])
+            
+            return commentCell
+        }()
+        return cell
     }
 }
 

@@ -21,6 +21,8 @@ protocol CommentContentTableCellDelegate: AnyObject {
 }
 
 class CommentContentTableCell: UITableViewCell {
+    static let reuseId = "CommentContentTableCell"
+    
     let commentContentView = CommentContentView()
     let selBackView = UIView()
     

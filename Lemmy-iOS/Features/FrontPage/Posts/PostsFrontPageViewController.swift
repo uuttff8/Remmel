@@ -20,6 +20,8 @@ class PostsFrontPageViewController: UIViewController {
         tableView.delegate = model
         tableView.dataSource = model
         
+        tableView.register(PostContentTableCell.self, forCellReuseIdentifier: PostContentTableCell.reuseId)
+        
         self.view.addSubview(tableView)
         
         tableView.snp.makeConstraints { (make) in

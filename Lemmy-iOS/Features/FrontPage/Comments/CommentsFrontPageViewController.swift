@@ -20,12 +20,13 @@ class CommentsFrontPageViewController: UIViewController {
         tableView.delegate = model
         tableView.dataSource = model
         
+        tableView.register(CommentContentTableCell.self, forCellReuseIdentifier: CommentContentTableCell.reuseId)
+        
         self.view.addSubview(tableView)
         
         tableView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        
         
         model.loadComments()
         model.dataLoaded = { [self]  in
