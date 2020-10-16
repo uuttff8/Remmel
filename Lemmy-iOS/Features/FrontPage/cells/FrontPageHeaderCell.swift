@@ -50,13 +50,14 @@ class FrontPageHeaderView: UIView {
         self.addSubview(feedTypeSegment)
         
         contentTypeSegment.snp.makeConstraints { (make) in
-            make.bottom.top.leading.equalToSuperview()
+            make.top.bottom.leading.equalToSuperview()
             make.trailing.equalToSuperview().dividedBy(2)
         }
         
         feedTypeSegment.snp.makeConstraints { (make) in
-            make.bottom.top.trailing.equalToSuperview()
+            make.top.bottom.equalToSuperview()
             make.leading.equalTo(contentTypeSegment.snp.trailing)
+            make.trailing.equalToSuperview()
         }
     }
     
@@ -137,13 +138,16 @@ class FrontPageSwitcher: UIView {
         
         segmentControl.insertSegment(withTitle: self.data.0, at: 0, animated: false)
         segmentControl.insertSegment(withTitle: self.data.1, at: 1, animated: false)
-                
-        segmentControl.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
     }
     
     override var intrinsicContentSize: CGSize {
         CGSize(width: UIView.noIntrinsicMetric, height: 40)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        segmentControl.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
     }
 }

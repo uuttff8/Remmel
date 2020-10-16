@@ -17,6 +17,11 @@ class FrontPageViewController: UIViewController {
     let headerSegmentView = FrontPageHeaderView(contentSelected: LemmyContentType.comments,
                                                 feedType: LemmyFeedType.all)
     
+    private lazy var toolbar: UIToolbar = {
+        let tool = UIToolbar()
+        return tool
+    }()
+    
     // at init always posts
     var currentContentType: LemmyContentType = LemmyContentType.posts {
         didSet {
@@ -37,11 +42,6 @@ class FrontPageViewController: UIViewController {
             print(currentFeedType)
         }
     }
-    
-    private lazy var toolbar: UIToolbar = {
-        let tool = UIToolbar()
-        return tool
-    }()
         
     var currentViewController: UIViewController! {
         didSet {
@@ -74,9 +74,6 @@ class FrontPageViewController: UIViewController {
         
         self.view.addSubview(toolbar)
         self.toolbar.setItems([barButtonItem], animated: true)
-        self.toolbar.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-        }
     }
     
     private func setupContainered() {
@@ -103,6 +100,13 @@ class FrontPageViewController: UIViewController {
     
     private func setupNavigationItem() {
         navigationItem.titleView = navBar
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.toolbar.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
     }
 }
 
