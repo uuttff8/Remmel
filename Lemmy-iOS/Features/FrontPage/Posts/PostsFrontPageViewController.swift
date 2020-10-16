@@ -74,9 +74,7 @@ class PostsFrontPageViewController: UIViewController {
         // Last item from 
         let lastItem = (model.postsDataSource.count - 1) - (model.currentPage * 20 - 20)
         snapshot.insertItems(list, afterItem: model.postsDataSource.last!)
-        nonMainThread.async {
-            self.model.postsDataSource.append(contentsOf: list)
-        }
+        self.model.postsDataSource.append(contentsOf: list)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
     
@@ -90,17 +88,19 @@ class PostsFrontPageViewController: UIViewController {
         return UITableViewDiffableDataSource<Section, LemmyApiStructs.PostView>(
             tableView: tableView,
             cellProvider: { (tableView, indexPath, postView) -> UITableViewCell? in
-                let cell: UITableViewCell = { [self] in
-                    guard let postCell =
-                            tableView.dequeueReusableCell(withIdentifier: PostContentTableCell.reuseId) as? PostContentTableCell
-                    else {
-                        return UITableViewCell(style: .default, reuseIdentifier: "cell")
-                    }
-                    postCell.postContentView.delegate = model
-                    postCell.bind(with: model.postsDataSource[indexPath.row])
+//                let cell: UITableViewCell = { [self] in
+//                    guard let postCell =
+//                            tableView.dequeueReusableCell(withIdentifier: PostContentTableCell.reuseId) as? PostContentTableCell
+//                    else {
+//                        return UITableViewCell(style: .default, reuseIdentifier: "cell")
+//                    }
+                
+                let cell = PostContentTableCell()
+                cell.postContentView.delegate = self.model
+                cell.bind(with: self.model.postsDataSource[indexPath.row])
 
-                    return postCell
-                }()
+//                    return postCell
+//                }()
                 
                 return cell
         })
