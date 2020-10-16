@@ -104,15 +104,15 @@ extension CommentsFrontPageModel: UITableViewDelegate, UITableViewDataSource {
         let indexPathRow = indexPath.row
         let bottomItems = self.commentsDataSource.count - 5
         
-        if indexPathRow >= bottomItems {
-            guard !self.isFetchingNewContent else { return }
-            
-            self.isFetchingNewContent = true
-            self.currentPage += 1
-            self.loadMoreComments {
-                self.isFetchingNewContent = false
-            }
-        }
+//        if indexPathRow >= bottomItems {
+//            guard !self.isFetchingNewContent else { return }
+//            
+//            self.isFetchingNewContent = true
+//            self.currentPage += 1
+//            self.loadMoreComments {
+//                self.isFetchingNewContent = false
+//            }
+//        }
     }
     
     private func handleCellForComments(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {

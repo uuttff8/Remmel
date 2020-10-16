@@ -11,10 +11,10 @@ import UIKit
 class PostsFrontPageModel: NSObject {
     var goToPostScreen: ((LemmyApiStructs.PostView) -> ())?
     var newDataLoaded: ((Array<LemmyApiStructs.PostView>) -> Void)?
-    var dataLoaded: (() -> Void)?
+    var dataLoaded: ((Array<LemmyApiStructs.PostView>) -> Void)?
     
     private var isFetchingNewContent = false
-    private var currentPage = 1
+    var currentPage = 1
     
     var postsDataSource: Array<LemmyApiStructs.PostView> = []
     
@@ -48,9 +48,8 @@ class PostsFrontPageModel: NSObject {
                 case .success(let posts):
                     self.postsDataSource = posts.posts
                     DispatchQueue.main.async {
-                        self.dataLoaded?()
+                        self.dataLoaded?(posts.posts)
                     }
-                    
                 case .failure(let error):
                     print(error)
                 }
@@ -71,7 +70,6 @@ class PostsFrontPageModel: NSObject {
             completion: { (dec: Result<LemmyApiStructs.Post.GetPostsResponse, Error>) in
                 switch dec {
                 case let .success(posts):
-                    self.postsDataSource.append(contentsOf: posts.posts)
                     DispatchQueue.main.async {
                         self.newDataLoaded?(posts.posts)
                     }
@@ -84,19 +82,7 @@ class PostsFrontPageModel: NSObject {
 }
 
 
-extension PostsFrontPageModel: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return postsDataSource.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return handleCellForPosts(tableView: tableView, indexPath: indexPath)
-    }
-    
+extension PostsFrontPageModel: UITableViewDelegate {    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         handleDidSelectForPosts(indexPath: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
@@ -160,11 +146,11 @@ extension PostsFrontPageModel: PostContentTableCellDelegate {
 extension PostsFrontPageModel: FrontPageHeaderCellDelegate {
     func contentTypeChanged(to content: LemmyContentType) {
         self.currentContentType = content
-        self.loadPosts()
+//        self.loadPosts()
     }
     
     func feedTypeChanged(to feed: LemmyFeedType) {
         self.currentFeedType = feed
-        self.loadPosts()
+//        self.loadPosts()
     }
 }

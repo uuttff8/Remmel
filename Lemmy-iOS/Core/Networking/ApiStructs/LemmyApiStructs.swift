@@ -99,7 +99,7 @@ enum LemmyApiStructs {
     }
     
     // MARK: - PostView -
-    struct PostView: Codable, Equatable {
+    struct PostView: Codable, Equatable, Hashable {
         let id: Int
         let name: String
         let url: String?
