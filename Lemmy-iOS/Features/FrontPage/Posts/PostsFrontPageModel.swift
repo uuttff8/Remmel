@@ -47,9 +47,7 @@ class PostsFrontPageModel: NSObject {
                 switch dec {
                 case .success(let posts):
                     self.postsDataSource = posts.posts
-                    DispatchQueue.main.async {
-                        self.dataLoaded?(posts.posts)
-                    }
+                    self.dataLoaded?(posts.posts)
                 case .failure(let error):
                     print(error)
                 }
@@ -70,9 +68,7 @@ class PostsFrontPageModel: NSObject {
             completion: { (dec: Result<LemmyApiStructs.Post.GetPostsResponse, Error>) in
                 switch dec {
                 case let .success(posts):
-                    DispatchQueue.main.async {
-                        self.newDataLoaded?(posts.posts)
-                    }
+                    self.newDataLoaded?(posts.posts)
                     completion()
                 case .failure(let error):
                     print(error)

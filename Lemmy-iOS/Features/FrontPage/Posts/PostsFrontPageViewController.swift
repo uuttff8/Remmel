@@ -54,13 +54,17 @@ class PostsFrontPageViewController: UIViewController {
     func addRows(with list: Array<LemmyApiStructs.PostView>, animate: Bool = true) {
         snapshot.insertItems(list, afterItem: model.postsDataSource.last!)
         self.model.postsDataSource.append(contentsOf: list)
-        dataSource.apply(snapshot, animatingDifferences: false)
+        DispatchQueue.main.async { [self] in
+            dataSource.apply(snapshot, animatingDifferences: false)
+        }
     }
     
     func addFirstRows(with list: Array<LemmyApiStructs.PostView>, animate: Bool = true) {
         snapshot.appendSections([.main])
         snapshot.appendItems(list)
-        dataSource.apply(snapshot, animatingDifferences: false)
+        DispatchQueue.main.async { [self] in
+            dataSource.apply(snapshot, animatingDifferences: false)
+        }
     }
     
     private func makeDataSource() -> UITableViewDiffableDataSource<Section, LemmyApiStructs.PostView> {

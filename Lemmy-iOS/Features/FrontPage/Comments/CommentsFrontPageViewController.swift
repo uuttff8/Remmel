@@ -46,13 +46,17 @@ class CommentsFrontPageViewController: UIViewController {
     func addRows(with list: Array<LemmyApiStructs.CommentView>, animate: Bool = true) {
         snapshot.insertItems(list, afterItem: model.commentsDataSource.last!)
         self.model.commentsDataSource.append(contentsOf: list)
-        dataSource.apply(snapshot, animatingDifferences: false)
+        DispatchQueue.main.async { [self] in
+            dataSource.apply(snapshot, animatingDifferences: true)
+        }
     }
     
     func addFirstRows(with list: Array<LemmyApiStructs.CommentView>, animate: Bool = true) {
         snapshot.appendSections([.main])
         snapshot.appendItems(list)
-        dataSource.apply(snapshot, animatingDifferences: false)
+        DispatchQueue.main.async { [self] in
+            dataSource.apply(snapshot, animatingDifferences: false)
+        }
     }
 
     

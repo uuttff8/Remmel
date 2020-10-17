@@ -44,9 +44,7 @@ class CommentsFrontPageModel: NSObject {
             switch res {
             case .success(let response):
                 self.commentsDataSource = response.comments
-                DispatchQueue.main.async {
-                    self.dataLoaded?(response.comments)
-                }
+                self.dataLoaded?(response.comments)
             case .failure(let error):
                 print(error)
             }
@@ -64,9 +62,7 @@ class CommentsFrontPageModel: NSObject {
         { (res: Result<LemmyApiStructs.Comment.GetCommentsResponse, Error>) in
             switch res {
             case .success(let response):
-                DispatchQueue.main.async {
-                    self.newDataLoaded?(response.comments)
-                }
+                self.newDataLoaded?(response.comments)
                 completion()
             case .failure(let error):
                 print(error)
