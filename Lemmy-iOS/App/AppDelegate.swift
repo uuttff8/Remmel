@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         
-        LemmyShareData.shared.loginData.logout()
+//        LemmyShareData.shared.loginData.logout()
         
         // Override point for customization after application launch.
         return true
