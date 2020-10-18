@@ -228,6 +228,7 @@ extension UIView {
 }
 
 extension UIButton {
+    @available(iOS 14.0, *)
     convenience init(title: String = "",
                      image: UIImage? = nil,
                      handler: @escaping () -> Void) {
