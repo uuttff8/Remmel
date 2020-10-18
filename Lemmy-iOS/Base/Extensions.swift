@@ -227,6 +227,67 @@ extension UIView {
     }
 }
 
+public extension UIEvent {
+
+    func firstTouchToControlEvent() -> UIControl.Event? {
+            guard let touch = self.allTouches?.first else {
+                print("firstTouchToControlEvent() Error: couldn't get the first touch. \(self)")
+            return nil
+        }
+        return touch.toControlEvent()
+    }
+
+}
+
+public extension UITouch {
+
+    func toControlEvent() -> UIControl.Event? {
+        guard let view = self.view else {
+            print("UITouch.toControlEvent() Error: couldn't get the containing view. \(self)")
+            return nil
+        }
+        let isInside = view.bounds.contains(self.location(in: view))
+        let wasInside = view.bounds.contains(self.previousLocation(in: view))
+        switch self.phase {
+        case .began:
+            if isInside {
+                if self.tapCount > 1 {
+                    return .touchDownRepeat
+                }
+                return .touchDown
+            }
+            print("UITouch.toControlEvent() Error: unexpected touch began outs1ide of view. \(self)")
+            return nil
+        case .moved:
+            if isInside && wasInside {
+                return .touchDragInside
+            } else if isInside && !wasInside {
+                return .touchDragEnter
+            } else if !isInside && wasInside {
+                return .touchDragExit
+            } else if !isInside && !wasInside {
+                return .touchDragOutside
+            } else {
+                print("UITouch.toControlEvent() Error: couldn't determine touch moved boundary. \(self)")
+                return nil
+            }
+        case .ended:
+            if isInside {
+                return .touchUpInside
+            } else {
+                return.touchUpOutside
+            }
+        case .cancelled:
+            return .touchCancel
+        default:
+            print("UITouch.toControlEvent() Warning: couldn't handle touch event. \(self)")
+            return nil
+        }
+    }
+
+}
+
 extension Notification.Name {
     static let didLogin = Notification.Name("LemmyiOS.didLogin")
 }
+
