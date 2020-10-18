@@ -227,6 +227,20 @@ extension UIView {
     }
 }
 
+extension UIButton {
+    convenience init(title: String = "",
+                     image: UIImage? = nil,
+                     handler: @escaping () -> Void) {
+        self.init(primaryAction: UIAction(
+            title: title,
+            image: image,
+            handler: { _ in
+                handler()
+            }
+        ))
+    }
+}
+
 public extension UIEvent {
 
     func firstTouchToControlEvent() -> UIControl.Event? {
