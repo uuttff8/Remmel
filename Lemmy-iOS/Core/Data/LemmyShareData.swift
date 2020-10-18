@@ -14,6 +14,10 @@ class LemmyShareData {
     static let shared = LemmyShareData()
     let loginData = LoginData.shared
     
+    static var isLogined: Bool {
+        Self.shared.jwtToken != nil
+    }
+    
     enum Constants {
         static let jwt = "jwt"
         static let userId = "userId"

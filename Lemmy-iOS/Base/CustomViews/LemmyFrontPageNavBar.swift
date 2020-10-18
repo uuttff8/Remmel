@@ -32,13 +32,17 @@ class LemmyFrontPageNavBar: UIView {
         self.addSubview(searchBar)
         self.addSubview(profileIcon)
         
+        if LemmyShareData.isLogined {
+            updateProfileIcon()
+        }
+        
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updateProfileIcon(_:)),
+                                               selector: #selector(updateProfileIcon),
                                                name: .didLogin,
                                                object: nil)
     }
     
-    @objc func updateProfileIcon(_ notification: Notification) {
+    @objc func updateProfileIcon() {
         guard let photoStr = LemmyShareData.shared.userdata?.avatar,
               let photoUrl = URL(string: photoStr)
         else { return }

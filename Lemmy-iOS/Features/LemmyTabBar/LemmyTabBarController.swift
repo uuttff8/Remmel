@@ -80,7 +80,8 @@ extension LemmyTabBarController: UITabBarControllerDelegate {
         
         if viewController is CreatePostOrCommunityViewController {
             
-            if let _ = LemmyShareData.shared.jwtToken {
+            // auth check
+            if LemmyShareData.isLogined {
                 coordinator?.goToCreateOrPostScreen()
             } else {
                 createLoginAlert(tabBarController)
