@@ -18,6 +18,8 @@ class CreatePostOrCommunityViewController: UIViewController {
         return lbl
     }()
     
+    lazy var createView: UIView = UIView()
+    
     lazy fileprivate var createPostView: ImageWithTextContainer = {
         let view = ImageWithTextContainer(text: "POST", imageString: "text.quote")
         return view
@@ -30,8 +32,10 @@ class CreatePostOrCommunityViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemBackground
+        self.view.backgroundColor = UIColor.clear
+        self.createView.backgroundColor = .systemBackground
                 
+        self.view.addSubview(createView)
         self.view.addSubview(createLabel)
         self.view.addSubview(createPostView)
         self.view.addSubview(createCommunityView)
@@ -49,8 +53,14 @@ class CreatePostOrCommunityViewController: UIViewController {
         super.viewDidLayoutSubviews()
         let viewWidth = UIScreen.main.bounds.width / 4
         
+        self.createView.snp.makeConstraints { (make) in
+            make.height.equalTo(UIScreen.main.bounds.height / 4.5)
+            make.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+        }
+        
         self.createLabel.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().inset(10)
+            make.top.equalTo(self.createView.snp.top).inset(10)
             make.centerX.equalToSuperview()
         }
         
@@ -64,6 +74,23 @@ class CreatePostOrCommunityViewController: UIViewController {
             make.top.equalTo(self.createLabel.snp.bottom).offset(10)
             make.trailing.equalTo(-viewWidth / 2)
             make.width.equalTo(viewWidth)
+        }
+    }
+    
+    private func dismissView() {
+        let transition = CreateTransitionDelegateImpl()
+        self.transitioningDelegate = transition
+        dismiss(animated: true)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first!
+        
+        let point = touch.location(in: self.view)
+        
+        // if touch is not located in createView, then dismiss view
+        if point.y <= createView.frame.origin.y {
+            dismissView()
         }
     }
 }

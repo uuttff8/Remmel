@@ -29,7 +29,12 @@ final class LemmyTabBarCoordinator: Coordinator {
         let createPostOrCommCoordinator = CreatePostOrCommunityCoordinator(navigationController: nil)
         self.store(coordinator: createPostOrCommCoordinator)
         createPostOrCommCoordinator.start()
-        rootViewController.present(createPostOrCommCoordinator.rootViewController, animated: true, completion: nil)
+        
+        createPostOrCommCoordinator.rootViewController.modalPresentationStyle = .custom
+        let transition = CreateTransitionDelegateImpl()
+        createPostOrCommCoordinator.rootViewController.transitioningDelegate = transition
+        
+        rootViewController.present(createPostOrCommCoordinator.rootViewController, animated: true)
     }
     
     func goToLoginScreen(authMethod: LemmyAuthMethod) {
