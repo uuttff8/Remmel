@@ -11,8 +11,6 @@ import UIKit
 class LemmyTabBarController: UITabBarController {
     weak var coordinator: LemmyTabBarCoordinator?
     
-    var animator: CreatePostOrCommAnimator?
-    
     override func viewDidLoad() {
         self.delegate = self
     }
@@ -93,34 +91,5 @@ extension LemmyTabBarController: UITabBarControllerDelegate {
         }
         
         return true
-    }
-}
-
-extension LemmyTabBarController: UIViewControllerTransitioningDelegate {
-    
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
-        guard let tabbarController = presenting as? LemmyTabBarController,
-              let createController = presented as? CreatePostOrCommunityViewController
-        else { return nil }
-        
-        animator = CreatePostOrCommAnimator(type: .present,
-                                            tabbarController: tabbarController,
-                                            createController: createController)
-        return animator
-
-    }
-    
-    func animationController(
-        forDismissed dismissed: UIViewController
-    ) -> UIViewControllerAnimatedTransitioning? {
-
-        guard let createController = dismissed as? CreatePostOrCommunityViewController
-            else { return nil }
-
-        animator = CreatePostOrCommAnimator(type: .dismiss,
-                                            tabbarController: self,
-                                            createController: createController)
-        return animator
     }
 }

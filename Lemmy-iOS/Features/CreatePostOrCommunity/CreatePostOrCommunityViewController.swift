@@ -47,6 +47,7 @@ class CreatePostOrCommunityViewController: UIViewController {
         createCommunityView.addTap {
             print("Create community")
         }
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -54,7 +55,6 @@ class CreatePostOrCommunityViewController: UIViewController {
         let viewWidth = UIScreen.main.bounds.width / 4
         
         self.createView.snp.makeConstraints { (make) in
-            make.height.equalTo(UIScreen.main.bounds.height / 4.5)
             make.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview()
         }

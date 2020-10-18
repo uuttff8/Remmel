@@ -9,31 +9,22 @@
 import UIKit
 
 class CreateTransitionDelegateImpl: NSObject, UIViewControllerTransitioningDelegate {
-    var animator: CreatePostOrCommAnimator?
     
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    static let duration: TimeInterval = 0.25
+    
+    func animationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController,
+        source: UIViewController
+    ) -> UIViewControllerAnimatedTransitioning? {
         
-        guard let tabbarController = presenting as? LemmyTabBarController,
-              let createController = presented as? CreatePostOrCommunityViewController
-        else { return nil }
-        
-        animator = CreatePostOrCommAnimator(type: .present,
-                                            tabbarController: tabbarController,
-                                            createController: createController)
-        return animator
-
+        return CreatePresentAnimator()
     }
     
     func animationController(
         forDismissed dismissed: UIViewController
     ) -> UIViewControllerAnimatedTransitioning? {
-
-        guard let createController = dismissed as? CreatePostOrCommunityViewController
-            else { return nil }
-
-        animator = CreatePostOrCommAnimator(type: .dismiss,
-                                            tabbarController: nil,
-                                            createController: createController)
-        return animator
+        
+        return CreateDismissPresentAnimator()
     }
 }
