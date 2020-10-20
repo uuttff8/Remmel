@@ -10,7 +10,7 @@ import UIKit
 
 class PostScreenUI: UIView {
     
-    let tableView = UITableView()
+    let tableView = LemmyTableView(style: .plain)
         
     let postInfo: LemmyApiStructs.PostView
     var commentsDataSource: Array<LemmyApiStructs.CommentView> = [] {
@@ -33,7 +33,6 @@ class PostScreenUI: UIView {
         
         self.addSubview(tableView)
         
-        tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self        
     }
@@ -85,6 +84,10 @@ extension PostScreenUI: UITableViewDelegate, UITableViewDataSource {
             let cell = CommentTreeTableCell(commentNode: commentTrees[indexPath.row])
             return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -140,5 +143,6 @@ private class PostScreenUITableCell: UITableViewCell {
     
     func setupUI() {
         self.backgroundColor = UIColor.systemBackground
+        self.selectionStyle = .none
     }
 }

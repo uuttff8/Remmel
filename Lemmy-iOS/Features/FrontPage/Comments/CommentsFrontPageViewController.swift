@@ -18,7 +18,7 @@ class CommentsFrontPageViewController: UIViewController {
     
     let model = CommentsFrontPageModel()
     
-    let tableView = LemmyUITableView(style: .plain)
+    let tableView = LemmyTableView(style: .plain)
     private lazy var dataSource = makeDataSource()
     private var snapshot = NSDiffableDataSourceSnapshot<Section, LemmyApiStructs.CommentView>()
     

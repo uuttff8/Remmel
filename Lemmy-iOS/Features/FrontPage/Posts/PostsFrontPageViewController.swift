@@ -17,7 +17,7 @@ class PostsFrontPageViewController: UIViewController {
     
     let model = PostsFrontPageModel()
     
-    let tableView = LemmyUITableView(style: .plain)
+    let tableView = LemmyTableView(style: .plain)
     private lazy var dataSource = makeDataSource()
     private var snapshot = NSDiffableDataSourceSnapshot<Section, LemmyApiStructs.PostView>()
     

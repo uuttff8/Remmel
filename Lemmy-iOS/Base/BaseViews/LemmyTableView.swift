@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LemmyUITableView: UITableView {
+class LemmyTableView: UITableView {
     init(style: UITableView.Style) {
         super.init(frame: .zero, style: style)
         self.tableFooterView = UIView()
