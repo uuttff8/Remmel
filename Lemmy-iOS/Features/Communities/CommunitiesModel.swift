@@ -15,10 +15,10 @@ class CommunitiesModel: NSObject {
     var communitiesDataSource: Array<LemmyApiStructs.CommunityView>?
     
     func loadCommunities() {
-        let parameters = LemmyApiStructs.Community.ListCommunitiesRequest(sort: "TopAll",
+        let parameters = LemmyApiStructs.Community.ListCommunitiesRequest(sort: LemmySortType.topAll,
                                                                           limit: 100,
                                                                           page: 1,
-                                                                          auth: nil)
+                                                                          auth: LemmyShareData.shared.jwtToken)
         
         ApiManager.shared.requestsManager
             .listCommunities(parameters: parameters)
