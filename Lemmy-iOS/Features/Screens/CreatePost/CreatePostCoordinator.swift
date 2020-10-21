@@ -22,4 +22,8 @@ class CreatePostCoordinator : Coordinator {
     func start() {
         rootViewController.coordinator = self
     }
+    
+    func goToChoosingCommunity() {
+        
+    }
 }

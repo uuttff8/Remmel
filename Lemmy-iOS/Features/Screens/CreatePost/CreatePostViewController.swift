@@ -21,6 +21,10 @@ class CreatePostScreenViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        title = "Create post"
         
+        customView.goToChoosingCommunity = {
+            self.coordinator?.goToChoosingCommunity()
+        }
     }
 }

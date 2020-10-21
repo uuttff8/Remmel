@@ -9,6 +9,8 @@
 import UIKit
 
 class CreatePostScreenUI: UIView {
+    var goToChoosingCommunity: (() -> Void)?
+    
     enum CellType: CaseIterable {
         case community, content
     }
@@ -28,7 +30,7 @@ class CreatePostScreenUI: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        
+    
     // MARK: - Overrided
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -39,6 +41,9 @@ class CreatePostScreenUI: UIView {
     
     func setupTableView() {
         self.addSubview(tableView)
+        
+        tableView.register(CreatePostCommunityCell.self,
+                           forCellReuseIdentifier: String(describing: CreatePostCommunityCell.self))
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -56,9 +61,24 @@ extension CreatePostScreenUI: UITableViewDelegate, UITableViewDataSource {
         
         switch cellType {
         case .community:
-            return UITableViewCell()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CreatePostCommunityCell.self))
+            else { return UITableViewCell() }
+            
+            return cell
         case .content:
             return UITableViewCell()
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cellType = CellType.allCases[indexPath.row]
+        
+        switch cellType {
+        case .community:
+            goToChoosingCommunity?()
+        default: break
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
