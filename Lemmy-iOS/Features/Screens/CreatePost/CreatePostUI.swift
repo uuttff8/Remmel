@@ -46,6 +46,8 @@ class CreatePostScreenUI: UIView {
                            forCellReuseIdentifier: String(describing: CreatePostCommunityCell.self))
         tableView.register(CreatePostUrlCell.self,
                            forCellReuseIdentifier: String(describing: CreatePostUrlCell.self))
+        tableView.register(CreatePostContentCell.self,
+                           forCellReuseIdentifier: String(describing: CreatePostContentCell.self))
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -68,9 +70,12 @@ extension CreatePostScreenUI: UITableViewDelegate, UITableViewDataSource {
             
             return cell
         case .content:
-            return UITableViewCell()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CreatePostContentCell.self))
+            else { return UITableViewCell() }
+            
+            return cell
         case .url:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CreatePostUrlCell.self.self))
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CreatePostUrlCell.self))
             else { return UITableViewCell() }
             
             return cell

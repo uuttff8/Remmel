@@ -159,7 +159,7 @@ extension UIAlertController {
 
 
 extension UIApplication {
-
+    
     class func getTopMostViewController() -> UIViewController? {
         let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
         if var topController = keyWindow?.rootViewController {
@@ -177,7 +177,7 @@ extension String {
     func base64ToImage() -> UIImage? {
         let newImageData = Data(base64Encoded: self)
         if let newImageData = newImageData {
-           return UIImage(data: newImageData)
+            return UIImage(data: newImageData)
         }
         
         return nil
@@ -192,7 +192,7 @@ extension UIScreen {
 
 extension UIView {
     private static var tapKey = "tapKey"
-
+    
     func addTap(numberOfTapsRequired: Int = 1, numberOfTouchesRequired: Int = 1, cancelTouchesInView: Bool = true, action: @escaping () -> Void) {
         isUserInteractionEnabled = true
         objc_setAssociatedObject(self, &UIView.tapKey, TapAction(action: action), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -202,13 +202,13 @@ extension UIView {
         tapRecognizer.cancelsTouchesInView = cancelTouchesInView
         addGestureRecognizer(tapRecognizer)
     }
-
+    
     @objc private func tapView() {
         if let tap = objc_getAssociatedObject(self, &UIView.tapKey) as? TapAction {
             tap.action()
         }
     }
-
+    
     private class TapAction {
         var action: () -> Void
         
@@ -216,7 +216,7 @@ extension UIView {
             self.action = action
         }
     }
-
+    
     func addLongpress(minimumPressDuration: Double, cancelTouchesInView: Bool = true, action: @escaping () -> Void) {
         isUserInteractionEnabled = true
         objc_setAssociatedObject(self, &UIView.tapKey, TapAction(action: action), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -243,19 +243,19 @@ extension UIButton {
 }
 
 public extension UIEvent {
-
+    
     func firstTouchToControlEvent() -> UIControl.Event? {
-            guard let touch = self.allTouches?.first else {
-                print("firstTouchToControlEvent() Error: couldn't get the first touch. \(self)")
+        guard let touch = self.allTouches?.first else {
+            print("firstTouchToControlEvent() Error: couldn't get the first touch. \(self)")
             return nil
         }
         return touch.toControlEvent()
     }
-
+    
 }
 
 public extension UITouch {
-
+    
     func toControlEvent() -> UIControl.Event? {
         guard let view = self.view else {
             print("UITouch.toControlEvent() Error: couldn't get the containing view. \(self)")
@@ -299,7 +299,78 @@ public extension UITouch {
             return nil
         }
     }
+    
+}
 
+extension UITextView: UITextViewDelegate {
+    
+    /// Resize the placeholder when the UITextView bounds change
+    override open var bounds: CGRect {
+        didSet {
+            self.resizePlaceholder()
+        }
+    }
+    
+    /// The UITextView placeholder text
+    public var placeholder: String? {
+        get {
+            var placeholderText: String?
+            
+            if let placeholderLabel = self.viewWithTag(100) as? UILabel {
+                placeholderText = placeholderLabel.text
+            }
+            
+            return placeholderText
+        }
+        set {
+            if let placeholderLabel = self.viewWithTag(100) as! UILabel? {
+                placeholderLabel.text = newValue
+                placeholderLabel.sizeToFit()
+            } else {
+                self.addPlaceholder(newValue!)
+            }
+        }
+    }
+    
+    /// When the UITextView did change, show or hide the label based on if the UITextView is empty or not
+    ///
+    /// - Parameter textView: The UITextView that got updated
+    public func textViewDidChange(_ textView: UITextView) {
+        if let placeholderLabel = self.viewWithTag(100) as? UILabel {
+            placeholderLabel.isHidden = !self.text.isEmpty
+        }
+    }
+    
+    /// Resize the placeholder UILabel to make sure it's in the same position as the UITextView text
+    private func resizePlaceholder() {
+        if let placeholderLabel = self.viewWithTag(100) as! UILabel? {
+            let labelX = self.textContainer.lineFragmentPadding
+            let labelY = self.textContainerInset.top - 2
+//            let labelWidth = self.frame.width - (labelX * 2)
+            let labelHeight = placeholderLabel.frame.height
+
+            placeholderLabel.frame = CGRect(x: labelX, y: labelY, width: 100, height: labelHeight)
+        }
+    }
+    
+    /// Adds a placeholder UILabel to this UITextView
+    private func addPlaceholder(_ placeholderText: String) {
+        let placeholderLabel = UILabel()
+        
+        placeholderLabel.text = placeholderText
+        placeholderLabel.sizeToFit()
+        
+        placeholderLabel.font = self.font
+        placeholderLabel.textColor = UIColor.lightGray
+        placeholderLabel.tag = 100
+        
+        placeholderLabel.isHidden = !self.text.isEmpty
+        
+        self.addSubview(placeholderLabel)
+        self.resizePlaceholder()
+        self.delegate = self
+    }
+    
 }
 
 extension Notification.Name {
