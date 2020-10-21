@@ -12,7 +12,7 @@ class CreatePostScreenUI: UIView {
     var goToChoosingCommunity: (() -> Void)?
     
     enum CellType: CaseIterable {
-        case community, content
+        case community, url, content
     }
     
     // MARK: - Properties
@@ -44,6 +44,8 @@ class CreatePostScreenUI: UIView {
         
         tableView.register(CreatePostCommunityCell.self,
                            forCellReuseIdentifier: String(describing: CreatePostCommunityCell.self))
+        tableView.register(CreatePostUrlCell.self,
+                           forCellReuseIdentifier: String(describing: CreatePostUrlCell.self))
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -67,6 +69,11 @@ extension CreatePostScreenUI: UITableViewDelegate, UITableViewDataSource {
             return cell
         case .content:
             return UITableViewCell()
+        case .url:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CreatePostUrlCell.self.self))
+            else { return UITableViewCell() }
+            
+            return cell
         }
     }
     
