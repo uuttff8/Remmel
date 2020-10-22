@@ -156,7 +156,7 @@ class PostContentView: UIView {
     }
 }
 
-// MARK: - PostContentFooterView -
+// MARK: -
 private class PostContentFooterView: UIView {
     struct ViewData {
         let upvote: Int
@@ -250,7 +250,7 @@ private class PostContentFooterView: UIView {
     }
 }
 
-// MARK: - PostContentCenterView -
+// MARK: -
 private class PostContentCenterView: UIView {
     
     // MARK: - Data
@@ -347,7 +347,7 @@ private class PostContentCenterView: UIView {
     }
 }
 
-// MARK: - PostContentHeaderView -
+// MARK: - 
 private class PostContentHeaderView: UIView {
     
     // MARK: - Data
