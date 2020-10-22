@@ -46,6 +46,7 @@
 		4E886CAE2540A9820076B162 /* CreatePostContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CAD2540A9820076B162 /* CreatePostContentCell.swift */; };
 		4E886CCE2541E1670076B162 /* ChooseCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CCD2541E1670076B162 /* ChooseCommunityViewController.swift */; };
 		4E886CD32541E1A20076B162 /* ChooseCommunityUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CD22541E1A20076B162 /* ChooseCommunityUI.swift */; };
+		4E886CD8254215B60076B162 /* ChooseCommunityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CD7254215B60076B162 /* ChooseCommunityCell.swift */; };
 		4EB89AF8251F47A7007129BF /* PostScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */; };
 		4EB89B00251F4882007129BF /* PostScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AFF251F4882007129BF /* PostScreenUI.swift */; };
 		4EB89B052521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */; };
@@ -149,6 +150,7 @@
 		4E886CAD2540A9820076B162 /* CreatePostContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostContentCell.swift; sourceTree = "<group>"; };
 		4E886CCD2541E1670076B162 /* ChooseCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityViewController.swift; sourceTree = "<group>"; };
 		4E886CD22541E1A20076B162 /* ChooseCommunityUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityUI.swift; sourceTree = "<group>"; };
+		4E886CD7254215B60076B162 /* ChooseCommunityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityCell.swift; sourceTree = "<group>"; };
 		4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenViewController.swift; sourceTree = "<group>"; };
 		4EB89AFF251F4882007129BF /* PostScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenUI.swift; sourceTree = "<group>"; };
 		4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyGreenOutlinePostDescription.swift; sourceTree = "<group>"; };
@@ -317,11 +319,11 @@
 		4E886C82253F4F3A0076B162 /* CreatePost */ = {
 			isa = PBXGroup;
 			children = (
+				4E886C97253F67500076B162 /* cells */,
 				4E886C86253F4FD40076B162 /* ChooseComminity */,
 				4E886C7D253F4F290076B162 /* CreatePostViewController.swift */,
 				4E886C87253F4FF40076B162 /* CreatePostUI.swift */,
 				4E886C8C253F51B90076B162 /* CreatePostModel.swift */,
-				4E886C97253F67500076B162 /* cells */,
 				4E886C98253F679C0076B162 /* CreatePostCoordinator.swift */,
 			);
 			path = CreatePost;
@@ -342,6 +344,7 @@
 				4E886CA0254093040076B162 /* CreatePostCommunityCell.swift */,
 				4E886CA52540A27E0076B162 /* CreatePostUrlCell.swift */,
 				4E886CAD2540A9820076B162 /* CreatePostContentCell.swift */,
+				4E886CD7254215B60076B162 /* ChooseCommunityCell.swift */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -821,6 +824,7 @@
 				4ECCEF1D250D63BE0075F921 /* CommentRequests.swift in Sources */,
 				4EB89B0A2521FA73007129BF /* LoginOrRegisterButton.swift in Sources */,
 				4ECCEF0C250CCD3E0075F921 /* PostRequests.swift in Sources */,
+				4E886CD8254215B60076B162 /* ChooseCommunityCell.swift in Sources */,
 				4E886C3B2538BE830076B162 /* LemmyTextWithSwitch.swift in Sources */,
 				4E107053253476EE009EABDA /* PostsFrontPageViewController.swift in Sources */,
 				4ECCEF0E250CDA5A0075F921 /* LemmyApiStructs+Post.swift in Sources */,

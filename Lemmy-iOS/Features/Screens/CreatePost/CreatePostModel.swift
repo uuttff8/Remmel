@@ -31,6 +31,7 @@ class CreatePostScreenModel {
             
             switch res {
             case let .success(data):
+                self.communitiesData = data.communities
                 self.communitiesLoaded?(data.communities)
             case let .failure(why):
                 print(why)

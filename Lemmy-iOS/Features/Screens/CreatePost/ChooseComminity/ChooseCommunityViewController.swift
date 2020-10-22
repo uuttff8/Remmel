@@ -12,7 +12,7 @@ class ChooseCommunityViewController: UIViewController {
 
     weak var coordinator: CreatePostCoordinator?
     
-    let customView = ChooseCommunityUI()
+    let customView: ChooseCommunityUI
     let model: CreatePostScreenModel
     
     override func loadView() {
@@ -21,6 +21,7 @@ class ChooseCommunityViewController: UIViewController {
     
     init(model: CreatePostScreenModel) {
         self.model = model
+        self.customView = ChooseCommunityUI(model: model)
         super.init(nibName: nil, bundle: nil)
     }
     

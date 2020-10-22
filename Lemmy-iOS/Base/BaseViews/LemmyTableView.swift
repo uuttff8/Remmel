@@ -17,6 +17,8 @@ class LemmyTableView: UITableView {
         self.keyboardDismissMode = .onDrag
         
         if separator {
+            self.separatorStyle = .singleLine
+        } else {
             self.separatorStyle = .none
         }
     }

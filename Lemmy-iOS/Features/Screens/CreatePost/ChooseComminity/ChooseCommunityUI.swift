@@ -10,11 +10,13 @@ import UIKit
 
 class ChooseCommunityUI: UIView {
     // MARK: - Properties
-    let tableView = LemmyTableView(style: .plain, separator: true)
-    let searchBar = UISearchBar()
+    private let tableView = LemmyTableView(style: .plain, separator: true)
+    private let searchBar = UISearchBar()
+    private let model: CreatePostScreenModel
     
     // MARK: - Init
-    init() {
+    init(model: CreatePostScreenModel) {
+        self.model = model
         super.init(frame: .zero)
         setupTableView()
         setupSearchController()
@@ -43,6 +45,12 @@ class ChooseCommunityUI: UIView {
         self.addSubview(tableView)
         tableView.dataSource = self
         tableView.delegate = self
+        
+        model.communitiesLoaded = { newCommunities in
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
     
     private func setupSearchController() {
@@ -63,11 +71,23 @@ class ChooseCommunityUI: UIView {
 
 extension ChooseCommunityUI: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return model.communitiesData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let data = model.communitiesData[indexPath.row]
+        
+        let cell = ChooseCommunityCell()
+        cell.bind(with: ChooseCommunityCell.ViewData(title: data.title, icon: data.icon))
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = model.communitiesData[indexPath.row]
+        
+        
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
