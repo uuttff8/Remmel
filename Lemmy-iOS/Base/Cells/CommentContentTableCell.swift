@@ -20,34 +20,51 @@ protocol CommentContentTableCellDelegate: AnyObject {
     func showMoreAction(in comment: LemmyApiStructs.CommentView)
 }
 
+// MARK: -
 class CommentContentTableCell: UITableViewCell {
+    
+    // MARK: - Properties
     let commentContentView = CommentContentView()
     let selBackView = UIView()
     
-    func bind(with comment: LemmyApiStructs.CommentView) {
+    // MARK: - Init
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        setupUI()
+        
         self.contentView.addSubview(commentContentView)
         
         self.commentContentView.snp.makeConstraints { (make) in
             make.top.bottom.leading.trailing.equalToSuperview()
         }
-        
-        commentContentView.bind(with: comment)
-        
-        setupUI()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Public API
+    func bind(with comment: LemmyApiStructs.CommentView) {
+        commentContentView.bind(with: comment)
+    }
+    
+    // MARK: - Overrided
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         selBackView.backgroundColor = Config.Color.highlightCell
     }
     
-    func setupUI() {
+    // MARK: - Private API
+    private func setupUI() {
         selBackView.backgroundColor = Config.Color.highlightCell
         self.selectedBackgroundView = selBackView
     }
 }
 
+// MARK: -
 class CommentContentView: UIView {
     
+    // MARK: - Properties
     weak var delegate: CommentContentTableCellDelegate?
     
     private let paddingView = UIView()
@@ -60,8 +77,18 @@ class CommentContentView: UIView {
         return view
     }()
     
-    func bind(with comment: LemmyApiStructs.CommentView) {
+    // MARK: - Init
+    init() {
+        super.init(frame: .zero)
         setupUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Public API
+    func bind(with comment: LemmyApiStructs.CommentView) {
         setupTargets(with: comment)
         
         headerView.bind(with:
@@ -89,10 +116,12 @@ class CommentContentView: UIView {
         
     }
     
+    // MARK: - Overrided
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         self.separatorView.backgroundColor = Config.Color.separator
     }
     
+    // MARK: - Private
     private func setupTargets(with comment: LemmyApiStructs.CommentView) {
         
         // header view
@@ -130,22 +159,6 @@ class CommentContentView: UIView {
         }
     }
     
-    private func setupPaddingAndSeparatorUI() {
-        // padding and separator
-        self.addSubview(paddingView)
-        self.addSubview(separatorView)
-        paddingView.snp.makeConstraints { (make) in
-            make.top.leading.equalToSuperview().offset(10) // SELF SIZE TOP HERE
-            make.bottom.trailing.equalToSuperview().inset(10)
-        }
-        separatorView.snp.makeConstraints { (make) in
-            make.height.equalTo(1)
-            make.bottom.equalToSuperview()
-            make.trailing.equalToSuperview().inset(10)
-            make.leading.equalToSuperview().offset(10)
-        }
-    }
-    
     private func setupUI() {
         setupPaddingAndSeparatorUI()
         
@@ -172,15 +185,28 @@ class CommentContentView: UIView {
             make.leading.trailing.bottom.equalToSuperview() // SELF SIZE BOTTOM HERE
         }
     }
+    
+    private func setupPaddingAndSeparatorUI() {
+        // padding and separator
+        self.addSubview(paddingView)
+        self.addSubview(separatorView)
+        paddingView.snp.makeConstraints { (make) in
+            make.top.leading.equalToSuperview().offset(10) // SELF SIZE TOP HERE
+            make.bottom.trailing.equalToSuperview().inset(10)
+        }
+        separatorView.snp.makeConstraints { (make) in
+            make.height.equalTo(1)
+            make.bottom.equalToSuperview()
+            make.trailing.equalToSuperview().inset(10)
+            make.leading.equalToSuperview().offset(10)
+        }
+    }
 }
 
+// MARK: -
 private class CommentHeaderView: UIView {
-    var communityButtonTap: (() -> Void)?
-    var usernameButtonTap: (() -> Void)?
-    var postNameButtonTap: (() -> Void)?
     
-    private let imageSize = CGSize(width: 32, height: 32)
-    
+    // MARK: - ViewData
     struct ViewData {
         let avatarImageUrl: String?
         let username: String
@@ -189,6 +215,13 @@ private class CommentHeaderView: UIView {
         let score: Int
         let postName: String
     }
+    
+    // MARK: - Properties
+    var communityButtonTap: (() -> Void)?
+    var usernameButtonTap: (() -> Void)?
+    var postNameButtonTap: (() -> Void)?
+    
+    private let imageSize = CGSize(width: 32, height: 32)
     
     lazy var avatarView: UIImageView = {
         let ava = UIImageView()
@@ -243,14 +276,18 @@ private class CommentHeaderView: UIView {
     
     let stackView = UIStackView()
     
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        setupViews()
+        setupButtonTargets()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Public API
     func bind(with comment: CommentHeaderView.ViewData) {
         let usernameButtonText = "@" + comment.username
         
@@ -260,22 +297,25 @@ private class CommentHeaderView: UIView {
         scoreLabel.set(text: String(comment.score), leftIcon: Config.Image.boltFill)
         postNameButton.setTitle(comment.postName, for: .normal)
         
-        setupViews(comment)
-        setupButtonTargets()
+        if let avatarUrl = comment.avatarImageUrl {
+            setupAvatar(url: avatarUrl)
+        }
     }
     
-    private func setupViews(_ comment: CommentHeaderView.ViewData) {
+    // MARK: - Private API
+    private func setupAvatar(url: String) {
+        Nuke.loadImage(with: ImageRequest(url: URL(string: url)!), into: avatarView)
+        avatarView.snp.makeConstraints { (make) in
+            make.size.equalTo(imageSize.height)
+        }
+        
+        stackView.insertArrangedSubview(avatarView, at: 0)
+    }
+    
+    private func setupViews() {
         
         [usernameButton, toTitle, communityButton, scoreLabel, publishedTitle].forEach { (label) in
             stackView.addArrangedSubview(label)
-        }
-        if let avatarUrl = comment.avatarImageUrl {
-            Nuke.loadImage(with: ImageRequest(url: URL(string: avatarUrl)!), into: avatarView)
-            avatarView.snp.makeConstraints { (make) in
-                make.size.equalTo(imageSize.height)
-            }
-            
-            stackView.insertArrangedSubview(avatarView, at: 0)
         }
         
         self.addSubview(stackView)
@@ -293,7 +333,7 @@ private class CommentHeaderView: UIView {
         }
     }
     
-    func setupButtonTargets() {
+    private func setupButtonTargets() {
         usernameButton.addTarget(self, action: #selector(usernameButtonTapped(sender:)), for: .touchUpInside)
         communityButton.addTarget(self, action: #selector(communityButtonTapped(sender:)), for: .touchUpInside)
         postNameButton.addTarget(self, action: #selector(postNameButtonTapped(sender:)), for: .touchUpInside)
@@ -312,12 +352,15 @@ private class CommentHeaderView: UIView {
     }
 }
 
+// MARK: - CommentCenterView -
 private class CommentCenterView: UIView {
     
+    // MARK: - ViewData
     struct ViewData {
         let comment: String
     }
     
+    // MARK: - Properties
     private let commentLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -325,19 +368,22 @@ private class CommentCenterView: UIView {
         return lbl
     }()
     
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Public API
     func bind(with data: CommentCenterView.ViewData) {
         commentLabel.text = data.comment
-        setupUI()
     }
     
+    // MARK: - Private API
     private func setupUI() {
         self.addSubview(commentLabel)
         
@@ -346,12 +392,13 @@ private class CommentCenterView: UIView {
         }
     }
     
+    // MARK: - Overrided
     override var intrinsicContentSize: CGSize {
         CGSize(width: UIScreen.main.bounds.width, height: 30)
     }
 }
 
-// MARK: - Footer -
+// MARK: -
 private class CommentFooterView: UIView {
     var showContextTap: (() -> Void)?
     var upvoteTap: (() -> Void)?
@@ -413,17 +460,21 @@ private class CommentFooterView: UIView {
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        setupUI()
+        setupTargets()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     
+    // MARK: - Public
     func bind(with: CommentFooterView.ViewData) {
-        setupUI()
-        setupTargets()
+        
     }
     
+    // MARK: - Overrided
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         replyButton.setImage(Config.Image.arrowshapeTurnUp, for: .normal)
         showMoreButton.setImage(Config.Image.ellipsis, for: .normal)
@@ -432,6 +483,11 @@ private class CommentFooterView: UIView {
         showContextButton.setImage(Config.Image.link, for: .normal)
     }
     
+    override var intrinsicContentSize: CGSize {
+        CGSize(width: UIScreen.main.bounds.width, height: 30)
+    }
+    
+    // MARK: - Private
     private func setupTargets() {
         showContextButton.addTarget(self, action: #selector(showContextButtonTapped(sender:)), for: .touchUpInside)
         upvoteButton.addTarget(self, action: #selector(upvoteButtonTapped(sender:)), for: .touchUpInside)
@@ -440,7 +496,8 @@ private class CommentFooterView: UIView {
         showMoreButton.addTarget(self, action: #selector(showMoreButtonTapped(sender:)), for: .touchUpInside)
     }
     
-    func setupUI() {
+    
+    private func setupUI() {
         
         // settup up stack view
         self.addSubview(stackView)
@@ -482,10 +539,5 @@ private class CommentFooterView: UIView {
 
     @objc private func showMoreButtonTapped(sender: UIButton!) {
         showMoreTap?()
-    }
-    
-    // MARK: - Content Size
-    override var intrinsicContentSize: CGSize {
-        CGSize(width: UIScreen.main.bounds.width, height: 30)
     }
 }
