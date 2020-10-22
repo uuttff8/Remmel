@@ -13,6 +13,9 @@ class CreatePostScreenModel {
     // MARK: - Properties
     var communitiesLoaded: ((Array<LemmyApiStructs.CommunityView>) -> Void)?
     
+    var communitiesData: Array<LemmyApiStructs.CommunityView> = []
+    var filteredCommunitiesData: Array<LemmyApiStructs.CommunityView> = []
+    
     // MARK: - Initializer
     init() { }
     

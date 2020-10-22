@@ -44,6 +44,8 @@
 		4E886CA1254093050076B162 /* CreatePostCommunityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CA0254093040076B162 /* CreatePostCommunityCell.swift */; };
 		4E886CA62540A27E0076B162 /* CreatePostUrlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CA52540A27E0076B162 /* CreatePostUrlCell.swift */; };
 		4E886CAE2540A9820076B162 /* CreatePostContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CAD2540A9820076B162 /* CreatePostContentCell.swift */; };
+		4E886CCE2541E1670076B162 /* ChooseCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CCD2541E1670076B162 /* ChooseCommunityViewController.swift */; };
+		4E886CD32541E1A20076B162 /* ChooseCommunityUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CD22541E1A20076B162 /* ChooseCommunityUI.swift */; };
 		4EB89AF8251F47A7007129BF /* PostScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */; };
 		4EB89B00251F4882007129BF /* PostScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AFF251F4882007129BF /* PostScreenUI.swift */; };
 		4EB89B052521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */; };
@@ -145,6 +147,8 @@
 		4E886CA0254093040076B162 /* CreatePostCommunityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostCommunityCell.swift; sourceTree = "<group>"; };
 		4E886CA52540A27E0076B162 /* CreatePostUrlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostUrlCell.swift; sourceTree = "<group>"; };
 		4E886CAD2540A9820076B162 /* CreatePostContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostContentCell.swift; sourceTree = "<group>"; };
+		4E886CCD2541E1670076B162 /* ChooseCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityViewController.swift; sourceTree = "<group>"; };
+		4E886CD22541E1A20076B162 /* ChooseCommunityUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityUI.swift; sourceTree = "<group>"; };
 		4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenViewController.swift; sourceTree = "<group>"; };
 		4EB89AFF251F4882007129BF /* PostScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenUI.swift; sourceTree = "<group>"; };
 		4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyGreenOutlinePostDescription.swift; sourceTree = "<group>"; };
@@ -326,6 +330,8 @@
 		4E886C86253F4FD40076B162 /* ChooseComminity */ = {
 			isa = PBXGroup;
 			children = (
+				4E886CCD2541E1670076B162 /* ChooseCommunityViewController.swift */,
+				4E886CD22541E1A20076B162 /* ChooseCommunityUI.swift */,
 			);
 			path = ChooseComminity;
 			sourceTree = "<group>";
@@ -794,6 +800,7 @@
 				4EB89B3525220B81007129BF /* LemmyCommentView.swift in Sources */,
 				4ECCEF27250FB62F0075F921 /* LemmyApiStructs+Community.swift in Sources */,
 				4ECCEF1A250D62580075F921 /* LemmyApiStructs+Comment.swift in Sources */,
+				4E886CCE2541E1670076B162 /* ChooseCommunityViewController.swift in Sources */,
 				4ECCEF06250CC3330075F921 /* ApiManager.swift in Sources */,
 				4E886C99253F679C0076B162 /* CreatePostCoordinator.swift in Sources */,
 				4ECCEEB4250B8B6B0075F921 /* Lemmy_iOS.xcdatamodeld in Sources */,
@@ -801,6 +808,7 @@
 				4E886C6E253CD40F0076B162 /* CreateDismissAnimator.swift in Sources */,
 				4E886C1C25364DD70076B162 /* AuthRequests.swift in Sources */,
 				4EB89B302521FDBE007129BF /* LemmyLinkedClickableUILabel.swift in Sources */,
+				4E886CD32541E1A20076B162 /* ChooseCommunityUI.swift in Sources */,
 				4ECCEEAE250B8B6B0075F921 /* LoginViewController.swift in Sources */,
 				4ECCEEE7250B8FA80075F921 /* AuthCoordinator.swift in Sources */,
 				4E886C69253CD2950076B162 /* CreatePresentTransitionDriver.swift in Sources */,

@@ -24,11 +24,12 @@ class CreatePostOrCommunityCoordinator : Coordinator {
     }
     
     func goToCreatePost() {
-        let createPostCoord = CreatePostCoordinator(navigationController: nil)
-        let newNavController = UINavigationController(rootViewController: createPostCoord.rootViewController)
+        let createPostCoord = CreatePostCoordinator(navigationController: UINavigationController())
         self.store(coordinator: createPostCoord)
         createPostCoord.start()
         
-        rootViewController.present(newNavController, animated: true)
+        guard let navController = createPostCoord.navigationController else { return }
+        
+        rootViewController.present(navController, animated: true)
     }
 }

@@ -14,6 +14,7 @@ class CreatePostScreenViewController: UIViewController {
     
     // MARK: - Properties
     let customView = CreatePostScreenUI()
+    let model = CreatePostScreenModel()
     
     // MARK: - Overrided
     override func loadView() {
@@ -23,8 +24,8 @@ class CreatePostScreenViewController: UIViewController {
     override func viewDidLoad() {
         title = "Create post"
         
-        customView.goToChoosingCommunity = {
-            self.coordinator?.goToChoosingCommunity()
+        customView.goToChoosingCommunity = { [self] in
+            coordinator?.goToChoosingCommunity(model: model)
         }
     }
 }

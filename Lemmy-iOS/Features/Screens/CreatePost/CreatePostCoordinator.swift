@@ -17,13 +17,17 @@ class CreatePostCoordinator : Coordinator {
     init(navigationController: UINavigationController?) {
         self.rootViewController = CreatePostScreenViewController()
         self.navigationController = navigationController
+        
+        self.navigationController?.setViewControllers([rootViewController], animated: true)
     }
 
     func start() {
         rootViewController.coordinator = self
     }
     
-    func goToChoosingCommunity() {
-        
+    func goToChoosingCommunity(model: CreatePostScreenModel) {
+        let choosingVc = ChooseCommunityViewController(model: model)
+        choosingVc.coordinator = self
+        navigationController?.pushViewController(choosingVc, animated: true)
     }
 }

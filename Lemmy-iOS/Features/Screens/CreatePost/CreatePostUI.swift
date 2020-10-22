@@ -37,7 +37,8 @@ class CreatePostScreenUI: UIView {
         }
     }
     
-    func setupTableView() {
+    // MARK: - Private API
+    private func setupTableView() {
         self.addSubview(tableView)
         
         tableView.register(CreatePostCommunityCell.self,

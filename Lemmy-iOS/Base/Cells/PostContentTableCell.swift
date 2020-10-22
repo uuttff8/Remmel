@@ -347,7 +347,7 @@ private class PostContentCenterView: UIView {
     }
 }
 
-// MARK: - 
+// MARK: -
 private class PostContentHeaderView: UIView {
     
     // MARK: - Data
