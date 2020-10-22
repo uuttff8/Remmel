@@ -63,7 +63,7 @@ class ChooseCommunityUI: UIView {
     @objc func reload(_ searchBar: UISearchBar) {
         if let text = searchBar.text, text != "" {
             // TODO: make search for communities
-            
+            model.searchCommunities(query: text)
         } else {
             
         }
@@ -85,8 +85,6 @@ extension ChooseCommunityUI: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let data = model.communitiesData[indexPath.row]
-        
-        
         
         tableView.deselectRow(at: indexPath, animated: true)
     }

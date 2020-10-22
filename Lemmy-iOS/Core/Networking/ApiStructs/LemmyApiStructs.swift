@@ -8,15 +8,6 @@
 
 import UIKit
 
-enum LemmySearchType: String, Codable {
-    case all = "All"
-    case comments = "Comments"
-    case posts = "Posts"
-    case communities = "Communities"
-    case users = "Users"
-    case url = "Url"
-}
-
 enum LemmySortType: String, Codable, CaseIterable {
     case active = "Active"
     case hot = "Hot"

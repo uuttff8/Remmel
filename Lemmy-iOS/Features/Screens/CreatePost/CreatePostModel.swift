@@ -41,6 +41,5 @@ class CreatePostScreenModel {
     }
     
     func searchCommunities(query: String) {
-//        let params = LemmyApiStructs.
     }
 }
