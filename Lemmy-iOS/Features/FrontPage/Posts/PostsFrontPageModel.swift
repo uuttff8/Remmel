@@ -102,25 +102,7 @@ extension PostsFrontPageModel: UITableViewDelegate {
     private func handleDidSelectForPosts(indexPath: IndexPath) {
         self.goToPostScreen?(postsDataSource[indexPath.row])
     }
-    
-    private func handleCellForPosts(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell: UITableViewCell = {
-            guard let postCell =
-                    tableView.dequeueReusableCell(withIdentifier: PostContentTableCell.reuseId) as? PostContentTableCell
-            else {
-                return UITableViewCell(style: .default, reuseIdentifier: "cell")
-            }
-            postCell.postContentView.delegate = self
-            postCell.bind(with: postsDataSource[indexPath.row])
-
-            return postCell
-        }()
-        
-        return cell
-    }
 }
-
 extension PostsFrontPageModel: PostContentTableCellDelegate {
     func usernameTapped(in post: LemmyApiStructs.PostView) {
         print(post.creatorName)

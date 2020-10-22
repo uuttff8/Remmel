@@ -91,3 +91,18 @@ extension Config {
         }
     }
 }
+
+extension Config {
+    struct Nib {
+        static func loadNib(name: String?) -> UINib? {
+            guard let name = name else {
+                return nil
+            }
+            
+            let bundle = Bundle.main
+            let nib = UINib(nibName: name, bundle: bundle)
+            
+            return nib
+        }
+    }
+}

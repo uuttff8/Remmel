@@ -32,6 +32,8 @@ class CommentsFrontPageViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         
+        tableView.registerClass(CommentContentTableCell.self)
+        
         model.loadComments()
         
         model.dataLoaded = { [self] newComments in
@@ -64,7 +66,7 @@ class CommentsFrontPageViewController: UIViewController {
         return UITableViewDiffableDataSource<Section, LemmyApiStructs.CommentView>(
             tableView: tableView,
             cellProvider: { (tableView, indexPath, postView) -> UITableViewCell? in
-                let cell = CommentContentTableCell()
+                let cell = tableView.cell(forClass: CommentContentTableCell.self)
                 cell.commentContentView.delegate = self.model
                 cell.bind(with: self.model.commentsDataSource[indexPath.row])
                 

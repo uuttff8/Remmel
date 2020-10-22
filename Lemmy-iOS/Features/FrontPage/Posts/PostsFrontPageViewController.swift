@@ -25,10 +25,7 @@ class PostsFrontPageViewController: UIViewController {
         super.viewDidLoad()
         tableView.delegate = model
         
-        tableView.register(
-            PostContentTableCell.self,
-            forCellReuseIdentifier: PostContentTableCell.reuseId
-        )
+        tableView.registerClass(PostContentTableCell.self)
         
         self.view.addSubview(tableView)
         
@@ -71,7 +68,8 @@ class PostsFrontPageViewController: UIViewController {
         return UITableViewDiffableDataSource<Section, LemmyApiStructs.PostView>(
             tableView: tableView,
             cellProvider: { (tableView, indexPath, postView) -> UITableViewCell? in
-                let cell = PostContentTableCell()
+                
+                let cell = tableView.cell(forClass: PostContentTableCell.self)
                 cell.postContentView.delegate = self.model
                 cell.bind(with: self.model.postsDataSource[indexPath.row])
                 

@@ -17,14 +17,12 @@ class CreatePostScreenUI: UIView {
     
     // MARK: - Properties
     let tableView = LemmyTableView(style: .plain)
-    private let model = CreatePostScreenModel()
     
     // MARK: - Init
     init() {
         super.init(frame: .zero)
         
         setupTableView()
-        model.loadCommunities()
     }
     
     required init?(coder: NSCoder) {

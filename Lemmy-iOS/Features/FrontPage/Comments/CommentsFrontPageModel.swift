@@ -97,22 +97,7 @@ extension CommentsFrontPageModel: UITableViewDelegate {
                 self.isFetchingNewContent = false
             }
         }
-    }
-    
-    private func handleCellForComments(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = {
-            guard let commentCell =
-                    tableView.dequeueReusableCell(withIdentifier: CommentContentTableCell.reuseId) as? CommentContentTableCell
-            else {
-                return UITableViewCell(style: .default, reuseIdentifier: "cell")
-            }
-            commentCell.commentContentView.delegate = self
-            commentCell.bind(with: commentsDataSource[indexPath.row])
-            
-            return commentCell
-        }()
-        return cell
-    }
+    }    
 }
 
 extension CommentsFrontPageModel: CommentContentTableCellDelegate {

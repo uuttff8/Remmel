@@ -17,7 +17,6 @@ protocol PostContentTableCellDelegate: AnyObject {
 }
 
 class PostContentTableCell: UITableViewCell {
-    static let reuseId = "PostContentTableCell"
     
     let postContentView = PostContentView()
     let selBackView = UIView()
@@ -63,28 +62,28 @@ class PostContentView: UIView {
         setupTargets(with: post)
         
         headerView.bind(with:
-            PostContentHeaderView.ViewData(
-                avatarImageUrl: post.creatorAvatar,
-                username: post.creatorName,
-                community: post.communityName,
-                published: Date.toLemmyDate(str: post.published).toRelativeDate()
-            )
+                            PostContentHeaderView.ViewData(
+                                avatarImageUrl: post.creatorAvatar,
+                                username: post.creatorName,
+                                community: post.communityName,
+                                published: Date.toLemmyDate(str: post.published).toRelativeDate()
+                            )
         )
         
         centerView.bind(with:
-            PostContentCenterView.ViewData(
-                imageUrl: post.thumbnailUrl,
-                title: post.name,
-                subtitle: post.body
-            )
+                            PostContentCenterView.ViewData(
+                                imageUrl: post.thumbnailUrl,
+                                title: post.name,
+                                subtitle: post.body
+                            )
         )
         
         footerView.bind(with:
-            PostContentFooterView.ViewData(
-                upvote: post.upvotes,
-                downvote: post.downvotes,
-                numberOfComments: post.numberOfComments
-            )
+                            PostContentFooterView.ViewData(
+                                upvote: post.upvotes,
+                                downvote: post.downvotes,
+                                numberOfComments: post.numberOfComments
+                            )
         )
         
     }
@@ -157,30 +156,29 @@ class PostContentView: UIView {
     }
 }
 
+// MARK: - PostContentFooterView -
 private class PostContentFooterView: UIView {
-    var upvoteButtonTap: (() -> Void)?
-    var downvoteButtonTap: (() -> Void)?
-    
-    private let iconSize = CGSize(width: 20, height: 20)
-    
     struct ViewData {
         let upvote: Int
         let downvote: Int
         let numberOfComments: Int
     }
     
+    // MARK: - Properties
+    var upvoteButtonTap: (() -> Void)?
+    var downvoteButtonTap: (() -> Void)?
+    
+    private let iconSize = CGSize(width: 20, height: 20)
+    
     private let upvoteBtn: UIButton = {
         let btn = UIButton()
-        let image = Config.Image.arrowUp
-        
-        btn.setImage(image, for: .normal)
+        btn.setImage(Config.Image.arrowUp, for: .normal)
         return btn
     }()
     
     private let downvoteBtn: UIButton = {
         let btn = UIButton()
-        let image = Config.Image.arrowDown
-        btn.setImage(image, for: .normal)
+        btn.setImage(Config.Image.arrowDown, for: .normal)
         return btn
     }()
     
@@ -190,54 +188,55 @@ private class PostContentFooterView: UIView {
         return btn
     }()
     
-    private let stackView = UIStackView()
+    private let stackView: UIStackView = {
+        let sv = UIStackView()
+        sv.spacing = 8
+        return sv
+    }()
     
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        
+        self.addSubview(stackView)
+        self.stackView.alignment = .leading
+        
+        [commentBtn, upvoteBtn, downvoteBtn].forEach { (btn) in
+            btn.setInsets(forContentPadding: UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5), imageTitlePadding: 5)
+            btn.setTitleColor(UIColor.label, for: .normal)
+            stackView.addArrangedSubview(btn)
+        }
+        self.stackView.addArrangedSubview(UIView())
+        
+        stackView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalToSuperview()
+        }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Bind
     func bind(with data: PostContentFooterView.ViewData) {
         upvoteBtn.setTitle(String(data.upvote), for: .normal)
         downvoteBtn.setTitle(String(data.downvote), for: .normal)
         commentBtn.setTitle(String(data.numberOfComments), for: .normal)
-
-        self.addSubview(stackView)
-        self.stackView.alignment = .center
-        stackView.spacing = 8
-        stackView.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalToSuperview()
-        }
-                
-        [commentBtn, upvoteBtn, downvoteBtn].forEach { (btn) in
-            self.stackView.addArrangedSubview(btn)
-            btn.setTitleColor(UIColor.label, for: .normal)
-            btn.setInsets(forContentPadding: UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5), imageTitlePadding: 5)
-            
-            btn.snp.makeConstraints { (make) in
-                make.height.equalTo(30).labeled("BUTTONS_COMMENT_UPVOTE")
-            }
-        }
-        self.stackView.addArrangedSubview(UIView())
-        
-        
-        upvoteBtn.setTitle(String(data.upvote), for: .normal)
-        downvoteBtn.setTitle(String(data.downvote), for: .normal)
-        commentBtn.setTitle(String(data.numberOfComments), for: .normal)
-        
-        setupButtonTaps()
     }
     
+    // MARK: - Overrided
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         upvoteBtn.setImage(Config.Image.arrowUp, for: .normal)
         downvoteBtn.setImage(Config.Image.arrowDown, for: .normal)
         commentBtn.setImage(Config.Image.comments, for: .normal)
     }
     
-    func setupButtonTaps() {
+    override var intrinsicContentSize: CGSize {
+        CGSize(width: UIView.noIntrinsicMetric, height: 30)
+    }
+    
+    // MARK: - Private
+    private func setupTargets() {
         downvoteBtn.addTarget(self, action: #selector(downvoteButtonTapped(sender:)), for: .touchUpInside)
         upvoteBtn.addTarget(self, action: #selector(upvoteButtonTapped(sender:)), for: .touchUpInside)
     }
@@ -249,20 +248,20 @@ private class PostContentFooterView: UIView {
     @objc private func downvoteButtonTapped(sender: UIButton!) {
         downvoteButtonTap?()
     }
-    
-    override var intrinsicContentSize: CGSize {
-        CGSize(width: UIView.noIntrinsicMetric, height: 30)
-    }
 }
 
+// MARK: - PostContentCenterView -
 private class PostContentCenterView: UIView {
-    private let imageSize = CGSize(width: 110, height: 60)
     
+    // MARK: - Data
     struct ViewData {
         let imageUrl: String?
         let title: String
         let subtitle: String?
     }
+    
+    // MARK: - Properties
+    private let imageSize = CGSize(width: 110, height: 60)
     
     private let titleLabel: UILabel = {
         let lbl = UILabel()
@@ -271,14 +270,14 @@ private class PostContentCenterView: UIView {
         return lbl
     }()
     
-    private lazy var subtitleLabel: UILabel = {
+    private let subtitleLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         lbl.numberOfLines = 6
         return lbl
     }()
     
-    private lazy var thumbailImageView: UIImageView = {
+    private let thumbailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 5
         imageView.layer.masksToBounds = false
@@ -294,32 +293,44 @@ private class PostContentCenterView: UIView {
         return stack
     }()
     
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        
+        self.addSubview(subtitleLabel)
+        self.addSubview(stackView)
+        stackView.addArrangedSubview(titleLabel)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Public
     func bind(with data: PostContentCenterView.ViewData) {
         titleLabel.text = data.title
         if let subtitle = data.subtitle, subtitle.count > 0 {
             subtitleLabel.text = subtitle
         }
         
-        self.addSubview(subtitleLabel)
-        self.addSubview(stackView)
-        stackView.addArrangedSubview(titleLabel)
-        
         if let image = data.imageUrl {
             Nuke.loadImage(with: ImageRequest(url: URL(string: image)!), into: thumbailImageView)
             stackView.addArrangedSubview(thumbailImageView)
+            
             thumbailImageView.snp.makeConstraints { (make) in
                 make.size.equalTo(imageSize)
             }
         }
         
+        layoutUI()
+    }
+    
+    func setupUIForPost() {
+        self.subtitleLabel.numberOfLines = 0
+    }
+    
+    // MARK: - Private
+    private func layoutUI() {
         stackView.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalToSuperview()
         }
@@ -330,22 +341,16 @@ private class PostContentCenterView: UIView {
         }
     }
     
-    func setupUIForPost() {
-        self.subtitleLabel.numberOfLines = 0
-    }
-    
-    
+    // MARK: - Overrided
     override var intrinsicContentSize: CGSize {
         CGSize(width: UIScreen.main.bounds.width, height: UIView.noIntrinsicMetric)
     }
 }
 
+// MARK: - PostContentHeaderView -
 private class PostContentHeaderView: UIView {
-    var communityButtonTap: (() -> Void)?
-    var usernameButtonTap: (() -> Void)?
     
-    private let imageSize = CGSize(width: 32, height: 32)
-    
+    // MARK: - Data
     struct ViewData {
         let avatarImageUrl: String?
         let username: String
@@ -353,31 +358,41 @@ private class PostContentHeaderView: UIView {
         let published: String
     }
     
-    lazy var avatarView: UIImageView = {
+    // MARK: - Properties
+    var communityButtonTap: (() -> Void)?
+    var usernameButtonTap: (() -> Void)?
+    
+    private let imageSize = CGSize(width: 32, height: 32)
+    
+    private lazy var avatarView: UIImageView = {
         let ava = UIImageView()
         ava.layer.cornerRadius = imageSize.width / 2
         ava.layer.masksToBounds = false
         ava.clipsToBounds = true
         return ava
     }()
-    let usernameButton: UIButton = {
+    
+    private let usernameButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(UIColor(red: 0/255, green: 123/255, blue: 255/255, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         return button
     }()
-    let communityButton: UIButton = {
+    
+    private let communityButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(UIColor(red: 241/255, green: 100/255, blue: 30/255, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         return button
     }()
-    let publishedTitle: UILabel = {
+    
+    private let publishedTitle: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         return lbl
     }()
-    let toTitle: UILabel = {
+    
+    private let toTitle: UILabel = {
         let title = UILabel()
         title.text = "to"
         title.textColor = UIColor(red: 108/255, green: 117/255, blue: 125/255, alpha: 1)
@@ -385,16 +400,34 @@ private class PostContentHeaderView: UIView {
         return title
     }()
     
-    let stackView = UIStackView()
+    private let stackView: UIStackView = {
+        let sv = UIStackView()
+        sv.alignment = .center
+        sv.spacing = 8
+        return sv
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        
+        self.addSubview(stackView)
+        
+        [usernameButton, toTitle, communityButton, publishedTitle].forEach { (label) in
+            self.stackView.addArrangedSubview(label)
+        }
+        
+        stackView.snp.makeConstraints { (make) in
+            make.top.bottom.leading.equalToSuperview()
+        }
+        
+        setupTargets()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Public
     func bind(with data: PostContentHeaderView.ViewData) {
         let usernameButtonText = "@" + data.username
         
@@ -402,19 +435,12 @@ private class PostContentHeaderView: UIView {
         communityButton.setTitle(data.community, for: .normal)
         publishedTitle.text = data.published
         
-        setupViews(data)        
-        
-        self.addSubview(stackView)
-        
-        self.stackView.alignment = .center
-        self.stackView.spacing = 8
-        stackView.snp.makeConstraints { (make) in
-            make.top.bottom.leading.equalToSuperview()
-        }        
-        
-        setupTargets()
+        if let avatarUrl = data.avatarImageUrl {
+            setupAvatar(with: avatarUrl)
+        }
     }
     
+    // MARK: - Private
     private func setupTargets() {
         usernameButton.addTarget(self, action: #selector(usernameButtonTapped(sender:)), for: .touchUpInside)
         communityButton.addTarget(self, action: #selector(communityButtonTapped(sender:)), for: .touchUpInside)
@@ -428,19 +454,15 @@ private class PostContentHeaderView: UIView {
         communityButtonTap?()
     }
     
-    private func setupViews(_ data: PostContentHeaderView.ViewData) {
-        [usernameButton, toTitle, communityButton, publishedTitle].forEach { (label) in
-            self.stackView.addArrangedSubview(label)
+    private func setupAvatar(with url: String) {
+        Nuke.loadImage(with: ImageRequest(url: URL(string: url)!), into: avatarView)
+        avatarView.snp.makeConstraints { (make) in
+            make.size.equalTo(imageSize.height)
         }
-        if let avatarUrl = data.avatarImageUrl {
-            Nuke.loadImage(with: ImageRequest(url: URL(string: avatarUrl)!), into: avatarView)
-            avatarView.snp.makeConstraints { (make) in
-                make.size.equalTo(imageSize.height)
-            }
-            self.stackView.insertArrangedSubview(avatarView, at: 0)
-        }
+        self.stackView.insertArrangedSubview(avatarView, at: 0)
     }
     
+    // MARK: - Overrided
     override var intrinsicContentSize: CGSize {
         CGSize(width: UIScreen.main.bounds.width, height: 30)
     }
