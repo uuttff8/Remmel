@@ -41,5 +41,27 @@ class CreatePostScreenModel {
     }
     
     func searchCommunities(query: String) {
+        let params = LemmyApiStructs.Search.SearchRequest(q: query,
+                                                          type_: .all,
+                                                          community_id: nil,
+                                                          community_name: nil,
+                                                          sort: .topAll,
+                                                          page: 1,
+                                                          limit: 100,
+                                                          auth: LemmyShareData.shared.jwtToken)
+                
+        ApiManager.requests.search(parameters: params)
+        { (res: Result<LemmyApiStructs.Search.SearchResponse, Error>) in
+
+            switch res {
+            case let .success(data):
+                self.filteredCommunitiesData = data.communities
+                self.communitiesLoaded?(data.communities)
+            case let .failure(why):
+                print(why)
+                break
+            }
+        }
+
     }
 }

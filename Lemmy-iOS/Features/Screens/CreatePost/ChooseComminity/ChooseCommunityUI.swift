@@ -65,18 +65,30 @@ class ChooseCommunityUI: UIView {
             // TODO: make search for communities
             model.searchCommunities(query: text)
         } else {
-            
+            // TODO: Refactor
+            model.filteredCommunitiesData.removeAll()
+            model.communitiesLoaded?([])
         }
     }
 }
 
 extension ChooseCommunityUI: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard model.filteredCommunitiesData.isEmpty else {
+            return model.filteredCommunitiesData.count
+        }
+        
         return model.communitiesData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let data = model.communitiesData[indexPath.row]
+        let data: LemmyApiStructs.CommunityView
+
+        if model.filteredCommunitiesData.isEmpty {
+            data = model.communitiesData[indexPath.row]
+        } else {
+            data = model.filteredCommunitiesData[indexPath.row]
+        }
         
         let cell = ChooseCommunityCell()
         cell.bind(with: ChooseCommunityCell.ViewData(title: data.title, icon: data.icon))
@@ -84,7 +96,11 @@ extension ChooseCommunityUI: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let data = model.communitiesData[indexPath.row]
+        if !model.filteredCommunitiesData.isEmpty {
+            let data = model.filteredCommunitiesData[indexPath.row]
+        } else {
+            let data = model.communitiesData[indexPath.row]
+        }
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
