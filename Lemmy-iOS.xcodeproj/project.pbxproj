@@ -47,6 +47,7 @@
 		4E886CCE2541E1670076B162 /* ChooseCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CCD2541E1670076B162 /* ChooseCommunityViewController.swift */; };
 		4E886CD32541E1A20076B162 /* ChooseCommunityUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CD22541E1A20076B162 /* ChooseCommunityUI.swift */; };
 		4E886CD8254215B60076B162 /* ChooseCommunityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CD7254215B60076B162 /* ChooseCommunityCell.swift */; };
+		4E886CDD254229F20076B162 /* LemmyApiStructs+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CDC254229F20076B162 /* LemmyApiStructs+Search.swift */; };
 		4EB89AF8251F47A7007129BF /* PostScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */; };
 		4EB89B00251F4882007129BF /* PostScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AFF251F4882007129BF /* PostScreenUI.swift */; };
 		4EB89B052521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */; };
@@ -151,6 +152,7 @@
 		4E886CCD2541E1670076B162 /* ChooseCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityViewController.swift; sourceTree = "<group>"; };
 		4E886CD22541E1A20076B162 /* ChooseCommunityUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityUI.swift; sourceTree = "<group>"; };
 		4E886CD7254215B60076B162 /* ChooseCommunityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityCell.swift; sourceTree = "<group>"; };
+		4E886CDC254229F20076B162 /* LemmyApiStructs+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LemmyApiStructs+Search.swift"; sourceTree = "<group>"; };
 		4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenViewController.swift; sourceTree = "<group>"; };
 		4EB89AFF251F4882007129BF /* PostScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenUI.swift; sourceTree = "<group>"; };
 		4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyGreenOutlinePostDescription.swift; sourceTree = "<group>"; };
@@ -541,6 +543,7 @@
 				4E107092253500DA009EABDA /* LemmyApiStructs+User.swift */,
 				4E886C25253744AB0076B162 /* LemmyApiStructs+Auth.swift */,
 				4E886C2A253758A30076B162 /* LemmyApiStructs+Site.swift */,
+				4E886CDC254229F20076B162 /* LemmyApiStructs+Search.swift */,
 			);
 			path = ApiStructs;
 			sourceTree = "<group>";
@@ -824,6 +827,7 @@
 				4ECCEF1D250D63BE0075F921 /* CommentRequests.swift in Sources */,
 				4EB89B0A2521FA73007129BF /* LoginOrRegisterButton.swift in Sources */,
 				4ECCEF0C250CCD3E0075F921 /* PostRequests.swift in Sources */,
+				4E886CDD254229F20076B162 /* LemmyApiStructs+Search.swift in Sources */,
 				4E886CD8254215B60076B162 /* ChooseCommunityCell.swift in Sources */,
 				4E886C3B2538BE830076B162 /* LemmyTextWithSwitch.swift in Sources */,
 				4E107053253476EE009EABDA /* PostsFrontPageViewController.swift in Sources */,

@@ -63,6 +63,7 @@ class ChooseCommunityUI: UIView {
     @objc func reload(_ searchBar: UISearchBar) {
         if let text = searchBar.text, text != "" {
             // TODO: make search for communities
+            
         } else {
             
         }
@@ -100,7 +101,6 @@ extension ChooseCommunityUI: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-//        self.coordinator?.removeSuggestedCoordinator()
         searchBar.resignFirstResponder()
     }
     

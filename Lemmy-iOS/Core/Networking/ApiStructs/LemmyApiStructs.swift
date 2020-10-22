@@ -8,6 +8,14 @@
 
 import UIKit
 
+enum LemmySearchType: String, Codable {
+    case all = "All"
+    case comments = "Comments"
+    case posts = "Posts"
+    case communities = "Communities"
+    case users = "Users"
+    case url = "Url"
+}
 
 enum LemmySortType: String, Codable, CaseIterable {
     case active = "Active"
@@ -337,7 +345,7 @@ enum LemmyApiStructs {
     }
     
     // MARK: - UserView -
-    struct UserView: Codable, Equatable {
+    struct UserView: Codable, Equatable, Hashable {
         let id: Int
         let actorId: String
         let name: String
@@ -509,7 +517,7 @@ enum LemmyApiStructs {
             case communityActorId = "community_actor_id"
             case communityLocal = "community_local"
             case communityName = "community_name"
-            case communityIcon = "communityIcon"
+            case communityIcon = "community_icon"
             case banned
             case bannedFromCommunity = "banned_from_community"
             case creatorActorId = "creator_actor_id"
