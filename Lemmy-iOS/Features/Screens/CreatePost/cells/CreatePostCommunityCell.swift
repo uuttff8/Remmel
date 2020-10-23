@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import Nuke
 
 class CreatePostCommunityCell: UITableViewCell {
-    
-    private(set) lazy var viewPadding = UIView()
-    
+    struct ViewData {
+        let title: String
+        let imageView: String
+    }
+        
     private(set) lazy var communityImageView: UIImageView = {
         let iv = UIImageView()
         return iv
@@ -33,7 +36,6 @@ class CreatePostCommunityCell: UITableViewCell {
         
         contentView.addSubview(communityImageView)
         contentView.addSubview(communityLabel)
-        contentView.addSubview(viewPadding)
         
         layoutUI()
     }
@@ -42,6 +44,17 @@ class CreatePostCommunityCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func bind(with data: LemmyApiStructs.CommunityView) {
+        if let imageString = data.icon, let url = URL(string: imageString) {
+            Nuke.loadImage(with: ImageRequest(url: url), into: communityImageView)
+        } else {
+            self.communityImageView.isHidden = true
+        }
+        
+        communityLabel.text = data.title
+    }
+    
+    // MARK: - Private
     private func layoutUI() {
         communityImageView.snp.makeConstraints { (make) in
             make.top.equalToSuperview().inset(10)

@@ -11,10 +11,11 @@ import UIKit
 // TODO: add states in enum as shoulShowFiltered, Refactor
 class ChooseCommunityUI: UIView {
     // MARK: - Properties
+    var dismissView: (() -> Void)?
+    
     private let tableView = LemmyTableView(style: .plain, separator: true)
     private let searchBar = UISearchBar()
     private let model: CreatePostScreenModel
-    
     private var shouldShowFiltered = false
     
     var currentCellData: ((_ indexPath: IndexPath) -> LemmyApiStructs.CommunityView) {
@@ -117,7 +118,8 @@ extension ChooseCommunityUI: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let data: LemmyApiStructs.CommunityView = currentCellData(indexPath)
         
-        print(data)
+        model.communitySelected?(data)
+        dismissView?()
         
         tableView.deselectRow(at: indexPath, animated: true)
     }

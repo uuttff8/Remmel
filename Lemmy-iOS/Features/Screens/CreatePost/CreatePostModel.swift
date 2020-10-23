@@ -13,6 +13,8 @@ class CreatePostScreenModel {
     // MARK: - Properties
     var communitiesLoaded: ((Array<LemmyApiStructs.CommunityView>) -> Void)?
     
+    var communitySelected: ((LemmyApiStructs.CommunityView) -> Void)?
+    
     var communitiesData: Array<LemmyApiStructs.CommunityView> = [] {
         didSet {
             communitiesLoaded?(communitiesData)

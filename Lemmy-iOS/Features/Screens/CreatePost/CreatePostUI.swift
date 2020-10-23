@@ -17,9 +17,11 @@ class CreatePostScreenUI: UIView {
     
     // MARK: - Properties
     let tableView = LemmyTableView(style: .plain)
+    let model: CreatePostScreenModel
     
     // MARK: - Init
-    init() {
+    init(model: CreatePostScreenModel) {
+        self.model = model
         super.init(frame: .zero)
         
         setupTableView()
@@ -64,19 +66,16 @@ extension CreatePostScreenUI: UITableViewDelegate, UITableViewDataSource {
         
         switch cellType {
         case .community:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CreatePostCommunityCell.self))
-            else { return UITableViewCell() }
-            
+            let cell = CreatePostCommunityCell()
+            model.communitySelected = { community in
+                cell.bind(with: community)
+            }
             return cell
         case .content:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CreatePostContentCell.self))
-            else { return UITableViewCell() }
-            
+            let cell = CreatePostContentCell()
             return cell
         case .url:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CreatePostUrlCell.self))
-            else { return UITableViewCell() }
-            
+            let cell = CreatePostUrlCell()
             return cell
         }
     }

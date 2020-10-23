@@ -12,6 +12,7 @@ class ChooseCommunityViewController: UIViewController {
 
     weak var coordinator: CreatePostCoordinator?
     
+    var communitySelected: ((LemmyApiStructs.CommunityView) -> Void)?
     let customView: ChooseCommunityUI
     let model: CreatePostScreenModel
     
@@ -31,7 +32,9 @@ class ChooseCommunityViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         model.loadCommunities()
+        customView.dismissView = {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 }

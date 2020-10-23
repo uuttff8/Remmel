@@ -13,18 +13,20 @@ class CreatePostScreenViewController: UIViewController {
     weak var coordinator: CreatePostCoordinator?
     
     // MARK: - Properties
-    let customView = CreatePostScreenUI()
+    lazy var customView = CreatePostScreenUI(model: model)
     let model = CreatePostScreenModel()
     
     // MARK: - Overrided
     override func loadView() {
         self.view = customView
+        
     }
     
     override func viewDidLoad() {
         title = "Create post"
         
         customView.goToChoosingCommunity = { [self] in
+            
             coordinator?.goToChoosingCommunity(model: model)
         }
     }
