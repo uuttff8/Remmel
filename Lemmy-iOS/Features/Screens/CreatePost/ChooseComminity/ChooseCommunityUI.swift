@@ -125,6 +125,7 @@ extension ChooseCommunityUI: UITableViewDataSource, UITableViewDelegate {
 
 extension ChooseCommunityUI: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        tableView.restore()
         NSObject.cancelPreviousPerformRequests(withTarget: self,
                                                selector: #selector(reload(_:)),
                                                object: searchBar)
