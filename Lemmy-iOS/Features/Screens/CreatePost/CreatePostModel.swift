@@ -13,8 +13,16 @@ class CreatePostScreenModel {
     // MARK: - Properties
     var communitiesLoaded: ((Array<LemmyApiStructs.CommunityView>) -> Void)?
     
-    var communitiesData: Array<LemmyApiStructs.CommunityView> = []
-    var filteredCommunitiesData: Array<LemmyApiStructs.CommunityView> = []
+    var communitiesData: Array<LemmyApiStructs.CommunityView> = [] {
+        didSet {
+            communitiesLoaded?(communitiesData)
+        }
+    }
+    var filteredCommunitiesData: Array<LemmyApiStructs.CommunityView> = [] {
+        didSet {
+            communitiesLoaded?(filteredCommunitiesData)
+        }
+    }
     
     // MARK: - Initializer
     init() { }
@@ -56,7 +64,6 @@ class CreatePostScreenModel {
             switch res {
             case let .success(data):
                 self.filteredCommunitiesData = data.communities
-                self.communitiesLoaded?(data.communities)
             case let .failure(why):
                 print(why)
                 break

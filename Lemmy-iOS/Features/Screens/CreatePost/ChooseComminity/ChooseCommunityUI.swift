@@ -8,11 +8,30 @@
 
 import UIKit
 
+// TODO: add states in enum as shoulShowFiltered, Refactor
 class ChooseCommunityUI: UIView {
     // MARK: - Properties
     private let tableView = LemmyTableView(style: .plain, separator: true)
     private let searchBar = UISearchBar()
     private let model: CreatePostScreenModel
+    
+    private var shouldShowFiltered = false
+    
+    var currentCellData: ((_ indexPath: IndexPath) -> LemmyApiStructs.CommunityView) {
+        if !model.filteredCommunitiesData.isEmpty {
+            
+            return { (indexPath: IndexPath) in
+                self.model.filteredCommunitiesData[indexPath.row]
+            }
+            
+        } else {
+            
+            return { indexPath in
+                self.model.communitiesData[indexPath.row]
+            }
+            
+        }
+    }
     
     // MARK: - Init
     init(model: CreatePostScreenModel) {
@@ -63,18 +82,24 @@ class ChooseCommunityUI: UIView {
     @objc func reload(_ searchBar: UISearchBar) {
         if let text = searchBar.text, text != "" {
             // TODO: make search for communities
+            self.shouldShowFiltered = true
             model.searchCommunities(query: text)
         } else {
             // TODO: Refactor
+            self.shouldShowFiltered = false
             model.filteredCommunitiesData.removeAll()
-            model.communitiesLoaded?([])
         }
     }
 }
 
 extension ChooseCommunityUI: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard model.filteredCommunitiesData.isEmpty else {
+        
+        if shouldShowFiltered {
+            if model.filteredCommunitiesData.isEmpty {
+                self.tableView.setEmptyMessage("Not found")
+            }
+            
             return model.filteredCommunitiesData.count
         }
         
@@ -82,13 +107,7 @@ extension ChooseCommunityUI: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let data: LemmyApiStructs.CommunityView
-
-        if model.filteredCommunitiesData.isEmpty {
-            data = model.communitiesData[indexPath.row]
-        } else {
-            data = model.filteredCommunitiesData[indexPath.row]
-        }
+        let data = currentCellData(indexPath)
         
         let cell = ChooseCommunityCell()
         cell.bind(with: ChooseCommunityCell.ViewData(title: data.title, icon: data.icon))
@@ -96,11 +115,9 @@ extension ChooseCommunityUI: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if !model.filteredCommunitiesData.isEmpty {
-            let data = model.filteredCommunitiesData[indexPath.row]
-        } else {
-            let data = model.communitiesData[indexPath.row]
-        }
+        let data: LemmyApiStructs.CommunityView = currentCellData(indexPath)
+        
+        print(data)
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -115,6 +132,9 @@ extension ChooseCommunityUI: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        shouldShowFiltered = false
+        searchBar.text = ""
+        model.filteredCommunitiesData.removeAll()
         searchBar.resignFirstResponder()
     }
     
@@ -123,11 +143,13 @@ extension ChooseCommunityUI: UISearchBarDelegate {
     }
     
     public func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        shouldShowFiltered = false
         searchBar.setShowsCancelButton(false, animated: true)
         return true
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        shouldShowFiltered = false
         searchBar.setShowsCancelButton(false, animated: true)
     }
 }
