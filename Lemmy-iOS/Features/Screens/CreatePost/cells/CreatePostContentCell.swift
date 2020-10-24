@@ -9,16 +9,19 @@
 import UIKit
 
 class CreatePostContentCell: UITableViewCell {
-    var placeholderLabel : UILabel!
     
     lazy var titleTextView: UITextView = {
         let tv = UITextView()
+        tv.font = .systemFont(ofSize: 17)
+        tv.textColor = UIColor.lightGray
         tv.placeholder = "Title"
         return tv
     }()
     
     lazy var bodyTextView: UITextView = {
         let tv = UITextView()
+        tv.font = .systemFont(ofSize: 17)
+        tv.textColor = UIColor.lightGray
         tv.placeholder = "Body"
         return tv
     }()
@@ -36,6 +39,8 @@ class CreatePostContentCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        selectionStyle = .none
         
         [titleTextView, bodyTextView].forEach { (view) in
             contentView.addSubview(view)

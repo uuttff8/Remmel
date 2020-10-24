@@ -49,6 +49,12 @@ class CreatePostCommunityCell: UITableViewCell {
             Nuke.loadImage(with: ImageRequest(url: url), into: communityImageView)
         } else {
             self.communityImageView.isHidden = true
+            
+            communityLabel.snp.remakeConstraints { (make) in
+                make.top.equalToSuperview().inset(10)
+                make.centerY.equalToSuperview()
+                make.leading.equalToSuperview().inset(16)
+            }
         }
         
         communityLabel.text = data.title

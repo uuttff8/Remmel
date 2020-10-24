@@ -25,7 +25,7 @@ class CreatePostUrlCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        
+        selectionStyle = .none
         [selectImageButton, urlTextField].forEach { (view) in
             contentView.addSubview(view)
         }
@@ -43,6 +43,18 @@ class CreatePostUrlCell: UITableViewCell {
             make.trailing.equalToSuperview().inset(16)
             make.width.equalTo(30)
             make.bottom.equalTo(urlTextField)
+        }
+        
+        selectImageButton.addTarget(self, action: #selector(handleImageButtonTap), for: .touchUpInside)
+    }
+    
+    @objc private func handleImageButtonTap() {
+        ApiManager.shared.requestsManager.uploadImage(
+            path: HttpLemmyEndpoint.Pictrs.image.endpoint,
+            image: UIImage(named: "comments")!,
+            parsingFromRootKey: "data")
+        { (res: LemmyApiStructs.Pictrs.PictrsResponse) in
+            print(res)
         }
     }
     

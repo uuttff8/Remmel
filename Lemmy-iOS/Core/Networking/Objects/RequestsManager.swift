@@ -6,10 +6,11 @@
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class RequestsManager {
-    let wsClient = WSLemmy()
+    let wsClient = WSLemmyClient()
+    let httpClient = HttpLemmyClient()
     
     func requestDecodable<Req: Codable, Res: Codable>(
         path: String,
@@ -19,6 +20,18 @@ class RequestsManager {
     ) {
         wsClient.send(on: path, data: parameters) { (outString) in
             self.decode(data: outString.data(using: .utf8)!, rootKey: rootKey, completion: completion)
+        }
+    }
+    
+    func uploadImage<Res: Codable>(
+        path: String,
+        image: UIImage,
+        parsingFromRootKey rootKey: String? = nil,
+        completion: @escaping ((Res) -> Void)
+    ) {
+        httpClient.uploadImage(url: path, image: image) { (outData) in
+            let decoded = try! JSONDecoder().decode(Res.self, from: outData) //else { return }
+            completion(decoded)
         }
     }
     

@@ -41,15 +41,7 @@ class CreatePostScreenUI: UIView {
     
     // MARK: - Private API
     private func setupTableView() {
-        self.addSubview(tableView)
-        
-        tableView.register(CreatePostCommunityCell.self,
-                           forCellReuseIdentifier: String(describing: CreatePostCommunityCell.self))
-        tableView.register(CreatePostUrlCell.self,
-                           forCellReuseIdentifier: String(describing: CreatePostUrlCell.self))
-        tableView.register(CreatePostContentCell.self,
-                           forCellReuseIdentifier: String(describing: CreatePostContentCell.self))
-        
+        self.addSubview(tableView)        
         tableView.delegate = self
         tableView.dataSource = self
     }
