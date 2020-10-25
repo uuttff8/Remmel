@@ -26,12 +26,20 @@ class RequestsManager {
     func uploadImage<Res: Codable>(
         path: String,
         image: UIImage,
-        parsingFromRootKey rootKey: String? = nil,
-        completion: @escaping ((Res) -> Void)
+        completion: @escaping ((Result<Res, Error>) -> Void)
     ) {
-        httpClient.uploadImage(url: path, image: image) { (outData) in
-            let decoded = try! JSONDecoder().decode(Res.self, from: outData) //else { return }
-            completion(decoded)
+        httpClient.uploadImage(url: path, image: image) { (result) in
+            switch result {
+            case .failure(let why):
+                completion(.failure(why))
+            case .success(let outData):
+                
+                guard let decoded = try? JSONDecoder().decode(Res.self, from: outData) else {
+                    completion(.failure("Failed to decode from \(Res.self)".errorDescription))
+                    return
+                }
+                completion(.success(decoded))
+            }
         }
     }
     

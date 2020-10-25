@@ -81,7 +81,7 @@ final class HttpLemmyClient: HTTPClientProvider {
     func uploadImage(
         url: String,
         image: UIImage,
-        completion: @escaping (Data) -> Void
+        completion: @escaping (Result<Data, Error>) -> Void
     ) {
         
         guard let url = URL(string: url) else { return }
@@ -95,7 +95,10 @@ final class HttpLemmyClient: HTTPClientProvider {
         request.httpMethod = "POST"
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         
-        let httpBody = try? createBody(imageToUpload: image, boundary: boundary)
+        guard let httpBody = try? createBody(imageToUpload: image, boundary: boundary) else {
+            completion(.failure("Failed to create request body"))
+            return
+        }
         
         request.httpBody = httpBody
         
@@ -108,9 +111,9 @@ final class HttpLemmyClient: HTTPClientProvider {
                    delegateQueue: OperationQueue.current)
             .dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
                 if let data = data {
-                    completion(data)
+                    completion(.success(data))
                 } else if let error = error {
-                    print(error.localizedDescription)
+                    completion(.failure(error))
                 }
             }.resume()
         
@@ -135,11 +138,6 @@ final class HttpLemmyClient: HTTPClientProvider {
         
         body.append("--\(boundary)--\r\n")
         return body
-    }
-    
-    private func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
     }
     
     private func generateBoundary() -> String {

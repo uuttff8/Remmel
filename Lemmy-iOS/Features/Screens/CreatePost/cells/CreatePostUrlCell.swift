@@ -49,13 +49,9 @@ class CreatePostUrlCell: UITableViewCell {
     }
     
     @objc private func handleImageButtonTap() {
-        ApiManager.shared.requestsManager.uploadImage(
-            path: HttpLemmyEndpoint.Pictrs.image.endpoint,
-            image: UIImage(named: "comments")!,
-            parsingFromRootKey: "data")
-        { (res: LemmyApiStructs.Pictrs.PictrsResponse) in
-            print(res)
-        }
+//        ApiManager.requests.uploadPictrs(image: UIIMage) { (<#Result<LemmyApiStructs.Pictrs.PictrsResponse, Error>#>) in
+//            <#code#>
+//        }
     }
     
     required init?(coder: NSCoder) {
