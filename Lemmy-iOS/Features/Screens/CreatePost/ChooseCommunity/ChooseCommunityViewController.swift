@@ -12,7 +12,6 @@ class ChooseCommunityViewController: UIViewController {
 
     weak var coordinator: CreatePostCoordinator?
     
-    var communitySelected: ((LemmyApiStructs.CommunityView) -> Void)?
     let customView: ChooseCommunityUI
     let model: CreatePostScreenModel
     

@@ -46,7 +46,6 @@ class CreatePostContentCell: UITableViewCell {
             contentView.addSubview(view)
         }
         
-        
         titleTextView.snp.makeConstraints { (make) in
             make.top.equalToSuperview().inset(5)
             make.height.equalTo(200)

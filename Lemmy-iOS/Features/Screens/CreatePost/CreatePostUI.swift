@@ -10,6 +10,8 @@ import UIKit
 
 class CreatePostScreenUI: UIView {
     var goToChoosingCommunity: (() -> Void)?
+    var onPickImage: (() -> Void)?
+    var onPickedImage: ((UIImage) -> Void)?
     
     enum CellType: CaseIterable {
         case community, url, content
@@ -68,6 +70,12 @@ extension CreatePostScreenUI: UITableViewDelegate, UITableViewDataSource {
             return cell
         case .url:
             let cell = CreatePostUrlCell()
+            cell.onPickImage = {
+                self.onPickImage?()
+            }
+            self.onPickedImage = { image in
+                cell.onPickedImage?(image)
+            }
             return cell
         }
     }

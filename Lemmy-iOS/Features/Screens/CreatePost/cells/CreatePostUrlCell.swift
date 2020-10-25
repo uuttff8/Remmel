@@ -10,6 +10,9 @@ import UIKit
 
 class CreatePostUrlCell: UITableViewCell {
     
+    var onPickImage: (() -> Void)?
+    var onPickedImage: ((UIImage) -> Void)?
+    
     lazy var selectImageButton: UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(systemName: "photo"), for: .normal)
@@ -49,9 +52,20 @@ class CreatePostUrlCell: UITableViewCell {
     }
     
     @objc private func handleImageButtonTap() {
-//        ApiManager.requests.uploadPictrs(image: UIIMage) { (<#Result<LemmyApiStructs.Pictrs.PictrsResponse, Error>#>) in
-//            <#code#>
-//        }
+        onPickImage?()
+        onPickedImage = { image in
+            ApiManager.requests.uploadPictrs(image: image) { (res) in
+                switch res {
+                case .success(let response):
+                    if let filename = response.files.first?.file {
+                        self.urlTextField.text = "" + filename
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+            
+        }
     }
     
     required init?(coder: NSCoder) {

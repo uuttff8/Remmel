@@ -334,7 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				4E886C97253F67500076B162 /* cells */,
-				4E886C86253F4FD40076B162 /* ChooseComminity */,
+				4E886C86253F4FD40076B162 /* ChooseCommunity */,
 				4E886C7D253F4F290076B162 /* CreatePostViewController.swift */,
 				4E886C87253F4FF40076B162 /* CreatePostUI.swift */,
 				4E886C8C253F51B90076B162 /* CreatePostModel.swift */,
@@ -343,13 +343,13 @@
 			path = CreatePost;
 			sourceTree = "<group>";
 		};
-		4E886C86253F4FD40076B162 /* ChooseComminity */ = {
+		4E886C86253F4FD40076B162 /* ChooseCommunity */ = {
 			isa = PBXGroup;
 			children = (
 				4E886CCD2541E1670076B162 /* ChooseCommunityViewController.swift */,
 				4E886CD22541E1A20076B162 /* ChooseCommunityUI.swift */,
 			);
-			path = ChooseComminity;
+			path = ChooseCommunity;
 			sourceTree = "<group>";
 		};
 		4E886C97253F67500076B162 /* cells */ = {
