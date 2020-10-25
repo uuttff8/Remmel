@@ -12,6 +12,15 @@ class CreatePostUrlCell: UITableViewCell {
     
     var onPickImage: (() -> Void)?
     var onPickedImage: ((UIImage) -> Void)?
+    var isImagePicked = false
+    
+    var urlText: String {
+        if isImagePicked {
+            return "https://dev.lemmy.ml/pictrs/image/" + (urlTextField.text ?? "")
+        } else {
+            return urlTextField.text ?? ""
+        }
+    }
     
     lazy var selectImageButton: UIButton = {
         let btn = UIButton()
@@ -53,7 +62,8 @@ class CreatePostUrlCell: UITableViewCell {
     
     @objc private func handleImageButtonTap() {
         onPickImage?()
-        onPickedImage = { image in
+        onPickedImage = { [self] image in
+            isImagePicked = true
             ApiManager.requests.uploadPictrs(image: image) { (res) in
                 switch res {
                 case .success(let response):

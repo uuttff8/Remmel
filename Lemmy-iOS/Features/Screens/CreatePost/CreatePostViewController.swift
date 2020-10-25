@@ -37,6 +37,24 @@ class CreatePostScreenViewController: UIViewController {
         customView.goToChoosingCommunity = { [self] in
             coordinator?.goToChoosingCommunity(model: model)
         }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "POST",
+                                                            style: .done,
+                                                            target: self,
+                                                            action: #selector(postBarButtonTapped))
+    }
+    
+    @objc private func postBarButtonTapped() {
+        guard let community = model.communitySelected else {
+            UIAlertController.createOkAlert(message: "Please select community first")
+            return
+        }
+        let titleText = customView.contentCell.titleTextView.text
+        let bodyText = customView.contentCell.bodyTextView.text
+        let urlText = customView.urlCell.urlText
+        
+        // TODO: Create CreatePost request
+        
     }
 }
 
