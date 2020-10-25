@@ -9,17 +9,23 @@
 import UIKit
 
 class CreatePostScreenUI: UIView {
-    var goToChoosingCommunity: (() -> Void)?
-    var onPickImage: (() -> Void)?
-    var onPickedImage: ((UIImage) -> Void)?
     
+    // MARK: Cell type
     enum CellType: CaseIterable {
         case community, url, content
     }
     
     // MARK: - Properties
+    var goToChoosingCommunity: (() -> Void)?
+    var onPickImage: (() -> Void)?
+    var onPickedImage: ((UIImage) -> Void)?
+    
     let tableView = LemmyTableView(style: .plain)
     let model: CreatePostScreenModel
+    
+    let communityCell = CreatePostCommunityCell()
+    lazy var contentCell = CreatePostContentCell(backView: self)
+    let urlCell = CreatePostUrlCell()
     
     // MARK: - Init
     init(model: CreatePostScreenModel) {
@@ -60,23 +66,23 @@ extension CreatePostScreenUI: UITableViewDelegate, UITableViewDataSource {
         
         switch cellType {
         case .community:
-            let cell = CreatePostCommunityCell()
+            let cell = communityCell
             model.communitySelected = { community in
                 cell.bind(with: community)
             }
+            
             return cell
         case .content:
-            let cell = CreatePostContentCell()
-            return cell
+            return contentCell
         case .url:
-            let cell = CreatePostUrlCell()
-            cell.onPickImage = {
+            urlCell.onPickImage = {
                 self.onPickImage?()
             }
             self.onPickedImage = { image in
-                cell.onPickedImage?(image)
+                self.urlCell.onPickedImage?(image)
             }
-            return cell
+            
+            return urlCell
         }
     }
     
@@ -86,6 +92,7 @@ extension CreatePostScreenUI: UITableViewDelegate, UITableViewDataSource {
         switch cellType {
         case .community:
             goToChoosingCommunity?()
+            
         default: break
         }
         

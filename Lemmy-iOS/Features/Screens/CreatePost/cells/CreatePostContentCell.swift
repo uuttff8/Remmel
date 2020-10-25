@@ -10,6 +10,8 @@ import UIKit
 
 class CreatePostContentCell: UITableViewCell {
     
+    var backView: UIView
+    
     lazy var titleTextView: UITextView = {
         let tv = UITextView()
         tv.font = .systemFont(ofSize: 17)
@@ -25,11 +27,6 @@ class CreatePostContentCell: UITableViewCell {
         tv.placeholder = "Body"
         return tv
     }()
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -37,18 +34,21 @@ class CreatePostContentCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    init(backView: UIView) {
+        self.backView = backView
+        
+        super.init(style: .default, reuseIdentifier: String(describing: Self.self))
         
         selectionStyle = .none
         
+        bodyTextView.delegate = self
         [titleTextView, bodyTextView].forEach { (view) in
             contentView.addSubview(view)
         }
         
         titleTextView.snp.makeConstraints { (make) in
             make.top.equalToSuperview().inset(5)
-            make.height.equalTo(200)
+            make.height.equalTo(100)
             make.leading.trailing.equalToSuperview().inset(16)
         }
         
@@ -58,7 +58,6 @@ class CreatePostContentCell: UITableViewCell {
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().inset(5)
         }
-        
     }
     
     required init?(coder: NSCoder) {
@@ -66,3 +65,28 @@ class CreatePostContentCell: UITableViewCell {
     }
 }
 
+extension CreatePostContentCell: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        switch textView {
+        case bodyTextView:
+            UIView.animate(withDuration: 0.2) {
+                if self.backView.frame.origin.y == 0 {
+                    self.backView.frame.origin.y -= 100
+                }
+            }
+        default: break
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        switch textView {
+        case bodyTextView:
+            UIView.animate(withDuration: 0.2) {
+                if self.backView.frame.origin.y != 0 {
+                    self.backView.frame.origin.y = 0
+                }
+            }
+        default: break
+        }
+    }
+}
