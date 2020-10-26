@@ -524,8 +524,8 @@
 			isa = PBXGroup;
 			children = (
 				4E886C49253C95AA0076B162 /* animator */,
-				4ECCEEF1250C03A40075F921 /* LemmyTabBarCoordinator.swift */,
 				4ECCEEF3250C04280075F921 /* LemmyTabBarController.swift */,
+				4ECCEEF1250C03A40075F921 /* LemmyTabBarCoordinator.swift */,
 			);
 			path = LemmyTabBar;
 			sourceTree = "<group>";

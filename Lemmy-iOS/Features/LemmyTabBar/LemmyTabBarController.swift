@@ -11,6 +11,10 @@ import UIKit
 class LemmyTabBarController: UITabBarController {
     weak var coordinator: LemmyTabBarCoordinator?
     
+    private(set) var communitiesVc: CommunitiesViewController!
+    private(set) var createPostOrCommunityVc: CreatePostOrCommunityViewController!
+    private(set) var frontPageVc: FrontPageViewController!
+    
     override func viewDidLoad() {
         self.delegate = self
     }
@@ -24,6 +28,7 @@ class LemmyTabBarController: UITabBarController {
                                                                           image: UIImage(systemName: "bolt.circle"),
                                                                           tag: 0)
         frontPageCoordinator.navigationController = frontPageNc
+        frontPageVc = frontPageCoordinator.rootViewController
         
         let communitiesCoordinator = CommunitiesCoordinator(navigationController: nil)
         self.coordinator?.store(coordinator: communitiesCoordinator)
@@ -33,6 +38,7 @@ class LemmyTabBarController: UITabBarController {
                                                                             image: UIImage(systemName: "person.2.fill"),
                                                                             tag: 1)
         communitiesCoordinator.navigationController = communitiesNc
+        communitiesVc = communitiesCoordinator.rootViewController
         
         // its wrapper, real controller created in this method
         // func tabBarController(
@@ -43,6 +49,7 @@ class LemmyTabBarController: UITabBarController {
         createPostOrCommentController.tabBarItem = UITabBarItem(title: "",
                                                                 image: UIImage(systemName: "plus.circle"),
                                                                 tag: 2)
+        createPostOrCommunityVc = createPostOrCommentController
         
         self.viewControllers = [ frontPageNc,
                                  createPostOrCommentController,

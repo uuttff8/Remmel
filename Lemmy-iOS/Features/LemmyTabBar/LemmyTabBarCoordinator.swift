@@ -49,4 +49,19 @@ final class LemmyTabBarCoordinator: Coordinator {
         
         rootViewController.present(loginNavController, animated: true, completion: nil)
     }
+    
+    func goToCreatePost() {
+        let createPostCoord = CreatePostCoordinator(navigationController: UINavigationController())
+        self.store(coordinator: createPostCoord)
+        createPostCoord.start()
+        
+        guard let navController = createPostCoord.navigationController else { return }
+        
+        rootViewController.present(navController, animated: true)
+    }
+    
+    func goToPost(post: LemmyApiStructs.PostView) {
+        let postScreen = PostScreenViewController(post: post)
+        rootViewController.frontPageVc.navigationController?.pushViewController(postScreen, animated: true)
+    }
 }

@@ -24,12 +24,9 @@ class CreatePostOrCommunityCoordinator : Coordinator {
     }
     
     func goToCreatePost() {
-        let createPostCoord = CreatePostCoordinator(navigationController: UINavigationController())
-        self.store(coordinator: createPostCoord)
-        createPostCoord.start()
-        
-        guard let navController = createPostCoord.navigationController else { return }
-        
-        rootViewController.present(navController, animated: true)
+        rootViewController.dismissView()
+        if let presentingVc = rootViewController.presentingViewController as? LemmyTabBarController {
+            presentingVc.coordinator?.goToCreatePost()
+        }
     }
 }

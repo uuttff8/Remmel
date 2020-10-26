@@ -77,7 +77,7 @@ class CreatePostOrCommunityViewController: UIViewController {
         }
     }
     
-    private func dismissView() {
+    func dismissView() {
         let transition = CreateTransitionDelegateImpl()
         self.transitioningDelegate = transition
         dismiss(animated: true)
