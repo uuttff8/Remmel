@@ -44,7 +44,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround()
+        self.view.hideKeyboardWhenTappedAround()
         
         let barItemTitle: String
         

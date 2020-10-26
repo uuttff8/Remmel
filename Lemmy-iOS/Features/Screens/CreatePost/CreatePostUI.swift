@@ -33,6 +33,7 @@ class CreatePostScreenUI: UIView {
         super.init(frame: .zero)
         
         setupTableView()
+        self.hideKeyboardWhenTappedAround()
     }
     
     required init?(coder: NSCoder) {

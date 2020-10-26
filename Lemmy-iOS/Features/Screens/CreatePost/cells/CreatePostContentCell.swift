@@ -68,7 +68,7 @@ class CreatePostContentCell: UITableViewCell {
         nsfwSwitch.snp.makeConstraints { (make) in
             make.top.equalTo(bodyTextView.snp.bottom).offset(10)
             make.leading.trailing.equalTo(bodyTextView)
-            make.bottom.equalTo(contentView.snp.bottom)
+            make.bottom.equalTo(contentView)
         }
     }
     

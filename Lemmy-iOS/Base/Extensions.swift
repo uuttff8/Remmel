@@ -135,15 +135,15 @@ extension UserDefaults {
     }
 }
 
-extension UIViewController {
+extension UIView {
     func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIView.dismissKeyboard))
         tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
+        addGestureRecognizer(tap)
     }
     
     @objc func dismissKeyboard() {
-        view.endEditing(true)
+        endEditing(true)
     }
 }
 
