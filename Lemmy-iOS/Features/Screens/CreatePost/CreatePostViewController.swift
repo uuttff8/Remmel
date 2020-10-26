@@ -49,13 +49,22 @@ class CreatePostScreenViewController: UIViewController {
             UIAlertController.createOkAlert(message: "Please select community first")
             return
         }
-        let titleText = customView.contentCell.titleTextView.text
+        guard let titleText = customView.contentCell.titleTextView.text else { return }
         let bodyText = customView.contentCell.bodyTextView.text
         let urlText = customView.urlCell.urlText
         let nsfwOption = customView.contentCell.nsfwSwitch.switcher.isOn
         
-        // TODO: Create CreatePost request
-        
+        model.createPost(communityId: community.id, title: titleText, body: bodyText, url: urlText, nsfwOption: nsfwOption)
+        { (res) in
+            switch res {
+            case .success(let post):
+                DispatchQueue.main.async {
+                    self.coordinator?.goToPost(post: post)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 

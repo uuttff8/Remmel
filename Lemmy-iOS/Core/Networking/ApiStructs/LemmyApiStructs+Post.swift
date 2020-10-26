@@ -47,5 +47,24 @@ extension LemmyApiStructs {
             let moderators: Array<CommunityModeratorView>
         }
         
+        // MARK: - CreatePost -
+        struct CreatePostRequest: Codable, Equatable {
+            let name: String
+            let url: String?
+            let body: String?
+            let nsfw: Bool
+            let communityId: Int
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case name, url, body, nsfw
+                case communityId = "community_id"
+                case auth
+            }
+        }
+        
+        struct CreatePostResponse: Codable, Equatable {
+            let post: PostView
+        }
     }
 }

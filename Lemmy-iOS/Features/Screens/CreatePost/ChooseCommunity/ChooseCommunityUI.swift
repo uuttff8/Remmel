@@ -118,7 +118,7 @@ extension ChooseCommunityUI: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let data: LemmyApiStructs.CommunityView = currentCellData(indexPath)
         
-        model.communitySelected?(data)
+        model.communitySelected = data
         dismissView?()
         
         tableView.deselectRow(at: indexPath, animated: true)

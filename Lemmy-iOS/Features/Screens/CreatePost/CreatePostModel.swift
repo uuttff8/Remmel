@@ -13,7 +13,15 @@ class CreatePostScreenModel {
     // MARK: - Properties
     var communitiesLoaded: ((Array<LemmyApiStructs.CommunityView>) -> Void)?
     
-    var communitySelected: ((LemmyApiStructs.CommunityView) -> Void)?
+    var communitySelectedCompletion: ((LemmyApiStructs.CommunityView) -> Void)?
+    
+    var communitySelected: LemmyApiStructs.CommunityView? {
+        didSet {
+            guard let community = communitySelected else { return }
+            
+            communitySelectedCompletion?(community)
+        }
+    }
     
     var communitiesData: Array<LemmyApiStructs.CommunityView> = [] {
         didSet {
@@ -59,10 +67,10 @@ class CreatePostScreenModel {
                                                           page: 1,
                                                           limit: 100,
                                                           auth: LemmyShareData.shared.jwtToken)
-                
+        
         ApiManager.requests.search(parameters: params)
         { (res: Result<LemmyApiStructs.Search.SearchResponse, Error>) in
-
+            
             switch res {
             case let .success(data):
                 self.filteredCommunitiesData = data.communities
@@ -71,6 +79,34 @@ class CreatePostScreenModel {
                 break
             }
         }
-
+        
+    }
+    
+    func createPost(
+        communityId: Int,
+        title: String,
+        body: String?,
+        url: String?,
+        nsfwOption: Bool,
+        completion: @escaping ((Result<LemmyApiStructs.PostView, Error>) -> Void)
+    ) {
+        guard let jwtToken = LemmyShareData.shared.jwtToken else { completion(.failure("Not logined")); return }
+        
+        let params = LemmyApiStructs.Post.CreatePostRequest(name: title,
+                                                            url: url,
+                                                            body: body,
+                                                            nsfw: nsfwOption,
+                                                            communityId: communityId,
+                                                            auth: jwtToken)
+        
+        ApiManager.requests.createPost(parameters: params)
+        { (res: Result<LemmyApiStructs.Post.CreatePostResponse, Error>) in
+            switch res {
+            case .success(let data):
+                completion(.success(data.post))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }

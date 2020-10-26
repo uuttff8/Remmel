@@ -68,7 +68,7 @@ extension CreatePostScreenUI: UITableViewDelegate, UITableViewDataSource {
         switch cellType {
         case .community:
             let cell = communityCell
-            model.communitySelected = { community in
+            model.communitySelectedCompletion = { community in
                 cell.bind(with: community)
             }
             

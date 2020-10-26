@@ -11,6 +11,7 @@ import Foundation
 private protocol LemmyPostRequestManagerProtocol {
     func getPosts<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping ((Result<Res, Error>) -> Void))
     func getPost<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping ((Result<Res, Error>) -> Void))
+    func createPost<Res: Codable>(parameters: LemmyApiStructs.Post.CreatePostRequest, completion: @escaping ((Result<Res, Error>) -> Void))
 }
 
 extension RequestsManager: LemmyPostRequestManagerProtocol {
@@ -33,6 +34,18 @@ extension RequestsManager: LemmyPostRequestManagerProtocol {
     ) {
         return requestDecodable(
             path: LemmyEndpoint.Post.getPost.endpoint,
+            parameters: parameters,
+            parsingFromRootKey: "data",
+            completion: completion
+        )
+    }
+    
+    func createPost<Res: Codable>(
+        parameters: LemmyApiStructs.Post.CreatePostRequest,
+        completion: @escaping ((Result<Res, Error>) -> Void)
+    ) {
+        return requestDecodable(
+            path: LemmyEndpoint.Post.createPost.endpoint,
             parameters: parameters,
             parsingFromRootKey: "data",
             completion: completion

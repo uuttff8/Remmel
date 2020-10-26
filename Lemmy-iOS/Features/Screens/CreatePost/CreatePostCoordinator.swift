@@ -31,4 +31,9 @@ class CreatePostCoordinator : Coordinator {
         choosingVc.coordinator = self
         navigationController?.pushViewController(choosingVc, animated: true)
     }
+    
+    func goToPost(post: LemmyApiStructs.PostView) {
+        let postScreen = PostScreenViewController(post: post)
+        self.navigationController?.pushViewController(postScreen, animated: true)
+    }
 }
