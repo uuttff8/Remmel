@@ -147,6 +147,12 @@ extension UIView {
     }
 }
 
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        self.view.hideKeyboardWhenTappedAround()
+    }
+}
+
 extension UIAlertController {
     static func createOkAlert(message: String) {
         let controller = UIAlertController(title: nil, message: message, preferredStyle: .alert)
