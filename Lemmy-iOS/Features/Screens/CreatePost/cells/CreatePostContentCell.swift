@@ -27,6 +27,12 @@ class CreatePostContentCell: UITableViewCell {
         tv.placeholder = "Body"
         return tv
     }()
+    
+    lazy var nsfwSwitch: LemmyLabelWithSwitch = {
+        let switcher = LemmyLabelWithSwitch()
+        switcher.checkText = "Show NSFW content"
+        return switcher
+    }()
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -42,7 +48,7 @@ class CreatePostContentCell: UITableViewCell {
         selectionStyle = .none
         
         bodyTextView.delegate = self
-        [titleTextView, bodyTextView].forEach { (view) in
+        [titleTextView, bodyTextView, nsfwSwitch].forEach { (view) in
             contentView.addSubview(view)
         }
         
@@ -53,10 +59,16 @@ class CreatePostContentCell: UITableViewCell {
         }
         
         bodyTextView.snp.makeConstraints { (make) in
-            make.top.equalTo(titleTextView.snp.bottom).inset(5)
+            make.top.equalTo(titleTextView.snp.bottom).offset(5)
             make.height.equalTo(200)
             make.leading.trailing.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().inset(5)
+        }
+        
+        contentView.addSubview(nsfwSwitch)
+        nsfwSwitch.snp.makeConstraints { (make) in
+            make.top.equalTo(bodyTextView.snp.bottom).offset(10)
+            make.leading.trailing.equalTo(bodyTextView)
+            make.bottom.equalTo(contentView.snp.bottom)
         }
     }
     

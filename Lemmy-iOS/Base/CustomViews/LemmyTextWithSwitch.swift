@@ -46,5 +46,9 @@ class LemmyLabelWithSwitch: UIView {
         checkFieldStackView.snp.makeConstraints { (make) in
             make.top.leading.trailing.bottom.equalToSuperview()
         }
+        
+        self.snp.makeConstraints { (make) in
+            make.height.equalTo(switcher.intrinsicContentSize.height)
+        }
     }
 }
