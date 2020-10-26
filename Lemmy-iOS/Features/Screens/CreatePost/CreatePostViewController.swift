@@ -41,7 +41,7 @@ class CreatePostScreenViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "POST",
                                                             style: .done,
                                                             target: self,
-                                                            action: #selector(postBarButtonTapped))
+                                                            action: #selector(postBarButtonTapped))        
     }
     
     @objc private func postBarButtonTapped() {
@@ -52,6 +52,7 @@ class CreatePostScreenViewController: UIViewController {
         let titleText = customView.contentCell.titleTextView.text
         let bodyText = customView.contentCell.bodyTextView.text
         let urlText = customView.urlCell.urlText
+        let nsfwOption = customView.contentCell.nsfwSwitch.switcher.isOn
         
         // TODO: Create CreatePost request
         
@@ -72,5 +73,22 @@ extension CreatePostScreenViewController: UIImagePickerControllerDelegate, UINav
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion:nil)
+    }
+}
+
+extension CreatePostScreenViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+        let alertControl = UIAlertController(title: nil, message: "Do you really want to exit", preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
+            self.dismiss(animated: true, completion: nil)
+        })
+        let noAction = UIAlertAction(title: "No", style: .default, handler: nil)
+        alertControl.addAction(yesAction)
+        alertControl.addAction(noAction)
+        present(alertControl, animated: true, completion: nil)
+    }
+    
+    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+        return false
     }
 }

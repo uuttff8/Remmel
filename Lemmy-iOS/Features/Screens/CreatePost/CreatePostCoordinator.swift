@@ -23,6 +23,7 @@ class CreatePostCoordinator : Coordinator {
 
     func start() {
         rootViewController.coordinator = self
+        navigationController?.presentationController?.delegate = rootViewController
     }
     
     func goToChoosingCommunity(model: CreatePostScreenModel) {
