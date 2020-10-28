@@ -29,5 +29,12 @@ extension LemmyApiStructs {
                 case myUser = "my_user"
             }
         }
+        
+        // MARK: - ListCategories -
+        struct ListCategoriesRequest: Codable, Equatable, Hashable { }
+        
+        struct ListCategoriesResponse: Codable, Equatable, Hashable {
+            let categories: Array<CategoryView>
+        }
     }
 }
