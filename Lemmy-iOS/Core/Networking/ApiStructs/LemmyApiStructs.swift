@@ -335,6 +335,79 @@ enum LemmyApiStructs {
         }
     }
     
+    struct ModRemovePostView: Codable, Equatable, Hashable {
+        let id: Int
+        let modUserId: Int
+        let postId: Int
+        let reason: String?
+        let removed: Bool?
+        let when: String // Timestamp
+        let modUserName: String
+        let postName: String
+        let communityId: Int
+        let communityName: String
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case modUserId = "mod_user_id"
+            case postId = "post_id"
+            case reason, removed
+            case when = "when_"
+            case modUserName = "mod_user_name"
+            case postName = "post_name"
+            case communityId = "community_id"
+            case communityName = "community_name"
+        }
+    }
+    
+    struct ModLockPostView: Codable, Equatable, Hashable {
+        let id: Int
+        let modUserId: Int
+        let postId: Int
+        let locked: Bool?
+        let when: String // Timestamp
+        let modUsername: String
+        let postName: String
+        let communityId: Int
+        let communityName: String
+    
+        enum CodingKeys: String, CodingKey {
+            case id
+            case modUserId = "mod_user_id"
+            case postId = "post_id"
+            case locked
+            case when = "when_"
+            case modUsername = "mod_user_name"
+            case postName = "post_name"
+            case communityId = "community_id"
+            case communityName = "community_name"
+        }
+    }
+    
+    struct ModStickyPostView: Codable, Equatable, Hashable {
+        let id: Int
+        let modUserId: Int
+        let postId: Int
+        let stickied: Bool?
+        let when: String // Timestamp
+        let modUsername: String
+        let postName: String
+        let communityId: Int
+        let communityName: String
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case modUserId = "mod_user_id"
+            case postId = "post_id"
+            case stickied
+            case when = "when_"
+            case modUsername = "mod_user_name"
+            case postName = "post_name"
+            case communityId = "community_id"
+            case communityName = "community_name"
+        }
+    }
+    
     // MARK: - UserView -
     struct UserView: Codable, Equatable, Hashable {
         let id: Int
@@ -685,4 +758,6 @@ enum LemmyApiStructs {
         let id: Int
         let name: String
     }
+    
+    
 }
