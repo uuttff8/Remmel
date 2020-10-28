@@ -60,6 +60,16 @@ final class LemmyTabBarCoordinator: Coordinator {
         rootViewController.present(navController, animated: true)
     }
     
+    func goToCreateCommunity() {
+        let createCommCoord = CreateCommunityCoordinator(navigationController: UINavigationController())
+        self.store(coordinator: createCommCoord)
+        createCommCoord.start()
+        
+        guard let navController = createCommCoord.navigationController else { return }
+        
+        rootViewController.present(navController, animated: true)
+    }
+    
     func goToPost(post: LemmyApiStructs.PostView) {
         rootViewController.frontPageCoordinator.goToPostScreen(post: post)
     }

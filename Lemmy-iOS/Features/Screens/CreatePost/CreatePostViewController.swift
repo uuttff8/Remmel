@@ -44,6 +44,7 @@ class CreatePostScreenViewController: UIViewController {
                                                             action: #selector(postBarButtonTapped))        
     }
     
+    // MARK: - Action
     @objc private func postBarButtonTapped() {
         guard let community = model.communitySelected else {
             UIAlertController.createOkAlert(message: "Please select community first")

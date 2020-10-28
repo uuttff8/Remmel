@@ -45,7 +45,7 @@ class CreatePostOrCommunityViewController: UIViewController {
         }
         
         createCommunityView.addTap {
-            print("Create community")
+            self.coordinator?.goToCreateCommunity()
         }
         
     }

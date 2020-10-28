@@ -29,4 +29,11 @@ class CreatePostOrCommunityCoordinator : Coordinator {
             presentingVc.coordinator?.goToCreatePost()
         }
     }
+    
+    func goToCreateCommunity() {
+        rootViewController.dismissView()
+        if let presentingVc = rootViewController.presentingViewController as? LemmyTabBarController {
+            presentingVc.coordinator?.goToCreateCommunity()
+        }
+    }
 }
