@@ -255,6 +255,39 @@ enum LemmyApiStructs {
         }
     }
     
+    struct ModRemoveCommentView: Codable, Equatable, Hashable {
+        let id: Int
+        let modUserId: Int
+        let commentId: Int
+        let reason: String?
+        let removed: Bool?
+        let when: String // Timestamp
+        let modUsername: String
+        let commentUserId: Int
+        let commentUsername: String
+        let commentContent: String
+        let postId: Int
+        let postName: String
+        let communityId: Int
+        let communityName: String
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case modUserId = "mod_user_id"
+            case commentId = "comment_id"
+            case reason, removed
+            case when = "when_"
+            case modUsername = "mod_user_name"
+            case commentUserId = "comment_user_id"
+            case commentUsername = "comment_user_name"
+            case commentContent = "comment_content"
+            case postId = "post_id"
+            case postName = "post_name"
+            case communityId = "community_id"
+            case communityName = "community_name"
+        }
+    }
+    
     // MARK: - CommunityView -
     struct CommunityView: Codable, Equatable, Hashable {
         let id: Int
@@ -299,6 +332,79 @@ enum LemmyApiStructs {
             case hotRank = "hot_rank"
             case userId = "user_id"
             case subscribed
+        }
+    }
+    
+    struct ModRemoveCommunityView: Codable, Equatable, Hashable {
+        let id: Int
+        let modUserId: Int
+        let communityId: Int
+        let reason: String?
+        let removed: Bool?
+        let expires: String? // Timestamp
+        let when: String // Timestamp
+        let modUsername: String
+        let communityName: String
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case modUserId = "mod_user_id"
+            case communityId = "community_id"
+            case reason, removed, expires
+            case when = "when_"
+            case modUsername = "mod_user_name"
+            case communityName = "community_name"
+        }
+    }
+    
+    struct ModBanFromCommunityView: Codable, Equatable, Hashable {
+        let id: Int
+        let modUserId: Int
+        let otherUserId: Int
+        let communityId: Int
+        let reason: String?
+        let banned: Bool?
+        let expires: String? // Timestamp
+        let when: String // Timestamp
+        let modUsername: String
+        let otherUsername: String
+        let communityName: String
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case modUserId = "mod_user_id"
+            case otherUserId = "other_user_id"
+            case communityId = "community_id"
+            case reason, banned, expires
+            case when = "when_"
+            case modUsername = "mod_user_name"
+            case otherUsername = "other_user_name"
+            case communityName = "community_name"
+        }
+    }
+    
+    
+    struct ModAddCommunityView: Codable, Equatable, Hashable {
+        let id: Int
+        let modUserId: Int
+        let otherUserId: Int
+        let communityId: Int
+        let removed: Bool?
+        let when: String // Timestamp
+        let modUsername: String
+        let otherUsername: String
+        let communityName: String
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case modUserId = "mod_user_id"
+            case otherUserId = "other_user_id"
+            case communityId = "community_id"
+            case removed
+            case when = "when_"
+            case modUsername = "mod_user_name"
+            case otherUsername = "other_user_name"
+            case communityName = "community_name"
         }
     }
     
@@ -494,6 +600,47 @@ enum LemmyApiStructs {
         }
     }
     
+    struct ModBanView: Codable, Equatable, Hashable {
+        let id: Int
+        let modUserId: Int
+        let otherUserId: Int
+        let reason: String?
+        let banned: Bool?
+        let expires: String?
+        let when: String
+        let modUsername: String
+        let otherUsername: String
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case modUserId = "mod_user_id"
+            case otherUserId = "other_user_id"
+            case reason, banned, expires
+            case when = "when_"
+            case modUsername = "mod_user_name"
+            case otherUsername = "other_user_name"
+        }
+    }
+    
+    struct ModAddView: Codable, Equatable, Hashable {
+        let id: Int
+        let modUserId: Int
+        let otherUserId: Int
+        let removed: Bool?
+        let when: String // Timestamp
+        let modUsername: String
+        let otherUsername: String
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case modUserId = "mod_user_id"
+            case otherUserId = "other_user_id"
+            case removed
+            case when = "when_"
+            case modUsername = "mod_user_name"
+            case otherUsername = "other_user_name"
+        }
+    }
     
     // MARK: - CommunityFollowerView -
     struct CommunityFollowerView: Codable, Equatable {
