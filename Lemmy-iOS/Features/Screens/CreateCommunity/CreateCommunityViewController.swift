@@ -26,15 +26,14 @@ class CreateCommunityViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: "CREATE",
-            image: nil,
-            primaryAction: UIAction(handler: createBarButtonTapped(action:)),
-            menu: nil
+            primaryAction: UIAction(handler: createBarButtonTapped),
+            style: .done
         )
     }
     
     // MARK: Actions
-    private func createBarButtonTapped(action: UIAction) {
-        print("action \(action)")
+    private func createBarButtonTapped(_ action: UIAction) {
+        print("action")
     }
 }
 

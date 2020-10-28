@@ -38,14 +38,15 @@ class CreatePostScreenViewController: UIViewController {
             coordinator?.goToChoosingCommunity(model: model)
         }
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "POST",
-                                                            style: .done,
-                                                            target: self,
-                                                            action: #selector(postBarButtonTapped))        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "POST",
+            primaryAction: UIAction(handler: postBarButtonTapped),
+            style: .done
+        )        
     }
     
     // MARK: - Action
-    @objc private func postBarButtonTapped() {
+    private func postBarButtonTapped(_ action: UIAction) {
         guard let community = model.communitySelected else {
             UIAlertController.createOkAlert(message: "Please select community first")
             return

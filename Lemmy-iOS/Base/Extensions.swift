@@ -460,6 +460,21 @@ extension Encodable {
     }
 }
 
+extension UIBarButtonItem {
+    convenience init(
+        title: String? = nil,
+        image: UIImage? = nil,
+        primaryAction: UIAction? = nil,
+        menu: UIMenu? = nil,
+        style: UIBarButtonItem.Style? = nil
+    ) {
+        self.init(title: title, image: image, primaryAction: primaryAction, menu: menu)
+        if let style = style {
+            self.style = style
+        }
+    }
+}
+
 extension Notification.Name {
     static let didLogin = Notification.Name("LemmyiOS.didLogin")
 }
