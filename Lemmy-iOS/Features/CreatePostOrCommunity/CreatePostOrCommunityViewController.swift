@@ -21,12 +21,12 @@ class CreatePostOrCommunityViewController: UIViewController {
     lazy var createView: UIView = UIView()
     
     lazy fileprivate var createPostView: ImageWithTextContainer = {
-        let view = ImageWithTextContainer(text: "POST", imageString: "text.quote")
+        let view = ImageWithTextContainer(text: "POST", image: Config.Image.textQuote)
         return view
     }()
     
     lazy fileprivate var createCommunityView: ImageWithTextContainer = {
-        let view = ImageWithTextContainer(text: "COMMUNITY", imageString: "doc.plaintext")
+        let view = ImageWithTextContainer(text: "COMMUNITY", image: Config.Image.docPlainText)
         return view
     }()
         
@@ -98,11 +98,11 @@ class CreatePostOrCommunityViewController: UIViewController {
 private class ImageWithTextContainer: UIView {
     
     let text: String
-    let imageString: String
+    let image: UIImage
         
     lazy var imageView: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(systemName: imageString)?.withTintColor(UIColor.white, renderingMode: .alwaysOriginal)
+        iv.image = image
         return iv
     }()
     
@@ -112,9 +112,9 @@ private class ImageWithTextContainer: UIView {
         return lbl
     }()
     
-    init(text: String, imageString: String) {
+    init(text: String, image: UIImage) {
         self.text = text
-        self.imageString = imageString
+        self.image = image
         super.init(frame: .zero)
         
         self.addSubview(imageView)

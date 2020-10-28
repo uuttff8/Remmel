@@ -89,6 +89,14 @@ extension Config {
             UIImage(systemName: "bolt.fill")!
                 .withTintColor(UIColor.label, renderingMode: .alwaysOriginal)
         }
+        
+        static var docPlainText: UIImage {
+            UIImage(systemName: "doc.plaintext")!.withTintColor(.label, renderingMode: .alwaysOriginal)
+        }
+        
+        static var textQuote: UIImage {
+            UIImage(systemName: "text.quote")!.withTintColor(.label, renderingMode: .alwaysOriginal)
+        }
     }
 }
 
