@@ -56,13 +56,17 @@ class CreatePostScreenViewController: UIViewController {
         
         model.createPost(communityId: community.id, title: titleText, body: bodyText, url: urlText, nsfwOption: nsfwOption)
         { (res) in
+            
             switch res {
             case .success(let post):
                 DispatchQueue.main.async {
                     self.coordinator?.goToPost(post: post)
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    UIAlertController.createOkAlert(message: error.localizedDescription)
+                }
+                print(error)
             }
         }
     }

@@ -11,16 +11,17 @@ import UIKit
 class LemmyTabBarController: UITabBarController {
     weak var coordinator: LemmyTabBarCoordinator?
     
-    private(set) var communitiesVc: CommunitiesViewController!
-    private(set) var createPostOrCommunityVc: CreatePostOrCommunityViewController!
-    private(set) var frontPageVc: FrontPageViewController!
+    private(set) var communitiesCoordinator: CommunitiesCoordinator!
+    private(set) var createPostOrCommunityCoordinator: CreatePostOrCommunityCoordinator!
+    private(set) var frontPageCoordinator: FrontPageCoordinator!
     
     override func viewDidLoad() {
         self.delegate = self
     }
     
     func createTabs() {
-        let frontPageCoordinator = FrontPageCoordinator(navigationController: nil)
+        
+        frontPageCoordinator = FrontPageCoordinator(navigationController: nil)
         self.coordinator?.store(coordinator: frontPageCoordinator)
         frontPageCoordinator.start()
         let frontPageNc = UINavigationController(rootViewController: frontPageCoordinator.rootViewController)
@@ -28,9 +29,8 @@ class LemmyTabBarController: UITabBarController {
                                                                           image: UIImage(systemName: "bolt.circle"),
                                                                           tag: 0)
         frontPageCoordinator.navigationController = frontPageNc
-        frontPageVc = frontPageCoordinator.rootViewController
         
-        let communitiesCoordinator = CommunitiesCoordinator(navigationController: nil)
+        self.communitiesCoordinator = CommunitiesCoordinator(navigationController: nil)
         self.coordinator?.store(coordinator: communitiesCoordinator)
         communitiesCoordinator.start()
         let communitiesNc = UINavigationController(rootViewController: communitiesCoordinator.rootViewController)
@@ -38,18 +38,18 @@ class LemmyTabBarController: UITabBarController {
                                                                             image: UIImage(systemName: "person.2.fill"),
                                                                             tag: 1)
         communitiesCoordinator.navigationController = communitiesNc
-        communitiesVc = communitiesCoordinator.rootViewController
         
         // its wrapper, real controller created in this method
         // func tabBarController(
         // _ tabBarController: UITabBarController,
         // shouldSelect viewController: UIViewController
         // ) -> Bool
+        
+        self.createPostOrCommunityCoordinator = CreatePostOrCommunityCoordinator(navigationController: nil)
         let createPostOrCommentController = CreatePostOrCommunityViewController()
         createPostOrCommentController.tabBarItem = UITabBarItem(title: "",
                                                                 image: UIImage(systemName: "plus.circle"),
                                                                 tag: 2)
-        createPostOrCommunityVc = createPostOrCommentController
         
         self.viewControllers = [ frontPageNc,
                                  createPostOrCommentController,

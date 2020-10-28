@@ -61,7 +61,6 @@ final class LemmyTabBarCoordinator: Coordinator {
     }
     
     func goToPost(post: LemmyApiStructs.PostView) {
-        let postScreen = PostScreenViewController(post: post)
-        rootViewController.frontPageVc.navigationController?.pushViewController(postScreen, animated: true)
+        rootViewController.frontPageCoordinator.goToPostScreen(post: post)
     }
 }
