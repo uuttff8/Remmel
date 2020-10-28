@@ -637,6 +637,7 @@ enum LemmyApiStructs {
         }
     }
     
+    // MARK: - PrivateMessageView -
     struct PrivateMessageView: Codable, Equatable, Hashable {
         let id: Int
         let creatorId: Int
@@ -676,5 +677,12 @@ enum LemmyApiStructs {
             case recipientActorId = "recipient_actor_id"
             case recipientLocal = "recipient_local"
         }
+    }
+    
+    // MARK: - CategoryView -
+    // usually referred in lemmy-db as just Category, we name it *_View just because convetion
+    struct CategoryView: Codable, Equatable, Hashable {
+        let id: Int
+        let name: String
     }
 }
