@@ -636,4 +636,45 @@ enum LemmyApiStructs {
             case numberOfCommunities = "number_of_communities"
         }
     }
+    
+    struct PrivateMessageView: Codable, Equatable, Hashable {
+        let id: Int
+        let creatorId: Int
+        let recipientId: Int
+        let content: String
+        let deleted: Bool
+        let read: Bool
+        let published: String // Timestamp
+        let updated: String? // Timestamp
+        let apId: String
+        let local: Bool
+        let creatorPreferredUsername: String?
+        let creatorAvatar: String?
+        let creatorActorId: String
+        let creatorLocal: Bool
+        let recipientName: String
+        let recipientPreferredUsername: String?
+        let recipientAvatar: String?
+        let recipientActorId: String
+        let recipientLocal: Bool
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case creatorId = "creator_id"
+            case recipientId = "recipient_id"
+            case content, deleted, read
+            case published, updated
+            case apId = "ap_id"
+            case local
+            case creatorPreferredUsername = "creator_preferred_username"
+            case creatorAvatar = "creator_avatar"
+            case creatorActorId = "creator_actor_id"
+            case creatorLocal = "creator_local"
+            case recipientName = "recipient_name"
+            case recipientPreferredUsername = "recipient_preferred_username"
+            case recipientAvatar = "recipient_avatar"
+            case recipientActorId = "recipient_actor_id"
+            case recipientLocal = "recipient_local"
+        }
+    }
 }
