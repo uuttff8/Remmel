@@ -900,11 +900,9 @@ enum LemmyApiStructs {
     }
     
     // MARK: - CategoryView -
-    // usually referred in lemmy-db as just Category, we name it *_View just because convetion
+    // usually referred in lemmy-db as just Category, we name it *_View just because convention
     struct CategoryView: Codable, Equatable, Hashable {
         let id: Int
         let name: String
     }
-    
-    
 }
