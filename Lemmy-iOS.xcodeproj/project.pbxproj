@@ -102,6 +102,8 @@
 		4EF3AC62254A01DA00BEC9F1 /* CreateCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */; };
 		4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */; };
 		4EF3AC6F254A021400BEC9F1 /* CreateCommunityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC6E254A021400BEC9F1 /* CreateCommunityModel.swift */; };
+		4EF3AC7B254AE12800BEC9F1 /* CreateCommunityNamesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC7A254AE12800BEC9F1 /* CreateCommunityNamesCell.swift */; };
+		4EF3AC80254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC7F254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift */; };
 		921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -222,6 +224,8 @@
 		4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityViewController.swift; sourceTree = "<group>"; };
 		4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityUI.swift; sourceTree = "<group>"; };
 		4EF3AC6E254A021400BEC9F1 /* CreateCommunityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityModel.swift; sourceTree = "<group>"; };
+		4EF3AC7A254AE12800BEC9F1 /* CreateCommunityNamesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityNamesCell.swift; sourceTree = "<group>"; };
+		4EF3AC7F254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityDisplayNameCell.swift; sourceTree = "<group>"; };
 		AF9E5291792018DE1B6050FA /* Pods-Lemmy-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.release.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lemmy_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8130B334E7F53B10E26E71F /* Pods-Lemmy-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -634,12 +638,22 @@
 		4EF3AC5B254A019800BEC9F1 /* CreateCommunity */ = {
 			isa = PBXGroup;
 			children = (
+				4EF3AC79254AE11200BEC9F1 /* cells */,
 				4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */,
 				4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */,
 				4EF3AC6E254A021400BEC9F1 /* CreateCommunityModel.swift */,
 				4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */,
 			);
 			path = CreateCommunity;
+			sourceTree = "<group>";
+		};
+		4EF3AC79254AE11200BEC9F1 /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				4EF3AC7A254AE12800BEC9F1 /* CreateCommunityNamesCell.swift */,
+				4EF3AC7F254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift */,
+			);
+			path = cells;
 			sourceTree = "<group>";
 		};
 		750E6997D470E00BE92AFA4E /* Frameworks */ = {
@@ -903,6 +917,7 @@
 				4E106F6525274325009EABDA /* PostScreenModel.swift in Sources */,
 				4EB89AF8251F47A7007129BF /* PostScreenViewController.swift in Sources */,
 				4E886CAE2540A9820076B162 /* CreatePostContentCell.swift in Sources */,
+				4EF3AC80254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift in Sources */,
 				4E10704B2534756B009EABDA /* Protocols.swift in Sources */,
 				4ECCEF03250CB4E00075F921 /* LemmyApiStructs.swift in Sources */,
 				4ECCEF31251F24AD0075F921 /* LemmyFrontPageNavBar.swift in Sources */,
@@ -921,6 +936,7 @@
 				4E886C2125364EC30076B162 /* UserRequests.swift in Sources */,
 				4EB89B00251F4882007129BF /* PostScreenUI.swift in Sources */,
 				4ECCEF09250CC3A60075F921 /* RequestsManager.swift in Sources */,
+				4EF3AC7B254AE12800BEC9F1 /* CreateCommunityNamesCell.swift in Sources */,
 				4ECCEF1F250DFBC90075F921 /* CommentContentTableCell.swift in Sources */,
 				4E886C8D253F51B90076B162 /* CreatePostModel.swift in Sources */,
 				4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */,

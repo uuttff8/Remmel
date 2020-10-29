@@ -24,6 +24,7 @@ class CreateCommunityViewController: UIViewController {
     override func viewDidLoad() {
         title = "Create community"
         
+        model.loadCategories()
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: "CREATE",
             primaryAction: UIAction(handler: createBarButtonTapped),

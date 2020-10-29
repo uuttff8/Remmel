@@ -7,7 +7,20 @@
 //
 
 import UIKit
+import Combine
 
 class CreateCommunityModel {
+    let categories: PassthroughSubject<[LemmyApiStructs.CategoryView], Never> = PassthroughSubject()
     
+    func loadCategories() {
+        ApiManager.requests.listCategoties(parameters: LemmyApiStructs.Site.ListCategoriesRequest())
+        { (res) in
+            switch res {
+            case let .success(response):
+                self.categories.send(response.categories)
+            case let .failure(error):
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
