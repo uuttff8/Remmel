@@ -14,8 +14,12 @@ class CreateCommunityUI: UIView {
     var goToChoosingCategory: (() -> Void)?
     
     // MARK: Cell type
-    enum CellType: CaseIterable {
-        case name, displayName, category, sidebarAndNsfw
+    enum CellSection: CaseIterable {
+        case name, displayName, category, iconsAndSidebar
+    }
+    
+    enum CellRow: CaseIterable {
+        case iconAndBanner, sidebarAndNsfw
     }
     
     // MARK: - Properties
@@ -62,15 +66,22 @@ class CreateCommunityUI: UIView {
 
 extension CreateCommunityUI: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        let type = CellSection.allCases[section]
+        
+        switch type {
+        case .displayName, .name, .category: return 1
+        case .iconsAndSidebar:
+            
+            return 2
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let type = CellType.allCases[indexPath.section]
+        let type = CellSection.allCases[indexPath.section]
         
         switch type {
         case .name: return CreateCommunityNameCell()
@@ -85,14 +96,26 @@ extension CreateCommunityUI: UITableViewDelegate, UITableViewDataSource {
                 }.store(in: &cancellable)
             
             return cell
-        case .sidebarAndNsfw: break
+        case .iconsAndSidebar:
+            
+            let row = CellRow.allCases[indexPath.row]
+            
+            switch row {
+            case .iconAndBanner:
+                let cell = CreateCommunityImagesCell()
+                return cell
+            case .sidebarAndNsfw:
+                break
+            default: break
+            }
+            
         }
         
         return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        let type = CellType.allCases[section]
+        let type = CellSection.allCases[section]
         
         switch type {
         case .name:
@@ -104,8 +127,19 @@ extension CreateCommunityUI: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let type = CellSection.allCases[section]
+        
+        switch type {
+        case .category:
+            return "Category"
+        default:
+            return nil
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let type = CellType.allCases[indexPath.section]
+        let type = CellSection.allCases[indexPath.section]
         
         switch type {
         case .category:
