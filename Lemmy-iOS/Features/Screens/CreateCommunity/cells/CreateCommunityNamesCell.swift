@@ -19,6 +19,7 @@ class CreateCommunityNameCell: UITableViewCell {
         super.init(style: .default, reuseIdentifier: String(describing: Self.self))
         
         self.contentView.addSubview(nameTextField)
+        selectionStyle = .none
     }
     
     required init?(coder: NSCoder) {
@@ -29,7 +30,7 @@ class CreateCommunityNameCell: UITableViewCell {
         super.layoutSubviews()
         nameTextField.snp.makeConstraints { (make) in
             make.top.bottom.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.leading.trailing.equalToSuperview().inset(20)
         }
     }
 }

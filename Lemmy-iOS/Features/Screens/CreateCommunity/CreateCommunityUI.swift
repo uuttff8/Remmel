@@ -11,6 +11,8 @@ import Combine
 
 class CreateCommunityUI: UIView {
     
+    var goToChoosingCategory: (() -> Void)?
+    
     // MARK: Cell type
     enum CellType: CaseIterable {
         case name, displayName, category, sidebarAndNsfw
@@ -68,12 +70,21 @@ extension CreateCommunityUI: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let type = CellType.allCases[indexPath.row]
+        let type = CellType.allCases[indexPath.section]
         
         switch type {
         case .name: return CreateCommunityNameCell()
         case .displayName: return CreateCommunityDisplayNameCell()
-        case .category: break
+        case .category:
+            let cell = CreateCommunityChooseCategoryCell()
+            
+            model.selectedCategory
+                .receive(on: RunLoop.main)
+                .sink { (categor) in
+                    cell.bind(with: CreateCommunityChooseCategoryCell.ViewData(title: categor.name))
+                }.store(in: &cancellable)
+            
+            return cell
         case .sidebarAndNsfw: break
         }
         
@@ -91,5 +102,18 @@ extension CreateCommunityUI: UITableViewDelegate, UITableViewDataSource {
         default:
             return nil
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let type = CellType.allCases[indexPath.section]
+        
+        switch type {
+        case .category:
+            self.goToChoosingCategory?()
+        default:
+            break
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

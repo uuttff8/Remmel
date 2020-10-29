@@ -25,4 +25,10 @@ class CreateCommunityCoordinator : Coordinator {
         rootViewController.coordinator = self
         navigationController?.presentationController?.delegate = rootViewController
     }
+    
+    func goToChoosingCommunity(model: CreateCommunityModel) {
+        let choosingVc = ChooseCategoryViewController(model: model)
+        choosingVc.coordinator = self
+        navigationController?.pushViewController(choosingVc, animated: true)
+    }
 }

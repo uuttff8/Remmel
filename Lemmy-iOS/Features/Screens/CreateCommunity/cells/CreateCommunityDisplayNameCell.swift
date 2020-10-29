@@ -19,6 +19,7 @@ class CreateCommunityDisplayNameCell: UITableViewCell {
         super.init(style: .default, reuseIdentifier: String(describing: Self.self))
         
         self.contentView.addSubview(nameTextField)
+        selectionStyle = .none
     }
     
     required init?(coder: NSCoder) {
@@ -28,7 +29,8 @@ class CreateCommunityDisplayNameCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         nameTextField.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(20)
         }
     }
 }

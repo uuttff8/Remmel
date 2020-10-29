@@ -30,6 +30,10 @@ class CreateCommunityViewController: UIViewController {
             primaryAction: UIAction(handler: createBarButtonTapped),
             style: .done
         )
+        
+        customView.goToChoosingCategory = {
+            self.coordinator?.goToChoosingCommunity(model: self.model)
+        }
     }
     
     // MARK: Actions

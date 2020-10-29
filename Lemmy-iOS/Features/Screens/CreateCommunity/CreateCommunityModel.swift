@@ -10,7 +10,10 @@ import UIKit
 import Combine
 
 class CreateCommunityModel {
-    let categories: PassthroughSubject<[LemmyApiStructs.CategoryView], Never> = PassthroughSubject()
+    let categories: CurrentValueSubject<[LemmyApiStructs.CategoryView], Never> = CurrentValueSubject([])
+    let filteredCategories: CurrentValueSubject<[LemmyApiStructs.CategoryView], Never> = CurrentValueSubject([])
+    
+    let selectedCategory: PassthroughSubject<LemmyApiStructs.CategoryView, Never> = PassthroughSubject()
     
     func loadCategories() {
         ApiManager.requests.listCategoties(parameters: LemmyApiStructs.Site.ListCategoriesRequest())
@@ -22,5 +25,13 @@ class CreateCommunityModel {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func searchCategories(query: String) {
+        let filtered = categories.value.filter { (categor) -> Bool in
+            categor.name.contains(query)
+        }
+        
+        filteredCategories.send(filtered)
     }
 }
