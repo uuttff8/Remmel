@@ -13,6 +13,14 @@ class CreateCommunityUI: UIView {
     
     var goToChoosingCategory: (() -> Void)?
     
+    var onPickImage: ((CreateCommunityImagesCell.ImagePick) -> Void)?
+    var onPickedImage: ((UIImage, CreateCommunityImagesCell.ImagePick) -> Void)?
+    
+    let nameCell = CreateCommunityNameCell()
+    let displayNameCell = CreateCommunityDisplayNameCell()
+    let categoryCell = CreateCommunityChooseCategoryCell()
+    let imagesCell = CreateCommunityImagesCell()
+    
     // MARK: Cell type
     enum CellSection: CaseIterable {
         case name, displayName, category, iconsAndSidebar
@@ -84,10 +92,10 @@ extension CreateCommunityUI: UITableViewDelegate, UITableViewDataSource {
         let type = CellSection.allCases[indexPath.section]
         
         switch type {
-        case .name: return CreateCommunityNameCell()
-        case .displayName: return CreateCommunityDisplayNameCell()
+        case .name: return nameCell
+        case .displayName: return displayNameCell
         case .category:
-            let cell = CreateCommunityChooseCategoryCell()
+            let cell = categoryCell
             
             model.selectedCategory
                 .receive(on: RunLoop.main)
@@ -102,11 +110,18 @@ extension CreateCommunityUI: UITableViewDelegate, UITableViewDataSource {
             
             switch row {
             case .iconAndBanner:
-                let cell = CreateCommunityImagesCell()
-                return cell
+                
+                imagesCell.onPickImage = {
+                    self.onPickImage?($0)
+                }
+                
+                self.onPickedImage = { image, imagePick in
+                    self.imagesCell.onPickedImage?(image, imagePick)
+                }
+                
+                return imagesCell
             case .sidebarAndNsfw:
                 break
-            default: break
             }
             
         }

@@ -43,6 +43,7 @@ class CreateCommunityChooseCategoryCell: UITableViewCell {
         super.layoutSubviews()
         self.commTitle.snp.makeConstraints { (make) in
             make.top.bottom.equalToSuperview().inset(5)
+            make.height.equalTo(44)
             make.leading.trailing.equalToSuperview().inset(16)
             make.centerY.equalToSuperview()
         }

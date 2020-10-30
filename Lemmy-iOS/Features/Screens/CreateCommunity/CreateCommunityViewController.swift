@@ -16,6 +16,16 @@ class CreateCommunityViewController: UIViewController {
     lazy var customView = CreateCommunityUI(model: model)
     let model = CreateCommunityModel()
     
+    lazy var imagePicker: UIImagePickerController = {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = false
+        picker.sourceType = .photoLibrary
+        return picker
+    }()
+    
+    private var currentImagePick: CreateCommunityImagesCell.ImagePick?
+    
     // MARK: - Overrided
     override func loadView() {
         self.view = customView
@@ -34,11 +44,33 @@ class CreateCommunityViewController: UIViewController {
         customView.goToChoosingCategory = {
             self.coordinator?.goToChoosingCommunity(model: self.model)
         }
+        
+        customView.onPickImage = { imagePick in
+            self.currentImagePick = imagePick
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }
     }
     
     // MARK: Actions
     private func createBarButtonTapped(_ action: UIAction) {
         print("action")
+    }
+}
+
+extension CreateCommunityViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
+    ) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            customView.onPickedImage?(image, currentImagePick!)
+        }
+
+        dismiss(animated: true, completion: nil)
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion:nil)
     }
 }
 
