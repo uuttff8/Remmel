@@ -8,6 +8,26 @@
 
 import UIKit
 
+class LemmyLabelWithSwitchCell: UITableViewCell {
+    
+    let customView = LemmyLabelWithSwitch()
+    
+    init() {
+        super.init(style: .default, reuseIdentifier: String(describing: Self.self))
+        
+        self.contentView.addSubview(customView)
+        
+        customView.snp.makeConstraints { (make) in
+            make.top.bottom.equalToSuperview().inset(10)
+            make.leading.trailing.equalToSuperview().inset(16)
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 class LemmyLabelWithSwitch: UIView {
     let checkFieldStackView = UIStackView()
     

@@ -21,6 +21,7 @@ class CreateCommunityUI: UIView {
     let categoryCell = CreateCommunityChooseCategoryCell()
     let imagesCell = CreateCommunityImagesCell()
     lazy var sidebarCell = CreateCommunitySidebarCell(backView: self)
+    let nsfwCell = LemmyLabelWithSwitchCell()
     
     // MARK: Cell type
     enum CellSection: CaseIterable {
@@ -28,7 +29,7 @@ class CreateCommunityUI: UIView {
     }
     
     enum CellRow: CaseIterable {
-        case iconAndBanner, sidebarAndNsfw
+        case iconAndBanner, sidebar, nsfw
     }
     
     // MARK: - Properties
@@ -85,7 +86,7 @@ extension CreateCommunityUI: UITableViewDelegate, UITableViewDataSource {
         case .displayName, .name, .category: return 1
         case .iconsAndSidebar:
             
-            return 2
+            return CellRow.allCases.count
         }
     }
     
@@ -121,8 +122,11 @@ extension CreateCommunityUI: UITableViewDelegate, UITableViewDataSource {
                 }
                 
                 return imagesCell
-            case .sidebarAndNsfw:
+            case .sidebar:
                 return sidebarCell
+            case .nsfw:
+                nsfwCell.customView.checkText = "NSFW"
+                return nsfwCell
             }
             
         }
