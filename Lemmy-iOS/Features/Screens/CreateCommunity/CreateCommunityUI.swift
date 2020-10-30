@@ -20,6 +20,7 @@ class CreateCommunityUI: UIView {
     let displayNameCell = CreateCommunityDisplayNameCell()
     let categoryCell = CreateCommunityChooseCategoryCell()
     let imagesCell = CreateCommunityImagesCell()
+    lazy var sidebarCell = CreateCommunitySidebarCell(backView: self)
     
     // MARK: Cell type
     enum CellSection: CaseIterable {
@@ -31,7 +32,7 @@ class CreateCommunityUI: UIView {
     }
     
     // MARK: - Properties
-    let tableView = LemmyTableView(style: .grouped)
+    let tableView = LemmyTableView(style: .grouped, separator: true)
     let model: CreateCommunityModel
     
     var cancellable = Set<AnyCancellable>()
@@ -121,12 +122,10 @@ extension CreateCommunityUI: UITableViewDelegate, UITableViewDataSource {
                 
                 return imagesCell
             case .sidebarAndNsfw:
-                break
+                return sidebarCell
             }
             
         }
-        
-        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {

@@ -64,7 +64,6 @@ class CreatePostContentCell: UITableViewCell {
             make.leading.trailing.equalToSuperview().inset(16)
         }
         
-        contentView.addSubview(nsfwSwitch)
         nsfwSwitch.snp.makeConstraints { (make) in
             make.top.equalTo(bodyTextView.snp.bottom).offset(10)
             make.leading.trailing.equalTo(bodyTextView)
@@ -99,6 +98,12 @@ extension CreatePostContentCell: UITextViewDelegate {
                 }
             }
         default: break
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if let placeholderLabel = textView.viewWithTag(100) as? UILabel {
+            placeholderLabel.isHidden = !textView.text.isEmpty
         }
     }
 }
