@@ -13,7 +13,7 @@ class CreateCommunityModel {
     let categories: CurrentValueSubject<[LemmyApiStructs.CategoryView], Never> = CurrentValueSubject([])
     let filteredCategories: CurrentValueSubject<[LemmyApiStructs.CategoryView], Never> = CurrentValueSubject([])
     
-    let selectedCategory: PassthroughSubject<LemmyApiStructs.CategoryView, Never> = PassthroughSubject()
+    let selectedCategory: CurrentValueSubject<LemmyApiStructs.CategoryView?, Never> = CurrentValueSubject(nil)
     
     func loadCategories() {
         ApiManager.requests.listCategoties(parameters: LemmyApiStructs.Site.ListCategoriesRequest())
@@ -34,4 +34,40 @@ class CreateCommunityModel {
         
         filteredCategories.send(filtered)
     }
+    
+    func createCommunity(
+        name: String,
+        title: String,
+        description: String?,
+        icon: String?,
+        banner: String?,
+        categoryId: Int?,
+        nsfwOption: Bool,
+        completion: @escaping ((Result<LemmyApiStructs.CommunityView, Error>) -> Void)
+    ) {
+        guard let jwtToken = LemmyShareData.shared.jwtToken else { completion(.failure("Not logined")); return }
+        
+        let params = LemmyApiStructs.Community.CreateCommunityRequest(name: name,
+                                                                      title: title,
+                                                                      description: description,
+                                                                      icon: icon,
+                                                                      banner: banner,
+                                                                      categoryId: categoryId ?? 1,
+                                                                      nsfw: nsfwOption,
+                                                                      auth: jwtToken)
+        
+        
+        
+        ApiManager.requests.createCommunity(parameters: params)
+        { (res) in
+            switch res {
+            case let .success(response):
+                completion(.success(response.community))
+            case let .failure(error):
+                print(error)
+                completion(.failure(error))
+            }
+        }
+    }
+
 }

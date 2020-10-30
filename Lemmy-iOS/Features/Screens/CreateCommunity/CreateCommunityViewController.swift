@@ -53,7 +53,40 @@ class CreateCommunityViewController: UIViewController {
     
     // MARK: Actions
     private func createBarButtonTapped(_ action: UIAction) {
-        print("action")
+        let category = model.selectedCategory.value
+        guard let nameText = customView.nameCell.nameTextField.text else {
+            UIAlertController.createOkAlert(message: "Please name your community")
+            return
+        }
+        guard let titleText = customView.displayNameCell.nameTextField.text else {
+            UIAlertController.createOkAlert(message: "Please title your community")
+            return
+        }
+        let descriptionText = customView.sidebarCell.sidebarTextView.text
+        let iconText = customView.imagesCell.iconImageString
+        let bannerText = customView.imagesCell.bannerImageString
+        let nsfwOption = customView.nsfwCell.customView.switcher.isOn
+        
+        
+        model.createCommunity(name: nameText,
+                              title: titleText,
+                              description: descriptionText,
+                              icon: iconText,
+                              banner: bannerText,
+                              categoryId: category?.id,
+                              nsfwOption: nsfwOption) { (res) in
+            
+            switch res {
+            case .success(let community):
+                DispatchQueue.main.async {
+                    self.coordinator?.goToCommunity(comm: community)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    UIAlertController.createOkAlert(message: error.localizedDescription)
+                }
+            }
+        }
     }
 }
 
@@ -65,10 +98,10 @@ extension CreateCommunityViewController: UIImagePickerControllerDelegate, UINavi
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             customView.onPickedImage?(image, currentImagePick!)
         }
-
+        
         dismiss(animated: true, completion: nil)
     }
-
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion:nil)
     }

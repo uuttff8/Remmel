@@ -102,6 +102,7 @@ extension CreateCommunityUI: UITableViewDelegate, UITableViewDataSource {
             model.selectedCategory
                 .receive(on: RunLoop.main)
                 .sink { (categor) in
+                    guard let categor = categor else { return }
                     cell.bind(with: CreateCommunityChooseCategoryCell.ViewData(title: categor.name))
                 }.store(in: &cancellable)
             
