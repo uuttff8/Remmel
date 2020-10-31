@@ -9,13 +9,16 @@
 import Foundation
 
 private protocol CommentRequestManagerProtocol {
-    func getComments<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping ((Result<Res, LemmyGenericError>) -> Void))
+    func getComments(
+        parameters: LemmyApiStructs.Comment.GetCommentsRequest,
+        completion: @escaping ((Result<LemmyApiStructs.Comment.GetCommentsResponse, LemmyGenericError>) -> Void)
+    )
 }
 
 extension RequestsManager: CommentRequestManagerProtocol {
-    func getComments<Req: Codable, Res: Codable>(
-        parameters: Req,
-        completion: @escaping ((Result<Res, LemmyGenericError>) -> Void)
+    func getComments(
+        parameters: LemmyApiStructs.Comment.GetCommentsRequest,
+        completion: @escaping ((Result<LemmyApiStructs.Comment.GetCommentsResponse, LemmyGenericError>) -> Void)
     ) {
         return requestDecodable(
             path: LemmyEndpoint.Comment.getComments.endpoint,

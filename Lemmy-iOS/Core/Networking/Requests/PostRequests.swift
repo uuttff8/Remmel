@@ -9,8 +9,16 @@
 import Foundation
 
 private protocol LemmyPostRequestManagerProtocol {
-    func getPosts<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping ((Result<Res, LemmyGenericError>) -> Void))
-    func getPost<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping ((Result<Res, LemmyGenericError>) -> Void))
+    func getPosts(
+        parameters: LemmyApiStructs.Post.GetPostsRequest,
+        completion: @escaping ((Result<LemmyApiStructs.Post.GetPostsResponse, LemmyGenericError>) -> Void)
+    )
+    
+    func getPost(
+        parameters: LemmyApiStructs.Post.GetPostRequest,
+        completion: @escaping ((Result<LemmyApiStructs.Post.GetPostResponse, LemmyGenericError>) -> Void)
+    )
+    
     func createPost<Res: Codable>(
         parameters: LemmyApiStructs.Post.CreatePostRequest,
         completion: @escaping ((Result<Res, LemmyGenericError>) -> Void)
@@ -18,10 +26,10 @@ private protocol LemmyPostRequestManagerProtocol {
 }
 
 extension RequestsManager: LemmyPostRequestManagerProtocol {
-    func getPosts<Req, Res>(
-        parameters: Req,
-        completion: @escaping (Result<Res, LemmyGenericError>) -> Void
-    ) where Req: Codable, Res: Codable {
+    func getPosts(
+        parameters: LemmyApiStructs.Post.GetPostsRequest,
+        completion: @escaping ((Result<LemmyApiStructs.Post.GetPostsResponse, LemmyGenericError>) -> Void)
+    ) {
 
         return requestDecodable(
             path: LemmyEndpoint.Post.getPosts.endpoint,
@@ -31,9 +39,9 @@ extension RequestsManager: LemmyPostRequestManagerProtocol {
         )
     }
 
-    func getPost<Req: Codable, Res: Codable>(
-        parameters: Req,
-        completion: @escaping ((Result<Res, LemmyGenericError>) -> Void)
+    func getPost(
+        parameters: LemmyApiStructs.Post.GetPostRequest,
+        completion: @escaping ((Result<LemmyApiStructs.Post.GetPostResponse, LemmyGenericError>) -> Void)
     ) {
         return requestDecodable(
             path: LemmyEndpoint.Post.getPost.endpoint,

@@ -18,7 +18,7 @@ class SignUpModel {
 
     func getCaptcha(completion: @escaping ((Result<(UIImage), Error>) -> Void)) {
         ApiManager.requests
-            .getCaptcha { (result: Result<LemmyApiStructs.Authentication.GetCaptchaResponse, LemmyGenericError>) in
+            .getCaptcha { (result) in
             switch result {
             case let .success(response):
                 if let wavString = response.ok?.wav {

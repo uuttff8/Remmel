@@ -74,7 +74,7 @@ class LoginViewController: UIViewController {
     }
 
     private func onSignUp() {
-        let registerDataParams = checkRegisterData()
+        guard let registerDataParams = checkRegisterData() else { return }
 
         ApiManager.requests.register(
             parameters: registerDataParams
