@@ -9,15 +9,15 @@
 import Foundation
 
 private protocol AuthRequestManagerProtocol {
-    func login<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping (Result<Res, Error>) -> Void)
-    func register<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping (Result<Res, Error>) -> Void)
-    func getCaptcha<Res: Codable>(completion: @escaping (Result<Res, Error>) -> Void)
+    func login<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping (Result<Res, LemmyGenericError>) -> Void)
+    func register<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping (Result<Res, LemmyGenericError>) -> Void)
+    func getCaptcha<Res: Codable>(completion: @escaping (Result<Res, LemmyGenericError>) -> Void)
 }
 
 extension RequestsManager: AuthRequestManagerProtocol {
     func login<Req, Res>(
         parameters: Req,
-        completion: @escaping (Result<Res, Error>) -> Void
+        completion: @escaping (Result<Res, LemmyGenericError>) -> Void
     ) where Req: Codable, Res: Codable {
 
         return requestDecodable(
@@ -30,7 +30,7 @@ extension RequestsManager: AuthRequestManagerProtocol {
 
     func register<Req, Res>(
         parameters: Req,
-        completion: @escaping (Result<Res, Error>) -> Void
+        completion: @escaping (Result<Res, LemmyGenericError>) -> Void
     ) where Req: Codable, Res: Codable {
 
         return requestDecodable(
@@ -42,7 +42,7 @@ extension RequestsManager: AuthRequestManagerProtocol {
     }
 
     func getCaptcha<Res>(
-        completion: @escaping (Result<Res, Error>) -> Void
+        completion: @escaping (Result<Res, LemmyGenericError>) -> Void
     ) where Res: Codable {
 
         // EXTRA: here is "ok" rootKey

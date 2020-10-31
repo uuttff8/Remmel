@@ -11,18 +11,18 @@ import Foundation
 private protocol LemmyCommunityRequestManagerProtocol {
     func listCommunities<Req: Codable, Res: Codable>(
         parameters: Req,
-        completion: @escaping (Result<Res, Error>) -> Void
+        completion: @escaping (Result<Res, LemmyGenericError>) -> Void
     )
     func createCommunity(
         parameters: LemmyApiStructs.Community.CreateCommunityRequest,
-        completion: @escaping (Result<LemmyApiStructs.Community.CreateCommunityResponse, Error>) -> Void
+        completion: @escaping (Result<LemmyApiStructs.Community.CreateCommunityResponse, LemmyGenericError>) -> Void
     )
 }
 
 extension RequestsManager: LemmyCommunityRequestManagerProtocol {
     func listCommunities<Req, Res>(
         parameters: Req,
-        completion: @escaping (Result<Res, Error>) -> Void
+        completion: @escaping (Result<Res, LemmyGenericError>) -> Void
     ) where Req: Codable, Res: Codable {
 
         return requestDecodable(
@@ -34,7 +34,7 @@ extension RequestsManager: LemmyCommunityRequestManagerProtocol {
 
     func createCommunity(
         parameters: LemmyApiStructs.Community.CreateCommunityRequest,
-        completion: @escaping (Result<LemmyApiStructs.Community.CreateCommunityResponse, Error>) -> Void
+        completion: @escaping (Result<LemmyApiStructs.Community.CreateCommunityResponse, LemmyGenericError>) -> Void
     ) {
 
         return requestDecodable(path: LemmyEndpoint.Community.createCommunity.endpoint,

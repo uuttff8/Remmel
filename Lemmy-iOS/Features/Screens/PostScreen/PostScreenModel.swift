@@ -23,7 +23,7 @@ class PostScreenModel {
 
         ApiManager.shared.requestsManager.getPost(
             parameters: parameters
-        ) { [self] (res: Result<LemmyApiStructs.Post.GetPostResponse, Error>) in
+        ) { [self] (res: Result<LemmyApiStructs.Post.GetPostResponse, LemmyGenericError>) in
 
             switch res {
             case .success(let data):

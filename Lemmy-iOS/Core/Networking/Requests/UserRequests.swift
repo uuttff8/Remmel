@@ -9,26 +9,26 @@
 import Foundation
 
 private protocol UserRequestManagerProtocol {
-    func getUserDetails<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping (Result<Res, Error>) -> Void)
+    func getUserDetails<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping (Result<Res, LemmyGenericError>) -> Void)
     func saveUserSettings<Req: Codable, Res: Codable>(
         parameters: Req,
-        completion: @escaping (Result<Res, Error>) -> Void
+        completion: @escaping (Result<Res, LemmyGenericError>) -> Void
     )
-    func getReplies<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping (Result<Res, Error>) -> Void)
+    func getReplies<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping (Result<Res, LemmyGenericError>) -> Void)
     func getUserMentions<Req: Codable, Res: Codable>(
         parameters: Req,
-        completion: @escaping (Result<Res, Error>) -> Void
+        completion: @escaping (Result<Res, LemmyGenericError>) -> Void
     )
     func markUserMentionAsRead<Req: Codable, Res: Codable>(
         parameters: Req,
-        completion: @escaping (Result<Res, Error>) -> Void
+        completion: @escaping (Result<Res, LemmyGenericError>) -> Void
     )
 }
 
 extension RequestsManager: UserRequestManagerProtocol {
     func getUserDetails<Req, Res>(
         parameters: Req,
-        completion: @escaping (Result<Res, Error>) -> Void
+        completion: @escaping (Result<Res, LemmyGenericError>) -> Void
     ) where Req: Codable, Res: Codable {
 
         return requestDecodable(
@@ -41,7 +41,7 @@ extension RequestsManager: UserRequestManagerProtocol {
 
     func saveUserSettings<Req, Res>(
         parameters: Req,
-        completion: @escaping (Result<Res, Error>) -> Void
+        completion: @escaping (Result<Res, LemmyGenericError>) -> Void
     ) where Req: Codable, Res: Codable {
 
         return requestDecodable(
@@ -54,7 +54,7 @@ extension RequestsManager: UserRequestManagerProtocol {
 
     func getReplies<Req, Res>(
         parameters: Req,
-        completion: @escaping (Result<Res, Error>) -> Void
+        completion: @escaping (Result<Res, LemmyGenericError>) -> Void
     ) where Req: Codable, Res: Codable {
 
         return requestDecodable(
@@ -67,7 +67,7 @@ extension RequestsManager: UserRequestManagerProtocol {
 
     func getUserMentions<Req, Res>(
         parameters: Req,
-        completion: @escaping (Result<Res, Error>) -> Void
+        completion: @escaping (Result<Res, LemmyGenericError>) -> Void
     ) where Req: Codable, Res: Codable {
 
         return requestDecodable(
@@ -80,7 +80,7 @@ extension RequestsManager: UserRequestManagerProtocol {
 
     func markUserMentionAsRead<Req, Res>(
         parameters: Req,
-        completion: @escaping (Result<Res, Error>) -> Void
+        completion: @escaping (Result<Res, LemmyGenericError>) -> Void
     ) where Req: Codable, Res: Codable {
 
         return requestDecodable(

@@ -47,9 +47,13 @@ class CreateCommunityModel {
 
     func createCommunity(
         data: CreateCommunityModel.CreateCommunityData,
-        completion: @escaping ((Result<LemmyApiStructs.CommunityView, Error>) -> Void)
+        completion: @escaping ((Result<LemmyApiStructs.CommunityView, LemmyGenericError>) -> Void)
     ) {
-        guard let jwtToken = LemmyShareData.shared.jwtToken else { completion(.failure("Not logined")); return }
+        guard let jwtToken = LemmyShareData.shared.jwtToken
+        else {
+            completion(.failure(.string("Not logined")))
+            return
+        }
 
         let params = LemmyApiStructs.Community.CreateCommunityRequest(name: data.name,
                                                                       title: data.title,

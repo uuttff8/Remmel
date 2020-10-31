@@ -54,7 +54,7 @@ class CreateCommunityViewController: UIViewController {
     // MARK: Actions
     private func createBarButtonTapped(_ action: UIAction) {
         let category = model.selectedCategory.value
-        guard let nameText = customView.nameCell.nameTextField.text else {
+        guard let nameText = customView.nameCell.nameTextField.text?.lowercased() else {
             UIAlertController.createOkAlert(message: "Please name your community")
             return
         }
@@ -62,10 +62,14 @@ class CreateCommunityViewController: UIViewController {
             UIAlertController.createOkAlert(message: "Please title your community")
             return
         }
-        let descriptionText = customView.sidebarCell.sidebarTextView.text
+        var descriptionText = customView.sidebarCell.sidebarTextView.text
         let iconText = customView.imagesCell.iconImageString
         let bannerText = customView.imagesCell.bannerImageString
         let nsfwOption = customView.nsfwCell.customView.switcher.isOn
+        
+        if descriptionText == "" {
+            descriptionText = nil
+        }
 
         let data = CreateCommunityModel.CreateCommunityData(
             name: nameText,
@@ -85,7 +89,7 @@ class CreateCommunityViewController: UIViewController {
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    UIAlertController.createOkAlert(message: error.localizedDescription)
+                    UIAlertController.createOkAlert(message: error.description)
                 }
             }
         }

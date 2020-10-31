@@ -8,6 +8,17 @@
 
 import UIKit
 
+enum LemmyGenericError: Error {
+    case string(String)
+    
+    var description: String {
+        switch self {
+        case .string(let str):
+            return str
+        }
+    }
+}
+
 enum LemmySortType: String, Codable, CaseIterable {
     case active = "Active"
     case hot = "Hot"

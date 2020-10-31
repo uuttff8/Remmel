@@ -54,7 +54,7 @@ class CreatePostScreenModel {
 
         ApiManager.requests.listCommunities(
             parameters: parameters
-        ) { (res: Result<LemmyApiStructs.Community.ListCommunitiesResponse, Error>) in
+        ) { (res: Result<LemmyApiStructs.Community.ListCommunitiesResponse, LemmyGenericError>) in
 
             switch res {
             case let .success(data):
@@ -76,7 +76,9 @@ class CreatePostScreenModel {
                                                           limit: 100,
                                                           auth: LemmyShareData.shared.jwtToken)
 
-        ApiManager.requests.search(parameters: params) { (res: Result<LemmyApiStructs.Search.SearchResponse, Error>) in
+        ApiManager.requests.search(
+            parameters: params
+        ) { (res: Result<LemmyApiStructs.Search.SearchResponse, LemmyGenericError>) in
 
             switch res {
             case let .success(data):
@@ -90,9 +92,13 @@ class CreatePostScreenModel {
 
     func createPost(
         data: CreatePostData,
-        completion: @escaping ((Result<LemmyApiStructs.PostView, Error>) -> Void)
+        completion: @escaping ((Result<LemmyApiStructs.PostView, LemmyGenericError>) -> Void)
     ) {
-        guard let jwtToken = LemmyShareData.shared.jwtToken else { completion(.failure("Not logined")); return }
+        guard let jwtToken = LemmyShareData.shared.jwtToken
+        else {
+            completion(.failure(.string("Not logined")))
+            return
+        }
 
         let params = LemmyApiStructs.Post.CreatePostRequest(name: data.title,
                                                             url: data.url,
@@ -103,7 +109,7 @@ class CreatePostScreenModel {
 
         ApiManager.requests.createPost(
             parameters: params
-        ) { (res: Result<LemmyApiStructs.Post.CreatePostResponse, Error>) in
+        ) { (res: Result<LemmyApiStructs.Post.CreatePostResponse, LemmyGenericError>) in
             switch res {
             case .success(let data):
                 completion(.success(data.post))

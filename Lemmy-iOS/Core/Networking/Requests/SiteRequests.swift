@@ -9,15 +9,15 @@
 import Foundation
 
 private protocol SiteRequestManagerProtocol {
-    func getSite<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping (Result<Res, Error>) -> Void)
+    func getSite<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping (Result<Res, LemmyGenericError>) -> Void)
     func listCategoties(parameters: LemmyApiStructs.Site.ListCategoriesRequest,
-                        completion: @escaping (Result<LemmyApiStructs.Site.ListCategoriesResponse, Error>) -> Void)
+                        completion: @escaping (Result<LemmyApiStructs.Site.ListCategoriesResponse, LemmyGenericError>) -> Void)
 }
 
 extension RequestsManager: SiteRequestManagerProtocol {
     func getSite<Req, Res>(
         parameters: Req,
-        completion: @escaping (Result<Res, Error>) -> Void
+        completion: @escaping (Result<Res, LemmyGenericError>) -> Void
     ) where Req: Codable, Res: Codable {
 
         return requestDecodable(
@@ -30,7 +30,7 @@ extension RequestsManager: SiteRequestManagerProtocol {
 
     func listCategoties(
         parameters: LemmyApiStructs.Site.ListCategoriesRequest,
-        completion: @escaping (Result<LemmyApiStructs.Site.ListCategoriesResponse, Error>) -> Void
+        completion: @escaping (Result<LemmyApiStructs.Site.ListCategoriesResponse, LemmyGenericError>) -> Void
     ) {
 
         return requestDecodable(

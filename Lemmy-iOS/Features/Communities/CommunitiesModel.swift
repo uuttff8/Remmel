@@ -23,7 +23,7 @@ class CommunitiesModel: NSObject {
         ApiManager.shared.requestsManager
             .listCommunities(
                 parameters: parameters
-            ) { (res: Result<LemmyApiStructs.Community.ListCommunitiesResponse, Error>) in
+            ) { (res: Result<LemmyApiStructs.Community.ListCommunitiesResponse, LemmyGenericError>) in
 
                 switch res {
                 case .success(let data):

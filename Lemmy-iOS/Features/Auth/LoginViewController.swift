@@ -78,14 +78,14 @@ class LoginViewController: UIViewController {
 
         ApiManager.requests.register(
             parameters: registerDataParams
-        ) { (result: Result<LemmyApiStructs.Authentication.RegisterResponse, Error>) in
+        ) { (result: Result<LemmyApiStructs.Authentication.RegisterResponse, LemmyGenericError>) in
             switch result {
             case let .success(response):
                 print(response)
             case let .failure(error):
                 print(error)
                 DispatchQueue.main.async {
-                    UIAlertController.createOkAlert(message: error as? String ?? "")
+                    UIAlertController.createOkAlert(message: error.description)
                 }
             }
         }
@@ -155,11 +155,11 @@ class LoginViewController: UIViewController {
 
         ApiManager.shared.requestsManager.login(
             parameters: parameters
-        ) { (res: Result<LemmyApiStructs.Authentication.LoginResponse, Error>) in
+        ) { (res: Result<LemmyApiStructs.Authentication.LoginResponse, LemmyGenericError>) in
             switch res {
             case let .failure(error):
                 DispatchQueue.main.async {
-                    UIAlertController.createOkAlert(message: error as? String ?? "")
+                    UIAlertController.createOkAlert(message: error.description)
                 }
             case let .success(loginJwt):
                 self.shareData.loginData.login(jwt: loginJwt.jwt)
@@ -180,7 +180,7 @@ class LoginViewController: UIViewController {
 
         ApiManager.shared.requestsManager.getSite(
             parameters: params
-        ) { (res: Result<LemmyApiStructs.Site.GetSiteResponse, Error>) in
+        ) { (res: Result<LemmyApiStructs.Site.GetSiteResponse, LemmyGenericError>) in
             switch res {
             case let .failure(error):
                 print(error)

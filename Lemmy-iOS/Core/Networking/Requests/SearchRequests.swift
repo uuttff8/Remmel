@@ -9,13 +9,13 @@
 import UIKit
 
 private protocol SearchRequestManagerProtocol {
-    func search<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping (Result<Res, Error>) -> Void)
+    func search<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping (Result<Res, LemmyGenericError>) -> Void)
 }
 
 extension RequestsManager: SearchRequestManagerProtocol {
     func search<Req, Res>(
         parameters: Req,
-        completion: @escaping (Result<Res, Error>) -> Void
+        completion: @escaping (Result<Res, LemmyGenericError>) -> Void
     ) where Req: Codable, Res: Codable {
 
         return requestDecodable(

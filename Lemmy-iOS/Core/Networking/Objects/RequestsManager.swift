@@ -16,7 +16,7 @@ class RequestsManager {
         path: String,
         parameters: Req? = nil,
         parsingFromRootKey rootKey: String? = nil,
-        completion: @escaping ((Result<Res, Error>) -> Void)
+        completion: @escaping ((Result<Res, LemmyGenericError>) -> Void)
     ) {
         wsClient.send(on: path, data: parameters) { (outString) in
             self.decode(data: outString.data(using: .utf8)!, rootKey: rootKey, completion: completion)
@@ -26,7 +26,7 @@ class RequestsManager {
     func uploadImage<Res: Codable>(
         path: String,
         image: UIImage,
-        completion: @escaping ((Result<Res, Error>) -> Void)
+        completion: @escaping ((Result<Res, LemmyGenericError>) -> Void)
     ) {
         httpClient.uploadImage(url: path, image: image) { (result) in
             switch result {
@@ -35,7 +35,7 @@ class RequestsManager {
             case .success(let outData):
 
                 guard let decoded = try? JSONDecoder().decode(Res.self, from: outData) else {
-                    completion(.failure("Failed to decode from \(Res.self)".errorDescription))
+                    completion(.failure(.string("Failed to decode from \(Res.self)")))
                     return
                 }
                 completion(.success(decoded))
@@ -46,7 +46,7 @@ class RequestsManager {
     private func decode<D: Codable>(
         data: Data,
         rootKey: String?,
-        completion: ((Result<D, Error>) -> Void)
+        completion: ((Result<D, LemmyGenericError>) -> Void)
     ) {
         let decoder = JSONDecoder()
 
@@ -58,25 +58,25 @@ class RequestsManager {
 
                     // if no root key it maybe an error from backend
                     if let backendError = try? JSONDecoder().decode(LemmyApiStructs.ErrorResponse.self, from: data) {
-                        completion(.failure(backendError.error))
+                        completion(.failure(.string(backendError.error)))
                         return
                     }
 
-                    completion(.failure("Root key not found"))
+                    completion(.failure(.string("Root key not found")))
                     return
                 }
                 let serializedData = try JSONSerialization.data(withJSONObject: items, options: .prettyPrinted)
                 let dec = try decoder.decode(D.self, from: serializedData)
                 completion(.success(dec))
             } catch let error {
-                completion(.failure("JSON decoding failed with error: \(error)"))
+                completion(.failure(.string("JSON decoding failed with error: \(error)")))
             }
         } else {
             do {
                 let dec = try decoder.decode(D.self, from: data)
                 completion(.success(dec))
             } catch {
-                completion(.failure("JSON decoding failed with error: \(error)"))
+                completion(.failure(.string("JSON decoding failed with error: \(error)".errorDescription)))
             }
         }
     }

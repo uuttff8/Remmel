@@ -43,7 +43,7 @@ class PostsFrontPageModel: NSObject {
 
         ApiManager.shared.requestsManager.getPosts(
             parameters: parameters,
-            completion: { (dec: Result<LemmyApiStructs.Post.GetPostsResponse, Error>) in
+            completion: { (dec: Result<LemmyApiStructs.Post.GetPostsResponse, LemmyGenericError>) in
                 switch dec {
                 case .success(let posts):
                     self.postsDataSource = posts.posts
@@ -65,7 +65,7 @@ class PostsFrontPageModel: NSObject {
 
         ApiManager.shared.requestsManager.getPosts(
             parameters: parameters,
-            completion: { (dec: Result<LemmyApiStructs.Post.GetPostsResponse, Error>) in
+            completion: { (dec: Result<LemmyApiStructs.Post.GetPostsResponse, LemmyGenericError>) in
                 switch dec {
                 case let .success(posts):
                     self.newDataLoaded?(posts.posts)

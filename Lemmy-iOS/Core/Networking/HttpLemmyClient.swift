@@ -82,7 +82,7 @@ final class HttpLemmyClient: HTTPClientProvider {
     func uploadImage(
         url: String,
         image: UIImage,
-        completion: @escaping (Result<Data, Error>) -> Void
+        completion: @escaping (Result<Data, LemmyGenericError>) -> Void
     ) {
 
         guard let url = URL(string: url) else { return }
@@ -97,7 +97,7 @@ final class HttpLemmyClient: HTTPClientProvider {
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
 
         guard let httpBody = try? createBody(imageToUpload: image, boundary: boundary) else {
-            completion(.failure("Failed to create request body"))
+            completion(.failure(.string("Failed to create request body")))
             return
         }
 
@@ -114,7 +114,7 @@ final class HttpLemmyClient: HTTPClientProvider {
                 if let data = data {
                     completion(.success(data))
                 } else if let error = error {
-                    completion(.failure(error))
+                    completion(.failure(.string(error as! String)))
                 }
             }.resume()
 

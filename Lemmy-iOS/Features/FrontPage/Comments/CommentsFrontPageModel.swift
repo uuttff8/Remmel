@@ -41,7 +41,7 @@ class CommentsFrontPageModel: NSObject {
 
         ApiManager.shared.requestsManager.getComments(
             parameters: parameters
-        ) { (res: Result<LemmyApiStructs.Comment.GetCommentsResponse, Error>) in
+        ) { (res: Result<LemmyApiStructs.Comment.GetCommentsResponse, LemmyGenericError>) in
             switch res {
             case .success(let response):
                 self.commentsDataSource = response.comments
@@ -61,7 +61,7 @@ class CommentsFrontPageModel: NSObject {
 
         ApiManager.shared.requestsManager.getComments(
             parameters: parameters
-        ) { (res: Result<LemmyApiStructs.Comment.GetCommentsResponse, Error>) in
+        ) { (res: Result<LemmyApiStructs.Comment.GetCommentsResponse, LemmyGenericError>) in
             switch res {
             case .success(let response):
                 self.newDataLoaded?(response.comments)

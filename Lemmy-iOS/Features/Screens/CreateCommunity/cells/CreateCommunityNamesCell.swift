@@ -11,6 +11,7 @@ import UIKit
 class CreateCommunityNameCell: UITableViewCell {
     let nameTextField: UITextField = {
         let tf = UITextField()
+        tf.autocapitalizationType = .none
         tf.placeholder = "Name"
         return tf
     }()
