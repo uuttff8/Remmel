@@ -51,10 +51,9 @@ extension UIButton {
     }
 }
 
-
 extension UILabel {
     
-    func set(text:String, leftIcon: UIImage? = nil, rightIcon: UIImage? = nil) {
+    func set(text: String, leftIcon: UIImage? = nil, rightIcon: UIImage? = nil) {
         
         let leftAttachment = NSTextAttachment()
         leftAttachment.image = leftIcon
@@ -70,7 +69,6 @@ extension UILabel {
         rightAttachment.image = rightIcon
         rightAttachment.bounds = CGRect(x: 0, y: -5, width: 20, height: 20)
         let rightAttachmentStr = NSAttributedString(attachment: rightAttachment)
-        
         
         if semanticContentAttribute == .forceRightToLeft {
             if rightIcon != nil {
@@ -137,7 +135,10 @@ extension UserDefaults {
 
 extension UIView {
     func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIView.dismissKeyboard))
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(UIView.dismissKeyboard)
+        )
         tap.cancelsTouchesInView = false
         addGestureRecognizer(tap)
     }
@@ -162,7 +163,6 @@ extension UIAlertController {
         vc.present(controller, animated: true, completion: nil)
     }
 }
-
 
 extension UIApplication {
     
@@ -199,7 +199,12 @@ extension UIScreen {
 extension UIView {
     private static var tapKey = "tapKey"
     
-    func addTap(numberOfTapsRequired: Int = 1, numberOfTouchesRequired: Int = 1, cancelTouchesInView: Bool = true, action: @escaping () -> Void) {
+    func addTap(
+        numberOfTapsRequired: Int = 1,
+        numberOfTouchesRequired: Int = 1,
+        cancelTouchesInView: Bool = true,
+        action: @escaping () -> Void
+    ) {
         isUserInteractionEnabled = true
         objc_setAssociatedObject(self, &UIView.tapKey, TapAction(action: action), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapView))
@@ -352,9 +357,9 @@ extension UITextView: UITextViewDelegate {
         if let placeholderLabel = self.viewWithTag(100) as! UILabel? {
             let labelX = self.textContainer.lineFragmentPadding
             let labelY = self.textContainerInset.top - 2
-//            let labelWidth = self.frame.width - (labelX * 2)
+            //            let labelWidth = self.frame.width - (labelX * 2)
             let labelHeight = placeholderLabel.frame.height
-
+            
             placeholderLabel.frame = CGRect(x: labelX, y: labelY, width: 100, height: labelHeight)
         }
     }
@@ -423,20 +428,28 @@ extension UITableView {
 }
 
 extension UITableView {
-
+    
     func setEmptyMessage(_ message: String) {
-        let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height / 2 ))
+        let messageLabel = UILabel(
+            frame:
+                CGRect(
+                    x: 0,
+                    y: 0,
+                    width: self.bounds.size.width,
+                    height: self.bounds.size.height / 2
+                )
+        )
         messageLabel.text = message
         messageLabel.textColor = .label
         messageLabel.numberOfLines = 0
         messageLabel.textAlignment = .center
         messageLabel.font = UIFont(name: "TrebuchetMS", size: 20)
         messageLabel.sizeToFit()
-
+        
         self.backgroundView = messageLabel
         self.separatorStyle = .none
     }
-
+    
     func restore() {
         self.backgroundView = nil
         self.separatorStyle = .singleLine
@@ -446,7 +459,8 @@ extension UITableView {
 extension Encodable {
     func asDictionary() throws -> [String: Any] {
         let data = try JSONEncoder().encode(self)
-        guard let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
+        guard let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+        else {
             throw NSError()
         }
         return dictionary
@@ -456,7 +470,8 @@ extension Encodable {
 extension Encodable {
     var dictionary: [String: Any]? {
         guard let data = try? JSONEncoder().encode(self) else { return nil }
-        return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)).flatMap { $0 as? [String: Any] }
+        return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments))
+            .flatMap { $0 as? [String: Any] }
     }
 }
 
@@ -478,4 +493,3 @@ extension UIBarButtonItem {
 extension Notification.Name {
     static let didLogin = Notification.Name("LemmyiOS.didLogin")
 }
-

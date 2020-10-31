@@ -9,11 +9,11 @@
 import UIKit
 
 class CreatePostUrlCell: UITableViewCell {
-    
+
     var onPickImage: (() -> Void)?
     var onPickedImage: ((UIImage) -> Void)?
     var isImagePicked = false
-    
+
     var urlText: String {
         if isImagePicked {
             return "https://dev.lemmy.ml/pictrs/image/" + (urlTextField.text ?? "")
@@ -21,27 +21,27 @@ class CreatePostUrlCell: UITableViewCell {
             return urlTextField.text ?? ""
         }
     }
-    
+
     lazy var selectImageButton: UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(systemName: "photo"), for: .normal)
         return btn
     }()
-    
+
     lazy var urlTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "URL"
         return tf
     }()
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+
         selectionStyle = .none
         [selectImageButton, urlTextField].forEach { (view) in
             contentView.addSubview(view)
         }
-        
+
         urlTextField.snp.makeConstraints { (make) in
             make.top.equalToSuperview().inset(5)
             make.leading.equalToSuperview().inset(16)
@@ -49,17 +49,17 @@ class CreatePostUrlCell: UITableViewCell {
             make.height.equalTo(50)
             make.bottom.equalToSuperview().inset(5)
         }
-        
+
         selectImageButton.snp.makeConstraints { (make) in
             make.top.equalToSuperview().inset(5)
             make.trailing.equalToSuperview().inset(16)
             make.width.equalTo(30)
             make.bottom.equalTo(urlTextField)
         }
-        
+
         selectImageButton.addTarget(self, action: #selector(handleImageButtonTap), for: .touchUpInside)
     }
-    
+
     @objc private func handleImageButtonTap() {
         onPickImage?()
         onPickedImage = { [self] image in
@@ -74,10 +74,10 @@ class CreatePostUrlCell: UITableViewCell {
                     print(error.localizedDescription)
                 }
             }
-            
+
         }
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

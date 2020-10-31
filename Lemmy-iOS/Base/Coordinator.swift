@@ -23,13 +23,11 @@ extension Coordinator {
         guard
             childCoordinators.isEmpty == false,
             let coordinator = coordinator
-            else { return }
+        else { return }
         
-        for (index, element) in childCoordinators.enumerated() {
-            if element === coordinator {
-                childCoordinators.remove(at: index)
-                break
-            }
+        for (index, element) in childCoordinators.enumerated() where element === coordinator {
+            childCoordinators.remove(at: index)
+            break
         }
     }
     

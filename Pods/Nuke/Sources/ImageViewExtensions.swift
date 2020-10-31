@@ -332,8 +332,6 @@ public struct ImageLoadingOptions {
 /// however as it stands today `ImageViewController` is just a helper class,
 /// making it public wouldn't expose any additional functionality to the users.
 private final class ImageViewController {
-    // Ideally should be `unowned` but can't because of the Swift bug
-    // https://bugs.swift.org/browse/SR-7369
     private weak var imageView: ImageDisplayingView?
     private var task: ImageTask?
 
@@ -400,13 +398,11 @@ private final class ImageViewController {
                 placeholder = placeholder.withRenderingMode(.alwaysTemplate)
                 imageView.tintColor = tintColor
             }
-            #endif
-            imageView.nuke_display(image: placeholder)
-            #if os(iOS) || os(tvOS)
             if let contentMode = options.contentModes?.placeholder {
                 imageView.contentMode = contentMode
             }
             #endif
+            imageView.nuke_display(image: placeholder)
         } else if options.isPrepareForReuseEnabled {
             imageView.nuke_display(image: nil) // Remove previously displayed images (if any)
         }

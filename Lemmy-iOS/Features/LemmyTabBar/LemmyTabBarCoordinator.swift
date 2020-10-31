@@ -11,65 +11,65 @@ import UIKit
 final class LemmyTabBarCoordinator: Coordinator {
     var rootViewController: LemmyTabBarController
     var childCoordinators: [Coordinator] = []
-    
+
     var navigationController: UINavigationController? = {
        return nil
     }()
-    
+
     init() {
         self.rootViewController = LemmyTabBarController()
     }
-        
+
     func start() {
         rootViewController.coordinator = self
         rootViewController.createTabs()
     }
-    
+
     func goToCreateOrPostScreen() {
         let createPostOrCommCoordinator = CreatePostOrCommunityCoordinator(navigationController: nil)
         self.store(coordinator: createPostOrCommCoordinator)
         createPostOrCommCoordinator.start()
-        
+
         createPostOrCommCoordinator.rootViewController.modalPresentationStyle = .custom
         let transition = CreateTransitionDelegateImpl()
         createPostOrCommCoordinator.rootViewController.transitioningDelegate = transition
-        
+
         rootViewController.present(createPostOrCommCoordinator.rootViewController, animated: true)
     }
-    
+
     func goToLoginScreen(authMethod: LemmyAuthMethod) {
         let loginCoordinator = LoginCoordinator(navigationController: UINavigationController(), authMethod: authMethod)
         self.store(coordinator: loginCoordinator)
         loginCoordinator.start()
-        
+
         guard let loginNavController = loginCoordinator.navigationController else {
             print("\(#file) loginCoordinator.navigationController is nil")
             return
         }
-        
+
         rootViewController.present(loginNavController, animated: true, completion: nil)
     }
-    
+
     func goToCreatePost() {
         let createPostCoord = CreatePostCoordinator(navigationController: UINavigationController())
         self.store(coordinator: createPostCoord)
         createPostCoord.start()
-        
+
         guard let navController = createPostCoord.navigationController else { return }
-        
+
         rootViewController.present(navController, animated: true)
     }
-    
+
     func goToCreateCommunity() {
         let createCommCoord = CreateCommunityCoordinator(navigationController: UINavigationController())
         self.store(coordinator: createCommCoord)
         createCommCoord.start()
-        
+
         guard let navController = createCommCoord.navigationController else { return }
-        
+
         rootViewController.present(navController, animated: true)
     }
-    
+
     func goToPost(post: LemmyApiStructs.PostView) {
         rootViewController.frontPageCoordinator.goToPostScreen(post: post)
     }

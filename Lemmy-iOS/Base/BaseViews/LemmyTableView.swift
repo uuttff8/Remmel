@@ -15,14 +15,14 @@ class LemmyTableView: UITableView {
         self.rowHeight = UITableView.automaticDimension
 //        self.estimatedRowHeight = 40
         self.keyboardDismissMode = .onDrag
-        
+
         if separator {
             self.separatorStyle = .singleLine
         } else {
             self.separatorStyle = .none
         }
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

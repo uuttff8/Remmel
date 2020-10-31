@@ -8,15 +8,15 @@
 
 import UIKit
 
-final class CreateDismissPresentAnimator: NSObject, UIViewControllerAnimatedTransitioning {    
-    
+final class CreateDismissPresentAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+
     private var transitionDriver: CreateDismissTransitionDriver?
-    
+
     // MARK: - Methods
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return CreateTransitionDelegateImpl.duration
     }
-    
+
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         transitionDriver = CreateDismissTransitionDriver(transitionContext: transitionContext)
     }

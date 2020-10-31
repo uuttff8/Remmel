@@ -8,12 +8,12 @@
 
 import UIKit
 
-class AppCoordinator :  Coordinator {
+class AppCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
-    
+
     var navigationController: UINavigationController?
 
-    let window : UIWindow
+    let window: UIWindow
 
     init(window: UIWindow) {
         self.window = window
@@ -21,11 +21,11 @@ class AppCoordinator :  Coordinator {
 
     func start() {
         let myCoordinator = LemmyTabBarCoordinator()
-        
+
         // store child coordinator
         self.store(coordinator: myCoordinator)
         myCoordinator.start()
-        
+
         window.rootViewController = myCoordinator.rootViewController
         window.makeKeyAndVisible()
     }

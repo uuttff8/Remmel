@@ -1,0 +1,44 @@
+
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - Carthage
+  - Pods
+  - Source/ExcludedFolder
+  - Source/ExcludedFile.swift
+  - Source/*/ExcludedFile.swift # Exclude files with a wildcard
+
+identifier_name:
+  min_length: # only min_length
+    error: 1 # only error
+    warning: 1
+  excluded: # excluded via string array
+    - id
+    - URL
+    - GlobalAPIKey
+    - ok
+
+nesting:
+  type_level:
+    # should be fixed in future
+    warning: 999
+    error: 999
+  statement_level:
+    warning: 5
+    error: 10
+
+# should be fixed in future
+file_length: 1000
+type_body_length: 1000
+
+# should be fixed in future if possible
+disabled_rules:
+  # - colon
+  - comma
+  # - control_statement
+  - variable_name
+  - force_cast
+  - large_tuple
+  - notification_center_detachment
+  - nesting
+  - function_parameter_count
+  - trailing_whitespace
+  - cyclomatic_complexity

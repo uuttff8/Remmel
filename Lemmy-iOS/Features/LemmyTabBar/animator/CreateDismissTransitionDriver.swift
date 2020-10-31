@@ -19,7 +19,7 @@ class CreateDismissTransitionDriver {
     private let fromView: UIView
     private let toView: UIView
     private let createViewController: CreatePostOrCommunityViewController
-    
+
     init(transitionContext: UIViewControllerContextTransitioning) {
         ctx = transitionContext
         container = transitionContext.containerView
@@ -35,14 +35,17 @@ class CreateDismissTransitionDriver {
     // MARK: - Methods
     private func createAnimator() {
         
-        animator = UIViewPropertyAnimator(duration: CreateTransitionDelegateImpl.duration, curve: .easeOut, animations: {
-            self.toVC.view.alpha = 1.0
-            self.createViewController.createView.snp.updateConstraints { (make) in
-                make.height.equalTo(0)
-            }
-            self.createViewController.view.layoutIfNeeded()
-        })
-
+        animator = UIViewPropertyAnimator(
+            duration: CreateTransitionDelegateImpl.duration,
+            curve: .easeOut,
+            animations: {
+                self.toVC.view.alpha = 1.0
+                self.createViewController.createView.snp.updateConstraints { (make) in
+                    make.height.equalTo(0)
+                }
+                self.createViewController.view.layoutIfNeeded()
+            })
+        
         animator?.startAnimation()
         
         animator?.addCompletion { [weak self] _ in

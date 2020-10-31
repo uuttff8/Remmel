@@ -9,13 +9,13 @@
 import UIKit
 
 class CreateCommunityViewController: UIViewController {
-    
+
     // MARK: - Properties
     weak var coordinator: CreateCommunityCoordinator?
-    
+
     lazy var customView = CreateCommunityUI(model: model)
     let model = CreateCommunityModel()
-    
+
     lazy var imagePicker: UIImagePickerController = {
         let picker = UIImagePickerController()
         picker.delegate = self
@@ -23,34 +23,34 @@ class CreateCommunityViewController: UIViewController {
         picker.sourceType = .photoLibrary
         return picker
     }()
-    
+
     private var currentImagePick: CreateCommunityImagesCell.ImagePick?
-    
+
     // MARK: - Overrided
     override func loadView() {
         self.view = customView
     }
-    
+
     override func viewDidLoad() {
         title = "Create community"
-        
+
         model.loadCategories()
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: "CREATE",
             primaryAction: UIAction(handler: createBarButtonTapped),
             style: .done
         )
-        
+
         customView.goToChoosingCategory = {
             self.coordinator?.goToChoosingCommunity(model: self.model)
         }
-        
+
         customView.onPickImage = { imagePick in
             self.currentImagePick = imagePick
             self.present(self.imagePicker, animated: true, completion: nil)
         }
     }
-    
+
     // MARK: Actions
     private func createBarButtonTapped(_ action: UIAction) {
         let category = model.selectedCategory.value
@@ -66,16 +66,18 @@ class CreateCommunityViewController: UIViewController {
         let iconText = customView.imagesCell.iconImageString
         let bannerText = customView.imagesCell.bannerImageString
         let nsfwOption = customView.nsfwCell.customView.switcher.isOn
-        
-        
-        model.createCommunity(name: nameText,
-                              title: titleText,
-                              description: descriptionText,
-                              icon: iconText,
-                              banner: bannerText,
-                              categoryId: category?.id,
-                              nsfwOption: nsfwOption) { (res) in
-            
+
+        let data = CreateCommunityModel.CreateCommunityData(
+            name: nameText,
+            title: titleText,
+            description: descriptionText,
+            icon: iconText,
+            banner: bannerText,
+            categoryId: category?.id,
+            nsfwOption: nsfwOption
+        )
+
+        model.createCommunity(data: data) { (res) in
             switch res {
             case .success(let community):
                 DispatchQueue.main.async {
@@ -93,17 +95,17 @@ class CreateCommunityViewController: UIViewController {
 extension CreateCommunityViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(
         _ picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
     ) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             customView.onPickedImage?(image, currentImagePick!)
         }
-        
+
         dismiss(animated: true, completion: nil)
     }
-    
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion:nil)
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -118,7 +120,7 @@ extension CreateCommunityViewController: UIAdaptivePresentationControllerDelegat
         alertControl.addAction(noAction)
         present(alertControl, animated: true, completion: nil)
     }
-    
+
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
         return false
     }

@@ -13,22 +13,22 @@ enum LemmyAuthMethod {
 }
 
 class LoginViewController: UIViewController {
-    
+
     var signInView: SignInView?
     var signUpView: SignUpView?
     let shareData = LemmyShareData.shared
-    
+
     let authMethod: LemmyAuthMethod
-    
+
     init(authMethod: LemmyAuthMethod) {
         self.authMethod = authMethod
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func loadView() {
         switch authMethod {
         case .login:
@@ -41,24 +41,29 @@ class LoginViewController: UIViewController {
             self.view = signUp
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.hideKeyboardWhenTappedAround()
-        
+
         let barItemTitle: String
-        
+
         switch authMethod {
         case .login:
             barItemTitle = "Login"
         case .register:
             barItemTitle = "Register"
         }
-        
-        let barItem = UIBarButtonItem(title: barItemTitle, style: .plain, target: self, action: #selector(onLoginOrRegisterSelector(sender:)))
+
+        let barItem = UIBarButtonItem(
+            title: barItemTitle,
+            style: .plain,
+            target: self,
+            action: #selector(onLoginOrRegisterSelector(sender:))
+        )
         navigationItem.rightBarButtonItem = barItem
     }
-    
+
     @objc func onLoginOrRegisterSelector(sender: UIBarButtonItem!) {
         switch authMethod {
         case .login:
@@ -67,45 +72,63 @@ class LoginViewController: UIViewController {
             onSignUp()
         }
     }
-    
+
     private func onSignUp() {
-        guard let signUpView = signUpView else { return }
-        
+        let registerDataParams = checkRegisterData()
+
+        ApiManager.requests.register(
+            parameters: registerDataParams
+        ) { (result: Result<LemmyApiStructs.Authentication.RegisterResponse, Error>) in
+            switch result {
+            case let .success(response):
+                print(response)
+            case let .failure(error):
+                print(error)
+                DispatchQueue.main.async {
+                    UIAlertController.createOkAlert(message: error as? String ?? "")
+                }
+            }
+        }
+    }
+    
+    private func checkRegisterData() -> LemmyApiStructs.Authentication.RegisterRequest? {
+        guard let signUpView = signUpView else { return nil }
+
         guard (signUpView.passwordTextField.hasText)
                 || (signUpView.usernameTextField.hasText)
                 || (signUpView.passwordVerifyTextField.hasText)
         else {
             UIAlertController.createOkAlert(message: "Please fill correct email or username or password")
-            return
+            return nil
         }
-        
-        guard (signUpView.passwordTextField.text == signUpView.passwordVerifyTextField.text)
+
+        guard signUpView.passwordTextField.text == signUpView.passwordVerifyTextField.text
         else {
             UIAlertController.createOkAlert(message: "Passwords don't match")
-            return
+            return nil
         }
-        
-        guard (signUpView.captchaTextField.hasText)
+
+        guard signUpView.captchaTextField.hasText
         else {
             UIAlertController.createOkAlert(message: "Please fill captcha")
-            return
+            return nil
         }
-        
+
         guard let username = signUpView.usernameTextField.text,
               let password = signUpView.passwordTextField.text,
               let passwordVerify = signUpView.passwordVerifyTextField.text,
               let captchaCode = signUpView.captchaTextField.text
-              else { return }
-        
-        guard let uuid = signUpView.model.uuid else { return }
-        
+              else { return nil }
+
+        guard let uuid = signUpView.model.uuid else { return nil }
+
         let showNsfw = signUpView.showNsfwSwitch.switcher.isOn
         var email = signUpView.emailTextField.text
         if email == "" {
             email = nil
         }
-        
-        let params = LemmyApiStructs.Authentication.RegisterRequest(username: username,
+
+        return LemmyApiStructs.Authentication.RegisterRequest(username: username,
                                                                     email: email,
                                                                     password: password,
                                                                     passwordVerify: passwordVerify,
@@ -113,64 +136,51 @@ class LoginViewController: UIViewController {
                                                                     showNsfw: showNsfw,
                                                                     captchaUuid: uuid,
                                                                     captchaAnswer: captchaCode)
-        
-        
-        ApiManager.requests.register(parameters: params) { (result: Result<LemmyApiStructs.Authentication.RegisterResponse, Error>) in
-            switch result {
-            case let .success(response):
-                print(response)
-            case let .failure(error):
-                print(error)
-                DispatchQueue.main.async {
-                    UIAlertController.createOkAlert(message: error as! String)
-                }
-            }
-        }
+
     }
-    
+
     private func onSignIn() {
         guard let signInView = signInView else { return }
-        
+
         if (!signInView.passwordTextField.hasText) || (!signInView.emailOrUsernameTextField.hasText) {
             UIAlertController.createOkAlert(message: "Please fill correct email or username or password")
         }
-        
+
         guard let emailOrUsername = signInView.emailOrUsernameTextField.text,
               let password = signInView.passwordTextField.text
         else { return }
-        
-        
-        
+
         let parameters = LemmyApiStructs.Authentication
             .LoginRequest(usernameOrEmail: emailOrUsername, password: password)
-        
-        ApiManager.shared.requestsManager.login(parameters: parameters)
-        { (res: Result<LemmyApiStructs.Authentication.LoginResponse, Error>) in
+
+        ApiManager.shared.requestsManager.login(
+            parameters: parameters
+        ) { (res: Result<LemmyApiStructs.Authentication.LoginResponse, Error>) in
             switch res {
             case let .failure(error):
                 DispatchQueue.main.async {
-                    UIAlertController.createOkAlert(message: error as! String)
+                    UIAlertController.createOkAlert(message: error as? String ?? "")
                 }
             case let .success(loginJwt):
                 self.shareData.loginData.login(jwt: loginJwt.jwt)
                 self.loadUserOnSuccessLogin(jwt: loginJwt.jwt) { (myUser) in
                     self.shareData.userdata = myUser
-                    
-                    
+
                     DispatchQueue.main.async {
                         self.loginSuccessed()
                     }
                 }
             }
         }
-        
+
     }
-    
+
     private func loadUserOnSuccessLogin(jwt: String, completion: @escaping ((LemmyApiStructs.MyUser) -> Void)) {
         let params = LemmyApiStructs.Site.GetSiteRequest(auth: jwt)
-        
-        ApiManager.shared.requestsManager.getSite(parameters: params)
-        { (res: Result<LemmyApiStructs.Site.GetSiteResponse, Error>) in
+
+        ApiManager.shared.requestsManager.getSite(
+            parameters: params
+        ) { (res: Result<LemmyApiStructs.Site.GetSiteResponse, Error>) in
             switch res {
             case let .failure(error):
                 print(error)
@@ -180,10 +190,9 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
+
     private func loginSuccessed() {
         NotificationCenter.default.post(name: .didLogin, object: nil)
         self.dismiss(animated: true, completion: nil)
     }
 }
-

@@ -10,25 +10,38 @@ import UIKit
 
 extension LemmyApiStructs {
     enum Search {
-        
+
         // MARK: - Search -
         struct SearchRequest: Codable, Equatable, Hashable {
-            let q: String
-            let type_: LemmySortType
-            let community_id: Int?
-            let community_name: String?
+            let query: String
+            let type: LemmySortType
+            let communityId: Int?
+            let communityName: String?
             let sort: LemmySortType
             let page: Int?
             let limit: Int?
             let auth: String?
+
+            enum CodingKeys: String, CodingKey {
+                case query = "q"
+                case type = "type_"
+                case communityId = "community_id"
+                case communityName = "community_name"
+                case sort, page, limit, auth
+            }
         }
-        
+
         struct SearchResponse: Codable, Equatable, Hashable {
-            let type_: LemmySortType
-            let comments: Array<CommentView>
-            let posts: Array<PostView>
-            let communities: Array<CommunityView>
-            let users: Array<UserView>
+            let type: LemmySortType
+            let comments: [CommentView]
+            let posts: [PostView]
+            let communities: [CommunityView]
+            let users: [UserView]
+
+            enum CodingKeys: String, CodingKey {
+                case type = "type_"
+                case comments, posts, communities, users
+            }
         }
     }
 }

@@ -12,13 +12,12 @@ private protocol SearchRequestManagerProtocol {
     func search<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping (Result<Res, Error>) -> Void)
 }
 
-
 extension RequestsManager: SearchRequestManagerProtocol {
     func search<Req, Res>(
         parameters: Req,
         completion: @escaping (Result<Res, Error>) -> Void
-    ) where Req : Codable, Res : Codable {
-        
+    ) where Req: Codable, Res: Codable {
+
         return requestDecodable(
             path: LemmyEndpoint.Site.search.endpoint,
             parameters: parameters,
@@ -27,4 +26,3 @@ extension RequestsManager: SearchRequestManagerProtocol {
         )
     }
 }
-

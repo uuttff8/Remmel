@@ -8,12 +8,12 @@
 
 import UIKit
 
-class CreatePostOrCommunityCoordinator : Coordinator {
+class CreatePostOrCommunityCoordinator: Coordinator {
     var rootViewController: CreatePostOrCommunityViewController
     var childCoordinators: [Coordinator] = []
-    
+
     var navigationController: UINavigationController?
-    
+
     init(navigationController: UINavigationController?) {
         self.rootViewController = CreatePostOrCommunityViewController()
         self.navigationController = navigationController
@@ -22,14 +22,14 @@ class CreatePostOrCommunityCoordinator : Coordinator {
     func start() {
         rootViewController.coordinator = self
     }
-    
+
     func goToCreatePost() {
         rootViewController.dismissView()
         if let presentingVc = rootViewController.presentingViewController as? LemmyTabBarController {
             presentingVc.coordinator?.goToCreatePost()
         }
     }
-    
+
     func goToCreateCommunity() {
         rootViewController.dismissView()
         if let presentingVc = rootViewController.presentingViewController as? LemmyTabBarController {

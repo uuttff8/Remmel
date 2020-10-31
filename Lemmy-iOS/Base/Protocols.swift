@@ -17,7 +17,7 @@ extension Containered where Self: UIViewController {
     func add(asChildViewController viewController: UIViewController) {
         addChild(viewController)
         view.addSubview(viewController.view)
-        
+
         // Configure Child View
         viewController.view.frame = view.bounds
         viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]

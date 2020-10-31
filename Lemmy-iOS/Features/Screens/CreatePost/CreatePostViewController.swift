@@ -9,42 +9,42 @@
 import UIKit
 
 class CreatePostScreenViewController: UIViewController {
-    
+
     // MARK: - Properties
     weak var coordinator: CreatePostCoordinator?
-    
+
     lazy var customView = CreatePostScreenUI(model: model)
     let model = CreatePostScreenModel()
-    
+
     let imagePicker = UIImagePickerController()
-    
+
     // MARK: - Overrided
     override func loadView() {
         self.view = customView
     }
-    
+
     override func viewDidLoad() {
         title = "Create post"
-        
+
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
-        
+
         customView.onPickImage = {
             self.present(self.imagePicker, animated: true, completion: nil)
         }
-        
+
         customView.goToChoosingCommunity = { [self] in
             coordinator?.goToChoosingCommunity(model: model)
         }
-        
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: "POST",
             primaryAction: UIAction(handler: postBarButtonTapped),
             style: .done
-        )        
+        )
     }
-    
+
     // MARK: - Action
     private func postBarButtonTapped(_ action: UIAction) {
         guard let community = model.communitySelected else {
@@ -55,10 +55,19 @@ class CreatePostScreenViewController: UIViewController {
         let bodyText = customView.contentCell.bodyTextView.text
         let urlText = customView.urlCell.urlText
         let nsfwOption = customView.contentCell.nsfwSwitch.switcher.isOn
-        
-        model.createPost(communityId: community.id, title: titleText, body: bodyText, url: urlText, nsfwOption: nsfwOption)
-        { (res) in
-            
+
+        let data = CreatePostScreenModel.CreatePostData(
+            communityId: community.id,
+            title: titleText,
+            body: bodyText,
+            url: urlText,
+            nsfwOption: nsfwOption
+        )
+
+        model.createPost(
+            data: data
+        ) { (res) in
+
             switch res {
             case .success(let post):
                 DispatchQueue.main.async {
@@ -77,7 +86,7 @@ class CreatePostScreenViewController: UIViewController {
 extension CreatePostScreenViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(
         _ picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
     ) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             customView.onPickedImage?(image)
@@ -87,7 +96,7 @@ extension CreatePostScreenViewController: UIImagePickerControllerDelegate, UINav
     }
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion:nil)
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -102,7 +111,7 @@ extension CreatePostScreenViewController: UIAdaptivePresentationControllerDelega
         alertControl.addAction(noAction)
         present(alertControl, animated: true, completion: nil)
     }
-    
+
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
         return false
     }

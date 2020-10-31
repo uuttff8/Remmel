@@ -10,20 +10,23 @@ import Foundation
 
 extension LemmyApiStructs {
     enum Comment {
-        
+
         // MARK: - GetComments -
         struct GetCommentsRequest: Codable, Equatable {
-            let type_: LemmyFeedType
+            let type: LemmyFeedType
             let sort: LemmySortType
             let page: Int
             let limit: Int
             let auth: String?
+
+            enum CodingKeys: String, CodingKey {
+                case type = "type_"
+                case sort, page, limit, auth
+            }
         }
-        
+
         struct GetCommentsResponse: Codable, Equatable {
-            let comments: Array<CommentView>
+            let comments: [CommentView]
         }
     }
 }
-
-

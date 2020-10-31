@@ -11,7 +11,7 @@ import KeychainSwift
 
 extension UserDefaults {
     static let appSuiteName = "userDefaults.uuttff8.LemmyiOS"
-    
+
     static var appShared: UserDefaults {
         UserDefaults(suiteName: UserDefaults.appSuiteName)!
     }
@@ -19,31 +19,31 @@ extension UserDefaults {
 
 class LoginData {
     static let shared = LoginData()
-    
+
     private let keychain = KeychainSwift()
     private let userDefaults = UserDefaults.appShared
-    
+
     func login(jwt: String) {
         self.jwtToken = jwt
     }
-    
+
     func logout() {
         self.clear()
         userDefaults.removeSuite(named: UserDefaults.appSuiteName)
         userDefaults.resetDefaults()
         URLCache.shared.removeAllCachedResponses()
     }
-    
+
     // LEGACY
     func isLoggedIn() -> Bool {
         return jwtToken != nil && userId != nil
     }
-    
+
     var jwtToken: String? {
         get { keychain.get(LemmyShareData.Constants.jwt) }
         set { keychain.set(newValue!, forKey: LemmyShareData.Constants.jwt) }
     }
-    
+
     var userId: String? {
         get { userDefaults.string(forKey: LemmyShareData.Constants.userId) }
         set { userDefaults.set(newValue, forKey: LemmyShareData.Constants.userId) }
@@ -53,7 +53,7 @@ class LoginData {
         keychain.clear()
         clearUserId()
     }
-    
+
     private func clearUserId() {
         userDefaults.removeObject(forKey: LemmyShareData.Constants.userId)
     }

@@ -14,12 +14,12 @@ private protocol AuthRequestManagerProtocol {
     func getCaptcha<Res: Codable>(completion: @escaping (Result<Res, Error>) -> Void)
 }
 
-extension RequestsManager: AuthRequestManagerProtocol {    
+extension RequestsManager: AuthRequestManagerProtocol {
     func login<Req, Res>(
         parameters: Req,
         completion: @escaping (Result<Res, Error>) -> Void
-    ) where Req : Codable, Res : Codable {
-        
+    ) where Req: Codable, Res: Codable {
+
         return requestDecodable(
             path: LemmyEndpoint.Authentication.login.endpoint,
             parameters: parameters,
@@ -27,12 +27,12 @@ extension RequestsManager: AuthRequestManagerProtocol {
             completion: completion
         )
     }
-    
+
     func register<Req, Res>(
         parameters: Req,
         completion: @escaping (Result<Res, Error>) -> Void
-    ) where Req : Codable, Res : Codable {
-        
+    ) where Req: Codable, Res: Codable {
+
         return requestDecodable(
             path: LemmyEndpoint.Authentication.register.endpoint,
             parameters: parameters,
@@ -40,15 +40,15 @@ extension RequestsManager: AuthRequestManagerProtocol {
             completion: completion
         )
     }
-    
+
     func getCaptcha<Res>(
         completion: @escaping (Result<Res, Error>) -> Void
-    ) where Res : Codable {
-        
+    ) where Res: Codable {
+
         // EXTRA: here is "ok" rootKey
         return requestDecodable(
             path: LemmyEndpoint.Authentication.getCaptcha.endpoint,
-            parameters: Optional<LemmyApiStructs.Authentication.GetCaptchaRequest>.none,
+            parameters: LemmyApiStructs.Authentication.GetCaptchaRequest?.none,
             parsingFromRootKey: "data",
             completion: completion
         )

@@ -9,13 +9,13 @@
 import Foundation
 
 enum LemmyEndpoint {
-    
+
     // User / Authentication / Admin actions
     enum Authentication {
         case login
         case register
         case getCaptcha
-        
+
         var endpoint: String {
             switch self {
             case .login: return "Login"
@@ -24,23 +24,23 @@ enum LemmyEndpoint {
             }
         }
     }
-    
+
     enum User {
         case getUserDetails
         case saveUserSettings
         case getReplies         // Get Replies / Inbox
         case getUserMentions
         case markUserMentionAsRead
-        
+
         case getPrivateMessage
         case createPrivateMessage
         case editPrivateMessage
         case deletePrivateMessage
         case markPrivateMessageAsRead
         case markAllAsRead
-        
+
         case deleteAccount // Permananently deletes your posts and comments
-        
+
         var endpoint: String {
             switch self {
             case .getUserDetails: return "GetUserDetails"
@@ -57,13 +57,13 @@ enum LemmyEndpoint {
             case .deleteAccount: return "DeleteAccount"
             }
         }
-        
+
     }
-    
+
     enum AdminActions {
         case addAdmin
         case banUser
-        
+
         var endpoint: String {
             switch self {
             case .addAdmin: return "AddAdmin"
@@ -71,7 +71,7 @@ enum LemmyEndpoint {
             }
         }
     }
-    
+
     enum Site {
         case listCategories
         case search // All, Comments, Posts, Communities, Users, Url
@@ -82,7 +82,7 @@ enum LemmyEndpoint {
         case transferSite
         case getSiteConfig
         case saveSiteConfig
-        
+
         var endpoint: String {
             switch self {
             case .listCategories: return "ListCategories"
@@ -94,11 +94,11 @@ enum LemmyEndpoint {
             case .transferSite: return "TransferSite"
             case .getSiteConfig: return "GetSiteConfig"
             case .saveSiteConfig: return "SaveSiteConfig"
-                
+
             }
         }
     }
-    
+
     enum Community {
         case getCommunity
         case createCommunity
@@ -111,7 +111,7 @@ enum LemmyEndpoint {
         case followCommunity
         case getFollowedCommunities
         case transferCommunities
-        
+
         var endpoint: String {
             switch self {
             case .getCommunity: return "GetCommunity"
@@ -128,7 +128,7 @@ enum LemmyEndpoint {
             }
         }
     }
-    
+
     enum Post {
         case createPost
         case getPost
@@ -140,7 +140,7 @@ enum LemmyEndpoint {
         case lockPost
         case stickyPost
         case savePost
-        
+
         var endpoint: String {
             switch self {
             case .createPost: return "CreatePost"
@@ -156,7 +156,7 @@ enum LemmyEndpoint {
             }
         }
     }
-    
+
     enum Comment {
         case createComment
         case editComment
@@ -166,7 +166,7 @@ enum LemmyEndpoint {
         case saveComment
         case getComments
         case createCommentLike // score can be 0, -1, or 1
-        
+
         var endpoint: String {
             switch self {
             case .createComment: return "CreateComment"

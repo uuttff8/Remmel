@@ -8,10 +8,10 @@
 
 import UIKit
 
-class LoginCoordinator : Coordinator {
+class LoginCoordinator: Coordinator {
     var rootViewController: LoginViewController
     var childCoordinators: [Coordinator] = []
-    
+
     var navigationController: UINavigationController?
 
     init(navigationController: UINavigationController, authMethod: LemmyAuthMethod) {
@@ -23,4 +23,3 @@ class LoginCoordinator : Coordinator {
         navigationController?.pushViewController(rootViewController, animated: true)
     }
 }
-

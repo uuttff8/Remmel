@@ -12,33 +12,33 @@ class CreateCommunityChooseCategoryCell: UITableViewCell {
     struct ViewData {
         let title: String
     }
-    
+
     // MARK: - Properties
     private var viewData: ViewData?
-    
+
     let commTitle: UILabel = {
         let lbl = UILabel()
         lbl.text = "Choose Category"
         return lbl
     }()
-        
+
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+
         self.contentView.addSubview(commTitle)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func bind(with data: ViewData) {
         self.viewData = data
-        
+
         commTitle.text = data.title
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         self.commTitle.snp.makeConstraints { (make) in

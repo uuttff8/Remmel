@@ -8,16 +8,16 @@
 
 import UIKit
 
-class CreatePostCoordinator : Coordinator {
+class CreatePostCoordinator: Coordinator {
     var rootViewController: CreatePostScreenViewController
     var childCoordinators: [Coordinator] = []
-    
+
     var navigationController: UINavigationController?
-    
+
     init(navigationController: UINavigationController?) {
         self.rootViewController = CreatePostScreenViewController()
         self.navigationController = navigationController
-        
+
         self.navigationController?.setViewControllers([rootViewController], animated: true)
     }
 
@@ -25,20 +25,20 @@ class CreatePostCoordinator : Coordinator {
         rootViewController.coordinator = self
         navigationController?.presentationController?.delegate = rootViewController
     }
-    
+
     func goToChoosingCommunity(model: CreatePostScreenModel) {
         let choosingVc = ChooseCommunityViewController(model: model)
         choosingVc.coordinator = self
         navigationController?.pushViewController(choosingVc, animated: true)
     }
-    
+
     func goToPost(post: LemmyApiStructs.PostView) {
         rootViewController.dismiss(animated: true, completion: nil)
-        
+
         if let presentingVc = rootViewController.presentingViewController as? LemmyTabBarController {
             presentingVc.coordinator?.goToPost(post: post)
         }
-        
+
 //        self.navigationController?.pushViewController(postScreen, animated: true)
     }
 }

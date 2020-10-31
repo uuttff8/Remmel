@@ -9,9 +9,9 @@
 import UIKit
 
 class LemmyContinueIfLogined {
-    
+
     init(onViewController: UIViewController?, doAction: () -> Void) {
-        if let _ = LemmyShareData.shared.jwtToken {
+        if LemmyShareData.shared.jwtToken != nil {
             doAction()
         }
     }

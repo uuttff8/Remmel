@@ -14,13 +14,12 @@ private protocol SiteRequestManagerProtocol {
                         completion: @escaping (Result<LemmyApiStructs.Site.ListCategoriesResponse, Error>) -> Void)
 }
 
-
 extension RequestsManager: SiteRequestManagerProtocol {
     func getSite<Req, Res>(
         parameters: Req,
         completion: @escaping (Result<Res, Error>) -> Void
-    ) where Req : Codable, Res : Codable {
-        
+    ) where Req: Codable, Res: Codable {
+
         return requestDecodable(
             path: LemmyEndpoint.Site.getSite.endpoint,
             parameters: parameters,
@@ -28,12 +27,12 @@ extension RequestsManager: SiteRequestManagerProtocol {
             completion: completion
         )
     }
-    
+
     func listCategoties(
         parameters: LemmyApiStructs.Site.ListCategoriesRequest,
         completion: @escaping (Result<LemmyApiStructs.Site.ListCategoriesResponse, Error>) -> Void
     ) {
-        
+
         return requestDecodable(
             path: LemmyEndpoint.Site.listCategories.endpoint,
             parameters: parameters,

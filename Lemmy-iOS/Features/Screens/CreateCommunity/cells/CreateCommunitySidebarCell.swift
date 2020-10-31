@@ -9,9 +9,9 @@
 import UIKit
 
 class CreateCommunitySidebarCell: UITableViewCell {
-    
+
     let backView: UIView
-    
+
     lazy var sidebarTextView: UITextView = {
         let tv = UITextView()
         tv.font = .systemFont(ofSize: 17)
@@ -19,14 +19,14 @@ class CreateCommunitySidebarCell: UITableViewCell {
         tv.placeholder = "Sidebar"
         return tv
     }()
-    
+
     init(backView: UIView) {
         self.backView = backView
         super.init(style: .default, reuseIdentifier: String(describing: Self.self))
         selectionStyle = .none
-        
+
         contentView.addSubview(sidebarTextView)
-        
+
         sidebarTextView.delegate = self
         sidebarTextView.snp.makeConstraints { (make) in
             make.top.equalToSuperview().inset(5)
@@ -35,7 +35,7 @@ class CreateCommunitySidebarCell: UITableViewCell {
             make.bottom.equalTo(contentView).inset(5)
         }
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -49,7 +49,7 @@ extension CreateCommunitySidebarCell: UITextViewDelegate {
             }
         }
     }
-    
+
     func textViewDidEndEditing(_ textView: UITextView) {
         UIView.animate(withDuration: 0.2) {
             if self.backView.frame.origin.y != 0 {
@@ -57,7 +57,7 @@ extension CreateCommunitySidebarCell: UITextViewDelegate {
             }
         }
     }
-    
+
     func textViewDidChange(_ textView: UITextView) {
         if let placeholderLabel = textView.viewWithTag(100) as? UILabel {
             placeholderLabel.isHidden = !textView.text.isEmpty

@@ -12,14 +12,14 @@ enum LemmySortType: String, Codable, CaseIterable {
     case active = "Active"
     case hot = "Hot"
     case new = "New"
-    
+
     case topDay = "TopDay"
     case week = "Week"
     case month = "Month"
     case all = "All"
-    
+
     case topAll = "TopAll"
-    
+
     var label: String {
         switch self {
         case .active: return "Active"
@@ -32,7 +32,7 @@ enum LemmySortType: String, Codable, CaseIterable {
         case .topAll: return "TopAll"
         }
     }
-    
+
     var index: Int {
         switch self {
         case .active: return 0
@@ -50,14 +50,14 @@ enum LemmySortType: String, Codable, CaseIterable {
 enum LemmyContentType: String, Codable, CaseIterable {
     case posts = "Posts"
     case comments = "Comments"
-    
+
     var label: String {
         switch self {
         case .posts: return "Posts"
         case .comments: return "Comments"
         }
     }
-    
+
     var index: Int {
         switch self {
         case .posts: return 0
@@ -69,14 +69,14 @@ enum LemmyContentType: String, Codable, CaseIterable {
 enum LemmyFeedType: String, Codable, CaseIterable {
     case subscribed = "Subscribed"
     case all = "All"
-    
+
     var label: String {
         switch self {
         case .all: return "All"
         case .subscribed: return "Subscribed"
         }
     }
-    
+
     var index: Int {
         switch self {
         case .subscribed: return 0
@@ -89,12 +89,12 @@ enum LemmyApiStructs {
     enum PostType {
         case link, pictureAndText, plainText
     }
-    
+
     // MARK: - Error -
     struct ErrorResponse: Codable, Equatable {
         let error: String
     }
-    
+
     // MARK: - PostView -
     struct PostView: Codable, Equatable, Hashable {
         let id: Int
@@ -142,7 +142,7 @@ enum LemmyApiStructs {
         let subscribed: Bool?
         let read: Bool?
         let saved: Bool?
-        
+
         enum CodingKeys: String, CodingKey {
             case id, name, url, body
             case communityId = "community_id"
@@ -174,20 +174,20 @@ enum LemmyApiStructs {
             case userId = "user_id"
             case myVote = "my_vote", subscribed, read, saved
         }
-        
+
         var postType: PostType {
             if self.url != nil {
                 return PostType.link
             }
-            
-            if ((self.url?.contains("https://dev.lemmy.ml/pictrs/image")) != nil) {
+
+            if (self.url?.contains("https://dev.lemmy.ml/pictrs/image")) != nil {
                 return PostType.pictureAndText
             }
-            
+
             return PostType.plainText
         }
     }
-    
+
     // MARK: - CommentView -
     struct CommentView: Codable, Equatable, Hashable {
         let id: Int
@@ -225,7 +225,7 @@ enum LemmyApiStructs {
         let subscribed: Bool?
         let read: Bool
         let saved: Bool?
-        
+
         enum CodingKeys: String, CodingKey {
             case id, content
             case creatorId = "creator_id"
@@ -254,7 +254,7 @@ enum LemmyApiStructs {
             case subscribed, read, saved
         }
     }
-    
+
     struct ModRemoveCommentView: Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
@@ -270,7 +270,7 @@ enum LemmyApiStructs {
         let postName: String
         let communityId: Int
         let communityName: String
-        
+
         enum CodingKeys: String, CodingKey {
             case id
             case modUserId = "mod_user_id"
@@ -287,7 +287,7 @@ enum LemmyApiStructs {
             case communityName = "community_name"
         }
     }
-    
+
     // MARK: - CommunityView -
     struct CommunityView: Codable, Equatable, Hashable {
         let id: Int
@@ -312,7 +312,7 @@ enum LemmyApiStructs {
         let hotRank: Int
         let userId: Int?
         let subscribed: Bool?
-        
+
         enum CodingKeys: String, CodingKey {
             case id, name, title, icon, banner, description
             case categoryId = "category_id"
@@ -334,7 +334,7 @@ enum LemmyApiStructs {
             case subscribed
         }
     }
-    
+
     struct ModRemoveCommunityView: Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
@@ -345,7 +345,7 @@ enum LemmyApiStructs {
         let when: String // Timestamp
         let modUsername: String
         let communityName: String
-        
+
         enum CodingKeys: String, CodingKey {
             case id
             case modUserId = "mod_user_id"
@@ -356,7 +356,7 @@ enum LemmyApiStructs {
             case communityName = "community_name"
         }
     }
-    
+
     struct ModBanFromCommunityView: Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
@@ -369,7 +369,7 @@ enum LemmyApiStructs {
         let modUsername: String
         let otherUsername: String
         let communityName: String
-        
+
         enum CodingKeys: String, CodingKey {
             case id
             case modUserId = "mod_user_id"
@@ -382,8 +382,7 @@ enum LemmyApiStructs {
             case communityName = "community_name"
         }
     }
-    
-    
+
     struct ModAddCommunityView: Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
@@ -394,7 +393,7 @@ enum LemmyApiStructs {
         let modUsername: String
         let otherUsername: String
         let communityName: String
-        
+
         enum CodingKeys: String, CodingKey {
             case id
             case modUserId = "mod_user_id"
@@ -407,7 +406,7 @@ enum LemmyApiStructs {
             case communityName = "community_name"
         }
     }
-    
+
     // MARK: - CommunityModeratorView -
     struct CommunityModeratorView: Codable, Equatable {
         let id: Int
@@ -423,7 +422,7 @@ enum LemmyApiStructs {
         let communityLocal: Bool
         let communityName: String
         let communityIcon: String?
-        
+
         enum CodingKeys: String, CodingKey {
             case id
             case communityId = "community_id"
@@ -440,7 +439,7 @@ enum LemmyApiStructs {
             case communityIcon = "community_icon"
         }
     }
-    
+
     struct ModRemovePostView: Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
@@ -452,7 +451,7 @@ enum LemmyApiStructs {
         let postName: String
         let communityId: Int
         let communityName: String
-        
+
         enum CodingKeys: String, CodingKey {
             case id
             case modUserId = "mod_user_id"
@@ -465,7 +464,7 @@ enum LemmyApiStructs {
             case communityName = "community_name"
         }
     }
-    
+
     struct ModLockPostView: Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
@@ -476,7 +475,7 @@ enum LemmyApiStructs {
         let postName: String
         let communityId: Int
         let communityName: String
-    
+
         enum CodingKeys: String, CodingKey {
             case id
             case modUserId = "mod_user_id"
@@ -489,7 +488,7 @@ enum LemmyApiStructs {
             case communityName = "community_name"
         }
     }
-    
+
     struct ModStickyPostView: Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
@@ -500,7 +499,7 @@ enum LemmyApiStructs {
         let postName: String
         let communityId: Int
         let communityName: String
-        
+
         enum CodingKeys: String, CodingKey {
             case id
             case modUserId = "mod_user_id"
@@ -513,7 +512,7 @@ enum LemmyApiStructs {
             case communityName = "community_name"
         }
     }
-    
+
     // MARK: - UserView -
     struct UserView: Codable, Equatable, Hashable {
         let id: Int
@@ -532,7 +531,7 @@ enum LemmyApiStructs {
         let postScore: Int
         let numberOfComments: Int
         let commentScore: Int
-        
+
         enum CodingKeys: String, CodingKey {
             case id
             case actorId = "actor_id"
@@ -547,7 +546,7 @@ enum LemmyApiStructs {
             case commentScore = "comment_score"
         }
     }
-    
+
     // MARK: - MyUser -
     // inner struct in lemmy backend called User_, that is why its not a *View
     struct MyUser: Codable, Equatable {
@@ -576,7 +575,7 @@ enum LemmyApiStructs {
         let publicKey: String?
         let lastRefreshedAt: String // Timestamp
         let banner: String?
-        
+
         enum CodingKeys: String, CodingKey {
             case id, name
             case preferredUsername = "preferred_username"
@@ -599,7 +598,7 @@ enum LemmyApiStructs {
             case banner
         }
     }
-    
+
     struct ModBanView: Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
@@ -610,7 +609,7 @@ enum LemmyApiStructs {
         let when: String
         let modUsername: String
         let otherUsername: String
-        
+
         enum CodingKeys: String, CodingKey {
             case id
             case modUserId = "mod_user_id"
@@ -621,7 +620,7 @@ enum LemmyApiStructs {
             case otherUsername = "other_user_name"
         }
     }
-    
+
     struct ModAddView: Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
@@ -630,7 +629,7 @@ enum LemmyApiStructs {
         let when: String // Timestamp
         let modUsername: String
         let otherUsername: String
-        
+
         enum CodingKeys: String, CodingKey {
             case id
             case modUserId = "mod_user_id"
@@ -641,7 +640,7 @@ enum LemmyApiStructs {
             case otherUsername = "other_user_name"
         }
     }
-    
+
     // MARK: - CommunityFollowerView -
     struct CommunityFollowerView: Codable, Equatable {
         let id: Int
@@ -657,7 +656,7 @@ enum LemmyApiStructs {
         let communityLocal: Bool
         let communityName: String
         let communityIcon: String?
-        
+
         enum CodingKeys: String, CodingKey {
             case id
             case communityId = "community_id"
@@ -674,7 +673,7 @@ enum LemmyApiStructs {
             case communityIcon = "community_icon"
         }
     }
-    
+
     // MARK: - ReplyView -
     struct ReplyView: Codable, Equatable {
         let id: Int
@@ -713,7 +712,7 @@ enum LemmyApiStructs {
         let subscribed: Bool?
         let saved: Bool?
         let recipientId: Int
-        
+
         enum CodingKeys: String, CodingKey {
             case id
             case creatorId = "creator_id"
@@ -746,7 +745,7 @@ enum LemmyApiStructs {
             case recipientId = "recipient_id"
         }
     }
-    
+
     // MARK: - UserMentionView -
     struct UserMentionView: Codable, Equatable {
         let id: Int
@@ -784,7 +783,7 @@ enum LemmyApiStructs {
         let recipientId: Int
         let recipientActorId: String
         let recipientLocal: Bool
-        
+
         enum CodingKeys: String, CodingKey {
             case id
             case userMentionId = "user_mention_id"
@@ -817,7 +816,7 @@ enum LemmyApiStructs {
             case recipientLocal = "recipient_local"
         }
     }
-    
+
     // MARK: - SiteView -
     struct SiteView: Codable, Equatable {
         let id: Int
@@ -838,7 +837,7 @@ enum LemmyApiStructs {
         let numberOfPosts: Int
         let numberOfComments: Int
         let numberOfCommunities: Int
-        
+
         enum CodingKeys: String, CodingKey {
             case id, name, description
             case creatorId = "creator_id"
@@ -856,7 +855,7 @@ enum LemmyApiStructs {
             case numberOfCommunities = "number_of_communities"
         }
     }
-    
+
     // MARK: - PrivateMessageView -
     struct PrivateMessageView: Codable, Equatable, Hashable {
         let id: Int
@@ -878,7 +877,7 @@ enum LemmyApiStructs {
         let recipientAvatar: String?
         let recipientActorId: String
         let recipientLocal: Bool
-        
+
         enum CodingKeys: String, CodingKey {
             case id
             case creatorId = "creator_id"
@@ -898,7 +897,7 @@ enum LemmyApiStructs {
             case recipientLocal = "recipient_local"
         }
     }
-    
+
     // MARK: - CategoryView -
     // usually referred in lemmy-db as just Category, we name it *_View just because convention
     struct CategoryView: Codable, Equatable, Hashable {

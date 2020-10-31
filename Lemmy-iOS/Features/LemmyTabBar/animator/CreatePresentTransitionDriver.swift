@@ -9,7 +9,7 @@
 import UIKit
 
 class CreatePresentTransitionDriver {
-    
+
     // MARK: - Properties
     var animator: UIViewPropertyAnimator?
     private let ctx: UIViewControllerContextTransitioning
@@ -19,7 +19,7 @@ class CreatePresentTransitionDriver {
     private let fromView: UIView
     private let toView: UIView
     private let createViewController: CreatePostOrCommunityViewController
-    
+
     init(transitionContext: UIViewControllerContextTransitioning) {
         ctx = transitionContext
         container = transitionContext.containerView
@@ -31,18 +31,18 @@ class CreatePresentTransitionDriver {
 
         createAnimator()
     }
-    
+
     // MARK: - Methods
     private func createAnimator() {
-        
+
         container.addSubview(toView)
-        
+
         // layout create view controller, without this it will not be layouted
         self.createViewController.view.layoutIfNeeded()
 
         animator = UIViewPropertyAnimator(duration: CreateTransitionDelegateImpl.duration, curve: .easeIn, animations: {
             self.fromVC.view.alpha = 0.5
-            
+
             // UIScreen.main.bounds.height / 4.5
             self.createViewController.createView.snp.makeConstraints { (make) in
                 make.height.equalTo(UIScreen.main.bounds.height / 4.5)
@@ -51,13 +51,13 @@ class CreatePresentTransitionDriver {
         })
 
         animator?.startAnimation()
-        
+
         animator?.addCompletion { [weak self] _ in
             self?.completeAnimation()
         }
 
     }
-    
+
     private func completeAnimation() {
         let success = !ctx.transitionWasCancelled
         ctx.completeTransition(success)

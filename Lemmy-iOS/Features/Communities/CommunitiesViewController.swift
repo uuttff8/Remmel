@@ -9,9 +9,9 @@
 import UIKit
 
 class CommunitiesViewController: UIViewController {
-    
+
     let model = CommunitiesModel()
-    
+
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.tableFooterView = UIView()
@@ -21,11 +21,11 @@ class CommunitiesViewController: UIViewController {
         tableView.separatorStyle = .none
         return tableView
     }()
-    
+
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.systemBackground
         self.navigationItem.title = "Communities"
-        
+
         setupTableView()
         model.loadCommunities()
         model.dataLoaded = { [weak self] in
@@ -33,13 +33,13 @@ class CommunitiesViewController: UIViewController {
             self.tableView.reloadData()
         }
     }
-    
+
     private func setupTableView() {
         tableView.delegate = model
         tableView.dataSource = model
-        
+
         self.view.addSubview(tableView)
-        
+
         tableView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }

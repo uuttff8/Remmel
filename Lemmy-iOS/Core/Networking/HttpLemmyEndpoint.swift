@@ -10,11 +10,11 @@ import Foundation
 
 enum HttpLemmyEndpoint {
     enum Pictrs: String {
-        
+
         static let pictrs = "/pictrs"
-        
+
         case image
-        
+
         var endpoint: String {
             switch self {
             case .image: return "https://dev.lemmy.ml\(Self.pictrs)/image"

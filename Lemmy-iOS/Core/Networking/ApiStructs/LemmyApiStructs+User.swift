@@ -10,7 +10,7 @@ import Foundation
 
 extension LemmyApiStructs {
     enum User {
-        
+
         // MARK: - GetUserDetails
         struct GetUserDetailsRequest: Codable, Equatable {
             let userId: Int?
@@ -21,7 +21,7 @@ extension LemmyApiStructs {
             let communityId: Int?
             let savedOnly: Bool
             let auth: String?
-            
+
             enum CodingKeys: String, CodingKey {
                 case userId = "user_id"
                 case username, sort, page, limit
@@ -30,15 +30,15 @@ extension LemmyApiStructs {
                 case auth
             }
         }
-        
+
         struct GetUserDetailsResponse: Codable, Equatable {
             let user: UserView
-            let follows: Array<CommunityFollowerView>
-            let moderates: Array<CommunityModeratorView>
-            let comments: Array<CommentView>
-            let posts: Array<PostView>
+            let follows: [CommunityFollowerView]
+            let moderates: [CommunityModeratorView]
+            let comments: [CommentView]
+            let posts: [PostView]
         }
-        
+
         // MARK: - SaveUserSettings
         struct SaveUserSettingsRequest: Codable, Equatable {
             let showNsfw: Bool
@@ -58,7 +58,7 @@ extension LemmyApiStructs {
             let showAvatars: Bool
             let sendNotificationsToEmail: Bool
             let auth: String
-            
+
             enum CodingKeys: String, CodingKey {
                 case showNsfw = "show_nsfw"
                 case theme
@@ -76,24 +76,30 @@ extension LemmyApiStructs {
                 case auth
             }
         }
-        
+
         struct SaveUserSettingsResponse: Codable, Equatable {
             let jwt: String
         }
-        
+
         // MARK: - Get Replies / Inbox
         struct GetRepliesRequest: Codable, Equatable {
             let sort: LemmySortType
             let page: Int?
             let limit: Int?
-            let unread_only: Bool
+            let unreadOnly: Bool
             let auth: String
+
+            enum CodingKeys: String, CodingKey {
+                case sort, page, limit
+                case unreadOnly = "unread_only"
+                case auth
+            }
         }
-        
+
         struct GetRepliesResponse: Codable, Equatable {
-            let replies: Array<ReplyView>
+            let replies: [ReplyView]
         }
-        
+
         // MARK: - GetUserMentions
         struct GetUserMentionsRequest: Codable, Equatable {
             let sort: LemmySortType
@@ -101,16 +107,16 @@ extension LemmyApiStructs {
             let limit: Int?
             let unreadOnly: Bool
             let auth: String
-            
+
             enum CodingKeys: String, CodingKey {
                 case sort, page, limit
                 case unreadOnly = "unread_only"
                 case auth
             }
         }
-        
+
         struct GetUserMentionsResponse: Codable, Equatable {
-            let mentions: Array<UserMentionView>
+            let mentions: [UserMentionView]
         }
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 
 extension LemmyApiStructs {
     enum Community {
-        
+
         // MARK: - ListCommunities
         struct ListCommunitiesRequest: Codable, Equatable {
             let sort: LemmySortType
@@ -18,11 +18,11 @@ extension LemmyApiStructs {
             let page: Int?
             let auth: String?
         }
-        
+
         struct ListCommunitiesResponse: Codable, Equatable {
-            let communities: Array<CommunityView>
+            let communities: [CommunityView]
         }
-        
+
         // MARK: - CreateCommunity -
         struct CreateCommunityRequest: Codable, Equatable, Hashable {
             let name: String
@@ -33,14 +33,14 @@ extension LemmyApiStructs {
             let categoryId: Int
             let nsfw: Bool
             let auth: String
-            
+
             enum CodingKeys: String, CodingKey {
                 case name, title, description, icon, banner
                 case categoryId = "category_id"
                 case nsfw, auth
             }
         }
-        
+
         struct CreateCommunityResponse: Codable, Equatable, Hashable {
             let community: CommunityView
         }

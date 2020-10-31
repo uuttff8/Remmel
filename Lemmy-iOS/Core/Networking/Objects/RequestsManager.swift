@@ -11,7 +11,7 @@ import UIKit
 class RequestsManager {
     let wsClient = WSLemmyClient()
     let httpClient = HttpLemmyClient()
-    
+
     func requestDecodable<Req: Codable, Res: Codable>(
         path: String,
         parameters: Req? = nil,
@@ -22,7 +22,7 @@ class RequestsManager {
             self.decode(data: outString.data(using: .utf8)!, rootKey: rootKey, completion: completion)
         }
     }
-    
+
     func uploadImage<Res: Codable>(
         path: String,
         image: UIImage,
@@ -33,7 +33,7 @@ class RequestsManager {
             case .failure(let why):
                 completion(.failure(why))
             case .success(let outData):
-                
+
                 guard let decoded = try? JSONDecoder().decode(Res.self, from: outData) else {
                     completion(.failure("Failed to decode from \(Res.self)".errorDescription))
                     return
@@ -42,26 +42,26 @@ class RequestsManager {
             }
         }
     }
-    
+
     private func decode<D: Codable>(
         data: Data,
         rootKey: String?,
         completion: ((Result<D, Error>) -> Void)
     ) {
         let decoder = JSONDecoder()
-        
+
         if let rootKey = rootKey {
-            
+
             do {
                 let dict = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                 guard dict?.keys.firstIndex(of: rootKey) != nil, let items = dict?[rootKey] else {
-                    
+
                     // if no root key it maybe an error from backend
                     if let backendError = try? JSONDecoder().decode(LemmyApiStructs.ErrorResponse.self, from: data) {
                         completion(.failure(backendError.error))
                         return
                     }
-                    
+
                     completion(.failure("Root key not found"))
                     return
                 }

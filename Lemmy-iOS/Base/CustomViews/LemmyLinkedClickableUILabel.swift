@@ -15,7 +15,7 @@ class LemmyLinkedClickableUILabel: UILabel {
     var linkedRange: NSRange!
     var completion: YourCompletion?
 
-    @objc func linkClicked(sender: UITapGestureRecognizer){
+    @objc func linkClicked(sender: UITapGestureRecognizer) {
 
         if let completionBlock = completion {
 
@@ -38,7 +38,7 @@ class LemmyLinkedClickableUILabel: UILabel {
  *  handler when the link is clicked
  */
     @discardableResult
-    public func setLinkedTextWithHandler(text:String, link: String, handler: @escaping ()->()) -> Bool {
+    public func setLinkedTextWithHandler(text: String, link: String, handler: @escaping () -> Void) -> Bool {
 
         let attributextText = NSMutableAttributedString(string: text)
         let foundRange = attributextText.mutableString.range(of: link)

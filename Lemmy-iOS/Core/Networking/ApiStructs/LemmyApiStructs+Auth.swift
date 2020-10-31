@@ -10,22 +10,22 @@ import Foundation
 
 extension LemmyApiStructs {
     enum Authentication {
-        
+
         // MARK: - Login -
         struct LoginRequest: Codable, Equatable {
             let usernameOrEmail: String
             let password: String
-            
+
             enum CodingKeys: String, CodingKey {
                 case usernameOrEmail = "username_or_email"
                 case password
             }
         }
-        
+
         struct LoginResponse: Codable, Equatable {
             let jwt: String
         }
-        
+
         // MARK: - Register -
         struct RegisterRequest: Codable, Equatable {
             let username: String
@@ -36,7 +36,7 @@ extension LemmyApiStructs {
             let showNsfw: Bool
             let captchaUuid: String?
             let captchaAnswer: String?
-            
+
             enum CodingKeys: String, CodingKey {
                 case username, email
                 case password
@@ -47,19 +47,19 @@ extension LemmyApiStructs {
                 case captchaAnswer = "captcha_answer"
             }
         }
-        
+
         struct RegisterResponse: Codable, Equatable {
             let jwt: String
         }
-        
+
         // MARK: - GetCaptcha -
         struct GetCaptchaRequest: Codable, Equatable {  }
-        
+
         // Will be undefined if captchas are disabled
         struct GetCaptchaResponse: Codable, Equatable {
             let ok: GetCaptchaResponseOk?
         }
-        
+
         struct GetCaptchaResponseOk: Codable, Equatable {
             let png: String // A Base64 encoded png
             let wav: String? //  A Base64 encoded wav audio file

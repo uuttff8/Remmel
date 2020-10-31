@@ -11,15 +11,18 @@ import Foundation
 private protocol LemmyPostRequestManagerProtocol {
     func getPosts<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping ((Result<Res, Error>) -> Void))
     func getPost<Req: Codable, Res: Codable>(parameters: Req, completion: @escaping ((Result<Res, Error>) -> Void))
-    func createPost<Res: Codable>(parameters: LemmyApiStructs.Post.CreatePostRequest, completion: @escaping ((Result<Res, Error>) -> Void))
+    func createPost<Res: Codable>(
+        parameters: LemmyApiStructs.Post.CreatePostRequest,
+        completion: @escaping ((Result<Res, Error>) -> Void)
+    )
 }
 
 extension RequestsManager: LemmyPostRequestManagerProtocol {
     func getPosts<Req, Res>(
         parameters: Req,
         completion: @escaping (Result<Res, Error>) -> Void
-    ) where Req : Codable, Res : Codable {
-        
+    ) where Req: Codable, Res: Codable {
+
         return requestDecodable(
             path: LemmyEndpoint.Post.getPosts.endpoint,
             parameters: parameters,
@@ -27,7 +30,7 @@ extension RequestsManager: LemmyPostRequestManagerProtocol {
             completion: completion
         )
     }
-    
+
     func getPost<Req: Codable, Res: Codable>(
         parameters: Req,
         completion: @escaping ((Result<Res, Error>) -> Void)
@@ -39,7 +42,7 @@ extension RequestsManager: LemmyPostRequestManagerProtocol {
             completion: completion
         )
     }
-    
+
     func createPost<Res: Codable>(
         parameters: LemmyApiStructs.Post.CreatePostRequest,
         completion: @escaping ((Result<Res, Error>) -> Void)

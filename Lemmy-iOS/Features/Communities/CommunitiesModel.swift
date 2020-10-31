@@ -9,21 +9,22 @@
 import UIKit
 
 class CommunitiesModel: NSObject {
-    
+
     var dataLoaded: (() -> Void)?
-    
-    var communitiesDataSource: Array<LemmyApiStructs.CommunityView>?
-    
+
+    var communitiesDataSource: [LemmyApiStructs.CommunityView]?
+
     func loadCommunities() {
         let parameters = LemmyApiStructs.Community.ListCommunitiesRequest(sort: LemmySortType.topAll,
                                                                           limit: 100,
                                                                           page: 1,
                                                                           auth: LemmyShareData.shared.jwtToken)
-        
+
         ApiManager.shared.requestsManager
-            .listCommunities(parameters: parameters)
-            { (res: Result<LemmyApiStructs.Community.ListCommunitiesResponse, Error>) in
-                
+            .listCommunities(
+                parameters: parameters
+            ) { (res: Result<LemmyApiStructs.Community.ListCommunitiesResponse, Error>) in
+
                 switch res {
                 case .success(let data):
                     self.communitiesDataSource = data.communities
@@ -37,21 +38,20 @@ class CommunitiesModel: NSObject {
     }
 }
 
-
 extension CommunitiesModel: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let communities = communitiesDataSource else { return 0 }
         return communities.count
     }
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let communities = communitiesDataSource
             else { return UITableViewCell() }
-        
+
         let cell = CommunityPreviewTableCell(community: communities[indexPath.row])
         cell.delegate = self
         return cell

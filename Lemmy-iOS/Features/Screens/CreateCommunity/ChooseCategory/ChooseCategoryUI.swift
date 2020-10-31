@@ -10,33 +10,33 @@ import UIKit
 import Combine
 
 class ChooseCategoryUI: UIView {
-    
+
     // MARK: - Properties
     var dismissView: (() -> Void)?
-    
+
     var cancellable = Set<AnyCancellable>()
-    
+
     private let tableView = LemmyTableView(style: .plain, separator: true)
     private let searchBar = UISearchBar()
     private let model: CreateCommunityModel
     private var shouldShowFiltered = false
-    
+
     var currentCellData: ((_ indexPath: IndexPath) -> LemmyApiStructs.CategoryView) {
         if !model.filteredCategories.value.isEmpty {
-            
+
             return { (indexPath: IndexPath) in
                 self.model.filteredCategories.value[indexPath.row]
             }
-            
+
         } else {
-            
+
             return { indexPath in
                 self.model.categories.value[indexPath.row]
             }
-            
+
         }
     }
-    
+
     // MARK: - Init
     init(model: CreateCommunityModel) {
         self.model = model
@@ -44,11 +44,11 @@ class ChooseCategoryUI: UIView {
         setupTableView()
         setupSearchController()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Overrided
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -56,7 +56,7 @@ class ChooseCategoryUI: UIView {
             make.top.equalTo(safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalToSuperview()
         }
-        
+
         self.tableView.snp.makeConstraints { (make) in
             make.top.equalTo(self.searchBar.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
@@ -68,26 +68,26 @@ class ChooseCategoryUI: UIView {
         self.addSubview(tableView)
         tableView.dataSource = self
         tableView.delegate = self
-        
+
         model.categories
             .receive(on: RunLoop.main)
-            .sink { (categories) in
+            .sink { (_) in
                 self.tableView.reloadData()
             }.store(in: &cancellable)
-        
+
         model.filteredCategories
             .receive(on: RunLoop.main)
-            .sink { (categories) in
+            .sink { (_) in
                 self.tableView.reloadData()
             }.store(in: &cancellable)
     }
-    
+
     private func setupSearchController() {
         self.addSubview(searchBar)
         searchBar.delegate = self
         searchBar.placeholder = "Search"
     }
-    
+
     // MARK: Actions
     @objc func reload(_ searchBar: UISearchBar) {
         if let text = searchBar.text, text != "" {
@@ -104,32 +104,32 @@ class ChooseCategoryUI: UIView {
 
 extension ChooseCategoryUI: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+
         if shouldShowFiltered {
             if model.filteredCategories.value.isEmpty {
                 self.tableView.setEmptyMessage("Not found")
             }
-            
+
             return model.filteredCategories.value.count
         }
-        
+
         return model.categories.value.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let data = currentCellData(indexPath)
-        
+
         let cell = CreateCommunityChooseCategoryCell()
         cell.bind(with: CreateCommunityChooseCategoryCell.ViewData(title: data.name))
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let data: LemmyApiStructs.CategoryView = currentCellData(indexPath)
-        
+
         model.selectedCategory.send(data)
         dismissView?()
-        
+
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
@@ -142,27 +142,26 @@ extension ChooseCategoryUI: UISearchBarDelegate {
                                                object: searchBar)
         self.perform(#selector(reload(_:)), with: searchBar, afterDelay: 0.5)
     }
-    
+
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         shouldShowFiltered = false
         searchBar.text = ""
         model.filteredCategories.value.removeAll()
         searchBar.resignFirstResponder()
     }
-    
+
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
     }
-    
+
     public func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
         shouldShowFiltered = false
         searchBar.setShowsCancelButton(false, animated: true)
         return true
     }
-    
+
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         shouldShowFiltered = false
         searchBar.setShowsCancelButton(false, animated: true)
     }
 }
-

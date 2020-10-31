@@ -14,18 +14,18 @@ class CreateCommunityNameCell: UITableViewCell {
         tf.placeholder = "Name"
         return tf
     }()
-    
+
     init() {
         super.init(style: .default, reuseIdentifier: String(describing: Self.self))
-        
+
         self.contentView.addSubview(nameTextField)
         selectionStyle = .none
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         nameTextField.snp.makeConstraints { (make) in

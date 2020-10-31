@@ -8,10 +8,10 @@
 
 import UIKit
 
-class CommunitiesCoordinator : Coordinator {
+class CommunitiesCoordinator: Coordinator {
     var rootViewController: CommunitiesViewController
     var childCoordinators: [Coordinator] = []
-    
+
     var navigationController: UINavigationController?
 
     init(navigationController: UINavigationController?) {

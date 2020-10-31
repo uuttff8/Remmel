@@ -14,17 +14,17 @@ class LemmyProfileIconView: UIView {
         btn.setImage(UIImage(systemName: "person"), for: .normal)
         return btn
     }()
-    
+
     init() {
         super.init(frame: .zero)
-        
+
         self.addSubview(imageButton)
-        
+
         imageButton.snp.makeConstraints { (make) in
             make.top.bottom.leading.trailing.equalToSuperview()
         }
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

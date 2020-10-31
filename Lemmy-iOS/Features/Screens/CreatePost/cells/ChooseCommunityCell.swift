@@ -14,28 +14,28 @@ class ChooseCommunityCell: UITableViewCell {
         let title: String
         let icon: String?
     }
-    
+
     // MARK: - Properties
     private var viewData: ViewData?
     private let imageSize = CGSize(width: 30, height: 30)
-    
+
     lazy var commImageView: UIImageView = {
         let iv = UIImageView()
         iv.layer.cornerRadius = self.imageSize.height
         return iv
     }()
-    
+
     let commTitle: UILabel = {
         let lbl = UILabel()
         return lbl
     }()
-    
+
     let stackView = UIStackView()
-        
+
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+
         self.contentView.addSubview(stackView)
         self.stackView.addArrangedSubview(commImageView)
         self.stackView.addArrangedSubview(commTitle)
@@ -43,20 +43,20 @@ class ChooseCommunityCell: UITableViewCell {
         self.stackView.alignment = .leading
         self.stackView.addArrangedSubview(UIView())
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func bind(with data: ViewData) {
         self.viewData = data
-        
+
         if let imageString = data.icon, let url = URL(string: imageString) {
             Nuke.loadImage(with: ImageRequest(url: url), into: commImageView)
         } else {
             self.commImageView.isHidden = true
         }
-        
+
         self.commImageView.snp.makeConstraints { (make) in
             make.size.equalTo(imageSize)
             make.centerY.equalToSuperview()
@@ -66,7 +66,7 @@ class ChooseCommunityCell: UITableViewCell {
         }
         commTitle.text = data.title
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         self.stackView.snp.makeConstraints { (make) in
