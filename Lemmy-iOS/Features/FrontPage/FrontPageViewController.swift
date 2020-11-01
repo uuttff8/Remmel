@@ -117,3 +117,13 @@ extension FrontPageViewController: FrontPageHeaderCellDelegate {
         self.currentFeedType = feed
     }
 }
+
+extension FrontPageViewController: TabBarReselectHandling {
+    func handleReselect() {
+        if let currentVc = currentViewController as? PostsFrontPageViewController {
+            currentVc.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        } else if let currentVc = currentViewController as? CommentsFrontPageViewController {
+            currentVc.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        }
+    }
+}
