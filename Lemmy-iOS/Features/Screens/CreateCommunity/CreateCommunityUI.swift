@@ -138,7 +138,7 @@ extension CreateCommunityUI: UITableViewDelegate, UITableViewDataSource {
 
         switch type {
         case .name:
-            return "Name – used as the identifier for the community, cannot be changed."
+            return "Name – used as the identifier for the community, cannot be changed. Lowercase and underscore only"
         case .displayName:
             return "Display name — shown as the title on the community's page, can be changed."
         default:

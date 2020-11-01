@@ -419,7 +419,7 @@ enum LemmyApiStructs {
     }
 
     // MARK: - CommunityModeratorView -
-    struct CommunityModeratorView: Codable, Equatable {
+    struct CommunityModeratorView: Codable, Equatable, Hashable {
         let id: Int
         let communityId: Int
         let userId: Int

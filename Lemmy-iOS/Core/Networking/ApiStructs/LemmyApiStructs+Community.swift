@@ -44,5 +44,17 @@ extension LemmyApiStructs {
         struct CreateCommunityResponse: Codable, Equatable, Hashable {
             let community: CommunityView
         }
+        
+        // MARK: - GetCommunity -
+        struct GetCommunityRequest: Codable, Equatable, Hashable {
+            let id: Int?
+            let name: String?
+            let auth: String?
+        }
+        
+        struct GetCommunityResponse: Codable, Equatable, Hashable {
+            let community: CommunityView
+            let moderators: [CommunityModeratorView]
+        }
     }
 }
