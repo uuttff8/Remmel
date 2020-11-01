@@ -19,9 +19,9 @@ private protocol LemmyPostRequestManagerProtocol {
         completion: @escaping ((Result<LemmyApiStructs.Post.GetPostResponse, LemmyGenericError>) -> Void)
     )
     
-    func createPost<Res: Codable>(
+    func createPost(
         parameters: LemmyApiStructs.Post.CreatePostRequest,
-        completion: @escaping ((Result<Res, LemmyGenericError>) -> Void)
+        completion: @escaping ((Result<LemmyApiStructs.Post.CreatePostResponse, LemmyGenericError>) -> Void)
     )
 }
 
@@ -51,9 +51,9 @@ extension RequestsManager: LemmyPostRequestManagerProtocol {
         )
     }
 
-    func createPost<Res: Codable>(
+    func createPost(
         parameters: LemmyApiStructs.Post.CreatePostRequest,
-        completion: @escaping ((Result<Res, LemmyGenericError>) -> Void)
+        completion: @escaping ((Result<LemmyApiStructs.Post.CreatePostResponse, LemmyGenericError>) -> Void)
     ) {
         return requestDecodable(
             path: LemmyEndpoint.Post.createPost.endpoint,
