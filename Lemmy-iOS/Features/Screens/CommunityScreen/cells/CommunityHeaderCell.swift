@@ -8,6 +8,7 @@
 
 import UIKit
 import Nuke
+import SwiftyMarkdown
 
 class CommunityHeaderCell: UITableViewCell {
     
@@ -39,8 +40,7 @@ class CommunityHeaderCell: UITableViewCell {
     
     let communityDescriptionLabel: UILabel = {
         let lbl = UILabel()
-        lbl.font = .systemFont(ofSize: 14)
-        lbl.textColor = .systemBlue
+        lbl.font = .systemFont(ofSize: 17)
         lbl.numberOfLines = 3
         return lbl
     }()
@@ -86,7 +86,7 @@ class CommunityHeaderCell: UITableViewCell {
         
         [communityDescriptionLabel, subscribersLabel, postsCountLabel, categoryLabel].forEach { (view) in
             verticalStackView.addArrangedSubview(view)
-        }        
+        }
         
         commImageView.snp.makeConstraints { (make) in
             make.size.equalTo(50)
@@ -122,9 +122,40 @@ class CommunityHeaderCell: UITableViewCell {
         postsCountLabel.text = String(data.numberOfPosts) + " Posts"
         
         if let communityDesciption = data.description {
+//            let md = SwiftyMarkdown(string: communityDesciption)
             communityDescriptionLabel.text = communityDesciption
+            
+            showReadMoreButtonIfTruncated()
+            
         } else {
             communityDescriptionLabel.isHidden = true
         }
     }
+    
+    fileprivate func showReadMoreButtonIfTruncated() {
+        if communityDescriptionLabel.isTruncated {
+            
+            let descriptionReadMoreButton: UILabel = {
+                let lbl = UILabel()
+                lbl.text = "Read more"
+                lbl.textColor = .systemBlue
+                lbl.backgroundColor = .systemBackground
+                return lbl
+            }()
+            
+            descriptionReadMoreButton.addTap {
+                // TODO(uuttff8): present separate with md-rendered desciption
+                fatalError("present separate with md-rendered desciption")
+            }
+            
+            communityDescriptionLabel.addSubview(descriptionReadMoreButton)
+            descriptionReadMoreButton.textAlignment = .right
+            descriptionReadMoreButton.snp.makeConstraints { (make) in
+                make.trailing.equalToSuperview()
+                make.width.equalTo(descriptionReadMoreButton.intrinsicContentSize.width + 15)
+                make.bottom.equalToSuperview()
+            }
+        }
+    }
+
 }

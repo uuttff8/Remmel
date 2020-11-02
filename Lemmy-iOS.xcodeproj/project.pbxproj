@@ -113,6 +113,7 @@
 		4EF3ACD9254EF84B00BEC9F1 /* CommunityScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3ACD8254EF84B00BEC9F1 /* CommunityScreenModel.swift */; };
 		4EF3ACDE254EF85000BEC9F1 /* CommunityScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3ACDD254EF85000BEC9F1 /* CommunityScreenUI.swift */; };
 		4EF3ACEA25502D5600BEC9F1 /* CommunityHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3ACE925502D5600BEC9F1 /* CommunityHeaderCell.swift */; };
+		4EF3ACF625506EC900BEC9F1 /* SwiftyMarkdown in Frameworks */ = {isa = PBXBuildFile; productRef = 4EF3ACF525506EC900BEC9F1 /* SwiftyMarkdown */; };
 		921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -257,6 +258,7 @@
 				4E1070842534F742009EABDA /* KeychainSwift in Frameworks */,
 				921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */,
 				4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */,
+				4EF3ACF625506EC900BEC9F1 /* SwiftyMarkdown in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -746,6 +748,7 @@
 			packageProductDependencies = (
 				4ECCEEFA250C13240075F921 /* SnapKit */,
 				4E1070832534F742009EABDA /* KeychainSwift */,
+				4EF3ACF525506EC900BEC9F1 /* SwiftyMarkdown */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */;
@@ -822,6 +825,7 @@
 			packageReferences = (
 				4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */,
+				4EF3ACF425506EC900BEC9F1 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
@@ -1366,6 +1370,14 @@
 				minimumVersion = 5.0.1;
 			};
 		};
+		4EF3ACF425506EC900BEC9F1 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimonFairbairn/SwiftyMarkdown";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1378,6 +1390,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		4EF3ACF525506EC900BEC9F1 /* SwiftyMarkdown */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EF3ACF425506EC900BEC9F1 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */;
+			productName = SwiftyMarkdown;
 		};
 /* End XCSwiftPackageProductDependency section */
 
