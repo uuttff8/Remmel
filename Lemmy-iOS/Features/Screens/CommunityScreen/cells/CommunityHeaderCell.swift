@@ -37,6 +37,14 @@ class CommunityHeaderCell: UITableViewCell {
         return sv
     }()
     
+    let communityDescriptionLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.font = .systemFont(ofSize: 14)
+        lbl.textColor = .systemBlue
+        lbl.numberOfLines = 3
+        return lbl
+    }()
+    
     let subscribersLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = .systemFont(ofSize: 14)
@@ -76,9 +84,9 @@ class CommunityHeaderCell: UITableViewCell {
             horizontalStackView.addArrangedSubview(view)
         }
         
-        [subscribersLabel, postsCountLabel, categoryLabel].forEach { (view) in
+        [communityDescriptionLabel, subscribersLabel, postsCountLabel, categoryLabel].forEach { (view) in
             verticalStackView.addArrangedSubview(view)
-        }
+        }        
         
         commImageView.snp.makeConstraints { (make) in
             make.size.equalTo(50)
@@ -112,5 +120,11 @@ class CommunityHeaderCell: UITableViewCell {
         subscribersLabel.text = String(data.numberOfSubscribers) + " Subscribers"
         categoryLabel.text = data.categoryName
         postsCountLabel.text = String(data.numberOfPosts) + " Posts"
+        
+        if let communityDesciption = data.description {
+            communityDescriptionLabel.text = communityDesciption
+        } else {
+            communityDescriptionLabel.isHidden = true
+        }
     }
 }
