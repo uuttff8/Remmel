@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Nuke
 
 class CommunityHeaderCell: UITableViewCell {
     
@@ -15,7 +16,7 @@ class CommunityHeaderCell: UITableViewCell {
         return iv
     }()
     
-    let commLabel: UILabel = {
+    let commNameLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = .systemFont(ofSize: 15, weight: .semibold)
         return lbl
@@ -24,6 +25,7 @@ class CommunityHeaderCell: UITableViewCell {
     let followButton: UIButton = {
         let btn = UIButton()
         btn.setTitle("Follow", for: .normal)
+        btn.setTitleColor(.systemRed, for: .normal)
         return btn
     }()
     
@@ -35,33 +37,60 @@ class CommunityHeaderCell: UITableViewCell {
         return sv
     }()
     
+    let subscribersLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.layer.borderWidth = 2
+        lbl.layer.cornerRadius = 4
+        lbl.layer.borderColor = UIColor.systemBlue.cgColor
+        lbl.font = .systemFont(ofSize: 14)
+        return lbl
+    }()
+    
+    let verticalStackView: UIStackView = {
+        let sv = UIStackView()
+        sv.axis = .vertical
+        sv.alignment = .leading
+        sv.spacing = 8
+        return sv
+    }()
+
     init() {
         super.init(style: .default, reuseIdentifier: String(describing: Self.self))
         
         contentView.addSubview(horizontalStackView)
+        contentView.addSubview(verticalStackView)
         
-        [commImageView, commLabel, UIView(), followButton].forEach { (view) in
+        [commImageView, commNameLabel, UIView(), followButton].forEach { (view) in
             horizontalStackView.addArrangedSubview(view)
         }
         
-        commImageView.image = UIImage(systemName: "camera.viewfinder")
-        commLabel.text = "CommName123132"
+        [subscribersLabel].forEach { (view) in
+            verticalStackView.addArrangedSubview(view)
+        }
+        
+        commImageView.snp.makeConstraints { (make) in
+            make.size.equalTo(50)
+        }
+        
+        horizontalStackView.snp.makeConstraints { (make) in
+            make.height.equalTo(commImageView)
+            make.top.equalToSuperview().inset(5)
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.bottom.equalTo(contentView.snp.bottom).inset(5)
+        }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        horizontalStackView.snp.makeConstraints { (make) in
-            make.top.bottom.equalToSuperview().inset(5)
-            make.leading.trailing.equalToSuperview().inset(16)
+    func bind(with data: LemmyApiStructs.CommunityView) {
+        if let commImageString = data.icon {
+            Nuke.loadImage(with: URL(string: commImageString)!, into: commImageView)
+        } else {
+            commImageView.isHidden = true
         }
         
-        commImageView.snp.makeConstraints { (make) in
-            make.size.equalTo(35)
-        }
+        commNameLabel.text = data.name
     }
 }

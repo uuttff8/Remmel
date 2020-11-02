@@ -10,6 +10,7 @@ import UIKit
 
 class PostsFrontPageModel: NSObject {
     var goToPostScreen: ((LemmyApiStructs.PostView) -> Void)?
+    var goToCommunityScreen: ((_ fromPost: LemmyApiStructs.PostView) -> Void)?
     var newDataLoaded: (([LemmyApiStructs.PostView]) -> Void)?
     var dataLoaded: (([LemmyApiStructs.PostView]) -> Void)?
 
@@ -107,8 +108,9 @@ extension PostsFrontPageModel: PostContentTableCellDelegate {
         print(post.creatorName)
     }
 
-    func communityTapped(in post: LemmyApiStructs.PostView) {
-        print(post.communityName)
+    // TODO(uuttff8): Implement coordinator to post
+    func communityTapped(in post: LemmyApiStructs.PostView) {        
+        goToCommunityScreen?(post)
     }
 
     func upvote(post: LemmyApiStructs.PostView) {

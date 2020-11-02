@@ -48,4 +48,9 @@ class FrontPageCoordinator: Coordinator {
         let postScreen = PostScreenViewController(post: post)
         self.navigationController?.pushViewController(postScreen, animated: true)
     }
+    
+    func goToCommunityScreen(communityId: Int) {
+        let commScreen = CommunityScreenViewController(fromId: communityId)
+        self.navigationController?.pushViewController(commScreen, animated: true)
+    }
 }

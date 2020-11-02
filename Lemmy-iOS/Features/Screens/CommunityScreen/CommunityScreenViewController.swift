@@ -11,7 +11,27 @@ import UIKit
 class CommunityScreenViewController: UIViewController {
     
     let model = CommunityScreenModel()
-    let customView = CommunityScreenUI()
+    lazy var customView = CommunityScreenUI(model: self.model)
+    
+    private init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    convenience init(community: LemmyApiStructs.CommunityView) {
+        self.init()
+        
+        model.communitySubject.send(community)
+    }
+    
+    convenience init(fromId: Int) {
+        self.init()
+        
+        model.loadCommunity(id: fromId)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         self.view = customView

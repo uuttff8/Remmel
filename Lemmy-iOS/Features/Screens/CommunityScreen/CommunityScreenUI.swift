@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 class CommunityScreenUI: UIView {
     
@@ -15,11 +16,23 @@ class CommunityScreenUI: UIView {
     }
     
     let tableView = LemmyTableView(style: .plain, separator: false)
+    let model: CommunityScreenModel
+    var cancellable = Set<AnyCancellable>()
     
-    init() {
+    init(model: CommunityScreenModel) {
+        self.model = model
         super.init(frame: .zero)
         
+        self.addSubview(tableView)
         setupTableView()
+        
+        model.communitySubject
+            .receive(on: RunLoop.main)
+            .sink { (community) in
+            if community != nil {
+                self.tableView.reloadData()
+            }
+        }.store(in: &cancellable)
     }
     
     required init?(coder: NSCoder) {
@@ -50,7 +63,10 @@ extension CommunityScreenUI: UITableViewDataSource, UITableViewDelegate {
         
         switch type {
         case .header:
+            guard let communityInfo = model.communitySubject.value else { return UITableViewCell() }
+            
             let cell = CommunityHeaderCell()
+            cell.bind(with: communityInfo)
             return cell
             
         default: return UITableViewCell()

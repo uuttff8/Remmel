@@ -46,6 +46,10 @@ class PostsFrontPageViewController: UIViewController {
         model.goToPostScreen = { [self] (post: LemmyApiStructs.PostView) in
             coordinator?.goToPostScreen(post: post)
         }
+        
+        model.goToCommunityScreen = { [self] (fromPost) in
+            coordinator?.goToCommunityScreen(communityId: fromPost.communityId)
+        }
     }
 
     func addRows(with list: [LemmyApiStructs.PostView], animate: Bool = true) {

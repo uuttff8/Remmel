@@ -103,16 +103,23 @@ extension CommentsFrontPageModel: UITableViewDelegate {
 }
 
 extension CommentsFrontPageModel: CommentContentTableCellDelegate {
+    
+    // TODO(uuttff8): Implement coordinator to post
     func postNameTapped(in comment: LemmyApiStructs.CommentView) {
         print("post name tapped in \(comment.id)")
+        
+        fatalError("Implement coordinator to post")
     }
 
     func usernameTapped(in comment: LemmyApiStructs.CommentView) {
         print(comment.creatorName)
     }
 
+    // TODO(uuttff8): Implement coordinator to post
     func communityTapped(in comment: LemmyApiStructs.CommentView) {
         print(comment.communityName)
+        
+        fatalError("Implement coordinator to post")
     }
 
     func upvote(comment: LemmyApiStructs.CommentView) {
