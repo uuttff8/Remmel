@@ -12,6 +12,17 @@ import SwiftyMarkdown
 
 class CommunityHeaderCell: UITableViewCell {
     
+    var presentParsedVc: ((String) -> Void)?
+    
+    let descriptionReadMoreButton: ResizableButton = {
+        let lbl = ResizableButton()
+        lbl.setTitle("Read more", for: .normal)
+        lbl.setTitleColor(.systemBlue, for: .normal)
+        lbl.backgroundColor = .systemBackground
+        
+        return lbl
+    }()
+
     let commImageView: UIImageView = {
         let iv = UIImageView()
         return iv
@@ -19,7 +30,7 @@ class CommunityHeaderCell: UITableViewCell {
     
     let commNameLabel: UILabel = {
         let lbl = UILabel()
-        lbl.font = .systemFont(ofSize: 15, weight: .semibold)
+        lbl.font = .systemFont(ofSize: 17, weight: .semibold)
         return lbl
     }()
     
@@ -71,11 +82,14 @@ class CommunityHeaderCell: UITableViewCell {
         sv.axis = .vertical
         sv.alignment = .leading
         sv.spacing = 8
+        sv.distribution = .fill
         return sv
     }()
 
     init() {
         super.init(style: .default, reuseIdentifier: String(describing: Self.self))
+        
+        selectionStyle = .none
         
         contentView.addSubview(horizontalStackView)
         contentView.addSubview(verticalStackView)
@@ -96,6 +110,10 @@ class CommunityHeaderCell: UITableViewCell {
             make.height.equalTo(commImageView)
             make.top.equalToSuperview().inset(5)
             make.leading.trailing.equalToSuperview().inset(16)
+        }
+        
+        communityDescriptionLabel.snp.makeConstraints { (make) in
+            make.leading.trailing.equalToSuperview()
         }
         
         verticalStackView.snp.makeConstraints { (make) in
@@ -125,36 +143,30 @@ class CommunityHeaderCell: UITableViewCell {
 //            let md = SwiftyMarkdown(string: communityDesciption)
             communityDescriptionLabel.text = communityDesciption
             
-            showReadMoreButtonIfTruncated()
+            showReadMoreButtonIfTruncated(mdString: communityDesciption)
             
         } else {
             communityDescriptionLabel.isHidden = true
         }
     }
     
-    fileprivate func showReadMoreButtonIfTruncated() {
+    fileprivate func showReadMoreButtonIfTruncated(mdString: String) {
+        
+        // FIXME: communityDescriptionLabel.isTruncated is not working with multiline label in stackview
         if communityDescriptionLabel.isTruncated {
             
-            let descriptionReadMoreButton: UILabel = {
-                let lbl = UILabel()
-                lbl.text = "Read more"
-                lbl.textColor = .systemBlue
-                lbl.backgroundColor = .systemBackground
-                return lbl
-            }()
-            
-            descriptionReadMoreButton.addTap {
-                // TODO(uuttff8): present separate with md-rendered desciption
-                fatalError("present separate with md-rendered desciption")
-            }
-            
-            communityDescriptionLabel.addSubview(descriptionReadMoreButton)
-            descriptionReadMoreButton.textAlignment = .right
+            contentView.addSubview(descriptionReadMoreButton)
+            descriptionReadMoreButton.titleLabel?.textAlignment = .right
+
             descriptionReadMoreButton.snp.makeConstraints { (make) in
-                make.trailing.equalToSuperview()
+                make.trailing.equalTo(communityDescriptionLabel.snp.trailing)
                 make.width.equalTo(descriptionReadMoreButton.intrinsicContentSize.width + 15)
-                make.bottom.equalToSuperview()
+                make.bottom.equalTo(communityDescriptionLabel.snp.bottom)
             }
+
+            descriptionReadMoreButton.addAction(UIAction(handler: { (_) in
+                self.presentParsedVc?(mdString)
+            }), for: .touchUpInside)
         }
     }
 

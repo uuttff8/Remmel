@@ -38,6 +38,9 @@ class CommunityScreenViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        
+        customView.presentParsedVc = { mdString in
+            let vc = MarkdownParsedViewController(mdString: mdString)
+            self.present(vc, animated: true)
+        }
     }
 }

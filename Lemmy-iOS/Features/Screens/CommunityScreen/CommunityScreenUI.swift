@@ -11,6 +11,8 @@ import Combine
 
 class CommunityScreenUI: UIView {
     
+    var presentParsedVc: ((String) -> Void)?
+    
     enum TableRows: CaseIterable {
         case header, contentTypePicker, content
     }
@@ -66,6 +68,7 @@ extension CommunityScreenUI: UITableViewDataSource, UITableViewDelegate {
             guard let communityInfo = model.communitySubject.value else { return UITableViewCell() }
             
             let cell = CommunityHeaderCell()
+            cell.presentParsedVc = { self.presentParsedVc?($0) }
             cell.bind(with: communityInfo)
             return cell
             

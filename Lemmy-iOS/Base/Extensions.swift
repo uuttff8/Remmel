@@ -490,25 +490,32 @@ extension UIBarButtonItem {
     }
 }
 
+// https://stackoverflow.com/a/53087984
 extension UILabel {
-    
     var isTruncated: Bool {
-        
-        guard let labelText = text else {
-            return false
+        layoutIfNeeded()
+
+        let rectBounds = CGSize(width: bounds.width, height: .greatestFiniteMagnitude)
+        var fullTextHeight: CGFloat?
+
+        if attributedText != nil {
+            fullTextHeight = attributedText?.boundingRect(with: rectBounds,
+                                                          options: .usesLineFragmentOrigin,
+                                                          context: nil)
+                .size
+                .height
+        } else {
+            fullTextHeight = text?.boundingRect(with: rectBounds,
+                                                options: .usesLineFragmentOrigin,
+                                                attributes: [NSAttributedString.Key.font: font],
+                                                context: nil)
+                .size
+                .height
         }
-        
-        let labelTextSize = (labelText as NSString).boundingRect(
-            with: CGSize(width: frame.size.width, height: .greatestFiniteMagnitude),
-            options: .usesLineFragmentOrigin,
-            attributes: [.font: font!],
-            context: nil
-        ).size
-        
-        return labelTextSize.height > bounds.size.height
+
+        return (fullTextHeight ?? 0) > bounds.size.height
     }
 }
-
 extension Notification.Name {
     static let didLogin = Notification.Name("LemmyiOS.didLogin")
 }
