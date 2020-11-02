@@ -42,7 +42,6 @@ class LemmyTabBarController: UITabBarController {
                                                                             image: UIImage(systemName: "person.2.fill"),
                                                                             tag: 1)
         communitiesCoordinator.navigationController = communitiesNc
-        
         // its wrapper, real controller created in this method
         // func tabBarController(
         // _ tabBarController: UITabBarController,
