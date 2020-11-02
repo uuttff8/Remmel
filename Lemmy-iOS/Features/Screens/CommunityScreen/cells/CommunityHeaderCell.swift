@@ -39,10 +39,22 @@ class CommunityHeaderCell: UITableViewCell {
     
     let subscribersLabel: UILabel = {
         let lbl = UILabel()
-        lbl.layer.borderWidth = 2
-        lbl.layer.cornerRadius = 4
-        lbl.layer.borderColor = UIColor.systemBlue.cgColor
         lbl.font = .systemFont(ofSize: 14)
+        lbl.textColor = .systemBlue
+        return lbl
+    }()
+    
+    let categoryLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.font = .systemFont(ofSize: 14)
+        lbl.textColor = .systemBlue
+        return lbl
+    }()
+    
+    let postsCountLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.font = .systemFont(ofSize: 14)
+        lbl.textColor = .systemBlue
         return lbl
     }()
     
@@ -64,7 +76,7 @@ class CommunityHeaderCell: UITableViewCell {
             horizontalStackView.addArrangedSubview(view)
         }
         
-        [subscribersLabel].forEach { (view) in
+        [subscribersLabel, postsCountLabel, categoryLabel].forEach { (view) in
             verticalStackView.addArrangedSubview(view)
         }
         
@@ -76,6 +88,11 @@ class CommunityHeaderCell: UITableViewCell {
             make.height.equalTo(commImageView)
             make.top.equalToSuperview().inset(5)
             make.leading.trailing.equalToSuperview().inset(16)
+        }
+        
+        verticalStackView.snp.makeConstraints { (make) in
+            make.top.equalTo(horizontalStackView.snp.bottom).offset(5)
+            make.leading.trailing.equalTo(horizontalStackView)
             make.bottom.equalTo(contentView.snp.bottom).inset(5)
         }
     }
@@ -92,5 +109,8 @@ class CommunityHeaderCell: UITableViewCell {
         }
         
         commNameLabel.text = data.name
+        subscribersLabel.text = String(data.numberOfSubscribers) + " Subscribers"
+        categoryLabel.text = data.categoryName
+        postsCountLabel.text = String(data.numberOfPosts) + " Posts"
     }
 }
