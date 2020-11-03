@@ -43,6 +43,19 @@ enum LemmySortType: String, Codable, CaseIterable {
         case .topAll: return "TopAll"
         }
     }
+    
+    var uppercasedLabel: String {
+        switch self {
+        case .active: return "ACTIVE"
+        case .hot: return "HOT"
+        case .new: return "NEW"
+        case .topDay: return "TOP DAY"
+        case .week: return "WEEK"
+        case .month: return "MONTH"
+        case .all: return "ALL"
+        case .topAll: return "TOP ALL"
+        }
+    }
 
     var index: Int {
         switch self {

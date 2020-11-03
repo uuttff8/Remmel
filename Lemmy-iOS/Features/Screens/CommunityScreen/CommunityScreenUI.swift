@@ -11,15 +11,17 @@ import Combine
 
 class CommunityScreenUI: UIView {
     
-    var presentParsedVc: ((String) -> Void)?
-    
     enum TableRows: CaseIterable {
         case header, contentTypePicker, content
     }
     
+    var presentParsedVc: ((String) -> Void)?
+    
     let tableView = LemmyTableView(style: .plain, separator: false)
     let model: CommunityScreenModel
     var cancellable = Set<AnyCancellable>()
+    
+    let contentTypeCell = CommunityContentTypePickerCell()
     
     init(model: CommunityScreenModel) {
         self.model = model
@@ -71,7 +73,12 @@ extension CommunityScreenUI: UITableViewDataSource, UITableViewDelegate {
             cell.presentParsedVc = { self.presentParsedVc?($0) }
             cell.bind(with: communityInfo)
             return cell
-            
+        case .contentTypePicker:
+            let cell = contentTypeCell
+            cell.onSelectedContentType = { sortType in
+                self.model.contentTypeSubject.send(sortType)
+            }
+            return cell
         default: return UITableViewCell()
         }
     }

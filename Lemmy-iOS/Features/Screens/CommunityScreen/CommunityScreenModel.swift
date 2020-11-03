@@ -11,6 +11,7 @@ import Combine
 
 class CommunityScreenModel {
     let communitySubject: CurrentValueSubject<LemmyApiStructs.CommunityView?, Never> = CurrentValueSubject(nil)
+    let contentTypeSubject: PassthroughSubject<LemmySortType, Never> = PassthroughSubject()
     
     func loadCommunity(id: Int) {
         guard let jwtToken = LemmyShareData.shared.jwtToken else { return }

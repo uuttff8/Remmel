@@ -48,6 +48,10 @@ class CommunityScreenViewController: UIViewController {
             let vc = MarkdownParsedViewController(mdString: mdString)
             self.present(vc, animated: true)
         }
+        
+        customView.contentTypeCell.presentPicker = { alert in
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     func updateUIOnData(community: LemmyApiStructs.CommunityView) {
