@@ -38,9 +38,19 @@ class CommunityScreenViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        model.communitySubject
+            .receive(on: RunLoop.main)
+            .compactMap { $0 }
+            .sink(receiveValue: updateUIOnData(community:))
+            .store(in: &customView.cancellable)
+        
         customView.presentParsedVc = { mdString in
             let vc = MarkdownParsedViewController(mdString: mdString)
             self.present(vc, animated: true)
         }
+    }
+    
+    func updateUIOnData(community: LemmyApiStructs.CommunityView) {
+        self.title = community.name
     }
 }
