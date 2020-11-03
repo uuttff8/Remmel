@@ -115,13 +115,12 @@ extension CreateCommunityViewController: UIImagePickerControllerDelegate, UINavi
 
 extension CreateCommunityViewController: UIAdaptivePresentationControllerDelegate {
     func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
-        let alertControl = UIAlertController(title: nil, message: "Do you really want to exit", preferredStyle: .alert)
-        let yesAction = UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
-            self.dismiss(animated: true, completion: nil)
-        })
-        let noAction = UIAlertAction(title: "No", style: .default, handler: nil)
-        alertControl.addAction(yesAction)
-        alertControl.addAction(noAction)
+        let alertControl = UIAlertController.Configurations.reallyWantToExit(
+            onYes: {
+                self.dismiss(animated: true, completion: nil)
+            }
+        )
+        
         present(alertControl, animated: true, completion: nil)
     }
 

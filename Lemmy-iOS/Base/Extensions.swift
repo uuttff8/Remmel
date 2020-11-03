@@ -516,6 +516,7 @@ extension UILabel {
         return (fullTextHeight ?? 0) > bounds.size.height
     }
 }
+
 extension Notification.Name {
     static let didLogin = Notification.Name("LemmyiOS.didLogin")
 }
