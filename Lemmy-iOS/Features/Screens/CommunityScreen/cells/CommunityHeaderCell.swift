@@ -85,12 +85,19 @@ class CommunityHeaderCell: UITableViewCell {
         sv.distribution = .fill
         return sv
     }()
+    
+    private let separatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Config.Color.separator
+        return view
+    }()
 
     init() {
         super.init(style: .default, reuseIdentifier: String(describing: Self.self))
         
         selectionStyle = .none
         
+        contentView.addSubview(separatorView)
         contentView.addSubview(horizontalStackView)
         contentView.addSubview(verticalStackView)
         
@@ -119,7 +126,14 @@ class CommunityHeaderCell: UITableViewCell {
         verticalStackView.snp.makeConstraints { (make) in
             make.top.equalTo(horizontalStackView.snp.bottom).offset(5)
             make.leading.trailing.equalTo(horizontalStackView)
-            make.bottom.equalTo(contentView.snp.bottom).inset(5)
+            make.bottom.equalTo(contentView.snp.bottom).inset(15)
+        }
+        
+        separatorView.snp.makeConstraints { (make) in
+            make.height.equalTo(1.0 / UIScreen.main.scale)
+            make.bottom.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.leading.equalToSuperview()
         }
     }
     
