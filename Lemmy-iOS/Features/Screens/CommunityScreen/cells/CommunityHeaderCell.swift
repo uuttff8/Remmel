@@ -12,78 +12,56 @@ import SwiftyMarkdown
 
 class CommunityHeaderCell: UIView {    
     
-    let descriptionReadMoreButton: ResizableButton = {
-        let lbl = ResizableButton()
-        lbl.setTitle("Read more", for: .normal)
-        lbl.setTitleColor(.systemBlue, for: .normal)
-        lbl.backgroundColor = .systemBackground
-        
-        return lbl
-    }()
-
-    let commImageView: UIImageView = {
-        let iv = UIImageView()
-        return iv
-    }()
+    let descriptionReadMoreButton = ResizableButton().then {
+        $0.setTitle("Read more", for: .normal)
+        $0.setTitleColor(.systemBlue, for: .normal)
+        $0.backgroundColor = .systemBackground
+    }
     
-    let commNameLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.font = .systemFont(ofSize: 17, weight: .semibold)
-        return lbl
-    }()
+    let commImageView = UIImageView()
     
-    let followButton: UIButton = {
-        let btn = UIButton()
-        btn.setTitle("Follow", for: .normal)
-        btn.setTitleColor(.systemRed, for: .normal)
-        return btn
-    }()
+    let commNameLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 17, weight: .semibold)
+    }
     
-    let horizontalStackView: UIStackView = {
-        let sv = UIStackView()
-        sv.axis = .horizontal
-        sv.alignment = .center
-        sv.spacing = 8
-        return sv
-    }()
+    let followButton = UIButton().then {
+        $0.setTitle("Follow", for: .normal)
+        $0.setTitleColor(.systemRed, for: .normal)
+    }
     
-    let communityDescriptionLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.font = .systemFont(ofSize: 17)
-        lbl.numberOfLines = 3
-        return lbl
-    }()
+    let horizontalStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.alignment = .center
+        $0.spacing = 8
+    }
     
-    let subscribersLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.font = .systemFont(ofSize: 14)
-        lbl.textColor = .systemBlue
-        return lbl
-    }()
+    let communityDescriptionLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 17)
+        $0.numberOfLines = 3
+    }
     
-    let categoryLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.font = .systemFont(ofSize: 14)
-        lbl.textColor = .systemBlue
-        return lbl
-    }()
+    let subscribersLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 14)
+        $0.textColor = .systemBlue
+    }
     
-    let postsCountLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.font = .systemFont(ofSize: 14)
-        lbl.textColor = .systemBlue
-        return lbl
-    }()
+    let categoryLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 14)
+        $0.textColor = .systemBlue
+    }
     
-    let verticalStackView: UIStackView = {
-        let sv = UIStackView()
-        sv.axis = .vertical
-        sv.alignment = .leading
-        sv.spacing = 8
-        sv.distribution = .fill
-        return sv
-    }()    
-
+    let postsCountLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 14)
+        $0.textColor = .systemBlue
+    }
+    
+    let verticalStackView = UIStackView().then {
+        $0.axis = .vertical
+        $0.alignment = .leading
+        $0.spacing = 8
+        $0.distribution = .fill
+    }
+    
     init() {
         super.init(frame: .zero)
         
@@ -136,7 +114,6 @@ class CommunityHeaderCell: UIView {
         postsCountLabel.text = String(data.numberOfPosts) + " Posts"
         
         if let communityDesciption = data.description {
-//            let md = SwiftyMarkdown(string: communityDesciption)
             communityDescriptionLabel.text = communityDesciption
             
             showReadMoreButtonIfTruncated(mdString: communityDesciption)
@@ -146,14 +123,12 @@ class CommunityHeaderCell: UIView {
         }
     }
     
-    fileprivate func showReadMoreButtonIfTruncated(mdString: String) {
-        
-        // FIXME: communityDescriptionLabel.isTruncated is not working with multiline label in stackview
+    fileprivate func showReadMoreButtonIfTruncated(mdString: String) {        
         if communityDescriptionLabel.isTruncated {
             
             self.addSubview(descriptionReadMoreButton)
             descriptionReadMoreButton.titleLabel?.textAlignment = .right
-
+            
             descriptionReadMoreButton.snp.makeConstraints { (make) in
                 make.trailing.equalTo(communityDescriptionLabel.snp.trailing)
                 make.width.equalTo(descriptionReadMoreButton.intrinsicContentSize.width + 15)
