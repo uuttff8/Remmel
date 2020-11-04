@@ -8,27 +8,21 @@
 
 import UIKit
 
-class CommunityContentTypePickerCell: UITableViewCell {
-    
-    var presentPicker: ((UIAlertController) -> Void)?
-    var onSelectedContentType: ((LemmySortType) -> Void)?
-    
+class CommunityContentTypePickerCell: UIView {
     let contentTypePicker = LemmyImageTextTypePicker()
     
     init() {
-        super.init(style: .default, reuseIdentifier: String(describing: Self.self))
+        super.init(frame: .zero)
         
-        selectionStyle = .none
-        
-        contentView.addSubview(contentTypePicker)
+        self.addSubview(contentTypePicker)
         
         contentTypePicker.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().inset(16)
         }
-        
-        contentTypePicker.addTap {
-            self.presentPicker?(self.contentTypePicker.configuredAlert)
+                
+        self.snp.makeConstraints {
+            $0.edges.equalTo(contentTypePicker)
         }
     }
     
@@ -39,7 +33,11 @@ class CommunityContentTypePickerCell: UITableViewCell {
 
 class LemmyImageTextTypePicker: UIView {
     
+    let currentPick = LemmySortType.active
+    
     lazy var configuredAlert: UIAlertController = {
+        let caseArray = LemmySortType.allCases
+        
         let control = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         caseArray.forEach { (enumCase) in
             
@@ -47,7 +45,9 @@ class LemmyImageTextTypePicker: UIView {
                 title: enumCase.label,
                 style: .default,
                 handler: { _ in
-                    self.onSelectedCase(enumCase: enumCase)
+                    if self.currentPick != enumCase {
+                        self.typeLabel.text = enumCase.uppercasedLabel
+                    }
                 })
             
             control.addAction(action)
@@ -57,23 +57,17 @@ class LemmyImageTextTypePicker: UIView {
         return control
     }()
     
-    private var caseArray = LemmySortType.allCases
+    lazy var typeLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 14, weight: .semibold)
+        $0.text = currentPick.uppercasedLabel
+        $0.textColor = .lightGray
+    }
     
-    var typeLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.font = .systemFont(ofSize: 14, weight: .semibold)
-        lbl.text = LemmySortType.active.uppercasedLabel
-        lbl.textColor = .lightGray
-        return lbl
-    }()
-    
-    let typeImage: UIImageView = {
-        let iv = UIImageView()
+    let typeImage = UIImageView().then {
         let image = UIImage(systemName: "checkmark.seal.fill")!
             .withTintColor(.lightGray, renderingMode: .alwaysOriginal)
-        iv.image = image
-        return iv
-    }()
+        $0.image = image
+    }
     
     init() {
         super.init(frame: .zero)
@@ -101,11 +95,5 @@ class LemmyImageTextTypePicker: UIView {
             make.centerY.equalTo(typeImage)
             make.leading.equalTo(typeImage.snp.trailing).offset(5)
         }
-        
-        self.frame.size.width = typeLabel.frame.width + typeImage.frame.width + 5
-    }
-    
-    private func onSelectedCase(enumCase: LemmySortType) {
-        typeLabel.text = enumCase.uppercasedLabel
     }
 }

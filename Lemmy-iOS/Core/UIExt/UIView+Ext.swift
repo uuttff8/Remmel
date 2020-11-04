@@ -11,18 +11,17 @@ import UIKit
 extension UIView {
     struct Configutations {
         /// Returns a line with height of 1pt. Used to imitate a separator line in custom views.
-        static var separatorLine: UIView {
+        static var separatorView: UIView {
             let view = UIView().then {
-                $0.backgroundColor = UIColor(white: 0.0, alpha: 0.2)
-                $0.translatesAutoresizingMaskIntoConstraints = false
-                $0.addConstraint(NSLayoutConstraint(item: $0, attribute: .height, relatedBy: .equal,
-                                                    toItem: nil, attribute: .notAnAttribute, multiplier: 1,
-                                                    constant: 0.5))
+                $0.backgroundColor = Config.Color.separator
+            }
+            
+            view.snp.makeConstraints {
+                $0.height.equalTo(1.0 / UIScreen.main.scale)
             }
             
             return view
         }
-        
     }
     
     /// This allows us hide keyboard when tapped somewhere
@@ -38,7 +37,6 @@ extension UIView {
     @objc func dismissKeyboard() {
         endEditing(true)
     }
-    
     
     /**
      This allows us to find the view in a current view hierarchy that is currently the first responder

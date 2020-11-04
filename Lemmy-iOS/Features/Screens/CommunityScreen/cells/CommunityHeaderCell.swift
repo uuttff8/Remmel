@@ -10,9 +10,7 @@ import UIKit
 import Nuke
 import SwiftyMarkdown
 
-class CommunityHeaderCell: UITableViewCell {
-    
-    var presentParsedVc: ((String) -> Void)?
+class CommunityHeaderCell: UIView {    
     
     let descriptionReadMoreButton: ResizableButton = {
         let lbl = ResizableButton()
@@ -84,22 +82,13 @@ class CommunityHeaderCell: UITableViewCell {
         sv.spacing = 8
         sv.distribution = .fill
         return sv
-    }()
-    
-    private let separatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = Config.Color.separator
-        return view
-    }()
+    }()    
 
     init() {
-        super.init(style: .default, reuseIdentifier: String(describing: Self.self))
+        super.init(frame: .zero)
         
-        selectionStyle = .none
-        
-        contentView.addSubview(separatorView)
-        contentView.addSubview(horizontalStackView)
-        contentView.addSubview(verticalStackView)
+        self.addSubview(horizontalStackView)
+        self.addSubview(verticalStackView)
         
         [commImageView, commNameLabel, UIView(), followButton].forEach { (view) in
             horizontalStackView.addArrangedSubview(view)
@@ -126,14 +115,7 @@ class CommunityHeaderCell: UITableViewCell {
         verticalStackView.snp.makeConstraints { (make) in
             make.top.equalTo(horizontalStackView.snp.bottom).offset(5)
             make.leading.trailing.equalTo(horizontalStackView)
-            make.bottom.equalTo(contentView.snp.bottom).inset(15)
-        }
-        
-        separatorView.snp.makeConstraints { (make) in
-            make.height.equalTo(1.0 / UIScreen.main.scale)
-            make.bottom.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.leading.equalToSuperview()
+            make.bottom.equalTo(self.snp.bottom).inset(15)
         }
     }
     
@@ -169,7 +151,7 @@ class CommunityHeaderCell: UITableViewCell {
         // FIXME: communityDescriptionLabel.isTruncated is not working with multiline label in stackview
         if communityDescriptionLabel.isTruncated {
             
-            contentView.addSubview(descriptionReadMoreButton)
+            self.addSubview(descriptionReadMoreButton)
             descriptionReadMoreButton.titleLabel?.textAlignment = .right
 
             descriptionReadMoreButton.snp.makeConstraints { (make) in
@@ -177,11 +159,6 @@ class CommunityHeaderCell: UITableViewCell {
                 make.width.equalTo(descriptionReadMoreButton.intrinsicContentSize.width + 15)
                 make.bottom.equalTo(communityDescriptionLabel.snp.bottom)
             }
-
-            descriptionReadMoreButton.addAction(UIAction(handler: { (_) in
-                self.presentParsedVc?(mdString)
-            }), for: .touchUpInside)
         }
     }
-
 }

@@ -9,77 +9,72 @@
 import UIKit
 import Combine
 
-class CommunityScreenUI: UIView {
+extension CommunityScreenViewController {
     
-    enum TableRows: CaseIterable {
-        case header, contentTypePicker, content
-    }
-    
-    var presentParsedVc: ((String) -> Void)?
-    
-    let tableView = LemmyTableView(style: .plain, separator: false)
-    let model: CommunityScreenModel
-    var cancellable = Set<AnyCancellable>()
-    
-    let contentTypeCell = CommunityContentTypePickerCell()
-    
-    init(model: CommunityScreenModel) {
-        self.model = model
-        super.init(frame: .zero)
+    class CommunityScreenUI: UIView {
         
-        self.addSubview(tableView)
-        setupTableView()
-        
-        model.communitySubject
-            .receive(on: RunLoop.main)
-            .sink { (community) in
-            if community != nil {
-                self.tableView.reloadData()
-            }
-        }.store(in: &cancellable)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        tableView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+        let mainStackView = UIStackView().then {
+            $0.axis = .vertical
+            $0.spacing = 10
         }
-    }
-    
-    private func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-    }
-}
-
-extension CommunityScreenUI: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Self.TableRows.allCases.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let type = Self.TableRows.allCases[indexPath.row]
         
-        switch type {
-        case .header:
-            guard let communityInfo = model.communitySubject.value else { return UITableViewCell() }
+        let scrollView = UIScrollView().then {
+            $0.alwaysBounceVertical = true
+        }
+        
+        let communityHeaderView = CommunityHeaderCell()
+        let contentTypeView = CommunityContentTypePickerCell()
+        
+        var presentParsedVc: ((String) -> Void)?
+        
+        let model: CommunityScreenModel
+        var cancellable = Set<AnyCancellable>()
+        
+        init(model: CommunityScreenModel) {
+            self.model = model
+            super.init(frame: .zero)
+            bindData()
             
-            let cell = CommunityHeaderCell()
-            cell.presentParsedVc = { self.presentParsedVc?($0) }
-            cell.bind(with: communityInfo)
-            return cell
-        case .contentTypePicker:
-            let cell = contentTypeCell
-            cell.onSelectedContentType = { sortType in
-                self.model.contentTypeSubject.send(sortType)
+            self.backgroundColor = .systemBackground
+            
+            addSubview(scrollView)
+            scrollView.addSubview(mainStackView)
+            
+            mainStackView.addStackViewItems(
+                .view(communityHeaderView),
+                .view(UIView.Configutations.separatorView),
+                .view(contentTypeView)
+            )            
+        }
+        
+        private func bindData() {
+            model.communitySubject
+                .receive(on: RunLoop.main)
+                .compactMap { $0 }
+                .sink { [self] in
+                    communityHeaderView.bind(with: $0)
+                }.store(in: &cancellable)
+        }
+        
+        @available(*, unavailable)
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            
+            scrollView.snp.makeConstraints {
+                $0.edges.equalTo(self)
             }
-            return cell
-        default: return UITableViewCell()
+            
+            scrollView.contentLayoutGuide.snp.makeConstraints {
+                $0.width.equalTo(self)
+            }
+            
+            mainStackView.snp.makeConstraints {
+                $0.edges.equalTo(scrollView.contentLayoutGuide).inset(10)
+            }
         }
     }
 }

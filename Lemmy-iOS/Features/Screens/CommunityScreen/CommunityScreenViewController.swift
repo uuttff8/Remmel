@@ -46,17 +46,22 @@ class CommunityScreenViewController: UIViewController {
             .sink(receiveValue: updateUIOnData(community:))
             .store(in: &customView.cancellable)
         
-        customView.presentParsedVc = { mdString in
-            let vc = MarkdownParsedViewController(mdString: mdString)
-            self.present(vc, animated: true)
-        }
-        
-        customView.contentTypeCell.presentPicker = { alert in
-            self.present(alert, animated: true, completion: nil)
-        }
     }
     
     func updateUIOnData(community: LemmyApiStructs.CommunityView) {
         self.title = community.name
+        
+        customView.communityHeaderView.descriptionReadMoreButton.addAction(UIAction(handler: { (_) in
+            if let desc = community.description {
+                
+                let vc = MarkdownParsedViewController(mdString: desc)
+                self.present(vc, animated: true)
+            }
+        }), for: .touchUpInside)
+        
+        customView.contentTypeView.contentTypePicker.addTap {
+            let vc = self.customView.contentTypeView.contentTypePicker.configuredAlert
+            self.present(vc, animated: true, completion: nil)
+        }
     }
 }
