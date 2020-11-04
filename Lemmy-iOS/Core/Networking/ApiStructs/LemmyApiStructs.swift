@@ -107,6 +107,15 @@ enum LemmyFeedType: String, Codable, CaseIterable {
         case .all: return 1
         }
     }
+    
+    var toGetPostType: LemmyApiStructs.Post.GetPostType {
+        switch self {
+        case .all:
+            return LemmyApiStructs.Post.GetPostType.all
+        case .subscribed:
+            return LemmyApiStructs.Post.GetPostType.subscribed
+        }
+    }
 }
 
 enum LemmyApiStructs {

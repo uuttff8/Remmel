@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CommunityContentTypePickerCell: UIView {
+class CommunityContentTypePickerView: UIView {
     let contentTypePicker = LemmyImageTextTypePicker()
     
     init() {

@@ -20,7 +20,7 @@ class PostsFrontPageViewController: UIViewController {
     let tableView = LemmyTableView(style: .plain)
     private lazy var dataSource = makeDataSource()
     private var snapshot = NSDiffableDataSourceSnapshot<Section, LemmyApiStructs.PostView>()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = model

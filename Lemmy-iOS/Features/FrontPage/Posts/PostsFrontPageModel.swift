@@ -34,7 +34,7 @@ class PostsFrontPageModel: NSObject {
     }
 
     func loadPosts() {
-        let parameters = LemmyApiStructs.Post.GetPostsRequest(type: self.currentFeedType,
+        let parameters = LemmyApiStructs.Post.GetPostsRequest(type: self.currentFeedType.toGetPostType,
                                                               sort: LemmySortType.active,
                                                               page: 1,
                                                               limit: 20,
@@ -56,7 +56,7 @@ class PostsFrontPageModel: NSObject {
     }
 
     func loadMorePosts(completion: @escaping (() -> Void)) {
-        let parameters = LemmyApiStructs.Post.GetPostsRequest(type: self.currentFeedType,
+        let parameters = LemmyApiStructs.Post.GetPostsRequest(type: self.currentFeedType.toGetPostType,
                                                               sort: LemmySortType.active,
                                                               page: currentPage,
                                                               limit: 20,

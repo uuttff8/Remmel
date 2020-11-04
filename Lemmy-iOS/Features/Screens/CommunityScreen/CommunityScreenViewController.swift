@@ -7,51 +7,89 @@
 //
 
 import UIKit
+import Combine
 
 class CommunityScreenViewController: UIViewController {
     
-    let model = CommunityScreenModel()
-    lazy var customView = CommunityScreenUI(model: self.model)
+    var cancellable = Set<AnyCancellable>()
+    let model: CommunityScreenModel
     
-    private init() {
+    let tableView = LemmyTableView(style: .plain)
+    
+    init(fromId: Int) {
+        model = CommunityScreenModel(communityId: fromId)
         super.init(nibName: nil, bundle: nil)
+        
+        model.loadCommunity(id: fromId)
+        model.loadPosts(id: fromId)
     }
     
     convenience init(community: LemmyApiStructs.CommunityView) {
-        self.init()
-        
+        self.init(fromId: community.id)
         model.communitySubject.send(community)
-    }
-    
-    convenience init(fromId: Int) {
-        self.init()
-        
-        model.loadCommunity(id: fromId)
+        model.loadPosts(id: community.id)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func loadView() {
-        self.view = customView
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.delegate = model
+        tableView.dataSource = model
+        tableView.registerClass(PostContentTableCell.self)
+        self.view.addSubview(tableView)
         
         model.communitySubject
             .receive(on: RunLoop.main)
             .compactMap { $0 }
-            .sink(receiveValue: updateUIOnData(community:))
-            .store(in: &customView.cancellable)
+            .sink {
+                self.updateUIOnData(community: $0)
+            }.store(in: &cancellable)
         
+        model.postsSubject
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.tableView.reloadData()
+            }.store(in: &cancellable)
+        
+        model.newDataLoaded = { [self] newPosts in
+            guard !model.postsSubject.value.isEmpty else { return }
+            
+            let startIndex = model.postsSubject.value.count - newPosts.count
+            let endIndex = startIndex + newPosts.count
+            
+            let newIndexpaths =
+                Array(startIndex ..< endIndex)
+                .map { (index) in
+                    IndexPath(row: index, section: CommunityScreenModel.Section.posts.rawValue)
+                }
+            
+            DispatchQueue.main.async {
+                tableView.performBatchUpdates {
+                    tableView.insertRows(at: newIndexpaths, with: .automatic)
+                }
+            }
+        }
+    
+        model.goToPostScreen = { [self] (post: LemmyApiStructs.PostView) in
+            coordinator?.goToPostScreen(post: post)
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
     }
     
     func updateUIOnData(community: LemmyApiStructs.CommunityView) {
         self.title = community.name
         
-        customView.communityHeaderView.descriptionReadMoreButton.addAction(UIAction(handler: { (_) in
+        model.communityHeaderCell.communityHeaderView.descriptionReadMoreButton.addAction(UIAction(handler: { (_) in
             if let desc = community.description {
                 
                 let vc = MarkdownParsedViewController(mdString: desc)
@@ -59,8 +97,8 @@ class CommunityScreenViewController: UIViewController {
             }
         }), for: .touchUpInside)
         
-        customView.contentTypeView.contentTypePicker.addTap {
-            let vc = self.customView.contentTypeView.contentTypePicker.configuredAlert
+        model.communityHeaderCell.contentTypeView.contentTypePicker.addTap {
+            let vc = self.model.communityHeaderCell.contentTypeView.contentTypePicker.configuredAlert
             self.present(vc, animated: true, completion: nil)
         }
     }

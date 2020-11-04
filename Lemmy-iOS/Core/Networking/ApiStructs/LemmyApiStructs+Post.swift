@@ -10,10 +10,16 @@ import Foundation
 
 extension LemmyApiStructs {
     enum Post {
-
+        
+        enum GetPostType: String, Codable {
+            case community = "Community"
+            case subscribed = "Subscribed"
+            case all = "All"
+        }
+        
         // MARK: - GetPosts -
         struct GetPostsRequest: Codable, Equatable {
-            let type: LemmyFeedType
+            let type: GetPostType
             let sort: LemmySortType
             let page: Int?
             let limit: Int?
