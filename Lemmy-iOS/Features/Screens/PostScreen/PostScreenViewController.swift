@@ -29,6 +29,7 @@ class PostScreenViewController: UIViewController {
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         model.loadComments()
         model.commentsLoaded = { [self] (comments) in
             customView.commentsDataSource = comments

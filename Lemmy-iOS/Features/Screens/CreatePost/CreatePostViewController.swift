@@ -24,6 +24,7 @@ class CreatePostScreenViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         title = "Create post"
         
         imagePicker.delegate = self

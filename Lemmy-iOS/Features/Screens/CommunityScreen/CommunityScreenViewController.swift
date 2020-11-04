@@ -38,6 +38,8 @@ class CommunityScreenViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         model.communitySubject
             .receive(on: RunLoop.main)
             .compactMap { $0 }

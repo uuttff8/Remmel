@@ -20,6 +20,8 @@ class LemmyTabBarController: UITabBarController {
     private(set) var frontPageCoordinator: FrontPageCoordinator!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         self.delegate = self
     }
     
