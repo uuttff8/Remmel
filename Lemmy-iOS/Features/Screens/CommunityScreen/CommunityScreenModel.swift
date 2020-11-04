@@ -129,6 +129,8 @@ extension CommunityScreenModel: UITableViewDelegate {
     }
     
     private func handleDidSelectForPosts(indexPath: IndexPath) {
+        guard case .posts = Section.allCases[indexPath.section] else { return }
+
         self.goToPostScreen?(postsSubject.value[indexPath.row])
     }
 }
@@ -159,7 +161,7 @@ extension CommunityScreenModel: UITableViewDataSource {
         case .posts:
             let cell = tableView.cell(forClass: PostContentTableCell.self)
             cell.postContentView.delegate = self
-            cell.bind(with: self.postsSubject.value[indexPath.row])
+            cell.bind(with: self.postsSubject.value[indexPath.row], config: .insideComminity)
             
             return cell
         }

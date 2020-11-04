@@ -17,11 +17,19 @@ protocol PostContentTableCellDelegate: AnyObject {
 }
 
 class PostContentTableCell: UITableViewCell {
-
+    
+    enum Configuration {
+        case `default`
+        case post
+        case insideComminity
+    }
+    
     let postContentView = PostContentView()
     let selBackView = UIView()
-
-    func bind(with post: LemmyApiStructs.PostView) {
+    var configuration: Configuration?
+    
+    func bind(with post: LemmyApiStructs.PostView, config: Configuration) {
+        self.configuration = config
         self.contentView.addSubview(postContentView)
 
         self.postContentView.snp.makeConstraints { (make) in
@@ -36,6 +44,14 @@ class PostContentTableCell: UITableViewCell {
     func setupUI() {
         selBackView.backgroundColor = Config.Color.highlightCell
         self.selectedBackgroundView = selBackView
+        
+        switch configuration {
+        case .default: break
+        case .insideComminity:
+            postContentView.setupUIForInsidePost()
+        case .post: postContentView.setupUIForPost()
+        case .none: break
+        }
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -153,6 +169,10 @@ class PostContentView: UIView {
 
     func setupUIForPost() {
         self.centerView.setupUIForPost()
+    }
+    
+    func setupUIForInsidePost() {
+        self.headerView.setupUIForInsidePost()
     }
 }
 
@@ -460,6 +480,11 @@ private class PostContentHeaderView: UIView {
             make.size.equalTo(imageSize.height)
         }
         self.stackView.insertArrangedSubview(avatarView, at: 0)
+    }
+    
+    func setupUIForInsidePost() {
+        toTitle.isHidden = true
+        communityButton.isHidden = true
     }
 
     // MARK: - Overrided

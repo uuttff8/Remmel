@@ -14,6 +14,12 @@ class CommunityHeaderCell: UITableViewCell {
         $0.axis = .vertical
         $0.spacing = 10
     }
+    
+    let horizontalStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.alignment = .leading
+        $0.distribution = .fillEqually
+    }
         
     let communityHeaderView = CommunityHeaderView()
     let contentTypeView = CommunityContentTypePickerView()
@@ -29,7 +35,13 @@ class CommunityHeaderCell: UITableViewCell {
         mainStackView.addStackViewItems(
             .view(communityHeaderView),
             .view(UIView.Configutations.separatorView),
-            .view(contentTypeView)
+            .view(horizontalStackView),
+            .customSpace(10)
+        )
+        
+        horizontalStackView.addStackViewItems(
+            .view(contentTypeView),
+            .view(UIView())
         )
         
         mainStackView.snp.makeConstraints {
