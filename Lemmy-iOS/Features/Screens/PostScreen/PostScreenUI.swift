@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import SafariServices
 
 class PostScreenUI: UIView {
-
+    
+    var presentOnVc: ((UIViewController) -> Void)?
+    var dismissOnVc: (() -> Void)?
+    
     let tableView = LemmyTableView(style: .plain)
 
     let postInfo: LemmyApiStructs.PostView
@@ -46,6 +50,25 @@ class PostScreenUI: UIView {
             make.top.bottom.leading.trailing.equalToSuperview()
         }
     }
+    
+    private func openLink(urlString: String?) {
+        if let str = urlString, let url = URL(string: str) {
+            
+            let sfConfig = SFSafariViewController.Configuration()
+            sfConfig.entersReaderIfAvailable = true
+
+            let vc = SFSafariViewController(url: url, configuration: sfConfig)
+            vc.delegate = self
+
+            presentOnVc?(vc)
+        }
+    }
+}
+
+extension PostScreenUI: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        self.dismissOnVc?()
+    }
 }
 
 extension PostScreenUI: UITableViewDelegate, UITableViewDataSource {
@@ -77,6 +100,9 @@ extension PostScreenUI: UITableViewDelegate, UITableViewDataSource {
         switch types {
         case .post:
             let cell = PostScreenUITableCell(post: postInfo)
+            cell.postGreenOutlineView.addTap {
+                self.openLink(urlString: cell.postGreenOutlineView.viewData.url)
+            }
             return cell
         case .comments:
             guard let commentTrees = commentTrees else { return UITableViewCell() }
@@ -92,12 +118,13 @@ extension PostScreenUI: UITableViewDelegate, UITableViewDataSource {
 }
 
 private class PostScreenUITableCell: UITableViewCell {
-    private let postHeaderView = PostContentView()
-    private lazy var postGreenOutlineView = LemmyGreenOutlinePostEmbed(
+    let postHeaderView = PostContentView()
+    private(set) lazy var postGreenOutlineView = LemmyGreenOutlinePostEmbed(
         with:
             LemmyGreenOutlinePostEmbed.Data(
                 title: postInfo.embedTitle,
-                description: postInfo.embedDescription
+                description: postInfo.embedDescription,
+                url: postInfo.url
             )
     )
 
@@ -120,8 +147,8 @@ private class PostScreenUITableCell: UITableViewCell {
         postHeaderView.bind(with: postInfo)
         postHeaderView.setupUIForPost()
 
-        self.addSubview(postHeaderView)
-        self.addSubview(postGreenOutlineView)
+        self.contentView.addSubview(postHeaderView)
+        self.contentView.addSubview(postGreenOutlineView)
 
         self.postHeaderView.snp.makeConstraints { (make) in
             make.top.trailing.leading.equalToSuperview()

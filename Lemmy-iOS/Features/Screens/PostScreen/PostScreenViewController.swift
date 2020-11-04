@@ -33,5 +33,13 @@ class PostScreenViewController: UIViewController {
         model.commentsLoaded = { [self] (comments) in
             customView.commentsDataSource = comments
         }
+        
+        customView.presentOnVc = { toPresentVc in
+            self.present(toPresentVc, animated: true)
+        }
+        
+        customView.dismissOnVc = {
+            self.dismiss(animated: true)
+        }
     }
 }

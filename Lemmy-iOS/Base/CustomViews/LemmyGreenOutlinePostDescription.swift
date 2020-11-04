@@ -13,9 +13,15 @@ class LemmyGreenOutlinePostEmbed: UIView {
     struct Data {
         let title: String?
         let description: String?
+        let url: String?
     }
 
-    let viewData: Data
+    var viewData: Data {
+        didSet {
+            self.bindData()
+            self.setupUI()
+        }
+    }
 
     private var descriptionLabel: UILabel = {
         let lbl = UILabel()
