@@ -125,6 +125,7 @@
 		4EFAB5DD2552FA4300B32780 /* Notification+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5DC2552FA4300B32780 /* Notification+Ext.swift */; };
 		4EFAB5E22552FA5C00B32780 /* UIBarButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5E12552FA5C00B32780 /* UIBarButton+Ext.swift */; };
 		4EFAB5E72552FA9300B32780 /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5E62552FA9300B32780 /* UITableView+Ext.swift */; };
+		4EFAB5EC2552FC5000B32780 /* UIStackView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5EB2552FC5000B32780 /* UIStackView+Ext.swift */; };
 		921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -267,6 +268,7 @@
 		4EFAB5DC2552FA4300B32780 /* Notification+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Ext.swift"; sourceTree = "<group>"; };
 		4EFAB5E12552FA5C00B32780 /* UIBarButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButton+Ext.swift"; sourceTree = "<group>"; };
 		4EFAB5E62552FA9300B32780 /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
+		4EFAB5EB2552FC5000B32780 /* UIStackView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Ext.swift"; sourceTree = "<group>"; };
 		AF9E5291792018DE1B6050FA /* Pods-Lemmy-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.release.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lemmy_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8130B334E7F53B10E26E71F /* Pods-Lemmy-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -753,6 +755,7 @@
 				4EFAB5D72552FA1100B32780 /* UILabel+Ext.swift */,
 				4EFAB5E12552FA5C00B32780 /* UIBarButton+Ext.swift */,
 				4EFAB5E62552FA9300B32780 /* UITableView+Ext.swift */,
+				4EFAB5EB2552FC5000B32780 /* UIStackView+Ext.swift */,
 			);
 			path = UIExt;
 			sourceTree = "<group>";
@@ -1076,6 +1079,7 @@
 				4EF3AC85254B456400BEC9F1 /* CreateCommunityChooseCategoryCell.swift in Sources */,
 				4E886CE225422BDC0076B162 /* SearchRequests.swift in Sources */,
 				4E1070652534771C009EABDA /* CommentsFrontPageModel.swift in Sources */,
+				4EFAB5EC2552FC5000B32780 /* UIStackView+Ext.swift in Sources */,
 				4E106F5D25273A0C009EABDA /* CommentTreeTableCell.swift in Sources */,
 				4ECCEF2B250FF56A0075F921 /* CommunityPreviewTableCell.swift in Sources */,
 				4E886C2125364EC30076B162 /* UserRequests.swift in Sources */,
