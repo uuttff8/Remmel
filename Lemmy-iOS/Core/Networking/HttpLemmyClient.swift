@@ -56,7 +56,7 @@ final class HttpLemmyClient: HTTPClientProvider {
             return
         }
 
-        guard let jsonBody = try? JSONSerialization.data(withJSONObject: bodyObject?.asDictionary() ?? [], options: [])
+        guard let jsonBody = try? JSONSerialization.data(withJSONObject: bodyObject?.dictionary ?? [], options: [])
         else { return }
 
         let config = URLSessionConfiguration.ephemeral
