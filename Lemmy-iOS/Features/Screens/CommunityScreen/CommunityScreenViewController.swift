@@ -74,9 +74,9 @@ class CommunityScreenViewController: UIViewController {
             }
         }
     
-        model.goToPostScreen = { [self] (post: LemmyApiStructs.PostView) in
-            coordinator?.goToPostScreen(post: post)
-        }
+//        model.goToPostScreen = { [self] (post: LemmyApiStructs.PostView) in
+//            coordinator?.goToPostScreen(post: post)
+//        }
     }
     
     override func viewDidLayoutSubviews() {
