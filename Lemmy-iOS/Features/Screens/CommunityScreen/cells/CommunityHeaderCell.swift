@@ -17,8 +17,6 @@ class CommunityHeaderCell: UITableViewCell {
         
     let communityHeaderView = CommunityHeaderView()
     let contentTypeView = CommunityContentTypePickerView()
-    
-    var presentParsedVc: ((String) -> Void)?
         
     init() {
         super.init(style: .default, reuseIdentifier: String(describing: Self.self))
@@ -49,5 +47,4 @@ class CommunityHeaderCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        
 }

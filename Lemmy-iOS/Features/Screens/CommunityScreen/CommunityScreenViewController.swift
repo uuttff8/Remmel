@@ -11,6 +11,8 @@ import Combine
 
 class CommunityScreenViewController: UIViewController {
     
+    weak var coordinator: FrontPageCoordinator?
+    
     var cancellable = Set<AnyCancellable>()
     let model: CommunityScreenModel
     
@@ -74,9 +76,9 @@ class CommunityScreenViewController: UIViewController {
             }
         }
     
-//        model.goToPostScreen = { [self] (post: LemmyApiStructs.PostView) in
-//            coordinator?.goToPostScreen(post: post)
-//        }
+        model.goToPostScreen = { [self] (post) in
+            coordinator?.goToPostScreen(post: post)
+        }
     }
     
     override func viewDidLayoutSubviews() {

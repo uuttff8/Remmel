@@ -51,6 +51,7 @@ class FrontPageCoordinator: Coordinator {
     
     func goToCommunityScreen(communityId: Int) {
         let commScreen = CommunityScreenViewController(fromId: communityId)
+        commScreen.coordinator = self
         self.navigationController?.pushViewController(commScreen, animated: true)
     }
 }
