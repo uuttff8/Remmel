@@ -99,8 +99,8 @@ class CommunityScreenViewController: UIViewController {
             }
         }), for: .touchUpInside)
         
-        model.communityHeaderCell.contentTypeView.contentTypePicker.addTap {
-            let vc = self.model.communityHeaderCell.contentTypeView.contentTypePicker.configuredAlert
+        model.communityHeaderCell.contentTypeView.addTap {
+            let vc = self.model.communityHeaderCell.contentTypeView.configuredAlert
             self.present(vc, animated: true, completion: nil)
         }
     }

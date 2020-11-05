@@ -18,11 +18,10 @@ class CommunityHeaderCell: UITableViewCell {
     let horizontalStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.alignment = .leading
-        $0.distribution = .fillEqually
     }
         
     let communityHeaderView = CommunityHeaderView()
-    let contentTypeView = CommunityContentTypePickerView()
+    let contentTypeView = LemmyImageTextTypePicker()
         
     init() {
         super.init(style: .default, reuseIdentifier: String(describing: Self.self))
@@ -48,6 +47,10 @@ class CommunityHeaderCell: UITableViewCell {
             $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(contentView)
+        }
+        
+        horizontalStackView.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(16)
         }
     }
     

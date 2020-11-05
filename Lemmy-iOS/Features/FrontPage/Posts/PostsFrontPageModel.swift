@@ -14,7 +14,7 @@ class PostsFrontPageModel: NSObject {
     var newDataLoaded: (([LemmyApiStructs.PostView]) -> Void)?
     var dataLoaded: (([LemmyApiStructs.PostView]) -> Void)?
 
-    private var isFetchingNewContent = false
+    var isFetchingNewContent = false
     var currentPage = 1
 
     var postsDataSource: [LemmyApiStructs.PostView] = []
@@ -32,10 +32,12 @@ class PostsFrontPageModel: NSObject {
             print(currentFeedType)
         }
     }
+    
+    var currentSortType: LemmySortType = LemmySortType.active
 
     func loadPosts() {
         let parameters = LemmyApiStructs.Post.GetPostsRequest(type: self.currentFeedType.toGetPostType,
-                                                              sort: LemmySortType.active,
+                                                              sort: currentSortType,
                                                               page: 1,
                                                               limit: 20,
                                                               communityId: nil,
@@ -57,7 +59,7 @@ class PostsFrontPageModel: NSObject {
 
     func loadMorePosts(completion: @escaping (() -> Void)) {
         let parameters = LemmyApiStructs.Post.GetPostsRequest(type: self.currentFeedType.toGetPostType,
-                                                              sort: LemmySortType.active,
+                                                              sort: currentSortType,
                                                               page: currentPage,
                                                               limit: 20,
                                                               communityId: nil,
@@ -78,31 +80,6 @@ class PostsFrontPageModel: NSObject {
     }
 }
 
-extension PostsFrontPageModel: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        handleDidSelectForPosts(indexPath: indexPath)
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let indexPathRow = indexPath.row
-        let bottomItems = self.postsDataSource.count - 5
-
-        if indexPathRow >= bottomItems {
-            guard !self.isFetchingNewContent else { return }
-
-            self.isFetchingNewContent = true
-            self.currentPage += 1
-            self.loadMorePosts {
-                self.isFetchingNewContent = false
-            }
-        }
-    }
-
-    private func handleDidSelectForPosts(indexPath: IndexPath) {
-        self.goToPostScreen?(postsDataSource[indexPath.row])
-    }
-}
 extension PostsFrontPageModel: PostContentTableCellDelegate {
     func usernameTapped(in post: LemmyApiStructs.PostView) {
         print(post.creatorName)

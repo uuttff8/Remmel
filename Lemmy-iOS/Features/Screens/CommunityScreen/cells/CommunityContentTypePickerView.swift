@@ -8,24 +8,20 @@
 
 import UIKit
 
-class CommunityContentTypePickerView: UIView {
-    let contentTypePicker = LemmyImageTextTypePicker()
+class CommunityContentTypePickerCell: UITableViewCell {
+    let customView = LemmyImageTextTypePicker()
     
     init() {
-        super.init(frame: .zero)
+        super.init(style: .default, reuseIdentifier: String(describing: Self.self))
         
-        self.addSubview(contentTypePicker)
+        self.contentView.addSubview(customView)
         
-        contentTypePicker.snp.makeConstraints { (make) in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().inset(16)
-        }
-                
         self.snp.makeConstraints {
-            $0.edges.equalTo(contentTypePicker)
+            $0.edges.equalTo(customView)
         }
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -33,7 +29,15 @@ class CommunityContentTypePickerView: UIView {
 
 class LemmyImageTextTypePicker: UIView {
     
-    let currentPick = LemmySortType.active
+    var newCasePicked: ((LemmySortType) -> Void)?
+    
+    var currentPick = LemmySortType.active {
+        didSet {
+            if currentPick == oldValue { return }
+            self.typeLabel.text = currentPick.uppercasedLabel
+            newCasePicked?(currentPick)
+        }
+    }
     
     lazy var configuredAlert: UIAlertController = {
         let caseArray = LemmySortType.allCases
@@ -45,9 +49,7 @@ class LemmyImageTextTypePicker: UIView {
                 title: enumCase.label,
                 style: .default,
                 handler: { _ in
-                    if self.currentPick != enumCase {
-                        self.typeLabel.text = enumCase.uppercasedLabel
-                    }
+                    self.currentPick = enumCase
                 })
             
             control.addAction(action)
@@ -72,8 +74,24 @@ class LemmyImageTextTypePicker: UIView {
     init() {
         super.init(frame: .zero)
         
-        [typeImage, typeLabel].forEach { (view) in
-            addSubview(view)
+        [typeImage, typeLabel].forEach {
+            addSubview($0)
+        }
+        
+        typeImage.snp.makeConstraints {
+            $0.size.equalTo(20)
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview()
+        }
+        
+        typeLabel.snp.makeConstraints {
+            $0.centerY.equalTo(typeImage)
+            $0.leading.equalTo(typeImage.snp.trailing).offset(5)
+        }
+        
+        self.snp.makeConstraints {
+            $0.height.equalTo(35)
+            $0.width.equalTo(100)
         }
     }
     
@@ -84,16 +102,5 @@ class LemmyImageTextTypePicker: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        typeImage.snp.makeConstraints { (make) in
-            make.size.equalTo(20)
-            make.top.bottom.equalToSuperview()
-            make.leading.equalToSuperview()
-        }
-        
-        typeLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(typeImage)
-            make.centerY.equalTo(typeImage)
-            make.leading.equalTo(typeImage.snp.trailing).offset(5)
-        }
     }
 }
