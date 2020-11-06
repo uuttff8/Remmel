@@ -26,7 +26,7 @@ class PostContentTableCell: UITableViewCell {
         self.contentView.addSubview(postContentView)
 
         self.postContentView.snp.makeConstraints { (make) in
-            make.top.bottom.leading.trailing.equalToSuperview()
+            make.edges.equalToSuperview()
         }
 
         postContentView.bind(with: post, config: config)
@@ -41,6 +41,10 @@ class PostContentTableCell: UITableViewCell {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         selBackView.backgroundColor = Config.Color.highlightCell
+    }
+    
+    override func prepareForReuse() {
+        postContentView.prepareForReuse()
     }
 }
 
@@ -161,6 +165,10 @@ class PostContentView: UIView {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         separatorView.backgroundColor = Config.Color.separator
+    }
+    
+     func prepareForReuse() {
+        centerView.prepareForReuse()
     }
 
     private func setupUIForPost() {
@@ -340,9 +348,15 @@ private class PostContentCenterView: UIView {
 
         layoutUI()
     }
-
+    
     func setupUIForPost() {
         self.subtitleLabel.numberOfLines = 0
+    }
+    
+    func prepareForReuse() {
+        titleLabel.text = nil
+        subtitleLabel.text = nil
+        thumbailImageView.image = nil
     }
 
     // MARK: - Private
@@ -510,6 +524,13 @@ private class PostContentHeaderView: UIView {
     
     func setupUIForPost() {
         
+    }
+    
+    func prepareForReuse() {
+        publishedTitle.text = nil
+        urlDomainTitle.text = nil
+        usernameButton.setTitle(nil, for: .normal)
+        communityButton.setTitle(nil, for: .normal)
     }
 
     // MARK: - Overrided
