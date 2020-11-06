@@ -98,7 +98,7 @@ class PostsFrontPageViewController: UIViewController {
                 
                     let cell = tableView.cell(forClass: PostContentTableCell.self)
                     cell.postContentView.delegate = self.model
-                    cell.bind(with: self.model.postsDataSource[indexPath.row], config: .post)
+                    cell.bind(with: self.model.postsDataSource[indexPath.row], config: .default)
                     return cell
             })
     }

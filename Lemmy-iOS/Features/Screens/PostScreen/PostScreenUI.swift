@@ -144,7 +144,7 @@ private class PostScreenUITableCell: UITableViewCell {
 
     private func createSubviews() {
         // post header view
-        postHeaderView.bind(with: postInfo)
+        postHeaderView.bind(with: postInfo, config: .fullPost)
         postHeaderView.setupUIForPost()
 
         self.contentView.addSubview(postHeaderView)

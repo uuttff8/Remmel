@@ -18,25 +18,17 @@ protocol PostContentTableCellDelegate: AnyObject {
 
 class PostContentTableCell: UITableViewCell {
     
-    enum Configuration {
-        case `default`
-        case post
-        case insideComminity
-    }
-    
-    let postContentView = PostContentView()
+    var postContentView = PostContentView()
     let selBackView = UIView()
-    var configuration: Configuration?
     
-    func bind(with post: LemmyApiStructs.PostView, config: Configuration) {
-        self.configuration = config
+    func bind(with post: LemmyApiStructs.PostView, config: PostContentView.Configuration) {
         self.contentView.addSubview(postContentView)
 
         self.postContentView.snp.makeConstraints { (make) in
             make.top.bottom.leading.trailing.equalToSuperview()
         }
 
-        postContentView.bind(with: post)
+        postContentView.bind(with: post, config: config)
 
         setupUI()
     }
@@ -44,14 +36,6 @@ class PostContentTableCell: UITableViewCell {
     func setupUI() {
         selBackView.backgroundColor = Config.Color.highlightCell
         self.selectedBackgroundView = selBackView
-        
-        switch configuration {
-        case .default: break
-        case .insideComminity:
-            postContentView.setupUIForInsidePost()
-        case .post: postContentView.setupUIForPost()
-        case .none: break
-        }
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -60,9 +44,17 @@ class PostContentTableCell: UITableViewCell {
 }
 
 class PostContentView: UIView {
+    
+    enum Configuration {
+        case `default`
+        case fullPost
+        case insideComminity
+    }
 
     weak var delegate: PostContentTableCellDelegate?
 
+    var configuration: Configuration = .default
+    
     private let paddingView = UIView()
     private let headerView = PostContentHeaderView()
     private let centerView = PostContentCenterView()
@@ -73,7 +65,7 @@ class PostContentView: UIView {
         return view
     }()
 
-    func bind(with post: LemmyApiStructs.PostView) {
+    func bind(with post: LemmyApiStructs.PostView, config: Configuration) {
         setupUI()
         setupTargets(with: post)
 
@@ -160,6 +152,12 @@ class PostContentView: UIView {
             make.top.equalTo(centerView.snp.bottom).offset(15)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview() // SELF SIZE BOTTOM HERE
+        }
+        
+        switch configuration {
+        case .default: break
+        case .insideComminity: setupUIForInsidePost()
+        case .fullPost: setupUIForPost()
         }
     }
 

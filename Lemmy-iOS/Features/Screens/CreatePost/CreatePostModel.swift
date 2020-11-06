@@ -68,7 +68,7 @@ class CreatePostScreenModel {
 
     func searchCommunities(query: String) {
         let params = LemmyApiStructs.Search.SearchRequest(query: query,
-                                                          type: .all,
+                                                          type: .topAll,
                                                           communityId: nil,
                                                           communityName: nil,
                                                           sort: .topAll,

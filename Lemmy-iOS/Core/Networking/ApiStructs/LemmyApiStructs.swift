@@ -25,9 +25,9 @@ enum LemmySortType: String, Codable, CaseIterable {
     case new = "New"
 
     case topDay = "TopDay"
-    case week = "Week"
-    case month = "Month"
-    case all = "All"
+    case topWeek = "TopWeek"
+    case topMonth = "TopMonth"
+    case topYear = "TopYear"
 
     case topAll = "TopAll"
 
@@ -36,24 +36,11 @@ enum LemmySortType: String, Codable, CaseIterable {
         case .active: return "Active"
         case .hot: return "Hot"
         case .new: return "New"
-        case .topDay: return "Top day"
-        case .week: return "Week"
-        case .month: return "Month"
-        case .all: return "All"
-        case .topAll: return "TopAll"
-        }
-    }
-    
-    var uppercasedLabel: String {
-        switch self {
-        case .active: return "ACTIVE"
-        case .hot: return "HOT"
-        case .new: return "NEW"
-        case .topDay: return "TOP DAY"
-        case .week: return "WEEK"
-        case .month: return "MONTH"
-        case .all: return "ALL"
-        case .topAll: return "TOP ALL"
+        case .topDay: return "Top Day"
+        case .topWeek: return "Top Week"
+        case .topMonth: return "Top Month"
+        case .topAll: return "Top All"
+        case .topYear: return "Top Year"
         }
     }
 
@@ -63,9 +50,9 @@ enum LemmySortType: String, Codable, CaseIterable {
         case .hot: return 1
         case .new: return 2
         case .topDay: return 3
-        case .week: return 4
-        case .month: return 5
-        case .all: return 6
+        case .topWeek: return 4
+        case .topMonth: return 5
+        case .topYear: return 6
         case .topAll: return 7
         }
     }

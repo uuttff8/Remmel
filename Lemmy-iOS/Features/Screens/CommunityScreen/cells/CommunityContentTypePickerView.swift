@@ -34,7 +34,7 @@ class LemmyImageTextTypePicker: UIView {
     var currentPick = LemmySortType.active {
         didSet {
             if currentPick == oldValue { return }
-            self.typeLabel.text = currentPick.uppercasedLabel
+            self.typeLabel.text = currentPick.label.uppercased()
             newCasePicked?(currentPick)
         }
     }
@@ -61,7 +61,7 @@ class LemmyImageTextTypePicker: UIView {
     
     lazy var typeLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 14, weight: .semibold)
-        $0.text = currentPick.uppercasedLabel
+        $0.text = currentPick.label.uppercased()
         $0.textColor = .lightGray
     }
     
