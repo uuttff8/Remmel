@@ -10,7 +10,7 @@ import UIKit
 
 protocol FrontPageHeaderCellDelegate: AnyObject {
     func contentTypeChanged(to content: LemmyContentType)
-    func feedTypeChanged(to feed: LemmyFeedType)
+    func feedTypeChanged(to feed: LemmyPostListingType)
 }
 
 class FrontPageHeaderView: UIView {
@@ -19,15 +19,15 @@ class FrontPageHeaderView: UIView {
     let contentTypeSegment: FrontPageSwitcher
     let feedTypeSegment: FrontPageSwitcher
 
-    init(contentSelected: LemmyContentType, feedType: LemmyFeedType) {
+    init(contentSelected: LemmyContentType, postListing: LemmyPostListingType) {
         self.contentTypeSegment = FrontPageSwitcher(
             data: (LemmyContentType.posts.label, LemmyContentType.comments.label),
             selectedIndex: contentSelected.index
         )
 
         self.feedTypeSegment = FrontPageSwitcher(
-            data: (LemmyFeedType.subscribed.label, LemmyFeedType.all.label),
-            selectedIndex: feedType.index
+            data: (LemmyPostListingType.subscribed.label, LemmyPostListingType.all.label),
+            selectedIndex: postListing.index
         )
 
         super.init(frame: .zero)
@@ -71,7 +71,7 @@ class FrontPageHeaderView: UIView {
     }
 
     @objc func segmentFeedTypeChanged(_ sender: Any) {
-        let feedType = LemmyFeedType.allCases[feedTypeSegment.segmentControl.selectedSegmentIndex]
+        let feedType = LemmyPostListingType.allCases[feedTypeSegment.segmentControl.selectedSegmentIndex]
         self.delegate?.feedTypeChanged(to: feedType)
     }
 }
@@ -80,8 +80,9 @@ class FrontPageHeaderCell: UITableViewCell {
 
     let customView: FrontPageHeaderView
 
-    init(contentSelected: LemmyContentType, feedType: LemmyFeedType) {
-        self.customView = FrontPageHeaderView(contentSelected: contentSelected, feedType: feedType)
+    init(contentSelected: LemmyContentType, postListing: LemmyPostListingType) {
+        self.customView = FrontPageHeaderView(contentSelected: contentSelected,
+                                              postListing: postListing)
 
         super.init(style: .default, reuseIdentifier: nil)
 

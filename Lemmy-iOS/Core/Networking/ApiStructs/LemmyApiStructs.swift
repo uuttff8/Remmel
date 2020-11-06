@@ -73,10 +73,26 @@ enum LemmySearchSortType: String, Codable {
     case url = "Url"
 }
 
-enum LemmyPostListingType: String, Codable {
+enum LemmyPostListingType: String, Codable, CaseIterable {
     case all = "All"
     case subscribed = "Subscribed"
     case community = "Community"
+    
+    var index: Int {
+        switch self {
+        case .all: return 0
+        case .subscribed: return 1
+        case .community: return 2
+        }
+    }
+    
+    var label: String {
+        switch self {
+        case .community: return "Community"
+        case .all: return "All"
+        case .subscribed: return "Subscribed"
+        }
+    }
 }
 
 enum LemmyContentType: String, Codable, CaseIterable {
@@ -94,34 +110,6 @@ enum LemmyContentType: String, Codable, CaseIterable {
         switch self {
         case .posts: return 0
         case .comments: return 1
-        }
-    }
-}
-
-enum LemmyFeedType: String, Codable, CaseIterable {
-    case subscribed = "Subscribed"
-    case all = "All"
-
-    var label: String {
-        switch self {
-        case .all: return "All"
-        case .subscribed: return "Subscribed"
-        }
-    }
-
-    var index: Int {
-        switch self {
-        case .subscribed: return 0
-        case .all: return 1
-        }
-    }
-    
-    var toGetPostType: LemmyApiStructs.Post.GetPostType {
-        switch self {
-        case .all:
-            return LemmyApiStructs.Post.GetPostType.all
-        case .subscribed:
-            return LemmyApiStructs.Post.GetPostType.subscribed
         }
     }
 }

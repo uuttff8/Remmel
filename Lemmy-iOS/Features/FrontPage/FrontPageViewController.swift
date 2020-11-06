@@ -15,7 +15,7 @@ class FrontPageViewController: UIViewController {
 
     let navBar = LemmyFrontPageNavBar()
     let headerSegmentView = FrontPageHeaderView(contentSelected: LemmyContentType.comments,
-                                                feedType: LemmyFeedType.all)
+                                                postListing: LemmyPostListingType.all)
 
     private lazy var toolbar: UIToolbar = {
         let tool = UIToolbar()
@@ -37,7 +37,7 @@ class FrontPageViewController: UIViewController {
     }
 
     // at init always all
-    var currentFeedType: LemmyFeedType = LemmyFeedType.all {
+    var currentFeedType: LemmyPostListingType = LemmyPostListingType.all {
         didSet {
             print(currentFeedType)
         }
@@ -113,7 +113,7 @@ extension FrontPageViewController: FrontPageHeaderCellDelegate {
         self.currentContentType = content
     }
 
-    func feedTypeChanged(to feed: LemmyFeedType) {
+    func feedTypeChanged(to feed: LemmyPostListingType) {
         self.currentFeedType = feed
     }
 }

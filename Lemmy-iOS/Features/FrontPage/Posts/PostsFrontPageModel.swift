@@ -27,7 +27,7 @@ class PostsFrontPageModel: NSObject {
     }
 
     // at init always all
-    var currentFeedType: LemmyFeedType = LemmyFeedType.all {
+    var currentFeedType: LemmyPostListingType = LemmyPostListingType.all {
         didSet {
             print(currentFeedType)
         }
@@ -36,7 +36,7 @@ class PostsFrontPageModel: NSObject {
     var currentSortType: LemmySortType = LemmySortType.active
 
     func loadPosts() {
-        let parameters = LemmyApiStructs.Post.GetPostsRequest(type: self.currentFeedType.toGetPostType,
+        let parameters = LemmyApiStructs.Post.GetPostsRequest(type: self.currentFeedType,
                                                               sort: currentSortType,
                                                               page: 1,
                                                               limit: 20,
@@ -58,7 +58,7 @@ class PostsFrontPageModel: NSObject {
     }
 
     func loadMorePosts(completion: @escaping (() -> Void)) {
-        let parameters = LemmyApiStructs.Post.GetPostsRequest(type: self.currentFeedType.toGetPostType,
+        let parameters = LemmyApiStructs.Post.GetPostsRequest(type: self.currentFeedType,
                                                               sort: currentSortType,
                                                               page: currentPage,
                                                               limit: 20,
@@ -105,7 +105,7 @@ extension PostsFrontPageModel: FrontPageHeaderCellDelegate {
 //        self.loadPosts()
     }
 
-    func feedTypeChanged(to feed: LemmyFeedType) {
+    func feedTypeChanged(to feed: LemmyPostListingType) {
         self.currentFeedType = feed
 //        self.loadPosts()
     }
