@@ -194,46 +194,44 @@ private class PostContentFooterView: UIView {
 
     private let iconSize = CGSize(width: 20, height: 20)
 
-    private let upvoteBtn: UIButton = {
-        let btn = UIButton()
-        btn.setImage(Config.Image.arrowUp, for: .normal)
-        return btn
-    }()
+    private let upvoteBtn = UIButton().then {
+        $0.setImage(Config.Image.arrowUp, for: .normal)
+    }
 
-    private let downvoteBtn: UIButton = {
-        let btn = UIButton()
-        btn.setImage(Config.Image.arrowDown, for: .normal)
-        return btn
-    }()
+    private let downvoteBtn = UIButton().then {
+        $0.setImage(Config.Image.arrowDown, for: .normal)
+    }
 
-    private let commentBtn: UIButton = {
-        let btn = UIButton()
-        btn.setImage(Config.Image.comments, for: .normal)
-        return btn
-    }()
-
-    private let stackView: UIStackView = {
-        let sv = UIStackView()
-        sv.spacing = 8
-        return sv
-    }()
+    private let commentBtn = UIButton().then {
+        $0.setImage(Config.Image.comments, for: .normal)
+    }
+    
+    private let stackView = UIStackView().then {
+        $0.spacing = 8
+        $0.alignment = .leading
+    }
 
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: .zero)
 
         self.addSubview(stackView)
-        self.stackView.alignment = .leading
-
+        
+        stackView.addStackViewItems(
+            .view(commentBtn),
+            .view(upvoteBtn),
+            .view(downvoteBtn),
+            .view(UIView())
+        )
+        
         [commentBtn, upvoteBtn, downvoteBtn].forEach { (btn) in
-            btn.setInsets(forContentPadding: UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5), imageTitlePadding: 5)
-            btn.setTitleColor(UIColor.label, for: .normal)
-            stackView.addArrangedSubview(btn)
+            btn.setInsets(forContentPadding: UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5),
+                          imageTitlePadding: 5)
+            btn.setTitleColor(.label, for: .normal)
         }
-        self.stackView.addArrangedSubview(UIView())
 
         stackView.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalToSuperview()
+            make.edges.equalToSuperview()
         }
     }
 
@@ -287,43 +285,47 @@ private class PostContentCenterView: UIView {
     // MARK: - Properties
     private let imageSize = CGSize(width: 110, height: 60)
 
-    private let titleLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.font = UIFont.systemFont(ofSize: 21, weight: .semibold)
-        lbl.numberOfLines = 3
-        return lbl
-    }()
+    private let titleLabel = UILabel().then {
+        $0.font = UIFont.systemFont(ofSize: 21, weight: .semibold)
+        $0.numberOfLines = 3
+    }
+    
+    private let subtitleLabel = UILabel().then {
+        $0.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        $0.numberOfLines = 6
+    }
 
-    private let subtitleLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        lbl.numberOfLines = 6
-        return lbl
-    }()
+    private let thumbailImageView = UIImageView().then {
+        $0.layer.cornerRadius = 5
+        $0.layer.masksToBounds = false
+        $0.clipsToBounds = true
+        $0.contentMode = .scaleAspectFill
+    }
+    
+    private let mainStackView = UIStackView().then {
+        $0.axis = .vertical
+        $0.spacing = 10
+    }
 
-    private let thumbailImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.layer.cornerRadius = 5
-        imageView.layer.masksToBounds = false
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
-
-    private let stackView: UIStackView = {
-        let stack = UIStackView()
-        stack.alignment = .top
-        stack.spacing = 8
-        return stack
-    }()
+    private let titleImageStackView = UIStackView().then {
+        $0.alignment = .top
+        $0.spacing = 8
+    }
 
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: .zero)
-
-        self.addSubview(subtitleLabel)
-        self.addSubview(stackView)
-        stackView.addArrangedSubview(titleLabel)
+        
+        self.addSubview(mainStackView)
+        
+        titleImageStackView.addStackViewItems(
+            .view(titleLabel)
+        )
+        
+        mainStackView.addStackViewItems(
+            .view(titleImageStackView),
+            .view(subtitleLabel)
+        )
     }
 
     required init?(coder: NSCoder) {
@@ -333,13 +335,14 @@ private class PostContentCenterView: UIView {
     // MARK: - Public
     func bind(with data: PostContentCenterView.ViewData) {
         titleLabel.text = data.title
-        if let subtitle = data.subtitle, subtitle.count > 0 {
+        
+        if let subtitle = data.subtitle {
             subtitleLabel.text = subtitle
         }
 
         if let image = data.imageUrl {
             Nuke.loadImage(with: ImageRequest(url: URL(string: image)!), into: thumbailImageView)
-            stackView.addArrangedSubview(thumbailImageView)
+            titleImageStackView.addStackViewItems(.view(thumbailImageView))
 
             thumbailImageView.snp.makeConstraints { (make) in
                 make.size.equalTo(imageSize)
@@ -361,13 +364,8 @@ private class PostContentCenterView: UIView {
 
     // MARK: - Private
     private func layoutUI() {
-        stackView.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalToSuperview()
-        }
-
-        subtitleLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(stackView.snp.bottom).offset(10)
-            make.leading.trailing.bottom.equalToSuperview()
+        mainStackView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
         }
     }
 
