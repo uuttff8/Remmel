@@ -60,11 +60,7 @@ class PostContentView: UIView {
     private let headerView = PostContentHeaderView()
     private let centerView = PostContentCenterView()
     private let footerView = PostContentFooterView()
-    private let separatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = Config.Color.separator
-        return view
-    }()
+    private let separatorView = UIView.Configutations.separatorView
 
     func bind(with post: LemmyModel.PostView, config: Configuration) {
         self.configuration = config
@@ -76,8 +72,8 @@ class PostContentView: UIView {
                                 avatarImageUrl: post.creatorAvatar,
                                 username: post.creatorName,
                                 community: post.communityName,
-                                published: Date.toLemmyDate(str: post.published)
-                                    .shortTimeAgoSinceNow
+                                published: Date.toLemmyDate(str: post.published).shortTimeAgoSinceNow,
+                                urlDomain: post.getUrlDomain()
                             )
         )
 
@@ -127,7 +123,6 @@ class PostContentView: UIView {
             make.bottom.trailing.equalToSuperview().inset(10)
         }
         separatorView.snp.makeConstraints { (make) in
-            make.height.equalTo(1)
             make.bottom.equalToSuperview()
             make.trailing.equalToSuperview().inset(10)
             make.leading.equalToSuperview().offset(10)
@@ -377,6 +372,7 @@ private class PostContentHeaderView: UIView {
         let username: String
         let community: String
         let published: String
+        let urlDomain: String?
     }
 
     // MARK: - Properties
@@ -385,65 +381,88 @@ private class PostContentHeaderView: UIView {
 
     private let imageSize = CGSize(width: 32, height: 32)
 
-    private lazy var avatarView: UIImageView = {
-        let ava = UIImageView()
-        ava.layer.cornerRadius = imageSize.width / 2
-        ava.layer.masksToBounds = false
-        ava.clipsToBounds = true
-        return ava
-    }()
+    lazy var avatarImageView = UIImageView().then {
+        $0.layer.cornerRadius = imageSize.width / 2
+        $0.layer.masksToBounds = false
+        $0.clipsToBounds = true
+    }
+    
+    private let usernameButton = ResizableButton().then {
+        $0.setTitleColor(UIColor(red: 0/255, green: 123/255, blue: 255/255, alpha: 1), for: .normal)
+        $0.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+    }
+    
+    private let communityButton = ResizableButton().then {
+        $0.setTitleColor(UIColor(red: 241/255, green: 100/255, blue: 30/255, alpha: 1), for: .normal)
+        $0.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+    }
+    
+    private let publishedTitle = UILabel().then {
+        $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+    }
 
-    private let usernameButton: UIButton = {
-        let button = UIButton()
-        button.setTitleColor(UIColor(red: 0/255, green: 123/255, blue: 255/255, alpha: 1), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        return button
-    }()
+    private let byTitle = UILabel().then {
+        $0.text = "by"
+        $0.textColor = UIColor(red: 108/255, green: 117/255, blue: 125/255, alpha: 1)
+        $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+    }
+    
+    private let dotTitle = UILabel().then {
+        $0.text = " · "
+        $0.textColor = UIColor(red: 108/255, green: 117/255, blue: 125/255, alpha: 1)
+        $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+    }
+    
+    lazy var urlDomainTitle = UILabel().then {
+        $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+    }
 
-    private let communityButton: UIButton = {
-        let button = UIButton()
-        button.setTitleColor(UIColor(red: 241/255, green: 100/255, blue: 30/255, alpha: 1), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        return button
-    }()
-
-    private let publishedTitle: UILabel = {
-        let lbl = UILabel()
-        lbl.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        return lbl
-    }()
-
-    private let toTitle: UILabel = {
-        let title = UILabel()
-        title.text = "to"
-        title.textColor = UIColor(red: 108/255, green: 117/255, blue: 125/255, alpha: 1)
-        title.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        return title
-    }()
-
-    private let stackView: UIStackView = {
-        let sv = UIStackView()
-        sv.alignment = .center
-        sv.spacing = 8
-        return sv
-    }()
+    private let userCommunityStackView = UIStackView().then {
+        $0.axis = .vertical
+        $0.alignment = .leading
+    }
+    
+    private let bottomStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.alignment = .leading
+        $0.spacing = 2
+    }
+    
+    private let mainStackView = UIStackView().then {
+        $0.alignment = .center
+        $0.spacing = 8
+    }
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
-
-        self.addSubview(stackView)
-
-        [usernameButton, toTitle, communityButton, publishedTitle].forEach { (label) in
-            self.stackView.addArrangedSubview(label)
-        }
-
-        stackView.snp.makeConstraints { (make) in
-            make.top.bottom.leading.equalToSuperview()
+        
+        self.addSubview(mainStackView)
+        
+        bottomStackView.addStackViewItems(
+            .view(byTitle),
+            .view(usernameButton),
+            .view(dotTitle),
+            .view(publishedTitle)
+        )
+        
+        userCommunityStackView.addStackViewItems(
+            .view(communityButton),
+            .view(bottomStackView)
+        )
+        
+        mainStackView.addStackViewItems(
+            .view(avatarImageView),
+            .view(userCommunityStackView)
+        )
+        
+        mainStackView.snp.makeConstraints {
+            $0.top.bottom.leading.equalToSuperview()
         }
 
         setupTargets()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -451,11 +470,12 @@ private class PostContentHeaderView: UIView {
     // MARK: - Public
     func bind(with data: PostContentHeaderView.ViewData) {
         let usernameButtonText = "@" + data.username
+        let communityButtonText = "!" + data.community
 
         usernameButton.setTitle(usernameButtonText, for: .normal)
-        communityButton.setTitle(data.community, for: .normal)
+        communityButton.setTitle(communityButtonText, for: .normal)
         publishedTitle.text = data.published
-
+        
         if let avatarUrl = data.avatarImageUrl {
             setupAvatar(with: avatarUrl)
         }
@@ -476,16 +496,20 @@ private class PostContentHeaderView: UIView {
     }
 
     private func setupAvatar(with url: String) {
-        Nuke.loadImage(with: ImageRequest(url: URL(string: url)!), into: avatarView)
-        avatarView.snp.makeConstraints { (make) in
+        Nuke.loadImage(with: ImageRequest(url: URL(string: url)!), into: avatarImageView)
+        avatarImageView.snp.makeConstraints { (make) in
             make.size.equalTo(imageSize.height)
         }
-        self.stackView.insertArrangedSubview(avatarView, at: 0)
+        self.mainStackView.insertArrangedSubview(avatarImageView, at: 0)
     }
     
     func setupUIForInsidePost() {
-        toTitle.isHidden = true
+        byTitle.isHidden = true
         communityButton.isHidden = true
+    }
+    
+    func setupUIForPost() {
+        
     }
 
     // MARK: - Overrided
