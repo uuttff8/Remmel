@@ -16,7 +16,9 @@ struct ApiErrorResponse: Codable, Equatable {
 class RequestsManager {
     let wsClient = WSLemmyClient()
     let httpClient = HttpLemmyClient()
-
+    
+    let decoder = LemmyJSONDecoder()
+    
     func requestDecodable<Req: Codable, Res: Codable>(
         path: String,
         parameters: Req? = nil,
@@ -39,7 +41,7 @@ class RequestsManager {
                 completion(.failure(why))
             case .success(let outData):
 
-                guard let decoded = try? JSONDecoder().decode(Res.self, from: outData) else {
+                guard let decoded = try? self.decoder.decode(Res.self, from: outData) else {
                     completion(.failure(.string("Failed to decode from \(Res.self)")))
                     return
                 }
@@ -53,8 +55,6 @@ class RequestsManager {
         rootKey: String?,
         completion: ((Result<D, LemmyGenericError>) -> Void)
     ) {
-        let decoder = JSONDecoder()
-
         if let rootKey = rootKey {
 
             do {

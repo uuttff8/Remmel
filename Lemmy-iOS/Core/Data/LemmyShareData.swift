@@ -30,9 +30,15 @@ class LemmyShareData {
         get {
             guard let data = userDefaults.data(forKey: Constants.userdata)
                 else { return nil }
-            return try? JSONDecoder().decode(LemmyModel.MyUser.self, from: data)
+            return try? LemmyJSONDecoder().decode(LemmyModel.MyUser.self, from: data)
         } set {
-            let data = try? JSONEncoder().encode(newValue)
+            let encoder = JSONEncoder()
+            let dateFormatter = DateFormatter().then {
+                $0.dateFormat = Date.lemmyDateFormat
+            }
+            encoder.dateEncodingStrategy = .formatted(dateFormatter)
+            
+            let data = try? encoder.encode(newValue)
             userDefaults.set(data, forKey: Constants.userdata)
         }
     }

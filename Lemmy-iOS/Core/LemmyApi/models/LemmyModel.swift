@@ -19,8 +19,8 @@ enum LemmyModel {
         let communityId: Int
         let removed: Bool
         let locked: Bool
-        let published: String // Timestamp
-        let updated: String? // Timestamp
+        let published: Date // Timestamp
+        let updated: Date? // Timestamp
         let deleted: Bool
         let nsfw: Bool
         let stickied: Bool
@@ -34,7 +34,7 @@ enum LemmyModel {
         let creatorLocal: Bool
         let creatorName: String
         let creatorPreferredUsername: String?
-        let creatorPublished: String // Timestamp
+        let creatorPublished: Date // Timestamp
         let creatorAvatar: String?
         let banned: Bool
         let bannedFromCommunity: Bool
@@ -51,7 +51,7 @@ enum LemmyModel {
         let downvotes: Int
         let hotRank: Int
         let hotRankActive: Int
-        let newestActivityTime: String // Timestamp
+        let newestActivityTime: Date // Timestamp
         let userId: Int?
         let myVote: Int?
         let subscribed: Bool?

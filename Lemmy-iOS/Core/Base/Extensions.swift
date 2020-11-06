@@ -107,7 +107,9 @@ extension UIColor {
 }
 
 extension Date {
-    static func toLemmyDate(str: String?) -> Date {
+    static let lemmyDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
+    
+    static func toLemmyDate(str: String?) -> Date {        
         guard let str = str else { return Date() }
         let dateFormatter = ISO8601DateFormatter()
         dateFormatter.formatOptions = [.withFullDate, .withFractionalSeconds, .withTime, .withColonSeparatorInTime]
