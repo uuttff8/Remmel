@@ -14,7 +14,7 @@ extension LemmyApiStructs {
         // MARK: - Search -
         struct SearchRequest: Codable, Equatable, Hashable {
             let query: String
-            let type: LemmySortType
+            let type: LemmySearchSortType
             let communityId: Int?
             let communityName: String?
             let sort: LemmySortType

@@ -19,6 +19,12 @@ enum LemmyGenericError: Error {
     }
 }
 
+enum VoteType: Int, Codable {
+    case none = 0
+    case up = 1
+    case down = -1
+}
+
 enum LemmySortType: String, Codable, CaseIterable {
     case active = "Active"
     case hot = "Hot"
@@ -56,6 +62,21 @@ enum LemmySortType: String, Codable, CaseIterable {
         case .topAll: return 7
         }
     }
+}
+
+enum LemmySearchSortType: String, Codable {
+    case all = "All"
+    case comments = "Comments"
+    case posts = "Posts"
+    case communities = "Communities"
+    case users = "Users"
+    case url = "Url"
+}
+
+enum LemmyPostListingType: String, Codable {
+    case all = "All"
+    case subscribed = "Subscribed"
+    case community = "Community"
 }
 
 enum LemmyContentType: String, Codable, CaseIterable {
