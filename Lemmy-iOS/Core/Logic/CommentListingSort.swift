@@ -22,8 +22,8 @@ class CommentListingSort {
     
     func sortComments() -> [LemmyModel.CommentView] {
         let sortedArray = comments.sorted(by: { (comm1, comm2) in
-            let date1 = Date.toLemmyDate(str: comm1.published)
-            let date2 = Date.toLemmyDate(str: comm2.published)
+            let date1 = comm1.published
+            let date2 = comm2.published
             
             return date1.compare(date2) == .orderedAscending
         })

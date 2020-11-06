@@ -96,7 +96,7 @@ class CommentContentView: UIView {
                 avatarImageUrl: comment.creatorAvatar,
                 username: comment.creatorName,
                 community: comment.communityName,
-                published: Date.toLemmyDate(str: comment.published).toRelativeDate(),
+                published: comment.published.shortTimeAgoSinceNow,
                 score: comment.score,
                 postName: comment.postName
             )

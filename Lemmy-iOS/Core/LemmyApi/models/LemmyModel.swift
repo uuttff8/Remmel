@@ -111,8 +111,8 @@ enum LemmyModel {
         let parentId: Int?
         let content: String
         let removed: Bool
-        let published: String // Timestamp
-        let updated: String? // Timestamp
+        let published: Date // Timestamp
+        let updated: Date? // Timestamp
         let deleted: Bool
         let apId: String
         let local: Bool
@@ -127,7 +127,7 @@ enum LemmyModel {
         let creatorLocal: Bool
         let creatorName: String
         let creatorPreferredUsername: String?
-        let creatorPublished: String // Timestamp
+        let creatorPublished: Date // Timestamp
         let creatorAvatar: String?
         let score: Int
         let upvotes: Int
@@ -175,7 +175,7 @@ enum LemmyModel {
         let commentId: Int
         let reason: String?
         let removed: Bool?
-        let when: String // Timestamp
+        let when: Date // Timestamp
         let modUsername: String
         let commentUserId: Int
         let commentUsername: String
@@ -209,11 +209,11 @@ enum LemmyModel {
         let icon, banner, description: String?
         let categoryId, creatorId: Int
         let removed: Bool
-        let published: String // Timestamp
-        let updated: String? // Timestamp
+        let published: Date // Timestamp
+        let updated: Date? // Timestamp
         let deleted, nsfw, local: Bool
         let actorId: String
-        let lastRefreshedAt: String // Timestamp
+        let lastRefreshedAt: Date // Timestamp
         let creatorActorId: String
         let creatorLocal: Bool
         let creatorName: String
@@ -255,8 +255,8 @@ enum LemmyModel {
         let communityId: Int
         let reason: String?
         let removed: Bool?
-        let expires: String? // Timestamp
-        let when: String // Timestamp
+        let expires: Date? // Timestamp
+        let when: Date // Timestamp
         let modUsername: String
         let communityName: String
 
@@ -278,8 +278,8 @@ enum LemmyModel {
         let communityId: Int
         let reason: String?
         let banned: Bool?
-        let expires: String? // Timestamp
-        let when: String // Timestamp
+        let expires: Date? // Timestamp
+        let when: Date // Timestamp
         let modUsername: String
         let otherUsername: String
         let communityName: String
@@ -303,7 +303,7 @@ enum LemmyModel {
         let otherUserId: Int
         let communityId: Int
         let removed: Bool?
-        let when: String // Timestamp
+        let when: Date // Timestamp
         let modUsername: String
         let otherUsername: String
         let communityName: String
@@ -326,7 +326,7 @@ enum LemmyModel {
         let id: Int
         let communityId: Int
         let userId: Int
-        let published: String // Timestamp
+        let published: Date // Timestamp
         let userActorId: String
         let userLocal: Bool
         let userName: String
@@ -360,7 +360,7 @@ enum LemmyModel {
         let postId: Int
         let reason: String?
         let removed: Bool?
-        let when: String // Timestamp
+        let when: Date // Timestamp
         let modUserName: String
         let postName: String
         let communityId: Int
@@ -384,7 +384,7 @@ enum LemmyModel {
         let modUserId: Int
         let postId: Int
         let locked: Bool?
-        let when: String // Timestamp
+        let when: Date // Timestamp
         let modUsername: String
         let postName: String
         let communityId: Int
@@ -408,7 +408,7 @@ enum LemmyModel {
         let modUserId: Int
         let postId: Int
         let stickied: Bool?
-        let when: String // Timestamp
+        let when: Date // Timestamp
         let modUsername: String
         let postName: String
         let communityId: Int
@@ -472,8 +472,8 @@ enum LemmyModel {
         let avatar: String?
         let admin: Bool
         let banned: Bool
-        let published: String // Timestamp
-        let updated: String? // Timestamp
+        let published: Date // Timestamp
+        let updated: Date? // Timestamp
         let showNsfw: Bool
         let theme: String
         let defaultSortType: Int
@@ -487,7 +487,7 @@ enum LemmyModel {
         let local: Bool
         let privateKey: String?
         let publicKey: String?
-        let lastRefreshedAt: String // Timestamp
+        let lastRefreshedAt: Date // Timestamp
         let banner: String?
 
         enum CodingKeys: String, CodingKey {
@@ -540,7 +540,7 @@ enum LemmyModel {
         let modUserId: Int
         let otherUserId: Int
         let removed: Bool?
-        let when: String // Timestamp
+        let when: Date // Timestamp
         let modUsername: String
         let otherUsername: String
 
@@ -598,8 +598,8 @@ enum LemmyModel {
         let content: String
         let removed: Bool
         let read: Bool
-        let published: String // Timestamp
-        let updated: String? // Timestamp
+        let published: Date // Timestamp
+        let updated: Date? // Timestamp
         let deleted: Bool
         let apId: String
         let local: Bool
@@ -615,7 +615,7 @@ enum LemmyModel {
         let creatorName: String
         let creatorPreferredUsername: String?
         let creatorAvatar: String?
-        let creatorPublished: String // Timestamp
+        let creatorPublished: Date // Timestamp
         let score: Int
         let upvotes: Int
         let downvotes: Int
@@ -673,8 +673,8 @@ enum LemmyModel {
         let content: String
         let removed: Bool
         let read: Bool
-        let published: String // Timestamp
-        let updated: String? // Timestamp
+        let published: Date // Timestamp
+        let updated: Date? // Timestamp
         let deleted: Bool
         let communityId: Int
         let communityActorId: String
@@ -737,8 +737,8 @@ enum LemmyModel {
         let name: String
         let description: String?
         let creatorId: Int
-        let published: String // Timestamp
-        let updated: String? // Timestamp
+        let published: Date // Timestamp
+        let updated: Date? // Timestamp
         let enableDownvotes: Bool
         let openRegistration: Bool
         let enableNsfw: Bool
@@ -778,8 +778,8 @@ enum LemmyModel {
         let content: String
         let deleted: Bool
         let read: Bool
-        let published: String // Timestamp
-        let updated: String? // Timestamp
+        let published: Date // Timestamp
+        let updated: Date? // Timestamp
         let apId: String
         let local: Bool
         let creatorPreferredUsername: String?
