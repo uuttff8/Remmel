@@ -18,6 +18,7 @@ class CreatePostOrCommunityViewController: UIViewController {
         return lbl
     }()
 
+    // animates in CreatePresentTransitionDriver, dont touch
     lazy var createView: UIView = UIView()
 
     lazy fileprivate var createPostView: ImageWithTextContainer = {
@@ -29,16 +30,20 @@ class CreatePostOrCommunityViewController: UIViewController {
         let view = ImageWithTextContainer(text: "COMMUNITY", image: Config.Image.docPlainText)
         return view
     }()
+            
+    let buttonsStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.distribution = .fillEqually
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.clear
         self.createView.backgroundColor = .systemBackground
 
-        self.view.addSubview(createView)
-        self.view.addSubview(createLabel)
-        self.view.addSubview(createPostView)
-        self.view.addSubview(createCommunityView)
+        [createView, createLabel, buttonsStackView].forEach {
+            view.addSubview($0)
+        }
 
         createPostView.addTap {
             self.coordinator?.goToCreatePost()
@@ -47,33 +52,29 @@ class CreatePostOrCommunityViewController: UIViewController {
         createCommunityView.addTap {
             self.coordinator?.goToCreateCommunity()
         }
-
+        
+        buttonsStackView.addStackViewItems(
+            .view(createPostView),
+            .view(createCommunityView)
+        )
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        let viewWidth = UIScreen.main.bounds.width / 4
-
+        
         self.createView.snp.makeConstraints { (make) in
             make.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview()
         }
-
-        self.createLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.createView.snp.top).inset(10)
-            make.centerX.equalToSuperview()
+        
+        self.createLabel.snp.makeConstraints {
+            $0.top.equalTo(createView).inset(10)
+            $0.centerX.equalToSuperview()
         }
-
-        self.createPostView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.createLabel.snp.bottom).offset(10)
-            make.leading.equalTo(viewWidth / 2)
-            make.width.equalTo(viewWidth)
-        }
-
-        self.createCommunityView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.createLabel.snp.bottom).offset(10)
-            make.trailing.equalTo(-viewWidth / 2)
-            make.width.equalTo(viewWidth)
+        
+        self.buttonsStackView.snp.makeConstraints {
+            $0.top.equalTo(createLabel.snp.bottom).offset(15)
+            $0.leading.trailing.equalToSuperview()
         }
     }
 
