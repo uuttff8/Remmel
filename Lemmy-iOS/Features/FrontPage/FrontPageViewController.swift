@@ -14,8 +14,7 @@ class FrontPageViewController: UIViewController {
     weak var coordinator: FrontPageCoordinator?
 
     let navBar = LemmyFrontPageNavBar()
-    let headerSegmentView = FrontPageHeaderView(contentSelected: LemmyContentType.comments,
-                                                postListing: LemmyPostListingType.all)
+    let headerSegmentView = FrontPageHeaderView(contentSelected: LemmyContentType.comments)
 
     private lazy var toolbar: UIToolbar = {
         let tool = UIToolbar()

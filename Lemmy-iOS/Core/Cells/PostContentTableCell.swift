@@ -529,6 +529,7 @@ private class PostContentHeaderView: UIView {
     func prepareForReuse() {
         publishedTitle.text = nil
         urlDomainTitle.text = nil
+        avatarImageView.image = nil
         usernameButton.setTitle(nil, for: .normal)
         communityButton.setTitle(nil, for: .normal)
     }

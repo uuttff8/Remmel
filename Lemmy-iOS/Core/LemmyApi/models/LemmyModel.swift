@@ -819,4 +819,3 @@ enum LemmyModel {
         let name: String
     }
 }
-

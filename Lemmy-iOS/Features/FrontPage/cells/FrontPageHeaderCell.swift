@@ -10,26 +10,19 @@ import UIKit
 
 protocol FrontPageHeaderCellDelegate: AnyObject {
     func contentTypeChanged(to content: LemmyContentType)
-    func feedTypeChanged(to feed: LemmyPostListingType)
 }
 
 class FrontPageHeaderView: UIView {
     weak var delegate: FrontPageHeaderCellDelegate?
 
     let contentTypeSegment: FrontPageSwitcher
-    let feedTypeSegment: FrontPageSwitcher
 
-    init(contentSelected: LemmyContentType, postListing: LemmyPostListingType) {
+    init(contentSelected: LemmyContentType) {
         self.contentTypeSegment = FrontPageSwitcher(
             data: (LemmyContentType.posts.label, LemmyContentType.comments.label),
             selectedIndex: contentSelected.index
         )
-
-        self.feedTypeSegment = FrontPageSwitcher(
-            data: (LemmyPostListingType.subscribed.label, LemmyPostListingType.all.label),
-            selectedIndex: postListing.index
-        )
-
+        
         super.init(frame: .zero)
 
         contentTypeSegment.segmentControl.addTarget(
@@ -37,28 +30,16 @@ class FrontPageHeaderView: UIView {
             action: #selector(segmentContentTypeChanged(_:)),
             for: .valueChanged
         )
-        feedTypeSegment.segmentControl.addTarget(
-            self,
-            action: #selector(segmentFeedTypeChanged(_:)),
-            for: .valueChanged
-        )
 
         contentTypeSegment.segmentControl.selectedSegmentIndex = 0
-        feedTypeSegment.segmentControl.selectedSegmentIndex = 0
 
         self.addSubview(contentTypeSegment)
-        self.addSubview(feedTypeSegment)
 
         contentTypeSegment.snp.makeConstraints { (make) in
             make.top.bottom.leading.equalToSuperview()
-            make.trailing.equalToSuperview().dividedBy(2)
-        }
-
-        feedTypeSegment.snp.makeConstraints { (make) in
-            make.top.bottom.equalToSuperview()
-            make.leading.equalTo(contentTypeSegment.snp.trailing)
             make.trailing.equalToSuperview()
         }
+
     }
 
     required init?(coder: NSCoder) {
@@ -69,11 +50,6 @@ class FrontPageHeaderView: UIView {
         let contentType = LemmyContentType.allCases[contentTypeSegment.segmentControl.selectedSegmentIndex]
         self.delegate?.contentTypeChanged(to: contentType)
     }
-
-    @objc func segmentFeedTypeChanged(_ sender: Any) {
-        let feedType = LemmyPostListingType.allCases[feedTypeSegment.segmentControl.selectedSegmentIndex]
-        self.delegate?.feedTypeChanged(to: feedType)
-    }
 }
 
 class FrontPageHeaderCell: UITableViewCell {
@@ -81,8 +57,7 @@ class FrontPageHeaderCell: UITableViewCell {
     let customView: FrontPageHeaderView
 
     init(contentSelected: LemmyContentType, postListing: LemmyPostListingType) {
-        self.customView = FrontPageHeaderView(contentSelected: contentSelected,
-                                              postListing: postListing)
+        self.customView = FrontPageHeaderView(contentSelected: contentSelected)
 
         super.init(style: .default, reuseIdentifier: nil)
 
