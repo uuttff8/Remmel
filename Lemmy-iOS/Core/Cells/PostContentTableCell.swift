@@ -66,6 +66,7 @@ class PostContentView: UIView {
     }()
 
     func bind(with post: LemmyModel.PostView, config: Configuration) {
+        self.configuration = config
         setupUI()
         setupTargets(with: post)
 

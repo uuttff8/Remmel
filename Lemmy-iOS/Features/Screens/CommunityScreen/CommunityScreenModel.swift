@@ -31,8 +31,9 @@ class CommunityScreenModel: NSObject {
     var goToPostScreen: ((LemmyModel.PostView) -> Void)?
     
     let communitySubject: CurrentValueSubject<LemmyModel.CommunityView?, Never> = CurrentValueSubject(nil)
-    let contentTypeSubject: PassthroughSubject<LemmySortType, Never> = PassthroughSubject()
     let postsSubject: CurrentValueSubject<[LemmyModel.PostView], Never> = CurrentValueSubject([])
+    
+    let contentTypeSubject: PassthroughSubject<LemmySortType, Never> = PassthroughSubject()
     
     private var isFetchingNewContent = false
     private var currentPage = 1

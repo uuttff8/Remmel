@@ -11,6 +11,8 @@ import Combine
 
 class CommunityScreenViewController: UIViewController {
     
+    typealias Model = CommunityScreenModel
+    
     weak var coordinator: FrontPageCoordinator?
     
     var cancellable = Set<AnyCancellable>()
@@ -47,14 +49,17 @@ class CommunityScreenViewController: UIViewController {
         model.communitySubject
             .receive(on: RunLoop.main)
             .compactMap { $0 }
-            .sink {
+            .sink { [self] in
+                tableView.reloadSections(IndexSet(integer: Model.Section.header.rawValue),
+                                         with: .automatic)
                 self.updateUIOnData(community: $0)
             }.store(in: &cancellable)
         
         model.postsSubject
             .receive(on: RunLoop.main)
-            .sink { _ in
-                self.tableView.reloadData()
+            .sink { [self] _ in
+                tableView.reloadSections(IndexSet(integer: Model.Section.posts.rawValue),
+                                         with: .automatic)
             }.store(in: &cancellable)
         
         model.newDataLoaded = { [self] newPosts in
