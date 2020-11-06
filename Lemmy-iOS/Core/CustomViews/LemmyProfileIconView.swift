@@ -9,17 +9,22 @@
 import UIKit
 
 class LemmyProfileIconView: UIView {
-    let imageButton: UIButton = {
-        let btn = UIButton()
-        btn.setImage(UIImage(systemName: "person"), for: .normal)
-        return btn
-    }()
+    
+    let imageButton = ResizableButton().then {
+        $0.setImage(UIImage(systemName: "person"), for: .normal)
+    }
 
     init() {
         super.init(frame: .zero)
 
         self.addSubview(imageButton)
-
+        
+        imageButton.imageView?.setRadius(radius: 4)
+        
+        imageButton.imageView?.snp.makeConstraints {
+            $0.size.equalTo(34)
+        }
+        
         imageButton.snp.makeConstraints { (make) in
             make.top.bottom.leading.trailing.equalToSuperview()
         }

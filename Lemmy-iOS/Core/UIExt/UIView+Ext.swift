@@ -55,6 +55,11 @@ extension UIView {
         return nil
     }
     
+    func setRadius(radius: CGFloat? = nil) {
+        self.layer.cornerRadius = radius ?? self.frame.width / 2;
+        self.layer.masksToBounds = true;
+    }
+    
     /**
      * rounds the requested corners of a view with the provided radius
      */

@@ -71,7 +71,7 @@ class LemmyFrontPageNavBar: UIView {
         self.profileIcon.snp.makeConstraints { (make) in
             make.top.bottom.equalToSuperview()
             make.leading.equalTo(searchBar.snp.trailing)
-            make.trailing.equalToSuperview().offset(10)
+            make.trailing.equalToSuperview()
         }
     }
 
