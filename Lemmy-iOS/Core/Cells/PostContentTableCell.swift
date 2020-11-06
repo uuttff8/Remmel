@@ -492,6 +492,8 @@ private class PostContentHeaderView: UIView {
         
         if let avatarUrl = data.avatarImageUrl {
             setupAvatar(with: avatarUrl)
+        } else {
+            avatarImageView.isHidden = true
         }
     }
 
