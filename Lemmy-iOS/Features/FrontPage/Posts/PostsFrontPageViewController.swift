@@ -22,28 +22,14 @@ class PostsFrontPageViewController: UIViewController {
     private lazy var dataSource = makeDataSource()
     private var snapshot = NSDiffableDataSourceSnapshot<Section, LemmyModel.PostView>()
     
-    let pickerView = LemmyImageTextTypePicker()
+    let pickerView = LemmySortListingPickersView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.registerClass(PostContentTableCell.self)
         self.view.addSubview(tableView)
-        
-        tableView.tableHeaderView = pickerView
-        pickerView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(5)
-            $0.leading.equalToSuperview().inset(16)
-        }
-        
-        pickerView.newCasePicked = { [self] pickedValue in
-            self.model.currentSortType = pickedValue
-            
-            snapshot.deleteAllItems()
-            dataSource.apply(snapshot)
-            
-            model.loadPosts()
-        }
+        setupTableHeaderView()
         
         model.loadPosts()
         
@@ -61,10 +47,6 @@ class PostsFrontPageViewController: UIViewController {
         
         model.goToCommunityScreen = { [self] (fromPost) in
             coordinator?.goToCommunityScreen(communityId: fromPost.communityId)
-        }
-        
-        pickerView.addTap {
-            self.present(self.pickerView.configuredAlert, animated: true)
         }
     }
     
@@ -88,6 +70,52 @@ class PostsFrontPageViewController: UIViewController {
         snapshot.appendItems(list, toSection: .posts)
         DispatchQueue.main.async { [self] in
             dataSource.apply(snapshot, animatingDifferences: false)
+        }
+    }
+    
+    fileprivate func setupTableHeaderView() {
+        tableView.tableHeaderView = pickerView
+        
+        pickerView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(5)
+            $0.centerX.equalToSuperview()
+            $0.trailing.leading.equalToSuperview().inset(16)
+        }
+        
+        pickerView.stackView.addTap {
+            print("asdasdasd")
+        }
+        
+        pickerView.sortTypeView.addTap {
+            print("123123123123asdasdas")
+            self.present(self.pickerView.sortTypeView.configuredAlert, animated: true)
+        }
+        
+        pickerView.listingTypeView.addTap {
+            print("123123123123")
+            self.present(self.pickerView.listingTypeView.configuredAlert, animated: true)
+        }
+        
+        pickerView.listingTypeView.newCasePicked = { [self] pickedValue in
+            self.model.currentFeedType = pickedValue.toInitiallyListing
+            
+            snapshot.deleteAllItems()
+            DispatchQueue.main.async {
+                dataSource.apply(snapshot)
+            }
+            
+            model.loadPosts()
+        }
+        
+        pickerView.sortTypeView.newCasePicked = { [self] pickedValue in
+            self.model.currentSortType = pickedValue
+            
+            snapshot.deleteAllItems()
+            DispatchQueue.main.async {
+                dataSource.apply(snapshot)
+            }
+
+            model.loadPosts()
         }
     }
     

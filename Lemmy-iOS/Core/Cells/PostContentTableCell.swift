@@ -166,11 +166,11 @@ class PostContentView: UIView {
         separatorView.backgroundColor = Config.Color.separator
     }
 
-    func setupUIForPost() {
+    private func setupUIForPost() {
         self.centerView.setupUIForPost()
     }
     
-    func setupUIForInsidePost() {
+    private func setupUIForInsidePost() {
         self.headerView.setupUIForInsidePost()
     }
 }

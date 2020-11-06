@@ -29,11 +29,16 @@ class PostsFrontPageModel: NSObject {
     // at init always all
     var currentFeedType: LemmyPostListingType = LemmyPostListingType.all {
         didSet {
+            self.currentPage = 1
             print(currentFeedType)
         }
     }
     
-    var currentSortType: LemmySortType = LemmySortType.active
+    var currentSortType: LemmySortType = LemmySortType.active {
+        didSet {
+            self.currentPage = 1
+        }
+    }
 
     func loadPosts() {
         let parameters = LemmyModel.Post.GetPostsRequest(type: self.currentFeedType,

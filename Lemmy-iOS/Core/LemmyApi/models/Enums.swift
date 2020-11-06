@@ -40,7 +40,7 @@ enum LemmyVoteType: Int, Codable {
     case down = -1
 }
 
-enum LemmySortType: String, Codable, CaseIterable {
+enum LemmySortType: String, Codable, CaseIterable, LemmyTypePickable {
     case active = "Active"
     case hot = "Hot"
     case new = "New"
