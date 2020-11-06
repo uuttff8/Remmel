@@ -13,19 +13,19 @@ class PostsFrontPageModel: NSObject {
     var goToCommunityScreen: ((_ fromPost: LemmyModel.PostView) -> Void)?
     var newDataLoaded: (([LemmyModel.PostView]) -> Void)?
     var dataLoaded: (([LemmyModel.PostView]) -> Void)?
-
+    
     var isFetchingNewContent = false
     var currentPage = 1
-
+    
     var postsDataSource: [LemmyModel.PostView] = []
-
+    
     // at init always posts
     var currentContentType: LemmyContentType = LemmyContentType.posts {
         didSet {
             print(currentContentType)
         }
     }
-
+    
     // at init always all
     var currentFeedType: LemmyPostListingType = LemmyPostListingType.all {
         didSet {
@@ -39,16 +39,16 @@ class PostsFrontPageModel: NSObject {
             self.currentPage = 1
         }
     }
-
+    
     func loadPosts() {
         let parameters = LemmyModel.Post.GetPostsRequest(type: self.currentFeedType,
-                                                              sort: currentSortType,
-                                                              page: 1,
-                                                              limit: 20,
-                                                              communityId: nil,
-                                                              communityName: nil,
-                                                              auth: nil)
-
+                                                         sort: currentSortType,
+                                                         page: 1,
+                                                         limit: 20,
+                                                         communityId: nil,
+                                                         communityName: nil,
+                                                         auth: LemmyShareData.shared.jwtToken)
+        
         ApiManager.shared.requestsManager.getPosts(
             parameters: parameters,
             completion: { (dec: Result<LemmyModel.Post.GetPostsResponse, LemmyGenericError>) in
@@ -61,16 +61,16 @@ class PostsFrontPageModel: NSObject {
                 }
             })
     }
-
+    
     func loadMorePosts(completion: @escaping (() -> Void)) {
         let parameters = LemmyModel.Post.GetPostsRequest(type: self.currentFeedType,
-                                                              sort: currentSortType,
-                                                              page: currentPage,
-                                                              limit: 20,
-                                                              communityId: nil,
-                                                              communityName: nil,
-                                                              auth: nil)
-
+                                                         sort: currentSortType,
+                                                         page: currentPage,
+                                                         limit: 20,
+                                                         communityId: nil,
+                                                         communityName: nil,
+                                                         auth: LemmyShareData.shared.jwtToken)
+        
         ApiManager.shared.requestsManager.getPosts(
             parameters: parameters,
             completion: { (dec: Result<LemmyModel.Post.GetPostsResponse, LemmyGenericError>) in
@@ -89,16 +89,16 @@ extension PostsFrontPageModel: PostContentTableCellDelegate {
     func usernameTapped(in post: LemmyModel.PostView) {
         print(post.creatorName)
     }
-
+    
     // TODO(uuttff8): Implement coordinator to post
     func communityTapped(in post: LemmyModel.PostView) {        
         goToCommunityScreen?(post)
     }
-
+    
     func upvote(post: LemmyModel.PostView) {
         print("upvote")
     }
-
+    
     func downvote(post: LemmyModel.PostView) {
         print("downvote")
     }
@@ -107,11 +107,11 @@ extension PostsFrontPageModel: PostContentTableCellDelegate {
 extension PostsFrontPageModel: FrontPageHeaderCellDelegate {
     func contentTypeChanged(to content: LemmyContentType) {
         self.currentContentType = content
-//        self.loadPosts()
+        //        self.loadPosts()
     }
-
+    
     func feedTypeChanged(to feed: LemmyPostListingType) {
         self.currentFeedType = feed
-//        self.loadPosts()
+        //        self.loadPosts()
     }
 }
