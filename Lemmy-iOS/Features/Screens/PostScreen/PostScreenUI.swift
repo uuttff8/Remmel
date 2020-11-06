@@ -16,8 +16,8 @@ class PostScreenUI: UIView {
     
     let tableView = LemmyTableView(style: .plain)
 
-    let postInfo: LemmyApiStructs.PostView
-    var commentsDataSource: [LemmyApiStructs.CommentView] = [] {
+    let postInfo: LemmyModel.PostView
+    var commentsDataSource: [LemmyModel.CommentView] = [] {
         didSet {
             self.commentListing = CommentListingSort(comments: self.commentsDataSource)
             self.commentTrees = commentListing?.createTreeOfReplies()
@@ -31,7 +31,7 @@ class PostScreenUI: UIView {
     private var commentListing: CommentListingSort?
     private var commentTrees: [CommentNode]?
 
-    init(post: LemmyApiStructs.PostView) {
+    init(post: LemmyModel.PostView) {
         self.postInfo = post
         super.init(frame: .zero)
 
@@ -128,9 +128,9 @@ private class PostScreenUITableCell: UITableViewCell {
             )
     )
 
-    let postInfo: LemmyApiStructs.PostView
+    let postInfo: LemmyModel.PostView
 
-    init(post: LemmyApiStructs.PostView) {
+    init(post: LemmyModel.PostView) {
         self.postInfo = post
         super.init(style: .default, reuseIdentifier: nil)
 

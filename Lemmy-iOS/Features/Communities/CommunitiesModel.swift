@@ -12,10 +12,10 @@ class CommunitiesModel: NSObject {
 
     var dataLoaded: (() -> Void)?
 
-    var communitiesDataSource: [LemmyApiStructs.CommunityView]?
+    var communitiesDataSource: [LemmyModel.CommunityView]?
 
     func loadCommunities() {
-        let parameters = LemmyApiStructs.Community.ListCommunitiesRequest(sort: LemmySortType.topAll,
+        let parameters = LemmyModel.Community.ListCommunitiesRequest(sort: LemmySortType.topAll,
                                                                           limit: 100,
                                                                           page: 1,
                                                                           auth: LemmyShareData.shared.jwtToken)
@@ -23,7 +23,7 @@ class CommunitiesModel: NSObject {
         ApiManager.shared.requestsManager
             .listCommunities(
                 parameters: parameters
-            ) { (res: Result<LemmyApiStructs.Community.ListCommunitiesResponse, LemmyGenericError>) in
+            ) { (res: Result<LemmyModel.Community.ListCommunitiesResponse, LemmyGenericError>) in
 
                 switch res {
                 case .success(let data):
@@ -59,7 +59,7 @@ extension CommunitiesModel: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension CommunitiesModel: CommunityPreviewTableCellDelegate {
-    func follow(to community: LemmyApiStructs.CommunityView) {
+    func follow(to community: LemmyModel.CommunityView) {
         print("followed to: \(community.name)")
     }
 }

@@ -10,15 +10,15 @@ import UIKit
 
 private protocol SearchRequestManagerProtocol {
     func search(
-        parameters: LemmyApiStructs.Search.SearchRequest,
-        completion: @escaping (Result<LemmyApiStructs.Search.SearchResponse, LemmyGenericError>) -> Void
+        parameters: LemmyModel.Search.SearchRequest,
+        completion: @escaping (Result<LemmyModel.Search.SearchResponse, LemmyGenericError>) -> Void
     )
 }
 
 extension RequestsManager: SearchRequestManagerProtocol {
     func search(
-        parameters: LemmyApiStructs.Search.SearchRequest,
-        completion: @escaping (Result<LemmyApiStructs.Search.SearchResponse, LemmyGenericError>) -> Void
+        parameters: LemmyModel.Search.SearchRequest,
+        completion: @escaping (Result<LemmyModel.Search.SearchResponse, LemmyGenericError>) -> Void
     ) {
 
         return requestDecodable(

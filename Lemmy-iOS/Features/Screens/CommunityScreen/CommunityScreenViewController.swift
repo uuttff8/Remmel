@@ -26,7 +26,7 @@ class CommunityScreenViewController: UIViewController {
         model.loadPosts(id: fromId)
     }
     
-    convenience init(community: LemmyApiStructs.CommunityView) {
+    convenience init(community: LemmyModel.CommunityView) {
         self.init(fromId: community.id)
         model.communitySubject.send(community)
         model.loadPosts(id: community.id)
@@ -88,7 +88,7 @@ class CommunityScreenViewController: UIViewController {
         }
     }
     
-    func updateUIOnData(community: LemmyApiStructs.CommunityView) {
+    func updateUIOnData(community: LemmyModel.CommunityView) {
         self.title = community.name
         
         model.communityHeaderCell.communityHeaderView.descriptionReadMoreButton.addAction(UIAction(handler: { (_) in

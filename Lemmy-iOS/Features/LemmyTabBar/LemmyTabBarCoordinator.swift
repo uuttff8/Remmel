@@ -70,7 +70,7 @@ final class LemmyTabBarCoordinator: Coordinator {
         rootViewController.present(navController, animated: true)
     }
 
-    func goToPost(post: LemmyApiStructs.PostView) {
+    func goToPost(post: LemmyModel.PostView) {
         rootViewController.frontPageCoordinator.goToPostScreen(post: post)
     }
 }

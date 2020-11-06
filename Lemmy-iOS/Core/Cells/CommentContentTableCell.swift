@@ -10,14 +10,14 @@ import UIKit
 import Nuke
 
 protocol CommentContentTableCellDelegate: AnyObject {
-    func usernameTapped(in comment: LemmyApiStructs.CommentView)
-    func communityTapped(in comment: LemmyApiStructs.CommentView)
-    func postNameTapped(in comment: LemmyApiStructs.CommentView)
-    func upvote(comment: LemmyApiStructs.CommentView)
-    func downvote(comment: LemmyApiStructs.CommentView)
-    func showContext(in comment: LemmyApiStructs.CommentView)
-    func reply(to comment: LemmyApiStructs.CommentView)
-    func showMoreAction(in comment: LemmyApiStructs.CommentView)
+    func usernameTapped(in comment: LemmyModel.CommentView)
+    func communityTapped(in comment: LemmyModel.CommentView)
+    func postNameTapped(in comment: LemmyModel.CommentView)
+    func upvote(comment: LemmyModel.CommentView)
+    func downvote(comment: LemmyModel.CommentView)
+    func showContext(in comment: LemmyModel.CommentView)
+    func reply(to comment: LemmyModel.CommentView)
+    func showMoreAction(in comment: LemmyModel.CommentView)
 }
 
 // MARK: -
@@ -45,7 +45,7 @@ class CommentContentTableCell: UITableViewCell {
     }
 
     // MARK: - Public API
-    func bind(with comment: LemmyApiStructs.CommentView) {
+    func bind(with comment: LemmyModel.CommentView) {
         commentContentView.bind(with: comment)
     }
 
@@ -88,7 +88,7 @@ class CommentContentView: UIView {
     }
 
     // MARK: - Public API
-    func bind(with comment: LemmyApiStructs.CommentView) {
+    func bind(with comment: LemmyModel.CommentView) {
         setupTargets(with: comment)
 
         headerView.bind(with:
@@ -122,7 +122,7 @@ class CommentContentView: UIView {
     }
 
     // MARK: - Private
-    private func setupTargets(with comment: LemmyApiStructs.CommentView) {
+    private func setupTargets(with comment: LemmyModel.CommentView) {
 
         // header view
         headerView.communityButtonTap = { [weak self] in

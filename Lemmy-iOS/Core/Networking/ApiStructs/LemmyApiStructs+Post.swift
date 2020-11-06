@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension LemmyApiStructs {
+extension LemmyModel {
     enum Post {
                 
         // MARK: - GetPosts -

@@ -10,24 +10,24 @@ import Foundation
 
 private protocol AuthRequestManagerProtocol {
     func login(
-        parameters: LemmyApiStructs.Authentication.LoginRequest,
-        completion: @escaping (Result<LemmyApiStructs.Authentication.LoginResponse, LemmyGenericError>) -> Void
+        parameters: LemmyModel.Authentication.LoginRequest,
+        completion: @escaping (Result<LemmyModel.Authentication.LoginResponse, LemmyGenericError>) -> Void
     )
     
     func register(
-        parameters: LemmyApiStructs.Authentication.RegisterRequest,
-        completion: @escaping (Result<LemmyApiStructs.Authentication.RegisterResponse, LemmyGenericError>) -> Void
+        parameters: LemmyModel.Authentication.RegisterRequest,
+        completion: @escaping (Result<LemmyModel.Authentication.RegisterResponse, LemmyGenericError>) -> Void
     )
     
     func getCaptcha(
-        completion: @escaping (Result<LemmyApiStructs.Authentication.GetCaptchaResponse, LemmyGenericError>) -> Void
+        completion: @escaping (Result<LemmyModel.Authentication.GetCaptchaResponse, LemmyGenericError>) -> Void
     )
 }
 
 extension RequestsManager: AuthRequestManagerProtocol {
     func login(
-        parameters: LemmyApiStructs.Authentication.LoginRequest,
-        completion: @escaping (Result<LemmyApiStructs.Authentication.LoginResponse, LemmyGenericError>) -> Void
+        parameters: LemmyModel.Authentication.LoginRequest,
+        completion: @escaping (Result<LemmyModel.Authentication.LoginResponse, LemmyGenericError>) -> Void
     ) {
         
         return requestDecodable(
@@ -39,8 +39,8 @@ extension RequestsManager: AuthRequestManagerProtocol {
     }
 
     func register(
-        parameters: LemmyApiStructs.Authentication.RegisterRequest,
-        completion: @escaping (Result<LemmyApiStructs.Authentication.RegisterResponse, LemmyGenericError>) -> Void
+        parameters: LemmyModel.Authentication.RegisterRequest,
+        completion: @escaping (Result<LemmyModel.Authentication.RegisterResponse, LemmyGenericError>) -> Void
     ) {
 
         return requestDecodable(
@@ -52,13 +52,13 @@ extension RequestsManager: AuthRequestManagerProtocol {
     }
 
     func getCaptcha(
-        completion: @escaping (Result<LemmyApiStructs.Authentication.GetCaptchaResponse, LemmyGenericError>) -> Void
+        completion: @escaping (Result<LemmyModel.Authentication.GetCaptchaResponse, LemmyGenericError>) -> Void
     ) {
 
         // EXTRA: here is "ok" rootKey
         return requestDecodable(
             path: LemmyEndpoint.Authentication.getCaptcha.endpoint,
-            parameters: LemmyApiStructs.Authentication.GetCaptchaRequest?.none,
+            parameters: LemmyModel.Authentication.GetCaptchaRequest?.none,
             parsingFromRootKey: "data",
             completion: completion
         )

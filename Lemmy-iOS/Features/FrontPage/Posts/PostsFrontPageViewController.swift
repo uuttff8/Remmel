@@ -20,7 +20,7 @@ class PostsFrontPageViewController: UIViewController {
     
     let tableView = LemmyTableView(style: .plain)
     private lazy var dataSource = makeDataSource()
-    private var snapshot = NSDiffableDataSourceSnapshot<Section, LemmyApiStructs.PostView>()
+    private var snapshot = NSDiffableDataSourceSnapshot<Section, LemmyModel.PostView>()
     
     let pickerView = LemmyImageTextTypePicker()
     
@@ -55,7 +55,7 @@ class PostsFrontPageViewController: UIViewController {
             addRows(with: newPosts)
         }
         
-        model.goToPostScreen = { [self] (post: LemmyApiStructs.PostView) in
+        model.goToPostScreen = { [self] (post: LemmyModel.PostView) in
             coordinator?.goToPostScreen(post: post)
         }
         
@@ -75,7 +75,7 @@ class PostsFrontPageViewController: UIViewController {
         }
     }
     
-    func addRows(with list: [LemmyApiStructs.PostView], animate: Bool = true) {
+    func addRows(with list: [LemmyModel.PostView], animate: Bool = true) {
         snapshot.insertItems(list, afterItem: model.postsDataSource.last!)
         self.model.postsDataSource.append(contentsOf: list)
         DispatchQueue.main.async { [self] in
@@ -83,7 +83,7 @@ class PostsFrontPageViewController: UIViewController {
         }
     }
     
-    func addFirstRows(with list: [LemmyApiStructs.PostView], animate: Bool = true) {
+    func addFirstRows(with list: [LemmyModel.PostView], animate: Bool = true) {
         snapshot.appendSections(Section.allCases)
         snapshot.appendItems(list, toSection: .posts)
         DispatchQueue.main.async { [self] in
@@ -91,8 +91,8 @@ class PostsFrontPageViewController: UIViewController {
         }
     }
     
-    private func makeDataSource() -> UITableViewDiffableDataSource<Section, LemmyApiStructs.PostView> {
-        return UITableViewDiffableDataSource<Section, LemmyApiStructs.PostView>(
+    private func makeDataSource() -> UITableViewDiffableDataSource<Section, LemmyModel.PostView> {
+        return UITableViewDiffableDataSource<Section, LemmyModel.PostView>(
             tableView: tableView,
             cellProvider: { (tableView, indexPath, _) -> UITableViewCell? in
                 

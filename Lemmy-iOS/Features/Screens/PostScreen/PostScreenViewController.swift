@@ -9,7 +9,7 @@
 import UIKit
 
 class PostScreenViewController: UIViewController {
-    let postInfo: LemmyApiStructs.PostView
+    let postInfo: LemmyModel.PostView
 
     lazy var customView = PostScreenUI(post: postInfo)
     lazy var model = PostScreenModel(post: postInfo)
@@ -18,7 +18,7 @@ class PostScreenViewController: UIViewController {
         self.view = customView
     }
 
-    init(post: LemmyApiStructs.PostView) {
+    init(post: LemmyModel.PostView) {
         self.postInfo = post
 
         super.init(nibName: nil, bundle: nil)

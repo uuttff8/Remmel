@@ -9,21 +9,21 @@
 import UIKit
 
 class PostScreenModel {
-    var commentsLoaded: (([LemmyApiStructs.CommentView]) -> Void)?
+    var commentsLoaded: (([LemmyModel.CommentView]) -> Void)?
 
-    let postInfo: LemmyApiStructs.PostView
+    let postInfo: LemmyModel.PostView
 
-    init(post: LemmyApiStructs.PostView) {
+    init(post: LemmyModel.PostView) {
         self.postInfo = post
     }
 
     func loadComments() {
-        let parameters = LemmyApiStructs.Post.GetPostRequest(id: postInfo.id,
+        let parameters = LemmyModel.Post.GetPostRequest(id: postInfo.id,
                                                              auth: nil)
 
         ApiManager.shared.requestsManager.getPost(
             parameters: parameters
-        ) { [self] (res: Result<LemmyApiStructs.Post.GetPostResponse, LemmyGenericError>) in
+        ) { [self] (res: Result<LemmyModel.Post.GetPostResponse, LemmyGenericError>) in
 
             switch res {
             case .success(let data):

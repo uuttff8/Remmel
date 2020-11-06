@@ -10,7 +10,7 @@ import UIKit
 import Nuke
 
 protocol CommunityPreviewTableCellDelegate: AnyObject {
-    func follow(to community: LemmyApiStructs.CommunityView)
+    func follow(to community: LemmyModel.CommunityView)
 }
 
 class CommunityPreviewTableCell: UITableViewCell {
@@ -23,7 +23,7 @@ class CommunityPreviewTableCell: UITableViewCell {
 
     weak var delegate: CommunityPreviewTableCellDelegate?
 
-    let community: LemmyApiStructs.CommunityView
+    let community: LemmyModel.CommunityView
 
     private let iconSize = CGSize(width: 20, height: 20)
     private let followButton: UIButton = {
@@ -31,7 +31,7 @@ class CommunityPreviewTableCell: UITableViewCell {
         return btn
     }()
 
-    init(community: LemmyApiStructs.CommunityView) {
+    init(community: LemmyModel.CommunityView) {
         self.community = community
         super.init(style: .subtitle, reuseIdentifier: nil)
         bind()

@@ -43,7 +43,7 @@ class CreatePostCommunityCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func bind(with data: LemmyApiStructs.CommunityView) {
+    func bind(with data: LemmyModel.CommunityView) {
         if let imageString = data.icon, let url = URL(string: imageString) {
             Nuke.loadImage(with: ImageRequest(url: url), into: communityImageView)
         } else {

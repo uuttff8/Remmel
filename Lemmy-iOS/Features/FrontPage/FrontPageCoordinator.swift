@@ -44,7 +44,7 @@ class FrontPageCoordinator: Coordinator {
             rootViewController.currentViewController != self.postsViewController
     }
 
-    func goToPostScreen(post: LemmyApiStructs.PostView) {
+    func goToPostScreen(post: LemmyModel.PostView) {
         let postScreen = PostScreenViewController(post: post)
         self.navigationController?.pushViewController(postScreen, animated: true)
     }

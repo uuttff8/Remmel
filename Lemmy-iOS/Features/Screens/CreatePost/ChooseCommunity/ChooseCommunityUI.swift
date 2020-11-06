@@ -18,7 +18,7 @@ class ChooseCommunityUI: UIView {
     private let model: CreatePostScreenModel
     private var shouldShowFiltered = false
 
-    var currentCellData: ((_ indexPath: IndexPath) -> LemmyApiStructs.CommunityView) {
+    var currentCellData: ((_ indexPath: IndexPath) -> LemmyModel.CommunityView) {
         if !model.filteredCommunitiesData.isEmpty {
 
             return { (indexPath: IndexPath) in
@@ -116,7 +116,7 @@ extension ChooseCommunityUI: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let data: LemmyApiStructs.CommunityView = currentCellData(indexPath)
+        let data: LemmyModel.CommunityView = currentCellData(indexPath)
 
         model.communitySelected = data
         dismissView?()

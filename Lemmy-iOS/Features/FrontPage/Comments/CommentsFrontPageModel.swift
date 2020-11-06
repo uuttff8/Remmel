@@ -9,14 +9,14 @@
 import UIKit
 
 class CommentsFrontPageModel: NSObject {
-    var dataLoaded: (([LemmyApiStructs.CommentView]) -> Void)?
-    var newDataLoaded: (([LemmyApiStructs.CommentView]) -> Void)?
-    var goToCommentScreen: ((LemmyApiStructs.CommentView) -> Void)?
+    var dataLoaded: (([LemmyModel.CommentView]) -> Void)?
+    var newDataLoaded: (([LemmyModel.CommentView]) -> Void)?
+    var goToCommentScreen: ((LemmyModel.CommentView) -> Void)?
 
     private var isFetchingNewContent = false
     private var currentPage = 1
 
-    var commentsDataSource: [LemmyApiStructs.CommentView] = []
+    var commentsDataSource: [LemmyModel.CommentView] = []
 
     // at init always posts
     var currentContentType: LemmyContentType = LemmyContentType.posts {
@@ -33,7 +33,7 @@ class CommentsFrontPageModel: NSObject {
     }
 
     func loadComments() {
-        let parameters = LemmyApiStructs.Comment.GetCommentsRequest(type: self.currentFeedType,
+        let parameters = LemmyModel.Comment.GetCommentsRequest(type: self.currentFeedType,
                                                                     sort: LemmySortType.hot,
                                                                     page: 1,
                                                                     limit: 20,
@@ -41,7 +41,7 @@ class CommentsFrontPageModel: NSObject {
 
         ApiManager.shared.requestsManager.getComments(
             parameters: parameters
-        ) { (res: Result<LemmyApiStructs.Comment.GetCommentsResponse, LemmyGenericError>) in
+        ) { (res: Result<LemmyModel.Comment.GetCommentsResponse, LemmyGenericError>) in
             switch res {
             case .success(let response):
                 self.commentsDataSource = response.comments
@@ -53,7 +53,7 @@ class CommentsFrontPageModel: NSObject {
     }
 
     func loadMoreComments(completion: @escaping (() -> Void)) {
-        let parameters = LemmyApiStructs.Comment.GetCommentsRequest(type: self.currentFeedType,
+        let parameters = LemmyModel.Comment.GetCommentsRequest(type: self.currentFeedType,
                                                                     sort: LemmySortType.hot,
                                                                     page: currentPage,
                                                                     limit: 20,
@@ -61,7 +61,7 @@ class CommentsFrontPageModel: NSObject {
 
         ApiManager.shared.requestsManager.getComments(
             parameters: parameters
-        ) { (res: Result<LemmyApiStructs.Comment.GetCommentsResponse, LemmyGenericError>) in
+        ) { (res: Result<LemmyModel.Comment.GetCommentsResponse, LemmyGenericError>) in
             switch res {
             case .success(let response):
                 self.newDataLoaded?(response.comments)
@@ -105,40 +105,40 @@ extension CommentsFrontPageModel: UITableViewDelegate {
 extension CommentsFrontPageModel: CommentContentTableCellDelegate {
     
     // TODO(uuttff8): Implement coordinator to post
-    func postNameTapped(in comment: LemmyApiStructs.CommentView) {
+    func postNameTapped(in comment: LemmyModel.CommentView) {
         print("post name tapped in \(comment.id)")
         
         fatalError("Implement coordinator to post")
     }
 
-    func usernameTapped(in comment: LemmyApiStructs.CommentView) {
+    func usernameTapped(in comment: LemmyModel.CommentView) {
         print(comment.creatorName)
     }
 
     // TODO(uuttff8): Implement coordinator to post
-    func communityTapped(in comment: LemmyApiStructs.CommentView) {
+    func communityTapped(in comment: LemmyModel.CommentView) {
         print(comment.communityName)
         
         fatalError("Implement coordinator to post")
     }
 
-    func upvote(comment: LemmyApiStructs.CommentView) {
+    func upvote(comment: LemmyModel.CommentView) {
         print("\(comment) upvoted")
     }
 
-    func downvote(comment: LemmyApiStructs.CommentView) {
+    func downvote(comment: LemmyModel.CommentView) {
         print("\(comment) downvoted")
     }
 
-    func showContext(in comment: LemmyApiStructs.CommentView) {
+    func showContext(in comment: LemmyModel.CommentView) {
         print("show context in \(comment.id)")
     }
 
-    func reply(to comment: LemmyApiStructs.CommentView) {
+    func reply(to comment: LemmyModel.CommentView) {
         print("reply to \(comment.id)")
     }
 
-    func showMoreAction(in comment: LemmyApiStructs.CommentView) {
+    func showMoreAction(in comment: LemmyModel.CommentView) {
         print("show more in \(comment.id)")
     }
 }

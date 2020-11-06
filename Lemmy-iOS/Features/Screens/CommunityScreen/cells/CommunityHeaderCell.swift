@@ -54,7 +54,7 @@ class CommunityHeaderCell: UITableViewCell {
         }
     }
     
-    func bindData(community: LemmyApiStructs.CommunityView) {
+    func bindData(community: LemmyModel.CommunityView) {
         communityHeaderView.bind(with: community)
     }
     

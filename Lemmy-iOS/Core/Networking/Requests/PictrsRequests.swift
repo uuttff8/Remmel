@@ -11,14 +11,14 @@ import UIKit
 private protocol PictrsRequestManagerProtocol {
     func uploadPictrs(
         image: UIImage,
-        completion: @escaping (Result<LemmyApiStructs.Pictrs.PictrsResponse, LemmyGenericError>) -> Void
+        completion: @escaping (Result<LemmyModel.Pictrs.PictrsResponse, LemmyGenericError>) -> Void
     )
 }
 
 extension RequestsManager: PictrsRequestManagerProtocol {
     func uploadPictrs(
         image: UIImage,
-        completion: @escaping (Result<LemmyApiStructs.Pictrs.PictrsResponse, LemmyGenericError>) -> Void
+        completion: @escaping (Result<LemmyModel.Pictrs.PictrsResponse, LemmyGenericError>) -> Void
     ) {
 
         return uploadImage(path: HttpLemmyEndpoint.Pictrs.image.endpoint,

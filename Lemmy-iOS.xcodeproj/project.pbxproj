@@ -54,6 +54,7 @@
 		4E886CF1254430970076B162 /* HttpLemmyClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CF0254430970076B162 /* HttpLemmyClient.swift */; };
 		4E886D4625447E350076B162 /* LemmyApiStructs+Pictrs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886D4525447E350076B162 /* LemmyApiStructs+Pictrs.swift */; };
 		4E886D4B2545B81A0076B162 /* PictrsRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886D4A2545B81A0076B162 /* PictrsRequests.swift */; };
+		4E9BBA1925553176004FF2F9 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA1825553176004FF2F9 /* Enums.swift */; };
 		4EB89AF8251F47A7007129BF /* PostScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */; };
 		4EB89B00251F4882007129BF /* PostScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AFF251F4882007129BF /* PostScreenUI.swift */; };
 		4EB89B052521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */; };
@@ -79,7 +80,7 @@
 		4ECCEEF4250C04280075F921 /* LemmyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEF3250C04280075F921 /* LemmyTabBarController.swift */; };
 		4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4ECCEEFA250C13240075F921 /* SnapKit */; };
 		4ECCEEFE250CA30E0075F921 /* FrontPageHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEFD250CA30E0075F921 /* FrontPageHeaderCell.swift */; };
-		4ECCEF03250CB4E00075F921 /* LemmyApiStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF02250CB4E00075F921 /* LemmyApiStructs.swift */; };
+		4ECCEF03250CB4E00075F921 /* LemmyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF02250CB4E00075F921 /* LemmyModel.swift */; };
 		4ECCEF06250CC3330075F921 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF05250CC3330075F921 /* ApiManager.swift */; };
 		4ECCEF09250CC3A60075F921 /* RequestsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF08250CC3A60075F921 /* RequestsManager.swift */; };
 		4ECCEF0C250CCD3E0075F921 /* PostRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF0B250CCD3E0075F921 /* PostRequests.swift */; };
@@ -194,6 +195,7 @@
 		4E886CF0254430970076B162 /* HttpLemmyClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpLemmyClient.swift; sourceTree = "<group>"; };
 		4E886D4525447E350076B162 /* LemmyApiStructs+Pictrs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LemmyApiStructs+Pictrs.swift"; sourceTree = "<group>"; };
 		4E886D4A2545B81A0076B162 /* PictrsRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictrsRequests.swift; sourceTree = "<group>"; };
+		4E9BBA1825553176004FF2F9 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenViewController.swift; sourceTree = "<group>"; };
 		4EB89AFF251F4882007129BF /* PostScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenUI.swift; sourceTree = "<group>"; };
 		4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyGreenOutlinePostDescription.swift; sourceTree = "<group>"; };
@@ -224,7 +226,7 @@
 		4ECCEEF1250C03A40075F921 /* LemmyTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyTabBarCoordinator.swift; sourceTree = "<group>"; };
 		4ECCEEF3250C04280075F921 /* LemmyTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyTabBarController.swift; sourceTree = "<group>"; };
 		4ECCEEFD250CA30E0075F921 /* FrontPageHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageHeaderCell.swift; sourceTree = "<group>"; };
-		4ECCEF02250CB4E00075F921 /* LemmyApiStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyApiStructs.swift; sourceTree = "<group>"; };
+		4ECCEF02250CB4E00075F921 /* LemmyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyModel.swift; sourceTree = "<group>"; };
 		4ECCEF05250CC3330075F921 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		4ECCEF08250CC3A60075F921 /* RequestsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsManager.swift; sourceTree = "<group>"; };
 		4ECCEF0B250CCD3E0075F921 /* PostRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequests.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				4E886C402538C3490076B162 /* Settings */,
 				4ECCEEDE250B8DDF0075F921 /* Base */,
 				4E10708C2534F79D009EABDA /* Data */,
+				4E9BBA1625553123004FF2F9 /* LemmyApi */,
 				4ECCEEE8250BA6040075F921 /* Networking */,
 			);
 			path = Core;
@@ -418,6 +421,22 @@
 				4E886CD7254215B60076B162 /* ChooseCommunityCell.swift */,
 			);
 			path = cells;
+			sourceTree = "<group>";
+		};
+		4E9BBA1625553123004FF2F9 /* LemmyApi */ = {
+			isa = PBXGroup;
+			children = (
+				4E9BBA1725553132004FF2F9 /* models */,
+			);
+			path = LemmyApi;
+			sourceTree = "<group>";
+		};
+		4E9BBA1725553132004FF2F9 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				4E9BBA1825553176004FF2F9 /* Enums.swift */,
+			);
+			path = models;
 			sourceTree = "<group>";
 		};
 		4EB89AF5251F4783007129BF /* Screens */ = {
@@ -606,7 +625,7 @@
 		4ECCEF01250CB4BB0075F921 /* ApiStructs */ = {
 			isa = PBXGroup;
 			children = (
-				4ECCEF02250CB4E00075F921 /* LemmyApiStructs.swift */,
+				4ECCEF02250CB4E00075F921 /* LemmyModel.swift */,
 				4ECCEF0D250CDA5A0075F921 /* LemmyApiStructs+Post.swift */,
 				4ECCEF19250D62580075F921 /* LemmyApiStructs+Comment.swift */,
 				4ECCEF26250FB62F0075F921 /* LemmyApiStructs+Community.swift */,
@@ -1043,6 +1062,7 @@
 				4EFAB5E72552FA9300B32780 /* UITableView+Ext.swift in Sources */,
 				4E886CEC25442B3B0076B162 /* HttpLemmyEndpoint.swift in Sources */,
 				4E886C61253CAF650076B162 /* CreateTransitionDelegateImpl.swift in Sources */,
+				4E9BBA1925553176004FF2F9 /* Enums.swift in Sources */,
 				4ECCEEEA250BA6230075F921 /* WSLemmyClient.swift in Sources */,
 				4E886C88253F4FF40076B162 /* CreatePostUI.swift in Sources */,
 				4E886C7E253F4F290076B162 /* CreatePostViewController.swift in Sources */,
@@ -1070,7 +1090,7 @@
 				4E886CAE2540A9820076B162 /* CreatePostContentCell.swift in Sources */,
 				4EF3AC80254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift in Sources */,
 				4E10704B2534756B009EABDA /* Protocols.swift in Sources */,
-				4ECCEF03250CB4E00075F921 /* LemmyApiStructs.swift in Sources */,
+				4ECCEF03250CB4E00075F921 /* LemmyModel.swift in Sources */,
 				4ECCEF31251F24AD0075F921 /* LemmyFrontPageNavBar.swift in Sources */,
 				4ECCEF33251F27170075F921 /* LemmyProfileIconView.swift in Sources */,
 				4E10706B253477C1009EABDA /* LemmyTableView.swift in Sources */,

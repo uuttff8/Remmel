@@ -9,18 +9,18 @@
 import Foundation
 
 struct CommentNode {
-    let comment: LemmyApiStructs.CommentView
+    let comment: LemmyModel.CommentView
     var replies: [CommentNode]
 }
 
 class CommentListingSort {
-    let comments: [LemmyApiStructs.CommentView]
+    let comments: [LemmyModel.CommentView]
     
-    init(comments: [LemmyApiStructs.CommentView]) {
+    init(comments: [LemmyModel.CommentView]) {
         self.comments = comments
     }
     
-    func sortComments() -> [LemmyApiStructs.CommentView] {
+    func sortComments() -> [LemmyModel.CommentView] {
         let sortedArray = comments.sorted(by: { (comm1, comm2) in
             let date1 = Date.toLemmyDate(str: comm1.published)
             let date2 = Date.toLemmyDate(str: comm2.published)
@@ -31,8 +31,8 @@ class CommentListingSort {
         return sortedArray
     }
     
-    func findNotReplyComments(in comments: [LemmyApiStructs.CommentView]) -> [LemmyApiStructs.CommentView] {
-        var notReply = [LemmyApiStructs.CommentView]()
+    func findNotReplyComments(in comments: [LemmyModel.CommentView]) -> [LemmyModel.CommentView] {
+        var notReply = [LemmyModel.CommentView]()
         
         for comm in comments where comm.parentId == nil {
             notReply.append(comm)
@@ -41,8 +41,8 @@ class CommentListingSort {
         return notReply
     }
     
-    func findCommentsExcludeNotReply(in comments: [LemmyApiStructs.CommentView]) -> [LemmyApiStructs.CommentView] {
-        var repliesOnly = [LemmyApiStructs.CommentView]()
+    func findCommentsExcludeNotReply(in comments: [LemmyModel.CommentView]) -> [LemmyModel.CommentView] {
+        var repliesOnly = [LemmyModel.CommentView]()
         
         for comm in comments where comm.parentId != nil {
             repliesOnly.append(comm)
@@ -62,7 +62,7 @@ class CommentListingSort {
         return nodes
     }
     
-    func createReplyTree(for comment: LemmyApiStructs.CommentView) -> CommentNode {
+    func createReplyTree(for comment: LemmyModel.CommentView) -> CommentNode {
         var replies = [CommentNode]()
         var node = CommentNode(comment: comment, replies: replies)
         

@@ -32,7 +32,7 @@ class CreateCommunityCoordinator: Coordinator {
         navigationController?.pushViewController(choosingVc, animated: true)
     }
 
-    func goToCommunity(comm: LemmyApiStructs.CommunityView) {
+    func goToCommunity(comm: LemmyModel.CommunityView) {
         // TODO(uuttff8): see fatal error
         fatalError("Please implement community view")
     }

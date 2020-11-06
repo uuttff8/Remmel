@@ -10,18 +10,18 @@ import Foundation
 
 private protocol LemmyCommunityRequestManagerProtocol {
     func listCommunities(
-        parameters: LemmyApiStructs.Community.ListCommunitiesRequest,
-        completion: @escaping (Result<LemmyApiStructs.Community.ListCommunitiesResponse, LemmyGenericError>) -> Void
+        parameters: LemmyModel.Community.ListCommunitiesRequest,
+        completion: @escaping (Result<LemmyModel.Community.ListCommunitiesResponse, LemmyGenericError>) -> Void
     )
     
     func createCommunity(
-        parameters: LemmyApiStructs.Community.CreateCommunityRequest,
-        completion: @escaping (Result<LemmyApiStructs.Community.CreateCommunityResponse, LemmyGenericError>) -> Void
+        parameters: LemmyModel.Community.CreateCommunityRequest,
+        completion: @escaping (Result<LemmyModel.Community.CreateCommunityResponse, LemmyGenericError>) -> Void
     )
     
     func getCommunity(
-        parameters: LemmyApiStructs.Community.GetCommunityRequest,
-        completion: @escaping (Result<LemmyApiStructs.Community.GetCommunityResponse, LemmyGenericError>) -> Void
+        parameters: LemmyModel.Community.GetCommunityRequest,
+        completion: @escaping (Result<LemmyModel.Community.GetCommunityResponse, LemmyGenericError>) -> Void
     )
 }
 
@@ -39,8 +39,8 @@ extension RequestsManager: LemmyCommunityRequestManagerProtocol {
     }
     
     func createCommunity(
-        parameters: LemmyApiStructs.Community.CreateCommunityRequest,
-        completion: @escaping (Result<LemmyApiStructs.Community.CreateCommunityResponse, LemmyGenericError>) -> Void
+        parameters: LemmyModel.Community.CreateCommunityRequest,
+        completion: @escaping (Result<LemmyModel.Community.CreateCommunityResponse, LemmyGenericError>) -> Void
     ) {
         
         return requestDecodable(path: LemmyEndpoint.Community.createCommunity.endpoint,
@@ -50,8 +50,8 @@ extension RequestsManager: LemmyCommunityRequestManagerProtocol {
     }
     
     func getCommunity(
-        parameters: LemmyApiStructs.Community.GetCommunityRequest,
-        completion: @escaping (Result<LemmyApiStructs.Community.GetCommunityResponse, LemmyGenericError>) -> Void
+        parameters: LemmyModel.Community.GetCommunityRequest,
+        completion: @escaping (Result<LemmyModel.Community.GetCommunityResponse, LemmyGenericError>) -> Void
     ) {
         
         return requestDecodable(path: LemmyEndpoint.Community.getCommunity.endpoint,

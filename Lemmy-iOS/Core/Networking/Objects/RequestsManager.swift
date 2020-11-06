@@ -57,7 +57,7 @@ class RequestsManager {
                 guard dict?.keys.firstIndex(of: rootKey) != nil, let items = dict?[rootKey] else {
 
                     // if no root key it maybe an error from backend
-                    if let backendError = try? JSONDecoder().decode(LemmyApiStructs.ErrorResponse.self, from: data) {
+                    if let backendError = try? JSONDecoder().decode(LemmyModel.ErrorResponse.self, from: data) {
                         completion(.failure(.string(backendError.error)))
                         return
                     }

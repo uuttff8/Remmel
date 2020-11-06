@@ -10,23 +10,23 @@ import Foundation
 
 private protocol UserRequestManagerProtocol {
     func getUserDetails(
-        parameters: LemmyApiStructs.User.GetUserDetailsRequest,
-        completion: @escaping (Result<LemmyApiStructs.User.GetUserDetailsResponse, LemmyGenericError>) -> Void
+        parameters: LemmyModel.User.GetUserDetailsRequest,
+        completion: @escaping (Result<LemmyModel.User.GetUserDetailsResponse, LemmyGenericError>) -> Void
     )
     
     func saveUserSettings(
-        parameters: LemmyApiStructs.User.SaveUserSettingsRequest,
-        completion: @escaping (Result<LemmyApiStructs.User.SaveUserSettingsResponse, LemmyGenericError>) -> Void
+        parameters: LemmyModel.User.SaveUserSettingsRequest,
+        completion: @escaping (Result<LemmyModel.User.SaveUserSettingsResponse, LemmyGenericError>) -> Void
     )
     
     func getReplies(
-        parameters: LemmyApiStructs.User.GetRepliesRequest,
-        completion: @escaping (Result<LemmyApiStructs.User.GetRepliesResponse, LemmyGenericError>) -> Void
+        parameters: LemmyModel.User.GetRepliesRequest,
+        completion: @escaping (Result<LemmyModel.User.GetRepliesResponse, LemmyGenericError>) -> Void
     )
     
     func getUserMentions(
-        parameters: LemmyApiStructs.User.GetUserMentionsRequest,
-        completion: @escaping (Result<LemmyApiStructs.User.GetUserMentionsResponse, LemmyGenericError>) -> Void
+        parameters: LemmyModel.User.GetUserMentionsRequest,
+        completion: @escaping (Result<LemmyModel.User.GetUserMentionsResponse, LemmyGenericError>) -> Void
     )
     
     func markUserMentionAsRead<Req: Codable, Res: Codable>(
@@ -37,8 +37,8 @@ private protocol UserRequestManagerProtocol {
 
 extension RequestsManager: UserRequestManagerProtocol {
     func getUserDetails(
-        parameters: LemmyApiStructs.User.GetUserDetailsRequest,
-        completion: @escaping (Result<LemmyApiStructs.User.GetUserDetailsResponse, LemmyGenericError>) -> Void
+        parameters: LemmyModel.User.GetUserDetailsRequest,
+        completion: @escaping (Result<LemmyModel.User.GetUserDetailsResponse, LemmyGenericError>) -> Void
     ) {
 
         return requestDecodable(
@@ -50,8 +50,8 @@ extension RequestsManager: UserRequestManagerProtocol {
     }
 
     func saveUserSettings(
-        parameters: LemmyApiStructs.User.SaveUserSettingsRequest,
-        completion: @escaping (Result<LemmyApiStructs.User.SaveUserSettingsResponse, LemmyGenericError>) -> Void
+        parameters: LemmyModel.User.SaveUserSettingsRequest,
+        completion: @escaping (Result<LemmyModel.User.SaveUserSettingsResponse, LemmyGenericError>) -> Void
     ) {
 
         return requestDecodable(
@@ -63,8 +63,8 @@ extension RequestsManager: UserRequestManagerProtocol {
     }
 
     func getReplies(
-        parameters: LemmyApiStructs.User.GetRepliesRequest,
-        completion: @escaping (Result<LemmyApiStructs.User.GetRepliesResponse, LemmyGenericError>) -> Void
+        parameters: LemmyModel.User.GetRepliesRequest,
+        completion: @escaping (Result<LemmyModel.User.GetRepliesResponse, LemmyGenericError>) -> Void
     ) {
 
         return requestDecodable(
@@ -76,8 +76,8 @@ extension RequestsManager: UserRequestManagerProtocol {
     }
 
     func getUserMentions(
-        parameters: LemmyApiStructs.User.GetUserMentionsRequest,
-        completion: @escaping (Result<LemmyApiStructs.User.GetUserMentionsResponse, LemmyGenericError>) -> Void
+        parameters: LemmyModel.User.GetUserMentionsRequest,
+        completion: @escaping (Result<LemmyModel.User.GetUserMentionsResponse, LemmyGenericError>) -> Void
     ) {
 
         return requestDecodable(

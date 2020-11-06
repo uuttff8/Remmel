@@ -26,13 +26,13 @@ class CommunityScreenModel: NSObject {
         super.init()
     }
     
-    var newDataLoaded: (([LemmyApiStructs.PostView]) -> Void)?
-    var dataLoaded: (([LemmyApiStructs.PostView]) -> Void)?
-    var goToPostScreen: ((LemmyApiStructs.PostView) -> Void)?
+    var newDataLoaded: (([LemmyModel.PostView]) -> Void)?
+    var dataLoaded: (([LemmyModel.PostView]) -> Void)?
+    var goToPostScreen: ((LemmyModel.PostView) -> Void)?
     
-    let communitySubject: CurrentValueSubject<LemmyApiStructs.CommunityView?, Never> = CurrentValueSubject(nil)
+    let communitySubject: CurrentValueSubject<LemmyModel.CommunityView?, Never> = CurrentValueSubject(nil)
     let contentTypeSubject: PassthroughSubject<LemmySortType, Never> = PassthroughSubject()
-    let postsSubject: CurrentValueSubject<[LemmyApiStructs.PostView], Never> = CurrentValueSubject([])
+    let postsSubject: CurrentValueSubject<[LemmyModel.PostView], Never> = CurrentValueSubject([])
     
     private var isFetchingNewContent = false
     private var currentPage = 1
@@ -42,7 +42,7 @@ class CommunityScreenModel: NSObject {
     func loadCommunity(id: Int) {
         guard let jwtToken = LemmyShareData.shared.jwtToken else { return }
         
-        let parameters = LemmyApiStructs.Community.GetCommunityRequest(id: id, name: nil, auth: jwtToken)
+        let parameters = LemmyModel.Community.GetCommunityRequest(id: id, name: nil, auth: jwtToken)
         
         ApiManager.requests.getCommunity(parameters: parameters) { [self] (res) in
             switch res {
@@ -55,7 +55,7 @@ class CommunityScreenModel: NSObject {
     }
     
     func loadPosts(id: Int) {
-        let parameters = LemmyApiStructs.Post.GetPostsRequest(type: .community,
+        let parameters = LemmyModel.Post.GetPostsRequest(type: .community,
                                                               sort: LemmySortType.active,
                                                               page: 1,
                                                               limit: 50,
@@ -65,7 +65,7 @@ class CommunityScreenModel: NSObject {
         
         ApiManager.shared.requestsManager.getPosts(
             parameters: parameters,
-            completion: { (dec: Result<LemmyApiStructs.Post.GetPostsResponse, LemmyGenericError>) in
+            completion: { (dec: Result<LemmyModel.Post.GetPostsResponse, LemmyGenericError>) in
                 switch dec {
                 case .success(let posts):
                     self.postsSubject.send(posts.posts)
@@ -77,7 +77,7 @@ class CommunityScreenModel: NSObject {
     }
     
     func loadMorePosts(fromId: Int,completion: @escaping (() -> Void)) {
-        let parameters = LemmyApiStructs.Post.GetPostsRequest(type: .community,
+        let parameters = LemmyModel.Post.GetPostsRequest(type: .community,
                                                               sort: LemmySortType.active,
                                                               page: currentPage,
                                                               limit: 50,
@@ -87,7 +87,7 @@ class CommunityScreenModel: NSObject {
         
         ApiManager.shared.requestsManager.getPosts(
             parameters: parameters,
-            completion: { [self] (dec: Result<LemmyApiStructs.Post.GetPostsResponse, LemmyGenericError>) in
+            completion: { [self] (dec: Result<LemmyModel.Post.GetPostsResponse, LemmyGenericError>) in
                 switch dec {
                 case let .success(posts):
                     guard !posts.posts.isEmpty else { return }
@@ -170,20 +170,20 @@ extension CommunityScreenModel: UITableViewDataSource {
 }
 
 extension CommunityScreenModel: PostContentTableCellDelegate {
-    func usernameTapped(in post: LemmyApiStructs.PostView) {
+    func usernameTapped(in post: LemmyModel.PostView) {
         print(post.creatorName)
     }
     
     // TODO(uuttff8): Implement coordinator to post
-    func communityTapped(in post: LemmyApiStructs.PostView) {
+    func communityTapped(in post: LemmyModel.PostView) {
         //        goToCommunityScreen?(post)
     }
     
-    func upvote(post: LemmyApiStructs.PostView) {
+    func upvote(post: LemmyModel.PostView) {
         print("upvote")
     }
     
-    func downvote(post: LemmyApiStructs.PostView) {
+    func downvote(post: LemmyModel.PostView) {
         print("downvote")
     }
 }

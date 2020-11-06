@@ -21,13 +21,13 @@ class CreateCommunityModel {
         let nsfwOption: Bool
     }
     
-    let categories: CurrentValueSubject<[LemmyApiStructs.CategoryView], Never> = CurrentValueSubject([])
-    let filteredCategories: CurrentValueSubject<[LemmyApiStructs.CategoryView], Never> = CurrentValueSubject([])
+    let categories: CurrentValueSubject<[LemmyModel.CategoryView], Never> = CurrentValueSubject([])
+    let filteredCategories: CurrentValueSubject<[LemmyModel.CategoryView], Never> = CurrentValueSubject([])
 
-    let selectedCategory: CurrentValueSubject<LemmyApiStructs.CategoryView?, Never> = CurrentValueSubject(nil)
+    let selectedCategory: CurrentValueSubject<LemmyModel.CategoryView?, Never> = CurrentValueSubject(nil)
 
     func loadCategories() {
-        ApiManager.requests.listCategoties(parameters: LemmyApiStructs.Site.ListCategoriesRequest()) { (res) in
+        ApiManager.requests.listCategoties(parameters: LemmyModel.Site.ListCategoriesRequest()) { (res) in
             switch res {
             case let .success(response):
                 self.categories.send(response.categories)
@@ -47,7 +47,7 @@ class CreateCommunityModel {
 
     func createCommunity(
         data: CreateCommunityModel.CreateCommunityData,
-        completion: @escaping ((Result<LemmyApiStructs.CommunityView, LemmyGenericError>) -> Void)
+        completion: @escaping ((Result<LemmyModel.CommunityView, LemmyGenericError>) -> Void)
     ) {
         guard let jwtToken = LemmyShareData.shared.jwtToken
         else {
@@ -55,7 +55,7 @@ class CreateCommunityModel {
             return
         }
 
-        let params = LemmyApiStructs.Community.CreateCommunityRequest(name: data.name,
+        let params = LemmyModel.Community.CreateCommunityRequest(name: data.name,
                                                                       title: data.title,
                                                                       description: data.description,
                                                                       icon: data.icon,

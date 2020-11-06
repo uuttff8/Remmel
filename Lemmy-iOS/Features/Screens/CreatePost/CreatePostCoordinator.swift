@@ -32,7 +32,7 @@ class CreatePostCoordinator: Coordinator {
         navigationController?.pushViewController(choosingVc, animated: true)
     }
 
-    func goToPost(post: LemmyApiStructs.PostView) {
+    func goToPost(post: LemmyModel.PostView) {
         rootViewController.dismiss(animated: true, completion: nil)
 
         if let presentingVc = rootViewController.presentingViewController as? LemmyTabBarController {

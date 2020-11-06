@@ -78,7 +78,7 @@ class LoginViewController: UIViewController {
 
         ApiManager.requests.register(
             parameters: registerDataParams
-        ) { (result: Result<LemmyApiStructs.Authentication.RegisterResponse, LemmyGenericError>) in
+        ) { (result: Result<LemmyModel.Authentication.RegisterResponse, LemmyGenericError>) in
             switch result {
             case let .success(response):
                 print(response)
@@ -91,7 +91,7 @@ class LoginViewController: UIViewController {
         }
     }
     
-    private func checkRegisterData() -> LemmyApiStructs.Authentication.RegisterRequest? {
+    private func checkRegisterData() -> LemmyModel.Authentication.RegisterRequest? {
         guard let signUpView = signUpView else { return nil }
 
         guard (signUpView.passwordTextField.hasText)
@@ -128,7 +128,7 @@ class LoginViewController: UIViewController {
             email = nil
         }
 
-        return LemmyApiStructs.Authentication.RegisterRequest(username: username,
+        return LemmyModel.Authentication.RegisterRequest(username: username,
                                                                     email: email,
                                                                     password: password,
                                                                     passwordVerify: passwordVerify,
@@ -150,12 +150,12 @@ class LoginViewController: UIViewController {
               let password = signInView.passwordTextField.text
         else { return }
 
-        let parameters = LemmyApiStructs.Authentication
+        let parameters = LemmyModel.Authentication
             .LoginRequest(usernameOrEmail: emailOrUsername, password: password)
 
         ApiManager.shared.requestsManager.login(
             parameters: parameters
-        ) { (res: Result<LemmyApiStructs.Authentication.LoginResponse, LemmyGenericError>) in
+        ) { (res: Result<LemmyModel.Authentication.LoginResponse, LemmyGenericError>) in
             switch res {
             case let .failure(error):
                 DispatchQueue.main.async {
@@ -175,12 +175,12 @@ class LoginViewController: UIViewController {
 
     }
 
-    private func loadUserOnSuccessLogin(jwt: String, completion: @escaping ((LemmyApiStructs.MyUser) -> Void)) {
-        let params = LemmyApiStructs.Site.GetSiteRequest(auth: jwt)
+    private func loadUserOnSuccessLogin(jwt: String, completion: @escaping ((LemmyModel.MyUser) -> Void)) {
+        let params = LemmyModel.Site.GetSiteRequest(auth: jwt)
 
         ApiManager.shared.requestsManager.getSite(
             parameters: params
-        ) { (res: Result<LemmyApiStructs.Site.GetSiteResponse, LemmyGenericError>) in
+        ) { (res: Result<LemmyModel.Site.GetSiteResponse, LemmyGenericError>) in
             switch res {
             case let .failure(error):
                 print(error)

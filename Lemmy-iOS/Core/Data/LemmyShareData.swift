@@ -26,11 +26,11 @@ class LemmyShareData {
 
     let userDefaults = UserDefaults.appShared
 
-    var userdata: LemmyApiStructs.MyUser? {
+    var userdata: LemmyModel.MyUser? {
         get {
             guard let data = userDefaults.data(forKey: Constants.userdata)
                 else { return nil }
-            return try? JSONDecoder().decode(LemmyApiStructs.MyUser.self, from: data)
+            return try? JSONDecoder().decode(LemmyModel.MyUser.self, from: data)
         } set {
             let data = try? JSONEncoder().encode(newValue)
             userDefaults.set(data, forKey: Constants.userdata)

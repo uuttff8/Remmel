@@ -10,25 +10,25 @@ import Foundation
 
 private protocol LemmyPostRequestManagerProtocol {
     func getPosts(
-        parameters: LemmyApiStructs.Post.GetPostsRequest,
-        completion: @escaping ((Result<LemmyApiStructs.Post.GetPostsResponse, LemmyGenericError>) -> Void)
+        parameters: LemmyModel.Post.GetPostsRequest,
+        completion: @escaping ((Result<LemmyModel.Post.GetPostsResponse, LemmyGenericError>) -> Void)
     )
     
     func getPost(
-        parameters: LemmyApiStructs.Post.GetPostRequest,
-        completion: @escaping ((Result<LemmyApiStructs.Post.GetPostResponse, LemmyGenericError>) -> Void)
+        parameters: LemmyModel.Post.GetPostRequest,
+        completion: @escaping ((Result<LemmyModel.Post.GetPostResponse, LemmyGenericError>) -> Void)
     )
     
     func createPost(
-        parameters: LemmyApiStructs.Post.CreatePostRequest,
-        completion: @escaping ((Result<LemmyApiStructs.Post.CreatePostResponse, LemmyGenericError>) -> Void)
+        parameters: LemmyModel.Post.CreatePostRequest,
+        completion: @escaping ((Result<LemmyModel.Post.CreatePostResponse, LemmyGenericError>) -> Void)
     )
 }
 
 extension RequestsManager: LemmyPostRequestManagerProtocol {
     func getPosts(
-        parameters: LemmyApiStructs.Post.GetPostsRequest,
-        completion: @escaping ((Result<LemmyApiStructs.Post.GetPostsResponse, LemmyGenericError>) -> Void)
+        parameters: LemmyModel.Post.GetPostsRequest,
+        completion: @escaping ((Result<LemmyModel.Post.GetPostsResponse, LemmyGenericError>) -> Void)
     ) {
 
         return requestDecodable(
@@ -40,8 +40,8 @@ extension RequestsManager: LemmyPostRequestManagerProtocol {
     }
 
     func getPost(
-        parameters: LemmyApiStructs.Post.GetPostRequest,
-        completion: @escaping ((Result<LemmyApiStructs.Post.GetPostResponse, LemmyGenericError>) -> Void)
+        parameters: LemmyModel.Post.GetPostRequest,
+        completion: @escaping ((Result<LemmyModel.Post.GetPostResponse, LemmyGenericError>) -> Void)
     ) {
         return requestDecodable(
             path: LemmyEndpoint.Post.getPost.endpoint,
@@ -52,8 +52,8 @@ extension RequestsManager: LemmyPostRequestManagerProtocol {
     }
 
     func createPost(
-        parameters: LemmyApiStructs.Post.CreatePostRequest,
-        completion: @escaping ((Result<LemmyApiStructs.Post.CreatePostResponse, LemmyGenericError>) -> Void)
+        parameters: LemmyModel.Post.CreatePostRequest,
+        completion: @escaping ((Result<LemmyModel.Post.CreatePostResponse, LemmyGenericError>) -> Void)
     ) {
         return requestDecodable(
             path: LemmyEndpoint.Post.createPost.endpoint,

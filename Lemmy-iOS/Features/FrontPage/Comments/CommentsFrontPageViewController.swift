@@ -20,7 +20,7 @@ class CommentsFrontPageViewController: UIViewController {
 
     let tableView = LemmyTableView(style: .plain)
     private lazy var dataSource = makeDataSource()
-    private var snapshot = NSDiffableDataSourceSnapshot<Section, LemmyApiStructs.CommentView>()
+    private var snapshot = NSDiffableDataSourceSnapshot<Section, LemmyModel.CommentView>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +45,7 @@ class CommentsFrontPageViewController: UIViewController {
         }
     }
 
-    func addRows(with list: [LemmyApiStructs.CommentView], animate: Bool = true) {
+    func addRows(with list: [LemmyModel.CommentView], animate: Bool = true) {
         snapshot.insertItems(list, afterItem: model.commentsDataSource.last!)
         self.model.commentsDataSource.append(contentsOf: list)
         DispatchQueue.main.async { [self] in
@@ -53,7 +53,7 @@ class CommentsFrontPageViewController: UIViewController {
         }
     }
 
-    func addFirstRows(with list: [LemmyApiStructs.CommentView], animate: Bool = true) {
+    func addFirstRows(with list: [LemmyModel.CommentView], animate: Bool = true) {
         snapshot.appendSections([.main])
         snapshot.appendItems(list)
         DispatchQueue.main.async { [self] in
@@ -61,8 +61,8 @@ class CommentsFrontPageViewController: UIViewController {
         }
     }
 
-    private func makeDataSource() -> UITableViewDiffableDataSource<Section, LemmyApiStructs.CommentView> {
-        return UITableViewDiffableDataSource<Section, LemmyApiStructs.CommentView>(
+    private func makeDataSource() -> UITableViewDiffableDataSource<Section, LemmyModel.CommentView> {
+        return UITableViewDiffableDataSource<Section, LemmyModel.CommentView>(
             tableView: tableView,
             cellProvider: { (tableView, indexPath, _) -> UITableViewCell? in
                 let cell = tableView.cell(forClass: CommentContentTableCell.self)

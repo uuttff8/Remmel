@@ -9,15 +9,15 @@
 import UIKit
 
 class PostsFrontPageModel: NSObject {
-    var goToPostScreen: ((LemmyApiStructs.PostView) -> Void)?
-    var goToCommunityScreen: ((_ fromPost: LemmyApiStructs.PostView) -> Void)?
-    var newDataLoaded: (([LemmyApiStructs.PostView]) -> Void)?
-    var dataLoaded: (([LemmyApiStructs.PostView]) -> Void)?
+    var goToPostScreen: ((LemmyModel.PostView) -> Void)?
+    var goToCommunityScreen: ((_ fromPost: LemmyModel.PostView) -> Void)?
+    var newDataLoaded: (([LemmyModel.PostView]) -> Void)?
+    var dataLoaded: (([LemmyModel.PostView]) -> Void)?
 
     var isFetchingNewContent = false
     var currentPage = 1
 
-    var postsDataSource: [LemmyApiStructs.PostView] = []
+    var postsDataSource: [LemmyModel.PostView] = []
 
     // at init always posts
     var currentContentType: LemmyContentType = LemmyContentType.posts {
@@ -36,7 +36,7 @@ class PostsFrontPageModel: NSObject {
     var currentSortType: LemmySortType = LemmySortType.active
 
     func loadPosts() {
-        let parameters = LemmyApiStructs.Post.GetPostsRequest(type: self.currentFeedType,
+        let parameters = LemmyModel.Post.GetPostsRequest(type: self.currentFeedType,
                                                               sort: currentSortType,
                                                               page: 1,
                                                               limit: 20,
@@ -46,7 +46,7 @@ class PostsFrontPageModel: NSObject {
 
         ApiManager.shared.requestsManager.getPosts(
             parameters: parameters,
-            completion: { (dec: Result<LemmyApiStructs.Post.GetPostsResponse, LemmyGenericError>) in
+            completion: { (dec: Result<LemmyModel.Post.GetPostsResponse, LemmyGenericError>) in
                 switch dec {
                 case .success(let posts):
                     self.postsDataSource = posts.posts
@@ -58,7 +58,7 @@ class PostsFrontPageModel: NSObject {
     }
 
     func loadMorePosts(completion: @escaping (() -> Void)) {
-        let parameters = LemmyApiStructs.Post.GetPostsRequest(type: self.currentFeedType,
+        let parameters = LemmyModel.Post.GetPostsRequest(type: self.currentFeedType,
                                                               sort: currentSortType,
                                                               page: currentPage,
                                                               limit: 20,
@@ -68,7 +68,7 @@ class PostsFrontPageModel: NSObject {
 
         ApiManager.shared.requestsManager.getPosts(
             parameters: parameters,
-            completion: { (dec: Result<LemmyApiStructs.Post.GetPostsResponse, LemmyGenericError>) in
+            completion: { (dec: Result<LemmyModel.Post.GetPostsResponse, LemmyGenericError>) in
                 switch dec {
                 case let .success(posts):
                     self.newDataLoaded?(posts.posts)
@@ -81,20 +81,20 @@ class PostsFrontPageModel: NSObject {
 }
 
 extension PostsFrontPageModel: PostContentTableCellDelegate {
-    func usernameTapped(in post: LemmyApiStructs.PostView) {
+    func usernameTapped(in post: LemmyModel.PostView) {
         print(post.creatorName)
     }
 
     // TODO(uuttff8): Implement coordinator to post
-    func communityTapped(in post: LemmyApiStructs.PostView) {        
+    func communityTapped(in post: LemmyModel.PostView) {        
         goToCommunityScreen?(post)
     }
 
-    func upvote(post: LemmyApiStructs.PostView) {
+    func upvote(post: LemmyModel.PostView) {
         print("upvote")
     }
 
-    func downvote(post: LemmyApiStructs.PostView) {
+    func downvote(post: LemmyModel.PostView) {
         print("downvote")
     }
 }

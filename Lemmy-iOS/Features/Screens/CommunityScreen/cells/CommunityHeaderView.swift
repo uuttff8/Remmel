@@ -101,7 +101,7 @@ class CommunityHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind(with data: LemmyApiStructs.CommunityView) {
+    func bind(with data: LemmyModel.CommunityView) {
         if let commImageString = data.icon {
             Nuke.loadImage(with: URL(string: commImageString)!, into: commImageView)
         } else {

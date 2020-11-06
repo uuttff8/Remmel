@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension LemmyApiStructs {
+extension LemmyModel {
     enum Pictrs {
 
         // MARK: - Pictrs -

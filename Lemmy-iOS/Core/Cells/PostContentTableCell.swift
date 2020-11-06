@@ -10,10 +10,10 @@ import UIKit
 import Nuke
 
 protocol PostContentTableCellDelegate: AnyObject {
-    func upvote(post: LemmyApiStructs.PostView)
-    func downvote(post: LemmyApiStructs.PostView)
-    func usernameTapped(in post: LemmyApiStructs.PostView)
-    func communityTapped(in post: LemmyApiStructs.PostView)
+    func upvote(post: LemmyModel.PostView)
+    func downvote(post: LemmyModel.PostView)
+    func usernameTapped(in post: LemmyModel.PostView)
+    func communityTapped(in post: LemmyModel.PostView)
 }
 
 class PostContentTableCell: UITableViewCell {
@@ -21,7 +21,7 @@ class PostContentTableCell: UITableViewCell {
     var postContentView = PostContentView()
     let selBackView = UIView()
     
-    func bind(with post: LemmyApiStructs.PostView, config: PostContentView.Configuration) {
+    func bind(with post: LemmyModel.PostView, config: PostContentView.Configuration) {
         self.contentView.addSubview(postContentView)
 
         self.postContentView.snp.makeConstraints { (make) in
@@ -65,7 +65,7 @@ class PostContentView: UIView {
         return view
     }()
 
-    func bind(with post: LemmyApiStructs.PostView, config: Configuration) {
+    func bind(with post: LemmyModel.PostView, config: Configuration) {
         setupUI()
         setupTargets(with: post)
 
@@ -96,7 +96,7 @@ class PostContentView: UIView {
 
     }
 
-    private func setupTargets(with post: LemmyApiStructs.PostView) {
+    private func setupTargets(with post: LemmyModel.PostView) {
         headerView.communityButtonTap = { [weak self] in
             self?.delegate?.communityTapped(in: post)
         }
