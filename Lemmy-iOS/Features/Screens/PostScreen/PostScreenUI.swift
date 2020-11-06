@@ -54,10 +54,7 @@ class PostScreenUI: UIView {
     private func openLink(urlString: String?) {
         if let str = urlString, let url = URL(string: str) {
             
-            let sfConfig = SFSafariViewController.Configuration()
-            sfConfig.entersReaderIfAvailable = true
-
-            let vc = SFSafariViewController(url: url, configuration: sfConfig)
+            let vc = SFSafariViewController(url: url)
             vc.delegate = self
 
             presentOnVc?(vc)

@@ -12,33 +12,33 @@ class CommentsFrontPageModel: NSObject {
     var dataLoaded: (([LemmyModel.CommentView]) -> Void)?
     var newDataLoaded: (([LemmyModel.CommentView]) -> Void)?
     var goToCommentScreen: ((LemmyModel.CommentView) -> Void)?
-
+    
     private var isFetchingNewContent = false
     private var currentPage = 1
-
+    
     var commentsDataSource: [LemmyModel.CommentView] = []
-
+    
     // at init always posts
     var currentContentType: LemmyContentType = LemmyContentType.posts {
         didSet {
             print(currentContentType)
         }
     }
-
+    
     // at init always all
     var currentFeedType: LemmyPostListingType = LemmyPostListingType.all {
         didSet {
             print(currentFeedType)
         }
     }
-
+    
     func loadComments() {
         let parameters = LemmyModel.Comment.GetCommentsRequest(type: self.currentFeedType,
-                                                                    sort: LemmySortType.hot,
-                                                                    page: 1,
-                                                                    limit: 20,
-                                                                    auth: nil)
-
+                                                               sort: LemmySortType.hot,
+                                                               page: 1,
+                                                               limit: 20,
+                                                               auth: LemmyShareData.shared.jwtToken)
+        
         ApiManager.shared.requestsManager.getComments(
             parameters: parameters
         ) { (res: Result<LemmyModel.Comment.GetCommentsResponse, LemmyGenericError>) in
@@ -51,14 +51,14 @@ class CommentsFrontPageModel: NSObject {
             }
         }
     }
-
+    
     func loadMoreComments(completion: @escaping (() -> Void)) {
         let parameters = LemmyModel.Comment.GetCommentsRequest(type: self.currentFeedType,
-                                                                    sort: LemmySortType.hot,
-                                                                    page: currentPage,
-                                                                    limit: 20,
-                                                                    auth: nil)
-
+                                                               sort: LemmySortType.hot,
+                                                               page: currentPage,
+                                                               limit: 20,
+                                                               auth: LemmyShareData.shared.jwtToken)
+        
         ApiManager.shared.requestsManager.getComments(
             parameters: parameters
         ) { (res: Result<LemmyModel.Comment.GetCommentsResponse, LemmyGenericError>) in
@@ -71,28 +71,28 @@ class CommentsFrontPageModel: NSObject {
             }
         }
     }
-
+    
 }
 
 extension CommentsFrontPageModel: UITableViewDelegate {
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         handleDidSelectForComments(indexPath: indexPath)
-
+        
         tableView.deselectRow(at: indexPath, animated: true)
-
+        
     }
-
+    
     // TODO(uuttff8): go to comments
     private func handleDidSelectForComments(indexPath: IndexPath) { }
-
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let indexPathRow = indexPath.row
         let bottomItems = self.commentsDataSource.count - 5
-
+        
         if indexPathRow >= bottomItems {
             guard !self.isFetchingNewContent else { return }
-
+            
             self.isFetchingNewContent = true
             self.currentPage += 1
             self.loadMoreComments {
@@ -110,34 +110,34 @@ extension CommentsFrontPageModel: CommentContentTableCellDelegate {
         
         fatalError("Implement coordinator to post")
     }
-
+    
     func usernameTapped(in comment: LemmyModel.CommentView) {
         print(comment.creatorName)
     }
-
+    
     // TODO(uuttff8): Implement coordinator to post
     func communityTapped(in comment: LemmyModel.CommentView) {
         print(comment.communityName)
         
         fatalError("Implement coordinator to post")
     }
-
+    
     func upvote(comment: LemmyModel.CommentView) {
         print("\(comment) upvoted")
     }
-
+    
     func downvote(comment: LemmyModel.CommentView) {
         print("\(comment) downvoted")
     }
-
+    
     func showContext(in comment: LemmyModel.CommentView) {
         print("show context in \(comment.id)")
     }
-
+    
     func reply(to comment: LemmyModel.CommentView) {
         print("reply to \(comment.id)")
     }
-
+    
     func showMoreAction(in comment: LemmyModel.CommentView) {
         print("show more in \(comment.id)")
     }
@@ -148,7 +148,7 @@ extension CommentsFrontPageModel: FrontPageHeaderCellDelegate {
         self.currentContentType = content
         self.loadComments()
     }
-
+    
     func feedTypeChanged(to feed: LemmyPostListingType) {
         self.currentFeedType = feed
         self.loadComments()
