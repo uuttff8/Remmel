@@ -50,7 +50,7 @@
 		4E886CDD254229F20076B162 /* LemmyModel+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CDC254229F20076B162 /* LemmyModel+Search.swift */; };
 		4E886CE225422BDC0076B162 /* SearchRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CE125422BDC0076B162 /* SearchRequests.swift */; };
 		4E886CE7254429280076B162 /* WSLemmyEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CE6254429270076B162 /* WSLemmyEndpoint.swift */; };
-		4E886CEC25442B3B0076B162 /* HttpLemmyEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CEB25442B3B0076B162 /* HttpLemmyEndpoint.swift */; };
+		4E886CEC25442B3B0076B162 /* HttpEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CEB25442B3B0076B162 /* HttpEndpoint.swift */; };
 		4E886CF1254430970076B162 /* HttpLemmyClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CF0254430970076B162 /* HttpLemmyClient.swift */; };
 		4E886D4625447E350076B162 /* LemmyModel+Pictrs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886D4525447E350076B162 /* LemmyModel+Pictrs.swift */; };
 		4E886D4B2545B81A0076B162 /* PictrsRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886D4A2545B81A0076B162 /* PictrsRequests.swift */; };
@@ -192,7 +192,7 @@
 		4E886CDC254229F20076B162 /* LemmyModel+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LemmyModel+Search.swift"; sourceTree = "<group>"; };
 		4E886CE125422BDC0076B162 /* SearchRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRequests.swift; sourceTree = "<group>"; };
 		4E886CE6254429270076B162 /* WSLemmyEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSLemmyEndpoint.swift; sourceTree = "<group>"; };
-		4E886CEB25442B3B0076B162 /* HttpLemmyEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpLemmyEndpoint.swift; sourceTree = "<group>"; };
+		4E886CEB25442B3B0076B162 /* HttpEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpEndpoint.swift; sourceTree = "<group>"; };
 		4E886CF0254430970076B162 /* HttpLemmyClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpLemmyClient.swift; sourceTree = "<group>"; };
 		4E886D4525447E350076B162 /* LemmyModel+Pictrs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LemmyModel+Pictrs.swift"; sourceTree = "<group>"; };
 		4E886D4A2545B81A0076B162 /* PictrsRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictrsRequests.swift; sourceTree = "<group>"; };
@@ -428,6 +428,7 @@
 		4E9BBA1625553123004FF2F9 /* LemmyApi */ = {
 			isa = PBXGroup;
 			children = (
+				4E9BBA4C25553654004FF2F9 /* endpoint */,
 				4E9BBA302555351E004FF2F9 /* requestModel */,
 				4E9BBA1725553132004FF2F9 /* models */,
 				4E9BBA2B25553516004FF2F9 /* Error.swift */,
@@ -457,6 +458,15 @@
 				4E886D4525447E350076B162 /* LemmyModel+Pictrs.swift */,
 			);
 			path = requestModel;
+			sourceTree = "<group>";
+		};
+		4E9BBA4C25553654004FF2F9 /* endpoint */ = {
+			isa = PBXGroup;
+			children = (
+				4E886CEB25442B3B0076B162 /* HttpEndpoint.swift */,
+				4E886CE6254429270076B162 /* WSLemmyEndpoint.swift */,
+			);
+			path = endpoint;
 			sourceTree = "<group>";
 		};
 		4EB89AF5251F4783007129BF /* Screens */ = {
@@ -593,10 +603,8 @@
 				4ECCEF05250CC3330075F921 /* ApiManager.swift */,
 				4ECCEF0A250CCD2E0075F921 /* Requests */,
 				4ECCEF07250CC39A0075F921 /* Objects */,
-				4E886CE6254429270076B162 /* WSLemmyEndpoint.swift */,
 				4ECCEEE9250BA6230075F921 /* WSLemmyClient.swift */,
 				4E886CF0254430970076B162 /* HttpLemmyClient.swift */,
-				4E886CEB25442B3B0076B162 /* HttpLemmyEndpoint.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -1065,7 +1073,7 @@
 				4ECCEEED250BE8870075F921 /* FrontPageViewController.swift in Sources */,
 				4EFAB5D82552FA1100B32780 /* UILabel+Ext.swift in Sources */,
 				4EFAB5E72552FA9300B32780 /* UITableView+Ext.swift in Sources */,
-				4E886CEC25442B3B0076B162 /* HttpLemmyEndpoint.swift in Sources */,
+				4E886CEC25442B3B0076B162 /* HttpEndpoint.swift in Sources */,
 				4E886C61253CAF650076B162 /* CreateTransitionDelegateImpl.swift in Sources */,
 				4E9BBA1925553176004FF2F9 /* Enums.swift in Sources */,
 				4ECCEEEA250BA6230075F921 /* WSLemmyClient.swift in Sources */,

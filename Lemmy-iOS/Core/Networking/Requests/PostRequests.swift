@@ -32,7 +32,7 @@ extension RequestsManager: LemmyPostRequestManagerProtocol {
     ) {
 
         return requestDecodable(
-            path: LemmyEndpoint.Post.getPosts.endpoint,
+            path: WSEndpoint.Post.getPosts.endpoint,
             parameters: parameters,
             parsingFromRootKey: "data",
             completion: completion
@@ -44,7 +44,7 @@ extension RequestsManager: LemmyPostRequestManagerProtocol {
         completion: @escaping ((Result<LemmyModel.Post.GetPostResponse, LemmyGenericError>) -> Void)
     ) {
         return requestDecodable(
-            path: LemmyEndpoint.Post.getPost.endpoint,
+            path: WSEndpoint.Post.getPost.endpoint,
             parameters: parameters,
             parsingFromRootKey: "data",
             completion: completion
@@ -56,7 +56,7 @@ extension RequestsManager: LemmyPostRequestManagerProtocol {
         completion: @escaping ((Result<LemmyModel.Post.CreatePostResponse, LemmyGenericError>) -> Void)
     ) {
         return requestDecodable(
-            path: LemmyEndpoint.Post.createPost.endpoint,
+            path: WSEndpoint.Post.createPost.endpoint,
             parameters: parameters,
             parsingFromRootKey: "data",
             completion: completion

@@ -31,7 +31,7 @@ extension RequestsManager: AuthRequestManagerProtocol {
     ) {
         
         return requestDecodable(
-            path: LemmyEndpoint.Authentication.login.endpoint,
+            path: WSEndpoint.Authentication.login.endpoint,
             parameters: parameters,
             parsingFromRootKey: "data",
             completion: completion
@@ -44,7 +44,7 @@ extension RequestsManager: AuthRequestManagerProtocol {
     ) {
 
         return requestDecodable(
-            path: LemmyEndpoint.Authentication.register.endpoint,
+            path: WSEndpoint.Authentication.register.endpoint,
             parameters: parameters,
             parsingFromRootKey: "data",
             completion: completion
@@ -57,7 +57,7 @@ extension RequestsManager: AuthRequestManagerProtocol {
 
         // EXTRA: here is "ok" rootKey
         return requestDecodable(
-            path: LemmyEndpoint.Authentication.getCaptcha.endpoint,
+            path: WSEndpoint.Authentication.getCaptcha.endpoint,
             parameters: LemmyModel.Authentication.GetCaptchaRequest?.none,
             parsingFromRootKey: "data",
             completion: completion

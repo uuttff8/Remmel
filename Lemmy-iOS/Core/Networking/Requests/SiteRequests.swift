@@ -26,7 +26,7 @@ extension RequestsManager: SiteRequestManagerProtocol {
     ) where Req: Codable, Res: Codable {
 
         return requestDecodable(
-            path: LemmyEndpoint.Site.getSite.endpoint,
+            path: WSEndpoint.Site.getSite.endpoint,
             parameters: parameters,
             parsingFromRootKey: "data",
             completion: completion
@@ -39,7 +39,7 @@ extension RequestsManager: SiteRequestManagerProtocol {
     ) {
 
         return requestDecodable(
-            path: LemmyEndpoint.Site.listCategories.endpoint,
+            path: WSEndpoint.Site.listCategories.endpoint,
             parameters: parameters,
             parsingFromRootKey: "data",
             completion: completion

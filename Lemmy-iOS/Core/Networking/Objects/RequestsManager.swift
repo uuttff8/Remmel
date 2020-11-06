@@ -8,6 +8,11 @@
 
 import UIKit
 
+// MARK: - Error -
+struct ApiErrorResponse: Codable, Equatable {
+    let error: String
+}
+
 class RequestsManager {
     let wsClient = WSLemmyClient()
     let httpClient = HttpLemmyClient()
@@ -57,7 +62,7 @@ class RequestsManager {
                 guard dict?.keys.firstIndex(of: rootKey) != nil, let items = dict?[rootKey] else {
 
                     // if no root key it maybe an error from backend
-                    if let backendError = try? JSONDecoder().decode(LemmyModel.ErrorResponse.self, from: data) {
+                    if let backendError = try? JSONDecoder().decode(ApiErrorResponse.self, from: data) {
                         completion(.failure(.string(backendError.error)))
                         return
                     }

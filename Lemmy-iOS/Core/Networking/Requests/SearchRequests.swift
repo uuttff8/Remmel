@@ -22,7 +22,7 @@ extension RequestsManager: SearchRequestManagerProtocol {
     ) {
 
         return requestDecodable(
-            path: LemmyEndpoint.Site.search.endpoint,
+            path: WSEndpoint.Site.search.endpoint,
             parameters: parameters,
             parsingFromRootKey: "data",
             completion: completion

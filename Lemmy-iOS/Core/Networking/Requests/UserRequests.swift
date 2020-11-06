@@ -42,7 +42,7 @@ extension RequestsManager: UserRequestManagerProtocol {
     ) {
 
         return requestDecodable(
-            path: LemmyEndpoint.User.getUserDetails.endpoint,
+            path: WSEndpoint.User.getUserDetails.endpoint,
             parameters: parameters,
             parsingFromRootKey: "data",
             completion: completion
@@ -55,7 +55,7 @@ extension RequestsManager: UserRequestManagerProtocol {
     ) {
 
         return requestDecodable(
-            path: LemmyEndpoint.User.saveUserSettings.endpoint,
+            path: WSEndpoint.User.saveUserSettings.endpoint,
             parameters: parameters,
             parsingFromRootKey: "data",
             completion: completion
@@ -68,7 +68,7 @@ extension RequestsManager: UserRequestManagerProtocol {
     ) {
 
         return requestDecodable(
-            path: LemmyEndpoint.User.getReplies.endpoint,
+            path: WSEndpoint.User.getReplies.endpoint,
             parameters: parameters,
             parsingFromRootKey: "data",
             completion: completion
@@ -81,7 +81,7 @@ extension RequestsManager: UserRequestManagerProtocol {
     ) {
 
         return requestDecodable(
-            path: LemmyEndpoint.User.getUserMentions.endpoint,
+            path: WSEndpoint.User.getUserMentions.endpoint,
             parameters: parameters,
             parsingFromRootKey: "data",
             completion: completion
@@ -94,7 +94,7 @@ extension RequestsManager: UserRequestManagerProtocol {
     ) where Req: Codable, Res: Codable {
 
         return requestDecodable(
-            path: LemmyEndpoint.User.markUserMentionAsRead.endpoint,
+            path: WSEndpoint.User.markUserMentionAsRead.endpoint,
             parameters: parameters,
             parsingFromRootKey: "data",
             completion: completion

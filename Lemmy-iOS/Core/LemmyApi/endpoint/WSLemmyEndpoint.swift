@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum LemmyEndpoint {
+enum WSEndpoint {
 
     // User / Authentication / Admin actions
     enum Authentication {

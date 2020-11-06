@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum HttpLemmyEndpoint {
+enum HttpEndpoint {
     enum Pictrs: String {
 
         static let pictrs = "/pictrs"

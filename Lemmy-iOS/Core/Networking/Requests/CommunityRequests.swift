@@ -32,7 +32,7 @@ extension RequestsManager: LemmyCommunityRequestManagerProtocol {
     ) where Req: Codable, Res: Codable {
         
         return requestDecodable(
-            path: LemmyEndpoint.Community.listCommunities.endpoint,
+            path: WSEndpoint.Community.listCommunities.endpoint,
             parameters: parameters,
             parsingFromRootKey: "data",
             completion: completion)
@@ -43,7 +43,7 @@ extension RequestsManager: LemmyCommunityRequestManagerProtocol {
         completion: @escaping (Result<LemmyModel.Community.CreateCommunityResponse, LemmyGenericError>) -> Void
     ) {
         
-        return requestDecodable(path: LemmyEndpoint.Community.createCommunity.endpoint,
+        return requestDecodable(path: WSEndpoint.Community.createCommunity.endpoint,
                                 parameters: parameters,
                                 parsingFromRootKey: "data",
                                 completion: completion)
@@ -54,7 +54,7 @@ extension RequestsManager: LemmyCommunityRequestManagerProtocol {
         completion: @escaping (Result<LemmyModel.Community.GetCommunityResponse, LemmyGenericError>) -> Void
     ) {
         
-        return requestDecodable(path: LemmyEndpoint.Community.getCommunity.endpoint,
+        return requestDecodable(path: WSEndpoint.Community.getCommunity.endpoint,
                                 parameters: parameters,
                                 parsingFromRootKey: "data",
                                 completion: completion)

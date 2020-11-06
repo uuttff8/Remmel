@@ -21,7 +21,7 @@ extension RequestsManager: CommentRequestManagerProtocol {
         completion: @escaping ((Result<LemmyModel.Comment.GetCommentsResponse, LemmyGenericError>) -> Void)
     ) {
         return requestDecodable(
-            path: LemmyEndpoint.Comment.getComments.endpoint,
+            path: WSEndpoint.Comment.getComments.endpoint,
             parameters: parameters,
             parsingFromRootKey: "data",
             completion: completion

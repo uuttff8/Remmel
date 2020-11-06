@@ -21,7 +21,7 @@ extension RequestsManager: PictrsRequestManagerProtocol {
         completion: @escaping (Result<LemmyModel.Pictrs.PictrsResponse, LemmyGenericError>) -> Void
     ) {
 
-        return uploadImage(path: HttpLemmyEndpoint.Pictrs.image.endpoint,
+        return uploadImage(path: HttpEndpoint.Pictrs.image.endpoint,
                            image: image,
                            completion: completion)
     }

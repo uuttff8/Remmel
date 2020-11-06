@@ -9,10 +9,6 @@
 import Foundation
 
 enum LemmyModel {
-    // MARK: - Error -
-    struct ErrorResponse: Codable, Equatable {
-        let error: String
-    }
 
     // MARK: - PostView -
     struct PostView: Codable, Equatable, Hashable {
