@@ -319,7 +319,8 @@ private class PostContentCenterView: UIView {
         self.addSubview(mainStackView)
         
         titleImageStackView.addStackViewItems(
-            .view(titleLabel)
+            .view(titleLabel),
+            .view(thumbailImageView)
         )
         
         mainStackView.addStackViewItems(
@@ -342,11 +343,8 @@ private class PostContentCenterView: UIView {
 
         if let image = data.imageUrl {
             Nuke.loadImage(with: ImageRequest(url: URL(string: image)!), into: thumbailImageView)
-            titleImageStackView.addStackViewItems(.view(thumbailImageView))
-
-            thumbailImageView.snp.makeConstraints { (make) in
-                make.size.equalTo(imageSize)
-            }
+        } else {
+            thumbailImageView.isHidden = true
         }
 
         layoutUI()
@@ -364,6 +362,10 @@ private class PostContentCenterView: UIView {
 
     // MARK: - Private
     private func layoutUI() {
+        thumbailImageView.snp.makeConstraints { (make) in
+            make.size.equalTo(imageSize)
+        }
+        
         mainStackView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
