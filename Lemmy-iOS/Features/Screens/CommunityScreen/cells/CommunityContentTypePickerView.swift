@@ -10,7 +10,8 @@ import UIKit
 
 class CommunityContentTypePickerCell: UITableViewCell {
     let customView = LemmyImageTextTypePicker(cases: LemmySortType.self,
-                                              firstPicked: .active)
+                                              firstPicked: .active,
+                                              image: Config.Image.sortType)
     
     init() {
         super.init(style: .default, reuseIdentifier: String(describing: Self.self))

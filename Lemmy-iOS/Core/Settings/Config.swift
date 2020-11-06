@@ -97,6 +97,16 @@ extension Config {
         static var textQuote: UIImage {
             UIImage(systemName: "text.quote")!.withTintColor(.label, renderingMode: .alwaysOriginal)
         }
+        
+        static var sortType: UIImage {
+            UIImage(systemName: "tray.and.arrow.down.fill")!
+                .withTintColor(.darkGray, renderingMode: .alwaysOriginal)
+        }
+        
+        static var postListing: UIImage {
+            UIImage(systemName: "checkmark.seal.fill")!
+                .withTintColor(.darkGray, renderingMode: .alwaysOriginal)
+        }
     }
 }
 

@@ -29,12 +29,18 @@ class LemmySortListingPickersView: UIView {
         }
     }
     
-    let sortTypeView = LemmyImageTextTypePicker(cases: LemmySortType.self,
-                                              firstPicked: .active)
+    let sortTypeView = LemmyImageTextTypePicker(
+        cases: LemmySortType.self,
+        firstPicked: .active,
+        image: Config.Image.sortType
+    )
     
-    let listingTypeView = LemmyImageTextTypePicker(cases: PostListingAdapted.self,
-                                                   firstPicked: .all)
-
+    let listingTypeView = LemmyImageTextTypePicker(
+        cases: PostListingAdapted.self,
+        firstPicked: .all,
+        image: Config.Image.postListing
+    )
+    
     let stackView = UIStackView().then {
         $0.axis = .horizontal
         $0.alignment = .leading
@@ -48,7 +54,6 @@ class LemmySortListingPickersView: UIView {
         
         stackView.addStackViewItems(
             .view(sortTypeView),
-//            .view(UIView()),
             .view(listingTypeView)
         )
         

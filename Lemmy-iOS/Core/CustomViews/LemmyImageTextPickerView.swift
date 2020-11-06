@@ -16,9 +16,6 @@ class LemmyImageTextTypePicker<T: CaseIterable & LemmyTypePickable & Equatable>:
     
     var newCasePicked: ((T) -> Void)?
     
-    var image: UIImage?
-    var text: String?
-    
     let caseArray: T.Type
     
     var currentPick: T {
@@ -54,27 +51,23 @@ class LemmyImageTextTypePicker<T: CaseIterable & LemmyTypePickable & Equatable>:
         $0.textColor = .lightGray
     }
     
-    let typeImage = UIImageView().then {
-        let image = UIImage(systemName: "checkmark.seal.fill")!
-            .withTintColor(.lightGray, renderingMode: .alwaysOriginal)
-        $0.image = image
-    }
+    let typeImageView = UIImageView()
     
     let stackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 5
     }
     
-    init(cases: T.Type, firstPicked: T) {
+    init(cases: T.Type, firstPicked: T, image: UIImage) {
         self.currentPick = firstPicked
         self.caseArray = cases
-        
+        self.typeImageView.image = image
         super.init(frame: .zero)
         
         self.addSubview(stackView)
         
         stackView.addStackViewItems(
-            .view(typeImage),
+            .view(typeImageView),
             .view(typeLabel)
         )
         
@@ -85,8 +78,6 @@ class LemmyImageTextTypePicker<T: CaseIterable & LemmyTypePickable & Equatable>:
                 
         self.snp.makeConstraints {
             $0.size.equalTo(stackView)
-//            $0.height.equalTo(40)
-//            $0.width.equalTo(150)
         }
     }
     

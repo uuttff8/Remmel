@@ -22,7 +22,8 @@ class CommunityHeaderCell: UITableViewCell {
         
     let communityHeaderView = CommunityHeaderView()
     let contentTypeView = LemmyImageTextTypePicker(cases: LemmySortType.self,
-                                                   firstPicked: LemmySortType.active)
+                                                   firstPicked: LemmySortType.active,
+                                                   image: Config.Image.sortType)
         
     init() {
         super.init(style: .default, reuseIdentifier: String(describing: Self.self))
