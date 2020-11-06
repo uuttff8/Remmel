@@ -7,83 +7,133 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2CC1EEC410C399C6C1B6BAB608B7CE4F /* Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE98A2FB397D71DCD3249171DA1A625C /* Internal.swift */; };
-		33DA77EE1506C87C374EAC4598286B07 /* Nuke-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AEAA810720E9C527DA6409A6EAEFF38 /* Nuke-dummy.m */; };
-		33E19BC096B66CDE9AF092BE4B1EE4D2 /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9027317E86259E0E5353A8D3DF7B11 /* DataLoader.swift */; };
-		47DE514FFAFC77339A281C88DC9D26C5 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493A90BA1863333897D23588AE0DD4E3 /* ImageCache.swift */; };
+		05DE7F3C367F81BBBFF06F81D9BF4F54 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4404EACD59C3926DAE067608DD8D60CA /* Constants.swift */; };
+		1C710123B8B96094625814817037B38C /* Date+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8492E73FA1F30E1D1B356EE5BE840982 /* Date+Components.swift */; };
+		20688F1D1474BB929C528DAC93B64390 /* TimePeriodCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8172F395CD5154340332A513DCD770 /* TimePeriodCollection.swift */; };
+		2117988EF726AC012AD329246EEB5FD3 /* Date+Inits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E46A8E2714377872EF3C465D44F8E2 /* Date+Inits.swift */; };
+		242936F913174AF6772A36ADD346F2AC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		2CC1EEC410C399C6C1B6BAB608B7CE4F /* Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A0E7889F3A68AB777F1C2FC89BE4DA /* Internal.swift */; };
+		33DA77EE1506C87C374EAC4598286B07 /* Nuke-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7D151972F83147FE9215E451C9F731 /* Nuke-dummy.m */; };
+		33E19BC096B66CDE9AF092BE4B1EE4D2 /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EEE23FE1384748F543FF5BA66E46D6 /* DataLoader.swift */; };
+		39099D045BA8C90447636BDDAA5A7D55 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB8908123EABC7F82442A24E2D3359 /* Enums.swift */; };
+		3A02EE1F5BDCFB62200454B654490B4F /* Pods-Lemmy-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CE67BE3B4127E8690CEA1E8BBAF7E4A /* Pods-Lemmy-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		434FAEC3F6DC6958B622B3E978E2A0B4 /* Integer+DateTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFB2A33D376057E1442EFCB1056A623 /* Integer+DateTools.swift */; };
+		47DE514FFAFC77339A281C88DC9D26C5 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABCBC6A1E03B98B93EB10BA31DDBC30 /* ImageCache.swift */; };
 		51705646643B54960D453044AF46BBC5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		531E8E961587F0E6885690056718AAB4 /* ImagePreheater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6688ED2B85B0AF4C2E7A2762CEBEFA0E /* ImagePreheater.swift */; };
-		57B31AE955ABBC6ACA9E7157844E1003 /* ImageTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14EDC75533C3B8BE419B7BF06694622 /* ImageTask.swift */; };
-		5857E4CC0AAF89BB24A5DA2EC2CB6481 /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFEB262F8ED21CF98A65C8558E84E03 /* ImageRequest.swift */; };
-		5DA2B11F9A41C6EAEC8B31F281A6E549 /* ImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C18FE58E60CA23AD45F9237CE576133 /* ImageViewExtensions.swift */; };
-		7A38D7188792F42AA0B525259BBE3118 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485B1E9290122417DEE202E487FA1F49 /* Task.swift */; };
-		844BB8D9B204161C40D80A1EDC17F73A /* Nuke-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A4FD5AC7763D99A5224581161E0D0C6E /* Nuke-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8A8ECA607EA4E9DDA4A2F1404F1AA4A2 /* ImageDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6710E79816B486775922BD82A1AA2B7 /* ImageDecoding.swift */; };
-		9D36E15B981166952D88ACDA7EF1FCEF /* ImagePipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AEFE344E567DFDA0022830792F96D6 /* ImagePipeline.swift */; };
-		A198E44609AC439B57F319EBA10C42DA /* ImageProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4D1F7C0FC24A0CF7F719E0ADD0C36 /* ImageProcessing.swift */; };
-		AB1778BEF12E281DCA6520DB182C0A30 /* ImagePipelineConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A89C0F0EF455F1A707A406BD9439AE /* ImagePipelineConfiguration.swift */; };
-		C2B4C43E316156C7BAA89EF72C3BC209 /* ImageEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B283FA9A8E817A4D8E1E61E89B5ABE93 /* ImageEncoding.swift */; };
-		D74609B22AD8010EFA451F3B0A647083 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		E113BFF705F231576AB1BC02E8CD31FF /* Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9014C3287F1B4F249FE5060306157CB3 /* Deprecated.swift */; };
-		E1F3D10813CF63354916B9F41886DEA1 /* Pods-Lemmy-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CE67BE3B4127E8690CEA1E8BBAF7E4A /* Pods-Lemmy-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F09ACB2C5062701272570EBBE36BB7C7 /* DataCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45A05FECEC145B123B69397390B34B7 /* DataCache.swift */; };
-		FE0946431A6DC2639675F1A3A01C1BEF /* Pods-Lemmy-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E04C2D476663F2EBD7A9D5E3A712A935 /* Pods-Lemmy-iOS-dummy.m */; };
+		531E8E961587F0E6885690056718AAB4 /* ImagePreheater.swift in Sources */ = {isa = PBXBuildFile; fileRef = C495EF90D2F75EA35F123962BE136DFF /* ImagePreheater.swift */; };
+		57B31AE955ABBC6ACA9E7157844E1003 /* ImageTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18144D262829C60D9669003DEA3E614A /* ImageTask.swift */; };
+		5857E4CC0AAF89BB24A5DA2EC2CB6481 /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2669976DE17681A1A2FCD4324C403952 /* ImageRequest.swift */; };
+		5C35F844FDB930C0EBA5C198427B1015 /* DateTools.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F1C35207A8A7E92DA71C9E9551FDC104 /* DateTools.bundle */; };
+		5DA2B11F9A41C6EAEC8B31F281A6E549 /* ImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0847C1C244928FEB77B281EE072A3B /* ImageViewExtensions.swift */; };
+		6B757CA584EDCE14502CBBC634C7FE32 /* TimePeriodGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0FCB5B1CA472C19220F670C63625B2 /* TimePeriodGroup.swift */; };
+		73E633B00652D9FDE3F83E2A4F4D1042 /* DateToolsSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F47C57E48F753E0D1C8B99198BBDF560 /* DateToolsSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7A38D7188792F42AA0B525259BBE3118 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD09A361F379EA693A1F04A8F60FB40D /* Task.swift */; };
+		7EA9CE8031564D1B6E315939687AE1E8 /* Date+Comparators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C22693E02947A749BABB6EB781D3D3 /* Date+Comparators.swift */; };
+		844BB8D9B204161C40D80A1EDC17F73A /* Nuke-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B6A9A63EB5DCF50A89F6F597950730E /* Nuke-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87BB945273C6569ADE89EEDA8467DFB8 /* Pods-Lemmy-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E04C2D476663F2EBD7A9D5E3A712A935 /* Pods-Lemmy-iOS-dummy.m */; };
+		897ACB4928D444D4B499EBE65F34865C /* TimeChunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B94CF7CB9080800435D613F6DFE25F4 /* TimeChunk.swift */; };
+		8A8ECA607EA4E9DDA4A2F1404F1AA4A2 /* ImageDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AEEA1EB6F0BBB01975909FC2AD8FF0 /* ImageDecoding.swift */; };
+		9D36E15B981166952D88ACDA7EF1FCEF /* ImagePipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9539585427D1127A595FBEBBB8746213 /* ImagePipeline.swift */; };
+		A198E44609AC439B57F319EBA10C42DA /* ImageProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984D19205C3008519EF4A764E0FB9496 /* ImageProcessing.swift */; };
+		A4F4654747C44E94DAAA17B096D21E9E /* Date+Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAAD1E8023BA92253DD9163B13C17D4 /* Date+Bundle.swift */; };
+		AB1778BEF12E281DCA6520DB182C0A30 /* ImagePipelineConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AA8B36D8307CB793CC2679C536F1D /* ImagePipelineConfiguration.swift */; };
+		B37E8BAE202CA5CF63A739AA4A854AA8 /* Date+TimeAgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BC5F6AD617F468EB183FE16CA286A9 /* Date+TimeAgo.swift */; };
+		B9A120520ED849C56BEBA9EAAD02C61E /* Date+Manipulations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169AAD0BDE348F8485B3677F87B5ECAA /* Date+Manipulations.swift */; };
+		BDF2C8352035F7103FA545494B8F8277 /* TimePeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508DA74277A4F05322C506D4B1A9ED7 /* TimePeriod.swift */; };
+		C2B4C43E316156C7BAA89EF72C3BC209 /* ImageEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86879190DB51630FF1C9BC82E966B80 /* ImageEncoding.swift */; };
+		D40B20A32502CF28324B2A0548788F9C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		D9647DE689FA0F113861002DFBA647A0 /* DateToolsSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A756513060A3906909CAA1697F7BD3 /* DateToolsSwift-dummy.m */; };
+		D968A9A255BD94980520455CFC04202A /* Date+Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592726AFD6215BEBFD59C227EAD85C1D /* Date+Format.swift */; };
+		E113BFF705F231576AB1BC02E8CD31FF /* Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1FC0DD11C4B91869230AF0EE6CD63D /* Deprecated.swift */; };
+		E2FFA316F248DDF473A112BBC163679E /* TimePeriodChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979DDAF5D0957C735565FAA5BA42EF7A /* TimePeriodChain.swift */; };
+		F09ACB2C5062701272570EBBE36BB7C7 /* DataCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F4B66EE521E32E2E043A2F698F657 /* DataCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		261BFEA9655E62F97C826EDFC38B8E14 /* PBXContainerItemProxy */ = {
+		27E380FE8EBEC092A16B8A5FCCB7AB74 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 062A64896E847A6749F58B6BA9A931B1;
 			remoteInfo = Nuke;
 		};
+		6226C5F2024BCFD882EDA5502B59C81B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CCB5EA80CC733D89D54DAEB30E93351D;
+			remoteInfo = DateToolsSwift;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		18D80C9A4ED02EE48684F2DA0BF3BD15 /* Nuke.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Nuke.debug.xcconfig; sourceTree = "<group>"; };
-		1AEAA810720E9C527DA6409A6EAEFF38 /* Nuke-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Nuke-dummy.m"; sourceTree = "<group>"; };
+		0455C335927BEF235A6BFBF3BF1B0628 /* Nuke-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Nuke-prefix.pch"; sourceTree = "<group>"; };
+		056CBD81A292F4833B0644EDEEE7F5CB /* DateToolsSwift-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "DateToolsSwift-Info.plist"; sourceTree = "<group>"; };
+		05AEEA1EB6F0BBB01975909FC2AD8FF0 /* ImageDecoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageDecoding.swift; path = Sources/ImageDecoding.swift; sourceTree = "<group>"; };
+		0B94CF7CB9080800435D613F6DFE25F4 /* TimeChunk.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TimeChunk.swift; path = DateToolsSwift/DateTools/TimeChunk.swift; sourceTree = "<group>"; };
+		14A0E7889F3A68AB777F1C2FC89BE4DA /* Internal.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Internal.swift; path = Sources/Internal.swift; sourceTree = "<group>"; };
+		169AAD0BDE348F8485B3677F87B5ECAA /* Date+Manipulations.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Date+Manipulations.swift"; path = "DateToolsSwift/DateTools/Date+Manipulations.swift"; sourceTree = "<group>"; };
+		18144D262829C60D9669003DEA3E614A /* ImageTask.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageTask.swift; path = Sources/ImageTask.swift; sourceTree = "<group>"; };
 		23A27A1EFC28E6C1B796E3B5024413DA /* Pods-Lemmy-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Lemmy-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		257AA8B36D8307CB793CC2679C536F1D /* ImagePipelineConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImagePipelineConfiguration.swift; path = Sources/ImagePipelineConfiguration.swift; sourceTree = "<group>"; };
+		25C22693E02947A749BABB6EB781D3D3 /* Date+Comparators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Date+Comparators.swift"; path = "DateToolsSwift/DateTools/Date+Comparators.swift"; sourceTree = "<group>"; };
+		2669976DE17681A1A2FCD4324C403952 /* ImageRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageRequest.swift; path = Sources/ImageRequest.swift; sourceTree = "<group>"; };
 		2AE50097D6845D584AA5C0C9AB434A4F /* Pods-Lemmy-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Lemmy-iOS.release.xcconfig"; sourceTree = "<group>"; };
-		2C18FE58E60CA23AD45F9237CE576133 /* ImageViewExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageViewExtensions.swift; path = Sources/ImageViewExtensions.swift; sourceTree = "<group>"; };
 		2DAD7D76FC007F48AE48F2FD15BF01BB /* Nuke.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Nuke.framework; path = Nuke.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F2F3B9D81CC775B8456AC51F3A67333 /* Pods-Lemmy-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Lemmy-iOS.modulemap"; sourceTree = "<group>"; };
-		358398E5E0ADCECF7E0FB34FA1135EF2 /* Nuke-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Nuke-prefix.pch"; sourceTree = "<group>"; };
-		3CE4D1F7C0FC24A0CF7F719E0ADD0C36 /* ImageProcessing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageProcessing.swift; path = Sources/ImageProcessing.swift; sourceTree = "<group>"; };
-		44AEFE344E567DFDA0022830792F96D6 /* ImagePipeline.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImagePipeline.swift; path = Sources/ImagePipeline.swift; sourceTree = "<group>"; };
-		46CFEB4CE1596C5296F1CADAF2DFAB63 /* Nuke.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Nuke.modulemap; sourceTree = "<group>"; };
-		485B1E9290122417DEE202E487FA1F49 /* Task.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Task.swift; path = Sources/Task.swift; sourceTree = "<group>"; };
-		493A90BA1863333897D23588AE0DD4E3 /* ImageCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageCache.swift; path = Sources/ImageCache.swift; sourceTree = "<group>"; };
+		3A0FCB5B1CA472C19220F670C63625B2 /* TimePeriodGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TimePeriodGroup.swift; path = DateToolsSwift/DateTools/TimePeriodGroup.swift; sourceTree = "<group>"; };
+		3B6A9A63EB5DCF50A89F6F597950730E /* Nuke-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Nuke-umbrella.h"; sourceTree = "<group>"; };
+		42173A8E66FD10E99DB45618AEEACFA2 /* DateToolsSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DateToolsSwift.debug.xcconfig; sourceTree = "<group>"; };
+		4404EACD59C3926DAE067608DD8D60CA /* Constants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = DateToolsSwift/DateTools/Constants.swift; sourceTree = "<group>"; };
+		48BC5F6AD617F468EB183FE16CA286A9 /* Date+TimeAgo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Date+TimeAgo.swift"; path = "DateToolsSwift/DateTools/Date+TimeAgo.swift"; sourceTree = "<group>"; };
 		4CE67BE3B4127E8690CEA1E8BBAF7E4A /* Pods-Lemmy-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Lemmy-iOS-umbrella.h"; sourceTree = "<group>"; };
-		55A89C0F0EF455F1A707A406BD9439AE /* ImagePipelineConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImagePipelineConfiguration.swift; path = Sources/ImagePipelineConfiguration.swift; sourceTree = "<group>"; };
+		4E0F4B66EE521E32E2E043A2F698F657 /* DataCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataCache.swift; path = Sources/DataCache.swift; sourceTree = "<group>"; };
+		4FA54B85B2AABD36CB515F4FB949DF42 /* Nuke.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Nuke.debug.xcconfig; sourceTree = "<group>"; };
+		54E46A8E2714377872EF3C465D44F8E2 /* Date+Inits.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Date+Inits.swift"; path = "DateToolsSwift/DateTools/Date+Inits.swift"; sourceTree = "<group>"; };
+		592726AFD6215BEBFD59C227EAD85C1D /* Date+Format.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Date+Format.swift"; path = "DateToolsSwift/DateTools/Date+Format.swift"; sourceTree = "<group>"; };
+		64EEE23FE1384748F543FF5BA66E46D6 /* DataLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataLoader.swift; path = Sources/DataLoader.swift; sourceTree = "<group>"; };
+		6508DA74277A4F05322C506D4B1A9ED7 /* TimePeriod.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TimePeriod.swift; path = DateToolsSwift/DateTools/TimePeriod.swift; sourceTree = "<group>"; };
 		6610A026A2EDAC4809D48AFA405B5E9D /* Pods-Lemmy-iOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Lemmy-iOS-acknowledgements.markdown"; sourceTree = "<group>"; };
-		6688ED2B85B0AF4C2E7A2762CEBEFA0E /* ImagePreheater.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImagePreheater.swift; path = Sources/ImagePreheater.swift; sourceTree = "<group>"; };
 		6BE70DE02795DA910DC8C960D4F5594B /* Pods-Lemmy-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Lemmy-iOS-Info.plist"; sourceTree = "<group>"; };
+		6F0847C1C244928FEB77B281EE072A3B /* ImageViewExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageViewExtensions.swift; path = Sources/ImageViewExtensions.swift; sourceTree = "<group>"; };
+		6FE7815747F997ADB0943CEE23956951 /* DateToolsSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DateToolsSwift.release.xcconfig; sourceTree = "<group>"; };
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		7D9027317E86259E0E5353A8D3DF7B11 /* DataLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataLoader.swift; path = Sources/DataLoader.swift; sourceTree = "<group>"; };
-		9014C3287F1B4F249FE5060306157CB3 /* Deprecated.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Deprecated.swift; path = Sources/Deprecated.swift; sourceTree = "<group>"; };
+		8492E73FA1F30E1D1B356EE5BE840982 /* Date+Components.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Date+Components.swift"; path = "DateToolsSwift/DateTools/Date+Components.swift"; sourceTree = "<group>"; };
+		8E7D151972F83147FE9215E451C9F731 /* Nuke-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Nuke-dummy.m"; sourceTree = "<group>"; };
+		91D6420D999CF8B11B8D6C8102281AB9 /* Nuke.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Nuke.release.xcconfig; sourceTree = "<group>"; };
+		9331CF157645D1865FB92F862A2E9BA5 /* DateToolsSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = DateToolsSwift.framework; path = DateToolsSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9539585427D1127A595FBEBBB8746213 /* ImagePipeline.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImagePipeline.swift; path = Sources/ImagePipeline.swift; sourceTree = "<group>"; };
+		979DDAF5D0957C735565FAA5BA42EF7A /* TimePeriodChain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TimePeriodChain.swift; path = DateToolsSwift/DateTools/TimePeriodChain.swift; sourceTree = "<group>"; };
+		984D19205C3008519EF4A764E0FB9496 /* ImageProcessing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageProcessing.swift; path = Sources/ImageProcessing.swift; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A4FD5AC7763D99A5224581161E0D0C6E /* Nuke-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Nuke-umbrella.h"; sourceTree = "<group>"; };
-		B283FA9A8E817A4D8E1E61E89B5ABE93 /* ImageEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageEncoding.swift; path = Sources/ImageEncoding.swift; sourceTree = "<group>"; };
-		B6710E79816B486775922BD82A1AA2B7 /* ImageDecoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageDecoding.swift; path = Sources/ImageDecoding.swift; sourceTree = "<group>"; };
-		CE98A2FB397D71DCD3249171DA1A625C /* Internal.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Internal.swift; path = Sources/Internal.swift; sourceTree = "<group>"; };
-		D14EDC75533C3B8BE419B7BF06694622 /* ImageTask.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageTask.swift; path = Sources/ImageTask.swift; sourceTree = "<group>"; };
+		A41917C51EE315CE86EF8F6E10028B61 /* DateToolsSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DateToolsSwift-prefix.pch"; sourceTree = "<group>"; };
+		A8D6C32E71925936B1B039895EF5F3EB /* Nuke-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Nuke-Info.plist"; sourceTree = "<group>"; };
+		AC1FC0DD11C4B91869230AF0EE6CD63D /* Deprecated.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Deprecated.swift; path = Sources/Deprecated.swift; sourceTree = "<group>"; };
+		AFFB2A33D376057E1442EFCB1056A623 /* Integer+DateTools.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Integer+DateTools.swift"; path = "DateToolsSwift/DateTools/Integer+DateTools.swift"; sourceTree = "<group>"; };
+		BA8172F395CD5154340332A513DCD770 /* TimePeriodCollection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TimePeriodCollection.swift; path = DateToolsSwift/DateTools/TimePeriodCollection.swift; sourceTree = "<group>"; };
+		C495EF90D2F75EA35F123962BE136DFF /* ImagePreheater.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImagePreheater.swift; path = Sources/ImagePreheater.swift; sourceTree = "<group>"; };
+		CCDB8908123EABC7F82442A24E2D3359 /* Enums.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Enums.swift; path = DateToolsSwift/DateTools/Enums.swift; sourceTree = "<group>"; };
 		D1E1DF14CA560388EC32826039586B55 /* Pods_Lemmy_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Lemmy_iOS.framework; path = "Pods-Lemmy-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DAEB5D8A88B4AF4DD8082F70F02CB62B /* Nuke.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Nuke.release.xcconfig; sourceTree = "<group>"; };
+		D3BAA73A728250CFF8FDA44AB19F1488 /* Nuke.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Nuke.modulemap; sourceTree = "<group>"; };
+		DA929DDA61C97757A2829B8E764B6430 /* DateToolsSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = DateToolsSwift.modulemap; sourceTree = "<group>"; };
 		DCE976BA64586EA6CD5611BE582DD76F /* Pods-Lemmy-iOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Lemmy-iOS-acknowledgements.plist"; sourceTree = "<group>"; };
-		DD65A8066D9920C0F4D80A0845F9B894 /* Nuke-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Nuke-Info.plist"; sourceTree = "<group>"; };
+		DD09A361F379EA693A1F04A8F60FB40D /* Task.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Task.swift; path = Sources/Task.swift; sourceTree = "<group>"; };
 		E04C2D476663F2EBD7A9D5E3A712A935 /* Pods-Lemmy-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Lemmy-iOS-dummy.m"; sourceTree = "<group>"; };
-		F45A05FECEC145B123B69397390B34B7 /* DataCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataCache.swift; path = Sources/DataCache.swift; sourceTree = "<group>"; };
+		E4A756513060A3906909CAA1697F7BD3 /* DateToolsSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "DateToolsSwift-dummy.m"; sourceTree = "<group>"; };
+		EABCBC6A1E03B98B93EB10BA31DDBC30 /* ImageCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageCache.swift; path = Sources/ImageCache.swift; sourceTree = "<group>"; };
+		F1C35207A8A7E92DA71C9E9551FDC104 /* DateTools.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = DateTools.bundle; path = DateToolsSwift/DateTools/DateTools.bundle; sourceTree = "<group>"; };
+		F47C57E48F753E0D1C8B99198BBDF560 /* DateToolsSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DateToolsSwift-umbrella.h"; sourceTree = "<group>"; };
+		F86879190DB51630FF1C9BC82E966B80 /* ImageEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageEncoding.swift; path = Sources/ImageEncoding.swift; sourceTree = "<group>"; };
 		F9E21291154DA5A8F9A700D8C2EAE2D0 /* Pods-Lemmy-iOS-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Lemmy-iOS-frameworks.sh"; sourceTree = "<group>"; };
-		FFFEB262F8ED21CF98A65C8558E84E03 /* ImageRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageRequest.swift; path = Sources/ImageRequest.swift; sourceTree = "<group>"; };
+		FEAAD1E8023BA92253DD9163B13C17D4 /* Date+Bundle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Date+Bundle.swift"; path = "DateToolsSwift/DateTools/Date+Bundle.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		510AB642A70AB77937F7CC965EE214B7 /* Frameworks */ = {
+		2C5A7B3B8BA6C41DBE76EF9C8523EDF7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D74609B22AD8010EFA451F3B0A647083 /* Foundation.framework in Frameworks */,
+				D40B20A32502CF28324B2A0548788F9C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +142,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				51705646643B54960D453044AF46BBC5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DBA7B99AD29CA3616DD0592242660394 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				242936F913174AF6772A36ADD346F2AC /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,25 +173,73 @@
 			path = "Target Support Files/Pods-Lemmy-iOS";
 			sourceTree = "<group>";
 		};
-		2455AC57533DA9B6FEE190E58A2ED10C /* Nuke */ = {
+		2EB7228A0D11B5B54CCD4AE5C2AC8AAC /* DateToolsSwift */ = {
 			isa = PBXGroup;
 			children = (
-				F45A05FECEC145B123B69397390B34B7 /* DataCache.swift */,
-				7D9027317E86259E0E5353A8D3DF7B11 /* DataLoader.swift */,
-				9014C3287F1B4F249FE5060306157CB3 /* Deprecated.swift */,
-				493A90BA1863333897D23588AE0DD4E3 /* ImageCache.swift */,
-				B6710E79816B486775922BD82A1AA2B7 /* ImageDecoding.swift */,
-				B283FA9A8E817A4D8E1E61E89B5ABE93 /* ImageEncoding.swift */,
-				44AEFE344E567DFDA0022830792F96D6 /* ImagePipeline.swift */,
-				55A89C0F0EF455F1A707A406BD9439AE /* ImagePipelineConfiguration.swift */,
-				6688ED2B85B0AF4C2E7A2762CEBEFA0E /* ImagePreheater.swift */,
-				3CE4D1F7C0FC24A0CF7F719E0ADD0C36 /* ImageProcessing.swift */,
-				FFFEB262F8ED21CF98A65C8558E84E03 /* ImageRequest.swift */,
-				D14EDC75533C3B8BE419B7BF06694622 /* ImageTask.swift */,
-				2C18FE58E60CA23AD45F9237CE576133 /* ImageViewExtensions.swift */,
-				CE98A2FB397D71DCD3249171DA1A625C /* Internal.swift */,
-				485B1E9290122417DEE202E487FA1F49 /* Task.swift */,
-				8664D1C34A17FC672B1C3E947D977D6F /* Support Files */,
+				4404EACD59C3926DAE067608DD8D60CA /* Constants.swift */,
+				FEAAD1E8023BA92253DD9163B13C17D4 /* Date+Bundle.swift */,
+				25C22693E02947A749BABB6EB781D3D3 /* Date+Comparators.swift */,
+				8492E73FA1F30E1D1B356EE5BE840982 /* Date+Components.swift */,
+				592726AFD6215BEBFD59C227EAD85C1D /* Date+Format.swift */,
+				54E46A8E2714377872EF3C465D44F8E2 /* Date+Inits.swift */,
+				169AAD0BDE348F8485B3677F87B5ECAA /* Date+Manipulations.swift */,
+				48BC5F6AD617F468EB183FE16CA286A9 /* Date+TimeAgo.swift */,
+				CCDB8908123EABC7F82442A24E2D3359 /* Enums.swift */,
+				AFFB2A33D376057E1442EFCB1056A623 /* Integer+DateTools.swift */,
+				0B94CF7CB9080800435D613F6DFE25F4 /* TimeChunk.swift */,
+				6508DA74277A4F05322C506D4B1A9ED7 /* TimePeriod.swift */,
+				979DDAF5D0957C735565FAA5BA42EF7A /* TimePeriodChain.swift */,
+				BA8172F395CD5154340332A513DCD770 /* TimePeriodCollection.swift */,
+				3A0FCB5B1CA472C19220F670C63625B2 /* TimePeriodGroup.swift */,
+				3EC54186ACFFC69FE9EF27C8CD85EB36 /* Resources */,
+				BB60228DEDEB9011E6AABBA9158478F4 /* Support Files */,
+			);
+			name = DateToolsSwift;
+			path = DateToolsSwift;
+			sourceTree = "<group>";
+		};
+		3EC54186ACFFC69FE9EF27C8CD85EB36 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F1C35207A8A7E92DA71C9E9551FDC104 /* DateTools.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		4D45EB8F7D2982E75931E79D7E94417D /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				D3BAA73A728250CFF8FDA44AB19F1488 /* Nuke.modulemap */,
+				8E7D151972F83147FE9215E451C9F731 /* Nuke-dummy.m */,
+				A8D6C32E71925936B1B039895EF5F3EB /* Nuke-Info.plist */,
+				0455C335927BEF235A6BFBF3BF1B0628 /* Nuke-prefix.pch */,
+				3B6A9A63EB5DCF50A89F6F597950730E /* Nuke-umbrella.h */,
+				4FA54B85B2AABD36CB515F4FB949DF42 /* Nuke.debug.xcconfig */,
+				91D6420D999CF8B11B8D6C8102281AB9 /* Nuke.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Nuke";
+			sourceTree = "<group>";
+		};
+		56BB23937D3A44175B5E8C9B03BB1A39 /* Nuke */ = {
+			isa = PBXGroup;
+			children = (
+				4E0F4B66EE521E32E2E043A2F698F657 /* DataCache.swift */,
+				64EEE23FE1384748F543FF5BA66E46D6 /* DataLoader.swift */,
+				AC1FC0DD11C4B91869230AF0EE6CD63D /* Deprecated.swift */,
+				EABCBC6A1E03B98B93EB10BA31DDBC30 /* ImageCache.swift */,
+				05AEEA1EB6F0BBB01975909FC2AD8FF0 /* ImageDecoding.swift */,
+				F86879190DB51630FF1C9BC82E966B80 /* ImageEncoding.swift */,
+				9539585427D1127A595FBEBBB8746213 /* ImagePipeline.swift */,
+				257AA8B36D8307CB793CC2679C536F1D /* ImagePipelineConfiguration.swift */,
+				C495EF90D2F75EA35F123962BE136DFF /* ImagePreheater.swift */,
+				984D19205C3008519EF4A764E0FB9496 /* ImageProcessing.swift */,
+				2669976DE17681A1A2FCD4324C403952 /* ImageRequest.swift */,
+				18144D262829C60D9669003DEA3E614A /* ImageTask.swift */,
+				6F0847C1C244928FEB77B281EE072A3B /* ImageViewExtensions.swift */,
+				14A0E7889F3A68AB777F1C2FC89BE4DA /* Internal.swift */,
+				DD09A361F379EA693A1F04A8F60FB40D /* Task.swift */,
+				4D45EB8F7D2982E75931E79D7E94417D /* Support Files */,
 			);
 			name = Nuke;
 			path = Nuke;
@@ -155,36 +261,29 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		8664D1C34A17FC672B1C3E947D977D6F /* Support Files */ = {
+		A5C681294DACC3DF7CA0ADAC49515600 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				46CFEB4CE1596C5296F1CADAF2DFAB63 /* Nuke.modulemap */,
-				1AEAA810720E9C527DA6409A6EAEFF38 /* Nuke-dummy.m */,
-				DD65A8066D9920C0F4D80A0845F9B894 /* Nuke-Info.plist */,
-				358398E5E0ADCECF7E0FB34FA1135EF2 /* Nuke-prefix.pch */,
-				A4FD5AC7763D99A5224581161E0D0C6E /* Nuke-umbrella.h */,
-				18D80C9A4ED02EE48684F2DA0BF3BD15 /* Nuke.debug.xcconfig */,
-				DAEB5D8A88B4AF4DD8082F70F02CB62B /* Nuke.release.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Nuke";
-			sourceTree = "<group>";
-		};
-		C6EA83D1F11C2EB6AB4FE56C55240680 /* Products */ = {
-			isa = PBXGroup;
-			children = (
+				9331CF157645D1865FB92F862A2E9BA5 /* DateToolsSwift.framework */,
 				2DAD7D76FC007F48AE48F2FD15BF01BB /* Nuke.framework */,
 				D1E1DF14CA560388EC32826039586B55 /* Pods_Lemmy_iOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C763A4CF8B98BA319553D5BBCF10B060 /* Pods */ = {
+		BB60228DEDEB9011E6AABBA9158478F4 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				2455AC57533DA9B6FEE190E58A2ED10C /* Nuke */,
+				DA929DDA61C97757A2829B8E764B6430 /* DateToolsSwift.modulemap */,
+				E4A756513060A3906909CAA1697F7BD3 /* DateToolsSwift-dummy.m */,
+				056CBD81A292F4833B0644EDEEE7F5CB /* DateToolsSwift-Info.plist */,
+				A41917C51EE315CE86EF8F6E10028B61 /* DateToolsSwift-prefix.pch */,
+				F47C57E48F753E0D1C8B99198BBDF560 /* DateToolsSwift-umbrella.h */,
+				42173A8E66FD10E99DB45618AEEACFA2 /* DateToolsSwift.debug.xcconfig */,
+				6FE7815747F997ADB0943CEE23956951 /* DateToolsSwift.release.xcconfig */,
 			);
-			name = Pods;
+			name = "Support Files";
+			path = "../Target Support Files/DateToolsSwift";
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
@@ -192,8 +291,8 @@
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
-				C763A4CF8B98BA319553D5BBCF10B060 /* Pods */,
-				C6EA83D1F11C2EB6AB4FE56C55240680 /* Products */,
+				F8A00A9D820788958414BC2BF6A74BEB /* Pods */,
+				A5C681294DACC3DF7CA0ADAC49515600 /* Products */,
 				707FD04B4172A8897A55AFB37968797A /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
@@ -206,22 +305,39 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F8A00A9D820788958414BC2BF6A74BEB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2EB7228A0D11B5B54CCD4AE5C2AC8AAC /* DateToolsSwift */,
+				56BB23937D3A44175B5E8C9B03BB1A39 /* Nuke */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		1D9A8547149ADB27E538AF7D61B2E5B2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A02EE1F5BDCFB62200454B654490B4F /* Pods-Lemmy-iOS-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49EEB07F209736C0154994ED1250C6FB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73E633B00652D9FDE3F83E2A4F4D1042 /* DateToolsSwift-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C44D679F7F971AED15E2C9354C128609 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				844BB8D9B204161C40D80A1EDC17F73A /* Nuke-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C5D14D334E253D4FEB015A4CBA19020E /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E1F3D10813CF63354916B9F41886DEA1 /* Pods-Lemmy-iOS-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,21 +364,40 @@
 		};
 		647D9C1C65B4235663031EE1D9FC4B48 /* Pods-Lemmy-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 089CDEAFD7B88681F3A49017920BE026 /* Build configuration list for PBXNativeTarget "Pods-Lemmy-iOS" */;
+			buildConfigurationList = 88BE83DF8C158AEBEBF850E0F38BBC3C /* Build configuration list for PBXNativeTarget "Pods-Lemmy-iOS" */;
 			buildPhases = (
-				C5D14D334E253D4FEB015A4CBA19020E /* Headers */,
-				F80F99C038D63C8A2115F0ECA56CE8C9 /* Sources */,
-				510AB642A70AB77937F7CC965EE214B7 /* Frameworks */,
-				1625997A8A8541FA612940EE65F64E34 /* Resources */,
+				1D9A8547149ADB27E538AF7D61B2E5B2 /* Headers */,
+				049FE7159F152D847B6151F97A73FE62 /* Sources */,
+				DBA7B99AD29CA3616DD0592242660394 /* Frameworks */,
+				F6AC7D6FBEF82F78A3CB12B482B9EB13 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				71E8F17FD8E69B3982258B9389B9646A /* PBXTargetDependency */,
+				A9BD6E9C80845F4FEB35481C3E73947C /* PBXTargetDependency */,
+				53B795A92595248ED34C6165FAAB94FF /* PBXTargetDependency */,
 			);
 			name = "Pods-Lemmy-iOS";
 			productName = "Pods-Lemmy-iOS";
 			productReference = D1E1DF14CA560388EC32826039586B55 /* Pods_Lemmy_iOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		CCB5EA80CC733D89D54DAEB30E93351D /* DateToolsSwift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E3D86EE2A555D3AF2B8D2D4B2367A291 /* Build configuration list for PBXNativeTarget "DateToolsSwift" */;
+			buildPhases = (
+				49EEB07F209736C0154994ED1250C6FB /* Headers */,
+				75C8E78AF667FD5A087FEF81F0A4B082 /* Sources */,
+				2C5A7B3B8BA6C41DBE76EF9C8523EDF7 /* Frameworks */,
+				DFEA9A7317323F51E5159B34F3985612 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DateToolsSwift;
+			productName = DateToolsSwift;
+			productReference = 9331CF157645D1865FB92F862A2E9BA5 /* DateToolsSwift.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -283,10 +418,11 @@
 				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = C6EA83D1F11C2EB6AB4FE56C55240680 /* Products */;
+			productRefGroup = A5C681294DACC3DF7CA0ADAC49515600 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				CCB5EA80CC733D89D54DAEB30E93351D /* DateToolsSwift */,
 				062A64896E847A6749F58B6BA9A931B1 /* Nuke */,
 				647D9C1C65B4235663031EE1D9FC4B48 /* Pods-Lemmy-iOS */,
 			);
@@ -294,14 +430,22 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		1625997A8A8541FA612940EE65F64E34 /* Resources */ = {
+		BEC01ECE71CB572D70B4AC6400F9A919 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BEC01ECE71CB572D70B4AC6400F9A919 /* Resources */ = {
+		DFEA9A7317323F51E5159B34F3985612 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C35F844FDB930C0EBA5C198427B1015 /* DateTools.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6AC7D6FBEF82F78A3CB12B482B9EB13 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -311,6 +455,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		049FE7159F152D847B6151F97A73FE62 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87BB945273C6569ADE89EEDA8467DFB8 /* Pods-Lemmy-iOS-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		632E5F6B7C79E5F66A05123E334F4641 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -334,29 +486,50 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F80F99C038D63C8A2115F0ECA56CE8C9 /* Sources */ = {
+		75C8E78AF667FD5A087FEF81F0A4B082 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE0946431A6DC2639675F1A3A01C1BEF /* Pods-Lemmy-iOS-dummy.m in Sources */,
+				05DE7F3C367F81BBBFF06F81D9BF4F54 /* Constants.swift in Sources */,
+				A4F4654747C44E94DAAA17B096D21E9E /* Date+Bundle.swift in Sources */,
+				7EA9CE8031564D1B6E315939687AE1E8 /* Date+Comparators.swift in Sources */,
+				1C710123B8B96094625814817037B38C /* Date+Components.swift in Sources */,
+				D968A9A255BD94980520455CFC04202A /* Date+Format.swift in Sources */,
+				2117988EF726AC012AD329246EEB5FD3 /* Date+Inits.swift in Sources */,
+				B9A120520ED849C56BEBA9EAAD02C61E /* Date+Manipulations.swift in Sources */,
+				B37E8BAE202CA5CF63A739AA4A854AA8 /* Date+TimeAgo.swift in Sources */,
+				D9647DE689FA0F113861002DFBA647A0 /* DateToolsSwift-dummy.m in Sources */,
+				39099D045BA8C90447636BDDAA5A7D55 /* Enums.swift in Sources */,
+				434FAEC3F6DC6958B622B3E978E2A0B4 /* Integer+DateTools.swift in Sources */,
+				897ACB4928D444D4B499EBE65F34865C /* TimeChunk.swift in Sources */,
+				BDF2C8352035F7103FA545494B8F8277 /* TimePeriod.swift in Sources */,
+				E2FFA316F248DDF473A112BBC163679E /* TimePeriodChain.swift in Sources */,
+				20688F1D1474BB929C528DAC93B64390 /* TimePeriodCollection.swift in Sources */,
+				6B757CA584EDCE14502CBBC634C7FE32 /* TimePeriodGroup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		71E8F17FD8E69B3982258B9389B9646A /* PBXTargetDependency */ = {
+		53B795A92595248ED34C6165FAAB94FF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Nuke;
 			target = 062A64896E847A6749F58B6BA9A931B1 /* Nuke */;
-			targetProxy = 261BFEA9655E62F97C826EDFC38B8E14 /* PBXContainerItemProxy */;
+			targetProxy = 27E380FE8EBEC092A16B8A5FCCB7AB74 /* PBXContainerItemProxy */;
+		};
+		A9BD6E9C80845F4FEB35481C3E73947C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DateToolsSwift;
+			target = CCB5EA80CC733D89D54DAEB30E93351D /* DateToolsSwift */;
+			targetProxy = 6226C5F2024BCFD882EDA5502B59C81B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		22571718F4914F64B743E45EB63E2D82 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DAEB5D8A88B4AF4DD8082F70F02CB62B /* Nuke.release.xcconfig */;
+			baseConfigurationReference = 91D6420D999CF8B11B8D6C8102281AB9 /* Nuke.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -392,7 +565,7 @@
 		};
 		2DC20C64961E9E934D2F989CE20DA58D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 18D80C9A4ED02EE48684F2DA0BF3BD15 /* Nuke.debug.xcconfig */;
+			baseConfigurationReference = 4FA54B85B2AABD36CB515F4FB949DF42 /* Nuke.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -491,6 +664,78 @@
 			};
 			name = Debug;
 		};
+		626DD303807622344F83603236A90AD7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2AE50097D6845D584AA5C0C9AB434A4F /* Pods-Lemmy-iOS.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		82BAF6D45C0553E5CEDD54FCBEDD8F2C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42173A8E66FD10E99DB45618AEEACFA2 /* DateToolsSwift.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/DateToolsSwift/DateToolsSwift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/DateToolsSwift/DateToolsSwift-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/DateToolsSwift/DateToolsSwift.modulemap";
+				PRODUCT_MODULE_NAME = DateToolsSwift;
+				PRODUCT_NAME = DateToolsSwift;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		8B5A46FF8D3C1289CDEE3BAFACABCD2A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -553,45 +798,7 @@
 			};
 			name = Release;
 		};
-		D6B1FE98DA32F9DB2E0A994C1A54D977 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2AE50097D6845D584AA5C0C9AB434A4F /* Pods-Lemmy-iOS.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		ED908E8B1360389B66ED416BD58B0EDC /* Debug */ = {
+		B4978CF07040C311CB5680584D79539C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 23A27A1EFC28E6C1B796E3B5024413DA /* Pods-Lemmy-iOS.debug.xcconfig */;
 			buildSettings = {
@@ -628,18 +835,44 @@
 			};
 			name = Debug;
 		};
+		FCB56AA8ACDBF4E72D7AC921A62004D7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6FE7815747F997ADB0943CEE23956951 /* DateToolsSwift.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/DateToolsSwift/DateToolsSwift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/DateToolsSwift/DateToolsSwift-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/DateToolsSwift/DateToolsSwift.modulemap";
+				PRODUCT_MODULE_NAME = DateToolsSwift;
+				PRODUCT_NAME = DateToolsSwift;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		089CDEAFD7B88681F3A49017920BE026 /* Build configuration list for PBXNativeTarget "Pods-Lemmy-iOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				ED908E8B1360389B66ED416BD58B0EDC /* Debug */,
-				D6B1FE98DA32F9DB2E0A994C1A54D977 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		2E1BEB9F8A32F7EBA4BCACF4FD0560CF /* Build configuration list for PBXNativeTarget "Nuke" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -654,6 +887,24 @@
 			buildConfigurations = (
 				4BC7450F9457737EE3E637BA155B56F7 /* Debug */,
 				8B5A46FF8D3C1289CDEE3BAFACABCD2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		88BE83DF8C158AEBEBF850E0F38BBC3C /* Build configuration list for PBXNativeTarget "Pods-Lemmy-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B4978CF07040C311CB5680584D79539C /* Debug */,
+				626DD303807622344F83603236A90AD7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E3D86EE2A555D3AF2B8D2D4B2367A291 /* Build configuration list for PBXNativeTarget "DateToolsSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82BAF6D45C0553E5CEDD54FCBEDD8F2C /* Debug */,
+				FCB56AA8ACDBF4E72D7AC921A62004D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

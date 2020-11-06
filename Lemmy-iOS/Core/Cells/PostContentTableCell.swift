@@ -8,6 +8,7 @@
 
 import UIKit
 import Nuke
+import DateToolsSwift
 
 protocol PostContentTableCellDelegate: AnyObject {
     func upvote(post: LemmyModel.PostView)
@@ -75,7 +76,8 @@ class PostContentView: UIView {
                                 avatarImageUrl: post.creatorAvatar,
                                 username: post.creatorName,
                                 community: post.communityName,
-                                published: Date.toLemmyDate(str: post.published).toRelativeDate()
+                                published: Date.toLemmyDate(str: post.published)
+                                    .shortTimeAgoSinceNow
                             )
         )
 

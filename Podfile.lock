@@ -1,16 +1,20 @@
 PODS:
+  - DateToolsSwift (5.0.0)
   - Nuke (9.1.2)
 
 DEPENDENCIES:
+  - DateToolsSwift (~> 5.0.0)
   - Nuke (~> 9.0)
 
 SPEC REPOS:
   trunk:
+    - DateToolsSwift
     - Nuke
 
 SPEC CHECKSUMS:
+  DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
   Nuke: dd2e6be6a34c042a7861e190632781d11f253026
 
-PODFILE CHECKSUM: 55c6f3c9826b1563bb6006e928980985bdfeb585
+PODFILE CHECKSUM: 8fa82f1eb8febd90bfec00e17b326c9d92fe06d7
 
 COCOAPODS: 1.10.0

@@ -116,6 +116,7 @@ extension Date {
         return dateFormatter.date(from: str)!
     }
     
+    // legacy
     func toRelativeDate() -> String {
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .short
