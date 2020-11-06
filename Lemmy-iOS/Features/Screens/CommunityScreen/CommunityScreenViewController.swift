@@ -62,6 +62,12 @@ class CommunityScreenViewController: UIViewController {
                                          with: .automatic)
             }.store(in: &cancellable)
         
+        model.contentTypeSubject
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { _ in
+                self.model.loadPosts(id: self.model.communityId)
+            }).store(in: &cancellable)
+        
         model.newDataLoaded = { [self] newPosts in
             guard !model.postsSubject.value.isEmpty else { return }
             
@@ -84,6 +90,15 @@ class CommunityScreenViewController: UIViewController {
         model.goToPostScreen = { [self] (post) in
             coordinator?.goToPostScreen(post: post)
         }
+        
+        model.communityHeaderCell.contentTypeView.addTap {
+            let vc = self.model.communityHeaderCell.contentTypeView.configuredAlert
+            self.present(vc, animated: true, completion: nil)
+        }
+        
+        model.communityHeaderCell.contentTypeView.newCasePicked = { newCase in
+            self.model.contentTypeSubject.send(newCase)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -103,10 +118,5 @@ class CommunityScreenViewController: UIViewController {
                 self.present(vc, animated: true)
             }
         }), for: .touchUpInside)
-        
-        model.communityHeaderCell.contentTypeView.addTap {
-            let vc = self.model.communityHeaderCell.contentTypeView.configuredAlert
-            self.present(vc, animated: true, completion: nil)
-        }
     }
 }

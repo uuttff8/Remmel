@@ -23,6 +23,7 @@
 		4E107093253500DA009EABDA /* LemmyModel+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E107092253500DA009EABDA /* LemmyModel+User.swift */; };
 		4E1070982535DF4F009EABDA /* LemmyShareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1070972535DF4F009EABDA /* LemmyShareData.swift */; };
 		4E10709D25361846009EABDA /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10709C25361846009EABDA /* SignInView.swift */; };
+		4E3E0F722555BCF70086CE0C /* ProfileScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3E0F712555BCF70086CE0C /* ProfileScreenViewController.swift */; };
 		4E886C17253626950076B162 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C16253626950076B162 /* SignUpView.swift */; };
 		4E886C1C25364DD70076B162 /* AuthRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C1B25364DD70076B162 /* AuthRequests.swift */; };
 		4E886C2125364EC30076B162 /* UserRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C2025364EC30076B162 /* UserRequests.swift */; };
@@ -115,7 +116,6 @@
 		4EF3AC9A254C690400BEC9F1 /* CreateCommunitySidebarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC99254C690400BEC9F1 /* CreateCommunitySidebarCell.swift */; };
 		4EF3ACD1254EF82C00BEC9F1 /* CommunityScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3ACD0254EF82C00BEC9F1 /* CommunityScreenViewController.swift */; };
 		4EF3ACD9254EF84B00BEC9F1 /* CommunityScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3ACD8254EF84B00BEC9F1 /* CommunityScreenModel.swift */; };
-		4EF3ACDE254EF85000BEC9F1 /* CommunityScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3ACDD254EF85000BEC9F1 /* CommunityScreenUI.swift */; };
 		4EF3ACEA25502D5600BEC9F1 /* CommunityHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3ACE925502D5600BEC9F1 /* CommunityHeaderView.swift */; };
 		4EF3ACF625506EC900BEC9F1 /* SwiftyMarkdown in Frameworks */ = {isa = PBXBuildFile; productRef = 4EF3ACF525506EC900BEC9F1 /* SwiftyMarkdown */; };
 		4EF3ACFF2550757200BEC9F1 /* MarkdownParsedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3ACFE2550757200BEC9F1 /* MarkdownParsedViewController.swift */; };
@@ -167,6 +167,7 @@
 		4E107092253500DA009EABDA /* LemmyModel+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LemmyModel+User.swift"; sourceTree = "<group>"; };
 		4E1070972535DF4F009EABDA /* LemmyShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyShareData.swift; sourceTree = "<group>"; };
 		4E10709C25361846009EABDA /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		4E3E0F712555BCF70086CE0C /* ProfileScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewController.swift; sourceTree = "<group>"; };
 		4E886C16253626950076B162 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		4E886C1B25364DD70076B162 /* AuthRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequests.swift; sourceTree = "<group>"; };
 		4E886C2025364EC30076B162 /* UserRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequests.swift; sourceTree = "<group>"; };
@@ -264,7 +265,6 @@
 		4EF3AC99254C690400BEC9F1 /* CreateCommunitySidebarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunitySidebarCell.swift; sourceTree = "<group>"; };
 		4EF3ACD0254EF82C00BEC9F1 /* CommunityScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityScreenViewController.swift; sourceTree = "<group>"; };
 		4EF3ACD8254EF84B00BEC9F1 /* CommunityScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityScreenModel.swift; sourceTree = "<group>"; };
-		4EF3ACDD254EF85000BEC9F1 /* CommunityScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityScreenUI.swift; sourceTree = "<group>"; };
 		4EF3ACE925502D5600BEC9F1 /* CommunityHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityHeaderView.swift; sourceTree = "<group>"; };
 		4EF3ACFE2550757200BEC9F1 /* MarkdownParsedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownParsedViewController.swift; sourceTree = "<group>"; };
 		4EF3AD042550908D00BEC9F1 /* ResizableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizableButton.swift; sourceTree = "<group>"; };
@@ -365,6 +365,14 @@
 				4E1070972535DF4F009EABDA /* LemmyShareData.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		4E3E0F702555BCE70086CE0C /* ProfileScreen */ = {
+			isa = PBXGroup;
+			children = (
+				4E3E0F712555BCF70086CE0C /* ProfileScreenViewController.swift */,
+			);
+			path = ProfileScreen;
 			sourceTree = "<group>";
 		};
 		4E886C34253872B90076B162 /* SignUp */ = {
@@ -476,6 +484,7 @@
 		4EB89AF5251F4783007129BF /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				4E3E0F702555BCE70086CE0C /* ProfileScreen */,
 				4EF3ACFD2550755700BEC9F1 /* MarkdownParsedViewController */,
 				4EF3ACCF254EF82000BEC9F1 /* CommunityScreen */,
 				4EB89AF6251F478F007129BF /* PostScreen */,
@@ -753,7 +762,6 @@
 			children = (
 				4EF3ACE5254EFB8C00BEC9F1 /* cells */,
 				4EF3ACD0254EF82C00BEC9F1 /* CommunityScreenViewController.swift */,
-				4EF3ACDD254EF85000BEC9F1 /* CommunityScreenUI.swift */,
 				4EF3ACD8254EF84B00BEC9F1 /* CommunityScreenModel.swift */,
 			);
 			path = CommunityScreen;
@@ -1070,7 +1078,6 @@
 				4EF3AC6F254A021400BEC9F1 /* CreateCommunityModel.swift in Sources */,
 				4E10708E2534F7A7009EABDA /* LoginData.swift in Sources */,
 				4EF3ACFF2550757200BEC9F1 /* MarkdownParsedViewController.swift in Sources */,
-				4EF3ACDE254EF85000BEC9F1 /* CommunityScreenUI.swift in Sources */,
 				4E1070602534770B009EABDA /* CommentsFrontPageViewController.swift in Sources */,
 				4EF3AC95254B60F000BEC9F1 /* CreateCommunityImagesCell.swift in Sources */,
 				4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */,
@@ -1079,6 +1086,7 @@
 				4ECCEEED250BE8870075F921 /* FrontPageViewController.swift in Sources */,
 				4EFAB5D82552FA1100B32780 /* UILabel+Ext.swift in Sources */,
 				4EFAB5E72552FA9300B32780 /* UITableView+Ext.swift in Sources */,
+				4E3E0F722555BCF70086CE0C /* ProfileScreenViewController.swift in Sources */,
 				4E886CEC25442B3B0076B162 /* HttpEndpoint.swift in Sources */,
 				4E886C61253CAF650076B162 /* CreateTransitionDelegateImpl.swift in Sources */,
 				4E9BBA1925553176004FF2F9 /* Enums.swift in Sources */,

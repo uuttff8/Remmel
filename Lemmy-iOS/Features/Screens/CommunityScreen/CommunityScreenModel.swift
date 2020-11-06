@@ -33,7 +33,7 @@ class CommunityScreenModel: NSObject {
     let communitySubject: CurrentValueSubject<LemmyModel.CommunityView?, Never> = CurrentValueSubject(nil)
     let postsSubject: CurrentValueSubject<[LemmyModel.PostView], Never> = CurrentValueSubject([])
     
-    let contentTypeSubject: PassthroughSubject<LemmySortType, Never> = PassthroughSubject()
+    let contentTypeSubject: CurrentValueSubject<LemmySortType, Never> = CurrentValueSubject(.active)
     
     private var isFetchingNewContent = false
     private var currentPage = 1
@@ -57,12 +57,12 @@ class CommunityScreenModel: NSObject {
     
     func loadPosts(id: Int) {
         let parameters = LemmyModel.Post.GetPostsRequest(type: .community,
-                                                              sort: LemmySortType.active,
-                                                              page: 1,
-                                                              limit: 50,
-                                                              communityId: id,
-                                                              communityName: nil,
-                                                              auth: LoginData.shared.jwtToken)
+                                                         sort: contentTypeSubject.value,
+                                                         page: 1,
+                                                         limit: 50,
+                                                         communityId: id,
+                                                         communityName: nil,
+                                                         auth: LoginData.shared.jwtToken)
         
         ApiManager.shared.requestsManager.getPosts(
             parameters: parameters,
@@ -79,12 +79,12 @@ class CommunityScreenModel: NSObject {
     
     func loadMorePosts(fromId: Int,completion: @escaping (() -> Void)) {
         let parameters = LemmyModel.Post.GetPostsRequest(type: .community,
-                                                              sort: LemmySortType.active,
-                                                              page: currentPage,
-                                                              limit: 50,
-                                                              communityId: fromId,
-                                                              communityName: nil,
-                                                              auth: LoginData.shared.jwtToken)
+                                                         sort: contentTypeSubject.value,
+                                                         page: currentPage,
+                                                         limit: 50,
+                                                         communityId: fromId,
+                                                         communityName: nil,
+                                                         auth: LoginData.shared.jwtToken)
         
         ApiManager.shared.requestsManager.getPosts(
             parameters: parameters,
@@ -131,7 +131,7 @@ extension CommunityScreenModel: UITableViewDelegate {
     
     private func handleDidSelectForPosts(indexPath: IndexPath) {
         guard case .posts = Section.allCases[indexPath.section] else { return }
-
+        
         self.goToPostScreen?(postsSubject.value[indexPath.row])
     }
 }
