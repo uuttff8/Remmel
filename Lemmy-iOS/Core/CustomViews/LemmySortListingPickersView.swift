@@ -37,6 +37,7 @@ class LemmySortListingPickersView: UIView {
 
     let stackView = UIStackView().then {
         $0.axis = .horizontal
+        $0.alignment = .leading
         $0.distribution = .equalSpacing
     }
     
@@ -47,12 +48,14 @@ class LemmySortListingPickersView: UIView {
         
         stackView.addStackViewItems(
             .view(sortTypeView),
+//            .view(UIView()),
             .view(listingTypeView)
         )
         
         stackView.snp.makeConstraints {
-            $0.width.equalTo(UIScreen.main.bounds.width)
-            $0.height.equalTo(35)
+            $0.centerY.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(25)
         }
         
         self.snp.makeConstraints {

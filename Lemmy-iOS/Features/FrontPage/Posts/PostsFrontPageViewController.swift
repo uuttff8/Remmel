@@ -79,20 +79,14 @@ class PostsFrontPageViewController: UIViewController {
         pickerView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(5)
             $0.centerX.equalToSuperview()
-            $0.trailing.leading.equalToSuperview().inset(16)
-        }
-        
-        pickerView.stackView.addTap {
-            print("asdasdasd")
+            $0.width.equalTo(UIScreen.main.bounds.width)
         }
         
         pickerView.sortTypeView.addTap {
-            print("123123123123asdasdas")
             self.present(self.pickerView.sortTypeView.configuredAlert, animated: true)
         }
         
         pickerView.listingTypeView.addTap {
-            print("123123123123")
             self.present(self.pickerView.listingTypeView.configuredAlert, animated: true)
         }
         

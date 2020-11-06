@@ -60,30 +60,33 @@ class LemmyImageTextTypePicker<T: CaseIterable & LemmyTypePickable & Equatable>:
         $0.image = image
     }
     
+    let stackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.spacing = 5
+    }
+    
     init(cases: T.Type, firstPicked: T) {
         self.currentPick = firstPicked
         self.caseArray = cases
         
         super.init(frame: .zero)
         
-        [typeImage, typeLabel].forEach {
-            addSubview($0)
-        }
+        self.addSubview(stackView)
         
-        typeImage.snp.makeConstraints {
-            $0.size.equalTo(20)
-            $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview()
-        }
+        stackView.addStackViewItems(
+            .view(typeImage),
+            .view(typeLabel)
+        )
         
-        typeLabel.snp.makeConstraints {
-            $0.centerY.equalTo(typeImage)
-            $0.leading.equalTo(typeImage.snp.trailing).offset(5)
+        self.stackView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
         }
-        
+                
         self.snp.makeConstraints {
-            $0.height.equalTo(40)
-            $0.width.equalTo(150)
+            $0.size.equalTo(stackView)
+//            $0.height.equalTo(40)
+//            $0.width.equalTo(150)
         }
     }
     
