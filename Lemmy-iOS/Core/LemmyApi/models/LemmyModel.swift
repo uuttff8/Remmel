@@ -2,22 +2,11 @@
 //  LemmyModel.swift
 //  Lemmy-iOS
 //
-//  Created by uuttff8 on 9/12/20.
+//  Created by uuttff8 on 06.11.2020.
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import UIKit
-
-enum LemmyGenericError: Error {
-    case string(String)
-    
-    var description: String {
-        switch self {
-        case .string(let str):
-            return str
-        }
-    }
-}
+import Foundation
 
 enum LemmyModel {
     // MARK: - Error -
@@ -823,3 +812,4 @@ enum LemmyModel {
         let name: String
     }
 }
+

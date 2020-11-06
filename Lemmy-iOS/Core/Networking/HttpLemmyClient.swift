@@ -179,38 +179,6 @@ final class HttpLemmyClient: HTTPClientProvider {
                 }
             }.resume()
     }
-
-    func deleteRequest(url: URL, method: String, completion: @escaping (Result<(), Error>) -> Void) {
-        guard let jwt = LoginData.shared.jwtToken else {
-            print("JWT token is not provided")
-            return
-        }
-
-        let config = URLSessionConfiguration.ephemeral
-        config.waitsForConnectivity = true
-        config.httpAdditionalHeaders = [ "Cookie": "\(jwt)",
-                                         "Accept": "application/json",
-                                         "Content-Type": "application/json" ]
-
-        var request = URLRequest(url: url)
-        request.httpMethod = method
-
-        URLSession(configuration: config,
-                   delegate: INetworkDelegate(),
-                   delegateQueue: OperationQueue.current)
-            .dataTask(with: request) { (_, response: URLResponse?, error: Error?) in
-                if let response = response as? HTTPURLResponse {
-
-                    // 204 No Content
-                    if response.statusCode == 204 {
-                        completion(.success(()))
-                    } else if let error = error {
-                        completion(.failure(error))
-                    }
-
-                }
-            }.resume()
-    }
 }
 
 private class INetworkDelegate: NSObject, URLSessionTaskDelegate {
