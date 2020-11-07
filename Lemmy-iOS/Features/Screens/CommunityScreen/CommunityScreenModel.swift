@@ -156,10 +156,12 @@ extension CommunityScreenModel: UITableViewDataSource {
         
         switch section {
         case .header:
-            guard let community = communitySubject.value else { return UITableViewCell() }
+            guard let community = communitySubject.value else { return LoadingTableViewCell() }
             communityHeaderCell.bindData(community: community)
             return communityHeaderCell
         case .posts:
+            guard !postsSubject.value.isEmpty else { return LoadingTableViewCell() }
+            
             let cell = tableView.cell(forClass: PostContentTableCell.self)
             cell.postContentView.delegate = self
             cell.bind(with: self.postsSubject.value[indexPath.row], config: .insideComminity)

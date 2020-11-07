@@ -24,6 +24,11 @@ class PostsFrontPageViewController: UIViewController {
     
     let pickerView = LemmySortListingPickersView()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.showActivityIndicator()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -35,6 +40,7 @@ class PostsFrontPageViewController: UIViewController {
         
         model.dataLoaded = { [self] newPosts in
             addFirstRows(with: newPosts)
+            tableView.hideActivityIndicator()
         }
         
         model.newDataLoaded = { [self] newPosts in

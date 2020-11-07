@@ -38,9 +38,12 @@ class CommunityScreenViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.delegate = model
         tableView.dataSource = model
         tableView.registerClass(PostContentTableCell.self)
