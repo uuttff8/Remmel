@@ -83,7 +83,7 @@ class CommunityHeaderView: UIView {
         horizontalStackView.snp.makeConstraints { (make) in
             make.height.equalTo(commImageView)
             make.top.equalToSuperview().inset(5)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.leading.trailing.equalToSuperview()
         }
         
         communityDescriptionLabel.snp.makeConstraints { (make) in
@@ -91,7 +91,7 @@ class CommunityHeaderView: UIView {
         }
         
         verticalStackView.snp.makeConstraints { (make) in
-            make.top.equalTo(horizontalStackView.snp.bottom).offset(5)
+            make.top.equalTo(horizontalStackView.snp.bottom).offset(10)
             make.leading.trailing.equalTo(horizontalStackView)
             make.bottom.equalTo(self.snp.bottom).inset(15)
         }

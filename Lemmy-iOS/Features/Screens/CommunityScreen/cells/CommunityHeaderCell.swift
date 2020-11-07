@@ -32,6 +32,10 @@ class CommunityHeaderCell: UITableViewCell {
         self.backgroundColor = .systemBackground
         
         contentView.addSubview(mainStackView)
+    }
+    
+    func bindData(community: LemmyModel.CommunityView) {
+        communityHeaderView.bind(with: community)
         
         mainStackView.addStackViewItems(
             .view(communityHeaderView),
@@ -46,18 +50,14 @@ class CommunityHeaderCell: UITableViewCell {
         )
         
         mainStackView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
+            $0.top.equalToSuperview().inset(5)
+            $0.trailing.leading.equalToSuperview().inset(16)
             $0.bottom.equalTo(contentView)
         }
         
         horizontalStackView.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(16)
+            $0.leading.trailing.equalToSuperview()
         }
-    }
-    
-    func bindData(community: LemmyModel.CommunityView) {
-        communityHeaderView.bind(with: community)
     }
     
     @available(*, unavailable)
