@@ -123,8 +123,8 @@ class PostContentView: UIView {
         self.addSubview(paddingView)
         self.addSubview(separatorView)
         paddingView.snp.makeConstraints { (make) in
-            make.top.leading.equalToSuperview().offset(10) // SELF SIZE TOP HERE
-            make.bottom.trailing.equalToSuperview().inset(10)
+            make.top.leading.equalToSuperview().offset(16) // SELF SIZE TOP HERE
+            make.bottom.trailing.equalToSuperview().inset(16)
         }
         separatorView.snp.makeConstraints { (make) in
             make.bottom.equalToSuperview()

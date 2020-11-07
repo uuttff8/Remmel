@@ -191,8 +191,8 @@ class CommentContentView: UIView {
         self.addSubview(paddingView)
         self.addSubview(separatorView)
         paddingView.snp.makeConstraints { (make) in
-            make.top.leading.equalToSuperview().offset(10) // SELF SIZE TOP HERE
-            make.bottom.trailing.equalToSuperview().inset(10)
+            make.top.leading.equalToSuperview().offset(16) // SELF SIZE TOP HERE
+            make.bottom.trailing.equalToSuperview().inset(16)
         }
         separatorView.snp.makeConstraints { (make) in
             make.height.equalTo(1)
@@ -274,7 +274,10 @@ private class CommentHeaderView: UIView {
         return btn
     }()
 
-    let stackView = UIStackView()
+    private let stackView = UIStackView().then {
+        $0.alignment = .center
+        $0.spacing = 8
+    }
 
     // MARK: - Init
     override init(frame: CGRect) {
@@ -313,7 +316,7 @@ private class CommentHeaderView: UIView {
     }
 
     private func setupViews() {
-
+        
         [usernameButton, toTitle, communityButton, scoreLabel, publishedTitle].forEach { (label) in
             stackView.addArrangedSubview(label)
         }
@@ -321,8 +324,6 @@ private class CommentHeaderView: UIView {
         self.addSubview(stackView)
         self.addSubview(postNameButton)
 
-        stackView.alignment = .center
-        stackView.spacing = 8
         stackView.snp.makeConstraints { (make) in
             make.top.leading.equalToSuperview()
         }
