@@ -223,56 +223,42 @@ private class CommentHeaderView: UIView {
 
     private let imageSize = CGSize(width: 32, height: 32)
 
-    lazy var avatarView: UIImageView = {
-        let ava = UIImageView()
-        ava.layer.cornerRadius = imageSize.width / 2
-        ava.layer.masksToBounds = false
-        ava.clipsToBounds = true
-        return ava
-    }()
+    lazy var avatarView = UIImageView().then {
+        $0.layer.cornerRadius = imageSize.width / 2
+        $0.layer.masksToBounds = false
+        $0.clipsToBounds = true
+    }
 
-    let usernameButton: UIButton = {
-        let button = UIButton()
-        button.setTitleColor(UIColor(red: 0/255, green: 123/255, blue: 255/255, alpha: 1), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        return button
-    }()
+    let usernameButton = UIButton().then {
+        $0.setTitleColor(UIColor(red: 0/255, green: 123/255, blue: 255/255, alpha: 1), for: .normal)
+        $0.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+    }
 
-    let toTitle: UILabel = {
-        let title = UILabel()
-        title.text = "to"
-        title.textColor = UIColor(red: 108/255, green: 117/255, blue: 125/255, alpha: 1)
-        title.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        return title
-    }()
+    let toTitle = UILabel().then {
+        $0.text = "to"
+        $0.textColor = UIColor(red: 108/255, green: 117/255, blue: 125/255, alpha: 1)
+        $0.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+    }
+    
+    let communityButton = UIButton().then {
+        $0.setTitleColor(UIColor(red: 241/255, green: 100/255, blue: 30/255, alpha: 1), for: .normal)
+        $0.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+    }
 
-    let communityButton: UIButton = {
-        let button = UIButton()
-        button.setTitleColor(UIColor(red: 241/255, green: 100/255, blue: 30/255, alpha: 1), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        return button
-    }()
+    let scoreLabel = UILabel()
 
-    let scoreLabel: UILabel = {
-        let lbl = UILabel()
-        return lbl
-    }()
+    let publishedTitle = UILabel().then {
+        $0.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+    }
 
-    let publishedTitle: UILabel = {
-        let lbl = UILabel()
-        lbl.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        return lbl
-    }()
+    let postNameButton = UIButton().then {
+        $0.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        $0.setTitleColor(UIColor(red: 241/255, green: 100/255, blue: 30/255, alpha: 1), for: .normal)
+        $0.titleLabel?.lineBreakMode = .byTruncatingTail
+        $0.contentHorizontalAlignment = .left
+        $0.titleLabel?.numberOfLines = 0
 
-    let postNameButton: UIButton = {
-        let btn = UIButton()
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        btn.setTitleColor(UIColor(red: 241/255, green: 100/255, blue: 30/255, alpha: 1), for: .normal)
-        btn.titleLabel?.lineBreakMode = .byTruncatingTail
-        btn.contentHorizontalAlignment = .left
-        btn.titleLabel?.numberOfLines = 0
-        return btn
-    }()
+    }
 
     private let stackView = UIStackView().then {
         $0.alignment = .center
@@ -317,10 +303,14 @@ private class CommentHeaderView: UIView {
 
     private func setupViews() {
         
-        [usernameButton, toTitle, communityButton, scoreLabel, publishedTitle].forEach { (label) in
-            stackView.addArrangedSubview(label)
-        }
-
+        stackView.addStackViewItems(
+            .view(usernameButton),
+            .view(toTitle),
+            .view(communityButton),
+            .view(scoreLabel),
+            .view(publishedTitle)
+        )
+        
         self.addSubview(stackView)
         self.addSubview(postNameButton)
 
@@ -362,12 +352,10 @@ private class CommentCenterView: UIView {
     }
 
     // MARK: - Properties
-    private let commentLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        lbl.numberOfLines = 0
-        return lbl
-    }()
+    private let commentLabel = UILabel().then {
+        $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        $0.numberOfLines = 0
+    }
 
     // MARK: - Init
     override init(frame: CGRect) {
@@ -416,47 +404,35 @@ private class CommentFooterView: UIView {
     }
 
     // MARK: - UI Elements
-    private let showContextButton: UIButton = {
-        let btn = UIButton()
+    private let showContextButton = UIButton().then {
         let image = Config.Image.link
-        btn.setImage(image, for: .normal)
-        return btn
-    }()
+        $0.setImage(image, for: .normal)
+    }
 
-    private let upvoteButton: UIButton = {
-        let btn = UIButton()
+    private let upvoteButton = UIButton().then {
         let image = Config.Image.arrowUp
-
-        btn.setImage(image, for: .normal)
-        return btn
-
-    }()
-
-    private let downvoteButton: UIButton = {
-        let btn = UIButton()
+        $0.setImage(image, for: .normal)
+    }
+    
+    private let downvoteButton = UIButton().then {
         let image = Config.Image.arrowDown
+        $0.setImage(image, for: .normal)
+    }
 
-        btn.setImage(image, for: .normal)
-        return btn
-    }()
-
-    private let replyButton: UIButton = {
-        let btn = UIButton()
+    private let replyButton = UIButton().then {
         let image = Config.Image.arrowshapeTurnUp
+        $0.setImage(image, for: .normal)
+    }
 
-        btn.setImage(image, for: .normal)
-        return btn
-    }()
-
-    private let showMoreButton: UIButton = {
-        let btn = UIButton()
-
+    private let showMoreButton = UIButton().then {
         let image = Config.Image.ellipsis
-        btn.setImage(image, for: .normal)
-        return btn
-    }()
+        $0.setImage(image, for: .normal)
+    }
 
-    private let stackView = UIStackView()
+    private let stackView = UIStackView().then {
+        $0.alignment = .center
+        $0.spacing = 40
+    }
 
     // MARK: - Init
     override init(frame: CGRect) {
@@ -470,9 +446,7 @@ private class CommentFooterView: UIView {
     }
 
     // MARK: - Public
-    func bind(with: CommentFooterView.ViewData) {
-
-    }
+    func bind(with: CommentFooterView.ViewData) { }
 
     // MARK: - Overrided
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -500,14 +474,12 @@ private class CommentFooterView: UIView {
 
         // settup up stack view
         self.addSubview(stackView)
-        self.stackView.alignment = .center
-        stackView.spacing = 40
 
         // constraints
         stackView.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalToSuperview()
         }
-
+        
         [showContextButton, upvoteButton, downvoteButton, replyButton, showMoreButton].forEach { (btn) in
             self.stackView.addArrangedSubview(btn)
 
