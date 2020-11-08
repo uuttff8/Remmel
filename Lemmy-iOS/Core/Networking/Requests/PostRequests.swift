@@ -74,8 +74,7 @@ extension RequestsManager: LemmyPostRequestManagerProtocol {
         
         return asyncRequestDecodable(
             path: WSEndpoint.Post.getPosts.endpoint,
-            parameters: parameters,
-            parsingFromRootKey: "data"
+            parameters: parameters
         )
     }
 

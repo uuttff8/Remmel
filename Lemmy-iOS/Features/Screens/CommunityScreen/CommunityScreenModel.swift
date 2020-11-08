@@ -28,99 +28,68 @@ class CommunityScreenModel: NSObject {
     
     var cancellable = Set<AnyCancellable>()
     var newDataLoaded: (([LemmyModel.PostView]) -> Void)?
-    var dataLoaded: (([LemmyModel.PostView]) -> Void)?
     var goToPostScreen: ((LemmyModel.PostView) -> Void)?
     
-    let communitySubject: CurrentValueSubject<LemmyModel.CommunityView?, Never> = CurrentValueSubject(nil)
-    let postsSubject: CurrentValueSubject<[LemmyModel.PostView], Never> = CurrentValueSubject([])
-    
-    let contentTypeSubject: CurrentValueSubject<LemmySortType, Never> = CurrentValueSubject(.active)
+    @Published var communitySubject: LemmyModel.CommunityView?
+    @Published var postsSubject: [LemmyModel.PostView] = []
+    @Published var contentTypeSubject: LemmySortType = .active
     
     private var isFetchingNewContent = false
     private var currentPage = 1
     
     let communityHeaderCell = CommunityHeaderCell()
     
-    func loadCommunity(id: Int) {
+    func asyncLoadCommunity(id: Int) {
         guard let jwtToken = LemmyShareData.shared.jwtToken else { return }
         
         let parameters = LemmyModel.Community.GetCommunityRequest(id: id, name: nil, auth: jwtToken)
         
-        ApiManager.requests.getCommunity(parameters: parameters) { [self] (res) in
-            switch res {
-            case let .success(response):
-                communitySubject.send(response.community)
-            case let .failure(error):
-                print(error.description)
-            }
-        }
+        ApiManager.requests.asyncGetCommunity(parameters: parameters)
+            .receive(on: RunLoop.main)
+            .sink { (error) in
+                print(error)
+            } receiveValue: { (response) in
+                self.communitySubject = response.community
+            }.store(in: &cancellable)
     }
     
     func asyncLoadPosts(id: Int) {
         let parameters = LemmyModel.Post.GetPostsRequest(type: .community,
-                                                         sort: contentTypeSubject.value,
+                                                         sort: contentTypeSubject,
                                                          page: 1,
                                                          limit: 50,
                                                          communityId: id,
                                                          communityName: nil,
                                                          auth: LoginData.shared.jwtToken)
-        
         
         ApiManager.shared.requestsManager.asyncGetPosts(parameters: parameters)
             .receive(on: RunLoop.main)
             .sink { (error) in
                 print(error)
             } receiveValue: { (posts) in
-                self.postsSubject.send(posts.posts)
-                self.dataLoaded?(posts.posts)
+                self.postsSubject = posts.posts
             }.store(in: &cancellable)
     }
-    
-    func loadPosts(id: Int) {
-        let parameters = LemmyModel.Post.GetPostsRequest(type: .community,
-                                                         sort: contentTypeSubject.value,
-                                                         page: 1,
-                                                         limit: 50,
-                                                         communityId: id,
-                                                         communityName: nil,
-                                                         auth: LoginData.shared.jwtToken)
         
-        ApiManager.shared.requestsManager.getPosts(
-            parameters: parameters,
-            completion: { (dec: Result<LemmyModel.Post.GetPostsResponse, LemmyGenericError>) in
-                switch dec {
-                case .success(let posts):
-                    self.postsSubject.send(posts.posts)
-                    self.dataLoaded?(posts.posts)
-                case .failure(let error):
-                    print(error)
-                }
-            })
-    }
-    
     func loadMorePosts(fromId: Int,completion: @escaping (() -> Void)) {
         let parameters = LemmyModel.Post.GetPostsRequest(type: .community,
-                                                         sort: contentTypeSubject.value,
+                                                         sort: contentTypeSubject,
                                                          page: currentPage,
                                                          limit: 50,
                                                          communityId: fromId,
                                                          communityName: nil,
                                                          auth: LoginData.shared.jwtToken)
         
-        ApiManager.shared.requestsManager.getPosts(
-            parameters: parameters,
-            completion: { [self] (dec: Result<LemmyModel.Post.GetPostsResponse, LemmyGenericError>) in
-                switch dec {
-                case let .success(posts):
-                    guard !posts.posts.isEmpty else { return }
-                    postsSubject.value.insert(contentsOf: posts.posts, at: postsSubject.value.count)
-                    self.newDataLoaded?(posts.posts)
-                    completion()
-                    
-                case .failure(let error):
-                    print(error)
-                }
-            })
+        ApiManager.shared.requestsManager.asyncGetPosts(parameters: parameters)
+            .receive(on: RunLoop.main)
+            .sink { (error) in
+                print(error)
+            } receiveValue: { [self] (response) in
+                guard !response.posts.isEmpty else { return }
+                postsSubject.insert(contentsOf: response.posts, at: postsSubject.count)
+                self.newDataLoaded?(response.posts)
+                completion()
+            }.store(in: &cancellable)
     }
     
 }
@@ -132,12 +101,12 @@ extension CommunityScreenModel: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard !postsSubject.value.isEmpty else { return }
+        guard !postsSubject.isEmpty else { return }
         
         guard case .posts = Section.allCases[indexPath.section] else { return }
         
         let indexPathRow = indexPath.row
-        let bottomItems = self.postsSubject.value.count - 5
+        let bottomItems = self.postsSubject.count - 5
         
         if indexPathRow >= bottomItems {
             guard !self.isFetchingNewContent else { return }
@@ -153,7 +122,7 @@ extension CommunityScreenModel: UITableViewDelegate {
     private func handleDidSelectForPosts(indexPath: IndexPath) {
         guard case .posts = Section.allCases[indexPath.section] else { return }
         
-        self.goToPostScreen?(postsSubject.value[indexPath.row])
+        self.goToPostScreen?(postsSubject[indexPath.row])
     }
 }
 
@@ -167,7 +136,7 @@ extension CommunityScreenModel: UITableViewDataSource {
         
         switch section {
         case .header: return 1
-        case .posts: return postsSubject.value.count
+        case .posts: return postsSubject.count
         }
     }
     
@@ -177,15 +146,15 @@ extension CommunityScreenModel: UITableViewDataSource {
         
         switch section {
         case .header:
-            guard let community = communitySubject.value else { return LoadingTableViewCell() }
+            guard let community = communitySubject else { return LoadingTableViewCell() }
             communityHeaderCell.bindData(community: community)
             return communityHeaderCell
         case .posts:
-            guard !postsSubject.value.isEmpty else { return LoadingTableViewCell() }
+            guard !postsSubject.isEmpty else { return LoadingTableViewCell() }
             
             let cell = tableView.cell(forClass: PostContentTableCell.self)
             cell.postContentView.delegate = self
-            cell.bind(with: self.postsSubject.value[indexPath.row], config: .insideComminity)
+            cell.bind(with: self.postsSubject[indexPath.row], config: .insideComminity)
             
             return cell
         }

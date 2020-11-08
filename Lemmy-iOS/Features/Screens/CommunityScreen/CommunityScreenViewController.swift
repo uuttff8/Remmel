@@ -24,13 +24,13 @@ class CommunityScreenViewController: UIViewController {
         model = CommunityScreenModel(communityId: fromId)
         super.init(nibName: nil, bundle: nil)
         
-        model.loadCommunity(id: fromId)
+        model.asyncLoadCommunity(id: fromId)
         model.asyncLoadPosts(id: fromId)
     }
     
     convenience init(community: LemmyModel.CommunityView) {
         self.init(fromId: community.id)
-        model.communitySubject.send(community)
+        model.communitySubject = community
         model.asyncLoadPosts(id: community.id)
     }
     
@@ -49,33 +49,31 @@ class CommunityScreenViewController: UIViewController {
         tableView.registerClass(PostContentTableCell.self)
         self.view.addSubview(tableView)
         
-        model.communitySubject
+        Publishers.Zip(model.$communitySubject, model.$postsSubject)
+            .filter({ $0.0 != nil })
             .receive(on: RunLoop.main)
-            .compactMap { $0 }
-            .sink { [self] in
-                tableView.reloadSections(IndexSet(integer: Model.Section.header.rawValue),
-                                         with: .automatic)
-                self.updateUIOnData(community: $0)
-            }.store(in: &cancellable)
-        
-        model.postsSubject
-            .receive(on: RunLoop.main)
-            .sink { [self] _ in
+            .sink { [self] (community, posts)  in
                 tableView.reloadSections(IndexSet(integer: Model.Section.posts.rawValue),
                                          with: .automatic)
+                
+                if let community = community {
+                    tableView.reloadSections(IndexSet(integer: Model.Section.header.rawValue),
+                                             with: .automatic)
+                    self.updateUIOnData(community: community)
+                }
+                
             }.store(in: &cancellable)
         
-        model.contentTypeSubject
+        model.$contentTypeSubject
             .receive(on: RunLoop.main)
             .sink(receiveValue: { _ in
-//                self.model.loadPosts(id: self.model.communityId)
                 self.model.asyncLoadPosts(id: self.model.communityId)
             }).store(in: &cancellable)
         
         model.newDataLoaded = { [self] newPosts in
-            guard !model.postsSubject.value.isEmpty else { return }
+            guard !model.postsSubject.isEmpty else { return }
             
-            let startIndex = model.postsSubject.value.count - newPosts.count
+            let startIndex = model.postsSubject.count - newPosts.count
             let endIndex = startIndex + newPosts.count
             
             let newIndexpaths =
@@ -84,13 +82,11 @@ class CommunityScreenViewController: UIViewController {
                     IndexPath(row: index, section: CommunityScreenModel.Section.posts.rawValue)
                 }
             
-            DispatchQueue.main.async {
-                tableView.performBatchUpdates {
-                    tableView.insertRows(at: newIndexpaths, with: .automatic)
-                }
+            tableView.performBatchUpdates {
+                tableView.insertRows(at: newIndexpaths, with: .automatic)
             }
         }
-    
+        
         model.goToPostScreen = { [self] (post) in
             coordinator?.goToPostScreen(post: post)
         }
@@ -101,7 +97,7 @@ class CommunityScreenViewController: UIViewController {
         }
         
         model.communityHeaderCell.contentTypeView.newCasePicked = { newCase in
-            self.model.contentTypeSubject.send(newCase)
+            self.model.contentTypeSubject = newCase
         }
     }
     

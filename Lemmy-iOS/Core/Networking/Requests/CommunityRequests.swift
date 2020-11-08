@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 private protocol LemmyCommunityRequestManagerProtocol {
     func listCommunities(
@@ -23,6 +24,10 @@ private protocol LemmyCommunityRequestManagerProtocol {
         parameters: LemmyModel.Community.GetCommunityRequest,
         completion: @escaping (Result<LemmyModel.Community.GetCommunityResponse, LemmyGenericError>) -> Void
     )
+    
+    func asyncGetCommunity(
+        parameters: LemmyModel.Community.GetCommunityRequest
+    ) -> AnyPublisher<LemmyModel.Community.GetCommunityResponse, LemmyGenericError>
 }
 
 extension RequestsManager: LemmyCommunityRequestManagerProtocol {
@@ -58,6 +63,15 @@ extension RequestsManager: LemmyCommunityRequestManagerProtocol {
                                 parameters: parameters,
                                 parsingFromRootKey: "data",
                                 completion: completion)
+    }
+    
+    func asyncGetCommunity(
+        parameters: LemmyModel.Community.GetCommunityRequest
+    ) -> AnyPublisher<LemmyModel.Community.GetCommunityResponse, LemmyGenericError> {
+        
+        asyncRequestDecodable(path: WSEndpoint.Community.getCommunity.endpoint,
+                              parameters: parameters)
+        
     }
     
 }

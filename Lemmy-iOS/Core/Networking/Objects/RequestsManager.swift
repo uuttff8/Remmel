@@ -29,7 +29,7 @@ class RequestsManager {
     func asyncRequestDecodable<Req: Codable, Res: Codable>(
         path: String,
         parameters: Req? = nil,
-        parsingFromRootKey rootKey: String? = nil
+        parsingFromRootKey rootKey: Bool? = true
     ) -> AnyPublisher<Res, LemmyGenericError> {
         
         wsClient.asyncSend(on: path, data: parameters)
@@ -70,19 +70,31 @@ class RequestsManager {
     }
     
     private func asyncDecode<D: Codable>(
-        data: Data
+        data: Data,
+        parsingFromData: Bool = true
     ) -> Future<D, LemmyGenericError> {
         
         Future { promise in
             
-            guard let apiResponse = try? self.decoder.decode(ApiResponse<D>.self, from: data)
-            else {
-                promise(.failure("Can't decode api response \(String(data: data, encoding: .utf8)!)".toLemmyError))
-                return
+            if parsingFromData {
+                guard let apiResponse = try? self.decoder.decode(ApiResponse<D>.self, from: data)
+                else {
+                    promise(.failure("Can't decode api response \(String(data: data, encoding: .utf8)!)".toLemmyError))
+                    return
+                }
+                
+                let normalResponse = apiResponse.data
+                promise(.success(normalResponse))
+            } else {
+                guard let apiResponse = try? self.decoder.decode(D.self, from: data)
+                else {
+                    promise(.failure("Can't decode api response \(String(data: data, encoding: .utf8)!)".toLemmyError))
+                    return
+                }
+                                
+                let normalResponse = apiResponse
+                promise(.success(normalResponse))
             }
-            
-            let normalResponse = apiResponse.data
-            promise(.success(normalResponse))
         }
     }
     
