@@ -7,14 +7,70 @@
 //
 
 import UIKit
+import Combine
 
 class WSLemmyClient {
+    func asyncSend<D: Codable>(on endpoint: String, data: D? = nil) -> Future<String, LemmyGenericError> {
+        asyncWrapper(url: endpoint, data: data)
+    }
+    
     func send<D: Codable>(on endpoint: String, data: D? = nil, completion: @escaping (String) -> Void) {
         wrapper(url: endpoint, data: data, completion: completion)
     }
+    
+    private func asyncWrapper<D: Codable>(url: String, data: D? = nil) -> Future<String, LemmyGenericError> {
+        Future { [self] promise in
+            
+            guard let reqStr = makeRequestString(url: url, data: data)
+            else { return promise(.failure("Can't make request string".toLemmyError)) }
+            
+            let wsMessage = createWebsocketMessage(request: reqStr)
+            let wsTask = createWebsocketTask(endpoint: "wss://dev.lemmy.ml/api/v1/ws")
+            wsTask.resume()
+            
+            wsTask.send(wsMessage) { (error) in
+                if let error = error {
+                    promise(.failure("WebSocket couldn’t send message because: \(error)".toLemmyError))
+                }
+            }
+            
+            wsTask.receive { (res) in
+                switch res {
+                case let .success(messageType):
+                    promise(.success(self.handleMessage(type: messageType)))
+                case let .failure(error):
+                    promise(.failure(LemmyGenericError.string(error as! String)))
+                }
+            }
+        }
+    }
 
-    func wrapper<D: Codable>(url: String, data: D? = nil, completion: @escaping (String) -> Void) {
-        let reqStr: String
+    private func wrapper<D: Codable>(url: String, data: D? = nil, completion: @escaping (String) -> Void) {
+        
+        guard let reqStr = makeRequestString(url: url, data: data) else { return }
+        print(reqStr)
+        
+        let wsMessage = createWebsocketMessage(request: reqStr)
+        let wsTask = createWebsocketTask(endpoint: "wss://dev.lemmy.ml/api/v1/ws")
+        wsTask.resume()
+
+        wsTask.send(wsMessage) { (error) in
+            if let error = error {
+                print("WebSocket couldn’t send message because: \(error)")
+            }
+        }
+
+        wsTask.receive { (res) in
+            switch res {
+            case let .failure(error):
+                print(error)
+            case let .success(messageType):
+                completion(self.handleMessage(type: messageType))
+            }
+        }
+    }
+    
+    private func makeRequestString<T: Codable>(url: String, data: T?) -> String? {
         if let data = data {
 
             let encoder = JSONEncoder()
@@ -22,47 +78,40 @@ class WSLemmyClient {
             guard let orderJsonData = try? encoder.encode(data)
             else {
                 print("failed to encode data \(#file) \(#line)")
-                return
+                return nil
             }
             let sss = String(data: orderJsonData, encoding: .utf8)!
 
-            reqStr = """
+            return """
             {"op": "\(url)","data": \(sss)}
             """
         } else {
-            reqStr = """
+            return """
             {"op":"\(url)","data":{}}
             """
         }
-
-        print(reqStr)
-
-        let wsTask = URLSessionWebSocketTask.Message.string(reqStr)
+    }
+    
+    private func createWebsocketTask(endpoint: String) -> URLSessionWebSocketTask {
         let urlSession = URLSession(configuration: .default)
-        let ws = urlSession.webSocketTask(with: URL(string: "wss://dev.lemmy.ml/api/v1/ws")!)
-        ws.resume()
-
-        ws.send(wsTask) { (error) in
-            if let error = error {
-                print("WebSocket couldn’t send message because: \(error)")
-            }
+        return urlSession.webSocketTask(with: URL(string: endpoint)!)
+    }
+    
+    private func createWebsocketMessage(request: String) -> URLSessionWebSocketTask.Message {
+        return URLSessionWebSocketTask.Message.string(request)
+    }
+    
+    private func handleMessage(type: URLSessionWebSocketTask.Message) -> String {
+        // handle only strings
+        switch type {
+        case let .string(outString):
+            return outString
+        default:
+            break
         }
-
-        ws.receive { (res) in
-            switch res {
-            case .failure(let error):
-                print(error)
-            case .success(let messageType):
-                switch messageType {
-                case .string(let outString):
-                    completion(outString)
-                case .data:
-                    break
-//                    print(outData)
-                @unknown default:
-                    break
-                }
-            }
-        }
+        
+        return ""
     }
 }
+
+// wss://dev.lemmy.ml/api/v1/ws

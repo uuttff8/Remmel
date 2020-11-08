@@ -25,13 +25,13 @@ class CommunityScreenViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         model.loadCommunity(id: fromId)
-        model.loadPosts(id: fromId)
+        model.asyncLoadPosts(id: fromId)
     }
     
     convenience init(community: LemmyModel.CommunityView) {
         self.init(fromId: community.id)
         model.communitySubject.send(community)
-        model.loadPosts(id: community.id)
+        model.asyncLoadPosts(id: community.id)
     }
     
     required init?(coder: NSCoder) {
@@ -68,7 +68,8 @@ class CommunityScreenViewController: UIViewController {
         model.contentTypeSubject
             .receive(on: RunLoop.main)
             .sink(receiveValue: { _ in
-                self.model.loadPosts(id: self.model.communityId)
+//                self.model.loadPosts(id: self.model.communityId)
+                self.model.asyncLoadPosts(id: self.model.communityId)
             }).store(in: &cancellable)
         
         model.newDataLoaded = { [self] newPosts in

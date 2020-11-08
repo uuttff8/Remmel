@@ -8,6 +8,8 @@
 
 import Foundation
 
+typealias LemmyResult<Output> = Result<Output, LemmyGenericError>
+
 final class ApiManager {
     static let shared = ApiManager()
 

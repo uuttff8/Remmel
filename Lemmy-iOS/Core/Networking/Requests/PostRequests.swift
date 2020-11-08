@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 private protocol LemmyPostRequestManagerProtocol {
     func getPosts(
@@ -23,6 +24,10 @@ private protocol LemmyPostRequestManagerProtocol {
         parameters: LemmyModel.Post.CreatePostRequest,
         completion: @escaping ((Result<LemmyModel.Post.CreatePostResponse, LemmyGenericError>) -> Void)
     )
+    
+    func asyncGetPosts(
+        parameters: LemmyModel.Post.GetPostsRequest
+    ) -> AnyPublisher<LemmyModel.Post.GetPostsResponse, LemmyGenericError>
 }
 
 extension RequestsManager: LemmyPostRequestManagerProtocol {
@@ -62,4 +67,16 @@ extension RequestsManager: LemmyPostRequestManagerProtocol {
             completion: completion
         )
     }
+    
+    func asyncGetPosts(
+        parameters: LemmyModel.Post.GetPostsRequest
+    ) -> AnyPublisher<LemmyModel.Post.GetPostsResponse, LemmyGenericError> {
+        
+        return asyncRequestDecodable(
+            path: WSEndpoint.Post.getPosts.endpoint,
+            parameters: parameters,
+            parsingFromRootKey: "data"
+        )
+    }
+
 }

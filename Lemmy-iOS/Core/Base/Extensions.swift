@@ -371,3 +371,9 @@ extension UITextView: UITextViewDelegate {
     }
     
 }
+
+extension String {
+    var toLemmyError: LemmyGenericError {
+        LemmyGenericError.string(self)
+    }
+}

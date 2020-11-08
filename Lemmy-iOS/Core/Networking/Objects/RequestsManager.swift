@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 // MARK: - Error -
 struct ApiErrorResponse: Codable, Equatable {
@@ -14,10 +15,28 @@ struct ApiErrorResponse: Codable, Equatable {
 }
 
 class RequestsManager {
+    
+    struct ApiResponse<T: Codable>: Codable {
+        let op: String
+        let data: T
+    }
+    
     let wsClient = WSLemmyClient()
     let httpClient = HttpLemmyClient()
     
     let decoder = LemmyJSONDecoder()
+    
+    func asyncRequestDecodable<Req: Codable, Res: Codable>(
+        path: String,
+        parameters: Req? = nil,
+        parsingFromRootKey rootKey: String? = nil
+    ) -> AnyPublisher<Res, LemmyGenericError> {
+        
+        wsClient.asyncSend(on: path, data: parameters)
+            .flatMap { (outString: String) in
+                self.asyncDecode(data: outString.data(using: .utf8)!)
+            }.eraseToAnyPublisher()
+    }
     
     func requestDecodable<Req: Codable, Res: Codable>(
         path: String,
@@ -29,7 +48,7 @@ class RequestsManager {
             self.decode(data: outString.data(using: .utf8)!, rootKey: rootKey, completion: completion)
         }
     }
-
+    
     func uploadImage<Res: Codable>(
         path: String,
         image: UIImage,
@@ -40,7 +59,7 @@ class RequestsManager {
             case .failure(let why):
                 completion(.failure(why))
             case .success(let outData):
-
+                
                 guard let decoded = try? self.decoder.decode(Res.self, from: outData) else {
                     completion(.failure(.string("Failed to decode from \(Res.self)")))
                     return
@@ -49,24 +68,41 @@ class RequestsManager {
             }
         }
     }
-
+    
+    private func asyncDecode<D: Codable>(
+        data: Data
+    ) -> Future<D, LemmyGenericError> {
+        
+        Future { promise in
+            
+            guard let apiResponse = try? self.decoder.decode(ApiResponse<D>.self, from: data)
+            else {
+                promise(.failure("Can't decode api response \(String(data: data, encoding: .utf8)!)".toLemmyError))
+                return
+            }
+            
+            let normalResponse = apiResponse.data
+            promise(.success(normalResponse))
+        }
+    }
+    
     private func decode<D: Codable>(
         data: Data,
         rootKey: String?,
         completion: ((Result<D, LemmyGenericError>) -> Void)
     ) {
         if let rootKey = rootKey {
-
+            
             do {
                 let dict = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                 guard dict?.keys.firstIndex(of: rootKey) != nil, let items = dict?[rootKey] else {
-
+                    
                     // if no root key it maybe an error from backend
                     if let backendError = try? JSONDecoder().decode(ApiErrorResponse.self, from: data) {
                         completion(.failure(.string(backendError.error)))
                         return
                     }
-
+                    
                     completion(.failure(.string("Root key not found")))
                     return
                 }

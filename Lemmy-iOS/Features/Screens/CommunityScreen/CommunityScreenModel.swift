@@ -26,6 +26,7 @@ class CommunityScreenModel: NSObject {
         super.init()
     }
     
+    var cancellable = Set<AnyCancellable>()
     var newDataLoaded: (([LemmyModel.PostView]) -> Void)?
     var dataLoaded: (([LemmyModel.PostView]) -> Void)?
     var goToPostScreen: ((LemmyModel.PostView) -> Void)?
@@ -53,6 +54,26 @@ class CommunityScreenModel: NSObject {
                 print(error.description)
             }
         }
+    }
+    
+    func asyncLoadPosts(id: Int) {
+        let parameters = LemmyModel.Post.GetPostsRequest(type: .community,
+                                                         sort: contentTypeSubject.value,
+                                                         page: 1,
+                                                         limit: 50,
+                                                         communityId: id,
+                                                         communityName: nil,
+                                                         auth: LoginData.shared.jwtToken)
+        
+        
+        ApiManager.shared.requestsManager.asyncGetPosts(parameters: parameters)
+            .receive(on: RunLoop.main)
+            .sink { (error) in
+                print(error)
+            } receiveValue: { (posts) in
+                self.postsSubject.send(posts.posts)
+                self.dataLoaded?(posts.posts)
+            }.store(in: &cancellable)
     }
     
     func loadPosts(id: Int) {
