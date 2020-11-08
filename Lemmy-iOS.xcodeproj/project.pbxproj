@@ -24,6 +24,8 @@
 		4E1070982535DF4F009EABDA /* LemmyShareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1070972535DF4F009EABDA /* LemmyShareData.swift */; };
 		4E10709D25361846009EABDA /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10709C25361846009EABDA /* SignInView.swift */; };
 		4E1A7E6125573CC900E193B7 /* LoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A7E6025573CC900E193B7 /* LoadingTableViewCell.swift */; };
+		4E1A7E6625573EA400E193B7 /* ProfileScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A7E6525573EA400E193B7 /* ProfileScreenUI.swift */; };
+		4E1A7E6B25573F1800E193B7 /* ProfileScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A7E6A25573F1800E193B7 /* ProfileScreenModel.swift */; };
 		4E3E0F722555BCF70086CE0C /* ProfileScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3E0F712555BCF70086CE0C /* ProfileScreenViewController.swift */; };
 		4E3E0F7A2555F5BC0086CE0C /* LemmyJSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3E0F792555F5BC0086CE0C /* LemmyJSONDecoder.swift */; };
 		4E886C17253626950076B162 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C16253626950076B162 /* SignUpView.swift */; };
@@ -170,6 +172,8 @@
 		4E1070972535DF4F009EABDA /* LemmyShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyShareData.swift; sourceTree = "<group>"; };
 		4E10709C25361846009EABDA /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		4E1A7E6025573CC900E193B7 /* LoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTableViewCell.swift; sourceTree = "<group>"; };
+		4E1A7E6525573EA400E193B7 /* ProfileScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenUI.swift; sourceTree = "<group>"; };
+		4E1A7E6A25573F1800E193B7 /* ProfileScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenModel.swift; sourceTree = "<group>"; };
 		4E3E0F712555BCF70086CE0C /* ProfileScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewController.swift; sourceTree = "<group>"; };
 		4E3E0F792555F5BC0086CE0C /* LemmyJSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyJSONDecoder.swift; sourceTree = "<group>"; };
 		4E886C16253626950076B162 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -375,6 +379,8 @@
 			isa = PBXGroup;
 			children = (
 				4E3E0F712555BCF70086CE0C /* ProfileScreenViewController.swift */,
+				4E1A7E6525573EA400E193B7 /* ProfileScreenUI.swift */,
+				4E1A7E6A25573F1800E193B7 /* ProfileScreenModel.swift */,
 			);
 			path = ProfileScreen;
 			sourceTree = "<group>";
@@ -1083,6 +1089,7 @@
 				4ECCEEDD250B8D930075F921 /* AppCoordinator.swift in Sources */,
 				4EF3AC6F254A021400BEC9F1 /* CreateCommunityModel.swift in Sources */,
 				4E10708E2534F7A7009EABDA /* LoginData.swift in Sources */,
+				4E1A7E6B25573F1800E193B7 /* ProfileScreenModel.swift in Sources */,
 				4EF3ACFF2550757200BEC9F1 /* MarkdownParsedViewController.swift in Sources */,
 				4E1070602534770B009EABDA /* CommentsFrontPageViewController.swift in Sources */,
 				4EF3AC95254B60F000BEC9F1 /* CreateCommunityImagesCell.swift in Sources */,
@@ -1112,6 +1119,7 @@
 				4ECCEF13250CF0290075F921 /* PostContentTableCell.swift in Sources */,
 				4E107093253500DA009EABDA /* LemmyModel+User.swift in Sources */,
 				4ECCEF23250FB3DE0075F921 /* CommunitiesViewController.swift in Sources */,
+				4E1A7E6625573EA400E193B7 /* ProfileScreenUI.swift in Sources */,
 				4ECCEEAC250B8B6B0075F921 /* SceneDelegate.swift in Sources */,
 				4EF3ACD1254EF82C00BEC9F1 /* CommunityScreenViewController.swift in Sources */,
 				4EB89B052521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift in Sources */,
