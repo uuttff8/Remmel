@@ -15,19 +15,13 @@ struct Config {
 extension Config {
     struct Color {
         static var separator: UIColor {
-            if UIScreen.isDarkMode {
-                return UIColor.separator
-            } else {
-                return UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1)
-            }
+            .dynamic(light: UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1),
+                            dark: .separator)
         }
 
         static var highlightCell: UIColor {
-            if UIScreen.isDarkMode {
-                return UIColor.systemGray6
-            } else {
-                return UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1)
-            }
+            .dynamic(light: UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1),
+                            dark: .systemGray6)
         }
     }
 

@@ -75,6 +75,10 @@
 		4EBB220E25598AC100B88079 /* ProgrammaticallyInitializableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB220D25598AC100B88079 /* ProgrammaticallyInitializableView.swift */; };
 		4EBB221325598B0C00B88079 /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB221225598B0C00B88079 /* Assembly.swift */; };
 		4EBB22192559EB3600B88079 /* StyledNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB22182559EB3600B88079 /* StyledNavigationController.swift */; };
+		4EBB22212559EB8B00B88079 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB22202559EB8B00B88079 /* UIColor+Ext.swift */; };
+		4EBB22262559EBAA00B88079 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB22252559EBAA00B88079 /* ColorPalette.swift */; };
+		4EBB222E2559EEFF00B88079 /* MilticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB222D2559EEFF00B88079 /* MilticastDelegate.swift */; };
+		4EBB22342559EF2100B88079 /* WeakBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB22332559EF2100B88079 /* WeakBox.swift */; };
 		4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */; };
 		4ECCEEAC250B8B6B0075F921 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEAB250B8B6B0075F921 /* SceneDelegate.swift */; };
 		4ECCEEAE250B8B6B0075F921 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEAD250B8B6B0075F921 /* LoginViewController.swift */; };
@@ -228,6 +232,10 @@
 		4EBB220D25598AC100B88079 /* ProgrammaticallyInitializableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammaticallyInitializableView.swift; sourceTree = "<group>"; };
 		4EBB221225598B0C00B88079 /* Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
 		4EBB22182559EB3600B88079 /* StyledNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledNavigationController.swift; sourceTree = "<group>"; };
+		4EBB22202559EB8B00B88079 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
+		4EBB22252559EBAA00B88079 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
+		4EBB222D2559EEFF00B88079 /* MilticastDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilticastDelegate.swift; sourceTree = "<group>"; };
+		4EBB22332559EF2100B88079 /* WeakBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakBox.swift; sourceTree = "<group>"; };
 		4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lemmy-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4ECCEEAB250B8B6B0075F921 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -361,7 +369,8 @@
 		4E1070882534F78D009EABDA /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				4EB89B3925220DB0007129BF /* Logic */,
+				4EBB22322559EF1800B88079 /* Concurrency */,
+				4EB89B3925220DB0007129BF /* Common */,
 				4EFAB5CE2552F97600B32780 /* LangExt */,
 				4EFAB58F2551857C00B32780 /* UIExt */,
 				4EF3AD032550907D00BEC9F1 /* UIUtils */,
@@ -409,6 +418,7 @@
 			isa = PBXGroup;
 			children = (
 				4E886C412538C3540076B162 /* Config.swift */,
+				4EBB22252559EBAA00B88079 /* ColorPalette.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -525,13 +535,14 @@
 			path = PostScreen;
 			sourceTree = "<group>";
 		};
-		4EB89B3925220DB0007129BF /* Logic */ = {
+		4EB89B3925220DB0007129BF /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				4EB89B3A25220DC6007129BF /* CommentListingSort.swift */,
 				4E3E0F792555F5BC0086CE0C /* LemmyJSONDecoder.swift */,
+				4EBB222D2559EEFF00B88079 /* MilticastDelegate.swift */,
 			);
-			path = Logic;
+			path = Common;
 			sourceTree = "<group>";
 		};
 		4EBB220725598A9500B88079 /* Protocols */ = {
@@ -550,6 +561,14 @@
 				4EBB22182559EB3600B88079 /* StyledNavigationController.swift */,
 			);
 			path = StyledNavigationController;
+			sourceTree = "<group>";
+		};
+		4EBB22322559EF1800B88079 /* Concurrency */ = {
+			isa = PBXGroup;
+			children = (
+				4EBB22332559EF2100B88079 /* WeakBox.swift */,
+			);
+			path = Concurrency;
 			sourceTree = "<group>";
 		};
 		4ECCEE9D250B8B6B0075F921 = {
@@ -846,6 +865,7 @@
 				4EFAB5E12552FA5C00B32780 /* UIBarButton+Ext.swift */,
 				4EFAB5E62552FA9300B32780 /* UITableView+Ext.swift */,
 				4EFAB5EB2552FC5000B32780 /* UIStackView+Ext.swift */,
+				4EBB22202559EB8B00B88079 /* UIColor+Ext.swift */,
 			);
 			path = UIExt;
 			sourceTree = "<group>";
@@ -1137,6 +1157,7 @@
 				4E886CEC25442B3B0076B162 /* HttpEndpoint.swift in Sources */,
 				4E886C61253CAF650076B162 /* CreateTransitionDelegateImpl.swift in Sources */,
 				4E9BBA1925553176004FF2F9 /* Enums.swift in Sources */,
+				4EBB22262559EBAA00B88079 /* ColorPalette.swift in Sources */,
 				4ECCEEEA250BA6230075F921 /* WSLemmyClient.swift in Sources */,
 				4E886C88253F4FF40076B162 /* CreatePostUI.swift in Sources */,
 				4E886C7E253F4F290076B162 /* CreatePostViewController.swift in Sources */,
@@ -1159,6 +1180,7 @@
 				4EB89B052521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift in Sources */,
 				4E886C302537598F0076B162 /* SiteRequests.swift in Sources */,
 				4EF3AC9A254C690400BEC9F1 /* CreateCommunitySidebarCell.swift in Sources */,
+				4EBB22212559EB8B00B88079 /* UIColor+Ext.swift in Sources */,
 				4E886CE7254429280076B162 /* WSLemmyEndpoint.swift in Sources */,
 				4E1070792534E97E009EABDA /* CreatePostOrCommunityCoordinator.swift in Sources */,
 				4E106F6525274325009EABDA /* PostScreenModel.swift in Sources */,
@@ -1187,9 +1209,11 @@
 				4ECCEF09250CC3A60075F921 /* RequestsManager.swift in Sources */,
 				4EBB220E25598AC100B88079 /* ProgrammaticallyInitializableView.swift in Sources */,
 				4EF3AC7B254AE12800BEC9F1 /* CreateCommunityNamesCell.swift in Sources */,
+				4EBB222E2559EEFF00B88079 /* MilticastDelegate.swift in Sources */,
 				4ECCEF1F250DFBC90075F921 /* CommentContentTableCell.swift in Sources */,
 				4EFAB5E22552FA5C00B32780 /* UIBarButton+Ext.swift in Sources */,
 				4E9BBA592555560C004FF2F9 /* LemmyImageTextPickerView.swift in Sources */,
+				4EBB22342559EF2100B88079 /* WeakBox.swift in Sources */,
 				4EBB22192559EB3600B88079 /* StyledNavigationController.swift in Sources */,
 				4EF3ACEA25502D5600BEC9F1 /* CommunityHeaderView.swift in Sources */,
 				4E886C8D253F51B90076B162 /* CreatePostModel.swift in Sources */,
