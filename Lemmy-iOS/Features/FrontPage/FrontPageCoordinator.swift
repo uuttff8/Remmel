@@ -54,4 +54,9 @@ class FrontPageCoordinator: Coordinator {
         commScreen.coordinator = self
         self.navigationController?.pushViewController(commScreen, animated: true)
     }
+    
+    func goToProfileScreen(by username: String) {
+        let assembly = ProfileInfoScreenAssembly(profileUsername: username)
+        navigationController?.pushViewController(assembly.makeModule(), animated: true)
+    }
 }

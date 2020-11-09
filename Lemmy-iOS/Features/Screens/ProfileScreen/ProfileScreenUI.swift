@@ -8,23 +8,58 @@
 
 import UIKit
 
-class LemmyUserProfileView: UIView {
-    
-}
-
 extension ProfileScreenViewController {
     class View: UIView {
         
-        let tableView = LemmyTableView(style: .plain, separator: false)
+        private let titleLabel = UILabel().then {
+            $0
+        }
+        
+        struct ViewData {
+            let name: String
+            let avatarUrl: URL?
+            let bannerUrl: URL?
+            let numberOfComments: Int
+            let numberOfPosts: Int
+            let published: Date
+        }
+        
+        private let tabsTitles: [String]
+        
+        init(frame: CGRect = .zero, tabsTitles: [String]) {
+            self.tabsTitles = tabsTitles
+            super.init(frame: frame)
+            
+            self.setupView()
+            self.addSubviews()
+            self.makeConstraints()
+        }
+        
+        @available(*, unavailable)
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        func configure(viewData: ViewData) {
+            titleLabel.text = viewData.name
+        }
     }
 }
 
-extension ProfileScreenViewController.View: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+extension ProfileScreenViewController.View: ProgrammaticallyViewProtocol {
+    func setupView() {
+        self.clipsToBounds = true
+        self.backgroundColor = .systemBackground
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+
+    func addSubviews() {
+        self.addSubview(titleLabel)
+    }
+
+    func makeConstraints() {
+        self.titleLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
+        }
     }
 }

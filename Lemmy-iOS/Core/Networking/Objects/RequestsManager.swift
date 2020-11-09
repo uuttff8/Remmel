@@ -29,7 +29,7 @@ class RequestsManager {
     func asyncRequestDecodable<Req: Codable, Res: Codable>(
         path: String,
         parameters: Req? = nil,
-        parsingFromRootKey rootKey: Bool? = true
+        parsingFromDataKey rootKey: Bool = true
     ) -> AnyPublisher<Res, LemmyGenericError> {
         
         wsClient.asyncSend(on: path, data: parameters)

@@ -440,7 +440,7 @@ enum LemmyModel {
         let local: Bool
         let admin: Bool
         let banned: Bool
-        let published: String
+        let published: Date
         let numberOfPosts: Int
         let postScore: Int
         let numberOfComments: Int

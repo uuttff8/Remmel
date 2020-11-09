@@ -1,20 +1,24 @@
 PODS:
   - DateToolsSwift (5.0.0)
   - Nuke (9.1.2)
+  - Pageboy (3.6.2)
 
 DEPENDENCIES:
   - DateToolsSwift (~> 5.0.0)
   - Nuke (~> 9.0)
+  - Pageboy (~> 3.6)
 
 SPEC REPOS:
   trunk:
     - DateToolsSwift
     - Nuke
+    - Pageboy
 
 SPEC CHECKSUMS:
   DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
   Nuke: dd2e6be6a34c042a7861e190632781d11f253026
+  Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
 
-PODFILE CHECKSUM: 8fa82f1eb8febd90bfec00e17b326c9d92fe06d7
+PODFILE CHECKSUM: eb95ba81c8c8444f2dadcf98e732d9977f0d8b0e
 
 COCOAPODS: 1.10.0

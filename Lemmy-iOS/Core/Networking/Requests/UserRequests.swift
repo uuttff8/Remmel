@@ -7,12 +7,17 @@
 //
 
 import Foundation
+import Combine
 
 private protocol UserRequestManagerProtocol {
     func getUserDetails(
         parameters: LemmyModel.User.GetUserDetailsRequest,
         completion: @escaping (Result<LemmyModel.User.GetUserDetailsResponse, LemmyGenericError>) -> Void
     )
+    
+    func asyncGetUserDetails(
+        parameters: LemmyModel.User.GetUserDetailsRequest
+    ) -> AnyPublisher<LemmyModel.User.GetUserDetailsResponse, LemmyGenericError>
     
     func saveUserSettings(
         parameters: LemmyModel.User.SaveUserSettingsRequest,
@@ -36,6 +41,7 @@ private protocol UserRequestManagerProtocol {
 }
 
 extension RequestsManager: UserRequestManagerProtocol {
+    
     func getUserDetails(
         parameters: LemmyModel.User.GetUserDetailsRequest,
         completion: @escaping (Result<LemmyModel.User.GetUserDetailsResponse, LemmyGenericError>) -> Void
@@ -47,6 +53,14 @@ extension RequestsManager: UserRequestManagerProtocol {
             parsingFromRootKey: "data",
             completion: completion
         )
+    }
+    
+    func asyncGetUserDetails(
+        parameters: LemmyModel.User.GetUserDetailsRequest
+    ) -> AnyPublisher<LemmyModel.User.GetUserDetailsResponse, LemmyGenericError> {
+        
+        asyncRequestDecodable(path: WSEndpoint.User.getUserDetails.endpoint,
+                              parameters: parameters)
     }
 
     func saveUserSettings(

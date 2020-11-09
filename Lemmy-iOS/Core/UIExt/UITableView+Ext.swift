@@ -99,7 +99,7 @@ extension UITableView {
 extension UIView {
     static let loadingViewTag = 1938123987
     
-    func showLoading(style: UIActivityIndicatorView.Style = .medium, color: UIColor? = nil) {
+    func showLoading(style: UIActivityIndicatorView.Style = .large, color: UIColor? = nil) {
         var loading = viewWithTag(UIView.loadingViewTag) as? UIActivityIndicatorView
         if loading == nil {
             loading = UIActivityIndicatorView(style: style)
@@ -116,7 +116,7 @@ extension UIView {
         loading?.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
 
-    func stopLoading() {
+    func hideLoading() {
         let loading = viewWithTag(UIView.loadingViewTag) as? UIActivityIndicatorView
         loading?.stopAnimating()
         loading?.removeFromSuperview()

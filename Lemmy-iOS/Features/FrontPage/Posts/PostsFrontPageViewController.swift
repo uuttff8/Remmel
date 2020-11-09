@@ -54,6 +54,10 @@ class PostsFrontPageViewController: UIViewController {
         model.goToCommunityScreen = { [self] (fromPost) in
             coordinator?.goToCommunityScreen(communityId: fromPost.communityId)
         }
+        
+        model.goToProfileScreen = { [self] (username) in
+            coordinator?.goToProfileScreen(by: username)
+        }
     }
     
     override func viewDidLayoutSubviews() {

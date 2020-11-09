@@ -11,6 +11,7 @@ import UIKit
 class PostsFrontPageModel: NSObject {
     var goToPostScreen: ((LemmyModel.PostView) -> Void)?
     var goToCommunityScreen: ((_ fromPost: LemmyModel.PostView) -> Void)?
+    var goToProfileScreen: ((_ username: String) -> Void)?
     var newDataLoaded: (([LemmyModel.PostView]) -> Void)?
     var dataLoaded: (([LemmyModel.PostView]) -> Void)?
     
@@ -87,7 +88,7 @@ class PostsFrontPageModel: NSObject {
 
 extension PostsFrontPageModel: PostContentTableCellDelegate {
     func usernameTapped(in post: LemmyModel.PostView) {
-        print(post.creatorName)
+        goToProfileScreen?(post.creatorName)
     }
     
     // TODO(uuttff8): Implement coordinator to post
