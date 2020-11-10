@@ -24,14 +24,15 @@ extension ProfileScreenPostsViewController {
         
         let appearance: Appearance
         
+        // Proxify delegates
+        private weak var pageScrollViewDelegate: UIScrollViewDelegate?
+        
         private lazy var tableView = LemmyTableView(style: .plain, separator: false).then {
             $0.registerClass(PostContentTableCell.self)
             $0.backgroundColor = .clear
             $0.showsVerticalScrollIndicator = false
+            $0.delegate = self
         }
-        
-        // Proxify delegates
-        private weak var pageScrollViewDelegate: UIScrollViewDelegate?
         
         init(frame: CGRect = .zero, appearance: Appearance = Appearance()) {
             self.appearance = appearance
@@ -100,12 +101,6 @@ extension ProfileScreenPostsViewController.View: ProfileScreenScrollablePageView
         set {
             self.tableView.contentInset = newValue
 
-//            self.emptyStateLabel.snp.updateConstraints { make in
-//                make.centerY.equalToSuperview().offset(newValue.top / 2)
-//            }
-//
-//            let loadingIndicatorTopOffset = newValue.top + self.appearance.loadingIndicatorInsets.top
-//            self.loadingIndicatorTopConstraint?.update(offset: loadingIndicatorTopOffset)
         }
     }
 

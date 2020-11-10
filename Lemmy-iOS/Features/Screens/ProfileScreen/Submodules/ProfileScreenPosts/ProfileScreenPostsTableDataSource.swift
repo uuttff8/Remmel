@@ -16,7 +16,6 @@ class ProfileScreenPostsTableDataSource: NSObject {
         super.init()
     }
     
-
     func update(viewModel: LemmyModel.PostView) {
         if let index = self.viewModels.firstIndex(where: { $0.id == viewModel.id }) {
             self.viewModels[index] = viewModel

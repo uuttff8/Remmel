@@ -43,6 +43,9 @@ class ProfileScreenViewController: UIViewController {
     
     init(viewModel: ProfileScreenViewModel) {
         self.viewModel = viewModel
+        
+        self.submodulesControllers = Array(repeating: nil, count: availableTabs.count)
+
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -54,11 +57,11 @@ class ProfileScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.submodulesControllers = Array(repeating: nil, count: availableTabs.count)
-        
         self.addChild(self.pageViewController)
         self.pageViewController.dataSource = self
         self.pageViewController.delegate = self
+        
+        self.profileScreenView.updateCurrentPageIndex(ProfileScreenDataFlow.Tab.posts.rawValue)
         
         styledNavigationController?.removeBackButtonTitleForTopController()
         
@@ -75,11 +78,13 @@ class ProfileScreenViewController: UIViewController {
             headerTopOffset: statusBarHeight + navigationBarHeight
         )
 
-        let view = ProfileScreenViewController.View(frame: UIScreen.main.bounds,
-                                                    pageControllerView: pageViewController.view,
-                                                    tabsTitles: self.availableTabs.map { $0.title },
-                                                    scrollDelegate: self,
-                                                    appearance: appearance)
+        let view = ProfileScreenViewController.View(
+            frame: UIScreen.main.bounds,
+            pageControllerView: pageViewController.view,
+            scrollDelegate: self,
+            tabsTitles: self.availableTabs.map { $0.title },
+            appearance: appearance
+        )
         view.delegate = self
         
         self.view = view
@@ -91,6 +96,36 @@ class ProfileScreenViewController: UIViewController {
         self.view.performBlockIfAppearanceChanged(from: previousTraitCollection) {
             // Update status bar style.
             self.updateContentOffset(scrollOffset: self.lastKnownScrollOffset)
+        }
+    }
+    
+    private func updateTopBar(alpha: CGFloat) {
+        self.view.performBlockUsingViewTraitCollection {
+            self.styledNavigationController?.changeBackgroundColor(
+                StyledNavigationController.Appearance.backgroundColor.withAlphaComponent(alpha),
+                sender: self
+            )
+
+            let transitionColor = ColorTransitionHelper.makeTransitionColor(
+                from: .white,
+                to: StyledNavigationController.Appearance.tintColor,
+                transitionProgress: alpha
+            )
+            self.styledNavigationController?.changeTintColor(transitionColor, sender: self)
+            self.styledNavigationController?.changeTextColor(
+                StyledNavigationController.Appearance.tintColor.withAlphaComponent(alpha),
+                sender: self
+            )
+
+            let statusBarStyle: UIStatusBarStyle = {
+                if alpha > CGFloat(ProfileScreenViewController.topBarAlphaStatusBarThreshold) {
+                    return self.view.isDarkInterfaceStyle ? .lightContent : .dark
+                } else {
+                    return .lightContent
+                }
+            }()
+
+            self.styledNavigationController?.changeStatusBarStyle(statusBarStyle, sender: self)
         }
     }
     
@@ -157,37 +192,7 @@ class ProfileScreenViewController: UIViewController {
             view?.contentInsetAdjustmentBehavior = .never
         }
     }
-    
-    private func updateTopBar(alpha: CGFloat) {
-        self.view.performBlockUsingViewTraitCollection {
-            self.styledNavigationController?.changeBackgroundColor(
-                StyledNavigationController.Appearance.backgroundColor.withAlphaComponent(alpha),
-                sender: self
-            )
 
-            let transitionColor = ColorTransitionHelper.makeTransitionColor(
-                from: .white,
-                to: StyledNavigationController.Appearance.tintColor,
-                transitionProgress: alpha
-            )
-            self.styledNavigationController?.changeTintColor(transitionColor, sender: self)
-            self.styledNavigationController?.changeTextColor(
-                StyledNavigationController.Appearance.tintColor.withAlphaComponent(alpha),
-                sender: self
-            )
-
-            let statusBarStyle: UIStatusBarStyle = {
-                if alpha > CGFloat(ProfileScreenViewController.topBarAlphaStatusBarThreshold) {
-                    return self.view.isDarkInterfaceStyle ? .lightContent : .dark
-                } else {
-                    return .lightContent
-                }
-            }()
-
-            self.styledNavigationController?.changeStatusBarStyle(statusBarStyle, sender: self)
-        }
-    }
-    
     // Update content offset (to update appearance and offset on each tab)
     private func updateContentOffset(scrollOffset: CGFloat) {
         
@@ -208,7 +213,6 @@ class ProfileScreenViewController: UIViewController {
 
         // Pin segmented control
         let scrollViewOffset = min(offsetWithHeader, headerHeight)
-        
         profileScreenView.updateScroll(offset: scrollViewOffset)
 
         // Arrange page views contentOffset
@@ -243,7 +247,7 @@ class ProfileScreenViewController: UIViewController {
             )
         }
     }
-    
+
 }
 
 extension ProfileScreenViewController: PageboyViewControllerDataSource, PageboyViewControllerDelegate {
@@ -260,9 +264,9 @@ extension ProfileScreenViewController: PageboyViewControllerDataSource, PageboyV
         self.updateContentInset(headerHeight: self.lastKnownHeaderHeight)
         return self.submodulesControllers[index]
     }
-    
+
     func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
-        .at(index: 0)
+        .at(index: ProfileScreenDataFlow.Tab.posts.rawValue)
     }
         
     func pageboyViewController(
@@ -298,14 +302,15 @@ extension ProfileScreenViewController: PageboyViewControllerDataSource, PageboyV
 
 extension ProfileScreenViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print(scrollView.contentOffset.y)
+        self.lastKnownScrollOffset = scrollView.contentOffset.y
+        self.updateContentOffset(scrollOffset: self.lastKnownScrollOffset)
     }
 }
 
 extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
     func displayProfile(response: ProfileScreenDataFlow.ProfileLoad.ViewModel) {
         guard case let .result(data) = response.state else { return }
-        
+        self.title = data.name
         self.storedViewModel = data
         profileScreenView.configure(viewData: data)
     }
@@ -324,7 +329,7 @@ extension ProfileScreenViewController: ProfileScreenViewDelegate {
         self.pageViewController.scrollToPage(.at(index: index), animated: true)
     }
 
-    func profileViewView(_ profileView: View, didReportNewHeaderHeight height: CGFloat) {
+    func profileView(_ profileView: View, didReportNewHeaderHeight height: CGFloat) {
         self.lastKnownHeaderHeight = height
         self.updateContentInset(headerHeight: self.lastKnownHeaderHeight)
     }

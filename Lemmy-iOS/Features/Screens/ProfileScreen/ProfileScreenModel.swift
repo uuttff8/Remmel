@@ -86,7 +86,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
 }
 
 enum ProfileScreenDataFlow {
-    enum Tab {
+    enum Tab: Int {
         case posts
         case comments
         case about

@@ -10,6 +10,13 @@ import Nuke
 import UIKit
 import SnapKit
 
+protocol ProfileScreenViewDelegate: AnyObject {
+    func profileView(_ profileView: ProfileScreenViewController.View, didReportNewHeaderHeight height: CGFloat)
+    func profileView(_ profileView: ProfileScreenViewController.View, didRequestScrollToPage index: Int)
+    func numberOfPages(in profileView: ProfileScreenViewController.View) -> Int
+}
+
+
 extension ProfileScreenViewController.View {
     struct Appearance {
         // Status bar + navbar + other offsets
@@ -20,14 +27,8 @@ extension ProfileScreenViewController.View {
     }
 }
 
-protocol ProfileScreenViewDelegate: AnyObject {
-    func profileViewView(_ profileView: ProfileScreenViewController.View, didReportNewHeaderHeight height: CGFloat)
-    func profileView(_ profileView: ProfileScreenViewController.View, didRequestScrollToPage index: Int)
-    func numberOfPages(in profileView: ProfileScreenViewController.View) -> Int
-}
-
 extension ProfileScreenViewController {
-    class View: UIView {
+    final class View: UIView {
         let appearance: Appearance
         
         private let tabsTitles: [String]
@@ -37,9 +38,7 @@ extension ProfileScreenViewController {
 
         private var currentPageIndex = 0
         
-        private lazy var headerView = ProfileScreenHeaderView().then {
-            $0
-        }
+        private lazy var headerView = ProfileScreenHeaderView()
         
         private lazy var segmentedControl: TabSegmentedControlView = {
             let control = TabSegmentedControlView(frame: .zero, items: self.tabsTitles)
@@ -66,13 +65,13 @@ extension ProfileScreenViewController {
         init(
             frame: CGRect = .zero,
             pageControllerView: UIView,
-            tabsTitles: [String],
             scrollDelegate: UIScrollViewDelegate? = nil,
+            tabsTitles: [String],
             appearance: Appearance = Appearance()
         ) {
             self.tabsTitles = tabsTitles
-            self.appearance = appearance
             self.pageControllerView = pageControllerView
+            self.appearance = appearance
             super.init(frame: frame)
             
             self.setupView()
@@ -91,7 +90,7 @@ extension ProfileScreenViewController {
             // Update header height
             self.calculatedHeaderHeight = self.headerView.calculateHeight()
 
-            self.delegate?.profileViewView(
+            self.delegate?.profileView(
                 self,
                 didReportNewHeaderHeight: self.headerHeight + self.appearance.segmentedControlHeight
             )

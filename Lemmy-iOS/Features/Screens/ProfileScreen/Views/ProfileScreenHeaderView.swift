@@ -102,11 +102,8 @@ class ProfileScreenHeaderView: UIView {
             .systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         
         return mainStackViewContentSize.height
-            + (self.appearance.iconSize.height) // banner view
             + (self.appearance.defaultSpacing * 2) //imageTitle
             + (self.appearance.defaultSpacing * 2) // comments, posts, published titles
-            + (self.appearance.defaultSpacing * 2)
-            + (self.appearance.defaultSpacing * 2)
     }
     
     func configure(viewData: ViewData) {
