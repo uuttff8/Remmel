@@ -1,5 +1,5 @@
 //
-//  ProfileScreenPostsSubViewModel.swift
+//  ProfileScreenPostsViewModel.swift
 //  Lemmy-iOS
 //
 //  Created by uuttff8 on 10.11.2020.
@@ -9,14 +9,14 @@
 import UIKit
 import Combine
 
-protocol ProfileScreenPostsSubViewModelProtocol {
+protocol ProfileScreenPostsViewModelProtocol {
     func doProfilePostsFetch()
 }
 
-class ProfileScreenPostsSubViewModel: ProfileScreenPostsSubViewModelProtocol {
+class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
     private var currentProfile: LemmyModel.UserView?
     
-    weak var viewController: ProfileScreenPostsSubViewControllerProtocol?
+    weak var viewController: ProfileScreenPostViewControllerProtocol?
     
     var cancellable = Set<AnyCancellable>()
     
@@ -43,7 +43,7 @@ class ProfileScreenPostsSubViewModel: ProfileScreenPostsSubViewModelProtocol {
     }
 }
 
-extension ProfileScreenPostsSubViewModel: ProfileScreenPostsInputProtocol {
+extension ProfileScreenPostsViewModel: ProfileScreenPostsInputProtocol {
     func update() {
         
         self.doProfilePostsFetch()
@@ -54,7 +54,7 @@ extension ProfileScreenPostsSubViewModel: ProfileScreenPostsInputProtocol {
     }
 }
 
-class ProfileScreenPostsSub {
+class ProfileScreenPosts {
     enum PostsLoad {
         struct Response {
             let posts: [LemmyModel.PostView]
@@ -68,6 +68,6 @@ class ProfileScreenPostsSub {
     // MARK: States
     enum ViewControllerState {
         case loading
-        case result(data: ProfileScreenPostsSubViewController.View.ViewData)
+        case result(data: ProfileScreenPostsViewController.View.ViewData)
     }
 }

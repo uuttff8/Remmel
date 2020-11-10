@@ -1,5 +1,5 @@
 //
-//  ProfileScreenPostsSubViewController.swift
+//  ProfileScreenPostsViewController.swift
 //  Lemmy-iOS
 //
 //  Created by uuttff8 on 10.11.2020.
@@ -8,24 +8,24 @@
 
 import UIKit
 
-protocol ProfileScreenPostsSubViewControllerProtocol: AnyObject {
-    func displayCourseInfo(viewModel: ProfileScreenPostsSub.PostsLoad.ViewModel)
+protocol ProfileScreenPostViewControllerProtocol: AnyObject {
+    func displayCourseInfo(viewModel: ProfileScreenPosts.PostsLoad.ViewModel)
 }
 
-class ProfileScreenPostsSubViewController: UIViewController {
-    private let viewModel: ProfileScreenPostsSubViewModel
+class ProfileScreenPostsViewController: UIViewController {
+    private let viewModel: ProfileScreenPostsViewModel
     
     private let tableDataSource = ProfileScreenPostsTableDataSource()
     
-    lazy var profilePostsView = self.view as? ProfileScreenPostsSubViewController.View
+    lazy var profilePostsView = self.view as? ProfileScreenPostsViewController.View
     
     private var tablePage = 1
-    private var state: ProfileScreenPostsSub.ViewControllerState
+    private var state: ProfileScreenPosts.ViewControllerState
     private var canTriggerPagination = true
     
     init(
-        viewModel: ProfileScreenPostsSubViewModel,
-        initialState: ProfileScreenPostsSub.ViewControllerState = .loading
+        viewModel: ProfileScreenPostsViewModel,
+        initialState: ProfileScreenPosts.ViewControllerState = .loading
     ) {
         self.viewModel = viewModel
         self.state = initialState
@@ -43,10 +43,10 @@ class ProfileScreenPostsSubViewController: UIViewController {
     }
     
     override func loadView() {
-        self.view = ProfileScreenPostsSubViewController.View()
+        self.view = ProfileScreenPostsViewController.View()
     }
     
-    private func updateState(newState: ProfileScreenPostsSub.ViewControllerState) {
+    private func updateState(newState: ProfileScreenPosts.ViewControllerState) {
         defer {
             self.state = newState
         }
@@ -66,8 +66,8 @@ class ProfileScreenPostsSubViewController: UIViewController {
     }
 }
 
-extension ProfileScreenPostsSubViewController: ProfileScreenPostsSubViewControllerProtocol {
-    func displayCourseInfo(viewModel: ProfileScreenPostsSub.PostsLoad.ViewModel) {
+extension ProfileScreenPostsViewController: ProfileScreenPostViewControllerProtocol {
+    func displayCourseInfo(viewModel: ProfileScreenPosts.PostsLoad.ViewModel) {
         guard case let .result(data) = viewModel.state else { return }
         self.tableDataSource.viewModels = data.posts
         self.updateState(newState: viewModel.state)

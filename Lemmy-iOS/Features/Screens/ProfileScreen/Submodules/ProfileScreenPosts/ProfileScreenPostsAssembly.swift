@@ -14,8 +14,8 @@ final class ProfileScreenPostsAssembly: Assembly {
     var moduleInput: ProfileScreenPostsInputProtocol?
 
     func makeModule() -> UIViewController {
-        let viewModel = ProfileScreenPostsSubViewModel()
-        let vc = ProfileScreenPostsSubViewController(viewModel: viewModel)
+        let viewModel = ProfileScreenPostsViewModel()
+        let vc = ProfileScreenPostsViewController(viewModel: viewModel)
         viewModel.viewController = vc
         self.moduleInput = viewModel
         

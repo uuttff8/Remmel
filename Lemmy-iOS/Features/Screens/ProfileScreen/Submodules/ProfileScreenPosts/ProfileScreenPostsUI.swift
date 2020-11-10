@@ -1,5 +1,5 @@
 //
-//  ProfileScreenPostsSubUI.swift
+//  ProfileScreenPostsUI.swift
 //  Lemmy-iOS
 //
 //  Created by uuttff8 on 10.11.2020.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-extension ProfileScreenPostsSubViewController.View {
+extension ProfileScreenPostsViewController.View {
     struct Appearance {
         
     }
 }
 
-extension ProfileScreenPostsSubViewController {
+extension ProfileScreenPostsViewController {
     
     class View: UIView {
         
@@ -65,7 +65,7 @@ extension ProfileScreenPostsSubViewController {
     }
 }
 
-extension ProfileScreenPostsSubViewController.View: ProgrammaticallyViewProtocol {
+extension ProfileScreenPostsViewController.View: ProgrammaticallyViewProtocol {
     func addSubviews() {
         self.addSubview(tableView)
     }
@@ -77,13 +77,13 @@ extension ProfileScreenPostsSubViewController.View: ProgrammaticallyViewProtocol
     }
 }
 
-extension ProfileScreenPostsSubViewController.View: UITableViewDelegate {
+extension ProfileScreenPostsViewController.View: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.pageScrollViewDelegate?.scrollViewDidScroll?(scrollView)
     }
 }
 
-extension ProfileScreenPostsSubViewController.View: ProfileScreenScrollablePageViewProtocol {
+extension ProfileScreenPostsViewController.View: ProfileScreenScrollablePageViewProtocol {
     var scrollViewDelegate: UIScrollViewDelegate? {
         get {
              self.pageScrollViewDelegate

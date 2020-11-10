@@ -84,9 +84,9 @@
 		4EBB2244255AD50C00B88079 /* ProfileScreenHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB2243255AD50C00B88079 /* ProfileScreenHeaderView.swift */; };
 		4EBB224C255ADE4C00B88079 /* TabSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB224B255ADE4C00B88079 /* TabSegmentedControlView.swift */; };
 		4EBB2251255ADFC900B88079 /* ScrollableStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB2250255ADFC900B88079 /* ScrollableStackView.swift */; };
-		4EBB2258255AE6E600B88079 /* ProfileScreenPostsSubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB2257255AE6E600B88079 /* ProfileScreenPostsSubViewController.swift */; };
-		4EBB225D255AE71E00B88079 /* ProfileScreenPostsSubViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB225C255AE71E00B88079 /* ProfileScreenPostsSubViewModel.swift */; };
-		4EBB2263255AECB500B88079 /* ProfileScreenPostsSubUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB2262255AECB500B88079 /* ProfileScreenPostsSubUI.swift */; };
+		4EBB2258255AE6E600B88079 /* ProfileScreenPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB2257255AE6E600B88079 /* ProfileScreenPostsViewController.swift */; };
+		4EBB225D255AE71E00B88079 /* ProfileScreenPostsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB225C255AE71E00B88079 /* ProfileScreenPostsViewModel.swift */; };
+		4EBB2263255AECB500B88079 /* ProfileScreenPostsUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB2262255AECB500B88079 /* ProfileScreenPostsUI.swift */; };
 		4EBB2268255AEF0E00B88079 /* ProfileScreenPostsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB2267255AEF0E00B88079 /* ProfileScreenPostsTableDataSource.swift */; };
 		4EBB226D255AF4F900B88079 /* ProfileScreenPostsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB226C255AF4F900B88079 /* ProfileScreenPostsAssembly.swift */; };
 		4EBB2276255AF77400B88079 /* ProfileScreenPostsInputOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB2275255AF77400B88079 /* ProfileScreenPostsInputOutput.swift */; };
@@ -253,9 +253,9 @@
 		4EBB2243255AD50C00B88079 /* ProfileScreenHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenHeaderView.swift; sourceTree = "<group>"; };
 		4EBB224B255ADE4C00B88079 /* TabSegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSegmentedControlView.swift; sourceTree = "<group>"; };
 		4EBB2250255ADFC900B88079 /* ScrollableStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableStackView.swift; sourceTree = "<group>"; };
-		4EBB2257255AE6E600B88079 /* ProfileScreenPostsSubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsSubViewController.swift; sourceTree = "<group>"; };
-		4EBB225C255AE71E00B88079 /* ProfileScreenPostsSubViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsSubViewModel.swift; sourceTree = "<group>"; };
-		4EBB2262255AECB500B88079 /* ProfileScreenPostsSubUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsSubUI.swift; sourceTree = "<group>"; };
+		4EBB2257255AE6E600B88079 /* ProfileScreenPostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsViewController.swift; sourceTree = "<group>"; };
+		4EBB225C255AE71E00B88079 /* ProfileScreenPostsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsViewModel.swift; sourceTree = "<group>"; };
+		4EBB2262255AECB500B88079 /* ProfileScreenPostsUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsUI.swift; sourceTree = "<group>"; };
 		4EBB2267255AEF0E00B88079 /* ProfileScreenPostsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsTableDataSource.swift; sourceTree = "<group>"; };
 		4EBB226C255AF4F900B88079 /* ProfileScreenPostsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsAssembly.swift; sourceTree = "<group>"; };
 		4EBB2275255AF77400B88079 /* ProfileScreenPostsInputOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsInputOutput.swift; sourceTree = "<group>"; };
@@ -609,22 +609,22 @@
 		4EBB2255255AE64800B88079 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
-				4EBB2256255AE6A100B88079 /* ProfileScreenPostsSub */,
+				4EBB2256255AE6A100B88079 /* ProfileScreenPosts */,
 			);
 			path = Submodules;
 			sourceTree = "<group>";
 		};
-		4EBB2256255AE6A100B88079 /* ProfileScreenPostsSub */ = {
+		4EBB2256255AE6A100B88079 /* ProfileScreenPosts */ = {
 			isa = PBXGroup;
 			children = (
 				4EBB2274255AF75F00B88079 /* InputOutput */,
 				4EBB226C255AF4F900B88079 /* ProfileScreenPostsAssembly.swift */,
-				4EBB2257255AE6E600B88079 /* ProfileScreenPostsSubViewController.swift */,
-				4EBB225C255AE71E00B88079 /* ProfileScreenPostsSubViewModel.swift */,
-				4EBB2262255AECB500B88079 /* ProfileScreenPostsSubUI.swift */,
+				4EBB2257255AE6E600B88079 /* ProfileScreenPostsViewController.swift */,
+				4EBB225C255AE71E00B88079 /* ProfileScreenPostsViewModel.swift */,
+				4EBB2262255AECB500B88079 /* ProfileScreenPostsUI.swift */,
 				4EBB2267255AEF0E00B88079 /* ProfileScreenPostsTableDataSource.swift */,
 			);
-			path = ProfileScreenPostsSub;
+			path = ProfileScreenPosts;
 			sourceTree = "<group>";
 		};
 		4EBB2274255AF75F00B88079 /* InputOutput */ = {
@@ -1247,7 +1247,7 @@
 				4EF3AC62254A01DA00BEC9F1 /* CreateCommunityViewController.swift in Sources */,
 				4EBB221325598B0C00B88079 /* Assembly.swift in Sources */,
 				4ECCEF13250CF0290075F921 /* PostContentTableCell.swift in Sources */,
-				4EBB225D255AE71E00B88079 /* ProfileScreenPostsSubViewModel.swift in Sources */,
+				4EBB225D255AE71E00B88079 /* ProfileScreenPostsViewModel.swift in Sources */,
 				4E107093253500DA009EABDA /* LemmyModel+User.swift in Sources */,
 				4ECCEF23250FB3DE0075F921 /* CommunitiesViewController.swift in Sources */,
 				4E1A7E6625573EA400E193B7 /* ProfileScreenUI.swift in Sources */,
@@ -1267,7 +1267,7 @@
 				4ECCEF31251F24AD0075F921 /* LemmyFrontPageNavBar.swift in Sources */,
 				4ECCEF33251F27170075F921 /* LemmyProfileIconView.swift in Sources */,
 				4E10706B253477C1009EABDA /* LemmyTableView.swift in Sources */,
-				4EBB2263255AECB500B88079 /* ProfileScreenPostsSubUI.swift in Sources */,
+				4EBB2263255AECB500B88079 /* ProfileScreenPostsUI.swift in Sources */,
 				4E886CF1254430970076B162 /* HttpLemmyClient.swift in Sources */,
 				4E9BBA5425555571004FF2F9 /* LemmySortListingPickersView.swift in Sources */,
 				4E886C36253872D10076B162 /* SignUpModel.swift in Sources */,
@@ -1283,7 +1283,7 @@
 				4E106F5D25273A0C009EABDA /* CommentTreeTableCell.swift in Sources */,
 				4ECCEF2B250FF56A0075F921 /* CommunityPreviewTableCell.swift in Sources */,
 				4E886C2125364EC30076B162 /* UserRequests.swift in Sources */,
-				4EBB2258255AE6E600B88079 /* ProfileScreenPostsSubViewController.swift in Sources */,
+				4EBB2258255AE6E600B88079 /* ProfileScreenPostsViewController.swift in Sources */,
 				4EB89B00251F4882007129BF /* PostScreenUI.swift in Sources */,
 				4ECCEF09250CC3A60075F921 /* RequestsManager.swift in Sources */,
 				4EBB220E25598AC100B88079 /* ProgrammaticallyInitializableView.swift in Sources */,
