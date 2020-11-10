@@ -8,80 +8,71 @@
 
 import Nuke
 import UIKit
+import SnapKit
 
 extension ProfileScreenViewController.View {
     struct Appearance {
-        let imageFadeInDuration: TimeInterval = 0.15
-        let overlayAlpha: CGFloat = 0.75
-        let additionalStackViewSpacing: CGFloat = 8.0
-        let iconSize = CGSize(width: 50, height: 50)
-        let bannerSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 8)
+        // Status bar + navbar + other offsets
+        var headerTopOffset: CGFloat = 0.0
+        let segmentedControlHeight: CGFloat = 48.0
+        
+        let minimalHeaderHeight: CGFloat = 240
     }
+}
+
+protocol ProfileScreenViewDelegate: AnyObject {
+    func profileViewView(_ profileView: ProfileScreenViewController.View, didReportNewHeaderHeight height: CGFloat)
+    func profileView(_ profileView: ProfileScreenViewController.View, didRequestScrollToPage index: Int)
+    func numberOfPages(in profileView: ProfileScreenViewController.View) -> Int
 }
 
 extension ProfileScreenViewController {
     class View: UIView {
-        
-        struct ViewData {
-            let name: String
-            let avatarUrl: URL?
-            let bannerUrl: URL?
-            let numberOfComments: Int
-            let numberOfPosts: Int
-            let published: Date
-        }
-        
         let appearance: Appearance
-        
-        private let bannerImageView = UIImageView().then {
-            $0.contentMode = .scaleAspectFill
-        }
-        
-        private let mainStackView = UIStackView().then {
-            $0.axis = .vertical
-            $0.spacing = 10
-        }
-        
-        private let imageTitleStackView = UIStackView().then {
-            $0.axis = .horizontal
-            $0.spacing = 10
-        }
-
-        private lazy var iconImageView = UIImageView().then {
-            $0.contentMode = .scaleAspectFill
-            $0.layer.cornerRadius = appearance.iconSize.width / 2
-            $0.clipsToBounds = true
-        }
-        
-        private let usernameLabel = UILabel()
-        
-        private lazy var additionalInfoStackView = UIStackView().then {
-            $0.axis = .vertical
-            $0.alignment = .leading
-            $0.spacing = self.appearance.additionalStackViewSpacing
-            $0.distribution = .fill
-        }
-        
-        private let numberOfPostsLabel = UILabel().then {
-            $0.font = .systemFont(ofSize: 14)
-            $0.textColor = .systemBlue
-        }
-        
-        private let numberOfCommentsLabel = UILabel().then {
-            $0.font = .systemFont(ofSize: 14)
-            $0.textColor = .systemBlue
-        }
-        
-        private let pubslihedLabel = UILabel().then {
-            $0.font = .systemFont(ofSize: 14)
-            $0.textColor = .systemBlue
-        }
         
         private let tabsTitles: [String]
         
-        init(frame: CGRect = .zero, tabsTitles: [String], appearance: Appearance = Appearance()) {
+        // Height values reported by header view
+        private var calculatedHeaderHeight: CGFloat = 0
+
+        private var currentPageIndex = 0
+        
+        private lazy var headerView = ProfileScreenHeaderView().then {
+            $0
+        }
+        
+        private lazy var segmentedControl: TabSegmentedControlView = {
+            let control = TabSegmentedControlView(frame: .zero, items: self.tabsTitles)
+            control.delegate = self
+            return control
+        }()
+        
+        private let pageControllerView: UIView
+
+        // Dynamic scrolling constraints
+        private var topConstraint: Constraint?
+        private var headerHeightConstraint: Constraint?
+
+        /// Real height for header
+        var headerHeight: CGFloat {
+            max(
+                0,
+                min(self.appearance.minimalHeaderHeight, self.calculatedHeaderHeight) + self.appearance.headerTopOffset
+            )
+        }
+        
+        weak var delegate: ProfileScreenViewDelegate?
+        
+        init(
+            frame: CGRect = .zero,
+            pageControllerView: UIView,
+            tabsTitles: [String],
+            scrollDelegate: UIScrollViewDelegate? = nil,
+            appearance: Appearance = Appearance()
+        ) {
             self.tabsTitles = tabsTitles
             self.appearance = appearance
+            self.pageControllerView = pageControllerView
             super.init(frame: frame)
             
             self.setupView()
@@ -94,29 +85,63 @@ extension ProfileScreenViewController {
             fatalError("init(coder:) has not been implemented")
         }
         
-        func configure(viewData: ViewData) {
-            usernameLabel.text = viewData.name
-            loadImage(url: viewData.avatarUrl, imageView: iconImageView)
-            loadImage(url: viewData.bannerUrl, imageView: bannerImageView)
-            numberOfCommentsLabel.text = String(viewData.numberOfComments) + " Comments"
-            numberOfPostsLabel.text = String(viewData.numberOfPosts) + " Posts"
-            pubslihedLabel.text = "Joined " + String(viewData.published.shortTimeAgoSinceNow) + " ago"
+        func configure(viewData: ProfileScreenHeaderView.ViewData) {
+            self.headerView.configure(viewData: viewData)
+            
+            // Update header height
+            self.calculatedHeaderHeight = self.headerView.calculateHeight()
+
+            self.delegate?.profileViewView(
+                self,
+                didReportNewHeaderHeight: self.headerHeight + self.appearance.segmentedControlHeight
+            )
+            
+            self.headerHeightConstraint?.update(offset: self.headerHeight)
         }
         
-        private func loadImage(url: URL?, imageView: UIImageView) {
-            if let url = url {
-                Nuke.loadImage(
-                    with: url,
-                    options: ImageLoadingOptions(
-                        transition: ImageLoadingOptions.Transition.fadeIn(
-                            duration: self.appearance.imageFadeInDuration
-                        )
-                    ),
-                    into: imageView
-                )
-            } else {
-                imageView.image = nil
+        func updateScroll(offset: CGFloat) {
+            // default position: offset == 0
+            // overscroll (parallax effect): offset < 0
+            // normal scrolling: offset > 0
+
+            self.headerHeightConstraint?.update(offset: max(self.headerHeight, self.headerHeight + -offset))
+
+            self.topConstraint?.update(offset: min(0, -offset))
+        }
+        
+        func updateCurrentPageIndex(_ index: Int) {
+            self.currentPageIndex = index
+            self.segmentedControl.selectTab(index: index)
+        }
+        
+        override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+            // Dispatch hits to correct views
+            func hitView(_ view: UIView, in point: CGPoint) -> UIView? {
+                let convertedPoint = self.convert(point, to: view)
+                for subview in view.subviews.reversed() {
+                    // Skip subview-receiver if it has isUserInteractionEnabled == false
+                    // to pass some hits to scrollview (e.g. swipes in header area)
+                    let shouldSubviewInteract = subview.isUserInteractionEnabled
+                    if subview.frame.contains(convertedPoint) && shouldSubviewInteract {
+                        if subview is UIStackView {
+                            return hitView(subview, in: convertedPoint)
+                        }
+                        return subview
+                    }
+                }
+                return nil
             }
+
+            let convertedPoint = self.convert(point, to: self.headerView)
+            if self.headerView.bounds.contains(convertedPoint) {
+                // Pass hits to header subviews
+                let hittedHeaderSubview = hitView(self.headerView, in: point)
+                if let hittedHeaderSubview = hittedHeaderSubview {
+                    return hittedHeaderSubview
+                }
+            }
+
+            return super.hitTest(point, with: event)
         }
     }
 }
@@ -128,39 +153,39 @@ extension ProfileScreenViewController.View: ProgrammaticallyViewProtocol {
     }
 
     func addSubviews() {
-        self.addSubview(bannerImageView)
-        self.addSubview(mainStackView)
-        
-        mainStackView.addStackViewItems(
-            .view(imageTitleStackView),
-            .view(additionalInfoStackView)
-        )
-        
-        additionalInfoStackView.addStackViewItems(
-            .view(numberOfPostsLabel),
-            .view(numberOfCommentsLabel),
-            .view(pubslihedLabel)
-        )
-        
-        imageTitleStackView.addStackViewItems(
-            .view(iconImageView),
-            .view(usernameLabel)
-        )
+        self.addSubview(self.headerView)
+        self.addSubview(self.segmentedControl)
+        self.insertSubview(self.pageControllerView, aboveSubview: self.headerView)
     }
 
     func makeConstraints() {
-        self.bannerImageView.snp.makeConstraints {
-            $0.size.equalTo(appearance.bannerSize)
-            $0.top.leading.trailing.equalToSuperview()
+        self.pageControllerView.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.trailing.equalTo(self.safeAreaLayoutGuide)
         }
-        
-        self.iconImageView.snp.makeConstraints {
-            $0.size.equalTo(appearance.iconSize)
+
+        self.headerView.snp.makeConstraints { make in
+            self.topConstraint = make.top.equalToSuperview().constraint
+            make.leading.trailing.equalToSuperview()
+            self.headerHeightConstraint = make.height.equalTo(self.headerHeight).constraint
         }
-        
-        self.mainStackView.snp.makeConstraints {
-            $0.top.equalTo(bannerImageView.snp.bottom)
-            $0.leading.trailing.equalToSuperview().inset(16)
+
+        self.segmentedControl.snp.makeConstraints { make in
+            make.top.equalTo(self.headerView.snp.bottom)
+            make.leading.trailing.equalTo(self.safeAreaLayoutGuide)
+            make.height.equalTo(self.appearance.segmentedControlHeight)
         }
+    }
+}
+
+extension ProfileScreenViewController.View: TabSegmentedControlViewDelegate {
+    func tabSegmentedControlView(_ tabSegmentedControlView: TabSegmentedControlView, didSelectTabWithIndex index: Int) {
+        let tabsCount = self.delegate?.numberOfPages(in: self) ?? 0
+        guard index >= 0, index < tabsCount else {
+            return
+        }
+
+        self.delegate?.profileView(self, didRequestScrollToPage: index)
+        self.currentPageIndex = index
     }
 }

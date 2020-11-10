@@ -79,6 +79,18 @@
 		4EBB22262559EBAA00B88079 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB22252559EBAA00B88079 /* ColorPalette.swift */; };
 		4EBB222E2559EEFF00B88079 /* MilticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB222D2559EEFF00B88079 /* MilticastDelegate.swift */; };
 		4EBB22342559EF2100B88079 /* WeakBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB22332559EF2100B88079 /* WeakBox.swift */; };
+		4EBB22392559FC3000B88079 /* Collection+SafeSubscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB22382559FC3000B88079 /* Collection+SafeSubscript.swift */; };
+		4EBB223E255A000000B88079 /* UIStatusBarStyle+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB223D255A000000B88079 /* UIStatusBarStyle+Ext.swift */; };
+		4EBB2244255AD50C00B88079 /* ProfileScreenHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB2243255AD50C00B88079 /* ProfileScreenHeaderView.swift */; };
+		4EBB224C255ADE4C00B88079 /* TabSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB224B255ADE4C00B88079 /* TabSegmentedControlView.swift */; };
+		4EBB2251255ADFC900B88079 /* ScrollableStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB2250255ADFC900B88079 /* ScrollableStackView.swift */; };
+		4EBB2258255AE6E600B88079 /* ProfileScreenPostsSubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB2257255AE6E600B88079 /* ProfileScreenPostsSubViewController.swift */; };
+		4EBB225D255AE71E00B88079 /* ProfileScreenPostsSubViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB225C255AE71E00B88079 /* ProfileScreenPostsSubViewModel.swift */; };
+		4EBB2263255AECB500B88079 /* ProfileScreenPostsSubUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB2262255AECB500B88079 /* ProfileScreenPostsSubUI.swift */; };
+		4EBB2268255AEF0E00B88079 /* ProfileScreenPostsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB2267255AEF0E00B88079 /* ProfileScreenPostsTableDataSource.swift */; };
+		4EBB226D255AF4F900B88079 /* ProfileScreenPostsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB226C255AF4F900B88079 /* ProfileScreenPostsAssembly.swift */; };
+		4EBB2276255AF77400B88079 /* ProfileScreenPostsInputOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB2275255AF77400B88079 /* ProfileScreenPostsInputOutput.swift */; };
+		4EBB227E255AF7A600B88079 /* ProfileScreenSubmoduleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB227D255AF7A600B88079 /* ProfileScreenSubmoduleProtocol.swift */; };
 		4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */; };
 		4ECCEEAC250B8B6B0075F921 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEAB250B8B6B0075F921 /* SceneDelegate.swift */; };
 		4ECCEEAE250B8B6B0075F921 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEAD250B8B6B0075F921 /* LoginViewController.swift */; };
@@ -236,6 +248,18 @@
 		4EBB22252559EBAA00B88079 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
 		4EBB222D2559EEFF00B88079 /* MilticastDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilticastDelegate.swift; sourceTree = "<group>"; };
 		4EBB22332559EF2100B88079 /* WeakBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakBox.swift; sourceTree = "<group>"; };
+		4EBB22382559FC3000B88079 /* Collection+SafeSubscript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+SafeSubscript.swift"; sourceTree = "<group>"; };
+		4EBB223D255A000000B88079 /* UIStatusBarStyle+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStatusBarStyle+Ext.swift"; sourceTree = "<group>"; };
+		4EBB2243255AD50C00B88079 /* ProfileScreenHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenHeaderView.swift; sourceTree = "<group>"; };
+		4EBB224B255ADE4C00B88079 /* TabSegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSegmentedControlView.swift; sourceTree = "<group>"; };
+		4EBB2250255ADFC900B88079 /* ScrollableStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableStackView.swift; sourceTree = "<group>"; };
+		4EBB2257255AE6E600B88079 /* ProfileScreenPostsSubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsSubViewController.swift; sourceTree = "<group>"; };
+		4EBB225C255AE71E00B88079 /* ProfileScreenPostsSubViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsSubViewModel.swift; sourceTree = "<group>"; };
+		4EBB2262255AECB500B88079 /* ProfileScreenPostsSubUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsSubUI.swift; sourceTree = "<group>"; };
+		4EBB2267255AEF0E00B88079 /* ProfileScreenPostsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsTableDataSource.swift; sourceTree = "<group>"; };
+		4EBB226C255AF4F900B88079 /* ProfileScreenPostsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsAssembly.swift; sourceTree = "<group>"; };
+		4EBB2275255AF77400B88079 /* ProfileScreenPostsInputOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsInputOutput.swift; sourceTree = "<group>"; };
+		4EBB227D255AF7A600B88079 /* ProfileScreenSubmoduleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenSubmoduleProtocol.swift; sourceTree = "<group>"; };
 		4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lemmy-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4ECCEEAB250B8B6B0075F921 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -397,10 +421,13 @@
 		4E3E0F702555BCE70086CE0C /* ProfileScreen */ = {
 			isa = PBXGroup;
 			children = (
+				4EBB2242255AD4F700B88079 /* Views */,
 				4E3E0F712555BCF70086CE0C /* ProfileScreenViewController.swift */,
 				4E1A7E6525573EA400E193B7 /* ProfileScreenUI.swift */,
 				4E1A7E6A25573F1800E193B7 /* ProfileScreenModel.swift */,
 				4EE26858255972590009D2BC /* ProfileScreenAssembly.swift */,
+				4EBB227D255AF7A600B88079 /* ProfileScreenSubmoduleProtocol.swift */,
+				4EBB2255255AE64800B88079 /* Submodules */,
 			);
 			path = ProfileScreen;
 			sourceTree = "<group>";
@@ -569,6 +596,43 @@
 				4EBB22332559EF2100B88079 /* WeakBox.swift */,
 			);
 			path = Concurrency;
+			sourceTree = "<group>";
+		};
+		4EBB2242255AD4F700B88079 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4EBB2243255AD50C00B88079 /* ProfileScreenHeaderView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4EBB2255255AE64800B88079 /* Submodules */ = {
+			isa = PBXGroup;
+			children = (
+				4EBB2256255AE6A100B88079 /* ProfileScreenPostsSub */,
+			);
+			path = Submodules;
+			sourceTree = "<group>";
+		};
+		4EBB2256255AE6A100B88079 /* ProfileScreenPostsSub */ = {
+			isa = PBXGroup;
+			children = (
+				4EBB2274255AF75F00B88079 /* InputOutput */,
+				4EBB226C255AF4F900B88079 /* ProfileScreenPostsAssembly.swift */,
+				4EBB2257255AE6E600B88079 /* ProfileScreenPostsSubViewController.swift */,
+				4EBB225C255AE71E00B88079 /* ProfileScreenPostsSubViewModel.swift */,
+				4EBB2262255AECB500B88079 /* ProfileScreenPostsSubUI.swift */,
+				4EBB2267255AEF0E00B88079 /* ProfileScreenPostsTableDataSource.swift */,
+			);
+			path = ProfileScreenPostsSub;
+			sourceTree = "<group>";
+		};
+		4EBB2274255AF75F00B88079 /* InputOutput */ = {
+			isa = PBXGroup;
+			children = (
+				4EBB2275255AF77400B88079 /* ProfileScreenPostsInputOutput.swift */,
+			);
+			path = InputOutput;
 			sourceTree = "<group>";
 		};
 		4ECCEE9D250B8B6B0075F921 = {
@@ -773,6 +837,8 @@
 				4E886C3A2538BE830076B162 /* LemmyTextWithSwitch.swift */,
 				4E9BBA5325555571004FF2F9 /* LemmySortListingPickersView.swift */,
 				4E9BBA582555560C004FF2F9 /* LemmyImageTextPickerView.swift */,
+				4EBB224B255ADE4C00B88079 /* TabSegmentedControlView.swift */,
+				4EBB2250255ADFC900B88079 /* ScrollableStackView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -866,6 +932,7 @@
 				4EFAB5E62552FA9300B32780 /* UITableView+Ext.swift */,
 				4EFAB5EB2552FC5000B32780 /* UIStackView+Ext.swift */,
 				4EBB22202559EB8B00B88079 /* UIColor+Ext.swift */,
+				4EBB223D255A000000B88079 /* UIStatusBarStyle+Ext.swift */,
 			);
 			path = UIExt;
 			sourceTree = "<group>";
@@ -875,6 +942,7 @@
 			children = (
 				4EFAB5DC2552FA4300B32780 /* Notification+Ext.swift */,
 				4EFAB5D22552F98600B32780 /* Codable+Ext.swift */,
+				4EBB22382559FC3000B88079 /* Collection+SafeSubscript.swift */,
 			);
 			path = LangExt;
 			sourceTree = "<group>";
@@ -1098,6 +1166,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EBB22392559FC3000B88079 /* Collection+SafeSubscript.swift in Sources */,
 				4EB89B3525220B81007129BF /* LemmyCommentView.swift in Sources */,
 				4ECCEF27250FB62F0075F921 /* LemmyModel+Community.swift in Sources */,
 				4ECCEF1A250D62580075F921 /* LemmyModel+Comment.swift in Sources */,
@@ -1106,10 +1175,12 @@
 				4E886CCE2541E1670076B162 /* ChooseCommunityViewController.swift in Sources */,
 				4EBB220925598AA700B88079 /* Containered.swift in Sources */,
 				4ECCEF06250CC3330075F921 /* ApiManager.swift in Sources */,
+				4EBB223E255A000000B88079 /* UIStatusBarStyle+Ext.swift in Sources */,
 				4E886D4625447E350076B162 /* LemmyModel+Pictrs.swift in Sources */,
 				4E886C99253F679C0076B162 /* CreatePostCoordinator.swift in Sources */,
 				4ECCEEB4250B8B6B0075F921 /* Lemmy_iOS.xcdatamodeld in Sources */,
 				4ECCEEEF250BE89B0075F921 /* FrontPageCoordinator.swift in Sources */,
+				4EBB226D255AF4F900B88079 /* ProfileScreenPostsAssembly.swift in Sources */,
 				4E886C6E253CD40F0076B162 /* CreateDismissAnimator.swift in Sources */,
 				4E886C1C25364DD70076B162 /* AuthRequests.swift in Sources */,
 				4EB89B302521FDBE007129BF /* LemmyLinkedClickableUILabel.swift in Sources */,
@@ -1146,6 +1217,7 @@
 				4EF3ACFF2550757200BEC9F1 /* MarkdownParsedViewController.swift in Sources */,
 				4E1070602534770B009EABDA /* CommentsFrontPageViewController.swift in Sources */,
 				4EF3AC95254B60F000BEC9F1 /* CreateCommunityImagesCell.swift in Sources */,
+				4EBB2268255AEF0E00B88079 /* ProfileScreenPostsTableDataSource.swift in Sources */,
 				4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */,
 				4EF3AC5D254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift in Sources */,
 				4E9BBA2C25553516004FF2F9 /* Error.swift in Sources */,
@@ -1159,11 +1231,14 @@
 				4E9BBA1925553176004FF2F9 /* Enums.swift in Sources */,
 				4EBB22262559EBAA00B88079 /* ColorPalette.swift in Sources */,
 				4ECCEEEA250BA6230075F921 /* WSLemmyClient.swift in Sources */,
+				4EBB224C255ADE4C00B88079 /* TabSegmentedControlView.swift in Sources */,
 				4E886C88253F4FF40076B162 /* CreatePostUI.swift in Sources */,
 				4E886C7E253F4F290076B162 /* CreatePostViewController.swift in Sources */,
 				4ECCEF25250FB3E50075F921 /* CommunitiesModel.swift in Sources */,
 				4E886CA1254093050076B162 /* CreatePostCommunityCell.swift in Sources */,
+				4EBB2276255AF77400B88079 /* ProfileScreenPostsInputOutput.swift in Sources */,
 				4EF3AD0A25510D1900BEC9F1 /* CommunityContentTypePickerView.swift in Sources */,
+				4EBB2244255AD50C00B88079 /* ProfileScreenHeaderView.swift in Sources */,
 				4EFAB5912551858C00B32780 /* UIAlertController+Ext.swift in Sources */,
 				4E886C26253744AB0076B162 /* LemmyModel+Auth.swift in Sources */,
 				4ECCEF16250D2D9F0075F921 /* Extensions.swift in Sources */,
@@ -1172,6 +1247,7 @@
 				4EF3AC62254A01DA00BEC9F1 /* CreateCommunityViewController.swift in Sources */,
 				4EBB221325598B0C00B88079 /* Assembly.swift in Sources */,
 				4ECCEF13250CF0290075F921 /* PostContentTableCell.swift in Sources */,
+				4EBB225D255AE71E00B88079 /* ProfileScreenPostsSubViewModel.swift in Sources */,
 				4E107093253500DA009EABDA /* LemmyModel+User.swift in Sources */,
 				4ECCEF23250FB3DE0075F921 /* CommunitiesViewController.swift in Sources */,
 				4E1A7E6625573EA400E193B7 /* ProfileScreenUI.swift in Sources */,
@@ -1191,6 +1267,7 @@
 				4ECCEF31251F24AD0075F921 /* LemmyFrontPageNavBar.swift in Sources */,
 				4ECCEF33251F27170075F921 /* LemmyProfileIconView.swift in Sources */,
 				4E10706B253477C1009EABDA /* LemmyTableView.swift in Sources */,
+				4EBB2263255AECB500B88079 /* ProfileScreenPostsSubUI.swift in Sources */,
 				4E886CF1254430970076B162 /* HttpLemmyClient.swift in Sources */,
 				4E9BBA5425555571004FF2F9 /* LemmySortListingPickersView.swift in Sources */,
 				4E886C36253872D10076B162 /* SignUpModel.swift in Sources */,
@@ -1201,10 +1278,12 @@
 				4EF3AC85254B456400BEC9F1 /* CreateCommunityChooseCategoryCell.swift in Sources */,
 				4E886CE225422BDC0076B162 /* SearchRequests.swift in Sources */,
 				4E1070652534771C009EABDA /* CommentsFrontPageModel.swift in Sources */,
+				4EBB227E255AF7A600B88079 /* ProfileScreenSubmoduleProtocol.swift in Sources */,
 				4EFAB5EC2552FC5000B32780 /* UIStackView+Ext.swift in Sources */,
 				4E106F5D25273A0C009EABDA /* CommentTreeTableCell.swift in Sources */,
 				4ECCEF2B250FF56A0075F921 /* CommunityPreviewTableCell.swift in Sources */,
 				4E886C2125364EC30076B162 /* UserRequests.swift in Sources */,
+				4EBB2258255AE6E600B88079 /* ProfileScreenPostsSubViewController.swift in Sources */,
 				4EB89B00251F4882007129BF /* PostScreenUI.swift in Sources */,
 				4ECCEF09250CC3A60075F921 /* RequestsManager.swift in Sources */,
 				4EBB220E25598AC100B88079 /* ProgrammaticallyInitializableView.swift in Sources */,
@@ -1226,6 +1305,7 @@
 				4E886C422538C3540076B162 /* Config.swift in Sources */,
 				4E1070982535DF4F009EABDA /* LemmyShareData.swift in Sources */,
 				4ECCEEF2250C03A40075F921 /* LemmyTabBarCoordinator.swift in Sources */,
+				4EBB2251255ADFC900B88079 /* ScrollableStackView.swift in Sources */,
 				4EF3ACD9254EF84B00BEC9F1 /* CommunityScreenModel.swift in Sources */,
 				4EF3AD052550908D00BEC9F1 /* ResizableButton.swift in Sources */,
 			);

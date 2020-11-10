@@ -38,7 +38,8 @@ final class LemmyTabBarCoordinator: Coordinator {
     }
 
     func goToLoginScreen(authMethod: LemmyAuthMethod) {
-        let loginCoordinator = LoginCoordinator(navigationController: UINavigationController(), authMethod: authMethod)
+        let loginCoordinator = LoginCoordinator(navigationController: StyledNavigationController(),
+                                                authMethod: authMethod)
         self.store(coordinator: loginCoordinator)
         loginCoordinator.start()
 
@@ -51,7 +52,7 @@ final class LemmyTabBarCoordinator: Coordinator {
     }
 
     func goToCreatePost() {
-        let createPostCoord = CreatePostCoordinator(navigationController: UINavigationController())
+        let createPostCoord = CreatePostCoordinator(navigationController: StyledNavigationController())
         self.store(coordinator: createPostCoord)
         createPostCoord.start()
 
@@ -61,7 +62,7 @@ final class LemmyTabBarCoordinator: Coordinator {
     }
 
     func goToCreateCommunity() {
-        let createCommCoord = CreateCommunityCoordinator(navigationController: UINavigationController())
+        let createCommCoord = CreateCommunityCoordinator(navigationController: StyledNavigationController())
         self.store(coordinator: createCommCoord)
         createCommCoord.start()
 

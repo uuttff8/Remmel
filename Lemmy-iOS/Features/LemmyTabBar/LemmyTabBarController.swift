@@ -30,7 +30,7 @@ class LemmyTabBarController: UITabBarController {
         frontPageCoordinator = FrontPageCoordinator(navigationController: nil)
         self.coordinator?.store(coordinator: frontPageCoordinator)
         frontPageCoordinator.start()
-        let frontPageNc = UINavigationController(rootViewController: frontPageCoordinator.rootViewController)
+        let frontPageNc = StyledNavigationController(rootViewController: frontPageCoordinator.rootViewController)
         frontPageCoordinator.rootViewController.tabBarItem = UITabBarItem(title: "",
                                                                           image: UIImage(systemName: "bolt.circle"),
                                                                           tag: 0)
@@ -39,7 +39,7 @@ class LemmyTabBarController: UITabBarController {
         self.communitiesCoordinator = CommunitiesCoordinator(navigationController: nil)
         self.coordinator?.store(coordinator: communitiesCoordinator)
         communitiesCoordinator.start()
-        let communitiesNc = UINavigationController(rootViewController: communitiesCoordinator.rootViewController)
+        let communitiesNc = StyledNavigationController(rootViewController: communitiesCoordinator.rootViewController)
         communitiesCoordinator.rootViewController.tabBarItem = UITabBarItem(title: "",
                                                                             image: UIImage(systemName: "person.2.fill"),
                                                                             tag: 1)

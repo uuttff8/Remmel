@@ -1,5 +1,5 @@
 //
-//  ColorPalette.swift
+//  ProfileScreenPostsInputOutput.swift
 //  Lemmy-iOS
 //
 //  Created by uuttff8 on 10.11.2020.
@@ -7,3 +7,5 @@
 //
 
 import UIKit
+
+protocol ProfileScreenPostsInputProtocol: ProfileScreenSubmoduleProtocol { }

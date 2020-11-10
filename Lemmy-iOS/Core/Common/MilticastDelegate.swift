@@ -42,4 +42,3 @@ final class MulticastDelegate<T: AnyObject> {
         }
     }
 }
-

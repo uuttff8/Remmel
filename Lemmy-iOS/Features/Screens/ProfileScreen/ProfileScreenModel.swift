@@ -11,6 +11,8 @@ import Combine
 
 protocol ProfileScreenViewModelProtocol: AnyObject {
     func doProfileFetch()
+    func doSubmoduleControllerAppearanceUpdate(request: ProfileScreenDataFlow.SubmoduleAppearanceUpdate.Request)
+    func doSubmodulesRegistration(request: ProfileScreenDataFlow.SubmoduleRegistration.Request)
 }
 
 class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
@@ -19,6 +21,11 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     weak var viewController: ProfileScreenViewControllerProtocol?
     
     private var cancellable = Set<AnyCancellable>()
+    
+    private var currentProfile: LemmyModel.UserView?
+
+    // Tab index -> Submodule
+    private var submodules: [Int: ProfileScreenSubmoduleProtocol] = [:]
     
     init(profileUsername: String) {
         self.profileUsername = profileUsername
@@ -42,16 +49,28 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
                 print(error)
             } receiveValue: { (response) in
                 self.viewController?.displayNotBlockingActivityIndicator(response: .init(shouldDismiss: true))
+                self.currentProfile = response.user
                 self.viewController?.displayProfile(
                     response: .init(state: .result(data: self.makeHeaderViewData(profile: response.user)))
                 )
             }.store(in: &cancellable)
     }
     
+    func doSubmoduleControllerAppearanceUpdate(request: ProfileScreenDataFlow.SubmoduleAppearanceUpdate.Request) {
+        self.submodules[request.submoduleIndex]?.handleControllerAppearance()
+    }
+    
+    func doSubmodulesRegistration(request: ProfileScreenDataFlow.SubmoduleRegistration.Request) {
+        for (key, value) in request.submodules {
+            self.submodules[key] = value
+        }
+        self.pushCurrentCourseToSubmodules(submodules: Array(self.submodules.values))
+    }
+    
     private func makeHeaderViewData(
         profile: LemmyModel.UserView
-    ) -> ProfileScreenViewController.View.ViewData {
-        return ProfileScreenViewController.View.ViewData(
+    ) -> ProfileScreenHeaderView.ViewData {
+        return .init(
             name: profile.name,
             avatarUrl: URL(string: profile.avatar ?? ""),
             bannerUrl: URL(string: profile.banner ?? ""),
@@ -61,9 +80,26 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
         )
     }
     
+    private func pushCurrentCourseToSubmodules(submodules: [ProfileScreenSubmoduleProtocol]) {
+        submodules.forEach { $0.update() }
+    }
 }
 
 enum ProfileScreenDataFlow {
+    enum Tab {
+        case posts
+        case comments
+        case about
+        
+        var title: String {
+            switch self {
+            case .about: return "About"
+            case .comments: return "Comments"
+            case .posts: return "Posts"
+            }
+        }
+    }
+    
     enum ProfileLoad {
         struct Request { }
         
@@ -80,6 +116,20 @@ enum ProfileScreenDataFlow {
         }
     }
     
+    /// Handle submodule controller appearance
+    enum SubmoduleAppearanceUpdate {
+        struct Request {
+            let submoduleIndex: Int
+        }
+    }
+    
+    /// Register submodules
+    enum SubmoduleRegistration {
+        struct Request {
+            var submodules: [Int: ProfileScreenSubmoduleProtocol]
+        }
+    }
+    
     enum ShowingActivityIndicator {
         struct Response {
             let shouldDismiss: Bool
@@ -88,6 +138,6 @@ enum ProfileScreenDataFlow {
     
     enum ViewControllerState {
         case loading
-        case result(data: ProfileScreenViewController.View.ViewData)
+        case result(data: ProfileScreenHeaderView.ViewData)
     }
 }

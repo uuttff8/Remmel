@@ -31,4 +31,3 @@ extension Containered where Self: UIViewController {
         viewController.view.removeFromSuperview()
     }
 }
-
