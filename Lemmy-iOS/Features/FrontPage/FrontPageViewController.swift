@@ -35,13 +35,6 @@ class FrontPageViewController: UIViewController {
         }
     }
 
-    // at init always all
-    var currentFeedType: LemmyPostListingType = LemmyPostListingType.all {
-        didSet {
-            print(currentFeedType)
-        }
-    }
-
     var currentViewController: UIViewController! {
         didSet {
             if oldValue != currentViewController {
@@ -110,10 +103,6 @@ class FrontPageViewController: UIViewController {
 extension FrontPageViewController: FrontPageHeaderCellDelegate {
     func contentTypeChanged(to content: LemmyContentType) {
         self.currentContentType = content
-    }
-
-    func feedTypeChanged(to feed: LemmyPostListingType) {
-        self.currentFeedType = feed
     }
 }
 
