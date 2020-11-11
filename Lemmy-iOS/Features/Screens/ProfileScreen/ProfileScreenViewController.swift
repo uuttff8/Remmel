@@ -34,7 +34,8 @@ class ProfileScreenViewController: UIViewController {
     private var lastKnownHeaderHeight: CGFloat = 0
     
     // Element is nil when view controller was not initialized yet
-    private var submodulesControllers: [UIViewController?] = []
+    private var submodulesControllers: [UIViewController] = []
+    private var submoduleInputs: [ProfileScreenSubmoduleProtocol] = []
     
     private lazy var profileScreenView = self.view as! ProfileScreenViewController.View
     lazy var styledNavigationController = self.navigationController as? StyledNavigationController
@@ -43,8 +44,6 @@ class ProfileScreenViewController: UIViewController {
     
     init(viewModel: ProfileScreenViewModel) {
         self.viewModel = viewModel
-        
-        self.submodulesControllers = Array(repeating: nil, count: availableTabs.count)
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -56,6 +55,8 @@ class ProfileScreenViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.loadSubmodules()
         
         self.addChild(self.pageViewController)
         self.pageViewController.dataSource = self
@@ -127,50 +128,37 @@ class ProfileScreenViewController: UIViewController {
         }
     }
     
-    private func loadSubmoduleIfNeeded(at index: Int) {
-        guard self.submodulesControllers[index] == nil else {
-            return
-        }
+    private func loadSubmodules() {
+        
+        availableTabs.forEach { (tab) in
+            switch tab {
+            case .posts:
+                let assembly = ProfileScreenPostsAssembly()
+                submodulesControllers.append(assembly.makeModule())
+                submoduleInputs.append(assembly.moduleInput!)
+            case .comments:
+                let assembly = ProfileScreenCommentsAssembly()
+                submodulesControllers.append(assembly.makeModule())
+                submoduleInputs.append(assembly.moduleInput!)
+            case .about:
+                submodulesControllers.append(UIViewController())
+    //            let assembly = CourseInfoTabReviewsAssembly()
+    //            controller = assembly.makeModule()
+    //            moduleInput = assembly.moduleInput
 
-        guard let tab = self.availableTabs[safe: index] else {
-            return
+            }
         }
-
-        var moduleInput: ProfileScreenSubmoduleProtocol?
-        let controller: UIViewController
-        switch tab {
-        case .posts:
-            let assembly = ProfileScreenPostsAssembly()
-            controller = assembly.makeModule()
-            moduleInput = assembly.moduleInput
-        case .comments:
-            controller = UIViewController()
-//            let assembly = CourseInfoTabSyllabusAssembly(
-//                output: self.interactor as? CourseInfoTabSyllabusOutputProtocol
-//            )
-//            controller = assembly.makeModule()
-//            moduleInput = assembly.moduleInput
-        case .about:
-            controller = UIViewController()
-//            let assembly = CourseInfoTabReviewsAssembly()
-//            controller = assembly.makeModule()
-//            moduleInput = assembly.moduleInput
-        }
-
-        self.submodulesControllers[index] = controller
-
-        if let submodule = moduleInput {
-            self.viewModel.doSubmodulesRegistration(request: .init(submodules: [index: submodule]))
-        }
+        
+        self.viewModel.doSubmodulesRegistration(request: .init(submodules: submoduleInputs))
     }
     
     // Update content inset (to make header visible)
     private func updateContentInset(headerHeight: CGFloat) {
         // Update contentInset for each page
         for viewController in self.submodulesControllers {
-            guard let viewController = viewController else {
-                continue
-            }
+//            guard let viewController = viewController else {
+//                continue
+//            }
 
             let view = viewController.view as? ProfileScreenScrollablePageViewProtocol
 
@@ -223,7 +211,7 @@ class ProfileScreenViewController: UIViewController {
     
     private func arrangePagesScrollOffset(topOffsetOfCurrentTab: CGFloat, maxTopOffset: CGFloat) {
         for viewController in self.submodulesControllers {
-            guard let view = viewController?.view as? ProfileScreenScrollablePageViewProtocol else {
+            guard let view = viewController.view as? ProfileScreenScrollablePageViewProtocol else {
                 continue
             }
 
@@ -257,7 +245,6 @@ extension ProfileScreenViewController: PageboyViewControllerDataSource, PageboyV
         for pageboyViewController: PageboyViewController,
         at index: PageboyViewController.PageIndex
     ) -> UIViewController? {
-        self.loadSubmoduleIfNeeded(at: index)
         self.updateContentOffset(scrollOffset: self.lastKnownScrollOffset)
         self.updateContentInset(headerHeight: self.lastKnownHeaderHeight)
         return self.submodulesControllers[index]
@@ -274,7 +261,7 @@ extension ProfileScreenViewController: PageboyViewControllerDataSource, PageboyV
         animated: Bool
     ) {
         self.profileScreenView.updateCurrentPageIndex(index)
-        self.viewModel.doSubmoduleControllerAppearanceUpdate(request: .init(submoduleIndex: index))
+//        self.viewModel.doSubmoduleControllerAppearanceUpdate(request: .init(submoduleIndex: index))
     }
 
     func pageboyViewController(
@@ -307,10 +294,14 @@ extension ProfileScreenViewController: UIScrollViewDelegate {
 
 extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
     func displayProfile(response: ProfileScreenDataFlow.ProfileLoad.ViewModel) {
-        guard case let .result(data) = response.state else { return }
-        self.title = data.name
-        self.storedViewModel = data
-        profileScreenView.configure(viewData: data)
+        guard case let .result(headerData, posts, comments) = response.state else { return }
+        self.title = headerData.name
+        self.storedViewModel = headerData
+        profileScreenView.configure(viewData: headerData)
+        
+        self.viewModel.doSubmodulesDataFilling(request: .init(submodules: submoduleInputs,
+                                                              posts: posts,
+                                                              comments: comments))
     }
     
     func displayNotBlockingActivityIndicator(response: ProfileScreenDataFlow.ShowingActivityIndicator.Response) {

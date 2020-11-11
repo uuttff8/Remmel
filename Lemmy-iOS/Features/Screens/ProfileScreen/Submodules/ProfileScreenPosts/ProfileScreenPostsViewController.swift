@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ProfileScreenPostViewControllerProtocol: AnyObject {
-    func displayCourseInfo(viewModel: ProfileScreenPosts.PostsLoad.ViewModel)
+    func displayProfilePosts(viewModel: ProfileScreenPosts.PostsLoad.ViewModel)
 }
 
 class ProfileScreenPostsViewController: UIViewController {
@@ -67,7 +67,7 @@ class ProfileScreenPostsViewController: UIViewController {
 }
 
 extension ProfileScreenPostsViewController: ProfileScreenPostViewControllerProtocol {
-    func displayCourseInfo(viewModel: ProfileScreenPosts.PostsLoad.ViewModel) {
+    func displayProfilePosts(viewModel: ProfileScreenPosts.PostsLoad.ViewModel) {
         guard case let .result(data) = viewModel.state else { return }
         self.tableDataSource.viewModels = data.posts
         self.updateState(newState: viewModel.state)

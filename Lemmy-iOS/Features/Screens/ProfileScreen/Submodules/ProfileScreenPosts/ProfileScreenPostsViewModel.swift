@@ -35,7 +35,7 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
                 print(error)
             } receiveValue: { (response) in
                 self.viewController?
-                    .displayCourseInfo(
+                    .displayProfilePosts(
                         viewModel: .init(state: .result(data: .init(posts: response.posts)))
                     )
             }.store(in: &cancellable)
@@ -44,14 +44,15 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
 }
 
 extension ProfileScreenPostsViewModel: ProfileScreenPostsInputProtocol {
-    func update() {
-        
-        self.doProfilePostsFetch()
+    func updateFirstData(posts: [LemmyModel.PostView], comments: [LemmyModel.CommentView]) {
+        self.viewController?.displayProfilePosts(
+            viewModel: .init(state: .result(data: .init(posts: posts)))
+        )
     }
     
-    func handleControllerAppearance() {
-        
-    }
+    func registerSubmodule() { }
+    
+    func handleControllerAppearance() { }
 }
 
 class ProfileScreenPosts {

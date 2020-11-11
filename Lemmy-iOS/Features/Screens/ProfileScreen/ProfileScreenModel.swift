@@ -13,6 +13,7 @@ protocol ProfileScreenViewModelProtocol: AnyObject {
     func doProfileFetch()
     func doSubmoduleControllerAppearanceUpdate(request: ProfileScreenDataFlow.SubmoduleAppearanceUpdate.Request)
     func doSubmodulesRegistration(request: ProfileScreenDataFlow.SubmoduleRegistration.Request)
+    func doSubmodulesDataFilling(request: ProfileScreenDataFlow.SubmoduleDataFilling.Request)
 }
 
 class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
@@ -51,20 +52,25 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
                 self.viewController?.displayNotBlockingActivityIndicator(response: .init(shouldDismiss: true))
                 self.currentProfile = response.user
                 self.viewController?.displayProfile(
-                    response: .init(state: .result(data: self.makeHeaderViewData(profile: response.user)))
+                    response: .init(state: .result(profile: self.makeHeaderViewData(profile: response.user),
+                                                   posts: response.posts,
+                                                   comments: response.comments))
                 )
             }.store(in: &cancellable)
     }
     
     func doSubmoduleControllerAppearanceUpdate(request: ProfileScreenDataFlow.SubmoduleAppearanceUpdate.Request) {
-        self.submodules[request.submoduleIndex]?.handleControllerAppearance()
+        // TODO
     }
     
     func doSubmodulesRegistration(request: ProfileScreenDataFlow.SubmoduleRegistration.Request) {
-        for (key, value) in request.submodules {
-            self.submodules[key] = value
+        request.submodules.forEach { $0.registerSubmodule() }
+    }
+    
+    func doSubmodulesDataFilling(request: ProfileScreenDataFlow.SubmoduleDataFilling.Request) {
+        request.submodules.forEach {
+            $0.updateFirstData(posts: request.posts, comments: request.comments)
         }
-        self.pushCurrentCourseToSubmodules(submodules: Array(self.submodules.values))
     }
     
     private func makeHeaderViewData(
@@ -79,14 +85,10 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
             published: profile.published
         )
     }
-    
-    private func pushCurrentCourseToSubmodules(submodules: [ProfileScreenSubmoduleProtocol]) {
-        submodules.forEach { $0.update() }
-    }
 }
 
 enum ProfileScreenDataFlow {
-    enum Tab: Int {
+    enum Tab: Int, CaseIterable {
         case posts
         case comments
         case about
@@ -116,17 +118,25 @@ enum ProfileScreenDataFlow {
         }
     }
     
+    enum SubmoduleDataFilling {
+        struct Request {
+            let submodules: [ProfileScreenSubmoduleProtocol]
+            let posts: [LemmyModel.PostView]
+            let comments: [LemmyModel.CommentView]
+        }
+    }
+    
     /// Handle submodule controller appearance
     enum SubmoduleAppearanceUpdate {
         struct Request {
-            let submoduleIndex: Int
+            let submoduleIndex: [Int: ProfileScreenSubmoduleProtocol]
         }
     }
     
     /// Register submodules
     enum SubmoduleRegistration {
         struct Request {
-            var submodules: [Int: ProfileScreenSubmoduleProtocol]
+            var submodules: [ProfileScreenSubmoduleProtocol]
         }
     }
     
@@ -138,6 +148,8 @@ enum ProfileScreenDataFlow {
     
     enum ViewControllerState {
         case loading
-        case result(data: ProfileScreenHeaderView.ViewData)
+        case result(profile: ProfileScreenHeaderView.ViewData,
+                    posts: [LemmyModel.PostView],
+                    comments: [LemmyModel.CommentView])
     }
 }
