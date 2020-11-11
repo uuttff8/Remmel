@@ -32,6 +32,7 @@ extension ProfileScreenPostsViewController {
             $0.backgroundColor = .clear
             $0.showsVerticalScrollIndicator = false
             $0.delegate = self
+            $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 90, right: 0) // tab bar
         }
         
         init(frame: CGRect = .zero, appearance: Appearance = Appearance()) {

@@ -13,14 +13,21 @@ class FrontPageViewController: UIViewController {
 
     weak var coordinator: FrontPageCoordinator?
 
-    let navBar = LemmyFrontPageNavBar()
-    let headerSegmentView = FrontPageHeaderView(contentSelected: LemmyContentType.comments)
-
-    private lazy var toolbar: UIToolbar = {
-        let tool = UIToolbar()
-        return tool
+    private lazy var navBar: LemmyFrontPageNavBar = {
+        let bar = LemmyFrontPageNavBar()
+        bar.onProfileIconTap = {
+            if let username = LemmyShareData.shared.userdata?.name {
+                self.coordinator?.goToProfileScreen(by: username)
+            } else {
+                // TODO handle login
+            }
+        }
+        return bar
     }()
+    private let headerSegmentView = FrontPageHeaderView(contentSelected: LemmyContentType.comments)
 
+    private lazy var toolbar = UIToolbar()
+    
     // at init always posts
     var currentContentType: LemmyContentType = LemmyContentType.posts {
         didSet {

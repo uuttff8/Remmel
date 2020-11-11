@@ -122,7 +122,7 @@ final class ScrollableStackView: UIView {
 
     var scrollIndicatorInsets: UIEdgeInsets {
         get {
-             self.scrollView.scrollIndicatorInsets
+             self.scrollView.verticalScrollIndicatorInsets
         }
         set {
             self.scrollView.scrollIndicatorInsets = newValue
@@ -309,4 +309,3 @@ extension ScrollableStackView: ProgrammaticallyViewProtocol {
         }
     }
 }
-

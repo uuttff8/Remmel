@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E0A8E2F255BFC0000B06AF6 /* UIApplication+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */; };
 		4E106F5D25273A0C009EABDA /* CommentTreeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106F5C25273A0C009EABDA /* CommentTreeTableCell.swift */; };
 		4E106F6525274325009EABDA /* PostScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106F6425274325009EABDA /* PostScreenModel.swift */; };
 		4E10704B2534756B009EABDA /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10704A2534756B009EABDA /* Protocols.swift */; };
@@ -177,6 +178,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Ext.swift"; sourceTree = "<group>"; };
 		4E106F5C25273A0C009EABDA /* CommentTreeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTreeTableCell.swift; sourceTree = "<group>"; };
 		4E106F6425274325009EABDA /* PostScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenModel.swift; sourceTree = "<group>"; };
 		4E10704A2534756B009EABDA /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
@@ -933,6 +935,7 @@
 				4EFAB5EB2552FC5000B32780 /* UIStackView+Ext.swift */,
 				4EBB22202559EB8B00B88079 /* UIColor+Ext.swift */,
 				4EBB223D255A000000B88079 /* UIStatusBarStyle+Ext.swift */,
+				4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */,
 			);
 			path = UIExt;
 			sourceTree = "<group>";
@@ -1209,6 +1212,7 @@
 				4E886C3B2538BE830076B162 /* LemmyTextWithSwitch.swift in Sources */,
 				4E107053253476EE009EABDA /* PostsFrontPageViewController.swift in Sources */,
 				4ECCEF0E250CDA5A0075F921 /* LemmyModel+Post.swift in Sources */,
+				4E0A8E2F255BFC0000B06AF6 /* UIApplication+Ext.swift in Sources */,
 				4E10707E2534F5EC009EABDA /* LemmyCheckLogin.swift in Sources */,
 				4ECCEEDD250B8D930075F921 /* AppCoordinator.swift in Sources */,
 				4EF3AC6F254A021400BEC9F1 /* CreateCommunityModel.swift in Sources */,

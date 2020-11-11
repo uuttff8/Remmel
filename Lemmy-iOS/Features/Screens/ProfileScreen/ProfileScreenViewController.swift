@@ -63,15 +63,13 @@ class ProfileScreenViewController: UIViewController {
         
         self.profileScreenView.updateCurrentPageIndex(ProfileScreenDataFlow.Tab.posts.rawValue)
         
-        styledNavigationController?.removeBackButtonTitleForTopController()
-        
-        self.automaticallyAdjustsScrollViewInsets = false
+        styledNavigationController?.removeBackButtonTitleForTopController()        
         
         viewModel.doProfileFetch()
     }
     
     override func loadView() {
-        let statusBarHeight = UIApplication.shared.statusBarFrame.height
+        let statusBarHeight = UIApplication.shared.lemmyStatusBarFrame.height
         let navigationBarHeight = self.navigationController?.navigationBar.frame.height ?? 0
 
         let appearance = ProfileScreenViewController.View.Appearance(
@@ -198,8 +196,8 @@ class ProfileScreenViewController: UIViewController {
         
         let navigationBarHeight = self.navigationController?.navigationBar.bounds.height
         let statusBarHeight = min(
-            UIApplication.shared.statusBarFrame.size.width,
-            UIApplication.shared.statusBarFrame.size.height
+            UIApplication.shared.lemmyStatusBarFrame.size.width,
+            UIApplication.shared.lemmyStatusBarFrame.size.height
         )
         let topPadding = (navigationBarHeight ?? 0) + statusBarHeight
 

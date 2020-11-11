@@ -82,11 +82,9 @@ class ChooseCommunityUI: UIView {
     // MARK: Actions
     @objc func reload(_ searchBar: UISearchBar) {
         if let text = searchBar.text, text != "" {
-            // TODO: make search for communities
             self.shouldShowFiltered = true
             model.searchCommunities(query: text)
         } else {
-            // TODO: Refactor
             self.shouldShowFiltered = false
             model.filteredCommunitiesData.removeAll()
         }

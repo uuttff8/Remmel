@@ -16,33 +16,24 @@ extension UIButton: Nuke_ImageDisplaying {
 }
 
 class LemmyFrontPageNavBar: UIView {
-    let searchBar = LemmySearchBar()
-    let profileIcon = LemmyProfileIconView()
+    var onProfileIconTap: (() -> Void)?
+    
+    private let searchBar = LemmySearchBar()
+    private lazy var profileIcon = LemmyProfileIconView()
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        bind()
+        
+        setupView()
+        addSubviews()
+        makeConstraints()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func bind() {
-        self.addSubview(searchBar)
-        self.addSubview(profileIcon)
-
-        if LemmyShareData.isLogined {
-            updateProfileIcon()
-        }
-
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updateProfileIcon),
-                                               name: .didLogin,
-                                               object: nil)
-    }
-
-    @objc func updateProfileIcon() {
+    @objc private func updateProfileIcon() {
         guard let photoStr = LemmyShareData.shared.userdata?.avatar,
               let photoUrl = URL(string: photoStr)
         else { return }
@@ -58,10 +49,36 @@ class LemmyFrontPageNavBar: UIView {
             }
         )
     }
+    
+    @objc private func profileIconTapped() {
+        onProfileIconTap?()
+    }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override var intrinsicContentSize: CGSize {
+        CGSize(width: UIScreen.main.bounds.width, height: UIView.noIntrinsicMetric)
+    }
+}
 
+extension LemmyFrontPageNavBar: ProgrammaticallyViewProtocol {
+    func setupView() {
+        profileIcon.imageButton.addTarget(self, action: #selector(profileIconTapped), for: .touchUpInside)
+        
+        if LemmyShareData.isLogined {
+            updateProfileIcon()
+        }
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateProfileIcon),
+                                               name: .didLogin,
+                                               object: nil)
+    }
+    
+    func addSubviews() {
+        self.addSubview(searchBar)
+        self.addSubview(profileIcon)
+    }
+    
+    func makeConstraints() {
         self.searchBar.snp.makeConstraints { (make) in
             make.top.bottom.equalToSuperview()
             make.leading.equalToSuperview()
@@ -73,9 +90,5 @@ class LemmyFrontPageNavBar: UIView {
             make.leading.equalTo(searchBar.snp.trailing)
             make.trailing.equalToSuperview()
         }
-    }
-
-    override var intrinsicContentSize: CGSize {
-        CGSize(width: UIScreen.main.bounds.width, height: UIView.noIntrinsicMetric)
     }
 }
