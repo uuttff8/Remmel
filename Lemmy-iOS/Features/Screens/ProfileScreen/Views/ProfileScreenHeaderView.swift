@@ -59,7 +59,7 @@ class ProfileScreenHeaderView: UIView {
     private lazy var additionalInfoStackView = UIStackView().then {
         $0.axis = .vertical
         $0.alignment = .leading
-        $0.spacing = self.appearance.additionalStackViewSpacing
+        $0.spacing = self.appearance.defaultSpacing
         $0.distribution = .fill
     }
     
@@ -103,7 +103,7 @@ class ProfileScreenHeaderView: UIView {
         
         return mainStackViewContentSize.height
             + (self.appearance.defaultSpacing * 2) //imageTitle
-            + (self.appearance.defaultSpacing * 2) // comments, posts, published titles
+            + (self.appearance.defaultSpacing) // comments, posts, published titles
     }
     
     func configure(viewData: ViewData) {
@@ -127,6 +127,7 @@ class ProfileScreenHeaderView: UIView {
                 into: imageView
             )
         } else {
+            imageView.isHidden = true
             imageView.image = nil
         }
     }

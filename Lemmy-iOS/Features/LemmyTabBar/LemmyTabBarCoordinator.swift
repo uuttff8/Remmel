@@ -52,7 +52,7 @@ final class LemmyTabBarCoordinator: Coordinator {
     }
 
     func goToCreatePost() {
-        let createPostCoord = CreatePostCoordinator(navigationController: StyledNavigationController())
+        let createPostCoord = CreatePostCoordinator(navigationController: UINavigationController())
         self.store(coordinator: createPostCoord)
         createPostCoord.start()
 
@@ -62,7 +62,7 @@ final class LemmyTabBarCoordinator: Coordinator {
     }
 
     func goToCreateCommunity() {
-        let createCommCoord = CreateCommunityCoordinator(navigationController: StyledNavigationController())
+        let createCommCoord = CreateCommunityCoordinator(navigationController: UINavigationController())
         self.store(coordinator: createCommCoord)
         createCommCoord.start()
 

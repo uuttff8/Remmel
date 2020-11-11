@@ -83,6 +83,10 @@ extension ProfileScreenCommentsViewController.View: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.pageScrollViewDelegate?.scrollViewDidScroll?(scrollView)
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 
 extension ProfileScreenCommentsViewController.View: ProfileScreenScrollablePageViewProtocol {
