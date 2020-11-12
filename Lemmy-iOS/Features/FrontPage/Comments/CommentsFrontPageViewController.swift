@@ -43,6 +43,10 @@ class CommentsFrontPageViewController: UIViewController {
         model.newDataLoaded = { [self] newComments in
             addRows(with: newComments)
         }
+        
+        model.goToPostScreen = { postId in
+            fatalError("Impl post screen by post id")
+        }
     }
 
     func addRows(with list: [LemmyModel.CommentView], animate: Bool = true) {

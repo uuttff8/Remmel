@@ -12,6 +12,7 @@ class CommentsFrontPageModel: NSObject {
     var dataLoaded: (([LemmyModel.CommentView]) -> Void)?
     var newDataLoaded: (([LemmyModel.CommentView]) -> Void)?
     var goToCommentScreen: ((LemmyModel.CommentView) -> Void)?
+    var goToPostScreen: ((_ postId: Int) -> Void)?
     
     private var isFetchingNewContent = false
     private var currentPage = 1
@@ -106,9 +107,7 @@ extension CommentsFrontPageModel: CommentContentTableCellDelegate {
     
     // TODO(uuttff8): Implement coordinator to post
     func postNameTapped(in comment: LemmyModel.CommentView) {
-        print("post name tapped in \(comment.id)")
-        
-        fatalError("Implement coordinator to post")
+        goToPostScreen?(comment.postId)
     }
     
     func usernameTapped(in comment: LemmyModel.CommentView) {
