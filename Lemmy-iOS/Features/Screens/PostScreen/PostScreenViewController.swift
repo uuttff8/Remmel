@@ -8,39 +8,51 @@
 
 import UIKit
 
-class PostScreenViewController: UIViewController {
-    let postInfo: LemmyModel.PostView
+protocol PostScreenViewControllerProtocol: AnyObject {
+    func displayPost(response: PostScreen.PostLoad.ViewModel)
+}
 
-    lazy var customView = PostScreenUI(post: postInfo)
-    lazy var model = PostScreenModel(post: postInfo)
+class PostScreenViewController: UIViewController {
+    
+    weak var viewModel: PostScreenViewModelProtocol?
+    
+    lazy var customView = self.view as! PostScreenViewController.View
 
     override func loadView() {
-        self.view = customView
+        self.view = PostScreenViewController.View()
     }
 
-    init(post: LemmyModel.PostView) {
-        self.postInfo = post
-
+    init(viewModel: PostScreenViewModelProtocol) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        model.loadComments()
-        model.commentsLoaded = { [self] (comments) in
-            customView.commentsDataSource = comments
-        }
         
-        customView.presentOnVc = { toPresentVc in
-            self.present(toPresentVc, animated: true)
-        }
+        viewModel?.doPostFetch()
+//        model.loadComments()
+//        model.commentsLoaded = { [self] (comments) in
+//            customView.commentsDataSource = comments
+//        }
+//
+//        customView.presentOnVc = { toPresentVc in
+//            self.present(toPresentVc, animated: true)
+//        }
+//
+//        customView.dismissOnVc = {
+//            self.dismiss(animated: true)
+//        }
+    }
+}
+
+extension PostScreenViewController: PostScreenViewControllerProtocol {
+    func displayPost(response: PostScreen.PostLoad.ViewModel) {
         
-        customView.dismissOnVc = {
-            self.dismiss(animated: true)
-        }
     }
 }

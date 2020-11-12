@@ -9,66 +9,72 @@
 import UIKit
 import SafariServices
 
-class PostScreenUI: UIView {
+extension PostScreenViewController {
     
-    var presentOnVc: ((UIViewController) -> Void)?
-    var dismissOnVc: (() -> Void)?
-    
-    let tableView = LemmyTableView(style: .plain)
+    class View: UIView {
+        
+        struct ViewData {
+            let post: LemmyModel.PostView
+            let comments: [LemmyModel.CommentView]
+        }
+        
+        var presentOnVc: ((UIViewController) -> Void)?
+        var dismissOnVc: (() -> Void)?
+        
+        let tableView = LemmyTableView(style: .plain)
 
-    let postInfo: LemmyModel.PostView
-    var commentsDataSource: [LemmyModel.CommentView] = [] {
-        didSet {
-            self.commentListing = CommentListingSort(comments: self.commentsDataSource)
-            self.commentTrees = commentListing?.createTreeOfReplies()
+        var commentsDataSource: [LemmyModel.CommentView] = [] {
+            didSet {
+                self.commentListing = CommentListingSort(comments: self.commentsDataSource)
+                self.commentTrees = commentListing?.createTreeOfReplies()
 
-            DispatchQueue.main.async {
-                self.tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
+                DispatchQueue.main.async {
+                    self.tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
+                }
             }
         }
-    }
 
-    private var commentListing: CommentListingSort?
-    private var commentTrees: [CommentNode]?
+        private var commentListing: CommentListingSort?
+        private var commentTrees: [CommentNode]?
 
-    init(post: LemmyModel.PostView) {
-        self.postInfo = post
-        super.init(frame: .zero)
+        init() {
+            super.init(frame: .zero)
+            self.addSubview(tableView)
 
-        self.addSubview(tableView)
-
-        tableView.delegate = self
-        tableView.dataSource = self
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func layoutSubviews() {
-        self.tableView.snp.makeConstraints { (make) in
-            make.top.bottom.leading.trailing.equalToSuperview()
+            tableView.delegate = self
+            tableView.dataSource = self
         }
-    }
-    
-    private func openLink(urlString: String?) {
-        if let str = urlString, let url = URL(string: str) {
-            
-            let vc = SFSafariViewController(url: url)
-            vc.delegate = self
 
-            presentOnVc?(vc)
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
         }
+
+        override func layoutSubviews() {
+            self.tableView.snp.makeConstraints { (make) in
+                make.top.bottom.leading.trailing.equalToSuperview()
+            }
+        }
+        
+        private func openLink(urlString: String?) {
+            if let str = urlString, let url = URL(string: str) {
+                
+                let vc = SFSafariViewController(url: url)
+                vc.delegate = self
+
+                presentOnVc?(vc)
+            }
+        }
+
     }
 }
 
-extension PostScreenUI: SFSafariViewControllerDelegate {
+extension PostScreenViewController.View: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         self.dismissOnVc?()
     }
 }
 
-extension PostScreenUI: UITableViewDelegate, UITableViewDataSource {
+extension PostScreenViewController.View: UITableViewDelegate, UITableViewDataSource {
     enum PostScreenTableCellType: Equatable, Comparable, CaseIterable {
         case post, comments
     }
@@ -96,11 +102,13 @@ extension PostScreenUI: UITableViewDelegate, UITableViewDataSource {
 
         switch types {
         case .post:
-            let cell = PostScreenUITableCell(post: postInfo)
-            cell.postGreenOutlineView.addTap {
-                self.openLink(urlString: cell.postGreenOutlineView.viewData.url)
-            }
-            return cell
+//            let cell = PostScreenUITableCell(post: postInfo)
+//            cell.postGreenOutlineView.addTap {
+//                self.openLink(urlString: cell.postGreenOutlineView.viewData.url)
+//            }
+//            return cell
+        
+        return UITableViewCell()
         case .comments:
             guard let commentTrees = commentTrees else { return UITableViewCell() }
 
