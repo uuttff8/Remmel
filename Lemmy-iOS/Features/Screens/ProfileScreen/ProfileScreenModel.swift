@@ -54,13 +54,14 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
                 self.viewController?.displayProfile(
                     response: .init(state: .result(profile: self.makeHeaderViewData(profile: response.user),
                                                    posts: response.posts,
-                                                   comments: response.comments))
+                                                   comments: response.comments,
+                                                   subscribers: response.follows))
                 )
             }.store(in: &cancellable)
     }
     
     func doSubmoduleControllerAppearanceUpdate(request: ProfileScreenDataFlow.SubmoduleAppearanceUpdate.Request) {
-        // TODO
+        
     }
     
     func doSubmodulesRegistration(request: ProfileScreenDataFlow.SubmoduleRegistration.Request) {
@@ -69,7 +70,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     
     func doSubmodulesDataFilling(request: ProfileScreenDataFlow.SubmoduleDataFilling.Request) {
         request.submodules.forEach {
-            $0.updateFirstData(posts: request.posts, comments: request.comments)
+            $0.updateFirstData(posts: request.posts, comments: request.comments, subscribers: request.subscribers)
         }
     }
     
@@ -123,6 +124,7 @@ enum ProfileScreenDataFlow {
             let submodules: [ProfileScreenSubmoduleProtocol]
             let posts: [LemmyModel.PostView]
             let comments: [LemmyModel.CommentView]
+            let subscribers: [LemmyModel.CommunityFollowerView]
         }
     }
     
@@ -150,6 +152,7 @@ enum ProfileScreenDataFlow {
         case loading
         case result(profile: ProfileScreenHeaderView.ViewData,
                     posts: [LemmyModel.PostView],
-                    comments: [LemmyModel.CommentView])
+                    comments: [LemmyModel.CommentView],
+                    subscribers: [LemmyModel.CommunityFollowerView])
     }
 }

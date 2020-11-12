@@ -11,19 +11,23 @@ import Combine
 
 protocol ProfileScreenCommentsViewModelProtocol {
     // TODO do pagination
-    func doProfilePostsFetch()
+    func doProfileCommentsFetch()
 }
 
-class ProfileScreenCommentsViewModel: ProfileScreenPostsViewModelProtocol {
+class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
     weak var viewController: ProfileScreenCommentsViewControllerProtocol?
     
     var cancellable = Set<AnyCancellable>()
     
-    func doProfilePostsFetch() { }
+    func doProfileCommentsFetch() { }
 }
 
 extension ProfileScreenCommentsViewModel: ProfileScreenCommentsInputProtocol {
-    func updateFirstData(posts: [LemmyModel.PostView], comments: [LemmyModel.CommentView]) {
+    func updateFirstData(
+        posts: [LemmyModel.PostView],
+        comments: [LemmyModel.CommentView],
+        subscribers: [LemmyModel.CommunityFollowerView]
+    ) {
         self.viewController?.displayProfileComments(
             viewModel: .init(state: .result(data: .init(comments: comments)))
         )
@@ -51,4 +55,3 @@ class ProfileScreenComments {
         case result(data: ProfileScreenCommentsViewController.View.ViewData)
     }
 }
-

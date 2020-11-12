@@ -141,11 +141,9 @@ class ProfileScreenViewController: UIViewController {
                 submodulesControllers.append(assembly.makeModule())
                 submoduleInputs.append(assembly.moduleInput!)
             case .about:
-                submodulesControllers.append(UIViewController())
-    //            let assembly = CourseInfoTabReviewsAssembly()
-    //            controller = assembly.makeModule()
-    //            moduleInput = assembly.moduleInput
-
+                let assembly = ProfileScreenAboutAssembly()
+                submodulesControllers.append(assembly.makeModule())
+                submoduleInputs.append(assembly.moduleInput!)
             }
         }
         
@@ -294,14 +292,15 @@ extension ProfileScreenViewController: UIScrollViewDelegate {
 
 extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
     func displayProfile(response: ProfileScreenDataFlow.ProfileLoad.ViewModel) {
-        guard case let .result(headerData, posts, comments) = response.state else { return }
+        guard case let .result(headerData, posts, comments, subscribers) = response.state else { return }
         self.title = headerData.name
         self.storedViewModel = headerData
         profileScreenView.configure(viewData: headerData)
         
         self.viewModel.doSubmodulesDataFilling(request: .init(submodules: submoduleInputs,
                                                               posts: posts,
-                                                              comments: comments))
+                                                              comments: comments,
+                                                              subscribers: subscribers))
     }
     
     func displayNotBlockingActivityIndicator(response: ProfileScreenDataFlow.ShowingActivityIndicator.Response) {

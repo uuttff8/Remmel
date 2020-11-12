@@ -44,7 +44,11 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
 }
 
 extension ProfileScreenPostsViewModel: ProfileScreenPostsInputProtocol {
-    func updateFirstData(posts: [LemmyModel.PostView], comments: [LemmyModel.CommentView]) {
+    func updateFirstData(
+        posts: [LemmyModel.PostView],
+        comments: [LemmyModel.CommentView],
+        subscribers: [LemmyModel.CommunityFollowerView]
+    ) {
         self.viewController?.displayProfilePosts(
             viewModel: .init(state: .result(data: .init(posts: posts)))
         )

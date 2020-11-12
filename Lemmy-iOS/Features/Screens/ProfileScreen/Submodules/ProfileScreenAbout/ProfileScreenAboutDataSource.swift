@@ -1,39 +1,39 @@
 //
-//  ProfileScreenCommentsTableDataSource.swift
+//  ProfileScreenAboutDataSource.swift
 //  Lemmy-iOS
 //
-//  Created by uuttff8 on 11.11.2020.
+//  Created by uuttff8 on 12.11.2020.
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
 import UIKit
 
-class ProfileScreenCommentsTableDataSource: NSObject {
-    var viewModels: [LemmyModel.CommentView]
+class ProfileScreenAboutTableDataSource: NSObject {
+    var viewModels: [LemmyModel.CommunityFollowerView]
 
-    init(viewModels: [LemmyModel.CommentView] = []) {
+    init(viewModels: [LemmyModel.CommunityFollowerView] = []) {
         self.viewModels = viewModels
         super.init()
     }
     
-    func update(viewModel: LemmyModel.CommentView) {
+    func update(viewModel: LemmyModel.CommunityFollowerView) {
         if let index = self.viewModels.firstIndex(where: { $0.id == viewModel.id }) {
             self.viewModels[index] = viewModel
         }
     }
 }
 
-extension ProfileScreenCommentsTableDataSource: UITableViewDataSource {
+extension ProfileScreenAboutTableDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.viewModels.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: CommentContentTableCell = tableView.cell(forRowAt: indexPath)
+        let cell: UITableViewCell = tableView.cell(forRowAt: indexPath)
         cell.updateConstraintsIfNeeded()
 
         let viewModel = self.viewModels[indexPath.row]
-        cell.bind(with: viewModel)
+        cell.textLabel?.text = viewModel.communityName
 
         return cell
     }
