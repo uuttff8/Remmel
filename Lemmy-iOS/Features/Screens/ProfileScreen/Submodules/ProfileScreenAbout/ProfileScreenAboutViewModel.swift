@@ -57,5 +57,3 @@ class ProfileScreenAbout {
         case result(data: ProfileScreenAboutViewController.View.ViewData)
     }
 }
-
-

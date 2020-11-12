@@ -13,8 +13,13 @@ class FrontPageViewController: UIViewController {
 
     weak var coordinator: FrontPageCoordinator?
 
+    private let searchView = FrontPageSearchView().then {
+        $0.alpha = 0.0
+    }
+    
     private lazy var navBar: LemmyFrontPageNavBar = {
         let bar = LemmyFrontPageNavBar()
+        bar.searchBar.delegate = self
         bar.onProfileIconTap = {
             if let username = LemmyShareData.shared.userdata?.name {
                 self.coordinator?.goToProfileScreen(by: username)
@@ -54,10 +59,14 @@ class FrontPageViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.systemBackground
         self.headerSegmentView.delegate = self
-
+        
         setupToolbar()
         setupNavigationItem()
         setupContainered()
+        
+        self.hideKeyboardWhenTappedAround()
+        self.view.addSubview(searchView)
+        self.searchView.frame = view.frame
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -101,6 +110,7 @@ class FrontPageViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
         self.toolbar.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
@@ -120,5 +130,20 @@ extension FrontPageViewController: TabBarReselectHandling {
         } else if let currentVc = currentViewController as? CommentsFrontPageViewController {
             currentVc.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
+    }
+}
+
+extension FrontPageViewController: UISearchBarDelegate {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        print(searchBar)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard let query = searchBar.text, !query.isEmpty else {
+            searchView.fadeOutIfNeeded()
+            return
+        }
+        
+        searchView.fadeInIfNeeded()
     }
 }

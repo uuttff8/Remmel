@@ -18,7 +18,7 @@ extension UIButton: Nuke_ImageDisplaying {
 class LemmyFrontPageNavBar: UIView {
     var onProfileIconTap: (() -> Void)?
     
-    private let searchBar = LemmySearchBar()
+    let searchBar = LemmySearchBar()
     private lazy var profileIcon = LemmyProfileIconView()
 
     override init(frame: CGRect) {

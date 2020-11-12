@@ -16,7 +16,6 @@ protocol ProfileScreenViewDelegate: AnyObject {
     func numberOfPages(in profileView: ProfileScreenViewController.View) -> Int
 }
 
-
 extension ProfileScreenViewController.View {
     struct Appearance {
         // Status bar + navbar + other offsets
