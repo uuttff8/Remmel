@@ -259,7 +259,7 @@ extension ProfileScreenViewController: PageboyViewControllerDataSource, PageboyV
         animated: Bool
     ) {
         self.profileScreenView.updateCurrentPageIndex(index)
-//        self.viewModel.doSubmoduleControllerAppearanceUpdate(request: .init(submoduleIndex: index))
+        self.viewModel.doSubmoduleControllerAppearanceUpdate(request: .init(submoduleIndex: index))
     }
 
     func pageboyViewController(

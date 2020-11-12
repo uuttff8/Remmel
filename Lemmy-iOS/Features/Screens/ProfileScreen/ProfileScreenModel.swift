@@ -26,7 +26,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     private var currentProfile: LemmyModel.UserView?
 
     // Tab index -> Submodule
-    private var submodules: [Int: ProfileScreenSubmoduleProtocol] = [:]
+    private var submodules: [ProfileScreenSubmoduleProtocol] = []
     
     init(profileUsername: String) {
         self.profileUsername = profileUsername
@@ -61,7 +61,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     }
     
     func doSubmoduleControllerAppearanceUpdate(request: ProfileScreenDataFlow.SubmoduleAppearanceUpdate.Request) {
-        
+        self.submodules[request.submoduleIndex].handleControllerAppearance()
     }
     
     func doSubmodulesRegistration(request: ProfileScreenDataFlow.SubmoduleRegistration.Request) {
@@ -69,6 +69,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     }
     
     func doSubmodulesDataFilling(request: ProfileScreenDataFlow.SubmoduleDataFilling.Request) {
+        self.submodules = request.submodules
         request.submodules.forEach {
             $0.updateFirstData(posts: request.posts, comments: request.comments, subscribers: request.subscribers)
         }
@@ -131,7 +132,7 @@ enum ProfileScreenDataFlow {
     /// Handle submodule controller appearance
     enum SubmoduleAppearanceUpdate {
         struct Request {
-            let submoduleIndex: [Int: ProfileScreenSubmoduleProtocol]
+            let submoduleIndex: Int
         }
     }
     
