@@ -20,6 +20,7 @@
 		4E0A8E6C255D58D900B06AF6 /* ProfileScreenAboutDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E6B255D58D900B06AF6 /* ProfileScreenAboutDataSource.swift */; };
 		4E0A8E71255D58E400B06AF6 /* ProfileScreenAboutUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E70255D58E400B06AF6 /* ProfileScreenAboutUI.swift */; };
 		4E0A8E7C255D590800B06AF6 /* ProfileScreenAboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E7B255D590800B06AF6 /* ProfileScreenAboutViewController.swift */; };
+		4E0A8E85255DC16600B06AF6 /* MarkdownView in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0A8E84255DC16600B06AF6 /* MarkdownView */; };
 		4E106F5D25273A0C009EABDA /* CommentTreeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106F5C25273A0C009EABDA /* CommentTreeTableCell.swift */; };
 		4E106F6525274325009EABDA /* PostScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106F6425274325009EABDA /* PostScreenModel.swift */; };
 		4E10704B2534756B009EABDA /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10704A2534756B009EABDA /* Protocols.swift */; };
@@ -369,6 +370,7 @@
 				921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */,
 				4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */,
 				4EF3ACF625506EC900BEC9F1 /* SwiftyMarkdown in Frameworks */,
+				4E0A8E85255DC16600B06AF6 /* MarkdownView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1058,6 +1060,7 @@
 				4ECCEEFA250C13240075F921 /* SnapKit */,
 				4E1070832534F742009EABDA /* KeychainSwift */,
 				4EF3ACF525506EC900BEC9F1 /* SwiftyMarkdown */,
+				4E0A8E84255DC16600B06AF6 /* MarkdownView */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */;
@@ -1135,6 +1138,7 @@
 				4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				4EF3ACF425506EC900BEC9F1 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */,
+				4E0A8E83255DC16600B06AF6 /* XCRemoteSwiftPackageReference "MarkdownView" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
@@ -1718,6 +1722,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4E0A8E83255DC16600B06AF6 /* XCRemoteSwiftPackageReference "MarkdownView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/keitaoouchi/MarkdownView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.7.1;
+			};
+		};
 		4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
@@ -1745,6 +1757,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4E0A8E84255DC16600B06AF6 /* MarkdownView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E0A8E83255DC16600B06AF6 /* XCRemoteSwiftPackageReference "MarkdownView" */;
+			productName = MarkdownView;
+		};
 		4E1070832534F742009EABDA /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */;

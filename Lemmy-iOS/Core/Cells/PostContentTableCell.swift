@@ -9,6 +9,7 @@
 import UIKit
 import Nuke
 import DateToolsSwift
+import SwiftyMarkdown
 
 protocol PostContentTableCellDelegate: AnyObject {
     func upvote(post: LemmyModel.PostView)
@@ -338,7 +339,8 @@ private class PostContentCenterView: UIView {
         titleLabel.text = data.title
         
         if let subtitle = data.subtitle {
-            subtitleLabel.text = subtitle
+            let md = SwiftyMarkdown(string: subtitle)
+            subtitleLabel.attributedText = md.attributedString()
         }
 
         if let image = data.imageUrl {
