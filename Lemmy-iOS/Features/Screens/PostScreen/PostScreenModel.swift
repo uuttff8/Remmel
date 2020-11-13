@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 protocol PostScreenViewModelProtocol: AnyObject {
     func doPostFetch()
@@ -14,6 +15,8 @@ protocol PostScreenViewModelProtocol: AnyObject {
 
 class PostScreenViewModel: PostScreenViewModelProtocol {
     weak var viewController: PostScreenViewControllerProtocol?
+    
+    private var cancellable = Set<AnyCancellable>()
     
     let postInfo: LemmyModel.PostView?
     let postId: Int
@@ -27,24 +30,17 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
         let parameters = LemmyModel.Post.GetPostRequest(id: postId,
                                                         auth: LemmyShareData.shared.jwtToken)
         
-        ApiManager.shared.requestsManager.getPost(
-            parameters: parameters
-        ) { [self] (res: Result<LemmyModel.Post.GetPostResponse, LemmyGenericError>) in
-            
-            switch res {
-            case let .success(response):
-                
-                DispatchQueue.main.async {
-                    self.viewController?.displayPost(
-                        response: .init(
-                            state: .result(data: makeViewData(from: response))
-                        )
-                    )
-                }
-            case .failure(let error):
+        ApiManager.shared.requestsManager.asyncGetPost(parameters: parameters)
+            .receive(on: RunLoop.main)
+            .sink { (error) in
                 print(error)
-            }
-        }
+            } receiveValue: { (response) in
+                self.viewController?.displayPost(
+                    response: .init(
+                        state: .result(data: self.makeViewData(from: response))
+                    )
+                )
+            }.store(in: &cancellable)
     }
     
     private func makeViewData(from data: LemmyModel.Post.GetPostResponse) -> PostScreenViewController.View.ViewData {
