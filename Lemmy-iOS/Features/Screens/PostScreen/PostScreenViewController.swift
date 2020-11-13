@@ -43,6 +43,7 @@ class PostScreenViewController: UIViewController {
         super.viewDidLoad()
         
         viewModel.doPostFetch()
+        self.updateState(newState: state)
 //        model.loadComments()
 //        model.commentsLoaded = { [self] (comments) in
 //            customView.commentsDataSource = comments
