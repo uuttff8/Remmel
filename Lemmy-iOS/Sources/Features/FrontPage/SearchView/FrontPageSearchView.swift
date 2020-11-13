@@ -11,6 +11,8 @@ import UIKit
 extension FrontPageSearchView {
     struct Appearance {
         let fadeAnimationDuratation: TimeInterval = 0.3
+        
+        let alphaAtInit: CGFloat = 0.0
     }
 }
 
@@ -22,6 +24,7 @@ class FrontPageSearchView: UIView {
         super.init(frame: .zero)
         
         self.backgroundColor = .systemBackground
+        self.alpha = appearance.alphaAtInit
     }
     
     @available(*, unavailable)

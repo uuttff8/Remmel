@@ -23,6 +23,8 @@ class FrontPageCoordinator: Coordinator {
         let vc = CommentsFrontPageViewController()
         return vc
     }()
+    
+    lazy var searchViewController = FrontPageSearchViewController()
 
     init(navigationController: UINavigationController?) {
         self.rootViewController = FrontPageViewController()
@@ -33,7 +35,10 @@ class FrontPageCoordinator: Coordinator {
         rootViewController.coordinator = self
         postsViewController.coordinator = self
         commentsViewController.coordinator = self
+        searchViewController.coordinator = self
         navigationController?.pushViewController(self.rootViewController, animated: true)
+        
+        rootViewController.configureSearchView(searchViewController.view)
     }
 
     func switchViewController() {
@@ -58,5 +63,13 @@ class FrontPageCoordinator: Coordinator {
     func goToProfileScreen(by username: String) {
         let assembly = ProfileInfoScreenAssembly(profileUsername: username)
         navigationController?.pushViewController(assembly.makeModule(), animated: true)
+    }
+    
+    func showSearchIfNeeded() {
+        self.searchViewController.showSearchIfNeeded()
+    }
+    
+    func hideSearchIfNeeded() {
+        self.searchViewController.hideSearchIfNeeded()
     }
 }

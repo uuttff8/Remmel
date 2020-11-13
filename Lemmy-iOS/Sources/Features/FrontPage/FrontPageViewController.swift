@@ -12,10 +12,6 @@ import SnapKit
 class FrontPageViewController: UIViewController {
 
     weak var coordinator: FrontPageCoordinator?
-
-    private let searchView = FrontPageSearchView().then {
-        $0.alpha = 0.0
-    }
     
     private lazy var navBar: LemmyFrontPageNavBar = {
         let bar = LemmyFrontPageNavBar()
@@ -65,14 +61,17 @@ class FrontPageViewController: UIViewController {
         setupContainered()
         
         self.hideKeyboardWhenTappedAround()
-        self.view.addSubview(searchView)
-        self.searchView.frame = view.frame
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         self.currentViewController = coordinator?.postsViewController
+    }
+    
+    func configureSearchView(_ searchView: UIView) {
+        self.view.addSubview(searchView)
+        searchView.frame = self.view.frame
     }
 
     private func setupToolbar() {
@@ -134,16 +133,12 @@ extension FrontPageViewController: TabBarReselectHandling {
 }
 
 extension FrontPageViewController: UISearchBarDelegate {
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        print(searchBar)
-    }
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let query = searchBar.text, !query.isEmpty else {
-            searchView.fadeOutIfNeeded()
+            coordinator?.hideSearchIfNeeded()
             return
         }
         
-        searchView.fadeInIfNeeded()
+        coordinator?.showSearchIfNeeded()
     }
 }
