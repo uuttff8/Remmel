@@ -18,7 +18,11 @@ class PostsFrontPageViewController: UIViewController {
     
     let model = PostsFrontPageModel()
     
-    let tableView = LemmyTableView(style: .plain)
+    lazy var tableView = LemmyTableView(style: .plain).then {
+        $0.delegate = self
+        $0.registerClass(PostContentTableCell.self)
+        $0.keyboardDismissMode = .onDrag
+    }
     private lazy var dataSource = makeDataSource()
     private var snapshot = NSDiffableDataSourceSnapshot<Section, LemmyModel.PostView>()
     
@@ -31,8 +35,6 @@ class PostsFrontPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.registerClass(PostContentTableCell.self)
         self.view.addSubview(tableView)
         setupTableHeaderView()
         

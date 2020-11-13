@@ -18,21 +18,22 @@ class CommentsFrontPageViewController: UIViewController {
 
     let model = CommentsFrontPageModel()
 
-    let tableView = LemmyTableView(style: .plain)
+    lazy var tableView = LemmyTableView(style: .plain).then {
+        $0.registerClass(CommentContentTableCell.self)
+        $0.delegate = model
+        $0.keyboardDismissMode = .onDrag
+    }
     private lazy var dataSource = makeDataSource()
     private var snapshot = NSDiffableDataSourceSnapshot<Section, LemmyModel.CommentView>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = model
 
         self.view.addSubview(tableView)
 
         tableView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-
-        tableView.registerClass(CommentContentTableCell.self)
 
         model.loadComments()
 
