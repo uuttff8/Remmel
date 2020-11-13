@@ -14,6 +14,12 @@ class FrontPageSearchViewController: UIViewController {
     
     private lazy var searchView = self.view as! FrontPageSearchView
     
+    open var searchQuery: String = "" {
+        didSet {
+            searchView.configure(with: searchQuery)
+        }
+    }
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -24,7 +30,9 @@ class FrontPageSearchViewController: UIViewController {
     }
     
     override func loadView() {
-        self.view = FrontPageSearchView()
+        let view = FrontPageSearchView()
+        view.delegate = self
+        self.view = view
     }
     
     func showSearchIfNeeded() {
@@ -33,5 +41,25 @@ class FrontPageSearchViewController: UIViewController {
     
     func hideSearchIfNeeded() {
         self.searchView.fadeOutIfNeeded()
+    }
+}
+
+extension FrontPageSearchViewController: FrontPageSearchViewDelegate {
+    func searchView(_ searchView: FrontPageSearchView, searchWith query: String, type: SearchView.TableRow) {
+        
+        switch type {
+        case .comments:
+            print("comments")
+            fatalError()
+        case .posts:
+            print("posts")
+            fatalError()
+        case .communities:
+            print("communities")
+            fatalError()
+        case .users:
+            print("users")
+            fatalError()
+        }
     }
 }

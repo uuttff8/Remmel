@@ -71,7 +71,9 @@ class FrontPageViewController: UIViewController {
     
     func configureSearchView(_ searchView: UIView) {
         self.view.addSubview(searchView)
-        searchView.frame = self.view.frame
+        searchView.snp.makeConstraints {
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
+        }
     }
 
     private func setupToolbar() {
@@ -139,6 +141,6 @@ extension FrontPageViewController: UISearchBarDelegate {
             return
         }
         
-        coordinator?.showSearchIfNeeded()
+        coordinator?.showSearchIfNeeded(with: searchText)
     }
 }

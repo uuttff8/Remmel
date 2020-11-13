@@ -65,11 +65,13 @@ class FrontPageCoordinator: Coordinator {
         navigationController?.pushViewController(assembly.makeModule(), animated: true)
     }
     
-    func showSearchIfNeeded() {
+    func showSearchIfNeeded(with query: String) {
         self.searchViewController.showSearchIfNeeded()
+        self.searchViewController.searchQuery = query
     }
     
     func hideSearchIfNeeded() {
         self.searchViewController.hideSearchIfNeeded()
+        self.searchViewController.searchQuery = ""
     }
 }
