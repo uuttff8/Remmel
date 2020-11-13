@@ -20,7 +20,13 @@ class FrontPageViewController: UIViewController {
             if let username = LemmyShareData.shared.userdata?.name {
                 self.coordinator?.goToProfileScreen(by: username)
             } else {
-                // TODO handle login
+                UIAlertController.showLoginOrRegisterAlert(
+                    on: self,
+                    onLogin: {
+                        self.coordinator?.goToLoginScreen(authMethod: .login)
+                    }, onRegister: {
+                        self.coordinator?.goToLoginScreen(authMethod: .register)
+                    })
             }
         }
         return bar

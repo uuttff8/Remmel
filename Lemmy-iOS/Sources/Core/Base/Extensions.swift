@@ -150,6 +150,33 @@ extension UIAlertController {
         guard let vc = UIApplication.getTopMostViewController() else { return }
         vc.present(controller, animated: true, completion: nil)
     }
+    
+    static func showLoginOrRegisterAlert(
+        on vc: UIViewController,
+        onLogin: @escaping (() -> Void),
+        onRegister: @escaping (() -> Void)
+    ) {
+        let alertController = UIAlertController(
+            title: nil,
+            message: "Log in or Register to continue",
+            preferredStyle: .alert
+        )
+        
+        let loginAction = UIAlertAction(title: "Login", style: .default) { _ in
+            onLogin()
+        }
+        
+        let signUpAction = UIAlertAction(title: "Register", style: .default) { _ in
+            onRegister()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
+        
+        [loginAction, signUpAction, cancelAction].forEach { (action) in
+            alertController.addAction(action)
+        }
+        vc.present(alertController, animated: true, completion: nil)
+    }
 }
 
 extension UIApplication {

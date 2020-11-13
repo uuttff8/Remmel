@@ -48,6 +48,20 @@ class FrontPageCoordinator: Coordinator {
         self.postsViewController.view.isHidden =
             rootViewController.currentViewController != self.postsViewController
     }
+    
+    func goToLoginScreen(authMethod: LemmyAuthMethod) {
+        let loginCoordinator = LoginCoordinator(navigationController: StyledNavigationController(),
+                                                authMethod: authMethod)
+        self.store(coordinator: loginCoordinator)
+        loginCoordinator.start()
+
+        guard let loginNavController = loginCoordinator.navigationController else {
+            print("\(#file) loginCoordinator.navigationController is nil")
+            return
+        }
+
+        rootViewController.present(loginNavController, animated: true, completion: nil)
+    }
 
     func goToPostScreen(post: LemmyModel.PostView) {
         let assembly = PostScreenAssembly(postId: post.id, postInfo: post)

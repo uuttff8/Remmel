@@ -67,26 +67,13 @@ class LemmyTabBarController: UITabBarController {
 
 extension LemmyTabBarController: UITabBarControllerDelegate {
     func createLoginAlert(_ tabBarController: UITabBarController) {
-        let alertController = UIAlertController(
-            title: nil,
-            message: "Create an account to continue",
-            preferredStyle: .alert
-        )
-        
-        let loginAction = UIAlertAction(title: "Login", style: .default) { _ in
-            self.coordinator?.goToLoginScreen(authMethod: .login)
-        }
-        
-        let signUpAction = UIAlertAction(title: "Register", style: .default) { _ in
-            self.coordinator?.goToLoginScreen(authMethod: .register)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
-        
-        [loginAction, signUpAction, cancelAction].forEach { (action) in
-            alertController.addAction(action)
-        }
-        tabBarController.present(alertController, animated: true, completion: nil)
+        UIAlertController.showLoginOrRegisterAlert(
+            on: tabBarController,
+            onLogin: {
+                self.coordinator?.goToLoginScreen(authMethod: .login)
+            }, onRegister: {
+                self.coordinator?.goToLoginScreen(authMethod: .register)
+            })
     }
     
     func tabBarController(
