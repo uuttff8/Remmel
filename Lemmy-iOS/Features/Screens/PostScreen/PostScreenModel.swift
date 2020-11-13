@@ -15,36 +15,43 @@ protocol PostScreenViewModelProtocol: AnyObject {
 class PostScreenViewModel: PostScreenViewModelProtocol {
     weak var viewController: PostScreenViewControllerProtocol?
     
-    var commentsLoaded: (([LemmyModel.CommentView]) -> Void)?
-
     let postInfo: LemmyModel.PostView?
     let postId: Int
-
+    
     init(postId: Int, postInfo: LemmyModel.PostView?) {
         self.postInfo = postInfo
         self.postId = postId
     }
-
+    
     func doPostFetch() {
         let parameters = LemmyModel.Post.GetPostRequest(id: postId,
                                                         auth: LemmyShareData.shared.jwtToken)
-
+        
         ApiManager.shared.requestsManager.getPost(
             parameters: parameters
         ) { [self] (res: Result<LemmyModel.Post.GetPostResponse, LemmyGenericError>) in
-
+            
             switch res {
-            case .success(let data):
-                self.viewController?.displayPost(
-                    response: .init(state: .result(data: .init(post: data.post,
-                                                               comments: data.comments)))
+            case let .success(response):
+                
+                DispatchQueue.main.async {
+                    self.viewController?.displayPost(
+                        response: .init(
+                            state: .result(data: makeViewData(from: response))
+                        )
                     )
-                commentsLoaded?(data.comments)
-
+                }
             case .failure(let error):
                 print(error)
             }
         }
+    }
+    
+    private func makeViewData(from data: LemmyModel.Post.GetPostResponse) -> PostScreenViewController.View.ViewData {
+        let comments = CommentListingSort(comments: data.comments)
+            .createTreeOfReplies()
+        
+        return .init(post: data.post, comments: comments)
     }
 }
 

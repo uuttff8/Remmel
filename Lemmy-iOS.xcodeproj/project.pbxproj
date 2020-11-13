@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E05D632255EB362002307E0 /* PostScreenTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05D631255EB362002307E0 /* PostScreenTableDataSource.swift */; };
+		4E05D637255EBA63002307E0 /* Optional+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05D636255EBA63002307E0 /* Optional+Ext.swift */; };
 		4E0A8E2F255BFC0000B06AF6 /* UIApplication+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */; };
 		4E0A8E35255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E34255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift */; };
 		4E0A8E3A255C01E800B06AF6 /* ProfileScreenCommentsUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E39255C01E800B06AF6 /* ProfileScreenCommentsUI.swift */; };
@@ -192,6 +194,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E05D631255EB362002307E0 /* PostScreenTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenTableDataSource.swift; sourceTree = "<group>"; };
+		4E05D636255EBA63002307E0 /* Optional+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Ext.swift"; sourceTree = "<group>"; };
 		4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Ext.swift"; sourceTree = "<group>"; };
 		4E0A8E34255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenCommentsViewController.swift; sourceTree = "<group>"; };
 		4E0A8E39255C01E800B06AF6 /* ProfileScreenCommentsUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenCommentsUI.swift; sourceTree = "<group>"; };
@@ -639,6 +643,7 @@
 				4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */,
 				4EB89AFF251F4882007129BF /* PostScreenUI.swift */,
 				4E106F6425274325009EABDA /* PostScreenModel.swift */,
+				4E05D631255EB362002307E0 /* PostScreenTableDataSource.swift */,
 			);
 			path = PostScreen;
 			sourceTree = "<group>";
@@ -1028,6 +1033,7 @@
 				4EFAB5DC2552FA4300B32780 /* Notification+Ext.swift */,
 				4EFAB5D22552F98600B32780 /* Codable+Ext.swift */,
 				4EBB22382559FC3000B88079 /* Collection+SafeSubscript.swift */,
+				4E05D636255EBA63002307E0 /* Optional+Ext.swift */,
 			);
 			path = LangExt;
 			sourceTree = "<group>";
@@ -1283,6 +1289,7 @@
 				4EFAB6112553279700B32780 /* CommunityHeaderCell.swift in Sources */,
 				4E9BBA24255534B0004FF2F9 /* LemmyModel.swift in Sources */,
 				4E0A8E62255D589A00B06AF6 /* ProfileScreenAboutAssembly.swift in Sources */,
+				4E05D637255EBA63002307E0 /* Optional+Ext.swift in Sources */,
 				4E886CA62540A27E0076B162 /* CreatePostUrlCell.swift in Sources */,
 				4ECCEEE0250B8DEE0075F921 /* Coordinator.swift in Sources */,
 				4E10705B253476FC009EABDA /* PostsFrontPageModel.swift in Sources */,
@@ -1392,6 +1399,7 @@
 				4E0A8E3F255C01F400B06AF6 /* ProfileScreenCommentsTableDataSource.swift in Sources */,
 				4EBB22342559EF2100B88079 /* WeakBox.swift in Sources */,
 				4EBB22192559EB3600B88079 /* StyledNavigationController.swift in Sources */,
+				4E05D632255EB362002307E0 /* PostScreenTableDataSource.swift in Sources */,
 				4EF3ACEA25502D5600BEC9F1 /* CommunityHeaderView.swift in Sources */,
 				4E886C8D253F51B90076B162 /* CreatePostModel.swift in Sources */,
 				4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */,
