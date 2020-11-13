@@ -742,13 +742,8 @@
 		4ECCEEA8250B8B6B0075F921 /* Lemmy-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				4ECCEEE1250B8E1C0075F921 /* App */,
-				4ECCEEE2250B8F4A0075F921 /* Features */,
-				4E1070882534F78D009EABDA /* Core */,
-				4ECCEEB5250B8B6E0075F921 /* Assets.xcassets */,
-				4ECCEEB7250B8B6E0075F921 /* LaunchScreen.storyboard */,
-				4ECCEEBA250B8B6E0075F921 /* Info.plist */,
-				4ECCEEB2250B8B6B0075F921 /* Lemmy_iOS.xcdatamodeld */,
+				4EFA8149255F2E8D008AF535 /* Resources */,
+				4EFA8148255F2E5D008AF535 /* Sources */,
 			);
 			path = "Lemmy-iOS";
 			sourceTree = "<group>";
@@ -1003,6 +998,27 @@
 				4EFAB5C12552D32600B32780 /* Then.swift */,
 			);
 			path = UIUtils;
+			sourceTree = "<group>";
+		};
+		4EFA8148255F2E5D008AF535 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				4ECCEEE1250B8E1C0075F921 /* App */,
+				4ECCEEE2250B8F4A0075F921 /* Features */,
+				4E1070882534F78D009EABDA /* Core */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		4EFA8149255F2E8D008AF535 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4ECCEEBA250B8B6E0075F921 /* Info.plist */,
+				4ECCEEB2250B8B6B0075F921 /* Lemmy_iOS.xcdatamodeld */,
+				4ECCEEB7250B8B6E0075F921 /* LaunchScreen.storyboard */,
+				4ECCEEB5250B8B6E0075F921 /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		4EFAB58F2551857C00B32780 /* UIExt */ = {
@@ -1577,7 +1593,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
-				INFOPLIST_FILE = "Lemmy-iOS/Info.plist";
+				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1596,7 +1612,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
-				INFOPLIST_FILE = "Lemmy-iOS/Info.plist";
+				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
