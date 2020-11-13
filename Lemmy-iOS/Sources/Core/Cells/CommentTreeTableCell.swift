@@ -34,20 +34,12 @@ class CommentTreeTableCell: UITableViewCell {
         return tv
     }()
     let commentContentView = CommentContentView()
-    let commentNode: CommentNode
     let selBackView = UIView()
-
-    init(commentNode: CommentNode) {
+    
+    var commentNode: CommentNode?
+    
+    func bind(with commentNode: CommentNode) {
         self.commentNode = commentNode
-        super.init(style: .default, reuseIdentifier: .none)
-        bind()
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    func bind() {
         self.contentView.addSubview(commentContentView)
 
         commentContentView.bind(with: commentNode.comment)
@@ -94,6 +86,7 @@ class CommentTreeTableCell: UITableViewCell {
 
 extension CommentTreeTableCell: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
+        guard let commentNode = commentNode else { return 1 }
         return commentNode.replies.count
     }
 
@@ -102,9 +95,10 @@ extension CommentTreeTableCell: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let commentNode = commentNode else { return UITableViewCell() }
         let commentSectionData = commentNode.replies[indexPath.section]
-        let cell = CommentTreeTableCell(commentNode: commentSectionData)
+        let cell = CommentTreeTableCell()
+        cell.bind(with: commentSectionData)
         return cell
-        //        return UITableViewCell()
     }
 }

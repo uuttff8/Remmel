@@ -8,39 +8,81 @@
 
 import UIKit
 
-class PostScreenViewController: UIViewController {
-    let postInfo: LemmyModel.PostView
+protocol PostScreenViewControllerProtocol: AnyObject {
+    func displayPost(response: PostScreen.PostLoad.ViewModel)
+}
 
-    lazy var customView = PostScreenUI(post: postInfo)
-    lazy var model = PostScreenModel(post: postInfo)
+class PostScreenViewController: UIViewController {
+    private let viewModel: PostScreenViewModelProtocol
+    
+    private let tableDataSource = PostScreenTableDataSource()
+    
+    lazy var postScreenView = self.view as! PostScreenViewController.View
+    
+    private var state: PostScreen.ViewControllerState
 
     override func loadView() {
-        self.view = customView
+        self.view = PostScreenViewController.View()
     }
 
-    init(post: LemmyModel.PostView) {
-        self.postInfo = post
-
+    init(
+        viewModel: PostScreenViewModelProtocol,
+        state: PostScreen.ViewControllerState = .loading
+    ) {
+        self.viewModel = viewModel
+        self.state = state
         super.init(nibName: nil, bundle: nil)
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        model.loadComments()
-        model.commentsLoaded = { [self] (comments) in
-            customView.commentsDataSource = comments
-        }
         
-        customView.presentOnVc = { toPresentVc in
-            self.present(toPresentVc, animated: true)
+        viewModel.doPostFetch()
+        self.updateState(newState: state)
+//        model.loadComments()
+//        model.commentsLoaded = { [self] (comments) in
+//            customView.commentsDataSource = comments
+//        }
+//
+//        customView.presentOnVc = { toPresentVc in
+//            self.present(toPresentVc, animated: true)
+//        }
+//
+//        customView.dismissOnVc = {
+//            self.dismiss(animated: true)
+//        }
+    }
+    
+    private func updateState(newState: PostScreen.ViewControllerState) {
+        defer {
+            self.state = newState
         }
-        
-        customView.dismissOnVc = {
-            self.dismiss(animated: true)
+
+        if case .loading = newState {
+            self.postScreenView.showLoadingView()
+            return
         }
+
+        if case .loading = self.state {
+            self.postScreenView.hideLoadingView()
+        }
+
+        if case .result(let data) = newState {
+            self.postScreenView.updateTableViewData(dataSource: self.tableDataSource)
+            self.postScreenView.postInfo = data.post
+        }
+    }
+}
+
+extension PostScreenViewController: PostScreenViewControllerProtocol {
+    func displayPost(response: PostScreen.PostLoad.ViewModel) {
+        guard case let .result(data) = response.state else { return }
+        self.tableDataSource.viewModels = data.comments
+        self.updateState(newState: response.state)
     }
 }

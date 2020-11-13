@@ -9,6 +9,7 @@
 import Foundation
 
 struct CommentNode {
+    let id: Int
     let comment: LemmyModel.CommentView
     var replies: [CommentNode]
 }
@@ -64,7 +65,7 @@ class CommentListingSort {
     
     func createReplyTree(for comment: LemmyModel.CommentView) -> CommentNode {
         var replies = [CommentNode]()
-        var node = CommentNode(comment: comment, replies: replies)
+        var node = CommentNode(id: comment.id, comment: comment, replies: replies)
         
         for repliedComm in self.comments
         where repliedComm.parentId == comment.id {

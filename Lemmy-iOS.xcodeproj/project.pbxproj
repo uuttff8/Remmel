@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E05D632255EB362002307E0 /* PostScreenTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05D631255EB362002307E0 /* PostScreenTableDataSource.swift */; };
+		4E05D637255EBA63002307E0 /* Optional+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05D636255EBA63002307E0 /* Optional+Ext.swift */; };
 		4E0A8E2F255BFC0000B06AF6 /* UIApplication+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */; };
 		4E0A8E35255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E34255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift */; };
 		4E0A8E3A255C01E800B06AF6 /* ProfileScreenCommentsUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E39255C01E800B06AF6 /* ProfileScreenCommentsUI.swift */; };
@@ -20,8 +22,8 @@
 		4E0A8E6C255D58D900B06AF6 /* ProfileScreenAboutDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E6B255D58D900B06AF6 /* ProfileScreenAboutDataSource.swift */; };
 		4E0A8E71255D58E400B06AF6 /* ProfileScreenAboutUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E70255D58E400B06AF6 /* ProfileScreenAboutUI.swift */; };
 		4E0A8E7C255D590800B06AF6 /* ProfileScreenAboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E7B255D590800B06AF6 /* ProfileScreenAboutViewController.swift */; };
-		4E0A8E85255DC16600B06AF6 /* MarkdownView in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0A8E84255DC16600B06AF6 /* MarkdownView */; };
 		4E0A8E8B255DD01500B06AF6 /* FrontPageSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E8A255DD01500B06AF6 /* FrontPageSearchView.swift */; };
+		4E0A8E93255DDE4500B06AF6 /* PostScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E92255DDE4500B06AF6 /* PostScreenAssembly.swift */; };
 		4E106F5D25273A0C009EABDA /* CommentTreeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106F5C25273A0C009EABDA /* CommentTreeTableCell.swift */; };
 		4E106F6525274325009EABDA /* PostScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106F6425274325009EABDA /* PostScreenModel.swift */; };
 		4E10704B2534756B009EABDA /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10704A2534756B009EABDA /* Protocols.swift */; };
@@ -192,6 +194,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E05D631255EB362002307E0 /* PostScreenTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenTableDataSource.swift; sourceTree = "<group>"; };
+		4E05D636255EBA63002307E0 /* Optional+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Ext.swift"; sourceTree = "<group>"; };
 		4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Ext.swift"; sourceTree = "<group>"; };
 		4E0A8E34255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenCommentsViewController.swift; sourceTree = "<group>"; };
 		4E0A8E39255C01E800B06AF6 /* ProfileScreenCommentsUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenCommentsUI.swift; sourceTree = "<group>"; };
@@ -206,6 +210,7 @@
 		4E0A8E70255D58E400B06AF6 /* ProfileScreenAboutUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenAboutUI.swift; sourceTree = "<group>"; };
 		4E0A8E7B255D590800B06AF6 /* ProfileScreenAboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenAboutViewController.swift; sourceTree = "<group>"; };
 		4E0A8E8A255DD01500B06AF6 /* FrontPageSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageSearchView.swift; sourceTree = "<group>"; };
+		4E0A8E92255DDE4500B06AF6 /* PostScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenAssembly.swift; sourceTree = "<group>"; };
 		4E106F5C25273A0C009EABDA /* CommentTreeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTreeTableCell.swift; sourceTree = "<group>"; };
 		4E106F6425274325009EABDA /* PostScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenModel.swift; sourceTree = "<group>"; };
 		4E10704A2534756B009EABDA /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
@@ -372,7 +377,6 @@
 				921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */,
 				4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */,
 				4EF3ACF625506EC900BEC9F1 /* SwiftyMarkdown in Frameworks */,
-				4E0A8E85255DC16600B06AF6 /* MarkdownView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -635,9 +639,11 @@
 		4EB89AF6251F478F007129BF /* PostScreen */ = {
 			isa = PBXGroup;
 			children = (
+				4E0A8E92255DDE4500B06AF6 /* PostScreenAssembly.swift */,
 				4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */,
 				4EB89AFF251F4882007129BF /* PostScreenUI.swift */,
 				4E106F6425274325009EABDA /* PostScreenModel.swift */,
+				4E05D631255EB362002307E0 /* PostScreenTableDataSource.swift */,
 			);
 			path = PostScreen;
 			sourceTree = "<group>";
@@ -1043,6 +1049,7 @@
 				4EFAB5DC2552FA4300B32780 /* Notification+Ext.swift */,
 				4EFAB5D22552F98600B32780 /* Codable+Ext.swift */,
 				4EBB22382559FC3000B88079 /* Collection+SafeSubscript.swift */,
+				4E05D636255EBA63002307E0 /* Optional+Ext.swift */,
 			);
 			path = LangExt;
 			sourceTree = "<group>";
@@ -1087,7 +1094,6 @@
 				4ECCEEFA250C13240075F921 /* SnapKit */,
 				4E1070832534F742009EABDA /* KeychainSwift */,
 				4EF3ACF525506EC900BEC9F1 /* SwiftyMarkdown */,
-				4E0A8E84255DC16600B06AF6 /* MarkdownView */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */;
@@ -1165,7 +1171,6 @@
 				4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				4EF3ACF425506EC900BEC9F1 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */,
-				4E0A8E83255DC16600B06AF6 /* XCRemoteSwiftPackageReference "MarkdownView" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
@@ -1300,6 +1305,7 @@
 				4EFAB6112553279700B32780 /* CommunityHeaderCell.swift in Sources */,
 				4E9BBA24255534B0004FF2F9 /* LemmyModel.swift in Sources */,
 				4E0A8E62255D589A00B06AF6 /* ProfileScreenAboutAssembly.swift in Sources */,
+				4E05D637255EBA63002307E0 /* Optional+Ext.swift in Sources */,
 				4E886CA62540A27E0076B162 /* CreatePostUrlCell.swift in Sources */,
 				4ECCEEE0250B8DEE0075F921 /* Coordinator.swift in Sources */,
 				4E10705B253476FC009EABDA /* PostsFrontPageModel.swift in Sources */,
@@ -1307,6 +1313,7 @@
 				4ECCEF2F251253B00075F921 /* LemmySearchBarController.swift in Sources */,
 				4E1070712534E970009EABDA /* CreatePostOrCommunityViewController.swift in Sources */,
 				4ECCEF1D250D63BE0075F921 /* CommentRequests.swift in Sources */,
+				4E0A8E93255DDE4500B06AF6 /* PostScreenAssembly.swift in Sources */,
 				4EB89B0A2521FA73007129BF /* LoginOrRegisterButton.swift in Sources */,
 				4EF3AC90254B46BD00BEC9F1 /* ChooseCategoryUI.swift in Sources */,
 				4ECCEF0C250CCD3E0075F921 /* PostRequests.swift in Sources */,
@@ -1408,6 +1415,7 @@
 				4E0A8E3F255C01F400B06AF6 /* ProfileScreenCommentsTableDataSource.swift in Sources */,
 				4EBB22342559EF2100B88079 /* WeakBox.swift in Sources */,
 				4EBB22192559EB3600B88079 /* StyledNavigationController.swift in Sources */,
+				4E05D632255EB362002307E0 /* PostScreenTableDataSource.swift in Sources */,
 				4EF3ACEA25502D5600BEC9F1 /* CommunityHeaderView.swift in Sources */,
 				4E886C8D253F51B90076B162 /* CreatePostModel.swift in Sources */,
 				4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */,
@@ -1750,14 +1758,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4E0A8E83255DC16600B06AF6 /* XCRemoteSwiftPackageReference "MarkdownView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/keitaoouchi/MarkdownView.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.7.1;
-			};
-		};
 		4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
@@ -1785,11 +1785,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4E0A8E84255DC16600B06AF6 /* MarkdownView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E0A8E83255DC16600B06AF6 /* XCRemoteSwiftPackageReference "MarkdownView" */;
-			productName = MarkdownView;
-		};
 		4E1070832534F742009EABDA /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */;

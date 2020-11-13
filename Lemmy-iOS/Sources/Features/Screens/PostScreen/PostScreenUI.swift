@@ -9,112 +9,101 @@
 import UIKit
 import SafariServices
 
-class PostScreenUI: UIView {
+extension PostScreenViewController {
     
-    var presentOnVc: ((UIViewController) -> Void)?
-    var dismissOnVc: (() -> Void)?
-    
-    let tableView = LemmyTableView(style: .plain)
-
-    let postInfo: LemmyModel.PostView
-    var commentsDataSource: [LemmyModel.CommentView] = [] {
-        didSet {
-            self.commentListing = CommentListingSort(comments: self.commentsDataSource)
-            self.commentTrees = commentListing?.createTreeOfReplies()
-
-            DispatchQueue.main.async {
-                self.tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
+    class View: UIView {
+        
+        struct ViewData {
+            let post: LemmyModel.PostView
+            let comments: [CommentNode]
+        }
+        
+        var presentOnVc: ((UIViewController) -> Void)?
+        var dismissOnVc: (() -> Void)?
+        
+        lazy var tableView = LemmyTableView(style: .plain).then {
+            $0.delegate = self
+            $0.registerClass(CommentTreeTableCell.self)
+        }
+        
+        var postInfo: LemmyModel.PostView? {
+            didSet {
+                tableView.tableHeaderView = PostScreenUITableCell(post: postInfo.require())
             }
         }
-    }
-
-    private var commentListing: CommentListingSort?
-    private var commentTrees: [CommentNode]?
-
-    init(post: LemmyModel.PostView) {
-        self.postInfo = post
-        super.init(frame: .zero)
-
-        self.addSubview(tableView)
-
-        tableView.delegate = self
-        tableView.dataSource = self
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func layoutSubviews() {
-        self.tableView.snp.makeConstraints { (make) in
-            make.top.bottom.leading.trailing.equalToSuperview()
-        }
-    }
-    
-    private func openLink(urlString: String?) {
-        if let str = urlString, let url = URL(string: str) {
+        
+        init() {
+            super.init(frame: .zero)
             
-            let vc = SFSafariViewController(url: url)
-            vc.delegate = self
+            self.setupView()
+            self.addSubviews()
+            self.makeConstraints()
+        }
+        
+        @available(*, unavailable)
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        func showLoadingView() {
+            tableView.showActivityIndicator()
+        }
 
-            presentOnVc?(vc)
+        func hideLoadingView() {
+            tableView.hideActivityIndicator()
+        }
+        
+        func updateTableViewData(dataSource: UITableViewDataSource) {
+            _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
+//            self.emptyStateLabel.isHidden = numberOfRows != 0
+
+            self.tableView.dataSource = dataSource
+            self.tableView.reloadData()
+        }
+                
+        private func openLink(urlString: String?) {
+            if let str = urlString, let url = URL(string: str) {
+                
+                let vc = SFSafariViewController(url: url)
+                vc.delegate = self
+                
+                presentOnVc?(vc)
+            }
+        }
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            self.tableView.layoutTableHeaderView()
         }
     }
 }
 
-extension PostScreenUI: SFSafariViewControllerDelegate {
+extension PostScreenViewController.View: ProgrammaticallyViewProtocol {
+    func addSubviews() {
+        self.addSubview(tableView)
+    }
+    
+    func makeConstraints() {
+        self.tableView.snp.makeConstraints { (make) in
+            make.top.bottom.leading.trailing.equalToSuperview()
+        }
+    }
+}
+
+extension PostScreenViewController.View: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         self.dismissOnVc?()
     }
 }
 
-extension PostScreenUI: UITableViewDelegate, UITableViewDataSource {
-    enum PostScreenTableCellType: Equatable, Comparable, CaseIterable {
-        case post, comments
-    }
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return PostScreenTableCellType.allCases.count
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let types = PostScreenTableCellType.allCases[section]
-
-        switch types {
-        case .post:
-            return 1
-        case .comments:
-            if let commentTrees = commentTrees {
-                return commentTrees.count
-            }
-            return 0
-        }
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let types = PostScreenTableCellType.allCases[indexPath.section]
-
-        switch types {
-        case .post:
-            let cell = PostScreenUITableCell(post: postInfo)
-            cell.postGreenOutlineView.addTap {
-                self.openLink(urlString: cell.postGreenOutlineView.viewData.url)
-            }
-            return cell
-        case .comments:
-            guard let commentTrees = commentTrees else { return UITableViewCell() }
-
-            let cell = CommentTreeTableCell(commentNode: commentTrees[indexPath.row])
-            return cell
-        }
-    }
-
+extension PostScreenViewController.View: UITableViewDelegate {    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
-private class PostScreenUITableCell: UITableViewCell {
+private class PostScreenUITableCell: UIView {
+    
     let postHeaderView = PostContentView()
     private(set) lazy var postGreenOutlineView = LemmyGreenOutlinePostEmbed(
         with:
@@ -124,32 +113,40 @@ private class PostScreenUITableCell: UITableViewCell {
                 url: postInfo.url
             )
     )
-
+    
     let postInfo: LemmyModel.PostView
-
+    
     init(post: LemmyModel.PostView) {
         self.postInfo = post
-        super.init(style: .default, reuseIdentifier: nil)
-
-        createSubviews()
-        setupUI()
+        super.init(frame: .zero)
+        
+        setupView()
+        addSubviews()
+        makeConstraints()
     }
-
+    
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
 
-    private func createSubviews() {
-        // post header view
+extension PostScreenUITableCell: ProgrammaticallyViewProtocol {
+    func setupView() {
+        self.backgroundColor = UIColor.systemBackground
         postHeaderView.bind(with: postInfo, config: .fullPost)
-
-        self.contentView.addSubview(postHeaderView)
-        self.contentView.addSubview(postGreenOutlineView)
-
+    }
+    
+    func addSubviews() {
+        self.addSubview(postHeaderView)
+        self.addSubview(postGreenOutlineView)
+    }
+    
+    func makeConstraints() {
         self.postHeaderView.snp.makeConstraints { (make) in
             make.top.trailing.leading.equalToSuperview()
         }
-
+        
         if !postGreenOutlineView.isHidden {
             self.postGreenOutlineView.snp.makeConstraints { (make) in
                 make.top.equalTo(postHeaderView.snp.bottom).offset(10)
@@ -161,10 +158,5 @@ private class PostScreenUITableCell: UITableViewCell {
                 make.top.trailing.leading.bottom.equalToSuperview()
             }
         }
-    }
-
-    func setupUI() {
-        self.backgroundColor = UIColor.systemBackground
-        self.selectionStyle = .none
     }
 }
