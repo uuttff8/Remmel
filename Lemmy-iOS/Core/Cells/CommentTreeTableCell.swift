@@ -98,6 +98,7 @@ extension CommentTreeTableCell: UITableViewDataSource, UITableViewDelegate {
         guard let commentNode = commentNode else { return UITableViewCell() }
         let commentSectionData = commentNode.replies[indexPath.section]
         let cell = CommentTreeTableCell()
+        cell.bind(with: commentSectionData)
         return cell
     }
 }
