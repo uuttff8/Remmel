@@ -55,6 +55,14 @@ extension RequestsManager: LemmyPostRequestManagerProtocol {
             completion: completion
         )
     }
+    
+    func asyncGetPost(
+        parameters: LemmyModel.Post.GetPostRequest
+    ) -> AnyPublisher<LemmyModel.Post.GetPostResponse, LemmyGenericError> {
+        
+        asyncRequestDecodable(path: WSEndpoint.Post.getPost.endpoint,
+                              parameters: parameters)
+    }
 
     func createPost(
         parameters: LemmyModel.Post.CreatePostRequest,
