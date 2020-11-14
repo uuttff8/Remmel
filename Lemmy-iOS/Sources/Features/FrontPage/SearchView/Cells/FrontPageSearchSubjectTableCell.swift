@@ -10,6 +10,12 @@ import UIKit
 
 class FrontPageSearchSubjectTableCell: UITableViewCell {
         
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        textLabel?.font = .systemFont(ofSize: 14)
+    }
+    
     func configure(with query: String, type: SearchView.TableRow) {
         
         switch type {
