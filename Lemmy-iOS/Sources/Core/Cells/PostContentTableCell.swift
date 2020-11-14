@@ -77,7 +77,7 @@ class PostContentView: UIView {
                                 avatarImageUrl: post.creatorAvatar,
                                 username: post.creatorName,
                                 community: post.communityName,
-                                published: post.published.shortTimeAgoSinceNow,
+                                published: post.published.require().shortTimeAgoSinceNow,
                                 urlDomain: post.getUrlDomain()
                             )
         )

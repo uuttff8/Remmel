@@ -19,7 +19,7 @@ enum LemmyModel {
         let communityId: Int
         let removed: Bool
         let locked: Bool
-        let published: Date // Timestamp
+        let published: Date? // Timestamp
         let updated: Date? // Timestamp
         let deleted: Bool
         let nsfw: Bool

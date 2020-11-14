@@ -129,7 +129,7 @@ class RequestsManager {
                 let dec = try decoder.decode(D.self, from: data)
                 completion(.success(dec))
             } catch {
-                completion(.failure(.string("JSON decoding failed with error: \(error)".errorDescription)))
+                completion(.failure(.string("JSON decoding failed with error: \(error)")))
             }
         }
     }

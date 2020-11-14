@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 class PostsFrontPageModel: NSObject {
     var goToPostScreen: ((LemmyModel.PostView) -> Void)?
@@ -14,6 +15,8 @@ class PostsFrontPageModel: NSObject {
     var goToProfileScreen: ((_ username: String) -> Void)?
     var newDataLoaded: (([LemmyModel.PostView]) -> Void)?
     var dataLoaded: (([LemmyModel.PostView]) -> Void)?
+    
+    private var cancellable = Set<AnyCancellable>()
     
     var isFetchingNewContent = false
     var currentPage = 1
@@ -50,17 +53,14 @@ class PostsFrontPageModel: NSObject {
                                                          communityName: nil,
                                                          auth: LemmyShareData.shared.jwtToken)
         
-        ApiManager.shared.requestsManager.getPosts(
-            parameters: parameters,
-            completion: { (dec: Result<LemmyModel.Post.GetPostsResponse, LemmyGenericError>) in
-                switch dec {
-                case .success(let posts):
-                    self.postsDataSource = posts.posts
-                    self.dataLoaded?(posts.posts)
-                case .failure(let error):
-                    print(error)
-                }
-            })
+        ApiManager.shared.requestsManager.asyncGetPosts(parameters: parameters)
+            .receive(on: RunLoop.main)
+            .sink { (error) in
+                print(error)
+            } receiveValue: { (response) in
+                self.postsDataSource = response.posts
+                self.dataLoaded?(response.posts)
+            }.store(in: &cancellable)
     }
     
     func loadMorePosts(completion: @escaping (() -> Void)) {
