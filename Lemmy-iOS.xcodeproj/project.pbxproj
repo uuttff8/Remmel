@@ -168,6 +168,7 @@
 		4EFA81B0255F3FEB008AF535 /* FrontPageSearchSubjectTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA81AF255F3FEB008AF535 /* FrontPageSearchSubjectTableCell.swift */; };
 		4EFA81B6255FF6B7008AF535 /* UserAccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA81B5255FF6B7008AF535 /* UserAccountService.swift */; };
 		4EFA81BB255FFD14008AF535 /* FrontPageAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA81BA255FFD14008AF535 /* FrontPageAssembly.swift */; };
+		4EFA81C325600056008AF535 /* FrontPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA81C225600056008AF535 /* FrontPageViewModel.swift */; };
 		4EFAB5912551858C00B32780 /* UIAlertController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5902551858C00B32780 /* UIAlertController+Ext.swift */; };
 		4EFAB5C22552D32600B32780 /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5C12552D32600B32780 /* Then.swift */; };
 		4EFAB5C72552F85D00B32780 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5C62552F85D00B32780 /* UIView+Ext.swift */; };
@@ -363,6 +364,7 @@
 		4EFA81AF255F3FEB008AF535 /* FrontPageSearchSubjectTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageSearchSubjectTableCell.swift; sourceTree = "<group>"; };
 		4EFA81B5255FF6B7008AF535 /* UserAccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountService.swift; sourceTree = "<group>"; };
 		4EFA81BA255FFD14008AF535 /* FrontPageAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageAssembly.swift; sourceTree = "<group>"; };
+		4EFA81C225600056008AF535 /* FrontPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageViewModel.swift; sourceTree = "<group>"; };
 		4EFAB5902551858C00B32780 /* UIAlertController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Ext.swift"; sourceTree = "<group>"; };
 		4EFAB5C12552D32600B32780 /* Then.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Then.swift; sourceTree = "<group>"; };
 		4EFAB5C62552F85D00B32780 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
@@ -853,6 +855,7 @@
 				4ECCEEFC250C151A0075F921 /* cells */,
 				4EFA81BA255FFD14008AF535 /* FrontPageAssembly.swift */,
 				4ECCEEEC250BE8870075F921 /* FrontPageViewController.swift */,
+				4EFA81C225600056008AF535 /* FrontPageViewModel.swift */,
 				4ECCEEEE250BE89B0075F921 /* FrontPageCoordinator.swift */,
 			);
 			path = FrontPage;
@@ -1332,6 +1335,7 @@
 				4ECCEEE7250B8FA80075F921 /* AuthCoordinator.swift in Sources */,
 				4E886C69253CD2950076B162 /* CreatePresentTransitionDriver.swift in Sources */,
 				4E0A8E8B255DD01500B06AF6 /* FrontPageSearchView.swift in Sources */,
+				4EFA81C325600056008AF535 /* FrontPageViewModel.swift in Sources */,
 				4E886D4B2545B81A0076B162 /* PictrsRequests.swift in Sources */,
 				4EFAB6112553279700B32780 /* CommunityHeaderCell.swift in Sources */,
 				4E9BBA24255534B0004FF2F9 /* LemmyModel.swift in Sources */,
