@@ -27,7 +27,9 @@ class FrontPageCoordinator: Coordinator {
     lazy var searchViewController = FrontPageSearchViewController()
 
     init(navigationController: UINavigationController?) {
-        self.rootViewController = FrontPageViewController()
+        let assembly = FrontPageAssembly()
+        
+        self.rootViewController = assembly.makeModule() as! FrontPageViewController
         self.navigationController = navigationController
     }
 
@@ -50,7 +52,7 @@ class FrontPageCoordinator: Coordinator {
     }
     
     func goToLoginScreen(authMethod: LemmyAuthMethod) {
-        let loginCoordinator = LoginCoordinator(navigationController: StyledNavigationController(),
+        let loginCoordinator = LoginCoordinator(navigationController: UINavigationController(),
                                                 authMethod: authMethod)
         self.store(coordinator: loginCoordinator)
         loginCoordinator.start()

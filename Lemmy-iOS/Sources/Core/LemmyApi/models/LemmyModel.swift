@@ -429,6 +429,8 @@ enum LemmyModel {
 
     // MARK: - UserView -
     struct UserView: Codable, Equatable, Hashable {
+        typealias UserId = Int
+        
         let id: Int
         let actorId: String
         let name: String
@@ -464,6 +466,8 @@ enum LemmyModel {
     // MARK: - MyUser -
     // inner struct in lemmy backend called User_, that is why its not a *View
     struct MyUser: Codable, Equatable {
+        typealias UserId = Int
+        
         let id: Int
         let name: String
         let preferredUsername: String?

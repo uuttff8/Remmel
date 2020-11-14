@@ -166,6 +166,8 @@
 		4EFA8157255F3215008AF535 /* FrontPageSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA8156255F3215008AF535 /* FrontPageSearchViewController.swift */; };
 		4EFA81AA255F3CE9008AF535 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA81A9255F3CE9008AF535 /* SearchViewModel.swift */; };
 		4EFA81B0255F3FEB008AF535 /* FrontPageSearchSubjectTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA81AF255F3FEB008AF535 /* FrontPageSearchSubjectTableCell.swift */; };
+		4EFA81B6255FF6B7008AF535 /* UserAccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA81B5255FF6B7008AF535 /* UserAccountService.swift */; };
+		4EFA81BB255FFD14008AF535 /* FrontPageAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA81BA255FFD14008AF535 /* FrontPageAssembly.swift */; };
 		4EFAB5912551858C00B32780 /* UIAlertController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5902551858C00B32780 /* UIAlertController+Ext.swift */; };
 		4EFAB5C22552D32600B32780 /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5C12552D32600B32780 /* Then.swift */; };
 		4EFAB5C72552F85D00B32780 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5C62552F85D00B32780 /* UIView+Ext.swift */; };
@@ -359,6 +361,8 @@
 		4EFA8156255F3215008AF535 /* FrontPageSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageSearchViewController.swift; sourceTree = "<group>"; };
 		4EFA81A9255F3CE9008AF535 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		4EFA81AF255F3FEB008AF535 /* FrontPageSearchSubjectTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageSearchSubjectTableCell.swift; sourceTree = "<group>"; };
+		4EFA81B5255FF6B7008AF535 /* UserAccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountService.swift; sourceTree = "<group>"; };
+		4EFA81BA255FFD14008AF535 /* FrontPageAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageAssembly.swift; sourceTree = "<group>"; };
 		4EFAB5902551858C00B32780 /* UIAlertController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Ext.swift"; sourceTree = "<group>"; };
 		4EFAB5C12552D32600B32780 /* Then.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Then.swift; sourceTree = "<group>"; };
 		4EFAB5C62552F85D00B32780 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
@@ -486,6 +490,7 @@
 		4E1070882534F78D009EABDA /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				4EFA81B4255FF64A008AF535 /* Services */,
 				4EBB22322559EF1800B88079 /* Concurrency */,
 				4EB89B3925220DB0007129BF /* Common */,
 				4EFAB5CE2552F97600B32780 /* LangExt */,
@@ -846,6 +851,7 @@
 				4E107051253476D4009EABDA /* Comments */,
 				4E10704F253476C7009EABDA /* Posts */,
 				4ECCEEFC250C151A0075F921 /* cells */,
+				4EFA81BA255FFD14008AF535 /* FrontPageAssembly.swift */,
 				4ECCEEEC250BE8870075F921 /* FrontPageViewController.swift */,
 				4ECCEEEE250BE89B0075F921 /* FrontPageCoordinator.swift */,
 			);
@@ -1042,6 +1048,14 @@
 				4EFA81AF255F3FEB008AF535 /* FrontPageSearchSubjectTableCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		4EFA81B4255FF64A008AF535 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4EFA81B5255FF6B7008AF535 /* UserAccountService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		4EFAB58F2551857C00B32780 /* UIExt */ = {
@@ -1368,6 +1382,7 @@
 				4EBB22262559EBAA00B88079 /* ColorPalette.swift in Sources */,
 				4ECCEEEA250BA6230075F921 /* WSLemmyClient.swift in Sources */,
 				4EBB224C255ADE4C00B88079 /* TabSegmentedControlView.swift in Sources */,
+				4EFA81B6255FF6B7008AF535 /* UserAccountService.swift in Sources */,
 				4E886C88253F4FF40076B162 /* CreatePostUI.swift in Sources */,
 				4E886C7E253F4F290076B162 /* CreatePostViewController.swift in Sources */,
 				4ECCEF25250FB3E50075F921 /* CommunitiesModel.swift in Sources */,
@@ -1409,6 +1424,7 @@
 				4E886CF1254430970076B162 /* HttpLemmyClient.swift in Sources */,
 				4E9BBA5425555571004FF2F9 /* LemmySortListingPickersView.swift in Sources */,
 				4E0A8E71255D58E400B06AF6 /* ProfileScreenAboutUI.swift in Sources */,
+				4EFA81BB255FFD14008AF535 /* FrontPageAssembly.swift in Sources */,
 				4E886C36253872D10076B162 /* SignUpModel.swift in Sources */,
 				4E10709D25361846009EABDA /* SignInView.swift in Sources */,
 				4E886C2B253758A30076B162 /* LemmyModel+Site.swift in Sources */,

@@ -9,25 +9,56 @@
 import UIKit
 import SnapKit
 
+protocol FrontPageViewModelProtocol {
+    func doNavBarProfileAction()
+}
+
+class FrontPageViewModel: FrontPageViewModelProtocol {
+    private let userAccountService: UserAccountSerivceProtocol
+    
+    weak var viewController: FrontPageViewControllerProtocol?
+    
+    init(
+        userAccountService: UserAccountSerivceProtocol
+    ) {
+        self.userAccountService = userAccountService
+    }
+    
+    func doNavBarProfileAction() {
+        if let user = self.userAccountService.currentUser {
+            self.viewController?.displayProfileScreen(viewModel: .init(user: user))
+        } else {
+            self.viewController?.displayAutorizationAlert()
+        }
+    }
+}
+
+enum FrontPage {
+    
+    enum ProfileAction {
+        
+        struct ViewModel {
+            let user: LemmyModel.MyUser
+        }
+    }
+}
+
+protocol FrontPageViewControllerProtocol: AnyObject {
+    func displayAutorizationAlert()
+    func displayProfileScreen(viewModel: FrontPage.ProfileAction.ViewModel)
+}
+
 class FrontPageViewController: UIViewController {
 
     weak var coordinator: FrontPageCoordinator?
+    
+    private let viewModel: FrontPageViewModelProtocol
     
     private lazy var navBar: LemmyFrontPageNavBar = {
         let bar = LemmyFrontPageNavBar()
         bar.searchBar.delegate = self
         bar.onProfileIconTap = {
-            if let username = LemmyShareData.shared.userdata?.name {
-                self.coordinator?.goToProfileScreen(by: username)
-            } else {
-                UIAlertController.showLoginOrRegisterAlert(
-                    on: self,
-                    onLogin: {
-                        self.coordinator?.goToLoginScreen(authMethod: .login)
-                    }, onRegister: {
-                        self.coordinator?.goToLoginScreen(authMethod: .register)
-                    })
-            }
+            self.viewModel.doNavBarProfileAction()
         }
         return bar
     }()
@@ -56,7 +87,17 @@ class FrontPageViewController: UIViewController {
             }
         }
     }
-
+    
+    init(viewModel: FrontPageViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.systemBackground
@@ -121,6 +162,22 @@ class FrontPageViewController: UIViewController {
         self.toolbar.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
+    }
+}
+
+extension FrontPageViewController: FrontPageViewControllerProtocol {
+    func displayAutorizationAlert() {
+        UIAlertController.showLoginOrRegisterAlert(
+            on: self,
+            onLogin: {
+                self.coordinator?.goToLoginScreen(authMethod: .login)
+            }, onRegister: {
+                self.coordinator?.goToLoginScreen(authMethod: .register)
+            })
+    }
+    
+    func displayProfileScreen(viewModel: FrontPage.ProfileAction.ViewModel) {
+        self.coordinator?.goToProfileScreen(by: viewModel.user.name)
     }
 }
 

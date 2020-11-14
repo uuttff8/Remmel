@@ -33,10 +33,9 @@ class LoginData {
         userDefaults.resetDefaults()
         URLCache.shared.removeAllCachedResponses()
     }
-
-    // LEGACY
-    func isLoggedIn() -> Bool {
-        return jwtToken != nil && userId != nil
+    
+    var isLoggedIn: Bool {
+        jwtToken != nil && userId != nil
     }
 
     var jwtToken: String? {
@@ -44,8 +43,8 @@ class LoginData {
         set { keychain.set(newValue!, forKey: LemmyShareData.Constants.jwt) }
     }
 
-    var userId: String? {
-        get { userDefaults.string(forKey: LemmyShareData.Constants.userId) }
+    var userId: LemmyModel.MyUser.UserId? {
+        get { userDefaults.integer(forKey: LemmyShareData.Constants.userId) }
         set { userDefaults.set(newValue, forKey: LemmyShareData.Constants.userId) }
     }
 
