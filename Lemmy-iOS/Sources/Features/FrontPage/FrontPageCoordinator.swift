@@ -64,9 +64,18 @@ class FrontPageCoordinator: Coordinator {
 
         rootViewController.present(loginNavController, animated: true, completion: nil)
     }
-
+    
+    func goToPostScreen(postId: Int) {
+        self.goToPostScreenWrapper(post: nil, postId: postId)
+    }
+    
     func goToPostScreen(post: LemmyModel.PostView) {
-        let assembly = PostScreenAssembly(postId: post.id, postInfo: post)
+        self.goToPostScreenWrapper(post: post, postId: post.id)
+    }
+    
+    private func goToPostScreenWrapper(post: LemmyModel.PostView?, postId: Int) {
+        let assembly = PostScreenAssembly(postId: postId
+                                          , postInfo: post)
         self.navigationController?.pushViewController(assembly.makeModule(), animated: true)
     }
     

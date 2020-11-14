@@ -67,6 +67,8 @@ class PostsFrontPageViewController: UIViewController {
         tableView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
+        
+        tableView.layoutTableHeaderView()
     }
     
     func addRows(with list: [LemmyModel.PostView], animate: Bool = true) {

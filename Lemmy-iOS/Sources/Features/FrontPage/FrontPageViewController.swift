@@ -69,6 +69,8 @@ class FrontPageViewController: UIViewController {
         self.view.backgroundColor = UIColor.systemBackground
         self.headerSegmentView.delegate = self
         
+        self.currentViewController = coordinator?.postsViewController
+        
         setupToolbar()
         setupNavigationItem()
         setupContainered()
@@ -76,12 +78,6 @@ class FrontPageViewController: UIViewController {
         self.hideKeyboardWhenTappedAround()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        self.currentViewController = coordinator?.postsViewController
-    }
-    
     func configureSearchView(_ searchView: UIView) {
         self.view.addSubview(searchView)
         searchView.snp.makeConstraints {

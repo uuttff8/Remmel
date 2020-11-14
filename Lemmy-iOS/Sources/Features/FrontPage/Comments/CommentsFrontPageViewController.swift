@@ -31,10 +31,6 @@ class CommentsFrontPageViewController: UIViewController {
 
         self.view.addSubview(tableView)
 
-        tableView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
-
         model.loadComments()
 
         model.dataLoaded = { [self] newComments in
@@ -46,8 +42,18 @@ class CommentsFrontPageViewController: UIViewController {
         }
         
         model.goToPostScreen = { postId in
-            fatalError("Impl post screen by post id")
+            self.coordinator?.goToPostScreen(postId: postId)
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        tableView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
+        tableView.layoutTableHeaderView()
     }
 
     func addRows(with list: [LemmyModel.CommentView], animate: Bool = true) {
