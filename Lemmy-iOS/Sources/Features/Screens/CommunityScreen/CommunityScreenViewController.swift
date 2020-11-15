@@ -15,8 +15,6 @@ protocol CommunityScreenViewControllerProtocol: AnyObject {
 }
 
 class CommunityScreenViewController: UIViewController {
-    weak var coordinator: FrontPageCoordinator?
-    
     private let viewModel: CommunityScreenViewModelProtocol
     private let tableDataSource = CommunityScreenTableDataSource()
 
@@ -128,6 +126,11 @@ extension CommunityScreenViewController: CommunityScreenViewControllerProtocol {
 }
 
 extension CommunityScreenViewController: CommunityScreenViewDelegate {
+    func communityView(_ communityView: View, didTapPost atIndexPath: IndexPath) {
+        guard let post = self.tableDataSource.viewModels[safe: atIndexPath.row] else { return }
+        fatalError("handle it with coordinators")
+    }
+    
     func communityViewDidPickerTapped(_ communityView: View, toVc: UIViewController) {
         self.present(toVc, animated: true)
     }

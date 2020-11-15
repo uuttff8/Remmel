@@ -49,11 +49,7 @@ class LoginData {
     }
 
     func clear() {
+        userDefaults.removeSuite(named: UserDefaults.appSuiteName)
         keychain.clear()
-        clearUserId()
-    }
-
-    private func clearUserId() {
-        userDefaults.removeObject(forKey: LemmyShareData.Constants.userId)
     }
 }

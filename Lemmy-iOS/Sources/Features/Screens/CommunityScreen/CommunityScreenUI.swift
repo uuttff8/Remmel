@@ -9,8 +9,12 @@
 import UIKit
 
 protocol CommunityScreenViewDelegate: AnyObject {
-    func communityViewDidReadMoreTapped(_ communityView: CommunityScreenViewController.View, toVc: MarkdownParsedViewController)
+    func communityViewDidReadMoreTapped(
+        _ communityView: CommunityScreenViewController.View,
+        toVc: MarkdownParsedViewController
+    )
     func communityViewDidPickerTapped(_ communityView: CommunityScreenViewController.View, toVc: UIViewController)
+    func communityView(_ communityView: CommunityScreenViewController.View, didTapPost atIndexPath: IndexPath)
 }
 
 extension CommunityScreenViewController {
@@ -137,7 +141,6 @@ extension CommunityScreenViewController.View: UITableViewDelegate {
     }
     
     private func handleDidSelectForPosts(indexPath: IndexPath) {
-        //        self.goToPostScreen?(postsSubject[indexPath.row])
+        self.delegate?.communityView(self, didTapPost: indexPath)
     }
 }
-
