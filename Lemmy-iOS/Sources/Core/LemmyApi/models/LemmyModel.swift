@@ -204,6 +204,8 @@ enum LemmyModel {
 
     // MARK: - CommunityView -
     struct CommunityView: Codable, Equatable, Hashable {
+        typealias Id = Int
+        
         let id: Int
         let name, title: String
         let icon, banner, description: String?

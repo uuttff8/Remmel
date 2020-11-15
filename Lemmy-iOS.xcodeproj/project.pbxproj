@@ -169,6 +169,10 @@
 		4EFA81B6255FF6B7008AF535 /* UserAccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA81B5255FF6B7008AF535 /* UserAccountService.swift */; };
 		4EFA81BB255FFD14008AF535 /* FrontPageAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA81BA255FFD14008AF535 /* FrontPageAssembly.swift */; };
 		4EFA81C325600056008AF535 /* FrontPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA81C225600056008AF535 /* FrontPageViewModel.swift */; };
+		4EFA81CB256165A4008AF535 /* CommunityScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA81CA256165A4008AF535 /* CommunityScreenAssembly.swift */; };
+		4EFA81D0256165B1008AF535 /* CommunityScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA81CF256165B1008AF535 /* CommunityScreenViewModel.swift */; };
+		4EFA81D525617580008AF535 /* CommunityScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA81D425617580008AF535 /* CommunityScreenUI.swift */; };
+		4EFA81DA256175B3008AF535 /* CommunityTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA81D9256175B3008AF535 /* CommunityTableDataSource.swift */; };
 		4EFAB5912551858C00B32780 /* UIAlertController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5902551858C00B32780 /* UIAlertController+Ext.swift */; };
 		4EFAB5C22552D32600B32780 /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5C12552D32600B32780 /* Then.swift */; };
 		4EFAB5C72552F85D00B32780 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5C62552F85D00B32780 /* UIView+Ext.swift */; };
@@ -365,6 +369,10 @@
 		4EFA81B5255FF6B7008AF535 /* UserAccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountService.swift; sourceTree = "<group>"; };
 		4EFA81BA255FFD14008AF535 /* FrontPageAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageAssembly.swift; sourceTree = "<group>"; };
 		4EFA81C225600056008AF535 /* FrontPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageViewModel.swift; sourceTree = "<group>"; };
+		4EFA81CA256165A4008AF535 /* CommunityScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityScreenAssembly.swift; sourceTree = "<group>"; };
+		4EFA81CF256165B1008AF535 /* CommunityScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityScreenViewModel.swift; sourceTree = "<group>"; };
+		4EFA81D425617580008AF535 /* CommunityScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityScreenUI.swift; sourceTree = "<group>"; };
+		4EFA81D9256175B3008AF535 /* CommunityTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityTableDataSource.swift; sourceTree = "<group>"; };
 		4EFAB5902551858C00B32780 /* UIAlertController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Ext.swift"; sourceTree = "<group>"; };
 		4EFAB5C12552D32600B32780 /* Then.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Then.swift; sourceTree = "<group>"; };
 		4EFAB5C62552F85D00B32780 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
@@ -991,8 +999,12 @@
 			isa = PBXGroup;
 			children = (
 				4EF3ACE5254EFB8C00BEC9F1 /* cells */,
+				4EFA81CA256165A4008AF535 /* CommunityScreenAssembly.swift */,
 				4EF3ACD0254EF82C00BEC9F1 /* CommunityScreenViewController.swift */,
+				4EFA81D425617580008AF535 /* CommunityScreenUI.swift */,
 				4EF3ACD8254EF84B00BEC9F1 /* CommunityScreenModel.swift */,
+				4EFA81D9256175B3008AF535 /* CommunityTableDataSource.swift */,
+				4EFA81CF256165B1008AF535 /* CommunityScreenViewModel.swift */,
 			);
 			path = CommunityScreen;
 			sourceTree = "<group>";
@@ -1336,6 +1348,7 @@
 				4E886C69253CD2950076B162 /* CreatePresentTransitionDriver.swift in Sources */,
 				4E0A8E8B255DD01500B06AF6 /* FrontPageSearchView.swift in Sources */,
 				4EFA81C325600056008AF535 /* FrontPageViewModel.swift in Sources */,
+				4EFA81CB256165A4008AF535 /* CommunityScreenAssembly.swift in Sources */,
 				4E886D4B2545B81A0076B162 /* PictrsRequests.swift in Sources */,
 				4EFAB6112553279700B32780 /* CommunityHeaderCell.swift in Sources */,
 				4E9BBA24255534B0004FF2F9 /* LemmyModel.swift in Sources */,
@@ -1391,6 +1404,7 @@
 				4E886C7E253F4F290076B162 /* CreatePostViewController.swift in Sources */,
 				4ECCEF25250FB3E50075F921 /* CommunitiesModel.swift in Sources */,
 				4E886CA1254093050076B162 /* CreatePostCommunityCell.swift in Sources */,
+				4EFA81D525617580008AF535 /* CommunityScreenUI.swift in Sources */,
 				4EBB2276255AF77400B88079 /* ProfileScreenPostsInputOutput.swift in Sources */,
 				4EF3AD0A25510D1900BEC9F1 /* CommunityContentTypePickerView.swift in Sources */,
 				4EBB2244255AD50C00B88079 /* ProfileScreenHeaderView.swift in Sources */,
@@ -1432,6 +1446,7 @@
 				4E886C36253872D10076B162 /* SignUpModel.swift in Sources */,
 				4E10709D25361846009EABDA /* SignInView.swift in Sources */,
 				4E886C2B253758A30076B162 /* LemmyModel+Site.swift in Sources */,
+				4EFA81D0256165B1008AF535 /* CommunityScreenViewModel.swift in Sources */,
 				4E886C73253CD4270076B162 /* CreateDismissTransitionDriver.swift in Sources */,
 				4ECCEEF4250C04280075F921 /* LemmyTabBarController.swift in Sources */,
 				4EF3AC85254B456400BEC9F1 /* CreateCommunityChooseCategoryCell.swift in Sources */,
@@ -1453,6 +1468,7 @@
 				4EFAB5E22552FA5C00B32780 /* UIBarButton+Ext.swift in Sources */,
 				4E9BBA592555560C004FF2F9 /* LemmyImageTextPickerView.swift in Sources */,
 				4E0A8E3F255C01F400B06AF6 /* ProfileScreenCommentsTableDataSource.swift in Sources */,
+				4EFA81DA256175B3008AF535 /* CommunityTableDataSource.swift in Sources */,
 				4EBB22342559EF2100B88079 /* WeakBox.swift in Sources */,
 				4EBB22192559EB3600B88079 /* StyledNavigationController.swift in Sources */,
 				4E05D632255EB362002307E0 /* PostScreenTableDataSource.swift in Sources */,

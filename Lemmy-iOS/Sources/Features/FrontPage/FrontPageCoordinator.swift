@@ -80,9 +80,9 @@ class FrontPageCoordinator: Coordinator {
     }
     
     func goToCommunityScreen(communityId: Int) {
-        let commScreen = CommunityScreenViewController(fromId: communityId)
-        commScreen.coordinator = self
-        self.navigationController?.pushViewController(commScreen, animated: true)
+        let assembly = CommunityScreenAssembly(communityId: communityId, communityInfo: nil)
+        let module = assembly.makeModule()
+        self.navigationController?.pushViewController(module, animated: true)
     }
     
     func goToProfileScreen(by username: String) {
