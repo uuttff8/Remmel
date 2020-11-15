@@ -66,7 +66,7 @@ class ChooseCommunityUI: UIView {
         tableView.dataSource = self
         tableView.delegate = self
 
-        model.communitiesLoaded = { newCommunities in
+        model.communitiesLoaded = { _ in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
