@@ -12,6 +12,7 @@ protocol UserAccountSerivceProtocol {
     var currentUser: LemmyModel.MyUser? { get }
     var currentUserID: LemmyModel.MyUser.UserId? { get }
     var isAuthorized: Bool { get }
+    var jwtToken: String? { get }
 
     func logOut()
 }
@@ -21,6 +22,8 @@ final class UserAccountService: UserAccountSerivceProtocol {
     var currentUser: LemmyModel.MyUser? { LemmyShareData.shared.userdata }
     
     var currentUserID: LemmyModel.MyUser.UserId? { LemmyShareData.shared.loginData.userId }
+    
+    var jwtToken: String? { LemmyShareData.shared.jwtToken }
     
     var isAuthorized: Bool { LemmyShareData.shared.loginData.isLoggedIn }
     

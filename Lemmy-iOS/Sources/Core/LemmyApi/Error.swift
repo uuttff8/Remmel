@@ -10,11 +10,14 @@ import Foundation
 
 enum LemmyGenericError: Error {
     case string(String)
+    case error(Error)
     
     var description: String {
         switch self {
         case .string(let str):
             return str
+        case .error(let err):
+            return err as! String
         }
     }
 }

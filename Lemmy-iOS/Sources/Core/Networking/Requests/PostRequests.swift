@@ -28,6 +28,10 @@ private protocol LemmyPostRequestManagerProtocol {
     func asyncGetPosts(
         parameters: LemmyModel.Post.GetPostsRequest
     ) -> AnyPublisher<LemmyModel.Post.GetPostsResponse, LemmyGenericError>
+    
+    func asyncCreatePostLike(
+        parameters: LemmyModel.Post.CreatePostLikeRequest
+    ) -> AnyPublisher<LemmyModel.Post.CreatePostLikeResponse, LemmyGenericError>
 }
 
 extension RequestsManager: LemmyPostRequestManagerProtocol {
@@ -85,5 +89,11 @@ extension RequestsManager: LemmyPostRequestManagerProtocol {
             parameters: parameters
         )
     }
-
+    
+    func asyncCreatePostLike(
+        parameters: LemmyModel.Post.CreatePostLikeRequest
+    ) -> AnyPublisher<LemmyModel.Post.CreatePostLikeResponse, LemmyGenericError> {
+        
+        asyncRequestDecodable(path: WSEndpoint.Post.createPostLike.endpoint, parameters: parameters)
+    }
 }

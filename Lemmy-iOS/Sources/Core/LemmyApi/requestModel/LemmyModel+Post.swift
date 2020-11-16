@@ -66,5 +66,21 @@ extension LemmyModel {
         struct CreatePostResponse: Codable, Equatable {
             let post: PostView
         }
+        
+        // MARK: - CreatePostLike -
+        struct CreatePostLikeRequest: Codable, Equatable, Hashable {
+            let postId: Int
+            let score: Int
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case postId = "post_id"
+                case score, auth
+            }
+        }
+        
+        struct CreatePostLikeResponse: Codable, Equatable, Hashable {
+            let post: PostView
+        }
     }
 }

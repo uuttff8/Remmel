@@ -12,6 +12,8 @@ enum LemmyModel {
 
     // MARK: - PostView -
     struct PostView: Codable, Equatable, Hashable {
+        typealias Id = Int
+        
         let id: Int
         let name: String
         let url: String?
