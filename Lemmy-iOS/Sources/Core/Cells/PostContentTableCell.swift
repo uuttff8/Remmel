@@ -10,12 +10,14 @@ import UIKit
 import Nuke
 import DateToolsSwift
 import SwiftyMarkdown
+import Nantes
 
 protocol PostContentTableCellDelegate: AnyObject {
     func upvote(post: LemmyModel.PostView)
     func downvote(post: LemmyModel.PostView)
     func usernameTapped(in post: LemmyModel.PostView)
     func communityTapped(in post: LemmyModel.PostView)
+    func onLinkTap(in post: LemmyModel.PostView, url: URL)
 }
 
 class PostContentTableCell: UITableViewCell {
@@ -109,6 +111,10 @@ class PostContentView: UIView {
             self?.delegate?.usernameTapped(in: post)
         }
 
+        centerView.onLinkTap = { [weak self] (url) in
+            self?.delegate?.onLinkTap(in: post, url: url)
+        }
+        
         footerView.downvoteButtonTap = { [weak self] in
             self?.delegate?.downvote(post: post)
         }
@@ -286,6 +292,8 @@ private class PostContentCenterView: UIView {
     }
 
     // MARK: - Properties
+    var onLinkTap: ((URL) -> Void)?
+    
     private let imageSize = CGSize(width: 110, height: 60)
 
     private let titleLabel = UILabel().then {
@@ -293,8 +301,9 @@ private class PostContentCenterView: UIView {
         $0.numberOfLines = 3
     }
     
-    private let subtitleLabel = UILabel().then {
+    private lazy var subtitleLabel = NantesLabel().then {
         $0.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        $0.delegate = self
         $0.numberOfLines = 6
     }
 
@@ -342,7 +351,10 @@ private class PostContentCenterView: UIView {
         
         if let subtitle = data.subtitle {
             let md = SwiftyMarkdown(string: subtitle)
+            md.link.color = .systemBlue
             subtitleLabel.attributedText = md.attributedString()
+            
+            subtitleLabel.linkAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
         }
 
         if let image = data.imageUrl {
@@ -378,6 +390,12 @@ private class PostContentCenterView: UIView {
     // MARK: - Overrided
     override var intrinsicContentSize: CGSize {
         CGSize(width: UIScreen.main.bounds.width, height: UIView.noIntrinsicMetric)
+    }
+}
+
+extension PostContentCenterView: NantesLabelDelegate {
+    func attributedLabel(_ label: NantesLabel, didSelectLink link: URL) {
+        onLinkTap?(link)
     }
 }
 

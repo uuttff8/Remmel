@@ -18,6 +18,8 @@ extension PostScreenViewController {
             let comments: [CommentNode]
         }
         
+        fileprivate var headerView: PostScreenUITableCell!
+        
         var presentOnVc: ((UIViewController) -> Void)?
         var dismissOnVc: (() -> Void)?
         
@@ -28,7 +30,10 @@ extension PostScreenViewController {
         
         var postInfo: LemmyModel.PostView? {
             didSet {
-                tableView.tableHeaderView = PostScreenUITableCell(post: postInfo.require())
+                headerView = PostScreenUITableCell(post: postInfo.require())
+                headerView.postHeaderView.delegate = self
+                tableView.tableHeaderView = headerView
+                
             }
         }
         
@@ -158,5 +163,29 @@ extension PostScreenUITableCell: ProgrammaticallyViewProtocol {
                 make.top.trailing.leading.bottom.equalToSuperview()
             }
         }
+    }
+}
+
+extension PostScreenViewController.View: PostContentTableCellDelegate {
+    func upvote(post: LemmyModel.PostView) {
+        
+    }
+    
+    func downvote(post: LemmyModel.PostView) {
+        
+    }
+    
+    func usernameTapped(in post: LemmyModel.PostView) {
+        
+    }
+    
+    func communityTapped(in post: LemmyModel.PostView) {
+        
+    }
+    
+    func onLinkTap(in post: LemmyModel.PostView, url: URL) {
+        let safariVc = SFSafariViewController(url: url)
+        safariVc.delegate = self
+        presentOnVc?(safariVc)
     }
 }

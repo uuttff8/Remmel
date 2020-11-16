@@ -48,6 +48,7 @@
 		4E81655B2562A38400907D31 /* UpvoteDownvoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E81655A2562A38400907D31 /* UpvoteDownvoteService.swift */; };
 		4E8165632562B6FC00907D31 /* PostsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8165622562B6FC00907D31 /* PostsTableDataSource.swift */; };
 		4E8165722562D08B00907D31 /* ProfileScreenTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8165712562D08B00907D31 /* ProfileScreenTableHeaderView.swift */; };
+		4E8165992563346100907D31 /* Nantes in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8165982563346100907D31 /* Nantes */; };
 		4E886C17253626950076B162 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C16253626950076B162 /* SignUpView.swift */; };
 		4E886C1C25364DD70076B162 /* AuthRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C1B25364DD70076B162 /* AuthRequests.swift */; };
 		4E886C2125364EC30076B162 /* UserRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C2025364EC30076B162 /* UserRequests.swift */; };
@@ -399,6 +400,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E8165992563346100907D31 /* Nantes in Frameworks */,
 				4E1070842534F742009EABDA /* KeychainSwift in Frameworks */,
 				921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */,
 				4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */,
@@ -1165,6 +1167,7 @@
 				4ECCEEFA250C13240075F921 /* SnapKit */,
 				4E1070832534F742009EABDA /* KeychainSwift */,
 				4EF3ACF525506EC900BEC9F1 /* SwiftyMarkdown */,
+				4E8165982563346100907D31 /* Nantes */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */;
@@ -1242,6 +1245,7 @@
 				4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				4EF3ACF425506EC900BEC9F1 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */,
+				4E8165972563346100907D31 /* XCRemoteSwiftPackageReference "Nantes" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
@@ -1850,6 +1854,14 @@
 				minimumVersion = 19.0.0;
 			};
 		};
+		4E8165972563346100907D31 /* XCRemoteSwiftPackageReference "Nantes" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/instacart/Nantes.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.2;
+			};
+		};
 		4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -1873,6 +1885,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
+		};
+		4E8165982563346100907D31 /* Nantes */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E8165972563346100907D31 /* XCRemoteSwiftPackageReference "Nantes" */;
+			productName = Nantes;
 		};
 		4ECCEEFA250C13240075F921 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

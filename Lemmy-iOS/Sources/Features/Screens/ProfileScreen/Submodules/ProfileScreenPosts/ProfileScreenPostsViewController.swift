@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 protocol ProfileScreenPostViewControllerProtocol: AnyObject {
     func displayProfilePosts(viewModel: ProfileScreenPosts.PostsLoad.ViewModel)
@@ -98,6 +99,28 @@ extension ProfileScreenPostsViewController: ProfileScreenPostsViewDelegate {
 }
 
 extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
+    func upvote(post: LemmyModel.PostView) {
+        // todo
+    }
+    
+    func downvote(post: LemmyModel.PostView) {
+        // todo
+    }
+    
+    func usernameTapped(in post: LemmyModel.PostView) {
+        // todo
+    }
+    
+    func communityTapped(in post: LemmyModel.PostView) {
+        // todo
+    }
+    
+    func onLinkTap(in post: LemmyModel.PostView, url: URL) {
+        let safariVc = SFSafariViewController(url: url)
+        safariVc.delegate = self
+        present(safariVc, animated: true)
+    }
+    
     func tableDidRequestPagination(_ tableDataSource: PostsTableDataSource) {
         guard self.canTriggerPagination else { return }
         
@@ -107,5 +130,11 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
     
     func tableDidSelect(post: LemmyModel.PostView) {
         
+    }
+}
+
+extension ProfileScreenPostsViewController: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        self.dismiss(animated: true, completion: nil)
     }
 }

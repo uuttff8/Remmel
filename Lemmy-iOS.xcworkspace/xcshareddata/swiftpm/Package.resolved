@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "Nantes",
+        "repositoryURL": "https://github.com/instacart/Nantes.git",
+        "state": {
+          "branch": null,
+          "revision": "a82b861bc7863b22c798601e28ff2e8ec86ce4ee",
+          "version": "0.1.2"
+        }
+      },
+      {
         "package": "SnapKit",
         "repositoryURL": "https://github.com/SnapKit/SnapKit",
         "state": {

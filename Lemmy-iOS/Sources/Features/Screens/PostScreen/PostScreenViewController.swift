@@ -44,18 +44,14 @@ class PostScreenViewController: UIViewController {
         
         viewModel.doPostFetch()
         self.updateState(newState: state)
-//        model.loadComments()
-//        model.commentsLoaded = { [self] (comments) in
-//            customView.commentsDataSource = comments
-//        }
-//
-//        customView.presentOnVc = { toPresentVc in
-//            self.present(toPresentVc, animated: true)
-//        }
-//
-//        customView.dismissOnVc = {
-//            self.dismiss(animated: true)
-//        }
+
+        postScreenView.presentOnVc = { toPresentVc in
+            self.present(toPresentVc, animated: true)
+        }
+
+        postScreenView.dismissOnVc = {
+            self.dismiss(animated: true)
+        }
     }
     
     private func updateState(newState: PostScreen.ViewControllerState) {

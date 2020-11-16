@@ -13,6 +13,7 @@ class PostsFrontPageModel: NSObject {
     var goToPostScreen: ((LemmyModel.PostView) -> Void)?
     var goToCommunityScreen: ((_ fromPost: LemmyModel.PostView) -> Void)?
     var goToProfileScreen: ((_ username: String) -> Void)?
+    var onLinkTap: ((URL) -> Void)?
     var newDataLoaded: (([LemmyModel.PostView]) -> Void)?
     var dataLoaded: (([LemmyModel.PostView]) -> Void)?
     
@@ -89,6 +90,10 @@ class PostsFrontPageModel: NSObject {
 }
 
 extension PostsFrontPageModel: PostContentTableCellDelegate {
+    func onLinkTap(in post: LemmyModel.PostView, url: URL) {
+        self.onLinkTap?(url)
+    }
+    
     func usernameTapped(in post: LemmyModel.PostView) {
         goToProfileScreen?(post.creatorName)
     }

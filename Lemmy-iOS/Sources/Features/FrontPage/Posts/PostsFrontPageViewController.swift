@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class PostsFrontPageViewController: UIViewController {
     
@@ -59,6 +60,12 @@ class PostsFrontPageViewController: UIViewController {
         
         model.goToProfileScreen = { [self] (username) in
             coordinator?.goToProfileScreen(by: username)
+        }
+        
+        model.onLinkTap = { [self] (url) in
+            let vc = SFSafariViewController(url: url)
+            vc.delegate = self
+            present(vc, animated: true, completion: nil)
         }
     }
     
@@ -164,5 +171,11 @@ extension PostsFrontPageViewController: UITableViewDelegate {
     private func handleDidSelectForPosts(indexPath: IndexPath) {
         let post = model.postsDataSource[indexPath.row]
         coordinator?.goToPostScreen(post: post)
+    }
+}
+
+extension PostsFrontPageViewController: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        self.dismiss(animated: true, completion: nil)
     }
 }
