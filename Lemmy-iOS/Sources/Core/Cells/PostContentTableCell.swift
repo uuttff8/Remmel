@@ -234,6 +234,8 @@ private class PostContentFooterView: UIView {
         stackView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
+        
+        setupTargets()
     }
 
     required init?(coder: NSCoder) {

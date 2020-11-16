@@ -16,6 +16,8 @@ class PostsFrontPageModel: NSObject {
     var newDataLoaded: (([LemmyModel.PostView]) -> Void)?
     var dataLoaded: (([LemmyModel.PostView]) -> Void)?
     
+    private let upvoteDownvoteService = UpvoteDownvoteService(userAccountService: UserAccountService())
+    
     private var cancellable = Set<AnyCancellable>()
     
     var isFetchingNewContent = false
@@ -91,17 +93,28 @@ extension PostsFrontPageModel: PostContentTableCellDelegate {
         goToProfileScreen?(post.creatorName)
     }
     
-    // TODO(uuttff8): Implement coordinator to post
     func communityTapped(in post: LemmyModel.PostView) {        
         goToCommunityScreen?(post)
     }
     
     func upvote(post: LemmyModel.PostView) {
-        print("upvote")
+        upvoteDownvoteService.likePost(postId: post.id)
+            .receive(on: RunLoop.main)
+            .sink { (error) in
+                print(error)
+            } receiveValue: { (response) in
+                print(response)
+            }.store(in: &cancellable)
     }
     
     func downvote(post: LemmyModel.PostView) {
-        print("downvote")
+        upvoteDownvoteService.dislikePost(postId: post.id)
+            .receive(on: RunLoop.main)
+            .sink { (error) in
+                print(error)
+            } receiveValue: { (response) in
+                print(response)
+            }.store(in: &cancellable)
     }
 }
 

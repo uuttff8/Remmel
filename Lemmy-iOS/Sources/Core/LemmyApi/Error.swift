@@ -16,8 +16,8 @@ enum LemmyGenericError: Error {
         switch self {
         case .string(let str):
             return str
-        case .error(let err):
-            return err as! String
+        case .error(let error):
+            return error.localizedDescription
         }
     }
 }

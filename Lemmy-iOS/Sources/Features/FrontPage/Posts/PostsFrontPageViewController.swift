@@ -14,7 +14,7 @@ class PostsFrontPageViewController: UIViewController {
         case posts
     }
     
-    weak var coordinator: FrontPageCoordinator?
+    weak var coordinator: FrontPageCoordinator?    
     
     let model = PostsFrontPageModel()
     

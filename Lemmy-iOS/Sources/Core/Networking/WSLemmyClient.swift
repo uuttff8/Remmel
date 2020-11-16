@@ -39,7 +39,7 @@ class WSLemmyClient {
                 case let .success(messageType):
                     promise(.success(self.handleMessage(type: messageType)))
                 case let .failure(error):
-                    promise(.failure(LemmyGenericError.string(error as! String)))
+                    promise(.failure(LemmyGenericError.error(error)))
                 }
             }
         }
