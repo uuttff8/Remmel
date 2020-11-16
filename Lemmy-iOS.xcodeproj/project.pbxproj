@@ -479,7 +479,6 @@
 			children = (
 				4E107052253476EE009EABDA /* PostsFrontPageViewController.swift */,
 				4E10705A253476FC009EABDA /* PostsFrontPageModel.swift */,
-				4E8165622562B6FC00907D31 /* PostsTableDataSource.swift */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -740,6 +739,7 @@
 				4EBB225C255AE71E00B88079 /* ProfileScreenPostsViewModel.swift */,
 				4EBB2262255AECB500B88079 /* ProfileScreenPostsUI.swift */,
 				4EBB2267255AEF0E00B88079 /* ProfileScreenPostsTableDataSource.swift */,
+				4E8165622562B6FC00907D31 /* PostsTableDataSource.swift */,
 			);
 			path = ProfileScreenPosts;
 			sourceTree = "<group>";

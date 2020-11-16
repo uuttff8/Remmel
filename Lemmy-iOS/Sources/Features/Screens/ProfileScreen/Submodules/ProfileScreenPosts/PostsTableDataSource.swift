@@ -1,20 +1,20 @@
 //
-//  CommunityTableDataSource.swift
+//  PostsTableDataSource.swift
 //  Lemmy-iOS
 //
-//  Created by uuttff8 on 15.11.2020.
+//  Created by uuttff8 on 16.11.2020.
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
 import UIKit
 
-protocol CommunityScreenTableDataSourceDelegate: AnyObject {
-    func tableDidRequestPagination(_ tableDataSource: CommunityScreenTableDataSource)
+protocol PostsTableDataSourceDelegate: AnyObject {
+    func tableDidRequestPagination(_ tableDataSource: PostsTableDataSource)
     func tableDidSelect(post: LemmyModel.PostView)
 }
 
-final class CommunityScreenTableDataSource: NSObject {
-    weak var delegate: CommunityScreenTableDataSourceDelegate?
+final class PostsTableDataSource: NSObject {
+    weak var delegate: PostsTableDataSourceDelegate?
     
     var viewModels: [LemmyModel.PostView]
     
@@ -46,7 +46,7 @@ final class CommunityScreenTableDataSource: NSObject {
 }
 
 // MARK: - UITableViewDataSource -
-extension CommunityScreenTableDataSource: UITableViewDataSource {
+extension PostsTableDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.viewModels.count
     }
@@ -62,7 +62,7 @@ extension CommunityScreenTableDataSource: UITableViewDataSource {
     }
 }
 
-extension CommunityScreenTableDataSource: UITableViewDelegate {
+extension PostsTableDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let post = viewModels[indexPath.row]
         
@@ -75,5 +75,5 @@ extension CommunityScreenTableDataSource: UITableViewDelegate {
            tableView.numberOfSections == 1 {
             self.delegate?.tableDidRequestPagination(self)
         }
-    }    
+    }
 }

@@ -14,7 +14,6 @@ protocol CommunityScreenViewDelegate: AnyObject {
         toVc: MarkdownParsedViewController
     )
     func communityViewDidPickerTapped(_ communityView: CommunityScreenViewController.View, toVc: UIViewController)
-    func communityView(_ communityView: CommunityScreenViewController.View, didTapPost atIndexPath: IndexPath)
 }
 
 extension CommunityScreenViewController {
@@ -31,10 +30,12 @@ extension CommunityScreenViewController {
         
         weak var delegate: CommunityScreenViewDelegate?
         
-        var contentType: LemmySortType = .active
+        open var contentType: LemmySortType = .active
+        
+        weak var tableViewDelegate: CommunityScreenTableDataSource?
         
         private lazy var tableView = LemmyTableView(style: .plain).then {
-            $0.delegate = self
+            $0.delegate = tableViewDelegate
             $0.registerClass(PostContentTableCell.self)
         }
         
@@ -65,7 +66,8 @@ extension CommunityScreenViewController {
             }
         }
         
-        init() {
+        init(tableViewDelegate: CommunityScreenTableDataSource) {
+            self.tableViewDelegate = tableViewDelegate
             super.init(frame: .zero)
             
             self.setupView()
@@ -94,6 +96,14 @@ extension CommunityScreenViewController {
             self.tableView.reloadData()
         }
         
+        func appendNew(data: [LemmyModel.PostView]) {
+            self.tableViewDelegate?.appendNew(posts: data) { (newIndexpaths) in
+                tableView.performBatchUpdates {
+                    tableView.insertRows(at: newIndexpaths, with: .none)
+                }
+            }
+        }
+        
         override func layoutSubviews() {
             super.layoutSubviews()
             self.tableView.layoutTableHeaderView()
@@ -114,33 +124,5 @@ extension CommunityScreenViewController.View: ProgrammaticallyViewProtocol {
         tableView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-    }
-}
-
-extension CommunityScreenViewController.View: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        handleDidSelectForPosts(indexPath: indexPath)
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        //        guard !postsSubject.isEmpty else { return }
-        //
-        //        let indexPathRow = indexPath.row
-        //        let bottomItems = self.postsSubject.count - 5
-        //
-        //        if indexPathRow >= bottomItems {
-        //            guard !self.isFetchingNewContent else { return }
-        //
-        //            self.isFetchingNewContent = true
-        //            self.currentPage += 1
-        //            self.loadMorePosts(fromId: communityId) {
-        //                self.isFetchingNewContent = false
-        //            }
-        //        }
-    }
-    
-    private func handleDidSelectForPosts(indexPath: IndexPath) {
-        self.delegate?.communityView(self, didTapPost: indexPath)
     }
 }

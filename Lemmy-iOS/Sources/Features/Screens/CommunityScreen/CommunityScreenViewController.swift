@@ -12,14 +12,18 @@ import Combine
 protocol CommunityScreenViewControllerProtocol: AnyObject {
     func displayCommunityHeader(viewModel: CommunityScreen.CommunityHeaderLoad.ViewModel)
     func displayPosts(viewModel: CommunityScreen.CommunityPostsLoad.ViewModel)
+    func displayNextPosts(viewModel: CommunityScreen.NextCommunityPostsLoad.ViewModel)
 }
 
 class CommunityScreenViewController: UIViewController {
     private let viewModel: CommunityScreenViewModelProtocol
-    private let tableDataSource = CommunityScreenTableDataSource()
+    private lazy var tableDataSource = CommunityScreenTableDataSource().then {
+        $0.delegate = self
+    }
 
     lazy var communityView = self.view as! CommunityScreenViewController.View
     
+    private var canTriggerPagination = true
     private var state: CommunityScreen.ViewControllerState
     
     init(
@@ -37,7 +41,7 @@ class CommunityScreenViewController: UIViewController {
     }
     
     override func loadView() {
-        let view = CommunityScreenViewController.View()
+        let view = CommunityScreenViewController.View(tableViewDelegate: tableDataSource)
         view.delegate = self
         self.view = view
     }
@@ -48,48 +52,6 @@ class CommunityScreenViewController: UIViewController {
         viewModel.doCommunityFetch()
         viewModel.doPostsFetch(request: .init(contentType: communityView.contentType))
         self.updateState(newState: state)
-//        Publishers.Zip(model.$communitySubject, model.$postsSubject)
-//            .filter({ $0.0 != nil })
-//            .receive(on: RunLoop.main)
-//            .sink { [self] (community, posts)  in
-//                tableView.reloadSections(IndexSet(integer: Model.Section.posts.rawValue),
-//                                         with: .automatic)
-//                
-//                if let community = community {
-//                    tableView.reloadSections(IndexSet(integer: Model.Section.header.rawValue),
-//                                             with: .automatic)
-//                    self.updateUIOnData(community: community)
-//                }
-//                
-//            }.store(in: &cancellable)
-//        
-//        model.$contentTypeSubject
-//            .receive(on: RunLoop.main)
-//            .sink(receiveValue: { _ in
-//                self.model.asyncLoadPosts(id: self.model.communityId)
-//            }).store(in: &cancellable)
-        
-//        model.newDataLoaded = { [self] newPosts in
-//            guard !model.postsSubject.isEmpty else { return }
-//
-//            let startIndex = model.postsSubject.count - newPosts.count
-//            let endIndex = startIndex + newPosts.count
-//
-//            let newIndexpaths =
-//                Array(startIndex ..< endIndex)
-//                .map { (index) in
-//                    IndexPath(row: index, section: CommunityScreenModel.Section.posts.rawValue)
-//                }
-//
-//            tableView.performBatchUpdates {
-//                tableView.insertRows(at: newIndexpaths, with: .automatic)
-//            }
-//        }
-        
-//        model.goToPostScreen = { [self] (post) in
-//            coordinator?.goToPostScreen(post: post)
-//        }
-//
     }
     
     private func updateState(newState: CommunityScreen.ViewControllerState) {
@@ -110,6 +72,10 @@ class CommunityScreenViewController: UIViewController {
             self.communityView.updateTableViewData(dataSource: self.tableDataSource)
         }
     }
+    
+    private func updatePagination(hasNextPage: Bool, hasError: Bool) {
+        self.canTriggerPagination = hasNextPage
+    }
 }
 
 extension CommunityScreenViewController: CommunityScreenViewControllerProtocol {
@@ -123,19 +89,41 @@ extension CommunityScreenViewController: CommunityScreenViewControllerProtocol {
         self.tableDataSource.viewModels = data
         self.updateState(newState: viewModel.state)
     }
+    
+    func displayNextPosts(viewModel: CommunityScreen.NextCommunityPostsLoad.ViewModel) {
+        switch viewModel.state {
+        case .result(let posts):
+            self.tableDataSource.viewModels.append(contentsOf: posts)
+            self.communityView.appendNew(data: posts)
+            
+            if posts.isEmpty {
+                self.updatePagination(hasNextPage: false, hasError: false)
+            }
+        case .error:
+            break
+        }
+    }
 }
 
 extension CommunityScreenViewController: CommunityScreenViewDelegate {
-    func communityView(_ communityView: View, didTapPost atIndexPath: IndexPath) {
-        guard let post = self.tableDataSource.viewModels[safe: atIndexPath.row] else { return }
-        fatalError("handle it with coordinators")
-    }
-    
     func communityViewDidPickerTapped(_ communityView: View, toVc: UIViewController) {
         self.present(toVc, animated: true)
     }
     
     func communityViewDidReadMoreTapped(_ communityView: View, toVc: MarkdownParsedViewController) {
         self.present(toVc, animated: true)
+    }
+}
+
+extension CommunityScreenViewController: CommunityScreenTableDataSourceDelegate {
+    func tableDidRequestPagination(_ tableDataSource: CommunityScreenTableDataSource) {
+        guard self.canTriggerPagination else { return }
+        
+        self.canTriggerPagination = false
+        self.viewModel.doNextPostsFetch(request: .init(contentType: communityView.contentType))
+    }
+    
+    func tableDidSelect(post: LemmyModel.PostView) {
+        fatalError("handle it with coordinators \(post)")
     }
 }
