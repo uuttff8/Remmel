@@ -10,19 +10,21 @@ import UIKit
 
 protocol ProfileScreenPostViewControllerProtocol: AnyObject {
     func displayProfilePosts(viewModel: ProfileScreenPosts.PostsLoad.ViewModel)
+    func displayNextPosts(viewModel: CommunityScreen.NextCommunityPostsLoad.ViewModel)
 }
 
 class ProfileScreenPostsViewController: UIViewController {
     private let viewModel: ProfileScreenPostsViewModel
     
-    private let tableDataSource = ProfileScreenPostsTableDataSource()
+    private lazy var tableDataSource = PostsTableDataSource().then {
+        $0.delegate = self
+    }
     
-    lazy var profilePostsView = self.view as? ProfileScreenPostsViewController.View
+    lazy var profilePostsView = self.view as! ProfileScreenPostsViewController.View
     
-    private var tablePage = 1
     private var state: ProfileScreenPosts.ViewControllerState
     private var canTriggerPagination = true
-    
+
     init(
         viewModel: ProfileScreenPostsViewModel,
         initialState: ProfileScreenPosts.ViewControllerState = .loading
@@ -43,7 +45,9 @@ class ProfileScreenPostsViewController: UIViewController {
     }
     
     override func loadView() {
-        self.view = ProfileScreenPostsViewController.View()
+        let view = ProfileScreenPostsViewController.View(tableViewDelegate: tableDataSource)
+        view.delegate = self
+        self.view = view
     }
     
     private func updateState(newState: ProfileScreenPosts.ViewControllerState) {
@@ -52,16 +56,16 @@ class ProfileScreenPostsViewController: UIViewController {
         }
 
         if case .loading = newState {
-            self.profilePostsView?.showLoading()
+            self.profilePostsView.showLoading()
             return
         }
 
         if case .loading = self.state {
-            self.profilePostsView?.hideLoading()
+            self.profilePostsView.hideLoading()
         }
 
         if case .result = newState {
-            self.profilePostsView?.updateTableViewData(dataSource: self.tableDataSource)
+            self.profilePostsView.updateTableViewData(dataSource: self.tableDataSource)
         }
     }
 }
@@ -71,5 +75,37 @@ extension ProfileScreenPostsViewController: ProfileScreenPostViewControllerProto
         guard case let .result(data) = viewModel.state else { return }
         self.tableDataSource.viewModels = data.posts
         self.updateState(newState: viewModel.state)
+    }
+    
+    func displayNextPosts(viewModel: CommunityScreen.NextCommunityPostsLoad.ViewModel) {
+        guard case let .result(posts) = viewModel.state else { return }
+        
+        self.tableDataSource.viewModels.append(contentsOf: posts)
+        self.profilePostsView.appendNew(data: posts)
+        
+        if posts.isEmpty {
+            self.canTriggerPagination = false
+        } else {
+            self.canTriggerPagination = true
+        }
+    }
+}
+
+extension ProfileScreenPostsViewController: ProfileScreenPostsViewDelegate {
+    func profileScreenPostsViewDidPickerTapped(toVc: UIViewController) {
+        self.present(toVc, animated: true)
+    }
+}
+
+extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
+    func tableDidRequestPagination(_ tableDataSource: PostsTableDataSource) {
+        guard self.canTriggerPagination else { return }
+        
+        self.canTriggerPagination = false
+        self.viewModel.doNextPostsFetch(request: .init(contentType: profilePostsView.contentType))
+    }
+    
+    func tableDidSelect(post: LemmyModel.PostView) {
+        
     }
 }

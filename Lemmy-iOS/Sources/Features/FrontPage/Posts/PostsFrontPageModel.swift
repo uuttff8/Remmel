@@ -50,7 +50,7 @@ class PostsFrontPageModel: NSObject {
         let parameters = LemmyModel.Post.GetPostsRequest(type: self.currentFeedType,
                                                          sort: currentSortType,
                                                          page: 1,
-                                                         limit: 20,
+                                                         limit: 50,
                                                          communityId: nil,
                                                          communityName: nil,
                                                          auth: LemmyShareData.shared.jwtToken)
@@ -69,7 +69,7 @@ class PostsFrontPageModel: NSObject {
         let parameters = LemmyModel.Post.GetPostsRequest(type: self.currentFeedType,
                                                          sort: currentSortType,
                                                          page: currentPage,
-                                                         limit: 20,
+                                                         limit: 50,
                                                          communityId: nil,
                                                          communityName: nil,
                                                          auth: LemmyShareData.shared.jwtToken)

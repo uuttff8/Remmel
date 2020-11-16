@@ -47,6 +47,7 @@
 		4E3E0F7A2555F5BC0086CE0C /* LemmyJSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3E0F792555F5BC0086CE0C /* LemmyJSONDecoder.swift */; };
 		4E81655B2562A38400907D31 /* UpvoteDownvoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E81655A2562A38400907D31 /* UpvoteDownvoteService.swift */; };
 		4E8165632562B6FC00907D31 /* PostsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8165622562B6FC00907D31 /* PostsTableDataSource.swift */; };
+		4E8165722562D08B00907D31 /* ProfileScreenTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8165712562D08B00907D31 /* ProfileScreenTableHeaderView.swift */; };
 		4E886C17253626950076B162 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C16253626950076B162 /* SignUpView.swift */; };
 		4E886C1C25364DD70076B162 /* AuthRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C1B25364DD70076B162 /* AuthRequests.swift */; };
 		4E886C2125364EC30076B162 /* UserRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C2025364EC30076B162 /* UserRequests.swift */; };
@@ -245,6 +246,7 @@
 		4E3E0F792555F5BC0086CE0C /* LemmyJSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyJSONDecoder.swift; sourceTree = "<group>"; };
 		4E81655A2562A38400907D31 /* UpvoteDownvoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpvoteDownvoteService.swift; sourceTree = "<group>"; };
 		4E8165622562B6FC00907D31 /* PostsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsTableDataSource.swift; sourceTree = "<group>"; };
+		4E8165712562D08B00907D31 /* ProfileScreenTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenTableHeaderView.swift; sourceTree = "<group>"; };
 		4E886C16253626950076B162 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		4E886C1B25364DD70076B162 /* AuthRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequests.swift; sourceTree = "<group>"; };
 		4E886C2025364EC30076B162 /* UserRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequests.swift; sourceTree = "<group>"; };
@@ -544,6 +546,14 @@
 			path = ProfileScreen;
 			sourceTree = "<group>";
 		};
+		4E8165702562D07400907D31 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				4E8165712562D08B00907D31 /* ProfileScreenTableHeaderView.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
 		4E886C34253872B90076B162 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -733,6 +743,7 @@
 		4EBB2256255AE6A100B88079 /* ProfileScreenPosts */ = {
 			isa = PBXGroup;
 			children = (
+				4E8165702562D07400907D31 /* views */,
 				4EBB2274255AF75F00B88079 /* InputOutput */,
 				4EBB226C255AF4F900B88079 /* ProfileScreenPostsAssembly.swift */,
 				4EBB2257255AE6E600B88079 /* ProfileScreenPostsViewController.swift */,
@@ -1008,8 +1019,8 @@
 				4EFA81CA256165A4008AF535 /* CommunityScreenAssembly.swift */,
 				4EF3ACD0254EF82C00BEC9F1 /* CommunityScreenViewController.swift */,
 				4EFA81D425617580008AF535 /* CommunityScreenUI.swift */,
-				4EFA81D9256175B3008AF535 /* CommunityTableDataSource.swift */,
 				4EFA81CF256165B1008AF535 /* CommunityScreenViewModel.swift */,
+				4EFA81D9256175B3008AF535 /* CommunityTableDataSource.swift */,
 			);
 			path = CommunityScreen;
 			sourceTree = "<group>";
@@ -1471,6 +1482,7 @@
 				4EBB227E255AF7A600B88079 /* ProfileScreenSubmoduleProtocol.swift in Sources */,
 				4EFAB5EC2552FC5000B32780 /* UIStackView+Ext.swift in Sources */,
 				4E106F5D25273A0C009EABDA /* CommentTreeTableCell.swift in Sources */,
+				4E8165722562D08B00907D31 /* ProfileScreenTableHeaderView.swift in Sources */,
 				4ECCEF2B250FF56A0075F921 /* CommunityPreviewTableCell.swift in Sources */,
 				4E886C2125364EC30076B162 /* UserRequests.swift in Sources */,
 				4EBB2258255AE6E600B88079 /* ProfileScreenPostsViewController.swift in Sources */,

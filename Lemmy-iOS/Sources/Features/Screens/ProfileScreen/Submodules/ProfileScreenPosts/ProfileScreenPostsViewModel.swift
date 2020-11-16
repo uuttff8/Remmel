@@ -10,20 +10,24 @@ import UIKit
 import Combine
 
 protocol ProfileScreenPostsViewModelProtocol {
-    func doProfilePostsFetch()
+    func doNextPostsFetch(request: ProfileScreenPosts.NextProfilePostsLoad.Request)
 }
 
 class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
-    private var currentProfile: LemmyModel.UserView?
-    
+    typealias PaginationState = (page: Int, hasNext: Bool)
+        
     weak var viewController: ProfileScreenPostViewControllerProtocol?
+    
+    private var paginationState = PaginationState(page: 1, hasNext: true)
     
     var cancellable = Set<AnyCancellable>()
     
-    func doProfilePostsFetch() {
+    func doNextPostsFetch(request: ProfileScreenPosts.NextProfilePostsLoad.Request) {
+        self.paginationState.page += 1
+        
         let params = LemmyModel.Post.GetPostsRequest(type: .all,
-                                                     sort: .active,
-                                                     page: 1,
+                                                     sort: request.contentType,
+                                                     page: paginationState.page,
                                                      limit: 50,
                                                      communityId: nil,
                                                      communityName: nil,
@@ -34,12 +38,14 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
             .sink { (error) in
                 print(error)
             } receiveValue: { (response) in
-                self.viewController?
-                    .displayProfilePosts(
-                        viewModel: .init(state: .result(data: .init(posts: response.posts)))
+                
+                self.viewController?.displayNextPosts(
+                    viewModel: .init(
+                        state: .result(data: response.posts)
                     )
+                )
+                
             }.store(in: &cancellable)
-        
     }
 }
 
@@ -61,12 +67,22 @@ extension ProfileScreenPostsViewModel: ProfileScreenPostsInputProtocol {
 
 class ProfileScreenPosts {
     enum PostsLoad {
-        struct Response {
-            let posts: [LemmyModel.PostView]
+        struct Request {
+            let contentType: LemmySortType
+        }
+
+        struct ViewModel {
+            let state: ViewControllerState
+        }
+    }
+    
+    enum NextProfilePostsLoad {
+        struct Request {
+            let contentType: LemmySortType
         }
         
         struct ViewModel {
-            let state: ViewControllerState
+            let state: PaginationState
         }
     }
     
@@ -74,5 +90,10 @@ class ProfileScreenPosts {
     enum ViewControllerState {
         case loading
         case result(data: ProfileScreenPostsViewController.View.ViewData)
+    }
+    
+    enum PaginationState {
+        case result(data: [LemmyModel.PostView])
+        case error(message: String)
     }
 }

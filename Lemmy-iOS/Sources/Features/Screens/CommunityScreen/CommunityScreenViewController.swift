@@ -98,6 +98,8 @@ extension CommunityScreenViewController: CommunityScreenViewControllerProtocol {
             
             if posts.isEmpty {
                 self.updatePagination(hasNextPage: false, hasError: false)
+            } else {
+                self.updatePagination(hasNextPage: true, hasError: false)
             }
         case .error:
             break
