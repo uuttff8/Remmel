@@ -30,21 +30,27 @@ extension Config {
 extension Config {
     struct Image {
         static var arrowUp: UIImage {
+            
+            let config = UIImage.SymbolConfiguration(weight: .bold)
+
             if UIScreen.isDarkMode {
-                return UIImage(systemName: "arrow.up")!
+                return UIImage(systemName: "arrow.up", withConfiguration: config)!
                     .withTintColor(UIColor.white, renderingMode: .alwaysOriginal)
             } else {
-                return UIImage(systemName: "arrow.up")!
+                return UIImage(systemName: "arrow.up", withConfiguration: config)!
                     .withTintColor(UIColor.black, renderingMode: .alwaysOriginal)
             }
         }
 
         static var arrowDown: UIImage {
+            
+            let config = UIImage.SymbolConfiguration(weight: .bold)
+            
             if UIScreen.isDarkMode {
-                return UIImage(systemName: "arrow.down")!
+                return UIImage(systemName: "arrow.down", withConfiguration: config)!
                     .withTintColor(UIColor.white, renderingMode: .alwaysOriginal)
             } else {
-                return UIImage(systemName: "arrow.down")!
+                return UIImage(systemName: "arrow.down", withConfiguration: config)!
                     .withTintColor(UIColor.black, renderingMode: .alwaysOriginal)
             }
         }

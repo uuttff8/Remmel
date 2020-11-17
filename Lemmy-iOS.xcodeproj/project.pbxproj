@@ -80,6 +80,7 @@
 		4E886CF1254430970076B162 /* HttpLemmyClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CF0254430970076B162 /* HttpLemmyClient.swift */; };
 		4E886D4625447E350076B162 /* LemmyModel+Pictrs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886D4525447E350076B162 /* LemmyModel+Pictrs.swift */; };
 		4E886D4B2545B81A0076B162 /* PictrsRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886D4A2545B81A0076B162 /* PictrsRequests.swift */; };
+		4E9182D32564151800702F04 /* VoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9182D22564151800702F04 /* VoteButton.swift */; };
 		4E9BBA1925553176004FF2F9 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA1825553176004FF2F9 /* Enums.swift */; };
 		4E9BBA24255534B0004FF2F9 /* LemmyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA23255534B0004FF2F9 /* LemmyModel.swift */; };
 		4E9BBA2C25553516004FF2F9 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA2B25553516004FF2F9 /* Error.swift */; };
@@ -279,6 +280,7 @@
 		4E886CF0254430970076B162 /* HttpLemmyClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpLemmyClient.swift; sourceTree = "<group>"; };
 		4E886D4525447E350076B162 /* LemmyModel+Pictrs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LemmyModel+Pictrs.swift"; sourceTree = "<group>"; };
 		4E886D4A2545B81A0076B162 /* PictrsRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictrsRequests.swift; sourceTree = "<group>"; };
+		4E9182D22564151800702F04 /* VoteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteButton.swift; sourceTree = "<group>"; };
 		4E9BBA1825553176004FF2F9 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		4E9BBA23255534B0004FF2F9 /* LemmyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyModel.swift; sourceTree = "<group>"; };
 		4E9BBA2B25553516004FF2F9 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
@@ -967,6 +969,7 @@
 				4E9BBA582555560C004FF2F9 /* LemmyImageTextPickerView.swift */,
 				4EBB224B255ADE4C00B88079 /* TabSegmentedControlView.swift */,
 				4EBB2250255ADFC900B88079 /* ScrollableStackView.swift */,
+				4E9182D22564151800702F04 /* VoteButton.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -1355,6 +1358,7 @@
 				4ECCEF1A250D62580075F921 /* LemmyModel+Comment.swift in Sources */,
 				4EF3AC8B254B469F00BEC9F1 /* ChooseCategoryViewController.swift in Sources */,
 				4EFAB5C72552F85D00B32780 /* UIView+Ext.swift in Sources */,
+				4E9182D32564151800702F04 /* VoteButton.swift in Sources */,
 				4E886CCE2541E1670076B162 /* ChooseCommunityViewController.swift in Sources */,
 				4EBB220925598AA700B88079 /* Containered.swift in Sources */,
 				4ECCEF06250CC3330075F921 /* ApiManager.swift in Sources */,

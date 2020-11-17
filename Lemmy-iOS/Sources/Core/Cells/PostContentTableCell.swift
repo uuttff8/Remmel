@@ -94,8 +94,8 @@ class PostContentView: UIView {
 
         footerView.bind(with:
                             PostContentFooterView.ViewData(
-                                upvote: post.upvotes,
-                                downvote: post.downvotes,
+                                score: post.score,
+                                myVote: post.myVote,
                                 numberOfComments: post.numberOfComments
                             )
         )
@@ -190,8 +190,8 @@ class PostContentView: UIView {
 // MARK: -
 private class PostContentFooterView: UIView {
     struct ViewData {
-        let upvote: Int
-        let downvote: Int
+        let score: Int
+        let myVote: Int?
         let numberOfComments: Int
     }
 
@@ -208,12 +208,15 @@ private class PostContentFooterView: UIView {
     private let downvoteBtn = UIButton().then {
         $0.setImage(Config.Image.arrowDown, for: .normal)
     }
+    
+    let scoreLabel = UILabel()
 
     private let commentBtn = UIButton().then {
         $0.setImage(Config.Image.comments, for: .normal)
     }
     
     private let stackView = UIStackView().then {
+        $0.axis = .horizontal
         $0.spacing = 8
         $0.alignment = .leading
     }
@@ -225,13 +228,14 @@ private class PostContentFooterView: UIView {
         self.addSubview(stackView)
         
         stackView.addStackViewItems(
-            .view(commentBtn),
             .view(upvoteBtn),
+            .view(scoreLabel),
             .view(downvoteBtn),
-            .view(UIView())
+            .view(UIView()),
+            .view(commentBtn)
         )
         
-        [commentBtn, upvoteBtn, downvoteBtn].forEach { (btn) in
+        [commentBtn].forEach { (btn) in
             btn.setInsets(forContentPadding: UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5),
                           imageTitlePadding: 5)
             btn.setTitleColor(.label, for: .normal)
@@ -250,8 +254,7 @@ private class PostContentFooterView: UIView {
 
     // MARK: - Bind
     func bind(with data: PostContentFooterView.ViewData) {
-        upvoteBtn.setTitle(String(data.upvote), for: .normal)
-        downvoteBtn.setTitle(String(data.downvote), for: .normal)
+        scoreLabel.text = String(data.score)
         commentBtn.setTitle(String(data.numberOfComments), for: .normal)
     }
 
