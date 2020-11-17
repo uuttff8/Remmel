@@ -99,12 +99,12 @@ extension ProfileScreenPostsViewController: ProfileScreenPostsViewDelegate {
 }
 
 extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
-    func upvote(post: LemmyModel.PostView) {
-        // todo
+    func upvote(voteButton: VoteButton, post: LemmyModel.PostView) {
+        
     }
     
-    func downvote(post: LemmyModel.PostView) {
-        // todo
+    func downvote(voteButton: VoteButton, post: LemmyModel.PostView) {
+        
     }
     
     func usernameTapped(in post: LemmyModel.PostView) {

@@ -12,8 +12,8 @@ protocol PostsTableDataSourceDelegate: AnyObject {
     func tableDidRequestPagination(_ tableDataSource: PostsTableDataSource)
     func tableDidSelect(post: LemmyModel.PostView)
     
-    func upvote(post: LemmyModel.PostView)
-    func downvote(post: LemmyModel.PostView)
+    func upvote(voteButton: VoteButton, post: LemmyModel.PostView)
+    func downvote(voteButton: VoteButton, post: LemmyModel.PostView)
     func usernameTapped(in post: LemmyModel.PostView)
     func communityTapped(in post: LemmyModel.PostView)
     func onLinkTap(in post: LemmyModel.PostView, url: URL)
@@ -87,12 +87,12 @@ extension PostsTableDataSource: UITableViewDelegate {
 }
 
 extension PostsTableDataSource: PostContentTableCellDelegate {
-    func upvote(post: LemmyModel.PostView) {
-        self.delegate?.upvote(post: post)
+    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
+        self.delegate?.downvote(voteButton: voteButton, post: post)
     }
     
-    func downvote(post: LemmyModel.PostView) {
-        self.delegate?.downvote(post: post)
+    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
+        self.delegate?.upvote(voteButton: voteButton, post: post)
     }
     
     func usernameTapped(in post: LemmyModel.PostView) {

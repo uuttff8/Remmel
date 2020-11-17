@@ -167,11 +167,11 @@ extension PostScreenUITableCell: ProgrammaticallyViewProtocol {
 }
 
 extension PostScreenViewController.View: PostContentTableCellDelegate {
-    func upvote(post: LemmyModel.PostView) {
+    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
         
     }
     
-    func downvote(post: LemmyModel.PostView) {
+    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
         
     }
     

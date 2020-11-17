@@ -55,7 +55,7 @@ enum LemmyModel {
         let hotRankActive: Int
         let newestActivityTime: Date // Timestamp
         let userId: Int?
-        let myVote: Int?
+        var myVote: Int?
         let subscribed: Bool?
         let read: Bool?
         let saved: Bool?
@@ -101,6 +101,11 @@ enum LemmyModel {
                   else { return nil }
             
             return urlDomain.host
+        }
+        
+        func getVoteType() -> LemmyVoteType {
+            guard let myVote = self.myVote, myVote != 0 else { return LemmyVoteType.none }
+            return myVote == 1 ? .up : .down
         }
     }
 

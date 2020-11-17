@@ -87,9 +87,42 @@ class PostsFrontPageModel: NSObject {
                 }
             })
     }
+    
+    private func saveNewPost(_ post: LemmyModel.PostView) {
+        
+        if let index = postsDataSource.firstIndex(where: { $0.id == post.id }) {
+            postsDataSource[index] = post
+        }
+        
+    }
+        
 }
 
 extension PostsFrontPageModel: PostContentTableCellDelegate {
+    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
+        voteButton.setVoted(to: newVote)
+        
+        self.upvoteDownvoteService.createPostLike(vote: newVote, post: post)
+            .receive(on: RunLoop.main)
+            .sink { (error) in
+                print(error)
+            } receiveValue: { (post) in
+                self.saveNewPost(post)
+            }.store(in: &cancellable)
+    }
+    
+    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
+        voteButton.setVoted(to: newVote)
+        
+        self.upvoteDownvoteService.createPostLike(vote: newVote, post: post)
+            .receive(on: RunLoop.main)
+            .sink { (error) in
+                print(error)
+            } receiveValue: { (post) in
+                self.saveNewPost(post)
+            }.store(in: &cancellable)
+    }
+    
     func onLinkTap(in post: LemmyModel.PostView, url: URL) {
         self.onLinkTap?(url)
     }
@@ -100,26 +133,6 @@ extension PostsFrontPageModel: PostContentTableCellDelegate {
     
     func communityTapped(in post: LemmyModel.PostView) {        
         goToCommunityScreen?(post)
-    }
-    
-    func upvote(post: LemmyModel.PostView) {
-        upvoteDownvoteService.likePost(postId: post.id)
-            .receive(on: RunLoop.main)
-            .sink { (error) in
-                print(error)
-            } receiveValue: { (response) in
-                print(response)
-            }.store(in: &cancellable)
-    }
-    
-    func downvote(post: LemmyModel.PostView) {
-        upvoteDownvoteService.dislikePost(postId: post.id)
-            .receive(on: RunLoop.main)
-            .sink { (error) in
-                print(error)
-            } receiveValue: { (response) in
-                print(response)
-            }.store(in: &cancellable)
     }
 }
 

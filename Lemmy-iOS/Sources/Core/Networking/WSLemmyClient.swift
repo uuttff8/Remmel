@@ -24,6 +24,8 @@ class WSLemmyClient {
             guard let reqStr = makeRequestString(url: url, data: data)
             else { return promise(.failure("Can't make request string".toLemmyError)) }
             
+            print(reqStr)
+            
             let wsMessage = createWebsocketMessage(request: reqStr)
             let wsTask = createWebsocketTask(endpoint: "wss://dev.lemmy.ml/api/v1/ws")
             wsTask.resume()
