@@ -179,6 +179,21 @@ class StyledNavigationController: UINavigationController {
             action: nil
         )
     }
+    
+    /// Insert title for "Back" button on top controller
+    func insertBackButtonTitleForTopController() {
+        // View controller before last in stack
+        guard let parentViewController = self.viewControllers.last else {
+            return
+        }
+
+        parentViewController.navigationItem.backBarButtonItem = UIBarButtonItem(
+            title: "Back",
+            style: .plain,
+            target: nil,
+            action: nil
+        )
+    }
 
     /// Change color of navigation bar & status bar background
     func changeBackgroundColor(_ color: UIColor, sender: UIViewController) {

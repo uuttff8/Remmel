@@ -40,6 +40,9 @@ final class ProfileScreenTableHeaderView: UIView {
 extension ProfileScreenTableHeaderView: ProgrammaticallyViewProtocol {
     func setupView() {
         self.backgroundColor = .systemBackground
+        self.snp.makeConstraints {
+            $0.height.equalTo(40.0)
+        }
     }
     
     func addSubviews() {
@@ -58,9 +61,8 @@ extension ProfileScreenTableHeaderView: ProgrammaticallyViewProtocol {
         )
         
         mainStackView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(5)
+            $0.centerY.equalToSuperview()
             $0.trailing.leading.equalToSuperview().inset(16)
-            $0.bottom.equalToSuperview()
         }
         
         horizontalStackView.snp.makeConstraints {

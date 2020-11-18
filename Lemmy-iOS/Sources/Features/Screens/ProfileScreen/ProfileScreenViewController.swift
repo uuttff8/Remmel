@@ -89,6 +89,11 @@ class ProfileScreenViewController: UIViewController {
         self.view = view
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        styledNavigationController?.insertBackButtonTitleForTopController()
+    }
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
