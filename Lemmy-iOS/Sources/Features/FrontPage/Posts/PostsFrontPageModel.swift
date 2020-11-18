@@ -100,27 +100,11 @@ class PostsFrontPageModel: NSObject {
 
 extension PostsFrontPageModel: PostContentTableCellDelegate {
     func upvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
-        voteButton.setVoted(to: newVote)
-        
-        self.upvoteDownvoteService.createPostLike(vote: newVote, post: post)
-            .receive(on: RunLoop.main)
-            .sink { (error) in
-                print(error)
-            } receiveValue: { (post) in
-                self.saveNewPost(post)
-            }.store(in: &cancellable)
+        vote(for: newVote, post: post)
     }
     
     func downvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
-        voteButton.setVoted(to: newVote)
-        
-        self.upvoteDownvoteService.createPostLike(vote: newVote, post: post)
-            .receive(on: RunLoop.main)
-            .sink { (error) in
-                print(error)
-            } receiveValue: { (post) in
-                self.saveNewPost(post)
-            }.store(in: &cancellable)
+        vote(for: newVote, post: post)
     }
     
     func onLinkTap(in post: LemmyModel.PostView, url: URL) {
@@ -133,6 +117,16 @@ extension PostsFrontPageModel: PostContentTableCellDelegate {
     
     func communityTapped(in post: LemmyModel.PostView) {        
         goToCommunityScreen?(post)
+    }
+    
+    private func vote(for newVote: LemmyVoteType, post: LemmyModel.PostView) {
+        self.upvoteDownvoteService.createPostLike(vote: newVote, post: post)
+            .receive(on: RunLoop.main)
+            .sink { (completion) in
+                print(completion)
+            } receiveValue: { (post) in
+                self.saveNewPost(post)
+            }.store(in: &cancellable)
     }
 }
 

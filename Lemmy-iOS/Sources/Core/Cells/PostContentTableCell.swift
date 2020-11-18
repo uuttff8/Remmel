@@ -286,7 +286,8 @@ private class PostContentFooterView: UIView {
             self.viewData?.voteType = type
             
             downvoteBtn.scoreValue = .none
-            upvoteButtonTap?(sender, viewData.voteType)
+            upvoteBtn.setVoted(to: type)
+            upvoteButtonTap?(sender, type)
         }
     }
     
@@ -296,6 +297,7 @@ private class PostContentFooterView: UIView {
             self.viewData?.voteType = type
             
             upvoteBtn.scoreValue = .none
+            downvoteBtn.setVoted(to: type)
             downvoteButtonTap?(sender, type)
         }
     }
