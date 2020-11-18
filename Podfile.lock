@@ -1,12 +1,14 @@
 PODS:
   - DateToolsSwift (5.0.0)
-  - Nuke (9.1.2)
+  - Nuke (9.1.3)
   - Pageboy (3.6.2)
+  - Static (4.0.1)
 
 DEPENDENCIES:
   - DateToolsSwift (~> 5.0.0)
   - Nuke (~> 9.0)
   - Pageboy (~> 3.6)
+  - Static (from `https://github.com/venmo/Static`)
 
 SPEC REPOS:
   trunk:
@@ -14,11 +16,21 @@ SPEC REPOS:
     - Nuke
     - Pageboy
 
+EXTERNAL SOURCES:
+  Static:
+    :git: https://github.com/venmo/Static
+
+CHECKOUT OPTIONS:
+  Static:
+    :commit: 357afa10228a16ae8c63ce5d0bde99bdbf940696
+    :git: https://github.com/venmo/Static
+
 SPEC CHECKSUMS:
   DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
-  Nuke: dd2e6be6a34c042a7861e190632781d11f253026
+  Nuke: ee78dff29ad68cfd70a292a7960952f72cc6af6a
   Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
+  Static: a4ef704ab38e966728ba2e588bcbae9e66c1845e
 
-PODFILE CHECKSUM: eb95ba81c8c8444f2dadcf98e732d9977f0d8b0e
+PODFILE CHECKSUM: 926b72d9d7a3c8bc60919a3c521edb1f87932b4d
 
 COCOAPODS: 1.10.0

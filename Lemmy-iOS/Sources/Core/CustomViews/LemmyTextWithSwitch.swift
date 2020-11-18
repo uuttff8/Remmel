@@ -37,15 +37,8 @@ class LemmyLabelWithSwitch: UIView {
         }
     }
 
-    lazy var checkTextLabel: UILabel = {
-        let lbl = UILabel()
-        return lbl
-    }()
-
-    lazy var switcher: UISwitch = {
-        let swt = UISwitch()
-        return swt
-    }()
+    let checkTextLabel = UILabel()
+    let switcher = UISwitch()
 
     init() {
         super.init(frame: .zero)
@@ -68,7 +61,7 @@ class LemmyLabelWithSwitch: UIView {
         }
 
         self.snp.makeConstraints { (make) in
-            make.height.equalTo(switcher.intrinsicContentSize.height)
+            make.height.equalTo(switcher.frame.height)
         }
     }
 }
