@@ -98,12 +98,13 @@ extension CreateCommunityUI: UITableViewDelegate, UITableViewDataSource {
         case .displayName: return displayNameCell
         case .category:
             let cell = categoryCell
+            categoryCell.bind(with: .init(title: "Choose Category"), showDisclosure: true)
 
             model.selectedCategory
                 .receive(on: RunLoop.main)
                 .sink { (categor) in
                     guard let categor = categor else { return }
-                    cell.bind(with: CreateCommunityChooseCategoryCell.ViewData(title: categor.name))
+                    cell.bind(with: .init(title: categor.name), showDisclosure: true)
                 }.store(in: &cancellable)
 
             return cell

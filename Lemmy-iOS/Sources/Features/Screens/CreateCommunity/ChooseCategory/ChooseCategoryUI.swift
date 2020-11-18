@@ -120,7 +120,7 @@ extension ChooseCategoryUI: UITableViewDataSource, UITableViewDelegate {
         let data = currentCellData(indexPath)
 
         let cell = CreateCommunityChooseCategoryCell()
-        cell.bind(with: CreateCommunityChooseCategoryCell.ViewData(title: data.name))
+        cell.bind(with: .init(title: data.name), showDisclosure: false)
         return cell
     }
 

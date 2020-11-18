@@ -25,7 +25,7 @@ class CreateCommunityChooseCategoryCell: UITableViewCell {
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+        
         self.contentView.addSubview(commTitle)
     }
 
@@ -33,7 +33,8 @@ class CreateCommunityChooseCategoryCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func bind(with data: ViewData) {
+    func bind(with data: ViewData, showDisclosure: Bool) {
+        self.accessoryType = showDisclosure ? .disclosureIndicator : .none
         self.viewData = data
 
         commTitle.text = data.title

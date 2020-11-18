@@ -20,7 +20,7 @@ class CreatePostScreenUI: UIView {
     var onPickImage: (() -> Void)?
     var onPickedImage: ((UIImage) -> Void)?
 
-    let tableView = LemmyTableView(style: .plain)
+    let tableView = LemmyTableView(style: .grouped)
     let model: CreatePostScreenModel
 
     let communityCell = CreatePostCommunityCell()

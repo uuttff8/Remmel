@@ -27,6 +27,8 @@ class CreatePostCommunityCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        self.accessoryType = .disclosureIndicator
 
         let imageConfig = UIImage.SymbolConfiguration(scale: .small)
         communityImageView.image = UIImage(systemName: "person.3", withConfiguration: imageConfig)?

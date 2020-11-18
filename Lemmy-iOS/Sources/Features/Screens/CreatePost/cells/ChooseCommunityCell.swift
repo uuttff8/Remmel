@@ -34,7 +34,7 @@ class ChooseCommunityCell: UITableViewCell {
 
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)        
 
         self.contentView.addSubview(stackView)
         self.stackView.addArrangedSubview(commImageView)
@@ -53,14 +53,14 @@ class ChooseCommunityCell: UITableViewCell {
 
         if let imageString = data.icon, let url = URL(string: imageString) {
             Nuke.loadImage(with: ImageRequest(url: url), into: commImageView)
+            
+            self.commImageView.snp.makeConstraints { (make) in
+                make.size.equalTo(imageSize)
+            }
         } else {
             self.commImageView.isHidden = true
         }
 
-        self.commImageView.snp.makeConstraints { (make) in
-            make.size.equalTo(imageSize)
-            make.centerY.equalToSuperview()
-        }
         self.commTitle.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
         }
