@@ -86,6 +86,7 @@ extension ProfileScreenPostsViewController {
             _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
 //            self.emptyStateLabel.isHidden = numberOfRows != 0
 
+            self.tableView.tableHeaderView = profileScreenHeader
             self.tableView.dataSource = dataSource
             self.tableView.reloadData()
         }
@@ -107,7 +108,7 @@ extension ProfileScreenPostsViewController {
 
 extension ProfileScreenPostsViewController.View: ProgrammaticallyViewProtocol {
     func setupView() {
-        tableView.tableHeaderView = profileScreenHeader
+        
     }
     
     func addSubviews() {

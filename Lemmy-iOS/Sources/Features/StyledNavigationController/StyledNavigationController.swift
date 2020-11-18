@@ -182,7 +182,7 @@ class StyledNavigationController: UINavigationController {
     
     /// Insert title for "Back" button on top controller
     func insertBackButtonTitleForTopController() {
-        // View controller before last in stack
+        // Last view controller in stack
         guard let parentViewController = self.viewControllers.last else {
             return
         }

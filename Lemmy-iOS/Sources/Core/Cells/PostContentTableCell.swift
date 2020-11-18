@@ -178,6 +178,7 @@ class PostContentView: UIView {
     
     func prepareForReuse() {
         centerView.prepareForReuse()
+        headerView.prepareForReuse()
     }
     
     private func setupUIForPost() {
@@ -382,8 +383,6 @@ private class PostContentCenterView: UIView {
         
         if let image = data.imageUrl {
             Nuke.loadImage(with: ImageRequest(url: URL(string: image)!), into: thumbailImageView)
-        } else {
-            thumbailImageView.isHidden = true
         }
         
         layoutUI()
@@ -537,8 +536,6 @@ private class PostContentHeaderView: UIView {
         
         if let avatarUrl = data.avatarImageUrl {
             setupAvatar(with: avatarUrl)
-        } else {
-            avatarImageView.isHidden = true
         }
     }
     
