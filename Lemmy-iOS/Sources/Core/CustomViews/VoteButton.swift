@@ -64,7 +64,14 @@ final class VoteButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func handleTouchEvent(_ sender: VoteButton, forEvent event: UIEvent) {
+    // MARK: - Public API
+    func setVoted(to type: LemmyVoteType) {
+        self.scoreValue = type
+        animateVote()
+    }
+    
+    // MARK: - Private
+    @objc private func handleTouchEvent(_ sender: VoteButton, forEvent event: UIEvent) {
         guard let controlEvent = event.firstTouchToControlEvent() else {
             print("Error: couldn't convert event to control event: \(event)")
             return
@@ -91,29 +98,7 @@ final class VoteButton: UIButton {
         }
     }
     
-    func animateScaleButton(shouldDown: Bool) {
-        guard isTransformAnimationEnded else { return }
-        self.isTransformAnimationEnded = false
-        self.isEnabled = false
-        
-        let transformed = shouldDown ?
-            CGAffineTransform(scaleX: appearance.scaleValue, y: appearance.scaleValue)
-            : .identity
-        
-        UIView.animate(
-            withDuration: appearance.scaleAnimationDuration,
-            delay: 0.0,
-            options: [.curveEaseIn],
-            animations: {
-                self.transform = transformed
-            }
-        )
-        
-        self.isEnabled = true
-        isTransformAnimationEnded = true
-    }
-    
-    func animateVote() {
+    private func animateVote() {
         guard isTransformAnimationEnded else { return }
         self.isTransformAnimationEnded = false
         self.isEnabled = false
@@ -147,9 +132,26 @@ final class VoteButton: UIButton {
         isTransformAnimationEnded = true
     }
     
-    func setVoted(to type: LemmyVoteType) {
-        self.scoreValue = type
-        animateVote()
+    private func animateScaleButton(shouldDown: Bool) {
+        guard isTransformAnimationEnded else { return }
+        self.isTransformAnimationEnded = false
+        self.isEnabled = false
+        
+        let transformed = shouldDown ?
+            CGAffineTransform(scaleX: appearance.scaleValue, y: appearance.scaleValue)
+            : .identity
+        
+        UIView.animate(
+            withDuration: appearance.scaleAnimationDuration,
+            delay: 0.0,
+            options: [.curveEaseIn],
+            animations: {
+                self.transform = transformed
+            }
+        )
+        
+        self.isEnabled = true
+        isTransformAnimationEnded = true
     }
     
     private func handleForNoneCase() {
