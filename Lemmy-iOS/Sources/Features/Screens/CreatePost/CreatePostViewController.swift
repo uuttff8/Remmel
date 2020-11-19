@@ -54,7 +54,7 @@ class CreatePostScreenViewController: UIViewController {
         }
         guard let titleText = customView.contentCell.titleTextView.text else { return }
         let bodyText = customView.contentCell.bodyTextView.text
-        let urlText = customView.urlCell.urlText
+        let urlText = /*customView.urlCell.urlText*/ ""
         let nsfwOption = customView.contentCell.nsfwSwitch.switcher.isOn
         
         let data = CreatePostScreenModel.CreatePostData(
@@ -84,6 +84,7 @@ class CreatePostScreenViewController: UIViewController {
     }
 }
 
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate -
 extension CreatePostScreenViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(
         _ picker: UIImagePickerController,
@@ -101,6 +102,7 @@ extension CreatePostScreenViewController: UIImagePickerControllerDelegate, UINav
     }
 }
 
+// MARK: - UIAdaptivePresentationControllerDelegate -
 extension CreatePostScreenViewController: UIAdaptivePresentationControllerDelegate {
     func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
         

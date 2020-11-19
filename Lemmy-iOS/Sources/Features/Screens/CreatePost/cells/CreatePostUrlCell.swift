@@ -43,11 +43,11 @@ class CreatePostUrlCell: UITableViewCell {
         }
 
         urlTextField.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().inset(5)
+            make.top.equalToSuperview()
             make.leading.equalToSuperview().inset(16)
             make.trailing.equalTo(selectImageButton.snp.leading)
-            make.height.equalTo(50)
-            make.bottom.equalToSuperview().inset(5)
+            make.height.equalTo(44)
+            make.bottom.equalToSuperview()
         }
 
         selectImageButton.snp.makeConstraints { (make) in
@@ -57,7 +57,9 @@ class CreatePostUrlCell: UITableViewCell {
             make.bottom.equalTo(urlTextField)
         }
 
-        selectImageButton.addTarget(self, action: #selector(handleImageButtonTap), for: .touchUpInside)
+        selectImageButton.addTarget(self,
+                                    action: #selector(handleImageButtonTap),
+                                    for: .touchUpInside)
     }
 
     @objc private func handleImageButtonTap() {

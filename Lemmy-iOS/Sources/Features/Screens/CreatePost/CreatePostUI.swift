@@ -11,8 +11,25 @@ import UIKit
 class CreatePostScreenUI: UIView {
 
     // MARK: Cell type
-    enum CellType: CaseIterable {
-        case community, url, content
+    enum Section: Int, CaseIterable {
+        case community, url, title, body, nsfw
+        
+        var headerTitle: String? {
+            switch self {
+            case .community: return "Choose community"
+            default: return nil
+            }
+        }
+        
+        var footerTitle: String? {
+            switch self {
+            case .community: return nil
+            case .url: return "url for your post"
+            case .title: return "Title for your post. Required."
+            case .body: return "Body for your post. Optional"
+            case .nsfw: return nil
+            }
+        }
     }
 
     // MARK: - Properties
@@ -25,7 +42,6 @@ class CreatePostScreenUI: UIView {
 
     let communityCell = CreatePostCommunityCell()
     lazy var contentCell = CreatePostContentCell(backView: self)
-    let urlCell = CreatePostUrlCell()
 
     // MARK: - Init
     init(model: CreatePostScreenModel) {
@@ -58,14 +74,19 @@ class CreatePostScreenUI: UIView {
 
 // MARK: - Data source actions -
 extension CreatePostScreenUI: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        Section.allCases.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        CellType.allCases.count
+        return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellType = CellType.allCases[indexPath.row]
+        let section = Section.allCases[indexPath.section]
 
-        switch cellType {
+        switch section {
         case .community:
             let cell = communityCell
             model.communitySelectedCompletion = { community in
@@ -73,22 +94,20 @@ extension CreatePostScreenUI: UITableViewDelegate, UITableViewDataSource {
             }
 
             return cell
-        case .content:
-            return contentCell
         case .url:
-            urlCell.onPickImage = {
-                self.onPickImage?()
-            }
-            self.onPickedImage = { image in
-                self.urlCell.onPickedImage?(image)
-            }
-
+            let urlCell = CreatePostUrlCell()
+            
+            urlCell.onPickImage = self.onPickImage
+            self.onPickedImage = urlCell.onPickedImage
+            
             return urlCell
+        default:
+            return UITableViewCell()
         }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cellType = CellType.allCases[indexPath.row]
+        let cellType = Section.allCases[indexPath.row]
 
         switch cellType {
         case .community:
