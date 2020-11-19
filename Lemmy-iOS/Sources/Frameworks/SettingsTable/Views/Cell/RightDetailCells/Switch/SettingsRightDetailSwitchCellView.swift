@@ -3,11 +3,11 @@ import UIKit
 
 extension SettingsRightDetailSwitchCellView {
     struct Appearance {
-        let titleTextColor = UIColor.stepikSystemPrimaryText
+        let titleTextColor = UIColor.label
         let titleFont = UIFont.systemFont(ofSize: 17)
         let titleInsets = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 8)
 
-        let switchOnTintColor = UIColor.stepikSwitchOnTint
+        let switchOnTintColor = UIColor.systemGreen
         let switchWidth: CGFloat = 51
 
         let trailingOffsetWithAccessoryItem: CGFloat = 8
@@ -47,7 +47,7 @@ final class SettingsRightDetailSwitchCellView: UIView {
         }
     }
 
-    var textColor: UIColor = .stepikSystemPrimaryText {
+    var textColor: UIColor = .label {
         didSet {
             self.titleLabel.textColor = self.textColor
         }
@@ -65,7 +65,7 @@ final class SettingsRightDetailSwitchCellView: UIView {
         }
     }
 
-    var switchOnTintColor: UIColor = .stepikSwitchOnTint {
+    var switchOnTintColor: UIColor = .systemGray {
         didSet {
             self.detailSwitch.onTintColor = self.switchOnTintColor
         }
@@ -100,7 +100,7 @@ final class SettingsRightDetailSwitchCellView: UIView {
     }
 }
 
-extension SettingsRightDetailSwitchCellView: ProgrammaticallyInitializableViewProtocol {
+extension SettingsRightDetailSwitchCellView: ProgrammaticallyViewProtocol {
     func addSubviews() {
         self.addSubview(self.containerView)
         self.containerView.addSubview(self.titleLabel)

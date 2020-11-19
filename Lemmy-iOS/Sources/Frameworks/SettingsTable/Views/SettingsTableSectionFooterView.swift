@@ -1,10 +1,10 @@
 import SnapKit
 import UIKit
 
-final class SettingsTableSectionFooterView: UITableViewHeaderFooterView, Reusable {
+final class SettingsTableSectionFooterView: UITableViewHeaderFooterView {
     enum Appearance {
         static let font = UIFont.systemFont(ofSize: 13)
-        static let labelColor = UIColor.stepikSystemSecondaryText
+        static let labelColor = UIColor.label
         static let labelInsets = UIEdgeInsets(top: 8, left: 16, bottom: 0, right: 16)
     }
 

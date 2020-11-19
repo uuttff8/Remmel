@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 struct SettingsTableViewModel {
     let sections: [SettingsTableSectionViewModel]
@@ -104,7 +104,7 @@ struct RightDetailCellOptions {
 
         init(
             text: String,
-            appearance: Appearance = .init(textColor: .stepikSystemPrimaryText, textAlignment: .natural)
+            appearance: Appearance = .init(textColor: .label, textAlignment: .natural)
         ) {
             self.text = text
             self.appearance = appearance
@@ -122,7 +122,7 @@ struct RightDetailCellOptions {
 
         init(
             isOn: Bool,
-            appearance: Appearance = .init(onTintColor: .stepikSwitchOnTint)
+            appearance: Appearance = .init(onTintColor: .systemGreen)
         ) {
             self.isOn = isOn
             self.appearance = appearance
@@ -133,30 +133,8 @@ struct RightDetailCellOptions {
         }
     }
 
-    struct CheckBox {
-        let isOn: Bool
-        let checkBoxGroup: UniqueIdentifierType?
-        let checkBoxGroupMustHaveSelection: Bool
-        let appearance: Appearance
-
-        init(
-            isOn: Bool,
-            checkBoxGroup: UniqueIdentifierType? = nil,
-            checkBoxGroupMustHaveSelection: Bool = false,
-            appearance: Appearance = .init()
-        ) {
-            self.isOn = isOn
-            self.checkBoxGroup = checkBoxGroup
-            self.checkBoxGroupMustHaveSelection = checkBoxGroupMustHaveSelection
-            self.appearance = appearance
-        }
-
-        struct Appearance {}
-    }
-
     enum DetailType {
         case label(text: String?)
         case `switch`(Switch)
-        case checkBox(CheckBox)
     }
 }

@@ -8,6 +8,8 @@
 
 import UIKit
 
+protocol CreatePostViewDelegate: SettingsTableViewDelegate { }
+
 class CreatePostScreenUI: UIView {
 
     // MARK: Cell type

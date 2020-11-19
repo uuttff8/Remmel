@@ -8,7 +8,7 @@ extension SettingsTableViewCell {
     }
 }
 
-class SettingsTableViewCell<T: UIView>: UITableViewCell, Reusable {
+class SettingsTableViewCell<T: UIView>: UITableViewCell {
     private let elementViewLeftInset: CGFloat = 16
 
     lazy var elementView = T()

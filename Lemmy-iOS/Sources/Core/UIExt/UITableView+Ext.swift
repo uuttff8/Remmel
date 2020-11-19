@@ -25,8 +25,15 @@ extension ReusableCellIdentifiable where Self: UICollectionViewCell {
     }
 }
 
+extension ReusableCellIdentifiable where Self: UITableViewHeaderFooterView {
+    static var cellIdentifier: String {
+        return String(describing: self)
+    }
+}
+
 extension UITableViewCell: ReusableCellIdentifiable {}
 extension UICollectionViewCell: ReusableCellIdentifiable {}
+extension UITableViewHeaderFooterView: ReusableCellIdentifiable {}
 
 extension UITableView {
     
@@ -47,6 +54,18 @@ extension UITableView {
     
     func cell<T: ReusableCellIdentifiable>(forClass cellClass: T.Type) -> T {
         return dequeueReusableCell(withIdentifier: T.cellIdentifier) as! T
+    }
+    
+    func dequeueReusableHeaderFooterView<T: UIView>() -> T where T: ReusableCellIdentifiable {
+        guard let view = self.dequeueReusableHeaderFooterView(withIdentifier: T.cellIdentifier) as? T else {
+            fatalError("Could not dequeue header/footer view with identifier: \(T.cellIdentifier)")
+        }
+
+        return view
+    }
+    
+    func register<T: UIView>(headerFooterViewClass: T.Type) where T: ReusableCellIdentifiable {
+        self.register(T.self, forHeaderFooterViewReuseIdentifier: T.cellIdentifier)
     }
     
 }

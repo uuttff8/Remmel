@@ -5,8 +5,7 @@ import UIKit
 protocol SettingsTableViewDelegate:
     SettingsInputCellDelegate,
     SettingsLargeInputCellDelegate,
-    SettingsRightDetailSwitchCellDelegate,
-    SettingsRightDetailCheckboxCellDelegate {
+    SettingsRightDetailSwitchCellDelegate {
     func settingsTableView(
         _ tableView: SettingsTableView,
         didSelectCell cell: SettingsTableSectionViewModel.Cell,
@@ -34,8 +33,6 @@ extension SettingsTableViewDelegate {
     ) {}
 
     func settingsCell(_ cell: SettingsRightDetailSwitchTableViewCell, switchValueChanged isOn: Bool) {}
-
-    func settingsCell(_ cell: SettingsRightDetailCheckboxTableViewCell, checkboxValueChanged isOn: Bool) {}
 }
 
 extension SettingsTableView {
@@ -58,11 +55,10 @@ final class SettingsTableView: UIView {
         tableView.sectionFooterHeight = UITableView.automaticDimension
         tableView.estimatedSectionFooterHeight = 50.0
 
-        tableView.register(cellClass: SettingsInputTableViewCell<TableInputTextField>.self)
-        tableView.register(cellClass: SettingsLargeInputTableViewCell<TableInputTextView>.self)
-        tableView.register(cellClass: SettingsRightDetailTableViewCell.self)
-        tableView.register(cellClass: SettingsRightDetailSwitchTableViewCell.self)
-        tableView.register(cellClass: SettingsRightDetailCheckboxTableViewCell.self)
+        tableView.registerClass(SettingsInputTableViewCell<TableInputTextField>.self)
+        tableView.registerClass(SettingsLargeInputTableViewCell<TableInputTextView>.self)
+        tableView.registerClass(SettingsRightDetailTableViewCell.self)
+        tableView.registerClass(SettingsRightDetailSwitchTableViewCell.self)
 
         tableView.register(headerFooterViewClass: SettingsTableSectionHeaderView.self)
         tableView.register(headerFooterViewClass: SettingsTableSectionFooterView.self)
@@ -71,7 +67,6 @@ final class SettingsTableView: UIView {
     }()
 
     private lazy var inputCellGroups: [SettingsInputCellGroup] = []
-    private lazy var checkBoxCellGroups: [SettingsCheckBoxCellGroup] = []
 
     init(frame: CGRect = .zero, appearance: Appearance = Appearance()) {
         self.appearance = appearance
@@ -163,38 +158,6 @@ final class SettingsTableView: UIView {
         }
     }
 
-    func updateRightDetailCheckBoxCell(
-        _ cell: SettingsRightDetailCheckboxTableViewCell,
-        viewModel: SettingsTableSectionViewModel.Cell,
-        options: RightDetailCellOptions
-    ) {
-        cell.uniqueIdentifier = viewModel.uniqueIdentifier
-        cell.accessoryType = options.accessoryType
-        cell.delegate = self.delegate
-
-        cell.elementView.title = options.title.text
-        cell.elementView.textColor = options.title.appearance.textColor
-        cell.elementView.textAlignment = options.title.appearance.textAlignment
-
-        if case .checkBox(let checkBoxModel) = options.detailType {
-            cell.elementView.checkBoxIsOn = checkBoxModel.isOn
-
-            if let checkBoxGroup = self.checkBoxCellGroups.first(
-                where: { $0.uniqueIdentifier == checkBoxModel.checkBoxGroup }
-            ) {
-                checkBoxGroup.addCheckBoxCell(cell)
-
-                if checkBoxModel.isOn {
-                    checkBoxGroup.setCheckBoxCellSelected(cell)
-                }
-
-                DispatchQueue.main.async {
-                    checkBoxGroup.mustHaveSelection = checkBoxModel.checkBoxGroupMustHaveSelection
-                }
-            }
-        }
-    }
-
     // MARK: Private API
 
     private func makeCellGroups(viewModel: SettingsTableViewModel) {
@@ -211,21 +174,6 @@ final class SettingsTableView: UIView {
         for group in Array(Set(flattenInputCellGroups)) {
             self.inputCellGroups.append(SettingsInputCellGroup(uniqueIdentifier: group))
         }
-
-        // Create input groups for each checkBox type
-        self.checkBoxCellGroups.removeAll()
-        let flattenCheckBoxCellGroups: [UniqueIdentifierType] = viewModel.sections
-            .flatMap { $0.cells }
-            .compactMap { cell in
-                if case .rightDetail(let options) = cell.type,
-                   case .checkBox(let checkBoxModel) = options.detailType {
-                    return checkBoxModel.checkBoxGroup
-                }
-                return nil
-            }
-        for group in Array(Set(flattenCheckBoxCellGroups)) {
-            self.checkBoxCellGroups.append(SettingsCheckBoxCellGroup(uniqueIdentifier: group))
-        }
     }
 
     private func performTableViewUpdates() {
@@ -238,7 +186,7 @@ final class SettingsTableView: UIView {
     }
 }
 
-extension SettingsTableView: ProgrammaticallyInitializableViewProtocol {
+extension SettingsTableView: ProgrammaticallyViewProtocol {
     func addSubviews() {
         self.addSubview(self.tableView)
     }
@@ -272,7 +220,7 @@ extension SettingsTableView: UITableViewDataSource {
 
         switch cellViewModel.type {
         case .input(let options):
-            let cell: SettingsInputTableViewCell<TableInputTextField> = tableView.dequeueReusableCell(for: indexPath)
+            let cell: SettingsInputTableViewCell<TableInputTextField> = tableView.cell(forRowAt: indexPath)
             self.updateInputCell(cell, viewModel: cellViewModel, options: options)
             cell.appearance = .init(
                 unselectedBackgroundColor: cellViewModel.appearance.backgroundColor,
@@ -280,9 +228,7 @@ extension SettingsTableView: UITableViewDataSource {
             )
             return cell
         case .largeInput(let options):
-            let cell: SettingsLargeInputTableViewCell<TableInputTextView> = tableView.dequeueReusableCell(
-                for: indexPath
-            )
+            let cell: SettingsLargeInputTableViewCell<TableInputTextView> = tableView.cell(forRowAt: indexPath)
             self.updateLargeInputCell(cell, viewModel: cellViewModel, options: options)
             cell.appearance = .init(
                 unselectedBackgroundColor: cellViewModel.appearance.backgroundColor,
@@ -292,7 +238,7 @@ extension SettingsTableView: UITableViewDataSource {
         case .rightDetail(let options):
             switch options.detailType {
             case .label:
-                let cell: SettingsRightDetailTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+                let cell: SettingsRightDetailTableViewCell = tableView.cell(forRowAt: indexPath)
                 self.updateRightDetailCell(cell, viewModel: cellViewModel, options: options)
                 cell.appearance = .init(
                     unselectedBackgroundColor: cellViewModel.appearance.backgroundColor,
@@ -300,16 +246,8 @@ extension SettingsTableView: UITableViewDataSource {
                 )
                 return cell
             case .switch:
-                let cell: SettingsRightDetailSwitchTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+                let cell: SettingsRightDetailSwitchTableViewCell = tableView.cell(forRowAt: indexPath)
                 self.updateRightDetailSwitchCell(cell, viewModel: cellViewModel, options: options)
-                cell.appearance = .init(
-                    unselectedBackgroundColor: cellViewModel.appearance.backgroundColor,
-                    selectedBackgroundColor: cellViewModel.appearance.selectedBackgroundColor
-                )
-                return cell
-            case .checkBox:
-                let cell: SettingsRightDetailCheckboxTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-                self.updateRightDetailCheckBoxCell(cell, viewModel: cellViewModel, options: options)
                 cell.appearance = .init(
                     unselectedBackgroundColor: cellViewModel.appearance.backgroundColor,
                     selectedBackgroundColor: cellViewModel.appearance.selectedBackgroundColor
@@ -334,11 +272,6 @@ extension SettingsTableView: UITableViewDelegate {
 
         guard let cellViewModel = self.cellViewModel(at: indexPath) else {
             return
-        }
-
-        if case .rightDetail(let options) = cellViewModel.type,
-           case .checkBox = options.detailType {
-            self.handleTableView(tableView, didSelectCheckboxCellAt: indexPath)
         }
 
         self.delegate?.settingsTableView(self, didSelectCell: cellViewModel, at: indexPath)
@@ -384,32 +317,5 @@ extension SettingsTableView: UITableViewDelegate {
         self.viewModel?.sections[safe: section]?.header?.title != nil
             ? 53.0
             : UITableView.automaticDimension
-    }
-
-    // MARK: Private Helpers
-
-    private func handleTableView(_ tableView: UITableView, didSelectCheckboxCellAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? SettingsRightDetailCheckboxTableViewCell else {
-            return
-        }
-
-        let oldValue = cell.elementView.checkBoxIsOn
-        let newValue = !oldValue
-
-        if let group = self.checkBoxCellGroups.first(where: { $0.containsCheckBoxCell(cell) }) {
-            if group.mustHaveSelection || newValue {
-                group.setCheckBoxCellSelected(cell)
-            } else {
-                cell.elementView.setCheckBoxOn(newValue, animated: true)
-            }
-        } else {
-            cell.elementView.setCheckBoxOn(newValue, animated: true)
-        }
-
-        let currentValue = cell.elementView.checkBoxIsOn
-
-        if oldValue != currentValue {
-            self.delegate?.settingsCell(cell, checkboxValueChanged: currentValue)
-        }
     }
 }

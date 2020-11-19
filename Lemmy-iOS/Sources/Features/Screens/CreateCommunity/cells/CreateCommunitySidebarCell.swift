@@ -16,7 +16,7 @@ class CreateCommunitySidebarCell: UITableViewCell {
         let tv = UITextView()
         tv.font = .systemFont(ofSize: 17)
         tv.textColor = UIColor.lightGray
-        tv.placeholder = "Sidebar"
+//        tv.placeholder = "Sidebar"
         return tv
     }()
 
