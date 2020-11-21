@@ -57,6 +57,7 @@ class CreatePostScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()        
         self.setupNavigationItem()
+        self.hideKeyboardWhenTappedAround()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -128,10 +129,70 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
             )
         )
         
+        let urlCell = SettingsTableSectionViewModel.Cell(
+            uniqueIdentifier: FormField.url.rawValue,
+            type: .input(
+                options: .init(
+                    valueText: nil,
+                    placeholderText: "Enter Url",
+                    shouldAlwaysShowPlaceholder: false,
+                    inputGroup: "url"
+                )
+            )
+        )
+        
+        let titleCell = SettingsTableSectionViewModel.Cell(
+            uniqueIdentifier: FormField.title.rawValue,
+            type: .largeInput(
+                options: .init(
+                    valueText: nil,
+                    placeholderText: "Your title",
+                    maxLength: nil
+                )
+            )
+        )
+        
+        let bodyCell = SettingsTableSectionViewModel.Cell(
+            uniqueIdentifier: FormField.body.rawValue,
+            type: .largeInput(
+                options: .init(
+                    valueText: nil,
+                    placeholderText: "Your body",
+                    maxLength: nil
+                )
+            )
+        )
+        
+        let nsfwCell = SettingsTableSectionViewModel.Cell(
+            uniqueIdentifier: FormField.nsfw.rawValue,
+            type: .rightDetail(
+                options: .init(
+                    title: .init(text: "NSFW"),
+                    detailType: .switch(.init(isOn: false)),
+                    accessoryType: .none
+                )
+            )
+        )
+        
         let sectionsViewModel: [SettingsTableSectionViewModel] = [
             .init(
                 header: .init(title: "Choose Community"),
                 cells: [chooseCommunityCell],
+                footer: nil
+            ),
+            .init(
+                header: .init(title: "Create Url"),
+                cells: [urlCell],
+                footer: nil
+            ),
+            .init(
+                header: nil,
+                cells: [titleCell, bodyCell],
+                footer: nil
+            ),
+            .init(
+                header: nil,
+                cells: [nsfwCell],
                 footer: nil
             )
         ]
