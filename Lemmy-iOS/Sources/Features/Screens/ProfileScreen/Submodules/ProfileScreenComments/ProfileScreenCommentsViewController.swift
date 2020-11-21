@@ -52,12 +52,12 @@ class ProfileScreenCommentsViewController: UIViewController {
         }
 
         if case .loading = newState {
-            self.commentsPostsView?.showLoading()
+            self.commentsPostsView?.showLoadingIndicator()
             return
         }
 
         if case .loading = self.state {
-            self.commentsPostsView?.hideLoading()
+            self.commentsPostsView?.hideActivityIndicatorView()
         }
 
         if case .result = newState {

@@ -69,7 +69,7 @@ extension ChooseCommunityViewController: ChooseCommunityTableDataSourceDelegate 
     }
     
     func tableShowNotFound() {
-        print("\(#function)")
+        self.chooseCommunityView.hideActivityIndicatorView()
     }
 }
 
