@@ -28,11 +28,13 @@ class ChooseCommunityViewModel: ChooseCommunityViewModelProtocol {
             
             switch res {
             case let .success(data):
-                self.viewController?.displayCommunities(
-                    viewModel: .init(
-                        state: .result(data.communities)
+                DispatchQueue.main.async {
+                    self.viewController?.displayCommunities(
+                        viewModel: .init(
+                            state: .result(data.communities)
+                        )
                     )
-                )
+                }
             case let .failure(why):
                 print(why)
             }
@@ -55,17 +57,19 @@ class ChooseCommunityViewModel: ChooseCommunityViewModelProtocol {
             
             switch res {
             case let .success(data):
-                self.viewController?.displaySearchResults(
-                    viewModel: .init(
-                        state: .result(data.communities)
+                DispatchQueue.main.async {
+                    self.viewController?.displaySearchResults(
+                        viewModel: .init(
+                            state: .result(data.communities)
+                        )
                     )
-                )
+                }
             case let .failure(why):
                 print(why)
             }
         }
     }
-
+    
 }
 
 

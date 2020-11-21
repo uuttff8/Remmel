@@ -76,6 +76,7 @@ class ChooseCommunityUI: UIView {
         } else {
             tableViewDelegate.shouldShowFiltered = false
             tableViewDelegate.removeFilteredCommunities()
+            tableView.reloadData()
         }
     }
 }
@@ -93,6 +94,7 @@ extension ChooseCommunityUI: UISearchBarDelegate {
         tableViewDelegate.shouldShowFiltered = false
         searchBar.text = ""
         tableViewDelegate.removeFilteredCommunities()
+        tableView.reloadData()
         searchBar.resignFirstResponder()
     }
 

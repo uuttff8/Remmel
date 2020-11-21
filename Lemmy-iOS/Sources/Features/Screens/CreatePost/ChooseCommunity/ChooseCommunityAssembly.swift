@@ -17,7 +17,7 @@ final class ChooseCommunityAssembly: Assembly {
         let viewModel = ChooseCommunityViewModel()
         let vc = ChooseCommunityViewController(viewModel: viewModel)
         
-        onCommunitySelected = vc.onCommunitySelected
+        vc.onCommunitySelected = onCommunitySelected
         
         viewModel.viewController = vc
         

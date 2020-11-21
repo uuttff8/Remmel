@@ -278,7 +278,9 @@ extension CreatePostScreenViewController: CreatePostViewDelegate {
         case .community:
             self.coordinator?.goToChoosingCommunity(
                 choosedCommunity: { (community) in
-                    print(community)
+                    self.viewModel.doChoosingCommunityUpdate(
+                        request: .init(community: community)
+                    )
                 }
             )
         default:

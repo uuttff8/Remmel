@@ -51,6 +51,8 @@ enum LemmySortType: String, Codable, CaseIterable, LemmyTypePickable {
     case topYear = "TopYear"
 
     case topAll = "TopAll"
+    
+    case all = "All"
 
     var label: String {
         switch self {
@@ -62,6 +64,7 @@ enum LemmySortType: String, Codable, CaseIterable, LemmyTypePickable {
         case .topMonth: return "Top Month"
         case .topAll: return "Top All"
         case .topYear: return "Top Year"
+        case .all: return "All"
         }
     }
 
@@ -75,6 +78,7 @@ enum LemmySortType: String, Codable, CaseIterable, LemmyTypePickable {
         case .topMonth: return 5
         case .topYear: return 6
         case .topAll: return 7
+        case .all: return 8
         }
     }
 }

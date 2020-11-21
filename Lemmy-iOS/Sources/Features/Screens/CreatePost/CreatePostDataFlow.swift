@@ -18,7 +18,7 @@ enum CreatePost {
         }
     }
     
-    /// Presents download video quality setting screen.
+    /// Presents choosing community.
     enum ChooseCommunityFormPresentation {
         struct Request {}
 
@@ -27,9 +27,11 @@ enum CreatePost {
         }
     }
     
-    /// Presents download video quality setting screen.
+    /// Update choosing community.
     enum ChooseCommunityFormUpdate {
-        struct Request {}
+        struct Request {
+            let community: LemmyModel.CommunityView
+        }
 
         struct ViewModel {
             let settingDescription: FormFieldDescription

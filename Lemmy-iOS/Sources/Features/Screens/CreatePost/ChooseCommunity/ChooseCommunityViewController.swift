@@ -42,22 +42,29 @@ class ChooseCommunityViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.viewModel.doCommunitiesLoad(request: .init())
     }
 }
 
 extension ChooseCommunityViewController: ChooseCommunityViewControllerProtocol {
     func displayCommunities(viewModel: ChooseCommunity.CommunitiesLoad.ViewModel) {
+        guard case let .result(data) = viewModel.state else { return }
+        
+        self.tableViewDataSource.viewModels = data
         self.chooseCommunityView.updateTableViewData(dataSource: self.tableViewDataSource)
     }
     
     func displaySearchResults(viewModel: ChooseCommunity.SearchCommunities.ViewModel) {
+        guard case let .result(data) = viewModel.state else { return }
+
+        self.tableViewDataSource.filteredViewModels = data
         self.chooseCommunityView.updateTableViewData(dataSource: self.tableViewDataSource)
     }
 }
 
 extension ChooseCommunityViewController: ChooseCommunityTableDataSourceDelegate {
     func tableDidSelect(community: LemmyModel.CommunityView) {
-        print("\(#function)")
+        onCommunitySelected?(community)
         self.navigationController?.popViewController(animated: true)
     }
     

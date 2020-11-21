@@ -82,7 +82,7 @@ class CreatePostViewModel: CreatePostViewModelProtocol {
     }
     
     func doChoosingCommunityUpdate(request: CreatePost.ChooseCommunityFormUpdate.Request) {
-        
+        self.selectedCommunity = request.community
     }
     
     // MARK: - Api Request
