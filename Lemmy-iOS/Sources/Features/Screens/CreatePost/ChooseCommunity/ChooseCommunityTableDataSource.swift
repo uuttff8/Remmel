@@ -72,7 +72,6 @@ extension ChooseCommunityTableDataSource: UITableViewDataSource {
     }        
 }
 
-
 extension ChooseCommunityTableDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let community = getCurrentCellData(indexPath: indexPath)

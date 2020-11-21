@@ -41,7 +41,5 @@ class CreatePostCoordinator: Coordinator {
         if let presentingVc = rootViewController.presentingViewController as? LemmyTabBarController {
             presentingVc.coordinator?.goToPost(post: post)
         }
-
-//        self.navigationController?.pushViewController(postScreen, animated: true)
     }
 }

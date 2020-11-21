@@ -55,15 +55,7 @@ class CreatePostScreenViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        //        customView.onPickImage = {
-        //            self.present(self.imagePicker, animated: true, completion: nil)
-        //        }
-        
-        //        customView.goToChoosingCommunity = { [self] in
-        //            coordinator?.goToChoosingCommunity(model: model)
-        //        }
+        super.viewDidLoad()        
         self.setupNavigationItem()
     }
     
@@ -118,39 +110,7 @@ class CreatePostScreenViewController: UIViewController {
     
     // MARK: - Action
     private func postBarButtonTapped(_ action: UIAction) {
-        //        guard let community = model.communitySelected else {
-        //            UIAlertController.createOkAlert(message: "Please select community first")
-        //            return
-        //        }
-        //        guard let titleText = customView.contentCell.titleTextView.text else { return }
-        //        let bodyText = customView.contentCell.bodyTextView.text
-        //        let urlText = /*customView.urlCell.urlText*/ ""
-        //        let nsfwOption = customView.contentCell.nsfwSwitch.switcher.isOn
-        
-        //        let data = CreatePostScreenModel.CreatePostData(
-        //            communityId: community.id,
-        //            title: titleText,
-        //            body: bodyText,
-        //            url: urlText,
-        //            nsfwOption: nsfwOption
-        //        )
-        
-        //        model.createPost(
-        //            data: data
-        //        ) { (res) in
-        //
-        //            switch res {
-        //            case .success(let post):
-        //                DispatchQueue.main.async {
-        //                    self.coordinator?.goToPost(post: post)
-        //                }
-        //            case .failure(let error):
-        //                DispatchQueue.main.async {
-        //                    UIAlertController.createOkAlert(message: error.localizedDescription)
-        //                }
-        //                print(error)
-        //            }
-        //        }
+        // TODO: make request
     }
 }
 

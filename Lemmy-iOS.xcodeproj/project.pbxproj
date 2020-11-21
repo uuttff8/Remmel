@@ -650,11 +650,11 @@
 		4E886C86253F4FD40076B162 /* ChooseCommunity */ = {
 			isa = PBXGroup;
 			children = (
+				4E9183AE25696EAA00702F04 /* ChooseCommunityAssembly.swift */,
 				4E886CCD2541E1670076B162 /* ChooseCommunityViewController.swift */,
 				4E886CD22541E1A20076B162 /* ChooseCommunityUI.swift */,
 				4E9183A42567FE5500702F04 /* ChooseCommunityViewModel.swift */,
 				4E9183A92567FF4200702F04 /* ChooseCommunityTableDataSource.swift */,
-				4E9183AE25696EAA00702F04 /* ChooseCommunityAssembly.swift */,
 			);
 			path = ChooseCommunity;
 			sourceTree = "<group>";
