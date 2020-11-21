@@ -65,7 +65,7 @@
 		4E886C73253CD4270076B162 /* CreateDismissTransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C72253CD4270076B162 /* CreateDismissTransitionDriver.swift */; };
 		4E886C7E253F4F290076B162 /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C7D253F4F290076B162 /* CreatePostViewController.swift */; };
 		4E886C88253F4FF40076B162 /* CreatePostUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C87253F4FF40076B162 /* CreatePostUI.swift */; };
-		4E886C8D253F51B90076B162 /* CreatePostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C8C253F51B90076B162 /* CreatePostModel.swift */; };
+		4E886C8D253F51B90076B162 /* CreatePostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C8C253F51B90076B162 /* CreatePostViewModel.swift */; };
 		4E886C99253F679C0076B162 /* CreatePostCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C98253F679C0076B162 /* CreatePostCoordinator.swift */; };
 		4E886CA1254093050076B162 /* CreatePostCommunityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CA0254093040076B162 /* CreatePostCommunityCell.swift */; };
 		4E886CA62540A27E0076B162 /* CreatePostUrlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CA52540A27E0076B162 /* CreatePostUrlCell.swift */; };
@@ -95,6 +95,13 @@
 		4E9183712566F51600702F04 /* UniqueIdentifierType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183702566F51600702F04 /* UniqueIdentifierType.swift */; };
 		4E9183762566F5B900702F04 /* TableInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183752566F5B900702F04 /* TableInputTextField.swift */; };
 		4E91837B2566F60600702F04 /* TableInputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E91837A2566F60600702F04 /* TableInputTextView.swift */; };
+		4E918383256726A400702F04 /* CreatePostDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E918382256726A400702F04 /* CreatePostDataFlow.swift */; };
+		4E9183882567284E00702F04 /* CreatePostAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183872567284E00702F04 /* CreatePostAssembly.swift */; };
+		4E9183902567DBE200702F04 /* PushRouterSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E91838F2567DBE200702F04 /* PushRouterSourceProtocol.swift */; };
+		4E9183982567DCB100702F04 /* SelectItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183972567DCB100702F04 /* SelectItemViewModel.swift */; };
+		4E91839D2567DCC500702F04 /* SelectItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E91839C2567DCC500702F04 /* SelectItemTableViewController.swift */; };
+		4E9183A52567FE5500702F04 /* ChooseCommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183A42567FE5500702F04 /* ChooseCommunityViewModel.swift */; };
+		4E9183AA2567FF4200702F04 /* ChooseCommunityTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183A92567FF4200702F04 /* ChooseCommunityTableDataSource.swift */; };
 		4E9BBA1925553176004FF2F9 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA1825553176004FF2F9 /* Enums.swift */; };
 		4E9BBA24255534B0004FF2F9 /* LemmyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA23255534B0004FF2F9 /* LemmyModel.swift */; };
 		4E9BBA2C25553516004FF2F9 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA2B25553516004FF2F9 /* Error.swift */; };
@@ -279,7 +286,7 @@
 		4E886C72253CD4270076B162 /* CreateDismissTransitionDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDismissTransitionDriver.swift; sourceTree = "<group>"; };
 		4E886C7D253F4F290076B162 /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
 		4E886C87253F4FF40076B162 /* CreatePostUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostUI.swift; sourceTree = "<group>"; };
-		4E886C8C253F51B90076B162 /* CreatePostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostModel.swift; sourceTree = "<group>"; };
+		4E886C8C253F51B90076B162 /* CreatePostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewModel.swift; sourceTree = "<group>"; };
 		4E886C98253F679C0076B162 /* CreatePostCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostCoordinator.swift; sourceTree = "<group>"; };
 		4E886CA0254093040076B162 /* CreatePostCommunityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostCommunityCell.swift; sourceTree = "<group>"; };
 		4E886CA52540A27E0076B162 /* CreatePostUrlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostUrlCell.swift; sourceTree = "<group>"; };
@@ -309,6 +316,13 @@
 		4E9183702566F51600702F04 /* UniqueIdentifierType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniqueIdentifierType.swift; sourceTree = "<group>"; };
 		4E9183752566F5B900702F04 /* TableInputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableInputTextField.swift; sourceTree = "<group>"; };
 		4E91837A2566F60600702F04 /* TableInputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableInputTextView.swift; sourceTree = "<group>"; };
+		4E918382256726A400702F04 /* CreatePostDataFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostDataFlow.swift; sourceTree = "<group>"; };
+		4E9183872567284E00702F04 /* CreatePostAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostAssembly.swift; sourceTree = "<group>"; };
+		4E91838F2567DBE200702F04 /* PushRouterSourceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushRouterSourceProtocol.swift; sourceTree = "<group>"; };
+		4E9183972567DCB100702F04 /* SelectItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectItemViewModel.swift; sourceTree = "<group>"; };
+		4E91839C2567DCC500702F04 /* SelectItemTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectItemTableViewController.swift; sourceTree = "<group>"; };
+		4E9183A42567FE5500702F04 /* ChooseCommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityViewModel.swift; sourceTree = "<group>"; };
+		4E9183A92567FF4200702F04 /* ChooseCommunityTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityTableDataSource.swift; sourceTree = "<group>"; };
 		4E9BBA1825553176004FF2F9 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		4E9BBA23255534B0004FF2F9 /* LemmyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyModel.swift; sourceTree = "<group>"; };
 		4E9BBA2B25553516004FF2F9 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
@@ -621,10 +635,12 @@
 			children = (
 				4E886C97253F67500076B162 /* cells */,
 				4E886C86253F4FD40076B162 /* ChooseCommunity */,
+				4E9183872567284E00702F04 /* CreatePostAssembly.swift */,
 				4E886C7D253F4F290076B162 /* CreatePostViewController.swift */,
 				4E886C87253F4FF40076B162 /* CreatePostUI.swift */,
-				4E886C8C253F51B90076B162 /* CreatePostModel.swift */,
+				4E886C8C253F51B90076B162 /* CreatePostViewModel.swift */,
 				4E886C98253F679C0076B162 /* CreatePostCoordinator.swift */,
+				4E918382256726A400702F04 /* CreatePostDataFlow.swift */,
 			);
 			path = CreatePost;
 			sourceTree = "<group>";
@@ -634,6 +650,8 @@
 			children = (
 				4E886CCD2541E1670076B162 /* ChooseCommunityViewController.swift */,
 				4E886CD22541E1A20076B162 /* ChooseCommunityUI.swift */,
+				4E9183A42567FE5500702F04 /* ChooseCommunityViewModel.swift */,
+				4E9183A92567FF4200702F04 /* ChooseCommunityTableDataSource.swift */,
 			);
 			path = ChooseCommunity;
 			sourceTree = "<group>";
@@ -663,6 +681,7 @@
 				4E9183312566C16C00702F04 /* SettingsTableViewModel.swift */,
 				4E9183322566C16C00702F04 /* SettingsTableView.swift */,
 				4E9183332566C16C00702F04 /* Views */,
+				4E9183962567DC8F00702F04 /* SelectItem */,
 			);
 			path = SettingsTable;
 			sourceTree = "<group>";
@@ -670,8 +689,7 @@
 		4E9183332566C16C00702F04 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4E9183342566C16C00702F04 /* SettingsTableSectionFooterView.swift */,
-				4E9183442566C16C00702F04 /* SettingsTableSectionHeaderView.swift */,
+				4E9183942567DC7200702F04 /* HeaderFooter */,
 				4E9183352566C16C00702F04 /* Cell */,
 			);
 			path = Views;
@@ -721,6 +739,24 @@
 				4E9183432566C16C00702F04 /* SettingsRightDetailSwitchTableViewCell.swift */,
 			);
 			path = Switch;
+			sourceTree = "<group>";
+		};
+		4E9183942567DC7200702F04 /* HeaderFooter */ = {
+			isa = PBXGroup;
+			children = (
+				4E9183442566C16C00702F04 /* SettingsTableSectionHeaderView.swift */,
+				4E9183342566C16C00702F04 /* SettingsTableSectionFooterView.swift */,
+			);
+			path = HeaderFooter;
+			sourceTree = "<group>";
+		};
+		4E9183962567DC8F00702F04 /* SelectItem */ = {
+			isa = PBXGroup;
+			children = (
+				4E9183972567DCB100702F04 /* SelectItemViewModel.swift */,
+				4E91839C2567DCC500702F04 /* SelectItemTableViewController.swift */,
+			);
+			path = SelectItem;
 			sourceTree = "<group>";
 		};
 		4E9BBA1625553123004FF2F9 /* LemmyApi */ = {
@@ -799,6 +835,7 @@
 				4E3E0F792555F5BC0086CE0C /* LemmyJSONDecoder.swift */,
 				4EBB222D2559EEFF00B88079 /* MilticastDelegate.swift */,
 				4E9183702566F51600702F04 /* UniqueIdentifierType.swift */,
+				4E91838F2567DBE200702F04 /* PushRouterSourceProtocol.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1459,11 +1496,13 @@
 			files = (
 				4E9183452566C16C00702F04 /* SettingsTableViewModel.swift in Sources */,
 				4EBB22392559FC3000B88079 /* Collection+SafeSubscript.swift in Sources */,
+				4E9183AA2567FF4200702F04 /* ChooseCommunityTableDataSource.swift in Sources */,
 				4E0A8E52255C0BEC00B06AF6 /* ProfileScreenCommentsAssembly.swift in Sources */,
 				4EB89B3525220B81007129BF /* LemmyCommentView.swift in Sources */,
 				4ECCEF27250FB62F0075F921 /* LemmyModel+Community.swift in Sources */,
 				4ECCEF1A250D62580075F921 /* LemmyModel+Comment.swift in Sources */,
 				4EF3AC8B254B469F00BEC9F1 /* ChooseCategoryViewController.swift in Sources */,
+				4E9183902567DBE200702F04 /* PushRouterSourceProtocol.swift in Sources */,
 				4EFAB5C72552F85D00B32780 /* UIView+Ext.swift in Sources */,
 				4E9182D32564151800702F04 /* VoteButton.swift in Sources */,
 				4E886CCE2541E1670076B162 /* ChooseCommunityViewController.swift in Sources */,
@@ -1503,6 +1542,7 @@
 				4E91834F2566C16C00702F04 /* SettingsRightDetailSwitchCellView.swift in Sources */,
 				4E9183762566F5B900702F04 /* TableInputTextField.swift in Sources */,
 				4ECCEF2F251253B00075F921 /* LemmySearchBarController.swift in Sources */,
+				4E9183882567284E00702F04 /* CreatePostAssembly.swift in Sources */,
 				4E1070712534E970009EABDA /* CreatePostOrCommunityViewController.swift in Sources */,
 				4ECCEF1D250D63BE0075F921 /* CommentRequests.swift in Sources */,
 				4E0A8E93255DDE4500B06AF6 /* PostScreenAssembly.swift in Sources */,
@@ -1590,6 +1630,7 @@
 				4ECCEF31251F24AD0075F921 /* LemmyFrontPageNavBar.swift in Sources */,
 				4ECCEF33251F27170075F921 /* LemmyProfileIconView.swift in Sources */,
 				4E10706B253477C1009EABDA /* LemmyTableView.swift in Sources */,
+				4E9183982567DCB100702F04 /* SelectItemViewModel.swift in Sources */,
 				4EBB2263255AECB500B88079 /* ProfileScreenPostsUI.swift in Sources */,
 				4E886CF1254430970076B162 /* HttpLemmyClient.swift in Sources */,
 				4E9BBA5425555571004FF2F9 /* LemmySortListingPickersView.swift in Sources */,
@@ -1608,6 +1649,7 @@
 				4EBB227E255AF7A600B88079 /* ProfileScreenSubmoduleProtocol.swift in Sources */,
 				4E91834A2566C16C00702F04 /* SettingsLargeInputTableViewCell.swift in Sources */,
 				4EFAB5EC2552FC5000B32780 /* UIStackView+Ext.swift in Sources */,
+				4E9183A52567FE5500702F04 /* ChooseCommunityViewModel.swift in Sources */,
 				4E106F5D25273A0C009EABDA /* CommentTreeTableCell.swift in Sources */,
 				4E8165722562D08B00907D31 /* ProfileScreenTableHeaderView.swift in Sources */,
 				4ECCEF2B250FF56A0075F921 /* CommunityPreviewTableCell.swift in Sources */,
@@ -1628,11 +1670,13 @@
 				4EBB22342559EF2100B88079 /* WeakBox.swift in Sources */,
 				4EBB22192559EB3600B88079 /* StyledNavigationController.swift in Sources */,
 				4E05D632255EB362002307E0 /* PostScreenTableDataSource.swift in Sources */,
+				4E918383256726A400702F04 /* CreatePostDataFlow.swift in Sources */,
 				4EF3ACEA25502D5600BEC9F1 /* CommunityHeaderView.swift in Sources */,
-				4E886C8D253F51B90076B162 /* CreatePostModel.swift in Sources */,
+				4E886C8D253F51B90076B162 /* CreatePostViewModel.swift in Sources */,
 				4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */,
 				4E886C17253626950076B162 /* SignUpView.swift in Sources */,
 				4E8165632562B6FC00907D31 /* PostsTableDataSource.swift in Sources */,
+				4E91839D2567DCC500702F04 /* SelectItemTableViewController.swift in Sources */,
 				4E886C4B253C95D20076B162 /* CreatePresentAnimator.swift in Sources */,
 				4ECCEF21250FB3D40075F921 /* CommunitiesCoordinator.swift in Sources */,
 				4E3E0F7A2555F5BC0086CE0C /* LemmyJSONDecoder.swift in Sources */,

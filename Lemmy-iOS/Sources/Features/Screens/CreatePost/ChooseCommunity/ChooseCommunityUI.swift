@@ -8,35 +8,23 @@
 
 import UIKit
 
-// TODO: add states in enum as shoulShowFiltered, Refactor
+protocol ChooseCommunityUIDelegate: AnyObject {
+    func chooseView(_ chooseView: ChooseCommunityUI, didRequestSearch query: String)
+}
+
 class ChooseCommunityUI: UIView {
     // MARK: - Properties
     var dismissView: (() -> Void)?
+    
+    weak var delegate: ChooseCommunityUIDelegate?
 
     private let tableView = LemmyTableView(style: .plain, separator: true)
     private let searchBar = UISearchBar()
-    private let model: CreatePostScreenModel
-    private var shouldShowFiltered = false
-
-    var currentCellData: ((_ indexPath: IndexPath) -> LemmyModel.CommunityView) {
-        if !model.filteredCommunitiesData.isEmpty {
-
-            return { (indexPath: IndexPath) in
-                self.model.filteredCommunitiesData[indexPath.row]
-            }
-
-        } else {
-
-            return { indexPath in
-                self.model.communitiesData[indexPath.row]
-            }
-
-        }
-    }
+    private let tableViewDelegate: ChooseCommunityTableDataSource
 
     // MARK: - Init
-    init(model: CreatePostScreenModel) {
-        self.model = model
+    init(tableViewDelegate: ChooseCommunityTableDataSource) {
+        self.tableViewDelegate = tableViewDelegate
         super.init(frame: .zero)
         setupTableView()
         setupSearchController()
@@ -63,14 +51,6 @@ class ChooseCommunityUI: UIView {
     // MARK: - Private API
     private func setupTableView() {
         self.addSubview(tableView)
-        tableView.dataSource = self
-        tableView.delegate = self
-
-        model.communitiesLoaded = { _ in
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
     }
 
     private func setupSearchController() {
@@ -82,44 +62,12 @@ class ChooseCommunityUI: UIView {
     // MARK: Actions
     @objc func reload(_ searchBar: UISearchBar) {
         if let text = searchBar.text, text != "" {
-            self.shouldShowFiltered = true
-            model.searchCommunities(query: text)
+            tableViewDelegate.shouldShowFiltered = true
+            self.delegate?.chooseView(self, didRequestSearch: text)
         } else {
-            self.shouldShowFiltered = false
-            model.filteredCommunitiesData.removeAll()
+            tableViewDelegate.shouldShowFiltered = false
+            tableViewDelegate.removeFilteredCommunities()
         }
-    }
-}
-
-extension ChooseCommunityUI: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        if shouldShowFiltered {
-            if model.filteredCommunitiesData.isEmpty {
-                self.tableView.setEmptyMessage("Not found")
-            }
-
-            return model.filteredCommunitiesData.count
-        }
-
-        return model.communitiesData.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let data = currentCellData(indexPath)
-
-        let cell = ChooseCommunityCell()
-        cell.bind(with: ChooseCommunityCell.ViewData(title: data.title, icon: data.icon))
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let data: LemmyModel.CommunityView = currentCellData(indexPath)
-
-        model.communitySelected = data
-        dismissView?()
-
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -133,9 +81,9 @@ extension ChooseCommunityUI: UISearchBarDelegate {
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        shouldShowFiltered = false
+        tableViewDelegate.shouldShowFiltered = false
         searchBar.text = ""
-        model.filteredCommunitiesData.removeAll()
+        tableViewDelegate.removeFilteredCommunities()
         searchBar.resignFirstResponder()
     }
 
@@ -144,13 +92,13 @@ extension ChooseCommunityUI: UISearchBarDelegate {
     }
 
     public func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-        shouldShowFiltered = false
+        tableViewDelegate.shouldShowFiltered = false
         searchBar.setShowsCancelButton(false, animated: true)
         return true
     }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        shouldShowFiltered = false
+        tableViewDelegate.shouldShowFiltered = false
         searchBar.setShowsCancelButton(false, animated: true)
     }
 }

@@ -8,20 +8,29 @@
 
 import UIKit
 
+protocol ChooseCommunityViewControllerProtocol: AnyObject {
+    func displayCommunities(viewModel: ChooseCommunity.CommunitiesLoad.ViewModel)
+    func displaySearchResults(viewModel: ChooseCommunity.SearchCommunities.ViewModel)
+}
+
 class ChooseCommunityViewController: UIViewController {
-
     weak var coordinator: CreatePostCoordinator?
+    private let viewModel: ChooseCommunityViewModelProtocol
 
-    let customView: ChooseCommunityUI
-    let model: CreatePostScreenModel
+    lazy var chooseCommunityView = self.view as! ChooseCommunityUI
+    
+    let tableViewDelegate = ChooseCommunityTableDataSource()
 
     override func loadView() {
-        self.view = customView
+        tableViewDelegate.delegate = self
+        let view = ChooseCommunityUI(tableViewDelegate: tableViewDelegate)
+        view.delegate = self
+        
+        self.view = view
     }
 
-    init(model: CreatePostScreenModel) {
-        self.model = model
-        self.customView = ChooseCommunityUI(model: model)
+    init(viewModel: ChooseCommunityViewModelProtocol) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -31,9 +40,24 @@ class ChooseCommunityViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        model.loadCommunities()
-        customView.dismissView = {
-            self.navigationController?.popViewController(animated: true)
-        }
+//        customView.dismissView = {
+//            self.navigationController?.popViewController(animated: true)
+//        }
+    }
+}
+
+extension ChooseCommunityViewController: ChooseCommunityTableDataSourceDelegate {
+    func tableDidSelect(community: LemmyModel.CommunityView) {
+        
+    }
+    
+    func tableShowNotFound() {
+        
+    }
+}
+
+extension ChooseCommunityViewController: ChooseCommunityUIDelegate {
+    func chooseView(_ chooseView: ChooseCommunityUI, didRequestSearch query: String) {
+        self.viewModel.doSearchCommunities(request: .init(query: query))
     }
 }
