@@ -102,6 +102,7 @@
 		4E91839D2567DCC500702F04 /* SelectItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E91839C2567DCC500702F04 /* SelectItemTableViewController.swift */; };
 		4E9183A52567FE5500702F04 /* ChooseCommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183A42567FE5500702F04 /* ChooseCommunityViewModel.swift */; };
 		4E9183AA2567FF4200702F04 /* ChooseCommunityTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183A92567FF4200702F04 /* ChooseCommunityTableDataSource.swift */; };
+		4E9183AF25696EAA00702F04 /* ChooseCommunityAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183AE25696EAA00702F04 /* ChooseCommunityAssembly.swift */; };
 		4E9BBA1925553176004FF2F9 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA1825553176004FF2F9 /* Enums.swift */; };
 		4E9BBA24255534B0004FF2F9 /* LemmyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA23255534B0004FF2F9 /* LemmyModel.swift */; };
 		4E9BBA2C25553516004FF2F9 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA2B25553516004FF2F9 /* Error.swift */; };
@@ -323,6 +324,7 @@
 		4E91839C2567DCC500702F04 /* SelectItemTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectItemTableViewController.swift; sourceTree = "<group>"; };
 		4E9183A42567FE5500702F04 /* ChooseCommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityViewModel.swift; sourceTree = "<group>"; };
 		4E9183A92567FF4200702F04 /* ChooseCommunityTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityTableDataSource.swift; sourceTree = "<group>"; };
+		4E9183AE25696EAA00702F04 /* ChooseCommunityAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityAssembly.swift; sourceTree = "<group>"; };
 		4E9BBA1825553176004FF2F9 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		4E9BBA23255534B0004FF2F9 /* LemmyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyModel.swift; sourceTree = "<group>"; };
 		4E9BBA2B25553516004FF2F9 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
@@ -652,6 +654,7 @@
 				4E886CD22541E1A20076B162 /* ChooseCommunityUI.swift */,
 				4E9183A42567FE5500702F04 /* ChooseCommunityViewModel.swift */,
 				4E9183A92567FF4200702F04 /* ChooseCommunityTableDataSource.swift */,
+				4E9183AE25696EAA00702F04 /* ChooseCommunityAssembly.swift */,
 			);
 			path = ChooseCommunity;
 			sourceTree = "<group>";
@@ -1644,6 +1647,7 @@
 				4E886C73253CD4270076B162 /* CreateDismissTransitionDriver.swift in Sources */,
 				4ECCEEF4250C04280075F921 /* LemmyTabBarController.swift in Sources */,
 				4EF3AC85254B456400BEC9F1 /* CreateCommunityChooseCategoryCell.swift in Sources */,
+				4E9183AF25696EAA00702F04 /* ChooseCommunityAssembly.swift in Sources */,
 				4E886CE225422BDC0076B162 /* SearchRequests.swift in Sources */,
 				4E1070652534771C009EABDA /* CommentsFrontPageModel.swift in Sources */,
 				4EBB227E255AF7A600B88079 /* ProfileScreenSubmoduleProtocol.swift in Sources */,

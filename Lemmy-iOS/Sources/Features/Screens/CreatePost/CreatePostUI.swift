@@ -38,6 +38,10 @@ class CreatePostScreenUI: UIView {
     init(frame: CGRect = .zero, appearance: Appearance = Appearance()) {
         self.appearance = appearance
         super.init(frame: frame)
+        
+        setupView()
+        addSubviews()
+        makeConstraints()
     }
 
     @available(*, unavailable)
@@ -45,6 +49,11 @@ class CreatePostScreenUI: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: Private API
+    func configure(viewModel: SettingsTableViewModel) {
+        self.tableView.configure(viewModel: viewModel)
+    }
+    
     // MARK: - Overrided
 //    override func layoutSubviews() {
 //        super.layoutSubviews()

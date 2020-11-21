@@ -47,6 +47,15 @@ class ChooseCommunityUI: UIView {
             make.leading.trailing.bottom.equalToSuperview()
         }
     }
+    
+    func updateTableViewData(dataSource: (UITableViewDataSource & UITableViewDelegate)) {
+        _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
+        //            self.emptyStateLabel.isHidden = numberOfRows != 0
+        
+        self.tableView.dataSource = dataSource
+        self.tableView.delegate = dataSource
+        self.tableView.reloadData()
+    }
 
     // MARK: - Private API
     private func setupTableView() {
@@ -60,7 +69,7 @@ class ChooseCommunityUI: UIView {
     }
 
     // MARK: Actions
-    @objc func reload(_ searchBar: UISearchBar) {
+    @objc private func reload(_ searchBar: UISearchBar) {
         if let text = searchBar.text, text != "" {
             tableViewDelegate.shouldShowFiltered = true
             self.delegate?.chooseView(self, didRequestSearch: text)

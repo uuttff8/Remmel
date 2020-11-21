@@ -15,7 +15,7 @@ protocol CreatePostScreenViewControllerProtocol: AnyObject {
 
 extension CreatePostScreenViewController {
     struct Appearance {
-        let navBarAppearance = StyledNavigationController.NavigationBarAppearanceState()
+        var navBarAppearance: StyledNavigationController.NavigationBarAppearanceState = .pageSheetAppearance()
     }
 }
 
@@ -49,14 +49,13 @@ class CreatePostScreenViewController: UIViewController {
     
     // MARK: - Overrided
     override func loadView() {
-        let view = CreatePostScreenUI()
+        let view = CreatePostScreenUI(frame: UIScreen.main.bounds)
         view.delegate = self
         self.view = view
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Create post"
         
         //        customView.onPickImage = {
         //            self.present(self.imagePicker, animated: true, completion: nil)
@@ -65,7 +64,12 @@ class CreatePostScreenViewController: UIViewController {
         //        customView.goToChoosingCommunity = { [self] in
         //            coordinator?.goToChoosingCommunity(model: model)
         //        }
-        setupNavigationItem()
+        self.setupNavigationItem()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel.doCreatePostLoad(request: .init())
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -76,6 +80,7 @@ class CreatePostScreenViewController: UIViewController {
     // MARK: - Private API
     
     private func setupNavigationItem() {
+        self.title = "Create Community"
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: "POST",
             primaryAction: UIAction(handler: postBarButtonTapped),
@@ -152,16 +157,26 @@ class CreatePostScreenViewController: UIViewController {
 extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol {
     func displayCreatingPost(viewModel: CreatePost.CreatePostLoad.ViewModel) {
         // Community choosing
-        _ = SettingsTableSectionViewModel.Cell(
+        let chooseCommunityCell = SettingsTableSectionViewModel.Cell(
             uniqueIdentifier: FormField.community.rawValue,
             type: .rightDetail(
                 options: .init(
                     title: .init(text: FormField.community.title),
                     detailType: .label(text: viewModel.viewModel.community?.name ?? ""),
-                    accessoryType: .detailDisclosureButton
+                    accessoryType: .disclosureIndicator
                 )
             )
         )
+        
+        let sectionsViewModel: [SettingsTableSectionViewModel] = [
+            .init(
+                header: .init(title: "Choose Community"),
+                cells: [chooseCommunityCell],
+                footer: nil
+            )
+        ]
+        
+        self.createPostView.configure(viewModel: SettingsTableViewModel(sections: sectionsViewModel))
     }
     
     func displayChoosingCommunityForm(viewModel: CreatePost.ChooseCommunityFormPresentation.ViewModel) {
@@ -183,7 +198,7 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
             }
             return nil
         }()
-
+        
         let viewController = SelectItemTableViewController(
             style: .insetGrouped,
             viewModel: .init(
@@ -206,9 +221,9 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
                 onSettingSelected?(selectedSetting)
             }
         )
-
+        
         viewController.title = title
-
+        
         self.push(module: viewController)
     }
 }
@@ -261,9 +276,20 @@ extension CreatePostScreenViewController: CreatePostViewDelegate {
         
         switch selectedForm {
         case .community:
-            self.viewModel.doChoosingCommunityPresentation(request: .init())
+            self.coordinator?.goToChoosingCommunity(
+                choosedCommunity: { (community) in
+                    print(community)
+                }
+            )
         default:
             break
         }
+    }
+}
+
+// MARK: - SettingsViewController: StyledNavigationControllerPresentable -
+extension CreatePostScreenViewController: StyledNavigationControllerPresentable {
+    var navigationBarAppearanceOnFirstPresentation: StyledNavigationController.NavigationBarAppearanceState {
+        self.appearance.navBarAppearance
     }
 }

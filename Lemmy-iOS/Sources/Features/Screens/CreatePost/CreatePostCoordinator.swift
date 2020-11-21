@@ -27,10 +27,12 @@ class CreatePostCoordinator: Coordinator {
         navigationController?.presentationController?.delegate = rootViewController
     }
 
-    func goToChoosingCommunity(model: CreatePostViewModel) {
-//        let choosingVc = ChooseCommunityViewController(model: model)
-//        choosingVc.coordinator = self
-//        navigationController?.pushViewController(choosingVc, animated: true)
+    func goToChoosingCommunity(
+        choosedCommunity: @escaping ((LemmyModel.CommunityView) -> Void)
+    ) {
+        let assembly = ChooseCommunityAssembly()
+        assembly.onCommunitySelected = choosedCommunity
+        navigationController?.pushViewController(assembly.makeModule(), animated: true)
     }
 
     func goToPost(post: LemmyModel.PostView) {

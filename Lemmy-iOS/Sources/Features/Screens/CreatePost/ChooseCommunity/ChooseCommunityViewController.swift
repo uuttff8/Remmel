@@ -17,13 +17,15 @@ class ChooseCommunityViewController: UIViewController {
     weak var coordinator: CreatePostCoordinator?
     private let viewModel: ChooseCommunityViewModelProtocol
 
+    var onCommunitySelected: ((LemmyModel.CommunityView) -> Void)?
+    
     lazy var chooseCommunityView = self.view as! ChooseCommunityUI
     
-    let tableViewDelegate = ChooseCommunityTableDataSource()
+    let tableViewDataSource = ChooseCommunityTableDataSource()
 
     override func loadView() {
-        tableViewDelegate.delegate = self
-        let view = ChooseCommunityUI(tableViewDelegate: tableViewDelegate)
+        tableViewDataSource.delegate = self
+        let view = ChooseCommunityUI(tableViewDelegate: tableViewDataSource)
         view.delegate = self
         
         self.view = view
@@ -40,19 +42,27 @@ class ChooseCommunityViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        customView.dismissView = {
-//            self.navigationController?.popViewController(animated: true)
-//        }
+    }
+}
+
+extension ChooseCommunityViewController: ChooseCommunityViewControllerProtocol {
+    func displayCommunities(viewModel: ChooseCommunity.CommunitiesLoad.ViewModel) {
+        self.chooseCommunityView.updateTableViewData(dataSource: self.tableViewDataSource)
+    }
+    
+    func displaySearchResults(viewModel: ChooseCommunity.SearchCommunities.ViewModel) {
+        self.chooseCommunityView.updateTableViewData(dataSource: self.tableViewDataSource)
     }
 }
 
 extension ChooseCommunityViewController: ChooseCommunityTableDataSourceDelegate {
     func tableDidSelect(community: LemmyModel.CommunityView) {
-        
+        print("\(#function)")
+        self.navigationController?.popViewController(animated: true)
     }
     
     func tableShowNotFound() {
-        
+        print("\(#function)")
     }
 }
 

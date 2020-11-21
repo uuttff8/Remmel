@@ -13,7 +13,8 @@ final class CreatePostAssembly: Assembly {
     
     func makeModule() -> CreatePostScreenViewController {
         let viewModel = CreatePostViewModel()
-        let vc = CreatePostScreenViewController(viewModel: viewModel)
+        let vc = CreatePostScreenViewController(viewModel: viewModel,
+                                                appearance: .init(navBarAppearance: .pageSheetAppearance()))
         viewModel.viewController = vc
         
         return vc
