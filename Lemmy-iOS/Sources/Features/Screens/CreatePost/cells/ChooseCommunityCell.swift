@@ -25,23 +25,20 @@ class ChooseCommunityCell: UITableViewCell {
         return iv
     }()
 
-    let commTitle: UILabel = {
-        let lbl = UILabel()
-        return lbl
-    }()
+    let commTitle = UILabel()
 
-    let stackView = UIStackView()
+    let stackView = UIStackView().then {
+        $0.spacing = 8
+        $0.alignment = .leading
+    }
 
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)        
 
-        self.contentView.addSubview(stackView)
-        self.stackView.addArrangedSubview(commImageView)
-        self.stackView.addArrangedSubview(commTitle)
-        self.stackView.spacing = 8
-        self.stackView.alignment = .leading
-        self.stackView.addArrangedSubview(UIView())
+        self.setupView()
+        self.addSubviews()
+        self.makeConstraints()
     }
 
     required init?(coder: NSCoder) {
@@ -53,24 +50,45 @@ class ChooseCommunityCell: UITableViewCell {
 
         if let imageString = data.icon, let url = URL(string: imageString) {
             Nuke.loadImage(with: ImageRequest(url: url), into: commImageView)
-            
-            self.commImageView.snp.makeConstraints { (make) in
-                make.size.equalTo(imageSize)
-            }
         } else {
             self.commImageView.isHidden = true
         }
 
+        commTitle.text = data.title
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.commImageView.image = nil
+        self.commImageView.isHidden = false
+        self.commTitle.text = nil
+    }
+}
+
+extension ChooseCommunityCell: ProgrammaticallyViewProtocol {
+    func setupView() {
+        
+    }
+    
+    func addSubviews() {
+        self.contentView.addSubview(stackView)
+        stackView.addStackViewItems(
+            .view(commImageView),
+            .view(commTitle)
+        )
+    }
+    
+    func makeConstraints() {
         self.commTitle.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
         }
-        commTitle.text = data.title
-    }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
+        self.commImageView.snp.makeConstraints { (make) in
+            make.size.equalTo(imageSize)
+        }
+
         self.stackView.snp.makeConstraints { (make) in
-            make.top.bottom.equalToSuperview().inset(5)
+            make.centerY.equalToSuperview().inset(5)
             make.leading.trailing.equalToSuperview().inset(16)
         }
     }

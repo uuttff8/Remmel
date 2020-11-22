@@ -11,11 +11,9 @@ import Foundation
 enum CreatePost {
     // Present CreatePost
     enum CreatePostLoad {
-        struct Request {}
+        struct Request { }
         
-        struct ViewModel {
-            let viewModel: CreatePostViewModel.Data
-        }
+        struct ViewModel { }
     }
     
     /// Presents choosing community.

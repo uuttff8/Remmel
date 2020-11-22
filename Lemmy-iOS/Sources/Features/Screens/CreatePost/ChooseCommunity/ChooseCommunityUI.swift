@@ -33,7 +33,9 @@ class ChooseCommunityUI: UIView {
 
     let appearance: Appearance
     
-    private let tableView = LemmyTableView(style: .plain, separator: true)
+    private let tableView = LemmyTableView(style: .insetGrouped, separator: true).then {
+        $0.registerClass(ChooseCommunityCell.self)
+    }
     private let searchBar = UISearchBar()
     private let tableViewDelegate: ChooseCommunityTableDataSource
     

@@ -12,7 +12,6 @@ import UIKit
 
 protocol CreatePostScreenViewControllerProtocol: AnyObject {
     func displayCreatingPost(viewModel: CreatePost.CreatePostLoad.ViewModel)
-    func displayChoosingCommunityForm(viewModel: CreatePost.ChooseCommunityFormPresentation.ViewModel)
 }
 
 // MARK: - Appearance -
@@ -37,8 +36,18 @@ class CreatePostScreenViewController: UIViewController {
     lazy var createPostView = self.view as! CreatePostScreenUI
     lazy var styledNavController = self.navigationController as! StyledNavigationController
     
+    private var createPostData: FormData = {
+        .init(
+            community: nil,
+            title: nil,
+            body: nil,
+            url: nil,
+            nsfwOption: false
+        )
+    }()
+    
     private lazy var postBarButton = UIBarButtonItem(
-        title: "POST",
+        title: "CREATE",
         primaryAction: UIAction(handler: postBarButtonTapped),
         style: .done
     )
@@ -102,7 +111,7 @@ class CreatePostScreenViewController: UIViewController {
         
         var title: String {
             switch self {
-            case .community: return "Choose community"
+            case .community: return "Community"
             case .url: return "url for your post"
             case .title: return "Title for your post. Required."
             case .body: return "Body for your post. Optional"
@@ -119,15 +128,38 @@ class CreatePostScreenViewController: UIViewController {
         }
     }
     
+    struct FormData {
+        var community: LemmyModel.CommunityView?
+        var title: String?
+        var body: String?
+        var url: String?
+        var nsfwOption: Bool
+    }
+    
     // MARK: - Action
     private func postBarButtonTapped(_ action: UIAction) {
         // TODO: make request
+    }
+    
+    private func handleTextField(uniqueIdentifier: UniqueIdentifierType?, text: String?) {
+        guard let id = uniqueIdentifier, let field = FormField(uniqueIdentifier: id) else {
+            return
+        }
+        
+        switch field {
+        case .title:
+            self.createPostData.title = text
+        case .body:
+            self.createPostData.body = text
+        case .url:
+            self.createPostData.url = text
+        default: break
+        }
     }
 }
 
 extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol {
     func displayCreatingPost(viewModel: CreatePost.CreatePostLoad.ViewModel) {
-        let postViewModel = viewModel.viewModel
         
         // Community choosing
         let chooseCommunityCell = SettingsTableSectionViewModel.Cell(
@@ -135,7 +167,7 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
             type: .rightDetail(
                 options: .init(
                     title: .init(text: FormField.community.title),
-                    detailType: .label(text: postViewModel.community?.name ?? ""),
+                    detailType: .label(text: createPostData.community?.name ?? ""),
                     accessoryType: .disclosureIndicator
                 )
             )
@@ -211,10 +243,6 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
         
         self.createPostView.configure(viewModel: SettingsTableViewModel(sections: sectionsViewModel))
     }
-    
-    func displayChoosingCommunityForm(viewModel: CreatePost.ChooseCommunityFormPresentation.ViewModel) {
-        
-    }
 }
 
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate -
@@ -267,9 +295,7 @@ extension CreatePostScreenViewController: CreatePostViewDelegate {
         case .community:
             self.coordinator?.goToChoosingCommunity(
                 choosedCommunity: { (community) in
-                    self.viewModel.doChoosingCommunityUpdate(
-                        request: .init(community: community)
-                    )
+                    self.createPostData.community = community
                 }
             )
         default:
@@ -282,7 +308,7 @@ extension CreatePostScreenViewController: CreatePostViewDelegate {
         didReportTextChange text: String,
         identifiedBy uniqueIdentifier: UniqueIdentifierType?
     ) {
-        
+        self.handleTextField(uniqueIdentifier: uniqueIdentifier, text: text)
     }
     
     func settingsCell(
@@ -290,7 +316,14 @@ extension CreatePostScreenViewController: CreatePostViewDelegate {
         didReportTextChange text: String?,
         identifiedBy uniqueIdentifier: UniqueIdentifierType?
     ) {
-        
+        self.handleTextField(uniqueIdentifier: uniqueIdentifier, text: text)
+    }
+    
+    func settingsCell(
+        _ cell: SettingsRightDetailSwitchTableViewCell,
+        switchValueChanged isOn: Bool
+    ) {
+        self.createPostData.nsfwOption = isOn
     }
 }
 

@@ -65,7 +65,7 @@ extension ChooseCommunityTableDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let data = getCurrentCellData(indexPath: indexPath)
 
-        let cell = ChooseCommunityCell()
+        let cell: ChooseCommunityCell = tableView.cell(forRowAt: indexPath)
         cell.bind(with: .init(title: data.title, icon: data.icon))
         cell.updateConstraintsIfNeeded()
         return cell
