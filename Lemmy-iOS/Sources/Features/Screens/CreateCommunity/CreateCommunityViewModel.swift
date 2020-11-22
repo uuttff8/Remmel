@@ -82,7 +82,7 @@ class CreateCommunityViewModel: CreateCommunityViewModelProtocol {
 //    }
     
     func doCreateCommunityFormLoad(request: CreateCommunity.CreateCommunityFormLoad.Request) {
-        
+        self.viewController?.displayCreateCommunityForm(viewModel: .init())
     }
 
 }
