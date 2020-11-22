@@ -11,7 +11,7 @@ import UIKit
 class TableInputTextField: UITextField {
     private enum Appearance {
         static let defaultFont = UIFont.systemFont(ofSize: 17)
-        static let textAreaInsets = UIEdgeInsets(top: 1, left: 12, bottom: 0, right: 12)
+        static let textAreaInsets = UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 12)
     }
 
     private lazy var pinnedPlaceholderLabel: UILabel = {

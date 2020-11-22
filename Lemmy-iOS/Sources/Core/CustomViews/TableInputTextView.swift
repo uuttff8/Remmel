@@ -14,12 +14,14 @@ final class TableInputTextView: UITextView {
         static let defaultFont = UIFont.systemFont(ofSize: 17)
         static let textInsets = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 16)
         static let minLinesInHeight = 4
+        
+        static let placeholderColor = UIColor.placeholderText
     }
 
     private lazy var placeholderLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.textColor = self.placeholderColor
+        label.textColor = Appearance.placeholderColor
         label.font = Appearance.defaultFont
         return label
     }()
