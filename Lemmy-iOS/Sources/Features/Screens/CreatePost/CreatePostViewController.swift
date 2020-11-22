@@ -104,7 +104,7 @@ class CreatePostScreenViewController: UIViewController {
     // MARK: - Private API
     
     private func setupNavigationItem() {
-        self.title = "Create Community"
+        self.title = "Create Post"
         navigationItem.rightBarButtonItem = postBarButton
     }
     
