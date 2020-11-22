@@ -8,10 +8,14 @@
 
 import UIKit
 
+// MARK: CreatePostScreenViewControllerProtocol: AnyObject -
+
 protocol CreatePostScreenViewControllerProtocol: AnyObject {
     func displayCreatingPost(viewModel: CreatePost.CreatePostLoad.ViewModel)
     func displayChoosingCommunityForm(viewModel: CreatePost.ChooseCommunityFormPresentation.ViewModel)
 }
+
+// MARK: - Appearance -
 
 extension CreatePostScreenViewController {
     struct Appearance {
@@ -19,16 +23,25 @@ extension CreatePostScreenViewController {
     }
 }
 
+// MARK: - CreatePostScreenViewController: UIViewController -
+
 class CreatePostScreenViewController: UIViewController {
     
     // MARK: - Properties
+    
+    let appearance: Appearance
+    
     weak var coordinator: CreatePostCoordinator?
     private let viewModel: CreatePostViewModelProtocol
     
     lazy var createPostView = self.view as! CreatePostScreenUI
     lazy var styledNavController = self.navigationController as! StyledNavigationController
     
-    let appearance: Appearance
+    private lazy var postBarButton = UIBarButtonItem(
+        title: "POST",
+        primaryAction: UIAction(handler: postBarButtonTapped),
+        style: .done
+    )
     
     private lazy var imagePicker = UIImagePickerController().then {
         $0.delegate = self
@@ -36,9 +49,12 @@ class CreatePostScreenViewController: UIViewController {
         $0.sourceType = .photoLibrary
     }
     
-    init(viewModel: CreatePostViewModelProtocol, appearance: Appearance = Appearance()) {
-        self.appearance = appearance
+    init(
+        viewModel: CreatePostViewModelProtocol,
+        appearance: Appearance = Appearance()
+    ) {
         self.viewModel = viewModel
+        self.appearance = appearance
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -55,35 +71,29 @@ class CreatePostScreenViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()        
+        super.viewDidLoad()
+        
         self.setupNavigationItem()
         self.hideKeyboardWhenTappedAround()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         self.viewModel.doCreatePostLoad(request: .init())
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.updateNavigationBarAppearance()
+        
+        self.styledNavController.setNeedsNavigationBarAppearanceUpdate(sender: self)
     }
     
     // MARK: - Private API
     
     private func setupNavigationItem() {
         self.title = "Create Community"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            title: "POST",
-            primaryAction: UIAction(handler: postBarButtonTapped),
-            style: .done
-        )
-    }
-    
-    private func updateNavigationBarAppearance() {
-        self.styledNavController.setNeedsNavigationBarAppearanceUpdate(sender: self)
-        self.styledNavController.setDefaultNavigationBarAppearance(self.appearance.navBarAppearance)
+        navigationItem.rightBarButtonItem = postBarButton
     }
     
     // MARK: - Inner Types
@@ -117,13 +127,15 @@ class CreatePostScreenViewController: UIViewController {
 
 extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol {
     func displayCreatingPost(viewModel: CreatePost.CreatePostLoad.ViewModel) {
+        let postViewModel = viewModel.viewModel
+        
         // Community choosing
         let chooseCommunityCell = SettingsTableSectionViewModel.Cell(
             uniqueIdentifier: FormField.community.rawValue,
             type: .rightDetail(
                 options: .init(
                     title: .init(text: FormField.community.title),
-                    detailType: .label(text: viewModel.viewModel.community?.name ?? ""),
+                    detailType: .label(text: postViewModel.community?.name ?? ""),
                     accessoryType: .disclosureIndicator
                 )
             )
@@ -203,50 +215,6 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
     func displayChoosingCommunityForm(viewModel: CreatePost.ChooseCommunityFormPresentation.ViewModel) {
         
     }
-    
-    // MARK: Private Helpers
-    
-    private func displaySelectionList(
-        formFieldDescription: CreatePost.FormFieldDescription,
-        title: String? = nil,
-        headerTitle: String? = nil,
-        footerTitle: String? = nil,
-        onSettingSelected: ((CreatePost.FormFieldDescription.FormField) -> Void)? = nil
-    ) {
-        let selectedCellViewModel: SelectItemViewModel.Section.Cell? = {
-            if let currentSetting = formFieldDescription.currentField {
-                return .init(uniqueIdentifier: currentSetting.uniqueIdentifier, title: currentSetting.title)
-            }
-            return nil
-        }()
-        
-        let viewController = SelectItemTableViewController(
-            style: .insetGrouped,
-            viewModel: .init(
-                sections: [
-                    .init(
-                        cells: formFieldDescription.fields.map {
-                            .init(uniqueIdentifier: $0.uniqueIdentifier, title: $0.title)
-                        },
-                        headerTitle: headerTitle,
-                        footerTitle: footerTitle
-                    )
-                ],
-                selectedCell: selectedCellViewModel
-            ),
-            onItemSelected: { selectedCellViewModel in
-                let selectedSetting = CreatePost.FormFieldDescription.FormField(
-                    uniqueIdentifier: selectedCellViewModel.uniqueIdentifier,
-                    title: selectedCellViewModel.title
-                )
-                onSettingSelected?(selectedSetting)
-            }
-        )
-        
-        viewController.title = title
-        
-        self.push(module: viewController)
-    }
 }
 
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate -
@@ -307,6 +275,22 @@ extension CreatePostScreenViewController: CreatePostViewDelegate {
         default:
             break
         }
+    }
+    
+    func settingsCell(
+        elementView: UITextView,
+        didReportTextChange text: String,
+        identifiedBy uniqueIdentifier: UniqueIdentifierType?
+    ) {
+        
+    }
+    
+    func settingsCell(
+        elementView: UITextField,
+        didReportTextChange text: String?,
+        identifiedBy uniqueIdentifier: UniqueIdentifierType?
+    ) {
+        
     }
 }
 

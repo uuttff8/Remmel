@@ -90,6 +90,13 @@ final class SettingsTableView: UIView {
         // Section footers heights not being calculated properly APPS-2586.
         self.performTableViewUpdates()
     }
+    
+    func setBottomInset(to value: CGFloat) {
+        let edgeInset = UIEdgeInsets(top: 0, left: 0, bottom: value, right: 0)
+
+        tableView.contentInset = edgeInset
+        tableView.scrollIndicatorInsets = edgeInset
+    }
 
     // MARK: Cells initialization
 

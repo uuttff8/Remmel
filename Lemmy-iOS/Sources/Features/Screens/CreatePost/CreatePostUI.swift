@@ -28,13 +28,26 @@ class CreatePostScreenUI: UIView {
     private lazy var tableView = SettingsTableView(appearance: .init(style: .insetGrouped))
 
     // MARK: - Init
-    init(frame: CGRect = .zero, appearance: Appearance = Appearance()) {
+    
+    init(
+        frame: CGRect = .zero,
+        appearance: Appearance = Appearance()
+    ) {
         self.appearance = appearance
         super.init(frame: frame)
         
-        setupView()
-        addSubviews()
-        makeConstraints()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+        
+        self.setupView()
+        self.addSubviews()
+        self.makeConstraints()
     }
 
     @available(*, unavailable)
@@ -42,9 +55,22 @@ class CreatePostScreenUI: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: Private API
+    // MARK: - Public API
+    
     func configure(viewModel: SettingsTableViewModel) {
         self.tableView.configure(viewModel: viewModel)
+    }
+    
+    @objc func keyboardWillShow(notification: Notification) {
+        if let keyboardHeight =
+            (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
+            
+            tableView.setBottomInset(to: keyboardHeight)
+        }
+    }
+
+    @objc func keyboardWillHide(notification: Notification) {
+        tableView.setBottomInset(to: 0.0)
     }
 }
 extension CreatePostScreenUI: ProgrammaticallyViewProtocol {
@@ -53,8 +79,8 @@ extension CreatePostScreenUI: ProgrammaticallyViewProtocol {
     }
 
     func makeConstraints() {
-        self.tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        self.tableView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
     }
 }
