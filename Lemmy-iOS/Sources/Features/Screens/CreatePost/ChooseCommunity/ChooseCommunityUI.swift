@@ -48,7 +48,7 @@ class ChooseCommunityUI: UIView {
     
     private lazy var emptyStateLabel: UILabel = {
         let label = UILabel()
-        label.text = "NoReviews"
+        label.text = "Not found"
         label.numberOfLines = 0
         label.textColor = self.appearance.emptyStateLabelColor
         label.font = self.appearance.emptyStateLabelFont
@@ -74,12 +74,23 @@ class ChooseCommunityUI: UIView {
     }
     
     func updateTableViewData(dataSource: (UITableViewDataSource & UITableViewDelegate)) {
+        self.hideNotFound()
         _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
         //            self.emptyStateLabel.isHidden = numberOfRows != 0
         
         self.tableView.dataSource = dataSource
         self.tableView.delegate = dataSource
         self.tableView.reloadData()
+    }
+    
+    func showNotFound() {
+        self.tableView.isHidden = true
+        self.emptyStateLabel.isHidden = false
+    }
+
+    func hideNotFound() {
+        self.tableView.isHidden = false
+        self.emptyStateLabel.isHidden = true
     }
     
     // MARK: - Private API
@@ -91,9 +102,12 @@ class ChooseCommunityUI: UIView {
 
     // MARK: Actions
     @objc private func reload(_ searchBar: UISearchBar) {
+        self.hideActivityIndicatorView()
         if let text = searchBar.text, text != "" {
             self.hideActivityIndicatorView()
             tableViewDelegate.shouldShowFiltered = true
+            tableViewDelegate.removeFilteredCommunities()
+            tableView.reloadData()
             self.delegate?.chooseView(self, didRequestSearch: text)
         } else {
             tableViewDelegate.shouldShowFiltered = false
