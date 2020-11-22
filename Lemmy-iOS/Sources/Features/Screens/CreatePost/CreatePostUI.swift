@@ -34,16 +34,7 @@ class CreatePostScreenUI: UIView {
         appearance: Appearance = Appearance()
     ) {
         self.appearance = appearance
-        super.init(frame: frame)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillShow),
-                                               name: UIResponder.keyboardWillShowNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillHide),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
+        super.init(frame: frame)        
         
         self.setupView()
         self.addSubviews()
@@ -59,18 +50,6 @@ class CreatePostScreenUI: UIView {
     
     func configure(viewModel: SettingsTableViewModel) {
         self.tableView.configure(viewModel: viewModel)
-    }
-    
-    @objc func keyboardWillShow(notification: Notification) {
-        if let keyboardHeight =
-            (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
-            
-            tableView.setBottomInset(to: keyboardHeight)
-        }
-    }
-
-    @objc func keyboardWillHide(notification: Notification) {
-        tableView.setBottomInset(to: 0.0)
     }
 }
 extension CreatePostScreenUI: ProgrammaticallyViewProtocol {

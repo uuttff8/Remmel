@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "IQKeyboardManagerSwift",
+        "repositoryURL": "https://github.com/hackiftekhar/IQKeyboardManager.git",
+        "state": {
+          "branch": null,
+          "revision": "4dc6bc7d1c9747bd0c261c8c055903f9fdef91f7",
+          "version": "6.5.6"
+        }
+      },
+      {
         "package": "KeychainSwift",
         "repositoryURL": "https://github.com/evgenyneu/keychain-swift.git",
         "state": {

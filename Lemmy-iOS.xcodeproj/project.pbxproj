@@ -103,6 +103,7 @@
 		4E9183A52567FE5500702F04 /* ChooseCommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183A42567FE5500702F04 /* ChooseCommunityViewModel.swift */; };
 		4E9183AA2567FF4200702F04 /* ChooseCommunityTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183A92567FF4200702F04 /* ChooseCommunityTableDataSource.swift */; };
 		4E9183AF25696EAA00702F04 /* ChooseCommunityAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183AE25696EAA00702F04 /* ChooseCommunityAssembly.swift */; };
+		4E9183B8256AF77700702F04 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E9183B7256AF77700702F04 /* IQKeyboardManagerSwift */; };
 		4E9BBA1925553176004FF2F9 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA1825553176004FF2F9 /* Enums.swift */; };
 		4E9BBA24255534B0004FF2F9 /* LemmyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA23255534B0004FF2F9 /* LemmyModel.swift */; };
 		4E9BBA2C25553516004FF2F9 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA2B25553516004FF2F9 /* Error.swift */; };
@@ -451,6 +452,7 @@
 				921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */,
 				4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */,
 				4EF3ACF625506EC900BEC9F1 /* SwiftyMarkdown in Frameworks */,
+				4E9183B8256AF77700702F04 /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1317,6 +1319,7 @@
 				4E1070832534F742009EABDA /* KeychainSwift */,
 				4EF3ACF525506EC900BEC9F1 /* SwiftyMarkdown */,
 				4E8165982563346100907D31 /* Nantes */,
+				4E9183B7256AF77700702F04 /* IQKeyboardManagerSwift */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */;
@@ -1395,6 +1398,7 @@
 				4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				4EF3ACF425506EC900BEC9F1 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */,
 				4E8165972563346100907D31 /* XCRemoteSwiftPackageReference "Nantes" */,
+				4E9183B6256AF77700702F04 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
@@ -2034,6 +2038,14 @@
 				minimumVersion = 0.1.2;
 			};
 		};
+		4E9183B6256AF77700702F04 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.6;
+			};
+		};
 		4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -2062,6 +2074,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E8165972563346100907D31 /* XCRemoteSwiftPackageReference "Nantes" */;
 			productName = Nantes;
+		};
+		4E9183B7256AF77700702F04 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E9183B6256AF77700702F04 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
 		};
 		4ECCEEFA250C13240075F921 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
