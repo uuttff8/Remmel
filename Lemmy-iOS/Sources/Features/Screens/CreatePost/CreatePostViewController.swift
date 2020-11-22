@@ -12,6 +12,9 @@ import UIKit
 
 protocol CreatePostScreenViewControllerProtocol: AnyObject {
     func displayCreatingPost(viewModel: CreatePost.CreatePostLoad.ViewModel)
+    func displaySuccessCreatingPost(viewModel: CreatePost.RemoteCreatePost.ViewModel)
+    func displayBlockingActivityIndicator(viewModel: CreatePost.BlockingWaitingIndicatorUpdate.ViewModel)
+    func displayCreatePostError(viewModel: CreatePost.CreatePostError.ViewModel)
 }
 
 // MARK: - Appearance -
@@ -138,7 +141,25 @@ class CreatePostScreenViewController: UIViewController {
     
     // MARK: - Action
     private func postBarButtonTapped(_ action: UIAction) {
-        // TODO: make request
+        guard let communityId = self.createPostData.community?.id else {
+            self.displayCreatePostError(viewModel: .init(error: "Community not specified"))
+            return
+        }
+        
+        guard let title = self.createPostData.title else {
+            self.displayCreatePostError(viewModel: .init(error: "Title not specified"))
+            return
+        }
+        
+        self.viewModel.doRemoteCreatePost(
+            request: .init(
+                communityId: communityId,
+                title: title,
+                body: self.createPostData.body,
+                url: self.createPostData.url,
+                nsfw: self.createPostData.nsfwOption
+            )
+        )
     }
     
     private func handleTextField(uniqueIdentifier: UniqueIdentifierType?, text: String?) {
@@ -242,6 +263,20 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
         ]
         
         self.createPostView.configure(viewModel: SettingsTableViewModel(sections: sectionsViewModel))
+    }
+    
+    func displayBlockingActivityIndicator(viewModel: CreatePost.BlockingWaitingIndicatorUpdate.ViewModel) {
+        viewModel.shouldDismiss
+            ? self.createPostView.hideActivityIndicatorView()
+            : self.createPostView.showActivityIndicatorView()
+    }
+    
+    func displaySuccessCreatingPost(viewModel: CreatePost.RemoteCreatePost.ViewModel) {
+        self.coordinator?.goToPost(post: viewModel.post)
+    }
+    
+    func displayCreatePostError(viewModel: CreatePost.CreatePostError.ViewModel) {
+        UIAlertController.createOkAlert(message: viewModel.error)
     }
 }
 

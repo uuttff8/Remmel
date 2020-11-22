@@ -16,23 +16,35 @@ enum CreatePost {
         struct ViewModel { }
     }
     
-    /// Presents choosing community.
-    enum ChooseCommunityFormPresentation {
-        struct Request {}
-
+    enum RemoteCreatePost {
+        struct Request {
+            let communityId: Int
+            let title: String
+            let body: String?
+            let url: String?
+            let nsfw: Bool
+        }
+        
         struct ViewModel {
-            let settingDescription: FormFieldDescription
+            let post: LemmyModel.PostView
         }
     }
     
-    /// Update choosing community.
-    enum ChooseCommunityFormUpdate {
-        struct Request {
-            let community: LemmyModel.CommunityView
+    enum CreatePostError {
+        struct Request { }
+        
+        struct ViewModel {
+            let error: String
+        }
+    }
+    
+    enum BlockingWaitingIndicatorUpdate {
+        struct Response {
+            let shouldDismiss: Bool
         }
 
         struct ViewModel {
-            let settingDescription: FormFieldDescription
+            let shouldDismiss: Bool
         }
     }
     

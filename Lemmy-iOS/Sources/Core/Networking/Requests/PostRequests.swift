@@ -96,4 +96,11 @@ extension RequestsManager: LemmyPostRequestManagerProtocol {
         
         asyncRequestDecodable(path: WSEndpoint.Post.createPostLike.endpoint, parameters: parameters)
     }
+    
+    func asyncCreatePost(
+        parameters: LemmyModel.Post.CreatePostRequest
+    ) -> AnyPublisher<LemmyModel.Post.CreatePostResponse, LemmyGenericError> {
+        
+        asyncRequestDecodable(path: WSEndpoint.Post.createPost.endpoint, parameters: parameters)
+    }
 }

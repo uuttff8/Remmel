@@ -7,20 +7,51 @@
 //
 
 import UIKit
+import Combine
 
 protocol CreatePostViewModelProtocol: AnyObject {
-    func doCreatePostLoad(request: CreatePost.CreatePostLoad.Request)    
+    func doCreatePostLoad(request: CreatePost.CreatePostLoad.Request)
+    func doRemoteCreatePost(request: CreatePost.RemoteCreatePost.Request)
 }
 
 class CreatePostViewModel: CreatePostViewModelProtocol {
     
     weak var viewController: CreatePostScreenViewControllerProtocol?
-            
-    // MARK: - Initializer
-    init() { }
+    
+    private var cancellable = Set<AnyCancellable>()
     
     func doCreatePostLoad(request: CreatePost.CreatePostLoad.Request) {
         self.viewController?.displayCreatingPost(viewModel: .init())
+    }
+    
+    func doRemoteCreatePost(request: CreatePost.RemoteCreatePost.Request) {
+        guard let jwtToken = LemmyShareData.shared.jwtToken else { return }
+        
+        let params = LemmyModel.Post.CreatePostRequest(name: request.title,
+                                                       url: request.url,
+                                                       body: request.body,
+                                                       nsfw: request.nsfw,
+                                                       communityId: request.communityId,
+                                                       auth: jwtToken)
+        
+        ApiManager.requests.asyncCreatePost(parameters: params)
+            .receive(on: RunLoop.main)
+            .sink { (completion) in
+                switch completion {
+                case .failure(let error):
+                    self.viewController?.displayCreatePostError(
+                        viewModel: .init(error: error.description)
+                    )
+                case .finished: break
+                }
+                print(completion)
+            } receiveValue: { (response) in
+                
+                self.viewController?.displaySuccessCreatingPost(
+                    viewModel: .init(post: response.post)
+                )
+                
+            }.store(in: &cancellable)
     }
     
     // MARK: - Api Request
