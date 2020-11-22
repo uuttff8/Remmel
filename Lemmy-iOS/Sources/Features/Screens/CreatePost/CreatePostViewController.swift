@@ -198,7 +198,7 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
             uniqueIdentifier: FormField.url.rawValue,
             type: .input(
                 options: .init(
-                    valueText: nil,
+                    valueText: self.createPostData.url ?? nil,
                     placeholderText: "Enter Url",
                     shouldAlwaysShowPlaceholder: false,
                     inputGroup: "url"
@@ -210,7 +210,7 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
             uniqueIdentifier: FormField.title.rawValue,
             type: .largeInput(
                 options: .init(
-                    valueText: nil,
+                    valueText: self.createPostData.title ?? nil,
                     placeholderText: "Your title",
                     maxLength: nil
                 )
@@ -221,7 +221,7 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
             uniqueIdentifier: FormField.body.rawValue,
             type: .largeInput(
                 options: .init(
-                    valueText: nil,
+                    valueText: self.createPostData.body ?? nil,
                     placeholderText: "Your body",
                     maxLength: nil
                 )
@@ -233,7 +233,9 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
             type: .rightDetail(
                 options: .init(
                     title: .init(text: "NSFW"),
-                    detailType: .switch(.init(isOn: false)),
+                    detailType: .switch(
+                        .init(isOn: self.createPostData.nsfwOption)
+                    ),
                     accessoryType: .none
                 )
             )
