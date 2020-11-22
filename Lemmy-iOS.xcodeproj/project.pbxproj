@@ -104,6 +104,8 @@
 		4E9183AA2567FF4200702F04 /* ChooseCommunityTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183A92567FF4200702F04 /* ChooseCommunityTableDataSource.swift */; };
 		4E9183AF25696EAA00702F04 /* ChooseCommunityAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183AE25696EAA00702F04 /* ChooseCommunityAssembly.swift */; };
 		4E9183B8256AF77700702F04 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E9183B7256AF77700702F04 /* IQKeyboardManagerSwift */; };
+		4E9183C3256AFB1200702F04 /* CreateCommunityDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183C2256AFB1200702F04 /* CreateCommunityDataFlow.swift */; };
+		4E9183C8256AFD8800702F04 /* CreateCommunityAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183C7256AFD8800702F04 /* CreateCommunityAssembly.swift */; };
 		4E9BBA1925553176004FF2F9 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA1825553176004FF2F9 /* Enums.swift */; };
 		4E9BBA24255534B0004FF2F9 /* LemmyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA23255534B0004FF2F9 /* LemmyModel.swift */; };
 		4E9BBA2C25553516004FF2F9 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA2B25553516004FF2F9 /* Error.swift */; };
@@ -176,7 +178,7 @@
 		4EF3AC5D254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */; };
 		4EF3AC62254A01DA00BEC9F1 /* CreateCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */; };
 		4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */; };
-		4EF3AC6F254A021400BEC9F1 /* CreateCommunityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC6E254A021400BEC9F1 /* CreateCommunityModel.swift */; };
+		4EF3AC6F254A021400BEC9F1 /* CreateCommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC6E254A021400BEC9F1 /* CreateCommunityViewModel.swift */; };
 		4EF3AC7B254AE12800BEC9F1 /* CreateCommunityNamesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC7A254AE12800BEC9F1 /* CreateCommunityNamesCell.swift */; };
 		4EF3AC80254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC7F254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift */; };
 		4EF3AC85254B456400BEC9F1 /* CreateCommunityChooseCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC84254B456400BEC9F1 /* CreateCommunityChooseCategoryCell.swift */; };
@@ -326,6 +328,8 @@
 		4E9183A42567FE5500702F04 /* ChooseCommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityViewModel.swift; sourceTree = "<group>"; };
 		4E9183A92567FF4200702F04 /* ChooseCommunityTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityTableDataSource.swift; sourceTree = "<group>"; };
 		4E9183AE25696EAA00702F04 /* ChooseCommunityAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityAssembly.swift; sourceTree = "<group>"; };
+		4E9183C2256AFB1200702F04 /* CreateCommunityDataFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityDataFlow.swift; sourceTree = "<group>"; };
+		4E9183C7256AFD8800702F04 /* CreateCommunityAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityAssembly.swift; sourceTree = "<group>"; };
 		4E9BBA1825553176004FF2F9 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		4E9BBA23255534B0004FF2F9 /* LemmyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyModel.swift; sourceTree = "<group>"; };
 		4E9BBA2B25553516004FF2F9 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
@@ -403,7 +407,7 @@
 		4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityCoordinator.swift; sourceTree = "<group>"; };
 		4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityViewController.swift; sourceTree = "<group>"; };
 		4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityUI.swift; sourceTree = "<group>"; };
-		4EF3AC6E254A021400BEC9F1 /* CreateCommunityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityModel.swift; sourceTree = "<group>"; };
+		4EF3AC6E254A021400BEC9F1 /* CreateCommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityViewModel.swift; sourceTree = "<group>"; };
 		4EF3AC7A254AE12800BEC9F1 /* CreateCommunityNamesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityNamesCell.swift; sourceTree = "<group>"; };
 		4EF3AC7F254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityDisplayNameCell.swift; sourceTree = "<group>"; };
 		4EF3AC84254B456400BEC9F1 /* CreateCommunityChooseCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityChooseCategoryCell.swift; sourceTree = "<group>"; };
@@ -1134,9 +1138,11 @@
 			children = (
 				4EF3AC89254B468B00BEC9F1 /* ChooseCategory */,
 				4EF3AC79254AE11200BEC9F1 /* cells */,
+				4E9183C7256AFD8800702F04 /* CreateCommunityAssembly.swift */,
+				4E9183C2256AFB1200702F04 /* CreateCommunityDataFlow.swift */,
 				4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */,
 				4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */,
-				4EF3AC6E254A021400BEC9F1 /* CreateCommunityModel.swift */,
+				4EF3AC6E254A021400BEC9F1 /* CreateCommunityViewModel.swift */,
 				4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */,
 			);
 			path = CreateCommunity;
@@ -1508,6 +1514,7 @@
 				4EB89B3525220B81007129BF /* LemmyCommentView.swift in Sources */,
 				4ECCEF27250FB62F0075F921 /* LemmyModel+Community.swift in Sources */,
 				4ECCEF1A250D62580075F921 /* LemmyModel+Comment.swift in Sources */,
+				4E9183C8256AFD8800702F04 /* CreateCommunityAssembly.swift in Sources */,
 				4EF3AC8B254B469F00BEC9F1 /* ChooseCategoryViewController.swift in Sources */,
 				4E9183902567DBE200702F04 /* PushRouterSourceProtocol.swift in Sources */,
 				4EFAB5C72552F85D00B32780 /* UIView+Ext.swift in Sources */,
@@ -1540,6 +1547,7 @@
 				4E886D4B2545B81A0076B162 /* PictrsRequests.swift in Sources */,
 				4EFAB6112553279700B32780 /* CommunityHeaderCell.swift in Sources */,
 				4E9BBA24255534B0004FF2F9 /* LemmyModel.swift in Sources */,
+				4E9183C3256AFB1200702F04 /* CreateCommunityDataFlow.swift in Sources */,
 				4E0A8E62255D589A00B06AF6 /* ProfileScreenAboutAssembly.swift in Sources */,
 				4E05D637255EBA63002307E0 /* Optional+Ext.swift in Sources */,
 				4E886CA62540A27E0076B162 /* CreatePostUrlCell.swift in Sources */,
@@ -1569,7 +1577,7 @@
 				4E10707E2534F5EC009EABDA /* LemmyCheckLogin.swift in Sources */,
 				4E91834D2566C16C00702F04 /* SettingsRightDetailTableViewCell.swift in Sources */,
 				4ECCEEDD250B8D930075F921 /* AppCoordinator.swift in Sources */,
-				4EF3AC6F254A021400BEC9F1 /* CreateCommunityModel.swift in Sources */,
+				4EF3AC6F254A021400BEC9F1 /* CreateCommunityViewModel.swift in Sources */,
 				4E10708E2534F7A7009EABDA /* LoginData.swift in Sources */,
 				4E1A7E6B25573F1800E193B7 /* ProfileScreenModel.swift in Sources */,
 				4EF3ACFF2550757200BEC9F1 /* MarkdownParsedViewController.swift in Sources */,

@@ -15,7 +15,8 @@ class CreateCommunityCoordinator: Coordinator {
     var navigationController: UINavigationController?
 
     init(navigationController: UINavigationController) {
-        self.rootViewController = CreateCommunityViewController()
+        let assembly = CreateCommunityAssembly()
+        self.rootViewController = assembly.makeModule()
         self.navigationController = navigationController
 
         self.navigationController?.setViewControllers([rootViewController], animated: true)
@@ -26,10 +27,10 @@ class CreateCommunityCoordinator: Coordinator {
         navigationController?.presentationController?.delegate = rootViewController
     }
 
-    func goToChoosingCommunity(model: CreateCommunityModel) {
-        let choosingVc = ChooseCategoryViewController(model: model)
-        choosingVc.coordinator = self
-        navigationController?.pushViewController(choosingVc, animated: true)
+    func goToChoosingCommunity() {
+//        let choosingVc = ChooseCategoryViewController(model: model)
+//        choosingVc.coordinator = self
+//        navigationController?.pushViewController(choosingVc, animated: true)
     }
 
     func goToCommunity(comm: LemmyModel.CommunityView) {
