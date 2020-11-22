@@ -63,6 +63,7 @@ class CreateCommunityViewController: UIViewController {
     // MARK: - Overrided
     override func loadView() {
         let view = CreateCommunityUI()
+        view.delegate = self
         self.view = view
     }
     
@@ -151,13 +152,13 @@ class CreateCommunityViewController: UIViewController {
     }
     
     struct FormData {
-        let name: String?
-        let displayName: String?
-        let sidebar: String?
-        let icon: String?
-        let banner: String?
-        let category: LemmyModel.CategoryView?
-        let nsfwOption: Bool
+        var name: String?
+        var displayName: String?
+        var sidebar: String?
+        var icon: String?
+        var banner: String?
+        var category: LemmyModel.CategoryView?
+        var nsfwOption: Bool
     }
 }
 
@@ -288,5 +289,60 @@ extension CreateCommunityViewController: UIAdaptivePresentationControllerDelegat
     
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
         return false
+    }
+}
+
+extension CreateCommunityViewController: CreateCommunityViewDelegate {
+    func settingsCell(
+        elementView: UITextView,
+        didReportTextChange text: String,
+        identifiedBy uniqueIdentifier: UniqueIdentifierType?
+    ) {
+        self.handleTextField(uniqueType: uniqueIdentifier, text: text)
+    }
+    
+    func settingsCell(
+        elementView: UITextField,
+        didReportTextChange text: String?,
+        identifiedBy uniqueIdentifier: UniqueIdentifierType?
+    ) {
+        self.handleTextField(uniqueType: uniqueIdentifier, text: text)
+    }
+    
+    func settingsCell(
+        _ cell: SettingsRightDetailSwitchTableViewCell,
+        switchValueChanged isOn: Bool
+    ) {
+        self.createComminityData.nsfwOption = isOn
+    }
+    
+    private func handleTextField(uniqueType: UniqueIdentifierType?, text: String?) {
+        guard let uniqueId = uniqueType,
+              let field = FormField(rawValue: uniqueId)
+        else { return }
+        
+        switch field {
+        case .name:
+            self.createComminityData.name = text
+        case .displayName:
+            self.createComminityData.displayName = text
+        case .sidebar:
+            self.createComminityData.sidebar = text
+        default: break
+        }
+    }
+    
+    func settingsTableView(
+        _ tableView: SettingsTableView,
+        didSelectCell cell: SettingsTableSectionViewModel.Cell,
+        at indexPath: IndexPath
+    ) {
+        let field = FormField(uniqueIdentifier: cell.uniqueIdentifier)
+        
+        switch field {
+        case .category:
+            self.coordinator?.goToChoosingCommunity()
+        default: break
+        }
     }
 }
