@@ -57,12 +57,12 @@ class ProfileScreenPostsViewController: UIViewController {
         }
 
         if case .loading = newState {
-            self.profilePostsView.showLoading()
+            self.profilePostsView.showActivityIndicatorView()
             return
         }
 
         if case .loading = self.state {
-            self.profilePostsView.hideLoading()
+            self.profilePostsView.hideActivityIndicatorView()
         }
 
         if case .result = newState {

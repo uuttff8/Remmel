@@ -8,20 +8,31 @@
 
 import UIKit
 
+protocol ChooseCommunityViewControllerProtocol: AnyObject {
+    func displayCommunities(viewModel: ChooseCommunity.CommunitiesLoad.ViewModel)
+    func displaySearchResults(viewModel: ChooseCommunity.SearchCommunities.ViewModel)
+}
+
 class ChooseCommunityViewController: UIViewController {
-
     weak var coordinator: CreatePostCoordinator?
+    private let viewModel: ChooseCommunityViewModelProtocol
 
-    let customView: ChooseCommunityUI
-    let model: CreatePostScreenModel
+    var onCommunitySelected: ((LemmyModel.CommunityView) -> Void)?
+    
+    lazy var chooseCommunityView = self.view as! ChooseCommunityUI
+    
+    let tableViewDataSource = ChooseCommunityTableDataSource()
 
     override func loadView() {
-        self.view = customView
+        tableViewDataSource.delegate = self
+        let view = ChooseCommunityUI(tableViewDelegate: tableViewDataSource)
+        view.delegate = self
+        
+        self.view = view
     }
 
-    init(model: CreatePostScreenModel) {
-        self.model = model
-        self.customView = ChooseCommunityUI(model: model)
+    init(viewModel: ChooseCommunityViewModelProtocol) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -31,9 +42,39 @@ class ChooseCommunityViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        model.loadCommunities()
-        customView.dismissView = {
-            self.navigationController?.popViewController(animated: true)
-        }
+        self.viewModel.doCommunitiesLoad(request: .init())
+    }
+}
+
+extension ChooseCommunityViewController: ChooseCommunityViewControllerProtocol {
+    func displayCommunities(viewModel: ChooseCommunity.CommunitiesLoad.ViewModel) {
+        guard case let .result(data) = viewModel.state else { return }
+        
+        self.tableViewDataSource.viewModels = data
+        self.chooseCommunityView.updateTableViewData(dataSource: self.tableViewDataSource)
+    }
+    
+    func displaySearchResults(viewModel: ChooseCommunity.SearchCommunities.ViewModel) {
+        guard case let .result(data) = viewModel.state else { return }
+
+        self.tableViewDataSource.filteredViewModels = data
+        self.chooseCommunityView.updateTableViewData(dataSource: self.tableViewDataSource)
+    }
+}
+
+extension ChooseCommunityViewController: ChooseCommunityTableDataSourceDelegate {
+    func tableDidSelect(community: LemmyModel.CommunityView) {
+        onCommunitySelected?(community)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func tableShowNotFound() {
+        self.chooseCommunityView.hideNotFound()
+    }
+}
+
+extension ChooseCommunityViewController: ChooseCommunityUIDelegate {
+    func chooseView(_ chooseView: ChooseCommunityUI, didRequestSearch query: String) {
+        self.viewModel.doSearchCommunities(request: .init(query: query))
     }
 }

@@ -15,7 +15,8 @@ class CreatePostCoordinator: Coordinator {
     var navigationController: UINavigationController?
 
     init(navigationController: UINavigationController?) {
-        self.rootViewController = CreatePostScreenViewController()
+        let assembly = CreatePostAssembly()
+        self.rootViewController = assembly.makeModule()
         self.navigationController = navigationController
 
         self.navigationController?.setViewControllers([rootViewController], animated: true)
@@ -26,10 +27,12 @@ class CreatePostCoordinator: Coordinator {
         navigationController?.presentationController?.delegate = rootViewController
     }
 
-    func goToChoosingCommunity(model: CreatePostScreenModel) {
-        let choosingVc = ChooseCommunityViewController(model: model)
-        choosingVc.coordinator = self
-        navigationController?.pushViewController(choosingVc, animated: true)
+    func goToChoosingCommunity(
+        choosedCommunity: @escaping ((LemmyModel.CommunityView) -> Void)
+    ) {
+        let assembly = ChooseCommunityAssembly()
+        assembly.onCommunitySelected = choosedCommunity
+        navigationController?.pushViewController(assembly.makeModule(), animated: true)
     }
 
     func goToPost(post: LemmyModel.PostView) {
@@ -38,7 +41,5 @@ class CreatePostCoordinator: Coordinator {
         if let presentingVc = rootViewController.presentingViewController as? LemmyTabBarController {
             presentingVc.coordinator?.goToPost(post: post)
         }
-
-//        self.navigationController?.pushViewController(postScreen, animated: true)
     }
 }

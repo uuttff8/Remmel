@@ -8,95 +8,58 @@
 
 import UIKit
 
+protocol CreatePostViewDelegate: SettingsTableViewDelegate { }
+
+extension CreatePostScreenUI {
+    struct Appearance { }
+}
+
 class CreatePostScreenUI: UIView {
 
-    // MARK: Cell type
-    enum CellType: CaseIterable {
-        case community, url, content
-    }
-
     // MARK: - Properties
-    var goToChoosingCommunity: (() -> Void)?
-    var onPickImage: (() -> Void)?
-    var onPickedImage: ((UIImage) -> Void)?
+    let appearance: Appearance
 
-    let tableView = LemmyTableView(style: .grouped)
-    let model: CreatePostScreenModel
-
-    let communityCell = CreatePostCommunityCell()
-    lazy var contentCell = CreatePostContentCell(backView: self)
-    let urlCell = CreatePostUrlCell()
+    weak var delegate: CreatePostViewDelegate? {
+        didSet {
+            self.tableView.delegate = self.delegate
+        }
+    }
+    
+    private lazy var tableView = SettingsTableView(appearance: .init(style: .insetGrouped))
 
     // MARK: - Init
-    init(model: CreatePostScreenModel) {
-        self.model = model
-        super.init(frame: .zero)
-
-        setupTableView()
-        self.hideKeyboardWhenTappedAround()
+    
+    init(
+        frame: CGRect = .zero,
+        appearance: Appearance = Appearance()
+    ) {
+        self.appearance = appearance
+        super.init(frame: frame)        
+        
+        self.setupView()
+        self.addSubviews()
+        self.makeConstraints()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Overrided
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.tableView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
-    }
-
-    // MARK: - Private API
-    private func setupTableView() {
-        self.addSubview(tableView)
-        tableView.delegate = self
-        tableView.dataSource = self
+    // MARK: - Public API
+    
+    func configure(viewModel: SettingsTableViewModel) {
+        self.tableView.configure(viewModel: viewModel)
     }
 }
-
-// MARK: - Data source actions -
-extension CreatePostScreenUI: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        CellType.allCases.count
+extension CreatePostScreenUI: ProgrammaticallyViewProtocol {
+    func addSubviews() {
+        self.addSubview(self.tableView)
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellType = CellType.allCases[indexPath.row]
-
-        switch cellType {
-        case .community:
-            let cell = communityCell
-            model.communitySelectedCompletion = { community in
-                cell.bind(with: community)
-            }
-
-            return cell
-        case .content:
-            return contentCell
-        case .url:
-            urlCell.onPickImage = {
-                self.onPickImage?()
-            }
-            self.onPickedImage = { image in
-                self.urlCell.onPickedImage?(image)
-            }
-
-            return urlCell
+    func makeConstraints() {
+        self.tableView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cellType = CellType.allCases[indexPath.row]
-
-        switch cellType {
-        case .community:
-            goToChoosingCommunity?()
-
-        default: break
-        }
-
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

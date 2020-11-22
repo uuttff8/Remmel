@@ -309,7 +309,9 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
     }
     
     func displayNotBlockingActivityIndicator(response: ProfileScreenDataFlow.ShowingActivityIndicator.Response) {
-        response.shouldDismiss ? self.profileScreenView.hideLoading() : self.profileScreenView.showLoading()
+        response.shouldDismiss
+            ? self.profileScreenView.hideActivityIndicatorView()
+            : self.profileScreenView.showActivityIndicatorView()
     }
 }
 

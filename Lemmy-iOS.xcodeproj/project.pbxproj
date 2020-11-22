@@ -65,7 +65,7 @@
 		4E886C73253CD4270076B162 /* CreateDismissTransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C72253CD4270076B162 /* CreateDismissTransitionDriver.swift */; };
 		4E886C7E253F4F290076B162 /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C7D253F4F290076B162 /* CreatePostViewController.swift */; };
 		4E886C88253F4FF40076B162 /* CreatePostUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C87253F4FF40076B162 /* CreatePostUI.swift */; };
-		4E886C8D253F51B90076B162 /* CreatePostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C8C253F51B90076B162 /* CreatePostModel.swift */; };
+		4E886C8D253F51B90076B162 /* CreatePostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C8C253F51B90076B162 /* CreatePostViewModel.swift */; };
 		4E886C99253F679C0076B162 /* CreatePostCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C98253F679C0076B162 /* CreatePostCoordinator.swift */; };
 		4E886CA1254093050076B162 /* CreatePostCommunityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CA0254093040076B162 /* CreatePostCommunityCell.swift */; };
 		4E886CA62540A27E0076B162 /* CreatePostUrlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CA52540A27E0076B162 /* CreatePostUrlCell.swift */; };
@@ -81,6 +81,29 @@
 		4E886D4625447E350076B162 /* LemmyModel+Pictrs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886D4525447E350076B162 /* LemmyModel+Pictrs.swift */; };
 		4E886D4B2545B81A0076B162 /* PictrsRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886D4A2545B81A0076B162 /* PictrsRequests.swift */; };
 		4E9182D32564151800702F04 /* VoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9182D22564151800702F04 /* VoteButton.swift */; };
+		4E9183452566C16C00702F04 /* SettingsTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183312566C16C00702F04 /* SettingsTableViewModel.swift */; };
+		4E9183462566C16C00702F04 /* SettingsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183322566C16C00702F04 /* SettingsTableView.swift */; };
+		4E9183472566C16C00702F04 /* SettingsTableSectionFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183342566C16C00702F04 /* SettingsTableSectionFooterView.swift */; };
+		4E9183482566C16C00702F04 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183362566C16C00702F04 /* SettingsTableViewCell.swift */; };
+		4E9183492566C16C00702F04 /* SettingsInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183382566C16C00702F04 /* SettingsInputTableViewCell.swift */; };
+		4E91834A2566C16C00702F04 /* SettingsLargeInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183392566C16C00702F04 /* SettingsLargeInputTableViewCell.swift */; };
+		4E91834D2566C16C00702F04 /* SettingsRightDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E91833F2566C16C00702F04 /* SettingsRightDetailTableViewCell.swift */; };
+		4E91834E2566C16C00702F04 /* SettingsRightDetailCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183402566C16C00702F04 /* SettingsRightDetailCellView.swift */; };
+		4E91834F2566C16C00702F04 /* SettingsRightDetailSwitchCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183422566C16C00702F04 /* SettingsRightDetailSwitchCellView.swift */; };
+		4E9183502566C16C00702F04 /* SettingsRightDetailSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183432566C16C00702F04 /* SettingsRightDetailSwitchTableViewCell.swift */; };
+		4E9183512566C16C00702F04 /* SettingsTableSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183442566C16C00702F04 /* SettingsTableSectionHeaderView.swift */; };
+		4E9183712566F51600702F04 /* UniqueIdentifierType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183702566F51600702F04 /* UniqueIdentifierType.swift */; };
+		4E9183762566F5B900702F04 /* TableInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183752566F5B900702F04 /* TableInputTextField.swift */; };
+		4E91837B2566F60600702F04 /* TableInputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E91837A2566F60600702F04 /* TableInputTextView.swift */; };
+		4E918383256726A400702F04 /* CreatePostDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E918382256726A400702F04 /* CreatePostDataFlow.swift */; };
+		4E9183882567284E00702F04 /* CreatePostAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183872567284E00702F04 /* CreatePostAssembly.swift */; };
+		4E9183902567DBE200702F04 /* PushRouterSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E91838F2567DBE200702F04 /* PushRouterSourceProtocol.swift */; };
+		4E9183982567DCB100702F04 /* SelectItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183972567DCB100702F04 /* SelectItemViewModel.swift */; };
+		4E91839D2567DCC500702F04 /* SelectItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E91839C2567DCC500702F04 /* SelectItemTableViewController.swift */; };
+		4E9183A52567FE5500702F04 /* ChooseCommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183A42567FE5500702F04 /* ChooseCommunityViewModel.swift */; };
+		4E9183AA2567FF4200702F04 /* ChooseCommunityTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183A92567FF4200702F04 /* ChooseCommunityTableDataSource.swift */; };
+		4E9183AF25696EAA00702F04 /* ChooseCommunityAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183AE25696EAA00702F04 /* ChooseCommunityAssembly.swift */; };
+		4E9183B8256AF77700702F04 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E9183B7256AF77700702F04 /* IQKeyboardManagerSwift */; };
 		4E9BBA1925553176004FF2F9 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA1825553176004FF2F9 /* Enums.swift */; };
 		4E9BBA24255534B0004FF2F9 /* LemmyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA23255534B0004FF2F9 /* LemmyModel.swift */; };
 		4E9BBA2C25553516004FF2F9 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA2B25553516004FF2F9 /* Error.swift */; };
@@ -265,7 +288,7 @@
 		4E886C72253CD4270076B162 /* CreateDismissTransitionDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDismissTransitionDriver.swift; sourceTree = "<group>"; };
 		4E886C7D253F4F290076B162 /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
 		4E886C87253F4FF40076B162 /* CreatePostUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostUI.swift; sourceTree = "<group>"; };
-		4E886C8C253F51B90076B162 /* CreatePostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostModel.swift; sourceTree = "<group>"; };
+		4E886C8C253F51B90076B162 /* CreatePostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewModel.swift; sourceTree = "<group>"; };
 		4E886C98253F679C0076B162 /* CreatePostCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostCoordinator.swift; sourceTree = "<group>"; };
 		4E886CA0254093040076B162 /* CreatePostCommunityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostCommunityCell.swift; sourceTree = "<group>"; };
 		4E886CA52540A27E0076B162 /* CreatePostUrlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostUrlCell.swift; sourceTree = "<group>"; };
@@ -281,6 +304,28 @@
 		4E886D4525447E350076B162 /* LemmyModel+Pictrs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LemmyModel+Pictrs.swift"; sourceTree = "<group>"; };
 		4E886D4A2545B81A0076B162 /* PictrsRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictrsRequests.swift; sourceTree = "<group>"; };
 		4E9182D22564151800702F04 /* VoteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteButton.swift; sourceTree = "<group>"; };
+		4E9183312566C16C00702F04 /* SettingsTableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewModel.swift; sourceTree = "<group>"; };
+		4E9183322566C16C00702F04 /* SettingsTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableView.swift; sourceTree = "<group>"; };
+		4E9183342566C16C00702F04 /* SettingsTableSectionFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableSectionFooterView.swift; sourceTree = "<group>"; };
+		4E9183362566C16C00702F04 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		4E9183382566C16C00702F04 /* SettingsInputTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsInputTableViewCell.swift; sourceTree = "<group>"; };
+		4E9183392566C16C00702F04 /* SettingsLargeInputTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsLargeInputTableViewCell.swift; sourceTree = "<group>"; };
+		4E91833F2566C16C00702F04 /* SettingsRightDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsRightDetailTableViewCell.swift; sourceTree = "<group>"; };
+		4E9183402566C16C00702F04 /* SettingsRightDetailCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsRightDetailCellView.swift; sourceTree = "<group>"; };
+		4E9183422566C16C00702F04 /* SettingsRightDetailSwitchCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsRightDetailSwitchCellView.swift; sourceTree = "<group>"; };
+		4E9183432566C16C00702F04 /* SettingsRightDetailSwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsRightDetailSwitchTableViewCell.swift; sourceTree = "<group>"; };
+		4E9183442566C16C00702F04 /* SettingsTableSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableSectionHeaderView.swift; sourceTree = "<group>"; };
+		4E9183702566F51600702F04 /* UniqueIdentifierType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniqueIdentifierType.swift; sourceTree = "<group>"; };
+		4E9183752566F5B900702F04 /* TableInputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableInputTextField.swift; sourceTree = "<group>"; };
+		4E91837A2566F60600702F04 /* TableInputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableInputTextView.swift; sourceTree = "<group>"; };
+		4E918382256726A400702F04 /* CreatePostDataFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostDataFlow.swift; sourceTree = "<group>"; };
+		4E9183872567284E00702F04 /* CreatePostAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostAssembly.swift; sourceTree = "<group>"; };
+		4E91838F2567DBE200702F04 /* PushRouterSourceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushRouterSourceProtocol.swift; sourceTree = "<group>"; };
+		4E9183972567DCB100702F04 /* SelectItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectItemViewModel.swift; sourceTree = "<group>"; };
+		4E91839C2567DCC500702F04 /* SelectItemTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectItemTableViewController.swift; sourceTree = "<group>"; };
+		4E9183A42567FE5500702F04 /* ChooseCommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityViewModel.swift; sourceTree = "<group>"; };
+		4E9183A92567FF4200702F04 /* ChooseCommunityTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityTableDataSource.swift; sourceTree = "<group>"; };
+		4E9183AE25696EAA00702F04 /* ChooseCommunityAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityAssembly.swift; sourceTree = "<group>"; };
 		4E9BBA1825553176004FF2F9 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		4E9BBA23255534B0004FF2F9 /* LemmyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyModel.swift; sourceTree = "<group>"; };
 		4E9BBA2B25553516004FF2F9 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
@@ -407,6 +452,7 @@
 				921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */,
 				4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */,
 				4EF3ACF625506EC900BEC9F1 /* SwiftyMarkdown in Frameworks */,
+				4E9183B8256AF77700702F04 /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,10 +639,12 @@
 			children = (
 				4E886C97253F67500076B162 /* cells */,
 				4E886C86253F4FD40076B162 /* ChooseCommunity */,
+				4E9183872567284E00702F04 /* CreatePostAssembly.swift */,
 				4E886C7D253F4F290076B162 /* CreatePostViewController.swift */,
 				4E886C87253F4FF40076B162 /* CreatePostUI.swift */,
-				4E886C8C253F51B90076B162 /* CreatePostModel.swift */,
+				4E886C8C253F51B90076B162 /* CreatePostViewModel.swift */,
 				4E886C98253F679C0076B162 /* CreatePostCoordinator.swift */,
+				4E918382256726A400702F04 /* CreatePostDataFlow.swift */,
 			);
 			path = CreatePost;
 			sourceTree = "<group>";
@@ -604,8 +652,11 @@
 		4E886C86253F4FD40076B162 /* ChooseCommunity */ = {
 			isa = PBXGroup;
 			children = (
+				4E9183AE25696EAA00702F04 /* ChooseCommunityAssembly.swift */,
 				4E886CCD2541E1670076B162 /* ChooseCommunityViewController.swift */,
 				4E886CD22541E1A20076B162 /* ChooseCommunityUI.swift */,
+				4E9183A42567FE5500702F04 /* ChooseCommunityViewModel.swift */,
+				4E9183A92567FF4200702F04 /* ChooseCommunityTableDataSource.swift */,
 			);
 			path = ChooseCommunity;
 			sourceTree = "<group>";
@@ -619,6 +670,98 @@
 				4E886CD7254215B60076B162 /* ChooseCommunityCell.swift */,
 			);
 			path = cells;
+			sourceTree = "<group>";
+		};
+		4E91832F2566C12E00702F04 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4E9183302566C16C00702F04 /* SettingsTable */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		4E9183302566C16C00702F04 /* SettingsTable */ = {
+			isa = PBXGroup;
+			children = (
+				4E9183312566C16C00702F04 /* SettingsTableViewModel.swift */,
+				4E9183322566C16C00702F04 /* SettingsTableView.swift */,
+				4E9183332566C16C00702F04 /* Views */,
+				4E9183962567DC8F00702F04 /* SelectItem */,
+			);
+			path = SettingsTable;
+			sourceTree = "<group>";
+		};
+		4E9183332566C16C00702F04 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4E9183942567DC7200702F04 /* HeaderFooter */,
+				4E9183352566C16C00702F04 /* Cell */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4E9183352566C16C00702F04 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				4E9183362566C16C00702F04 /* SettingsTableViewCell.swift */,
+				4E9183372566C16C00702F04 /* InputCells */,
+				4E91833A2566C16C00702F04 /* RightDetailCells */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		4E9183372566C16C00702F04 /* InputCells */ = {
+			isa = PBXGroup;
+			children = (
+				4E9183382566C16C00702F04 /* SettingsInputTableViewCell.swift */,
+				4E9183392566C16C00702F04 /* SettingsLargeInputTableViewCell.swift */,
+			);
+			path = InputCells;
+			sourceTree = "<group>";
+		};
+		4E91833A2566C16C00702F04 /* RightDetailCells */ = {
+			isa = PBXGroup;
+			children = (
+				4E91833E2566C16C00702F04 /* Label */,
+				4E9183412566C16C00702F04 /* Switch */,
+			);
+			path = RightDetailCells;
+			sourceTree = "<group>";
+		};
+		4E91833E2566C16C00702F04 /* Label */ = {
+			isa = PBXGroup;
+			children = (
+				4E91833F2566C16C00702F04 /* SettingsRightDetailTableViewCell.swift */,
+				4E9183402566C16C00702F04 /* SettingsRightDetailCellView.swift */,
+			);
+			path = Label;
+			sourceTree = "<group>";
+		};
+		4E9183412566C16C00702F04 /* Switch */ = {
+			isa = PBXGroup;
+			children = (
+				4E9183422566C16C00702F04 /* SettingsRightDetailSwitchCellView.swift */,
+				4E9183432566C16C00702F04 /* SettingsRightDetailSwitchTableViewCell.swift */,
+			);
+			path = Switch;
+			sourceTree = "<group>";
+		};
+		4E9183942567DC7200702F04 /* HeaderFooter */ = {
+			isa = PBXGroup;
+			children = (
+				4E9183442566C16C00702F04 /* SettingsTableSectionHeaderView.swift */,
+				4E9183342566C16C00702F04 /* SettingsTableSectionFooterView.swift */,
+			);
+			path = HeaderFooter;
+			sourceTree = "<group>";
+		};
+		4E9183962567DC8F00702F04 /* SelectItem */ = {
+			isa = PBXGroup;
+			children = (
+				4E9183972567DCB100702F04 /* SelectItemViewModel.swift */,
+				4E91839C2567DCC500702F04 /* SelectItemTableViewController.swift */,
+			);
+			path = SelectItem;
 			sourceTree = "<group>";
 		};
 		4E9BBA1625553123004FF2F9 /* LemmyApi */ = {
@@ -696,6 +839,8 @@
 				4EB89B3A25220DC6007129BF /* CommentListingSort.swift */,
 				4E3E0F792555F5BC0086CE0C /* LemmyJSONDecoder.swift */,
 				4EBB222D2559EEFF00B88079 /* MilticastDelegate.swift */,
+				4E9183702566F51600702F04 /* UniqueIdentifierType.swift */,
+				4E91838F2567DBE200702F04 /* PushRouterSourceProtocol.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -970,6 +1115,8 @@
 				4EBB224B255ADE4C00B88079 /* TabSegmentedControlView.swift */,
 				4EBB2250255ADFC900B88079 /* ScrollableStackView.swift */,
 				4E9182D22564151800702F04 /* VoteButton.swift */,
+				4E9183752566F5B900702F04 /* TableInputTextField.swift */,
+				4E91837A2566F60600702F04 /* TableInputTextView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -1059,6 +1206,7 @@
 		4EFA8148255F2E5D008AF535 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				4E91832F2566C12E00702F04 /* Frameworks */,
 				4ECCEEE1250B8E1C0075F921 /* App */,
 				4ECCEEE2250B8F4A0075F921 /* Features */,
 				4E1070882534F78D009EABDA /* Core */,
@@ -1171,6 +1319,7 @@
 				4E1070832534F742009EABDA /* KeychainSwift */,
 				4EF3ACF525506EC900BEC9F1 /* SwiftyMarkdown */,
 				4E8165982563346100907D31 /* Nantes */,
+				4E9183B7256AF77700702F04 /* IQKeyboardManagerSwift */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */;
@@ -1249,6 +1398,7 @@
 				4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				4EF3ACF425506EC900BEC9F1 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */,
 				4E8165972563346100907D31 /* XCRemoteSwiftPackageReference "Nantes" */,
+				4E9183B6256AF77700702F04 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
@@ -1351,12 +1501,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E9183452566C16C00702F04 /* SettingsTableViewModel.swift in Sources */,
 				4EBB22392559FC3000B88079 /* Collection+SafeSubscript.swift in Sources */,
+				4E9183AA2567FF4200702F04 /* ChooseCommunityTableDataSource.swift in Sources */,
 				4E0A8E52255C0BEC00B06AF6 /* ProfileScreenCommentsAssembly.swift in Sources */,
 				4EB89B3525220B81007129BF /* LemmyCommentView.swift in Sources */,
 				4ECCEF27250FB62F0075F921 /* LemmyModel+Community.swift in Sources */,
 				4ECCEF1A250D62580075F921 /* LemmyModel+Comment.swift in Sources */,
 				4EF3AC8B254B469F00BEC9F1 /* ChooseCategoryViewController.swift in Sources */,
+				4E9183902567DBE200702F04 /* PushRouterSourceProtocol.swift in Sources */,
 				4EFAB5C72552F85D00B32780 /* UIView+Ext.swift in Sources */,
 				4E9182D32564151800702F04 /* VoteButton.swift in Sources */,
 				4E886CCE2541E1670076B162 /* ChooseCommunityViewController.swift in Sources */,
@@ -1371,6 +1524,7 @@
 				4EBB226D255AF4F900B88079 /* ProfileScreenPostsAssembly.swift in Sources */,
 				4E886C6E253CD40F0076B162 /* CreateDismissAnimator.swift in Sources */,
 				4E81655B2562A38400907D31 /* UpvoteDownvoteService.swift in Sources */,
+				4E9183462566C16C00702F04 /* SettingsTableView.swift in Sources */,
 				4E886C1C25364DD70076B162 /* AuthRequests.swift in Sources */,
 				4EB89B302521FDBE007129BF /* LemmyLinkedClickableUILabel.swift in Sources */,
 				4EFAB5DD2552FA4300B32780 /* Notification+Ext.swift in Sources */,
@@ -1392,12 +1546,18 @@
 				4ECCEEE0250B8DEE0075F921 /* Coordinator.swift in Sources */,
 				4E10705B253476FC009EABDA /* PostsFrontPageModel.swift in Sources */,
 				4ECCEEFE250CA30E0075F921 /* FrontPageHeaderCell.swift in Sources */,
+				4E91834F2566C16C00702F04 /* SettingsRightDetailSwitchCellView.swift in Sources */,
+				4E9183762566F5B900702F04 /* TableInputTextField.swift in Sources */,
 				4ECCEF2F251253B00075F921 /* LemmySearchBarController.swift in Sources */,
+				4E9183882567284E00702F04 /* CreatePostAssembly.swift in Sources */,
 				4E1070712534E970009EABDA /* CreatePostOrCommunityViewController.swift in Sources */,
 				4ECCEF1D250D63BE0075F921 /* CommentRequests.swift in Sources */,
 				4E0A8E93255DDE4500B06AF6 /* PostScreenAssembly.swift in Sources */,
 				4EB89B0A2521FA73007129BF /* LoginOrRegisterButton.swift in Sources */,
+				4E91837B2566F60600702F04 /* TableInputTextView.swift in Sources */,
 				4EF3AC90254B46BD00BEC9F1 /* ChooseCategoryUI.swift in Sources */,
+				4E9183472566C16C00702F04 /* SettingsTableSectionFooterView.swift in Sources */,
+				4E91834E2566C16C00702F04 /* SettingsRightDetailCellView.swift in Sources */,
 				4ECCEF0C250CCD3E0075F921 /* PostRequests.swift in Sources */,
 				4E0A8E7C255D590800B06AF6 /* ProfileScreenAboutViewController.swift in Sources */,
 				4E886CDD254229F20076B162 /* LemmyModel+Search.swift in Sources */,
@@ -1407,6 +1567,7 @@
 				4ECCEF0E250CDA5A0075F921 /* LemmyModel+Post.swift in Sources */,
 				4E0A8E2F255BFC0000B06AF6 /* UIApplication+Ext.swift in Sources */,
 				4E10707E2534F5EC009EABDA /* LemmyCheckLogin.swift in Sources */,
+				4E91834D2566C16C00702F04 /* SettingsRightDetailTableViewCell.swift in Sources */,
 				4ECCEEDD250B8D930075F921 /* AppCoordinator.swift in Sources */,
 				4EF3AC6F254A021400BEC9F1 /* CreateCommunityModel.swift in Sources */,
 				4E10708E2534F7A7009EABDA /* LoginData.swift in Sources */,
@@ -1423,6 +1584,7 @@
 				4EFA8157255F3215008AF535 /* FrontPageSearchViewController.swift in Sources */,
 				4ECCEEED250BE8870075F921 /* FrontPageViewController.swift in Sources */,
 				4EFAB5D82552FA1100B32780 /* UILabel+Ext.swift in Sources */,
+				4E9183482566C16C00702F04 /* SettingsTableViewCell.swift in Sources */,
 				4EFAB5E72552FA9300B32780 /* UITableView+Ext.swift in Sources */,
 				4E3E0F722555BCF70086CE0C /* ProfileScreenViewController.swift in Sources */,
 				4E1A7E6125573CC900E193B7 /* LoadingTableViewCell.swift in Sources */,
@@ -1437,6 +1599,7 @@
 				4E886C88253F4FF40076B162 /* CreatePostUI.swift in Sources */,
 				4E886C7E253F4F290076B162 /* CreatePostViewController.swift in Sources */,
 				4ECCEF25250FB3E50075F921 /* CommunitiesModel.swift in Sources */,
+				4E9183512566C16C00702F04 /* SettingsTableSectionHeaderView.swift in Sources */,
 				4E886CA1254093050076B162 /* CreatePostCommunityCell.swift in Sources */,
 				4EFA81D525617580008AF535 /* CommunityScreenUI.swift in Sources */,
 				4EBB2276255AF77400B88079 /* ProfileScreenPostsInputOutput.swift in Sources */,
@@ -1450,6 +1613,7 @@
 				4EB89B3B25220DC6007129BF /* CommentListingSort.swift in Sources */,
 				4EF3AC62254A01DA00BEC9F1 /* CreateCommunityViewController.swift in Sources */,
 				4EBB221325598B0C00B88079 /* Assembly.swift in Sources */,
+				4E9183492566C16C00702F04 /* SettingsInputTableViewCell.swift in Sources */,
 				4ECCEF13250CF0290075F921 /* PostContentTableCell.swift in Sources */,
 				4EBB225D255AE71E00B88079 /* ProfileScreenPostsViewModel.swift in Sources */,
 				4E107093253500DA009EABDA /* LemmyModel+User.swift in Sources */,
@@ -1462,6 +1626,7 @@
 				4EF3AC9A254C690400BEC9F1 /* CreateCommunitySidebarCell.swift in Sources */,
 				4EBB22212559EB8B00B88079 /* UIColor+Ext.swift in Sources */,
 				4E886CE7254429280076B162 /* WSLemmyEndpoint.swift in Sources */,
+				4E9183712566F51600702F04 /* UniqueIdentifierType.swift in Sources */,
 				4E1070792534E97E009EABDA /* CreatePostOrCommunityCoordinator.swift in Sources */,
 				4E106F6525274325009EABDA /* PostScreenModel.swift in Sources */,
 				4EFA81AA255F3CE9008AF535 /* SearchViewModel.swift in Sources */,
@@ -1472,6 +1637,7 @@
 				4ECCEF31251F24AD0075F921 /* LemmyFrontPageNavBar.swift in Sources */,
 				4ECCEF33251F27170075F921 /* LemmyProfileIconView.swift in Sources */,
 				4E10706B253477C1009EABDA /* LemmyTableView.swift in Sources */,
+				4E9183982567DCB100702F04 /* SelectItemViewModel.swift in Sources */,
 				4EBB2263255AECB500B88079 /* ProfileScreenPostsUI.swift in Sources */,
 				4E886CF1254430970076B162 /* HttpLemmyClient.swift in Sources */,
 				4E9BBA5425555571004FF2F9 /* LemmySortListingPickersView.swift in Sources */,
@@ -1485,10 +1651,13 @@
 				4E886C73253CD4270076B162 /* CreateDismissTransitionDriver.swift in Sources */,
 				4ECCEEF4250C04280075F921 /* LemmyTabBarController.swift in Sources */,
 				4EF3AC85254B456400BEC9F1 /* CreateCommunityChooseCategoryCell.swift in Sources */,
+				4E9183AF25696EAA00702F04 /* ChooseCommunityAssembly.swift in Sources */,
 				4E886CE225422BDC0076B162 /* SearchRequests.swift in Sources */,
 				4E1070652534771C009EABDA /* CommentsFrontPageModel.swift in Sources */,
 				4EBB227E255AF7A600B88079 /* ProfileScreenSubmoduleProtocol.swift in Sources */,
+				4E91834A2566C16C00702F04 /* SettingsLargeInputTableViewCell.swift in Sources */,
 				4EFAB5EC2552FC5000B32780 /* UIStackView+Ext.swift in Sources */,
+				4E9183A52567FE5500702F04 /* ChooseCommunityViewModel.swift in Sources */,
 				4E106F5D25273A0C009EABDA /* CommentTreeTableCell.swift in Sources */,
 				4E8165722562D08B00907D31 /* ProfileScreenTableHeaderView.swift in Sources */,
 				4ECCEF2B250FF56A0075F921 /* CommunityPreviewTableCell.swift in Sources */,
@@ -1499,6 +1668,7 @@
 				4EBB220E25598AC100B88079 /* ProgrammaticallyInitializableView.swift in Sources */,
 				4E0A8E35255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift in Sources */,
 				4EF3AC7B254AE12800BEC9F1 /* CreateCommunityNamesCell.swift in Sources */,
+				4E9183502566C16C00702F04 /* SettingsRightDetailSwitchTableViewCell.swift in Sources */,
 				4EBB222E2559EEFF00B88079 /* MilticastDelegate.swift in Sources */,
 				4ECCEF1F250DFBC90075F921 /* CommentContentTableCell.swift in Sources */,
 				4EFAB5E22552FA5C00B32780 /* UIBarButton+Ext.swift in Sources */,
@@ -1508,11 +1678,13 @@
 				4EBB22342559EF2100B88079 /* WeakBox.swift in Sources */,
 				4EBB22192559EB3600B88079 /* StyledNavigationController.swift in Sources */,
 				4E05D632255EB362002307E0 /* PostScreenTableDataSource.swift in Sources */,
+				4E918383256726A400702F04 /* CreatePostDataFlow.swift in Sources */,
 				4EF3ACEA25502D5600BEC9F1 /* CommunityHeaderView.swift in Sources */,
-				4E886C8D253F51B90076B162 /* CreatePostModel.swift in Sources */,
+				4E886C8D253F51B90076B162 /* CreatePostViewModel.swift in Sources */,
 				4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */,
 				4E886C17253626950076B162 /* SignUpView.swift in Sources */,
 				4E8165632562B6FC00907D31 /* PostsTableDataSource.swift in Sources */,
+				4E91839D2567DCC500702F04 /* SelectItemTableViewController.swift in Sources */,
 				4E886C4B253C95D20076B162 /* CreatePresentAnimator.swift in Sources */,
 				4ECCEF21250FB3D40075F921 /* CommunitiesCoordinator.swift in Sources */,
 				4E3E0F7A2555F5BC0086CE0C /* LemmyJSONDecoder.swift in Sources */,
@@ -1866,6 +2038,14 @@
 				minimumVersion = 0.1.2;
 			};
 		};
+		4E9183B6256AF77700702F04 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.6;
+			};
+		};
 		4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -1894,6 +2074,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E8165972563346100907D31 /* XCRemoteSwiftPackageReference "Nantes" */;
 			productName = Nantes;
+		};
+		4E9183B7256AF77700702F04 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E9183B6256AF77700702F04 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
 		};
 		4ECCEEFA250C13240075F921 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

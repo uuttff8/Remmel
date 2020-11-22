@@ -16,7 +16,7 @@ class CreatePostContentCell: UITableViewCell {
         let tv = UITextView()
         tv.font = .systemFont(ofSize: 17)
         tv.textColor = UIColor.lightGray
-        tv.placeholder = "Title"
+//        tv.placeholder = "Title"
         return tv
     }()
 
@@ -24,7 +24,7 @@ class CreatePostContentCell: UITableViewCell {
         let tv = UITextView()
         tv.font = .systemFont(ofSize: 17)
         tv.textColor = UIColor.lightGray
-        tv.placeholder = "Body"
+//        tv.placeholder = "Body"
         return tv
     }()
 

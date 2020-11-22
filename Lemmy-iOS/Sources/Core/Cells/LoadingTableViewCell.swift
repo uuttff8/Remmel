@@ -12,7 +12,7 @@ class LoadingTableViewCell: UITableViewCell {
     init() {
         super.init(style: .default, reuseIdentifier: String(describing: Self.self))
         
-        self.showLoading(style: .large, color: .gray)
+        self.showActivityIndicatorView(style: .large, color: .gray)
         
         self.contentView.snp.makeConstraints {
             $0.height.equalTo(200)

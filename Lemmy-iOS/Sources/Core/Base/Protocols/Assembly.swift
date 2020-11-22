@@ -9,5 +9,7 @@
 import UIKit
 
 protocol Assembly {
-    func makeModule() -> UIViewController
+    associatedtype ViewController: UIViewController
+    
+    func makeModule() -> ViewController
 }

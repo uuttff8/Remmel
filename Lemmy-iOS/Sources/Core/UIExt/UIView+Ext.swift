@@ -127,7 +127,7 @@ extension UIView {
 extension UIView {
     static let loadingViewTag = 1938123987
     
-    func showLoading(style: UIActivityIndicatorView.Style = .large, color: UIColor? = nil) {
+    func showActivityIndicatorView(style: UIActivityIndicatorView.Style = .large, color: UIColor? = nil) {
         var loading = viewWithTag(UIView.loadingViewTag) as? UIActivityIndicatorView
         if loading == nil {
             loading = UIActivityIndicatorView(style: style)
@@ -144,7 +144,7 @@ extension UIView {
         loading?.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
 
-    func hideLoading() {
+    func hideActivityIndicatorView() {
         let loading = viewWithTag(UIView.loadingViewTag) as? UIActivityIndicatorView
         loading?.stopAnimating()
         loading?.removeFromSuperview()

@@ -52,12 +52,12 @@ class ProfileScreenAboutViewController: UIViewController {
         }
 
         if case .loading = newState {
-            self.aboutView?.showLoading()
+            self.aboutView?.showActivityIndicatorView()
             return
         }
 
         if case .loading = self.state {
-            self.aboutView?.hideLoading()
+            self.aboutView?.hideActivityIndicatorView()
         }
 
         if case .result = newState {
