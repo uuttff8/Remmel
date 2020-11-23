@@ -110,12 +110,12 @@ class ProfileScreenViewController: UIViewController {
                 sender: self
             )
 
-            let transitionColor = ColorTransitionHelper.makeTransitionColor(
-                from: .white,
-                to: StyledNavigationController.Appearance.tintColor,
-                transitionProgress: alpha
-            )
-            self.styledNavigationController?.changeTintColor(transitionColor, sender: self)
+//            let transitionColor = ColorTransitionHelper.makeTransitionColor(
+//                from: .dark,
+//                to: .black,
+//                transitionProgress: alpha
+//            )
+//            self.styledNavigationController?.changeTintColor(transitionColor, sender: self)
             self.styledNavigationController?.changeTextColor(
                 StyledNavigationController.Appearance.tintColor.withAlphaComponent(alpha),
                 sender: self
@@ -337,7 +337,7 @@ extension ProfileScreenViewController: StyledNavigationControllerPresentable {
             backgroundColor: StyledNavigationController.Appearance.backgroundColor.withAlphaComponent(0.0),
             statusBarColor: StyledNavigationController.Appearance.statusBarColor.withAlphaComponent(0.0),
             textColor: StyledNavigationController.Appearance.tintColor.withAlphaComponent(0.0),
-            tintColor: .white,
+            tintColor: .black,
             statusBarStyle: .lightContent
         )
     }

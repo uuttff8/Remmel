@@ -16,7 +16,7 @@ class ChooseCategoryUI: UIView {
 
     var cancellable = Set<AnyCancellable>()
 
-    private let tableView = LemmyTableView(style: .plain, separator: true)
+    private let tableView = LemmyTableView(style: .insetGrouped, separator: true)
     private let searchBar = UISearchBar().then {
         $0.isOpaque = true
         $0.barTintColor = .systemBackground

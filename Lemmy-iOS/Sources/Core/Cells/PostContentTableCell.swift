@@ -321,12 +321,12 @@ private class PostContentCenterView: UIView {
     private let imageSize = CGSize(width: 110, height: 60)
     
     private let titleLabel = UILabel().then {
-        $0.font = UIFont.systemFont(ofSize: 21, weight: .semibold)
+        $0.font = UIFont.systemFont(ofSize: 19, weight: .semibold)
         $0.numberOfLines = 3
     }
     
     private lazy var subtitleLabel = NantesLabel().then {
-        $0.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         $0.delegate = self
         $0.numberOfLines = 6
     }
@@ -383,6 +383,8 @@ private class PostContentCenterView: UIView {
         
         if let image = data.imageUrl {
             Nuke.loadImage(with: ImageRequest(url: URL(string: image)!), into: thumbailImageView)
+        } else {
+            thumbailImageView.isHidden = true
         }
         
         layoutUI()
@@ -396,6 +398,7 @@ private class PostContentCenterView: UIView {
         titleLabel.text = nil
         subtitleLabel.text = nil
         thumbailImageView.image = nil
+        thumbailImageView.isHidden = false
     }
     
     // MARK: - Private

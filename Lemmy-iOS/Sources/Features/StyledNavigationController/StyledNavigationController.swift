@@ -13,8 +13,8 @@ class StyledNavigationController: UINavigationController {
     enum Appearance {
         static let backgroundColor = UIColor.systemBackground
         static let statusBarColor = UIColor.systemBackground
-        static let tintColor = UIColor.label
-        static let textColor = UIColor.label
+        static let tintColor = UIColor.lemmyAccent
+        static let textColor = UIColor.lemmyAccent
 
         static let titleFont = UIFont.systemFont(ofSize: 17, weight: .regular)
 
