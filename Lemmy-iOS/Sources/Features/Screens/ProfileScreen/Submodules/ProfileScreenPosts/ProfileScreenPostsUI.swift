@@ -41,7 +41,6 @@ extension ProfileScreenPostsViewController {
             $0.backgroundColor = .clear
             $0.showsVerticalScrollIndicator = false
             $0.delegate = self
-            $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 90, right: 0) // tab bar
         }
         
         private lazy var profileScreenHeader = ProfileScreenTableHeaderView().then { view in
@@ -117,7 +116,8 @@ extension ProfileScreenPostsViewController.View: ProgrammaticallyViewProtocol {
     
     func makeConstraints() {
         self.tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(self.safeAreaLayoutGuide) // tab bar
         }
         self.tableView.layoutTableHeaderView()
     }

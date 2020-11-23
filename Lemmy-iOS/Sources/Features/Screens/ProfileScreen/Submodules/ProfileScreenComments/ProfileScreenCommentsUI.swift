@@ -74,7 +74,8 @@ extension ProfileScreenCommentsViewController.View: ProgrammaticallyViewProtocol
     
     func makeConstraints() {
         self.tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(self.safeAreaLayoutGuide) // tab bar
         }
     }
 }
