@@ -169,7 +169,7 @@ extension CreateCommunityViewController: CreateCommunityViewControllerProtocol {
             type: .input(
                 options: .init(
                     valueText: createComminityData.name,
-                    placeholderText: "Name",
+                    placeholderText: "johnappleseed",
                     shouldAlwaysShowPlaceholder: false,
                     inputGroup: "name"
                 )
@@ -181,7 +181,7 @@ extension CreateCommunityViewController: CreateCommunityViewControllerProtocol {
             type: .input(
                 options: .init(
                     valueText: createComminityData.displayName,
-                    placeholderText: "Display name",
+                    placeholderText: "John Appleseed",
                     shouldAlwaysShowPlaceholder: false,
                     inputGroup: "displayName"
                 )
@@ -341,7 +341,11 @@ extension CreateCommunityViewController: CreateCommunityViewDelegate {
         
         switch field {
         case .category:
-            self.coordinator?.goToChoosingCommunity()
+            self.coordinator?.goToChoosingCommunity(
+                choosed: { (category) in
+                    self.createComminityData.category = category
+                }
+            )
         default: break
         }
     }

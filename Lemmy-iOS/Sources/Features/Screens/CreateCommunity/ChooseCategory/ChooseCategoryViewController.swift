@@ -9,35 +9,40 @@
 import UIKit
 
 class ChooseCategoryViewController: UIViewController {
+    
+    lazy var chooseCategoryView = self.view as! ChooseCategoryUI
+    let viewModel = ChooseCategoryViewModel()
+    
+    var selectedCategory: ((LemmyModel.CategoryView) -> Void)?
 
-//    weak var coordinator: CreateCommunityCoordinator?
-//
-//    let customView: ChooseCategoryUI
-//    let model: CreateCommunityModel
-//
-//    override func loadView() {
-//        self.view = customView
-//    }
-//
-//    init(model: CreateCommunityModel) {
-//        self.model = model
-//        self.customView = ChooseCategoryUI(model: model)
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        if model.categories.value == [] {
-//            model.loadCategories()
-//        }
-//
-//        customView.dismissView = {
-//            self.navigationController?.popViewController(animated: true)
-//        }
-//    }
+    override func loadView() {
+        let view = ChooseCategoryUI(model: viewModel)
+        self.view = view
+    }
+
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        viewModel.selectedCategory
+            .compactMap { $0 }
+            .sink { (category) in
+                self.selectedCategory?(category)
+            }.store(in: &chooseCategoryView.cancellable)
+        
+        if viewModel.categories.value == [] {
+            viewModel.loadCategories()
+        }
+
+        chooseCategoryView.dismissView = {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
 }
