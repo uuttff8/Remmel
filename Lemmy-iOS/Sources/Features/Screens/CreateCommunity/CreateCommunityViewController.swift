@@ -171,7 +171,8 @@ extension CreateCommunityViewController: CreateCommunityViewControllerProtocol {
                     valueText: createComminityData.name,
                     placeholderText: "johnappleseed",
                     shouldAlwaysShowPlaceholder: false,
-                    inputGroup: "name"
+                    inputGroup: "name",
+                    capitalization: .none
                 )
             )
         )
@@ -192,8 +193,8 @@ extension CreateCommunityViewController: CreateCommunityViewControllerProtocol {
             uniqueIdentifier: FormField.category.rawValue,
             type: .rightDetail(
                 options: .init(
-                    title: .init(text: "Category"),
-                    detailType: .label(text: createComminityData.category?.name),
+                    title: .init(text: createComminityData.category?.name ?? "Category"),
+                    detailType: .label(text: nil),
                     accessoryType: .disclosureIndicator
                 )
             )

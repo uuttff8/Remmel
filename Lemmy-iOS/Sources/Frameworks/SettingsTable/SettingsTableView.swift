@@ -103,6 +103,7 @@ final class SettingsTableView: UIView {
         cell.elementView.text = options.valueText
         cell.elementView.shouldAlwaysShowPlaceholder = options.shouldAlwaysShowPlaceholder
         cell.elementView.isEnabled = options.isEnabled
+        cell.elementView.autocapitalizationType = options.capitalization
         cell.delegate = self.delegate
         self.inputCellGroups.first { $0.uniqueIdentifier == options.inputGroup }?.addInputCell(cell)
     }

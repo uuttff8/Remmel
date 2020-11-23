@@ -51,19 +51,22 @@ struct InputCellOptions {
     let valueText: String?
     let inputGroup: UniqueIdentifierType?
     let isEnabled: Bool
+    let capitalization: UITextAutocapitalizationType
 
     init(
         valueText: String? = nil,
         placeholderText: String? = nil,
         shouldAlwaysShowPlaceholder: Bool = false,
         inputGroup: UniqueIdentifierType? = nil,
-        isEnabled: Bool = true
+        isEnabled: Bool = true,
+        capitalization: UITextAutocapitalizationType = .sentences
     ) {
         self.valueText = valueText
         self.placeholderText = placeholderText
         self.shouldAlwaysShowPlaceholder = shouldAlwaysShowPlaceholder
         self.inputGroup = inputGroup
         self.isEnabled = isEnabled
+        self.capitalization = capitalization
     }
 }
 
