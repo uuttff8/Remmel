@@ -45,7 +45,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     
     private func makeViewData(from data: LemmyModel.Post.GetPostResponse) -> PostScreenViewController.View.ViewData {
         let comments = CommentListingSort(comments: data.comments)
-            .createTreeOfReplies()
+            .createCommentsTree()
         
         return .init(post: data.post, comments: comments)
     }

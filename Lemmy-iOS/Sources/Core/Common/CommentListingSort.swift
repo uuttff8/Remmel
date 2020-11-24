@@ -8,51 +8,35 @@
 
 import Foundation
 
-struct CommentNode {
-    let id: Int
-    let comment: LemmyModel.CommentView
-    var replies: [CommentNode]
-}
-
+// MARK: - CommentListingSort -
 class CommentListingSort {
-    let comments: [LemmyModel.CommentView]
+    
+    // MARK: - Inner Types
+    
+    struct CommentNode {
+        let id: Int
+        let comment: LemmyModel.CommentView
+        var replies: [CommentNode]
+    }
+
+    struct CommentPlainNode {
+        let id: Int
+        
+    }
+    
+    // MARK: - Properties
+    
+    private let comments: [LemmyModel.CommentView]
+    
+    // MARK: - Init
     
     init(comments: [LemmyModel.CommentView]) {
         self.comments = comments
     }
     
-    func sortComments() -> [LemmyModel.CommentView] {
-        let sortedArray = comments.sorted(by: { (comm1, comm2) in
-            let date1 = comm1.published
-            let date2 = comm2.published
-            
-            return date1.compare(date2) == .orderedAscending
-        })
-        
-        return sortedArray
-    }
-    
-    func findNotReplyComments(in comments: [LemmyModel.CommentView]) -> [LemmyModel.CommentView] {
-        var notReply = [LemmyModel.CommentView]()
-        
-        for comm in comments where comm.parentId == nil {
-            notReply.append(comm)
-        }
-        
-        return notReply
-    }
-    
-    func findCommentsExcludeNotReply(in comments: [LemmyModel.CommentView]) -> [LemmyModel.CommentView] {
-        var repliesOnly = [LemmyModel.CommentView]()
-        
-        for comm in comments where comm.parentId != nil {
-            repliesOnly.append(comm)
-        }
-        
-        return repliesOnly
-    }
-    
-    func createTreeOfReplies() -> [CommentNode] {
+    // MARK: - Public API    
+
+    func createCommentsTree() -> [CommentNode] {
         let notReplies = findNotReplyComments(in: comments)
         var nodes = [CommentNode]()
         
@@ -63,7 +47,40 @@ class CommentListingSort {
         return nodes
     }
     
-    func createReplyTree(for comment: LemmyModel.CommentView) -> CommentNode {
+    // MARK: - Private API
+    
+    private func sortComments() -> [LemmyModel.CommentView] {
+        let sortedArray = comments.sorted(by: { (comm1, comm2) in
+            let date1 = comm1.published
+            let date2 = comm2.published
+            
+            return date1.compare(date2) == .orderedAscending
+        })
+        
+        return sortedArray
+    }
+    
+    private func findNotReplyComments(in comments: [LemmyModel.CommentView]) -> [LemmyModel.CommentView] {
+        var notReply = [LemmyModel.CommentView]()
+        
+        for comm in comments where comm.parentId == nil {
+            notReply.append(comm)
+        }
+        
+        return notReply
+    }
+    
+    private func findCommentsExcludeNotReply(in comments: [LemmyModel.CommentView]) -> [LemmyModel.CommentView] {
+        var repliesOnly = [LemmyModel.CommentView]()
+        
+        for comm in comments where comm.parentId != nil {
+            repliesOnly.append(comm)
+        }
+        
+        return repliesOnly
+    }
+    
+    private func createReplyTree(for comment: LemmyModel.CommentView) -> CommentNode {
         var replies = [CommentNode]()
         var node = CommentNode(id: comment.id, comment: comment, replies: replies)
         
