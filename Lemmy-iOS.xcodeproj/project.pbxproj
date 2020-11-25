@@ -107,6 +107,12 @@
 		4E9183C3256AFB1200702F04 /* CreateCommunityDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183C2256AFB1200702F04 /* CreateCommunityDataFlow.swift */; };
 		4E9183C8256AFD8800702F04 /* CreateCommunityAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183C7256AFD8800702F04 /* CreateCommunityAssembly.swift */; };
 		4E9183D0256C011200702F04 /* ChooseCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183CF256C011200702F04 /* ChooseCategoryViewModel.swift */; };
+		4E9184FC256E9E4E00702F04 /* SwipeCellKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4E9184FB256E9E4E00702F04 /* SwipeCellKit */; };
+		4E918509256E9EAA00702F04 /* CommentsViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E918505256E9EAA00702F04 /* CommentsViewDelegate.swift */; };
+		4E91850A256E9EAA00702F04 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E918506256E9EAA00702F04 /* CommentCell.swift */; };
+		4E91850B256E9EAA00702F04 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E918507256E9EAA00702F04 /* CommentsViewController.swift */; };
+		4E91850C256E9EAA00702F04 /* AbstractComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E918508256E9EAA00702F04 /* AbstractComment.swift */; };
+		4E918512256E9EFD00702F04 /* CommentTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E918511256E9EFD00702F04 /* CommentTypes.swift */; };
 		4E9BBA1925553176004FF2F9 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA1825553176004FF2F9 /* Enums.swift */; };
 		4E9BBA24255534B0004FF2F9 /* LemmyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA23255534B0004FF2F9 /* LemmyModel.swift */; };
 		4E9BBA2C25553516004FF2F9 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA2B25553516004FF2F9 /* Error.swift */; };
@@ -332,6 +338,11 @@
 		4E9183C2256AFB1200702F04 /* CreateCommunityDataFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityDataFlow.swift; sourceTree = "<group>"; };
 		4E9183C7256AFD8800702F04 /* CreateCommunityAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityAssembly.swift; sourceTree = "<group>"; };
 		4E9183CF256C011200702F04 /* ChooseCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCategoryViewModel.swift; sourceTree = "<group>"; };
+		4E918505256E9EAA00702F04 /* CommentsViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewDelegate.swift; sourceTree = "<group>"; };
+		4E918506256E9EAA00702F04 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		4E918507256E9EAA00702F04 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
+		4E918508256E9EAA00702F04 /* AbstractComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractComment.swift; sourceTree = "<group>"; };
+		4E918511256E9EFD00702F04 /* CommentTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTypes.swift; sourceTree = "<group>"; };
 		4E9BBA1825553176004FF2F9 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		4E9BBA23255534B0004FF2F9 /* LemmyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyModel.swift; sourceTree = "<group>"; };
 		4E9BBA2B25553516004FF2F9 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
@@ -459,6 +470,7 @@
 				4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */,
 				4EF3ACF625506EC900BEC9F1 /* SwiftyMarkdown in Frameworks */,
 				4E9183B8256AF77700702F04 /* IQKeyboardManagerSwift in Frameworks */,
+				4E9184FC256E9E4E00702F04 /* SwipeCellKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,6 +693,7 @@
 		4E91832F2566C12E00702F04 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E918504256E9E9900702F04 /* SwiftyComments */,
 				4E9183302566C16C00702F04 /* SettingsTable */,
 			);
 			path = Frameworks;
@@ -770,6 +783,26 @@
 			path = SelectItem;
 			sourceTree = "<group>";
 		};
+		4E918504256E9E9900702F04 /* SwiftyComments */ = {
+			isa = PBXGroup;
+			children = (
+				4E918508256E9EAA00702F04 /* AbstractComment.swift */,
+				4E918506256E9EAA00702F04 /* CommentCell.swift */,
+				4E918507256E9EAA00702F04 /* CommentsViewController.swift */,
+				4E918505256E9EAA00702F04 /* CommentsViewDelegate.swift */,
+			);
+			path = SwiftyComments;
+			sourceTree = "<group>";
+		};
+		4E918510256E9EEF00702F04 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				4EB89B3A25220DC6007129BF /* CommentListingSort.swift */,
+				4E918511256E9EFD00702F04 /* CommentTypes.swift */,
+			);
+			path = Comments;
+			sourceTree = "<group>";
+		};
 		4E9BBA1625553123004FF2F9 /* LemmyApi */ = {
 			isa = PBXGroup;
 			children = (
@@ -842,7 +875,7 @@
 		4EB89B3925220DB0007129BF /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				4EB89B3A25220DC6007129BF /* CommentListingSort.swift */,
+				4E918510256E9EEF00702F04 /* Comments */,
 				4E3E0F792555F5BC0086CE0C /* LemmyJSONDecoder.swift */,
 				4EBB222D2559EEFF00B88079 /* MilticastDelegate.swift */,
 				4E9183702566F51600702F04 /* UniqueIdentifierType.swift */,
@@ -1329,6 +1362,7 @@
 				4EF3ACF525506EC900BEC9F1 /* SwiftyMarkdown */,
 				4E8165982563346100907D31 /* Nantes */,
 				4E9183B7256AF77700702F04 /* IQKeyboardManagerSwift */,
+				4E9184FB256E9E4E00702F04 /* SwipeCellKit */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */;
@@ -1408,6 +1442,7 @@
 				4EF3ACF425506EC900BEC9F1 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */,
 				4E8165972563346100907D31 /* XCRemoteSwiftPackageReference "Nantes" */,
 				4E9183B6256AF77700702F04 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
@@ -1524,6 +1559,7 @@
 				4E9182D32564151800702F04 /* VoteButton.swift in Sources */,
 				4E886CCE2541E1670076B162 /* ChooseCommunityViewController.swift in Sources */,
 				4EBB220925598AA700B88079 /* Containered.swift in Sources */,
+				4E91850B256E9EAA00702F04 /* CommentsViewController.swift in Sources */,
 				4ECCEF06250CC3330075F921 /* ApiManager.swift in Sources */,
 				4EBB223E255A000000B88079 /* UIStatusBarStyle+Ext.swift in Sources */,
 				4E886D4625447E350076B162 /* LemmyModel+Pictrs.swift in Sources */,
@@ -1565,6 +1601,7 @@
 				4ECCEF1D250D63BE0075F921 /* CommentRequests.swift in Sources */,
 				4E0A8E93255DDE4500B06AF6 /* PostScreenAssembly.swift in Sources */,
 				4EB89B0A2521FA73007129BF /* LoginOrRegisterButton.swift in Sources */,
+				4E91850A256E9EAA00702F04 /* CommentCell.swift in Sources */,
 				4E91837B2566F60600702F04 /* TableInputTextView.swift in Sources */,
 				4EF3AC90254B46BD00BEC9F1 /* ChooseCategoryUI.swift in Sources */,
 				4E9183472566C16C00702F04 /* SettingsTableSectionFooterView.swift in Sources */,
@@ -1641,6 +1678,7 @@
 				4E1070792534E97E009EABDA /* CreatePostOrCommunityCoordinator.swift in Sources */,
 				4E106F6525274325009EABDA /* PostScreenModel.swift in Sources */,
 				4EFA81AA255F3CE9008AF535 /* SearchViewModel.swift in Sources */,
+				4E918509256E9EAA00702F04 /* CommentsViewDelegate.swift in Sources */,
 				4EB89AF8251F47A7007129BF /* PostScreenViewController.swift in Sources */,
 				4E886CAE2540A9820076B162 /* CreatePostContentCell.swift in Sources */,
 				4EF3AC80254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift in Sources */,
@@ -1674,6 +1712,7 @@
 				4ECCEF2B250FF56A0075F921 /* CommunityPreviewTableCell.swift in Sources */,
 				4E886C2125364EC30076B162 /* UserRequests.swift in Sources */,
 				4EBB2258255AE6E600B88079 /* ProfileScreenPostsViewController.swift in Sources */,
+				4E91850C256E9EAA00702F04 /* AbstractComment.swift in Sources */,
 				4EB89B00251F4882007129BF /* PostScreenUI.swift in Sources */,
 				4ECCEF09250CC3A60075F921 /* RequestsManager.swift in Sources */,
 				4EBB220E25598AC100B88079 /* ProgrammaticallyInitializableView.swift in Sources */,
@@ -1685,6 +1724,7 @@
 				4EFAB5E22552FA5C00B32780 /* UIBarButton+Ext.swift in Sources */,
 				4E9BBA592555560C004FF2F9 /* LemmyImageTextPickerView.swift in Sources */,
 				4E0A8E3F255C01F400B06AF6 /* ProfileScreenCommentsTableDataSource.swift in Sources */,
+				4E918512256E9EFD00702F04 /* CommentTypes.swift in Sources */,
 				4EFA81DA256175B3008AF535 /* CommunityTableDataSource.swift in Sources */,
 				4EBB22342559EF2100B88079 /* WeakBox.swift in Sources */,
 				4EBB22192559EB3600B88079 /* StyledNavigationController.swift in Sources */,
@@ -2058,6 +2098,14 @@
 				minimumVersion = 6.5.6;
 			};
 		};
+		4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwipeCellKit/SwipeCellKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.1;
+			};
+		};
 		4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -2091,6 +2139,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E9183B6256AF77700702F04 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
 			productName = IQKeyboardManagerSwift;
+		};
+		4E9184FB256E9E4E00702F04 /* SwipeCellKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */;
+			productName = SwipeCellKit;
 		};
 		4ECCEEFA250C13240075F921 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -11,19 +11,6 @@ import Foundation
 // MARK: - CommentListingSort -
 class CommentListingSort {
     
-    // MARK: - Inner Types
-    
-    struct CommentNode {
-        let id: Int
-        let comment: LemmyModel.CommentView
-        var replies: [CommentNode]
-    }
-
-    struct CommentPlainNode {
-        let id: Int
-        
-    }
-    
     // MARK: - Properties
     
     private let comments: [LemmyModel.CommentView]
@@ -36,12 +23,15 @@ class CommentListingSort {
     
     // MARK: - Public API    
 
-    func createCommentsTree() -> [CommentNode] {
+    func createCommentsTree() -> [LemmyComment] {
         let notReplies = findNotReplyComments(in: comments)
-        var nodes = [CommentNode]()
+        var nodes = [LemmyComment]()
         
         for notReply in notReplies {
-            nodes.append(createReplyTree(for: notReply))
+            let parentComment = LemmyComment()
+            parentComment.commentContent = notReply
+            
+            nodes.append(createReplyTree(for: parentComment))
         }
         
         return nodes
@@ -80,19 +70,25 @@ class CommentListingSort {
         return repliesOnly
     }
     
-    private func createReplyTree(for comment: LemmyModel.CommentView) -> CommentNode {
-        var replies = [CommentNode]()
-        var node = CommentNode(id: comment.id, comment: comment, replies: replies)
-        
+    private func createReplyTree(for parent: LemmyComment) -> LemmyComment {
+        var replies = [LemmyComment]()
+                
         for repliedComm in self.comments
-        where repliedComm.parentId == comment.id {
+        where repliedComm.parentId == parent.id {
             
-            replies.append(createReplyTree(for: repliedComm))
+            let child = LemmyComment()
             
+            child.replyTo = parent
+            child.commentContent = repliedComm
+            child.level = parent.level + 1
+
+            parent.addReply(child)
+            
+            replies.append(createReplyTree(for: child))
         }
         
-        node.replies = replies
+        parent.replies = replies
         
-        return node
+        return parent
     }
 }

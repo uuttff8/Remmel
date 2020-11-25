@@ -37,7 +37,9 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
             } receiveValue: { (response) in
                 self.viewController?.displayPost(
                     response: .init(
-                        state: .result(data: self.makeViewData(from: response))
+                        state: .result(
+                            data: self.makeViewData(from: response)
+                        )
                     )
                 )
             }.store(in: &cancellable)
@@ -46,6 +48,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     private func makeViewData(from data: LemmyModel.Post.GetPostResponse) -> PostScreenViewController.View.ViewData {
         let comments = CommentListingSort(comments: data.comments)
             .createCommentsTree()
+        
         
         return .init(post: data.post, comments: comments)
     }

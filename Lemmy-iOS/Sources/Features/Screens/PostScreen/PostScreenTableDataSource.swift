@@ -9,15 +9,15 @@
 import UIKit
 
 final class PostScreenTableDataSource: NSObject {
-    var viewModels: [CommentNode]
+    var viewModels: [LemmyComment]
     
-    init(viewModels: [CommentNode] = []) {
+    init(viewModels: [LemmyComment] = []) {
         self.viewModels = viewModels
         super.init()
     }
     
     // MARK: - Public API
-    func update(viewModel: CommentNode) {
+    func update(viewModel: LemmyComment) {
         if let index = self.viewModels.firstIndex(where: { $0.id == viewModel.id }) {
             self.viewModels[index] = viewModel
         }
@@ -38,7 +38,7 @@ extension PostScreenTableDataSource: UITableViewDataSource {
         cell.updateConstraintsIfNeeded()
 
         let viewModel = self.viewModels[indexPath.row]
-        cell.bind(with: viewModel)
+//        cell.bind(with: viewModel)
 
         return cell
     }
