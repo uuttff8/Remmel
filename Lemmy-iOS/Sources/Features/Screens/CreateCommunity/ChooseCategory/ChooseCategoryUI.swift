@@ -16,9 +16,13 @@ class ChooseCategoryUI: UIView {
 
     var cancellable = Set<AnyCancellable>()
 
-    private let tableView = LemmyTableView(style: .plain, separator: true)
-    private let searchBar = UISearchBar()
-    private let model: CreateCommunityModel
+    private let tableView = LemmyTableView(style: .insetGrouped, separator: true)
+    private let searchBar = UISearchBar().then {
+        $0.isOpaque = true
+        $0.barTintColor = .systemBackground
+        $0.backgroundColor = .systemBackground
+    }
+    private let model: ChooseCategoryViewModel
     private var shouldShowFiltered = false
 
     var currentCellData: ((_ indexPath: IndexPath) -> LemmyModel.CategoryView) {
@@ -38,7 +42,7 @@ class ChooseCategoryUI: UIView {
     }
 
     // MARK: - Init
-    init(model: CreateCommunityModel) {
+    init(model: ChooseCategoryViewModel) {
         self.model = model
         super.init(frame: .zero)
         setupTableView()

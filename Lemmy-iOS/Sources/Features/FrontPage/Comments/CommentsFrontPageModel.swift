@@ -105,7 +105,6 @@ extension CommentsFrontPageModel: UITableViewDelegate {
 
 extension CommentsFrontPageModel: CommentContentTableCellDelegate {
     
-    // TODO(uuttff8): Implement coordinator to post
     func postNameTapped(in comment: LemmyModel.CommentView) {
         goToPostScreen?(comment.postId)
     }

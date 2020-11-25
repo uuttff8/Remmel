@@ -17,7 +17,7 @@ extension FrontPageSearchView {
         let fadeAnimationDuratation: TimeInterval = 0.3
         let alphaAtInit: CGFloat = 0.0
         
-        let topContentInset: CGFloat = 100.0
+        let topContentInset: CGFloat = UIScreen.main.bounds.height / 10
     }
 }
 

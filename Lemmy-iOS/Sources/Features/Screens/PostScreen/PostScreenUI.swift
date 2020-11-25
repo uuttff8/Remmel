@@ -15,7 +15,7 @@ extension PostScreenViewController {
         
         struct ViewData {
             let post: LemmyModel.PostView
-            let comments: [CommentNode]
+            let comments: [LemmyComment]
         }
         
         fileprivate var headerView: PostScreenUITableCell!

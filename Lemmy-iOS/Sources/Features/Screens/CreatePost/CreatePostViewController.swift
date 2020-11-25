@@ -187,8 +187,8 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
             uniqueIdentifier: FormField.community.rawValue,
             type: .rightDetail(
                 options: .init(
-                    title: .init(text: FormField.community.title),
-                    detailType: .label(text: createPostData.community?.name ?? ""),
+                    title: .init(text: createPostData.community?.name ?? "Community"),
+                    detailType: .label(text: nil),
                     accessoryType: .disclosureIndicator
                 )
             )

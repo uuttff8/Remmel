@@ -7,3 +7,14 @@
 //
 
 import UIKit
+
+extension UIColor {
+    
+    static var lemmyAccent: UIColor {
+        .dynamic(
+            light: UIColor.darkText,
+            dark: UIColor.lightText
+        )
+    }
+    
+}

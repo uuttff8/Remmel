@@ -9,19 +9,18 @@
 import UIKit
 
 class ChooseCategoryViewController: UIViewController {
-
-    weak var coordinator: CreateCommunityCoordinator?
-
-    let customView: ChooseCategoryUI
-    let model: CreateCommunityModel
+    
+    lazy var chooseCategoryView = self.view as! ChooseCategoryUI
+    let viewModel = ChooseCategoryViewModel()
+    
+    var selectedCategory: ((LemmyModel.CategoryView) -> Void)?
 
     override func loadView() {
-        self.view = customView
+        let view = ChooseCategoryUI(model: viewModel)
+        self.view = view
     }
 
-    init(model: CreateCommunityModel) {
-        self.model = model
-        self.customView = ChooseCategoryUI(model: model)
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -32,11 +31,17 @@ class ChooseCategoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if model.categories.value == [] {
-            model.loadCategories()
+        viewModel.selectedCategory
+            .compactMap { $0 }
+            .sink { (category) in
+                self.selectedCategory?(category)
+            }.store(in: &chooseCategoryView.cancellable)
+        
+        if viewModel.categories.value == [] {
+            viewModel.loadCategories()
         }
 
-        customView.dismissView = {
+        chooseCategoryView.dismissView = {
             self.navigationController?.popViewController(animated: true)
         }
     }
