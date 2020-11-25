@@ -78,7 +78,11 @@ class PostScreenViewController: UIViewController {
 extension PostScreenViewController: PostScreenViewControllerProtocol {
     func displayPost(response: PostScreen.PostLoad.ViewModel) {
         guard case let .result(data) = response.state else { return }
-        self.tableDataSource.viewModels = data.comments
-        self.updateState(newState: response.state)
+        
+        let control = FoldableLemmyCommentsViewController(comments: data.comments)
+        self.push(module: control)
+        
+//        self.tableDataSource.viewModels = data.comments
+//        self.updateState(newState: response.state)
     }
 }

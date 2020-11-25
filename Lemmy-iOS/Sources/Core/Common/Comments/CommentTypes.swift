@@ -34,3 +34,9 @@ class BaseComment: AbstractComment {
         self.replies.append(reply)
     }
 }
+
+struct CommentNode {
+    let id: Int
+    let comment: LemmyModel.CommentView
+    var replies: [CommentNode]
+}

@@ -34,12 +34,13 @@ extension PostScreenTableDataSource: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: CommentTreeTableCell = tableView.cell(forRowAt: indexPath)
-        cell.updateConstraintsIfNeeded()
-
-        let viewModel = self.viewModels[indexPath.row]
-//        cell.bind(with: viewModel)
-
-        return cell
+        return UITableViewCell()
+//        let cell: CommentTreeTableCell = tableView.cell(forRowAt: indexPath)
+//        cell.updateConstraintsIfNeeded()
+//
+//        let viewModel = self.viewModels[indexPath.row]
+////        cell.bind(with: viewModel)
+//
+//        return cell
     }
 }
