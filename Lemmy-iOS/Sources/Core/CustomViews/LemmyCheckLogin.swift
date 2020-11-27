@@ -8,47 +8,38 @@
 
 import UIKit
 
-final class ContinueIfLogined {
-
-    var viewController: UIViewController
-    var coordinator: Coordinator
+func ContinueIfLogined(
+    on viewController: UIViewController,
+    coordinator: Coordinator,
+    doAction: () -> Void
+) {
     
-    init(
-        on viewController: UIViewController,
-        coordinator: Coordinator,
-        doAction: () -> Void
-    ) {
-        
-        self.coordinator = coordinator
-        self.viewController = viewController
-        
-        if LemmyShareData.shared.jwtToken != nil {
-            doAction()
-        } else {
-            
-            UIAlertController.showLoginOrRegisterAlert(
-                on: viewController,
-                onLogin: {
-                    self.auth(authMethod: .login)
-                }, onRegister: {
-                    self.auth(authMethod: .register)
-                })
-            
-        }
-    }
-    
-    private func auth(authMethod: LemmyAuthMethod) {
+    func auth(authMethod: LemmyAuthMethod) {
         
         let loginCoordinator = LoginCoordinator(navigationController: UINavigationController(),
                                                 authMethod: authMethod)
         coordinator.store(coordinator: loginCoordinator)
         loginCoordinator.start()
-
+        
         guard let loginNavController = loginCoordinator.navigationController else {
             print("\(#file) loginCoordinator.navigationController is nil")
             return
         }
-
+        
         viewController.present(loginNavController, animated: true, completion: nil)
+    }
+    
+    if LemmyShareData.shared.jwtToken != nil {
+        doAction()
+    } else {
+        
+        UIAlertController.showLoginOrRegisterAlert(
+            on: viewController,
+            onLogin: {
+                auth(authMethod: .login)
+            }, onRegister: {
+                auth(authMethod: .register)
+            })
+        
     }
 }
