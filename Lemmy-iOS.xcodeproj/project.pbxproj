@@ -114,6 +114,10 @@
 		4E91850C256E9EAA00702F04 /* AbstractComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E918508256E9EAA00702F04 /* AbstractComment.swift */; };
 		4E918512256E9EFD00702F04 /* CommentTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E918511256E9EFD00702F04 /* CommentTypes.swift */; };
 		4E918518256ECBC700702F04 /* LemmyCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E918517256ECBC700702F04 /* LemmyCommentsViewController.swift */; };
+		4E9185B82570646500702F04 /* CommentContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9185B72570646500702F04 /* CommentContentView.swift */; };
+		4E9185C02570649D00702F04 /* CommentContentFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9185BF2570649D00702F04 /* CommentContentFooterView.swift */; };
+		4E9185C5257064CA00702F04 /* CommentContentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9185C4257064CA00702F04 /* CommentContentHeaderView.swift */; };
+		4E9185CA2570650400702F04 /* CommentContentCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9185C92570650400702F04 /* CommentContentCenterView.swift */; };
 		4E9BBA1925553176004FF2F9 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA1825553176004FF2F9 /* Enums.swift */; };
 		4E9BBA24255534B0004FF2F9 /* LemmyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA23255534B0004FF2F9 /* LemmyModel.swift */; };
 		4E9BBA2C25553516004FF2F9 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA2B25553516004FF2F9 /* Error.swift */; };
@@ -345,6 +349,10 @@
 		4E918508256E9EAA00702F04 /* AbstractComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractComment.swift; sourceTree = "<group>"; };
 		4E918511256E9EFD00702F04 /* CommentTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTypes.swift; sourceTree = "<group>"; };
 		4E918517256ECBC700702F04 /* LemmyCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyCommentsViewController.swift; sourceTree = "<group>"; };
+		4E9185B72570646500702F04 /* CommentContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentContentView.swift; sourceTree = "<group>"; };
+		4E9185BF2570649D00702F04 /* CommentContentFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentContentFooterView.swift; sourceTree = "<group>"; };
+		4E9185C4257064CA00702F04 /* CommentContentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentContentHeaderView.swift; sourceTree = "<group>"; };
+		4E9185C92570650400702F04 /* CommentContentCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentContentCenterView.swift; sourceTree = "<group>"; };
 		4E9BBA1825553176004FF2F9 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		4E9BBA23255534B0004FF2F9 /* LemmyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyModel.swift; sourceTree = "<group>"; };
 		4E9BBA2B25553516004FF2F9 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
@@ -813,6 +821,18 @@
 			path = Comments;
 			sourceTree = "<group>";
 		};
+		4E9185B52570644900702F04 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				4ECCEF1E250DFBC90075F921 /* CommentContentTableCell.swift */,
+				4E9185B72570646500702F04 /* CommentContentView.swift */,
+				4E9185BF2570649D00702F04 /* CommentContentFooterView.swift */,
+				4E9185C92570650400702F04 /* CommentContentCenterView.swift */,
+				4E9185C4257064CA00702F04 /* CommentContentHeaderView.swift */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
 		4E9BBA1625553123004FF2F9 /* LemmyApi */ = {
 			isa = PBXGroup;
 			children = (
@@ -1139,7 +1159,7 @@
 			isa = PBXGroup;
 			children = (
 				4ECCEF12250CF0290075F921 /* PostContentTableCell.swift */,
-				4ECCEF1E250DFBC90075F921 /* CommentContentTableCell.swift */,
+				4E9185B52570644900702F04 /* Comment */,
 				4E106F5C25273A0C009EABDA /* CommentTreeTableCell.swift */,
 				4ECCEF2A250FF56A0075F921 /* CommunityPreviewTableCell.swift */,
 				4E1A7E6025573CC900E193B7 /* LoadingTableViewCell.swift */,
@@ -1568,6 +1588,7 @@
 				4E9183902567DBE200702F04 /* PushRouterSourceProtocol.swift in Sources */,
 				4EFAB5C72552F85D00B32780 /* UIView+Ext.swift in Sources */,
 				4E9182D32564151800702F04 /* VoteButton.swift in Sources */,
+				4E9185B82570646500702F04 /* CommentContentView.swift in Sources */,
 				4E886CCE2541E1670076B162 /* ChooseCommunityViewController.swift in Sources */,
 				4EBB220925598AA700B88079 /* Containered.swift in Sources */,
 				4E91850B256E9EAA00702F04 /* CommentsViewController.swift in Sources */,
@@ -1606,6 +1627,7 @@
 				4ECCEEFE250CA30E0075F921 /* FrontPageHeaderCell.swift in Sources */,
 				4E91834F2566C16C00702F04 /* SettingsRightDetailSwitchCellView.swift in Sources */,
 				4E9183762566F5B900702F04 /* TableInputTextField.swift in Sources */,
+				4E9185CA2570650400702F04 /* CommentContentCenterView.swift in Sources */,
 				4ECCEF2F251253B00075F921 /* LemmySearchBarController.swift in Sources */,
 				4E9183882567284E00702F04 /* CreatePostAssembly.swift in Sources */,
 				4E1070712534E970009EABDA /* CreatePostOrCommunityViewController.swift in Sources */,
@@ -1669,7 +1691,9 @@
 				4ECCEF16250D2D9F0075F921 /* Extensions.swift in Sources */,
 				4ECCEF29250FB8260075F921 /* CommunityRequests.swift in Sources */,
 				4E0A8E3A255C01E800B06AF6 /* ProfileScreenCommentsUI.swift in Sources */,
+				4E9185C5257064CA00702F04 /* CommentContentHeaderView.swift in Sources */,
 				4EB89B3B25220DC6007129BF /* CommentListingSort.swift in Sources */,
+				4E9185C02570649D00702F04 /* CommentContentFooterView.swift in Sources */,
 				4EF3AC62254A01DA00BEC9F1 /* CreateCommunityViewController.swift in Sources */,
 				4EBB221325598B0C00B88079 /* Assembly.swift in Sources */,
 				4E9183492566C16C00702F04 /* SettingsInputTableViewCell.swift in Sources */,
