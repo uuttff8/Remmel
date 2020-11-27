@@ -79,20 +79,16 @@ final class VoteButton: UIButton {
         switch controlEvent {
         case .touchDown:
             animateScaleButton(shouldDown: true)
-        case .touchDownRepeat:
-            break
         case .touchUpInside:
             animateScaleButton(shouldDown: false)
         case .touchUpOutside:
             animateScaleButton(shouldDown: false)
-        case .touchDragEnter:
-            break
-        case .touchDragExit:
-            break
         case .touchDragInside:
             animateScaleButton(shouldDown: true)
         case .touchDragOutside:
             animateScaleButton(shouldDown: false)
+        case .touchDragEnter, .touchDragExit, .touchDownRepeat:
+            break
         default:
             print("Error: couldn't convert event to control event, or unhandled event case: \(event)")
         }
@@ -108,16 +104,16 @@ final class VoteButton: UIButton {
             : appearance.transitionDistance
                 
         UIView.animate(
-            withDuration: 0.1,
+            withDuration: self.appearance.voteAnimationDuration,
             delay: 0.0,
             options: [.curveEaseIn],
             animations: {
                 self.center.y += trDistance
             },
-            completion: { [self] (_) in
+            completion: { _ in
                 
                 UIView.animate(
-                    withDuration: appearance.voteAnimationDuration,
+                    withDuration: self.appearance.voteAnimationDuration,
                     delay: 0.0,
                     options: [.curveEaseIn],
                     animations: {
