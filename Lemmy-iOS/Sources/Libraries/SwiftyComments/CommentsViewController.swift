@@ -23,8 +23,16 @@ open class SwipeActionAppearance {
     static func getCollapseImage() -> UIImage {
         return UIImage(named: "collapse")!
     }
-    
 }
+
+public protocol SwiftyCommentTableViewDataSource: AnyObject {
+    func commentsView(
+        _ tableView: UITableView,
+        commentCellForModel commentModel: AbstractComment,
+        atIndexPath indexPath: IndexPath
+    ) -> CommentCell
+}
+
 /// ViewController displaying expandable comments.
 open class CommentsViewController: UITableViewController, SwipeTableViewCellDelegate {
     
@@ -41,7 +49,7 @@ open class CommentsViewController: UITableViewController, SwipeTableViewCellDele
             }
         }
     }
-    
+        
     /// If true, when a cell is expanded, the tableView will scroll to make the new cells visible
     open var makeExpandedCellsVisible: Bool = true
     
@@ -58,7 +66,9 @@ open class CommentsViewController: UITableViewController, SwipeTableViewCellDele
         }
     }
     
-    open weak var delegate: CommentsViewDelegate?
+    public weak var dataSource: SwiftyCommentTableViewDataSource?
+    
+    public weak var delegate: CommentsViewDelegate?
     
     deinit {
         //print("CommentsVC deinited!")
@@ -164,13 +174,11 @@ open class CommentsViewController: UITableViewController, SwipeTableViewCellDele
                 tableView.insertRows(at: indexPaths, with: .bottom)
                 
                 if makeExpandedCellsVisible {
-                    tableView.scrollToRow(at:
-                                            IndexPath(
-                                                row: selectedIndex + 1,
-                                                section: indexPath.section
-                                            ),
-                                          at: UITableView.ScrollPosition.middle,
-                                          animated: false)
+                    tableView.scrollToRow(
+                        at: IndexPath(row: selectedIndex + 1, section: indexPath.section),
+                        at: UITableView.ScrollPosition.middle,
+                        animated: false
+                    )
                 }
                 delegate?.commentCellExpanded(atIndex: selectedIndex)
             }
@@ -178,22 +186,16 @@ open class CommentsViewController: UITableViewController, SwipeTableViewCellDele
     }
     
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let dataSource = dataSource else { fatalError("You should implement dataSource for CommentsViewController") }
+        
         let comment = currentlyDisplayed[indexPath.row]
-        let commentCell = commentsView(tableView, commentCellForModel: comment, atIndexPath: indexPath)
+        let commentCell = dataSource.commentsView(tableView, commentCellForModel: comment, atIndexPath: indexPath)
         if swipeToHide {
             commentCell.delegate = self
         }
         return commentCell
     }
-    
-    open func commentsView(
-        _ tableView: UITableView,
-        commentCellForModel commentModel: AbstractComment,
-        atIndexPath indexPath: IndexPath
-    ) -> CommentCell {
-        return CommentCell()
-    }
-    
+        
     open func isCellExpanded(indexPath: IndexPath) -> Bool {
         let com: AbstractComment = _currentlyDisplayed[indexPath.row]
         return _currentlyDisplayed.count > indexPath.row + 1 &&  // if not last cell

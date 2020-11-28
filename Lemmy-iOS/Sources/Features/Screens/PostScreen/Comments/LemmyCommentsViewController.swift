@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class FoldableLemmyCommentsViewController: CommentsViewController {
+final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyCommentTableViewDataSource {
     var allComments: [LemmyComment] = []
     
     init() {
@@ -32,6 +32,7 @@ final class FoldableLemmyCommentsViewController: CommentsViewController {
         self.delegate = self
         self.fullyExpanded = true
         
+        self.dataSource = self
         self.currentlyDisplayed = comments
         self.tableView.reloadData()
     }
@@ -41,7 +42,7 @@ final class FoldableLemmyCommentsViewController: CommentsViewController {
         self.tableView.layoutTableHeaderView()
     }
     
-    override func commentsView(
+    func commentsView(
         _ tableView: UITableView,
         commentCellForModel commentModel: AbstractComment,
         atIndexPath indexPath: IndexPath

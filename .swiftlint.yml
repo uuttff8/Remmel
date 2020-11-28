@@ -42,3 +42,4 @@ disabled_rules:
   - function_parameter_count
   - trailing_whitespace
   - cyclomatic_complexity
+  - type_name
