@@ -12,7 +12,7 @@ import Combine
 class PostsFrontPageModel: NSObject {
     var goToPostScreen: ((LemmyModel.PostView) -> Void)?
     var goToCommunityScreen: ((_ fromPost: LemmyModel.PostView) -> Void)?
-    var goToProfileScreen: ((_ username: String) -> Void)?
+    var goToProfileScreen: ((_ userId: Int) -> Void)?
     var onLinkTap: ((URL) -> Void)?
     var newDataLoaded: (([LemmyModel.PostView]) -> Void)?
     var dataLoaded: (([LemmyModel.PostView]) -> Void)?
@@ -112,7 +112,7 @@ extension PostsFrontPageModel: PostContentTableCellDelegate {
     }
     
     func usernameTapped(in post: LemmyModel.PostView) {
-        goToProfileScreen?(post.creatorName)
+        goToProfileScreen?(post.creatorId)
     }
     
     func communityTapped(in post: LemmyModel.PostView) {        

@@ -17,7 +17,7 @@ protocol ProfileScreenViewModelProtocol: AnyObject {
 }
 
 class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
-    private var profileUsername: String
+    private var profileId: Int
     
     weak var viewController: ProfileScreenViewControllerProtocol?
     
@@ -28,15 +28,15 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     // Tab index -> Submodule
     private var submodules: [ProfileScreenSubmoduleProtocol] = []
     
-    init(profileUsername: String) {
-        self.profileUsername = profileUsername
+    init(profileId: Int) {
+        self.profileId = profileId
     }
     
     func doProfileFetch() {
         self.viewController?.displayNotBlockingActivityIndicator(response: .init(shouldDismiss: false))
         
-        let parameters = LemmyModel.User.GetUserDetailsRequest(userId: nil,
-                                                               username: profileUsername,
+        let parameters = LemmyModel.User.GetUserDetailsRequest(userId: profileId,
+                                                               username: nil,
                                                                sort: .active,
                                                                page: 1,
                                                                limit: 50,

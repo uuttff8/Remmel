@@ -29,7 +29,7 @@ func ContinueIfLogined(
         viewController.present(loginNavController, animated: true, completion: nil)
     }
     
-    if LemmyShareData.shared.jwtToken != nil {
+    if LemmyShareData.shared.isLoggedIn {
         doAction()
     } else {
         

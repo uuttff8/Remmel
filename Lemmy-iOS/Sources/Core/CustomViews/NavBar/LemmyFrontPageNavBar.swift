@@ -36,7 +36,9 @@ class LemmyFrontPageNavBar: UIView {
     @objc private func updateProfileIcon() {
         guard let photoStr = LemmyShareData.shared.userdata?.avatar,
               let photoUrl = URL(string: photoStr)
-        else { return }
+        else {
+            return
+        }
 
         ImagePipeline.shared.loadImage(
             with: photoUrl,
@@ -63,7 +65,7 @@ extension LemmyFrontPageNavBar: ProgrammaticallyViewProtocol {
     func setupView() {
         profileIcon.imageButton.addTarget(self, action: #selector(profileIconTapped), for: .touchUpInside)
         
-        if LemmyShareData.isLogined {
+        if LemmyShareData.shared.isLoggedIn {
             updateProfileIcon()
         }
 

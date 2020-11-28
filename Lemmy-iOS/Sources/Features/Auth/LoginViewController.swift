@@ -164,7 +164,7 @@ class LoginViewController: UIViewController {
             case let .success(loginJwt):
                 self.shareData.loginData.login(jwt: loginJwt.jwt)
                 self.loadUserOnSuccessLogin(jwt: loginJwt.jwt) { (myUser) in
-                    self.shareData.userdata = myUser
+                    LemmyShareData.shared.userdata = myUser
                     
                     DispatchQueue.main.async {
                         self.loginSuccessed()

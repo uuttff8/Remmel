@@ -32,6 +32,7 @@ enum LemmyModel {
         let thumbnailUrl: String?
         let apId: String
         let local: Bool
+        let creatorId: Int
         let creatorActorId: String
         let creatorLocal: Bool
         let creatorName: String
@@ -69,6 +70,7 @@ enum LemmyModel {
             case embedHtml = "embed_html"
             case thumbnailUrl = "thumbnail_url"
             case apId = "ap_id", local
+            case creatorId = "creator_id"
             case creatorActorId = "creator_actor_id"
             case creatorLocal = "creator_local"
             case creatorName = "creator_name"
@@ -106,6 +108,15 @@ enum LemmyModel {
         func getVoteType() -> LemmyVoteType {
             guard let myVote = self.myVote, myVote != 0 else { return LemmyVoteType.none }
             return myVote == 1 ? .up : .down
+        }
+        
+        // TODO: support for changing instances
+        func isFromCurrentInstance() -> Bool {
+            if creatorActorId.contains("https://lemmy.ml/u/") {
+                return true
+            } else {
+                return false
+            }
         }
     }
 
