@@ -11,7 +11,7 @@ import SafariServices
 import SnapKit
 
 protocol PostScreenViewDelegate: AnyObject {
-    func postScreenView(_ postScreenView: PostScreenViewController.View, didReportNewHeaderHeight height: CGFloat)
+    
 }
 
 extension PostScreenViewController.View {
@@ -40,22 +40,6 @@ extension PostScreenViewController {
         var dismissOnVc: (() -> Void)?
         
         var headerView = PostScreenUITableCell()
-        
-        // Height values reported by header view
-        private var calculatedHeaderHeight: CGFloat = 0
-
-        // Real header height
-        var headerHeight: CGFloat {
-            max(
-                0,
-                min(self.appearance.minimalHeaderHeight, self.calculatedHeaderHeight)
-                    + self.appearance.headerTopOffset
-            )
-        }
-        
-        // Dynamic scrolling constraints
-        private var topConstraint: Constraint?
-        private var headerHeightConstraint: Constraint?
                 
         init() {
             super.init(frame: .zero)
@@ -72,25 +56,8 @@ extension PostScreenViewController {
         
         func bind(with viewData: LemmyModel.PostView) {
             self.headerView.bind(with: viewData)
-            
-            self.calculatedHeaderHeight = self.headerView.calculateHeight()
-            
-            self.delegate?.postScreenView(
-                self,
-                didReportNewHeaderHeight: self.headerHeight
-            )
         }
-        
-        func updateScroll(offset: CGFloat) {
-            // default position: offset == 0
-            // overscroll (parallax effect): offset < 0
-            // normal scrolling: offset > 0
-
-            self.headerHeightConstraint?.update(offset: max(self.headerHeight, self.headerHeight + -offset))
-
-            self.topConstraint?.update(offset: min(0, -offset))
-        }
-        
+                
         func showLoadingView() {
             self.showActivityIndicatorView()
         }
@@ -118,9 +85,7 @@ extension PostScreenViewController.View: ProgrammaticallyViewProtocol {
     
     func makeConstraints() {
         self.headerView.snp.makeConstraints {
-            self.topConstraint = $0.top.equalTo(self.safeAreaLayoutGuide).constraint
-            $0.leading.trailing.equalToSuperview()
-            self.headerHeightConstraint = $0.height.equalTo(self.headerHeight).constraint
+            $0.edges.equalToSuperview()
         }
     }
 }
@@ -159,14 +124,8 @@ class PostScreenUITableCell: UIView {
                 url: postInfo.url
             )
         )
-    }
-    
-    func calculateHeight() -> CGFloat {
-        let postheaderViewHeight = self.postHeaderView
-            .systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
-        let outlineViewHeight = self.postGreenOutlineView
-            .systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
-        return postheaderViewHeight + outlineViewHeight
+        
+        makeConstraints()
     }
 }
 
@@ -193,7 +152,7 @@ extension PostScreenUITableCell: ProgrammaticallyViewProtocol {
             }
         } else {
             self.postHeaderView.snp.remakeConstraints { (make) in
-                make.top.trailing.leading.bottom.equalToSuperview()
+                make.edges.equalToSuperview()
             }
         }
     }

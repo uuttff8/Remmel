@@ -45,7 +45,7 @@ class LemmyGreenOutlinePostEmbed: UIView {
             titleLabel.isHidden = true
             titleLabel.removeFromSuperview()
         }
-        if viewData.description == nil {
+        if a {
             descriptionLabel.isHidden = true
             descriptionLabel.removeFromSuperview()
         }

@@ -33,8 +33,12 @@ final class FoldableLemmyCommentsViewController: CommentsViewController {
         self.fullyExpanded = true
         
         self.currentlyDisplayed = comments
-        self.tableView.backgroundColor = .clear
         self.tableView.reloadData()
+    }
+    
+    func setupHeaderView(_ headerView: UIView) {
+        self.tableView.tableHeaderView = headerView
+        self.tableView.layoutTableHeaderView()
     }
     
     override func commentsView(
@@ -69,26 +73,3 @@ extension FoldableLemmyCommentsViewController: CommentsViewDelegate {
     }
 }
 
-extension FoldableLemmyCommentsViewController: PostScreenScrollablePage {
-    var scrollViewDelegate: UIScrollViewDelegate? {
-        get { self.tableView.delegate }
-        set { self.pageScrollViewDelegate = newValue }
-    }
-    
-    var contentInset: UIEdgeInsets {
-        get { self.tableView.contentInset }
-        set {
-            self.tableView.contentInset = newValue
-        }
-    }
-    
-    var contentOffset: CGPoint {
-        get { self.tableView.contentOffset }
-        set { self.tableView.contentOffset = newValue }
-    }
-    
-    var contentInsetAdjustmentBehavior: UIScrollView.ContentInsetAdjustmentBehavior {
-        get { self.tableView.contentInsetAdjustmentBehavior }
-        set { self.tableView.contentInsetAdjustmentBehavior = newValue }
-    }
-}

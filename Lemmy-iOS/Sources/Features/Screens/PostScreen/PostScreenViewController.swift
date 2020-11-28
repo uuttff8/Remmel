@@ -21,23 +21,14 @@ protocol PostScreenViewControllerProtocol: AnyObject {
 
 class PostScreenViewController: UIViewController, Containered {
     private let viewModel: PostScreenViewModelProtocol
+        
+    lazy var postScreenView = PostScreenViewController.View().then {
+        $0.delegate = self
+    }
     
-    // Due to lazy initializing we should know actual values to update inset/offset of new scrollview
-    private var lastKnownScrollOffset: CGFloat = 0
-    private var lastKnownHeaderHeight: CGFloat = 0
-    
-    private let tableDataSource = PostScreenTableDataSource()
-    
-    lazy var postScreenView = self.view as! PostScreenViewController.View
     let foldableCommentsViewController = FoldableLemmyCommentsViewController()
     
     private var state: PostScreen.ViewControllerState
-
-    override func loadView() {
-        let view = PostScreenViewController.View()
-        view.delegate = self
-        self.view = view
-    }
 
     init(
         viewModel: PostScreenViewModelProtocol,
@@ -69,72 +60,7 @@ class PostScreenViewController: UIViewController, Containered {
             self.dismiss(animated: true)
         }
     }
-    
-    // Update content inset (to make header visible)
-    private func updateContentInset(headerHeight: CGFloat) {
-        // Update contentInset for each page
-        let viewController = foldableCommentsViewController
-
-        viewController.contentInset = UIEdgeInsets(
-            top: headerHeight,
-            left: viewController.contentInset.left,
-            bottom: viewController.contentInset.bottom,
-            right: viewController.contentInset.right
-        )
-        viewController.scrollViewDelegate = self
-
-        viewController.view.setNeedsLayout()
-        viewController.view.layoutIfNeeded()
         
-        viewController.contentInsetAdjustmentBehavior = .never
-    }
-    
-    // Update content offset (to update appearance and offset on each tab)
-    private func updateContentOffset(scrollOffset: CGFloat) {
-        let navigationBarHeight = self.navigationController?.navigationBar.bounds.height
-        let statusBarHeight = min(
-            UIApplication.shared.statusBarFrame.size.width,
-            UIApplication.shared.statusBarFrame.size.height
-        )
-        let topPadding = (navigationBarHeight ?? 0) + statusBarHeight
-        
-        let offsetWithHeader = scrollOffset
-            + postScreenView.headerHeight
-        let headerHeight = postScreenView.headerHeight - topPadding
-        
-        // Pin segmented control
-        let scrollViewOffset = min(offsetWithHeader, headerHeight)
-        postScreenView.updateScroll(offset: scrollViewOffset)
-        
-        // Arrange page views contentOffset
-        let offsetWithHiddenHeader = -(topPadding)
-        self.arrangePagesScrollOffset(
-            topOffsetOfCurrentTab: scrollOffset,
-            maxTopOffset: offsetWithHiddenHeader
-        )
-    }
-    
-    private func arrangePagesScrollOffset(topOffsetOfCurrentTab: CGFloat, maxTopOffset: CGFloat) {
-        
-        let view = foldableCommentsViewController
-        var topOffset = view.contentOffset.y
-        
-        // Scrolling down
-        if topOffset != topOffsetOfCurrentTab && topOffset <= maxTopOffset {
-            topOffset = min(topOffsetOfCurrentTab, maxTopOffset)
-        }
-        
-        // Scrolling up
-        if topOffset > maxTopOffset && topOffsetOfCurrentTab <= maxTopOffset {
-            topOffset = min(topOffsetOfCurrentTab, maxTopOffset)
-        }
-        
-        view.contentOffset = CGPoint(
-            x: view.contentOffset.x,
-            y: topOffset
-        )
-    }
-    
     private func updateState(newState: PostScreen.ViewControllerState) {
         defer {
             self.state = newState
@@ -150,11 +76,9 @@ class PostScreenViewController: UIViewController, Containered {
         }
 
         if case .result(let data) = newState {
-//            self.postScreenView.updateTableViewData(dataSource: self.tableDataSource)
-//            self.postScreenView.postInfo = data.post
             self.postScreenView.bind(with: data.post)
             self.foldableCommentsViewController.showComments(with: data.comments)
-            self.updateContentOffset(scrollOffset: self.lastKnownScrollOffset)
+            self.foldableCommentsViewController.setupHeaderView(postScreenView)
         }
     }
 }
@@ -169,15 +93,5 @@ extension PostScreenViewController: PostScreenViewControllerProtocol {
 }
 
 extension PostScreenViewController: PostScreenViewDelegate {
-    func postScreenView(_ postScreenView: View, didReportNewHeaderHeight height: CGFloat) {
-        self.lastKnownHeaderHeight = height
-        self.updateContentInset(headerHeight: self.lastKnownHeaderHeight)
-    }
-}
-
-extension PostScreenViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.lastKnownScrollOffset = scrollView.contentOffset.y
-        self.updateContentOffset(scrollOffset: self.lastKnownScrollOffset)
-    }
+    
 }

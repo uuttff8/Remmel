@@ -42,9 +42,6 @@ open class CommentsViewController: UITableViewController, SwipeTableViewCellDele
         }
     }
     
-    // Proxify delegates
-    weak var pageScrollViewDelegate: UIScrollViewDelegate?
-    
     /// If true, when a cell is expanded, the tableView will scroll to make the new cells visible
     open var makeExpandedCellsVisible: Bool = true
     
@@ -122,9 +119,6 @@ open class CommentsViewController: UITableViewController, SwipeTableViewCellDele
         return UITableView.automaticDimension
     }
     
-    open override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        pageScrollViewDelegate?.scrollViewDidScroll?(scrollView)
-    }
     
     override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCom: AbstractComment = _currentlyDisplayed[indexPath.row]
