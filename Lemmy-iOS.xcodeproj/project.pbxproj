@@ -698,13 +698,13 @@
 			path = cells;
 			sourceTree = "<group>";
 		};
-		4E91832F2566C12E00702F04 /* Frameworks */ = {
+		4E91832F2566C12E00702F04 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
 				4E918504256E9E9900702F04 /* SwiftyComments */,
 				4E9183302566C16C00702F04 /* SettingsTable */,
 			);
-			path = Frameworks;
+			path = Libraries;
 			sourceTree = "<group>";
 		};
 		4E9183302566C16C00702F04 /* SettingsTable */ = {
@@ -1292,7 +1292,7 @@
 		4EFA8148255F2E5D008AF535 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				4E91832F2566C12E00702F04 /* Frameworks */,
+				4E91832F2566C12E00702F04 /* Libraries */,
 				4ECCEEE1250B8E1C0075F921 /* App */,
 				4ECCEEE2250B8F4A0075F921 /* Features */,
 				4E1070882534F78D009EABDA /* Core */,

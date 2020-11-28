@@ -8,35 +8,55 @@
 
 import UIKit
 import SafariServices
+import SnapKit
+
+protocol PostScreenViewDelegate: AnyObject {
+    func postScreenView(_ postScreenView: PostScreenViewController.View, didReportNewHeaderHeight height: CGFloat)
+}
+
+extension PostScreenViewController.View {
+    struct Appearance {
+        // Status bar + navbar + other offsets
+        var headerTopOffset: CGFloat = 0.0
+
+        let minimalHeaderHeight: CGFloat = 240
+    }
+}
 
 extension PostScreenViewController {
     
     class View: UIView {
-        
+                
         struct ViewData {
             let post: LemmyModel.PostView
             let comments: [LemmyComment]
         }
         
-        fileprivate var headerView: PostScreenUITableCell!
+        weak var delegate: PostScreenViewDelegate?
+        
+        let appearance = Appearance()
         
         var presentOnVc: ((UIViewController) -> Void)?
         var dismissOnVc: (() -> Void)?
         
-        lazy var tableView = LemmyTableView(style: .plain).then {
-            $0.delegate = self
-            $0.registerClass(CommentTreeTableCell.self)
+        var headerView = PostScreenUITableCell()
+        
+        // Height values reported by header view
+        private var calculatedHeaderHeight: CGFloat = 0
+
+        // Real header height
+        var headerHeight: CGFloat {
+            max(
+                0,
+                min(self.appearance.minimalHeaderHeight, self.calculatedHeaderHeight)
+                    + self.appearance.headerTopOffset
+            )
         }
         
-        var postInfo: LemmyModel.PostView? {
-            didSet {
-                headerView = PostScreenUITableCell(post: postInfo.require())
-                headerView.postHeaderView.delegate = self
-                tableView.tableHeaderView = headerView
+        // Dynamic scrolling constraints
+        private var topConstraint: Constraint?
+        private var headerHeightConstraint: Constraint?
                 
-            }
-        }
-        
         init() {
             super.init(frame: .zero)
             
@@ -50,22 +70,35 @@ extension PostScreenViewController {
             fatalError("init(coder:) has not been implemented")
         }
         
+        func bind(with viewData: LemmyModel.PostView) {
+            self.headerView.bind(with: viewData)
+            
+            self.calculatedHeaderHeight = self.headerView.calculateHeight()
+            
+            self.delegate?.postScreenView(
+                self,
+                didReportNewHeaderHeight: self.headerHeight
+            )
+        }
+        
+        func updateScroll(offset: CGFloat) {
+            // default position: offset == 0
+            // overscroll (parallax effect): offset < 0
+            // normal scrolling: offset > 0
+
+            self.headerHeightConstraint?.update(offset: max(self.headerHeight, self.headerHeight + -offset))
+
+            self.topConstraint?.update(offset: min(0, -offset))
+        }
+        
         func showLoadingView() {
-            tableView.showActivityIndicator()
+            self.showActivityIndicatorView()
         }
 
         func hideLoadingView() {
-            tableView.hideActivityIndicator()
+            self.hideActivityIndicatorView()
         }
         
-        func updateTableViewData(dataSource: UITableViewDataSource) {
-            _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
-//            self.emptyStateLabel.isHidden = numberOfRows != 0
-
-            self.tableView.dataSource = dataSource
-            self.tableView.reloadData()
-        }
-                
         private func openLink(urlString: String?) {
             if let str = urlString, let url = URL(string: str) {
                 
@@ -75,22 +108,19 @@ extension PostScreenViewController {
                 presentOnVc?(vc)
             }
         }
-        
-        override func layoutSubviews() {
-            super.layoutSubviews()
-            self.tableView.layoutTableHeaderView()
-        }
     }
 }
 
 extension PostScreenViewController.View: ProgrammaticallyViewProtocol {
     func addSubviews() {
-        self.addSubview(tableView)
+        self.addSubview(headerView)
     }
     
     func makeConstraints() {
-        self.tableView.snp.makeConstraints { (make) in
-            make.top.bottom.leading.trailing.equalToSuperview()
+        self.headerView.snp.makeConstraints {
+            self.topConstraint = $0.top.equalTo(self.safeAreaLayoutGuide).constraint
+            $0.leading.trailing.equalToSuperview()
+            self.headerHeightConstraint = $0.height.equalTo(self.headerHeight).constraint
         }
     }
 }
@@ -101,28 +131,12 @@ extension PostScreenViewController.View: SFSafariViewControllerDelegate {
     }
 }
 
-extension PostScreenViewController.View: UITableViewDelegate {    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-}
-
-private class PostScreenUITableCell: UIView {
+class PostScreenUITableCell: UIView {
     
     let postHeaderView = PostContentView()
-    private(set) lazy var postGreenOutlineView = LemmyGreenOutlinePostEmbed(
-        with:
-            LemmyGreenOutlinePostEmbed.Data(
-                title: postInfo.embedTitle,
-                description: postInfo.embedDescription,
-                url: postInfo.url
-            )
-    )
+    private(set) lazy var postGreenOutlineView = LemmyGreenOutlinePostEmbed()
     
-    let postInfo: LemmyModel.PostView
-    
-    init(post: LemmyModel.PostView) {
-        self.postInfo = post
+    init() {
         super.init(frame: .zero)
         
         setupView()
@@ -134,12 +148,31 @@ private class PostScreenUITableCell: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func bind(with postInfo: LemmyModel.PostView) {
+        postHeaderView.bind(with: postInfo, config: .fullPost)
+        
+        postGreenOutlineView.bindData(
+            LemmyGreenOutlinePostEmbed.Data(
+                title: postInfo.embedTitle,
+                description: postInfo.embedDescription,
+                url: postInfo.url
+            )
+        )
+    }
+    
+    func calculateHeight() -> CGFloat {
+        let postheaderViewHeight = self.postHeaderView
+            .systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
+        let outlineViewHeight = self.postGreenOutlineView
+            .systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
+        return postheaderViewHeight + outlineViewHeight
+    }
 }
 
 extension PostScreenUITableCell: ProgrammaticallyViewProtocol {
     func setupView() {
         self.backgroundColor = UIColor.systemBackground
-        postHeaderView.bind(with: postInfo, config: .fullPost)
     }
     
     func addSubviews() {
