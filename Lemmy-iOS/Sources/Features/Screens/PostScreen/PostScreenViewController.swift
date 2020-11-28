@@ -8,13 +8,6 @@
 
 import UIKit
 
-protocol PostScreenScrollablePage: AnyObject {
-    var scrollViewDelegate: UIScrollViewDelegate? { get set }
-    var contentInset: UIEdgeInsets { get set }
-    var contentOffset: CGPoint { get set }
-    var contentInsetAdjustmentBehavior: UIScrollView.ContentInsetAdjustmentBehavior { get set }
-}
-
 protocol PostScreenViewControllerProtocol: AnyObject {
     func displayPost(response: PostScreen.PostLoad.ViewModel)
 }

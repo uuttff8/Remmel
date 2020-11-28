@@ -26,7 +26,7 @@ extension CommentContentTableCell {
         let rootCommentMargin: CGFloat = 10
         let commentMarginColor = UIColor.systemBackground
         let commentMargin: CGFloat = 1
-        let identationColor = UIColor.black
+        let identationColor = UIColor.systemRed
         let commentBackgroundColor = UIColor.red
         let indentationIndicatorColor = UIColor.gray
         let indentationIndicatorThickness: CGFloat = 1

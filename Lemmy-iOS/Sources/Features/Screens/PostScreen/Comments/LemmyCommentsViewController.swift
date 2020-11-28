@@ -73,4 +73,3 @@ extension FoldableLemmyCommentsViewController: CommentsViewDelegate {
         self.tableView.endUpdates()
     }
 }
-
