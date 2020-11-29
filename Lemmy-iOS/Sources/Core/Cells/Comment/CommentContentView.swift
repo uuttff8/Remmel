@@ -42,8 +42,8 @@ class CommentContentView: UIView {
     func bind(with comment: LemmyModel.CommentView) {
         setupTargets(with: comment)
 
-        headerView.bind(with:
-            CommentHeaderView.ViewData(
+        headerView.bind(
+            with: .init(
                 avatarImageUrl: comment.creatorAvatar,
                 username: comment.creatorName,
                 community: comment.communityName,
@@ -53,17 +53,8 @@ class CommentContentView: UIView {
             )
         )
 
-        centerView.bind(with:
-            CommentCenterView.ViewData(
-                comment: comment.content
-            )
-        )
-
-        footerView.bind(with:
-            CommentFooterView.ViewData(
-                id: comment.id
-            )
-        )
+        centerView.bind(with: .init(comment: comment.content))
+        footerView.bind(with: CommentFooterView.ViewData(id: comment.id))
 
     }
 

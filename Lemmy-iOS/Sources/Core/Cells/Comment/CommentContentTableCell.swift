@@ -22,20 +22,23 @@ protocol CommentContentTableCellDelegate: AnyObject {
 
 extension CommentContentTableCell {
     struct Appearance {
+        
+        enum Config {
+            case list // used in front page
+            case inPost // used for viewing in post
+        }
+        
+        let config = Config.list
+        
         let rootCommentMarginColor = UIColor.systemBackground
-        let rootCommentMargin: CGFloat = 10
         let commentMarginColor = UIColor.systemBackground
-        let commentMargin: CGFloat = 1
-        let commentBackgroundColor = UIColor.red
-        let indentationIndicatorColor = UIColor.gray
-        let indentationIndicatorThickness: CGFloat = 1
         let backgroundColor = UIColor.systemBackground
         
         let indentColors = [
-            UIColor.clear, // for accessing
+            UIColor.systemIndigo, // for accessing
             UIColor.systemRed,
             UIColor.systemGreen,
-            UIColor(red: 255, green: 191, blue: 0, alpha: 1),
+            UIColor.systemYellow,
             UIColor.cyan,
             UIColor.systemIndigo
         ]
@@ -60,12 +63,15 @@ class CommentContentTableCell: CommentCell {
         makeConstraints()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Public API
-    func bind(with comment: LemmyModel.CommentView, level: Int) {
+    func bind(with comment: LemmyModel.CommentView, level: Int, appearance: Appearance = Appearance()) {
+        self.appearance = appearance
+        
         commentContentView.bind(with: comment)
         self.level = level
         

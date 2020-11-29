@@ -9,7 +9,6 @@
 import UIKit
 import SwipeCellKit
 
-
 extension CommentCell {
     struct Appearance {
         static let rootCommentMarginColor = UIColor(red: 247/255, green: 247/255, blue: 245/255, alpha: 1)
@@ -19,7 +18,7 @@ extension CommentCell {
         static let identationColor = UIColor.black
         static let commentBackgroundColor = UIColor.red
         static let indentationIndicatorColor = UIColor.gray
-        static let indentationIndicatorThickness: CGFloat = 1
+        static let indentationIndicatorThickness: CGFloat = 3
     }
 }
 
@@ -28,7 +27,6 @@ extension CommentCell {
  comment: identations, background colors, spacings, etc...
  */
 open class CommentCell: SwipeTableViewCell {
-    
     
     /// Color of the separation between 2 root comments
     open var rootCommentMarginColor: UIColor! = Appearance.rootCommentMarginColor {
@@ -171,10 +169,12 @@ open class CommentCell: SwipeTableViewCell {
                 vSeparators.append(sep)
                 contentView.addSubview(sep)
                 sep.translatesAutoresizingMaskIntoConstraints = false
+                
                 sep.topAnchor.constraint(
                     equalTo: contentView.topAnchor,
                     constant: commentMargin
                 ).isActive = true
+                
                 sep.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
                 sep.widthAnchor.constraint(equalToConstant: indentationIndicatorThickness).isActive = true
                 sep.leadingAnchor.constraint(
