@@ -7,16 +7,18 @@
 //
 
 import UIKit
+import SafariServices
 
 protocol PostScreenViewControllerProtocol: AnyObject {
     func displayPost(response: PostScreen.PostLoad.ViewModel)
 }
 
 class PostScreenViewController: UIViewController, Containered {
+    weak var coordinator: PostScreenCoordinator?
     private let viewModel: PostScreenViewModelProtocol
         
     lazy var postScreenView = PostScreenViewController.View().then {
-        $0.delegate = self
+        $0.headerView.postHeaderView.delegate = self
     }
     
     let foldableCommentsViewController = FoldableLemmyCommentsViewController()
@@ -85,6 +87,41 @@ extension PostScreenViewController: PostScreenViewControllerProtocol {
     }
 }
 
-extension PostScreenViewController: PostScreenViewDelegate {
+extension PostScreenViewController: PostContentTableCellDelegate {
+    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
+        vote(voteButton: voteButton, for: newVote, post: post)
+    }
     
+    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
+        vote(voteButton: voteButton, for: newVote, post: post)
+    }
+    
+    func usernameTapped(in post: LemmyModel.PostView) {
+        coordinator?.goToProfileScreen(by: post.creatorId)
+    }
+    
+    func communityTapped(in post: LemmyModel.PostView) {
+        coordinator?.goToCommunityScreen(communityId: post.communityId)
+    }
+    
+    func onLinkTap(in post: LemmyModel.PostView, url: URL) {
+        let safariVc = SFSafariViewController(url: url)
+        safariVc.delegate = self
+        present(safariVc, animated: true)
+    }
+    
+    private func vote(voteButton: VoteButton, for newVote: LemmyVoteType, post: LemmyModel.PostView) {
+        guard let coordinator = coordinator else { return }
+        
+        ContinueIfLogined(on: self, coordinator: coordinator) {
+            voteButton.setVoted(to: newVote)
+            viewModel.doPostLike(newVote: newVote, post: post)
+        }
+    }
+}
+
+extension PostScreenViewController: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        self.dismiss(animated: true)
+    }
 }

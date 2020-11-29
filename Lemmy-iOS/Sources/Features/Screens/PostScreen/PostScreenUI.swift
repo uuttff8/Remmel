@@ -10,30 +10,19 @@ import UIKit
 import SafariServices
 import SnapKit
 
-protocol PostScreenViewDelegate: AnyObject {
-    
-}
-
 extension PostScreenViewController.View {
-    struct Appearance {
-        // Status bar + navbar + other offsets
-        var headerTopOffset: CGFloat = 0.0
-
-        let minimalHeaderHeight: CGFloat = 240
-    }
+    struct Appearance { }
 }
 
 extension PostScreenViewController {
     
     class View: UIView {
-                
+        
         struct ViewData {
             let post: LemmyModel.PostView
             let comments: [LemmyComment]
         }
-        
-        weak var delegate: PostScreenViewDelegate?
-        
+                
         let appearance = Appearance()
         
         var presentOnVc: ((UIViewController) -> Void)?
@@ -64,17 +53,7 @@ extension PostScreenViewController {
 
         func hideLoadingView() {
             self.hideActivityIndicatorView()
-        }
-        
-        private func openLink(urlString: String?) {
-            if let str = urlString, let url = URL(string: str) {
-                
-                let vc = SFSafariViewController(url: url)
-                vc.delegate = self
-                
-                presentOnVc?(vc)
-            }
-        }
+        }        
     }
 }
 
@@ -87,12 +66,6 @@ extension PostScreenViewController.View: ProgrammaticallyViewProtocol {
         self.headerView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-    }
-}
-
-extension PostScreenViewController.View: SFSafariViewControllerDelegate {
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        self.dismissOnVc?()
     }
 }
 
@@ -155,29 +128,5 @@ extension PostScreenUITableCell: ProgrammaticallyViewProtocol {
                 make.edges.equalToSuperview()
             }
         }
-    }
-}
-
-extension PostScreenViewController.View: PostContentTableCellDelegate {
-    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
-        
-    }
-    
-    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
-        
-    }
-    
-    func usernameTapped(in post: LemmyModel.PostView) {
-        
-    }
-    
-    func communityTapped(in post: LemmyModel.PostView) {
-        
-    }
-    
-    func onLinkTap(in post: LemmyModel.PostView, url: URL) {
-        let safariVc = SFSafariViewController(url: url)
-        safariVc.delegate = self
-        presentOnVc?(safariVc)
     }
 }

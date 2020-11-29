@@ -10,7 +10,7 @@ import UIKit
 
 final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyCommentTableViewDataSource {
     var allComments: [LemmyComment] = []
-    
+        
     init() {
         super.init(nibName: nil, bundle: nil)
     }

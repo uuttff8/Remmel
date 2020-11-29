@@ -74,9 +74,11 @@ class FrontPageCoordinator: Coordinator {
     }
     
     private func goToPostScreenWrapper(post: LemmyModel.PostView?, postId: Int) {
-        let assembly = PostScreenAssembly(postId: postId,
-                                          postInfo: post)
-        self.navigationController?.pushViewController(assembly.makeModule(), animated: true)
+        let coordinator = PostScreenCoordinator(navigationController: navigationController,
+                                             postId: postId,
+                                             postInfo: post)
+        self.store(coordinator: coordinator)
+        coordinator.start()
     }
     
     func goToCommunityScreen(communityId: Int) {

@@ -18,9 +18,12 @@ class PostScreenAssembly: Assembly {
         self.postInfo = postInfo
     }
     
-    func makeModule() -> UIViewController {
-        let viewModel = PostScreenViewModel(postId: self.postId,
-                                            postInfo: self.postInfo)
+    func makeModule() -> PostScreenViewController {
+        let viewModel = PostScreenViewModel(
+            postId: self.postId,
+            postInfo: self.postInfo,
+            upvoteDownvoteService: UpvoteDownvoteService(userAccountService: UserAccountService())
+        )
         
         let vc = PostScreenViewController(viewModel: viewModel)
         viewModel.viewController = vc

@@ -24,7 +24,7 @@
 		4E0A8E8B255DD01500B06AF6 /* FrontPageSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E8A255DD01500B06AF6 /* FrontPageSearchView.swift */; };
 		4E0A8E93255DDE4500B06AF6 /* PostScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E92255DDE4500B06AF6 /* PostScreenAssembly.swift */; };
 		4E106F5D25273A0C009EABDA /* CommentTreeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106F5C25273A0C009EABDA /* CommentTreeTableCell.swift */; };
-		4E106F6525274325009EABDA /* PostScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106F6425274325009EABDA /* PostScreenModel.swift */; };
+		4E106F6525274325009EABDA /* PostScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106F6425274325009EABDA /* PostScreenViewModel.swift */; };
 		4E10704B2534756B009EABDA /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10704A2534756B009EABDA /* Protocols.swift */; };
 		4E107053253476EE009EABDA /* PostsFrontPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E107052253476EE009EABDA /* PostsFrontPageViewController.swift */; };
 		4E10705B253476FC009EABDA /* PostsFrontPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10705A253476FC009EABDA /* PostsFrontPageModel.swift */; };
@@ -42,6 +42,7 @@
 		4E1A7E6125573CC900E193B7 /* LoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A7E6025573CC900E193B7 /* LoadingTableViewCell.swift */; };
 		4E1A7E6625573EA400E193B7 /* ProfileScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A7E6525573EA400E193B7 /* ProfileScreenUI.swift */; };
 		4E1A7E6B25573F1800E193B7 /* ProfileScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A7E6A25573F1800E193B7 /* ProfileScreenModel.swift */; };
+		4E26FEA02573E36C009DE4A7 /* PostScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E26FE9F2573E36C009DE4A7 /* PostScreenCoordinator.swift */; };
 		4E3E0F722555BCF70086CE0C /* ProfileScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3E0F712555BCF70086CE0C /* ProfileScreenViewController.swift */; };
 		4E3E0F7A2555F5BC0086CE0C /* LemmyJSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3E0F792555F5BC0086CE0C /* LemmyJSONDecoder.swift */; };
 		4E81655B2562A38400907D31 /* UpvoteDownvoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E81655A2562A38400907D31 /* UpvoteDownvoteService.swift */; };
@@ -261,7 +262,7 @@
 		4E0A8E8A255DD01500B06AF6 /* FrontPageSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageSearchView.swift; sourceTree = "<group>"; };
 		4E0A8E92255DDE4500B06AF6 /* PostScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenAssembly.swift; sourceTree = "<group>"; };
 		4E106F5C25273A0C009EABDA /* CommentTreeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTreeTableCell.swift; sourceTree = "<group>"; };
-		4E106F6425274325009EABDA /* PostScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenModel.swift; sourceTree = "<group>"; };
+		4E106F6425274325009EABDA /* PostScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenViewModel.swift; sourceTree = "<group>"; };
 		4E10704A2534756B009EABDA /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		4E107052253476EE009EABDA /* PostsFrontPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsFrontPageViewController.swift; sourceTree = "<group>"; };
 		4E10705A253476FC009EABDA /* PostsFrontPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsFrontPageModel.swift; sourceTree = "<group>"; };
@@ -278,6 +279,7 @@
 		4E1A7E6025573CC900E193B7 /* LoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTableViewCell.swift; sourceTree = "<group>"; };
 		4E1A7E6525573EA400E193B7 /* ProfileScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenUI.swift; sourceTree = "<group>"; };
 		4E1A7E6A25573F1800E193B7 /* ProfileScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenModel.swift; sourceTree = "<group>"; };
+		4E26FE9F2573E36C009DE4A7 /* PostScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenCoordinator.swift; sourceTree = "<group>"; };
 		4E3E0F712555BCF70086CE0C /* ProfileScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewController.swift; sourceTree = "<group>"; };
 		4E3E0F792555F5BC0086CE0C /* LemmyJSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyJSONDecoder.swift; sourceTree = "<group>"; };
 		4E81655A2562A38400907D31 /* UpvoteDownvoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpvoteDownvoteService.swift; sourceTree = "<group>"; };
@@ -911,7 +913,8 @@
 				4E0A8E92255DDE4500B06AF6 /* PostScreenAssembly.swift */,
 				4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */,
 				4EB89AFF251F4882007129BF /* PostScreenUI.swift */,
-				4E106F6425274325009EABDA /* PostScreenModel.swift */,
+				4E106F6425274325009EABDA /* PostScreenViewModel.swift */,
+				4E26FE9F2573E36C009DE4A7 /* PostScreenCoordinator.swift */,
 			);
 			path = PostScreen;
 			sourceTree = "<group>";
@@ -1644,6 +1647,7 @@
 				4E0A8E93255DDE4500B06AF6 /* PostScreenAssembly.swift in Sources */,
 				4EB89B0A2521FA73007129BF /* LoginOrRegisterButton.swift in Sources */,
 				4E91850A256E9EAA00702F04 /* CommentCell.swift in Sources */,
+				4E26FEA02573E36C009DE4A7 /* PostScreenCoordinator.swift in Sources */,
 				4E91837B2566F60600702F04 /* TableInputTextView.swift in Sources */,
 				4EF3AC90254B46BD00BEC9F1 /* ChooseCategoryUI.swift in Sources */,
 				4E9183472566C16C00702F04 /* SettingsTableSectionFooterView.swift in Sources */,
@@ -1720,7 +1724,7 @@
 				4E886CE7254429280076B162 /* WSLemmyEndpoint.swift in Sources */,
 				4E9183712566F51600702F04 /* UniqueIdentifierType.swift in Sources */,
 				4E1070792534E97E009EABDA /* CreatePostOrCommunityCoordinator.swift in Sources */,
-				4E106F6525274325009EABDA /* PostScreenModel.swift in Sources */,
+				4E106F6525274325009EABDA /* PostScreenViewModel.swift in Sources */,
 				4EFA81AA255F3CE9008AF535 /* SearchViewModel.swift in Sources */,
 				4E918509256E9EAA00702F04 /* CommentsViewDelegate.swift in Sources */,
 				4EB89AF8251F47A7007129BF /* PostScreenViewController.swift in Sources */,

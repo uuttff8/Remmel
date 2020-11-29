@@ -89,11 +89,9 @@ class PostsFrontPageModel: NSObject {
     }
     
     private func saveNewPost(_ post: LemmyModel.PostView) {
-        
         if let index = postsDataSource.firstIndex(where: { $0.id == post.id }) {
             postsDataSource[index] = post
         }
-        
     }
     
     func createPostLike(newVote: LemmyVoteType, post: LemmyModel.PostView) {
