@@ -11,6 +11,11 @@ import UIKit
 // MARK: - CommentContentView: UIView
 class CommentContentView: UIView {
 
+    enum Setting {
+        case list // used in front page
+        case inPost // used for viewing in post
+    }
+    
     // MARK: - Properties
     weak var delegate: CommentContentTableCellDelegate?
 
@@ -39,7 +44,7 @@ class CommentContentView: UIView {
     }
 
     // MARK: - Public API
-    func bind(with comment: LemmyModel.CommentView) {
+    func bind(with comment: LemmyModel.CommentView, setting: Setting) {
         setupTargets(with: comment)
 
         headerView.bind(
@@ -54,8 +59,20 @@ class CommentContentView: UIView {
         )
 
         centerView.bind(with: .init(comment: comment.content))
-        footerView.bind(with: CommentFooterView.ViewData(id: comment.id))
-
+        footerView.bind(with: .init(id: comment.id))
+        
+        setupSetting(setting)
+    }
+    
+    func setupSetting(_ setting: Setting) {
+        switch setting {
+        case .inPost:
+            headerView.setupForInPost()
+            
+        case .list:
+            headerView.setupForList()
+            
+        }
     }
 
     // MARK: - Overrided

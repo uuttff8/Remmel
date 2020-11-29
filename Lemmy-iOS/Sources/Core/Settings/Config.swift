@@ -8,9 +8,7 @@
 
 import UIKit
 
-struct Config {
-
-}
+struct Config {  }
 
 extension Config {
     struct Color {

@@ -66,9 +66,14 @@ class CommentHeaderView: UIView {
 
     }
 
-    private let stackView = UIStackView().then {
+    private let lineStackView = UIStackView().then {
         $0.alignment = .center
         $0.spacing = 8
+    }
+    
+    private let mainStackView = UIStackView().then {
+        $0.axis = .vertical
+        $0.alignment = .leading
     }
 
     // MARK: - Init
@@ -90,7 +95,7 @@ class CommentHeaderView: UIView {
     // MARK: - Public API
     func bind(with comment: CommentHeaderView.ViewData) {
         let usernameButtonText = "@" + comment.username
-
+        
         usernameButton.setTitle(usernameButtonText, for: .normal)
         communityButton.setTitle(comment.community, for: .normal)
         publishedTitle.text = comment.published
@@ -101,6 +106,14 @@ class CommentHeaderView: UIView {
             bindAvatar(url: avatarUrl)
         }
     }
+    
+    func setupForInPost() {
+        
+    }
+    
+    func setupForList() {
+        mainStackView.addArrangedSubview(postNameButton)
+    }
 
     // MARK: - Private API
     private func bindAvatar(url: String) {
@@ -109,7 +122,7 @@ class CommentHeaderView: UIView {
             make.size.equalTo(imageSize.height)
         }
 
-        stackView.insertArrangedSubview(avatarView, at: 0)
+        lineStackView.insertArrangedSubview(avatarView, at: 0)
     }
 
     private func setupButtonTargets() {
@@ -135,7 +148,7 @@ extension CommentHeaderView: ProgrammaticallyViewProtocol {
     func setupView() { }
     
     func addSubviews() {
-        stackView.addStackViewItems(
+        lineStackView.addStackViewItems(
             .view(usernameButton),
             .view(toTitle),
             .view(communityButton),
@@ -143,18 +156,16 @@ extension CommentHeaderView: ProgrammaticallyViewProtocol {
             .view(publishedTitle)
         )
         
-        self.addSubview(stackView)
-        self.addSubview(postNameButton)
+        mainStackView.addStackViewItems(
+            .view(lineStackView)
+        )
+        
+        self.addSubview(mainStackView)
     }
     
     func makeConstraints() {
-        stackView.snp.makeConstraints { (make) in
-            make.top.leading.equalToSuperview()
-        }
-
-        self.postNameButton.snp.makeConstraints { (make) in
-            make.top.equalTo(stackView.snp.bottom).offset(10)
-            make.leading.trailing.bottom.equalToSuperview()
+        mainStackView.snp.makeConstraints { (make) in
+            make.top.bottom.leading.trailing.equalToSuperview()
         }
     }
 }

@@ -23,12 +23,7 @@ protocol CommentContentTableCellDelegate: AnyObject {
 extension CommentContentTableCell {
     struct Appearance {
         
-        enum Config {
-            case list // used in front page
-            case inPost // used for viewing in post
-        }
-        
-        let config = Config.list
+        var config: CommentContentView.Setting = CommentContentView.Setting.list
         
         let rootCommentMarginColor = UIColor.systemBackground
         let commentMarginColor = UIColor.systemBackground
@@ -72,7 +67,7 @@ class CommentContentTableCell: CommentCell {
     func bind(with comment: LemmyModel.CommentView, level: Int, appearance: Appearance = Appearance()) {
         self.appearance = appearance
         
-        commentContentView.bind(with: comment)
+        commentContentView.bind(with: comment, setting: appearance.config)
         self.level = level
         
         if self.level > 0 {

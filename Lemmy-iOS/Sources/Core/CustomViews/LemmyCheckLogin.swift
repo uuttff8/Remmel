@@ -11,7 +11,8 @@ import UIKit
 func ContinueIfLogined(
     on viewController: UIViewController,
     coordinator: Coordinator,
-    doAction: () -> Void
+    doAction: () -> Void,
+    elseAction: (() -> Void)? = nil
 ) {
     
     func auth(authMethod: LemmyAuthMethod) {
@@ -32,7 +33,7 @@ func ContinueIfLogined(
     if LemmyShareData.shared.isLoggedIn {
         doAction()
     } else {
-        
+        elseAction?()
         UIAlertController.showLoginOrRegisterAlert(
             on: viewController,
             onLogin: {
