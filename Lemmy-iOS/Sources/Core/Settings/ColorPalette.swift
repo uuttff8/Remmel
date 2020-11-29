@@ -12,8 +12,8 @@ extension UIColor {
     
     static var lemmyAccent: UIColor {
         .dynamic(
-            light: UIColor.darkText,
-            dark: UIColor.lightText
+            light: UIColor.label,
+            dark: UIColor.label
         )
     }
     
