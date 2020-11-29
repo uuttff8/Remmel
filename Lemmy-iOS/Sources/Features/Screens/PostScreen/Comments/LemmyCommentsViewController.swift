@@ -50,8 +50,8 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         
         let commentCell: CommentContentTableCell = tableView.cell(forRowAt: indexPath)
         let comment = currentlyDisplayed[indexPath.row] as! LemmyComment
-        commentCell.level = comment.level
-        commentCell.bind(with: comment.commentContent!)
+        commentCell.bind(with: comment.commentContent!, level: comment.level)
+        
         return commentCell
     }
 }

@@ -26,23 +26,31 @@ extension CommentContentTableCell {
         let rootCommentMargin: CGFloat = 10
         let commentMarginColor = UIColor.systemBackground
         let commentMargin: CGFloat = 1
-        let identationColor = UIColor.systemRed
         let commentBackgroundColor = UIColor.red
         let indentationIndicatorColor = UIColor.gray
         let indentationIndicatorThickness: CGFloat = 1
         let backgroundColor = UIColor.systemBackground
+        
+        let indentColors = [
+            UIColor.clear, // for accessing
+            UIColor.systemRed,
+            UIColor.systemGreen,
+            UIColor(red: 255, green: 191, blue: 0, alpha: 1),
+            UIColor.cyan,
+            UIColor.systemIndigo
+        ]
     }
 }
 
 // MARK: - CommentContentTableCell: CommentCell
 class CommentContentTableCell: CommentCell {
 
-    let appearance = Appearance()
+    var appearance = Appearance()
     
     // MARK: - Properties
     let commentContentView = CommentContentView()
     let selBackView = UIView()
-
+    
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -57,8 +65,14 @@ class CommentContentTableCell: CommentCell {
     }
 
     // MARK: - Public API
-    func bind(with comment: LemmyModel.CommentView) {
+    func bind(with comment: LemmyModel.CommentView, level: Int) {
         commentContentView.bind(with: comment)
+        self.level = level
+        
+        if self.level > 0 {
+            self.indentationIndicatorColor =
+                self.appearance.indentColors[self.level % (self.appearance.indentColors.count - 1)]
+        }
     }
     
     /// Change the value of the isFolded property. Add a color animation.
@@ -89,7 +103,6 @@ extension CommentContentTableCell: ProgrammaticallyViewProtocol {
         self.commentMarginColor = appearance.commentMarginColor
         self.rootCommentMargin = 8
         self.rootCommentMarginColor = appearance.rootCommentMarginColor
-        self.indentationIndicatorColor = appearance.identationColor
         self.commentMargin = 0
         self.isIndentationIndicatorsExtended = true
     }

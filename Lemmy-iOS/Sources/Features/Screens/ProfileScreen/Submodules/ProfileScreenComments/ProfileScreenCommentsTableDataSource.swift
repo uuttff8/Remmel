@@ -33,7 +33,7 @@ extension ProfileScreenCommentsTableDataSource: UITableViewDataSource {
         cell.updateConstraintsIfNeeded()
 
         let viewModel = self.viewModels[indexPath.row]
-        cell.bind(with: viewModel)
+        cell.bind(with: viewModel, level: 0)
 
         return cell
     }
