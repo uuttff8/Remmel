@@ -17,6 +17,7 @@ func ContinueIfLogined(
     
     func auth(authMethod: LemmyAuthMethod) {
         
+        // I know, it's bad to access Feature/ classes from Core/
         let loginCoordinator = LoginCoordinator(navigationController: UINavigationController(),
                                                 authMethod: authMethod)
         coordinator.store(coordinator: loginCoordinator)

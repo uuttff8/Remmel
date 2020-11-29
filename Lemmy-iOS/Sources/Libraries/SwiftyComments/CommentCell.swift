@@ -211,6 +211,7 @@ open class CommentCell: SwipeTableViewCell {
         }
         hSepHeightConstraint?.isActive = true
     }
+    
     private func updateCommentMargin() {
         hSepHeightConstraint?.constant = CGFloat(self.level * indentationUnit)
         if self.level == 0 {

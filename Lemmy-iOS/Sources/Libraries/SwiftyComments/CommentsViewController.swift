@@ -129,7 +129,6 @@ open class CommentsViewController: UITableViewController, SwipeTableViewCellDele
         return UITableView.automaticDimension
     }
     
-    
     override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCom: AbstractComment = _currentlyDisplayed[indexPath.row]
         let selectedIndex = indexPath.row
@@ -186,7 +185,9 @@ open class CommentsViewController: UITableViewController, SwipeTableViewCellDele
     }
     
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let dataSource = dataSource else { fatalError("You should implement dataSource for CommentsViewController") }
+        guard let dataSource = dataSource else {
+            fatalError("You should implement dataSource for CommentsViewController")
+        }
         
         let comment = currentlyDisplayed[indexPath.row]
         let commentCell = dataSource.commentsView(tableView, commentCellForModel: comment, atIndexPath: indexPath)
