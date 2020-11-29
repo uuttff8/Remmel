@@ -15,14 +15,7 @@ class LemmyGreenOutlinePostEmbed: UIView {
         let description: String?
         let url: String?
     }
-
-    var viewData: Data {
-        didSet {
-            self.bindData()
-            self.setupUI()
-        }
-    }
-
+    
     private var descriptionLabel: UILabel = {
         let lbl = UILabel()
         lbl.numberOfLines = 0
@@ -35,18 +28,16 @@ class LemmyGreenOutlinePostEmbed: UIView {
         return lbl
     }()
 
-    init(with data: LemmyGreenOutlinePostEmbed.Data) {
-        self.viewData = data
+    init() {
         super.init(frame: .zero)
-        bindData()
-        setupUI()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func bindData() {
+    func bindData(_ viewData: Data) {
+        
         titleLabel.text = viewData.title
         descriptionLabel.text = viewData.description
 
@@ -63,9 +54,11 @@ class LemmyGreenOutlinePostEmbed: UIView {
             self.isHidden = true
             self.removeFromSuperview()
         }
+        
+        setupUI(viewData)
     }
 
-    func setupUI() {
+    func setupUI(_ viewData: Data) {
         guard viewData.title != nil else { return }
 
         self.layer.cornerRadius = 10

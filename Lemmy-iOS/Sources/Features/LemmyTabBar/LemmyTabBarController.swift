@@ -66,16 +66,6 @@ class LemmyTabBarController: UITabBarController {
 }
 
 extension LemmyTabBarController: UITabBarControllerDelegate {
-    func createLoginAlert(_ tabBarController: UITabBarController) {
-        UIAlertController.showLoginOrRegisterAlert(
-            on: tabBarController,
-            onLogin: {
-                self.coordinator?.goToLoginScreen(authMethod: .login)
-            }, onRegister: {
-                self.coordinator?.goToLoginScreen(authMethod: .register)
-            })
-    }
-    
     func tabBarController(
         _ tabBarController: UITabBarController,
         shouldSelect viewController: UIViewController
@@ -83,11 +73,10 @@ extension LemmyTabBarController: UITabBarControllerDelegate {
         
         if viewController is CreatePostOrCommunityViewController {
             
-            // auth check
-            if LemmyShareData.isLogined {
+            guard let coord = self.coordinator else { return false }
+            
+            ContinueIfLogined(on: self, coordinator: coord) {
                 coordinator?.goToCreateOrPostScreen()
-            } else {
-                createLoginAlert(tabBarController)
             }
             
             return false

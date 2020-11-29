@@ -9,14 +9,14 @@
 import UIKit
 
 final class ProfileInfoScreenAssembly: Assembly {
-    private let profileUsername: String
+    private let profileId: Int
     
-    init(profileUsername: String) {
-        self.profileUsername = profileUsername
+    init(profileId: Int) {
+        self.profileId = profileId
     }
     
     func makeModule() -> UIViewController {
-        let viewModel = ProfileScreenViewModel(profileUsername: self.profileUsername)
+        let viewModel = ProfileScreenViewModel(profileId: self.profileId)
         let viewController = ProfileScreenViewController(viewModel: viewModel)
         
         viewModel.viewController = viewController

@@ -12,7 +12,7 @@ import Combine
 class PostsFrontPageModel: NSObject {
     var goToPostScreen: ((LemmyModel.PostView) -> Void)?
     var goToCommunityScreen: ((_ fromPost: LemmyModel.PostView) -> Void)?
-    var goToProfileScreen: ((_ username: String) -> Void)?
+    var goToProfileScreen: ((_ userId: Int) -> Void)?
     var onLinkTap: ((URL) -> Void)?
     var newDataLoaded: (([LemmyModel.PostView]) -> Void)?
     var dataLoaded: (([LemmyModel.PostView]) -> Void)?
@@ -95,31 +95,8 @@ class PostsFrontPageModel: NSObject {
         }
         
     }
-        
-}
-
-extension PostsFrontPageModel: PostContentTableCellDelegate {
-    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
-        vote(for: newVote, post: post)
-    }
     
-    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
-        vote(for: newVote, post: post)
-    }
-    
-    func onLinkTap(in post: LemmyModel.PostView, url: URL) {
-        self.onLinkTap?(url)
-    }
-    
-    func usernameTapped(in post: LemmyModel.PostView) {
-        goToProfileScreen?(post.creatorName)
-    }
-    
-    func communityTapped(in post: LemmyModel.PostView) {        
-        goToCommunityScreen?(post)
-    }
-    
-    private func vote(for newVote: LemmyVoteType, post: LemmyModel.PostView) {
+    func createPostLike(newVote: LemmyVoteType, post: LemmyModel.PostView) {
         self.upvoteDownvoteService.createPostLike(vote: newVote, post: post)
             .receive(on: RunLoop.main)
             .sink { (completion) in

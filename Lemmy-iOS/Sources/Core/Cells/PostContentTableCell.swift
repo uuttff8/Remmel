@@ -25,21 +25,21 @@ class PostContentTableCell: UITableViewCell {
     var postContentView = PostContentView()
     let selBackView = UIView()
     
-    func bind(with post: LemmyModel.PostView, config: PostContentView.Configuration) {
-        self.contentView.addSubview(postContentView)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.postContentView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
-        
-        postContentView.bind(with: post, config: config)
-        
-        setupUI()
+        setupView()
+        addSubviews()
+        makeConstraints()
     }
     
-    func setupUI() {
-        selBackView.backgroundColor = Config.Color.highlightCell
-        self.selectedBackgroundView = selBackView
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func bind(with post: LemmyModel.PostView, config: PostContentView.Configuration) {
+        postContentView.bind(with: post, config: config)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -48,6 +48,23 @@ class PostContentTableCell: UITableViewCell {
     
     override func prepareForReuse() {
         postContentView.prepareForReuse()
+    }
+}
+
+extension PostContentTableCell: ProgrammaticallyViewProtocol {
+    func setupView() {
+        selBackView.backgroundColor = Config.Color.highlightCell
+        self.selectedBackgroundView = selBackView
+    }
+    
+    func addSubviews() {
+        self.contentView.addSubview(postContentView)
+    }
+    
+    func makeConstraints() {
+        self.postContentView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
     }
 }
 
@@ -288,7 +305,6 @@ private class PostContentFooterView: UIView {
             self.viewData?.voteType = type
             
             downvoteBtn.scoreValue = .none
-            upvoteBtn.setVoted(to: type)
             upvoteButtonTap?(sender, type)
         }
     }
@@ -299,7 +315,6 @@ private class PostContentFooterView: UIView {
             self.viewData?.voteType = type
             
             upvoteBtn.scoreValue = .none
-            downvoteBtn.setVoted(to: type)
             downvoteButtonTap?(sender, type)
         }
     }

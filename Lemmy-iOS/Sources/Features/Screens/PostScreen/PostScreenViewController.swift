@@ -12,18 +12,16 @@ protocol PostScreenViewControllerProtocol: AnyObject {
     func displayPost(response: PostScreen.PostLoad.ViewModel)
 }
 
-class PostScreenViewController: UIViewController {
+class PostScreenViewController: UIViewController, Containered {
     private let viewModel: PostScreenViewModelProtocol
+        
+    lazy var postScreenView = PostScreenViewController.View().then {
+        $0.delegate = self
+    }
     
-    private let tableDataSource = PostScreenTableDataSource()
-    
-    lazy var postScreenView = self.view as! PostScreenViewController.View
+    let foldableCommentsViewController = FoldableLemmyCommentsViewController()
     
     private var state: PostScreen.ViewControllerState
-
-    override func loadView() {
-        self.view = PostScreenViewController.View()
-    }
 
     init(
         viewModel: PostScreenViewModelProtocol,
@@ -42,6 +40,8 @@ class PostScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.add(asChildViewController: foldableCommentsViewController)
+        
         viewModel.doPostFetch()
         self.updateState(newState: state)
 
@@ -53,7 +53,7 @@ class PostScreenViewController: UIViewController {
             self.dismiss(animated: true)
         }
     }
-    
+        
     private func updateState(newState: PostScreen.ViewControllerState) {
         defer {
             self.state = newState
@@ -69,16 +69,22 @@ class PostScreenViewController: UIViewController {
         }
 
         if case .result(let data) = newState {
-            self.postScreenView.updateTableViewData(dataSource: self.tableDataSource)
-            self.postScreenView.postInfo = data.post
+            self.postScreenView.bind(with: data.post)
+            self.foldableCommentsViewController.showComments(with: data.comments)
+            self.foldableCommentsViewController.setupHeaderView(postScreenView)
         }
     }
 }
 
 extension PostScreenViewController: PostScreenViewControllerProtocol {
     func displayPost(response: PostScreen.PostLoad.ViewModel) {
-        guard case let .result(data) = response.state else { return }
-        self.tableDataSource.viewModels = data.comments
+//        guard case let .result(data) = response.state else { return }
+                
+//        self.tableDataSource.viewModels = data.comments
         self.updateState(newState: response.state)
     }
+}
+
+extension PostScreenViewController: PostScreenViewDelegate {
+    
 }

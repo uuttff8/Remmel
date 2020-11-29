@@ -50,23 +50,6 @@ class PostsFrontPageViewController: UIViewController {
             addRows(with: newPosts)
         }
         
-        model.goToPostScreen = { [self] (post: LemmyModel.PostView) in
-            coordinator?.goToPostScreen(post: post)
-        }
-        
-        model.goToCommunityScreen = { [self] (fromPost) in
-            coordinator?.goToCommunityScreen(communityId: fromPost.communityId)
-        }
-        
-        model.goToProfileScreen = { [self] (username) in
-            coordinator?.goToProfileScreen(by: username)
-        }
-        
-        model.onLinkTap = { [self] (url) in
-            let vc = SFSafariViewController(url: url)
-            vc.delegate = self
-            present(vc, animated: true, completion: nil)
-        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -140,7 +123,7 @@ class PostsFrontPageViewController: UIViewController {
             cellProvider: { (tableView, indexPath, _) -> UITableViewCell? in
                 
                     let cell = tableView.cell(forClass: PostContentTableCell.self)
-                    cell.postContentView.delegate = self.model
+                    cell.postContentView.delegate = self
                     cell.bind(with: self.model.postsDataSource[indexPath.row], config: .default)
                     return cell
             })
@@ -177,5 +160,38 @@ extension PostsFrontPageViewController: UITableViewDelegate {
 extension PostsFrontPageViewController: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension PostsFrontPageViewController: PostContentTableCellDelegate {
+    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
+        vote(voteButton: voteButton, for: newVote, post: post)
+    }
+    
+    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
+        vote(voteButton: voteButton, for: newVote, post: post)
+    }
+    
+    func onLinkTap(in post: LemmyModel.PostView, url: URL) {
+        let vc = SFSafariViewController(url: url)
+        vc.delegate = self
+        present(vc, animated: true, completion: nil)
+    }
+    
+    func usernameTapped(in post: LemmyModel.PostView) {
+        coordinator?.goToPostScreen(post: post)
+    }
+    
+    func communityTapped(in post: LemmyModel.PostView) {
+        coordinator?.goToCommunityScreen(communityId: post.communityId)
+    }
+    
+    private func vote(voteButton: VoteButton, for newVote: LemmyVoteType, post: LemmyModel.PostView) {
+        guard let coordinator = coordinator else { return }
+        
+        ContinueIfLogined(on: self, coordinator: coordinator) {
+            voteButton.setVoted(to: newVote)
+            model.createPostLike(newVote: newVote, post: post)
+        }
     }
 }

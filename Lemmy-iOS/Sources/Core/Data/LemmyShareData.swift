@@ -12,11 +12,8 @@ import UIKit
 class LemmyShareData {
 
     static let shared = LemmyShareData()
+    
     let loginData = LoginData.shared
-
-    static var isLogined: Bool {
-        Self.shared.jwtToken != nil
-    }
 
     enum Constants {
         static let jwt = "jwt"
@@ -35,6 +32,7 @@ class LemmyShareData {
             let encoder = JSONEncoder()
             let dateFormatter = DateFormatter().then {
                 $0.dateFormat = Date.lemmyDateFormat
+                $0.locale = Locale(identifier: "en_US_POSIX")
             }
             encoder.dateEncodingStrategy = .formatted(dateFormatter)
             
@@ -45,5 +43,9 @@ class LemmyShareData {
 
     var jwtToken: String? {
         loginData.jwtToken
+    }
+    
+    var isLoggedIn: Bool {
+        self.userdata != nil && jwtToken != nil
     }
 }

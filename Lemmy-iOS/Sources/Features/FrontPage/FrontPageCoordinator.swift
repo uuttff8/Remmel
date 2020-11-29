@@ -74,8 +74,8 @@ class FrontPageCoordinator: Coordinator {
     }
     
     private func goToPostScreenWrapper(post: LemmyModel.PostView?, postId: Int) {
-        let assembly = PostScreenAssembly(postId: postId
-                                          , postInfo: post)
+        let assembly = PostScreenAssembly(postId: postId,
+                                          postInfo: post)
         self.navigationController?.pushViewController(assembly.makeModule(), animated: true)
     }
     
@@ -85,8 +85,8 @@ class FrontPageCoordinator: Coordinator {
         self.navigationController?.pushViewController(module, animated: true)
     }
     
-    func goToProfileScreen(by username: String) {
-        let assembly = ProfileInfoScreenAssembly(profileUsername: username)
+    func goToProfileScreen(by userId: Int) {
+        let assembly = ProfileInfoScreenAssembly(profileId: userId)
         navigationController?.pushViewController(assembly.makeModule(), animated: true)
     }
     

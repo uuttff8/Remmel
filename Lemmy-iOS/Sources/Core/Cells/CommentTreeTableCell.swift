@@ -42,7 +42,7 @@ class CommentTreeTableCell: UITableViewCell {
         self.commentNode = commentNode
         self.contentView.addSubview(commentContentView)
 
-        commentContentView.bind(with: commentNode.comment)
+//        commentContentView.bind(with: commentNode.comment)
 
         setupUI()
 

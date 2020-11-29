@@ -49,6 +49,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
         let comments = CommentListingSort(comments: data.comments)
             .createCommentsTree()
         
+        print(comments)
         
         return .init(post: data.post, comments: comments)
     }

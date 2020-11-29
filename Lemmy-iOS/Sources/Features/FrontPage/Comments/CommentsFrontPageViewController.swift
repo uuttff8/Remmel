@@ -78,7 +78,7 @@ class CommentsFrontPageViewController: UIViewController {
             cellProvider: { (tableView, indexPath, _) -> UITableViewCell? in
                 let cell = tableView.cell(forClass: CommentContentTableCell.self)
                 cell.commentContentView.delegate = self.model
-                cell.bind(with: self.model.commentsDataSource[indexPath.row])
+                cell.bind(with: self.model.commentsDataSource[indexPath.row], level: 0)
 
                 return cell
         })

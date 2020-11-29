@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4E05D632255EB362002307E0 /* PostScreenTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05D631255EB362002307E0 /* PostScreenTableDataSource.swift */; };
 		4E05D637255EBA63002307E0 /* Optional+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05D636255EBA63002307E0 /* Optional+Ext.swift */; };
 		4E0A8E2F255BFC0000B06AF6 /* UIApplication+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */; };
 		4E0A8E35255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E34255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift */; };
@@ -113,6 +112,11 @@
 		4E91850B256E9EAA00702F04 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E918507256E9EAA00702F04 /* CommentsViewController.swift */; };
 		4E91850C256E9EAA00702F04 /* AbstractComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E918508256E9EAA00702F04 /* AbstractComment.swift */; };
 		4E918512256E9EFD00702F04 /* CommentTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E918511256E9EFD00702F04 /* CommentTypes.swift */; };
+		4E918518256ECBC700702F04 /* LemmyCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E918517256ECBC700702F04 /* LemmyCommentsViewController.swift */; };
+		4E9185B82570646500702F04 /* CommentContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9185B72570646500702F04 /* CommentContentView.swift */; };
+		4E9185C02570649D00702F04 /* CommentContentFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9185BF2570649D00702F04 /* CommentContentFooterView.swift */; };
+		4E9185C5257064CA00702F04 /* CommentContentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9185C4257064CA00702F04 /* CommentContentHeaderView.swift */; };
+		4E9185CA2570650400702F04 /* CommentContentCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9185C92570650400702F04 /* CommentContentCenterView.swift */; };
 		4E9BBA1925553176004FF2F9 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA1825553176004FF2F9 /* Enums.swift */; };
 		4E9BBA24255534B0004FF2F9 /* LemmyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA23255534B0004FF2F9 /* LemmyModel.swift */; };
 		4E9BBA2C25553516004FF2F9 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA2B25553516004FF2F9 /* Error.swift */; };
@@ -123,7 +127,6 @@
 		4EB89B052521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */; };
 		4EB89B0A2521FA73007129BF /* LoginOrRegisterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B092521FA73007129BF /* LoginOrRegisterButton.swift */; };
 		4EB89B302521FDBE007129BF /* LemmyLinkedClickableUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B2F2521FDBE007129BF /* LemmyLinkedClickableUILabel.swift */; };
-		4EB89B3525220B81007129BF /* LemmyCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B3425220B81007129BF /* LemmyCommentView.swift */; };
 		4EB89B3B25220DC6007129BF /* CommentListingSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B3A25220DC6007129BF /* CommentListingSort.swift */; };
 		4EBB220925598AA700B88079 /* Containered.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB220825598AA700B88079 /* Containered.swift */; };
 		4EBB220E25598AC100B88079 /* ProgrammaticallyInitializableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB220D25598AC100B88079 /* ProgrammaticallyInitializableView.swift */; };
@@ -241,7 +244,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4E05D631255EB362002307E0 /* PostScreenTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenTableDataSource.swift; sourceTree = "<group>"; };
 		4E05D636255EBA63002307E0 /* Optional+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Ext.swift"; sourceTree = "<group>"; };
 		4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Ext.swift"; sourceTree = "<group>"; };
 		4E0A8E34255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenCommentsViewController.swift; sourceTree = "<group>"; };
@@ -343,6 +345,11 @@
 		4E918507256E9EAA00702F04 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		4E918508256E9EAA00702F04 /* AbstractComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractComment.swift; sourceTree = "<group>"; };
 		4E918511256E9EFD00702F04 /* CommentTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTypes.swift; sourceTree = "<group>"; };
+		4E918517256ECBC700702F04 /* LemmyCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyCommentsViewController.swift; sourceTree = "<group>"; };
+		4E9185B72570646500702F04 /* CommentContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentContentView.swift; sourceTree = "<group>"; };
+		4E9185BF2570649D00702F04 /* CommentContentFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentContentFooterView.swift; sourceTree = "<group>"; };
+		4E9185C4257064CA00702F04 /* CommentContentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentContentHeaderView.swift; sourceTree = "<group>"; };
+		4E9185C92570650400702F04 /* CommentContentCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentContentCenterView.swift; sourceTree = "<group>"; };
 		4E9BBA1825553176004FF2F9 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		4E9BBA23255534B0004FF2F9 /* LemmyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyModel.swift; sourceTree = "<group>"; };
 		4E9BBA2B25553516004FF2F9 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
@@ -353,7 +360,6 @@
 		4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyGreenOutlinePostDescription.swift; sourceTree = "<group>"; };
 		4EB89B092521FA73007129BF /* LoginOrRegisterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginOrRegisterButton.swift; sourceTree = "<group>"; };
 		4EB89B2F2521FDBE007129BF /* LemmyLinkedClickableUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyLinkedClickableUILabel.swift; sourceTree = "<group>"; };
-		4EB89B3425220B81007129BF /* LemmyCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyCommentView.swift; sourceTree = "<group>"; };
 		4EB89B3A25220DC6007129BF /* CommentListingSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListingSort.swift; sourceTree = "<group>"; };
 		4EBB220825598AA700B88079 /* Containered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Containered.swift; sourceTree = "<group>"; };
 		4EBB220D25598AC100B88079 /* ProgrammaticallyInitializableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammaticallyInitializableView.swift; sourceTree = "<group>"; };
@@ -690,13 +696,13 @@
 			path = cells;
 			sourceTree = "<group>";
 		};
-		4E91832F2566C12E00702F04 /* Frameworks */ = {
+		4E91832F2566C12E00702F04 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
 				4E918504256E9E9900702F04 /* SwiftyComments */,
 				4E9183302566C16C00702F04 /* SettingsTable */,
 			);
-			path = Frameworks;
+			path = Libraries;
 			sourceTree = "<group>";
 		};
 		4E9183302566C16C00702F04 /* SettingsTable */ = {
@@ -803,6 +809,44 @@
 			path = Comments;
 			sourceTree = "<group>";
 		};
+		4E918516256ECBA300702F04 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				4E918517256ECBC700702F04 /* LemmyCommentsViewController.swift */,
+			);
+			path = Comments;
+			sourceTree = "<group>";
+		};
+		4E9185B52570644900702F04 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				4ECCEF1E250DFBC90075F921 /* CommentContentTableCell.swift */,
+				4E9185B72570646500702F04 /* CommentContentView.swift */,
+				4E9185BF2570649D00702F04 /* CommentContentFooterView.swift */,
+				4E9185C92570650400702F04 /* CommentContentCenterView.swift */,
+				4E9185C4257064CA00702F04 /* CommentContentHeaderView.swift */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
+		4E9185D82571353700702F04 /* Inputs */ = {
+			isa = PBXGroup;
+			children = (
+				4E9183752566F5B900702F04 /* TableInputTextField.swift */,
+				4E91837A2566F60600702F04 /* TableInputTextView.swift */,
+			);
+			path = Inputs;
+			sourceTree = "<group>";
+		};
+		4E9185E22571357200702F04 /* Picking */ = {
+			isa = PBXGroup;
+			children = (
+				4E9BBA5325555571004FF2F9 /* LemmySortListingPickersView.swift */,
+				4E9BBA582555560C004FF2F9 /* LemmyImageTextPickerView.swift */,
+			);
+			path = Picking;
+			sourceTree = "<group>";
+		};
 		4E9BBA1625553123004FF2F9 /* LemmyApi */ = {
 			isa = PBXGroup;
 			children = (
@@ -863,11 +907,11 @@
 		4EB89AF6251F478F007129BF /* PostScreen */ = {
 			isa = PBXGroup;
 			children = (
+				4E918516256ECBA300702F04 /* Comments */,
 				4E0A8E92255DDE4500B06AF6 /* PostScreenAssembly.swift */,
 				4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */,
 				4EB89AFF251F4882007129BF /* PostScreenUI.swift */,
 				4E106F6425274325009EABDA /* PostScreenModel.swift */,
-				4E05D631255EB362002307E0 /* PostScreenTableDataSource.swift */,
 			);
 			path = PostScreen;
 			sourceTree = "<group>";
@@ -1128,7 +1172,7 @@
 			isa = PBXGroup;
 			children = (
 				4ECCEF12250CF0290075F921 /* PostContentTableCell.swift */,
-				4ECCEF1E250DFBC90075F921 /* CommentContentTableCell.swift */,
+				4E9185B52570644900702F04 /* Comment */,
 				4E106F5C25273A0C009EABDA /* CommentTreeTableCell.swift */,
 				4ECCEF2A250FF56A0075F921 /* CommunityPreviewTableCell.swift */,
 				4E1A7E6025573CC900E193B7 /* LoadingTableViewCell.swift */,
@@ -1139,33 +1183,30 @@
 		4ECCEF2C2512535F0075F921 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				4E9185D82571353700702F04 /* Inputs */,
+				4E9185E22571357200702F04 /* Picking */,
+				4ECCEF2D251253680075F921 /* NavBar */,
 				4E10706A253477C1009EABDA /* LemmyTableView.swift */,
-				4ECCEF2D251253680075F921 /* SearchBar */,
-				4ECCEF30251F24AD0075F921 /* LemmyFrontPageNavBar.swift */,
-				4ECCEF32251F27170075F921 /* LemmyProfileIconView.swift */,
 				4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */,
 				4EB89B092521FA73007129BF /* LoginOrRegisterButton.swift */,
 				4EB89B2F2521FDBE007129BF /* LemmyLinkedClickableUILabel.swift */,
-				4EB89B3425220B81007129BF /* LemmyCommentView.swift */,
 				4E10707D2534F5EC009EABDA /* LemmyCheckLogin.swift */,
 				4E886C3A2538BE830076B162 /* LemmyTextWithSwitch.swift */,
-				4E9BBA5325555571004FF2F9 /* LemmySortListingPickersView.swift */,
-				4E9BBA582555560C004FF2F9 /* LemmyImageTextPickerView.swift */,
 				4EBB224B255ADE4C00B88079 /* TabSegmentedControlView.swift */,
 				4EBB2250255ADFC900B88079 /* ScrollableStackView.swift */,
 				4E9182D22564151800702F04 /* VoteButton.swift */,
-				4E9183752566F5B900702F04 /* TableInputTextField.swift */,
-				4E91837A2566F60600702F04 /* TableInputTextView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
 		};
-		4ECCEF2D251253680075F921 /* SearchBar */ = {
+		4ECCEF2D251253680075F921 /* NavBar */ = {
 			isa = PBXGroup;
 			children = (
+				4ECCEF30251F24AD0075F921 /* LemmyFrontPageNavBar.swift */,
 				4ECCEF2E251253B00075F921 /* LemmySearchBarController.swift */,
+				4ECCEF32251F27170075F921 /* LemmyProfileIconView.swift */,
 			);
-			path = SearchBar;
+			path = NavBar;
 			sourceTree = "<group>";
 		};
 		4EF3AC5B254A019800BEC9F1 /* CreateCommunity */ = {
@@ -1248,7 +1289,7 @@
 		4EFA8148255F2E5D008AF535 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				4E91832F2566C12E00702F04 /* Frameworks */,
+				4E91832F2566C12E00702F04 /* Libraries */,
 				4ECCEEE1250B8E1C0075F921 /* App */,
 				4ECCEEE2250B8F4A0075F921 /* Features */,
 				4E1070882534F78D009EABDA /* Core */,
@@ -1549,7 +1590,6 @@
 				4EBB22392559FC3000B88079 /* Collection+SafeSubscript.swift in Sources */,
 				4E9183AA2567FF4200702F04 /* ChooseCommunityTableDataSource.swift in Sources */,
 				4E0A8E52255C0BEC00B06AF6 /* ProfileScreenCommentsAssembly.swift in Sources */,
-				4EB89B3525220B81007129BF /* LemmyCommentView.swift in Sources */,
 				4ECCEF27250FB62F0075F921 /* LemmyModel+Community.swift in Sources */,
 				4ECCEF1A250D62580075F921 /* LemmyModel+Comment.swift in Sources */,
 				4E9183C8256AFD8800702F04 /* CreateCommunityAssembly.swift in Sources */,
@@ -1557,6 +1597,7 @@
 				4E9183902567DBE200702F04 /* PushRouterSourceProtocol.swift in Sources */,
 				4EFAB5C72552F85D00B32780 /* UIView+Ext.swift in Sources */,
 				4E9182D32564151800702F04 /* VoteButton.swift in Sources */,
+				4E9185B82570646500702F04 /* CommentContentView.swift in Sources */,
 				4E886CCE2541E1670076B162 /* ChooseCommunityViewController.swift in Sources */,
 				4EBB220925598AA700B88079 /* Containered.swift in Sources */,
 				4E91850B256E9EAA00702F04 /* CommentsViewController.swift in Sources */,
@@ -1595,6 +1636,7 @@
 				4ECCEEFE250CA30E0075F921 /* FrontPageHeaderCell.swift in Sources */,
 				4E91834F2566C16C00702F04 /* SettingsRightDetailSwitchCellView.swift in Sources */,
 				4E9183762566F5B900702F04 /* TableInputTextField.swift in Sources */,
+				4E9185CA2570650400702F04 /* CommentContentCenterView.swift in Sources */,
 				4ECCEF2F251253B00075F921 /* LemmySearchBarController.swift in Sources */,
 				4E9183882567284E00702F04 /* CreatePostAssembly.swift in Sources */,
 				4E1070712534E970009EABDA /* CreatePostOrCommunityViewController.swift in Sources */,
@@ -1658,7 +1700,9 @@
 				4ECCEF16250D2D9F0075F921 /* Extensions.swift in Sources */,
 				4ECCEF29250FB8260075F921 /* CommunityRequests.swift in Sources */,
 				4E0A8E3A255C01E800B06AF6 /* ProfileScreenCommentsUI.swift in Sources */,
+				4E9185C5257064CA00702F04 /* CommentContentHeaderView.swift in Sources */,
 				4EB89B3B25220DC6007129BF /* CommentListingSort.swift in Sources */,
+				4E9185C02570649D00702F04 /* CommentContentFooterView.swift in Sources */,
 				4EF3AC62254A01DA00BEC9F1 /* CreateCommunityViewController.swift in Sources */,
 				4EBB221325598B0C00B88079 /* Assembly.swift in Sources */,
 				4E9183492566C16C00702F04 /* SettingsInputTableViewCell.swift in Sources */,
@@ -1728,7 +1772,6 @@
 				4EFA81DA256175B3008AF535 /* CommunityTableDataSource.swift in Sources */,
 				4EBB22342559EF2100B88079 /* WeakBox.swift in Sources */,
 				4EBB22192559EB3600B88079 /* StyledNavigationController.swift in Sources */,
-				4E05D632255EB362002307E0 /* PostScreenTableDataSource.swift in Sources */,
 				4E9183D0256C011200702F04 /* ChooseCategoryViewModel.swift in Sources */,
 				4E918383256726A400702F04 /* CreatePostDataFlow.swift in Sources */,
 				4EF3ACEA25502D5600BEC9F1 /* CommunityHeaderView.swift in Sources */,
@@ -1736,6 +1779,7 @@
 				4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */,
 				4E886C17253626950076B162 /* SignUpView.swift in Sources */,
 				4E8165632562B6FC00907D31 /* PostsTableDataSource.swift in Sources */,
+				4E918518256ECBC700702F04 /* LemmyCommentsViewController.swift in Sources */,
 				4E91839D2567DCC500702F04 /* SelectItemTableViewController.swift in Sources */,
 				4E886C4B253C95D20076B162 /* CreatePresentAnimator.swift in Sources */,
 				4ECCEF21250FB3D40075F921 /* CommunitiesCoordinator.swift in Sources */,

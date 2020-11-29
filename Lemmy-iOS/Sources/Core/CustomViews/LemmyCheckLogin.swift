@@ -8,11 +8,39 @@
 
 import UIKit
 
-class LemmyContinueIfLogined {
-
-    init(onViewController: UIViewController?, doAction: () -> Void) {
-        if LemmyShareData.shared.jwtToken != nil {
-            doAction()
+func ContinueIfLogined(
+    on viewController: UIViewController,
+    coordinator: Coordinator,
+    doAction: () -> Void,
+    elseAction: (() -> Void)? = nil
+) {
+    
+    func auth(authMethod: LemmyAuthMethod) {
+        
+        let loginCoordinator = LoginCoordinator(navigationController: UINavigationController(),
+                                                authMethod: authMethod)
+        coordinator.store(coordinator: loginCoordinator)
+        loginCoordinator.start()
+        
+        guard let loginNavController = loginCoordinator.navigationController else {
+            print("\(#file) loginCoordinator.navigationController is nil")
+            return
         }
+        
+        viewController.present(loginNavController, animated: true, completion: nil)
+    }
+    
+    if LemmyShareData.shared.isLoggedIn {
+        doAction()
+    } else {
+        elseAction?()
+        UIAlertController.showLoginOrRegisterAlert(
+            on: viewController,
+            onLogin: {
+                auth(authMethod: .login)
+            }, onRegister: {
+                auth(authMethod: .register)
+            })
+        
     }
 }
