@@ -58,7 +58,7 @@ class CommentContentView: UIView {
             )
         )
 
-        centerView.bind(with: .init(comment: comment.content))
+        centerView.bind(with: .init(comment: comment.content, isDeleted: comment.deleted))
         footerView.bind(with: .init(id: comment.id))
         
         setupSetting(setting)

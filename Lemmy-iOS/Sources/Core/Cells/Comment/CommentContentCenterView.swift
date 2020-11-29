@@ -14,6 +14,7 @@ class CommentCenterView: UIView {
     // MARK: - ViewData
     struct ViewData {
         let comment: String
+        let isDeleted: Bool
     }
 
     // MARK: - Properties
@@ -38,7 +39,11 @@ class CommentCenterView: UIView {
 
     // MARK: - Public API
     func bind(with data: CommentCenterView.ViewData) {
-        commentLabel.text = data.comment
+        let commentText: NSAttributedString = data.isDeleted
+            ? NSAttributedString(string: "Deleted by creator", attributes: [.font: UIFont.italicSystemFont(ofSize: 17)])
+            : NSAttributedString(string: data.comment)
+        
+        commentLabel.attributedText = commentText
     }
 
     // MARK: - Overrided
