@@ -64,6 +64,12 @@ class CommentContentView: UIView {
         setupSetting(setting)
     }
     
+    func prepareForReuse() {
+        headerView.prepareForReuse()
+        // centerView.prepareForReuse()
+        // footerView.prepareForReuse()
+    }
+    
     func setupSetting(_ setting: Setting) {
         switch setting {
         case .inPost:

@@ -92,6 +92,15 @@ class CommentContentTableCell: CommentCell {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         selBackView.backgroundColor = Config.Color.highlightCell
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.isHidden = false
+        self.isSelected = false
+        self.isHighlighted = false
+        self.commentContentView.prepareForReuse()
+    }
 }
 
 extension CommentContentTableCell: ProgrammaticallyViewProtocol {

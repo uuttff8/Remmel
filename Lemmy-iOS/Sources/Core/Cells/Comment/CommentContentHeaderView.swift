@@ -35,18 +35,12 @@ class CommentHeaderView: UIView {
         $0.clipsToBounds = true
     }
 
-    let usernameButton = UIButton().then {
+    let usernameButton = ResizableButton().then {
         $0.setTitleColor(UIColor(red: 0/255, green: 123/255, blue: 255/255, alpha: 1), for: .normal)
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
     }
-
-    let toTitle = UILabel().then {
-        $0.text = "to"
-        $0.textColor = UIColor(red: 108/255, green: 117/255, blue: 125/255, alpha: 1)
-        $0.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-    }
     
-    let communityButton = UIButton().then {
+    let communityButton = ResizableButton().then {
         $0.setTitleColor(UIColor(red: 241/255, green: 100/255, blue: 30/255, alpha: 1), for: .normal)
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
     }
@@ -63,12 +57,29 @@ class CommentHeaderView: UIView {
         $0.titleLabel?.lineBreakMode = .byTruncatingTail
         $0.contentHorizontalAlignment = .left
         $0.titleLabel?.numberOfLines = 0
-
     }
-
-    private let lineStackView = UIStackView().then {
+    
+    private let dotTitle = UILabel().then {
+        $0.text = " · "
+        $0.textColor = UIColor(red: 108/255, green: 117/255, blue: 125/255, alpha: 1)
+        $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+    }
+    
+    private let bottomInnerStackView = UIStackView().then {
+        $0.axis = .horizontal
         $0.alignment = .center
+        $0.spacing = 2
+    }
+    
+    private let lineStackView = UIStackView().then {
+        $0.axis = .vertical
+        $0.alignment = .leading
+    }
+        
+    private let infoStackView = UIStackView().then {
+        $0.alignment = .leading
         $0.spacing = 8
+        $0.axis = .horizontal
     }
     
     private let mainStackView = UIStackView().then {
@@ -107,6 +118,14 @@ class CommentHeaderView: UIView {
         }
     }
     
+    func prepareForReuse() {
+        usernameButton.setTitle(nil, for: .normal)
+        communityButton.setTitle(nil, for: .normal)
+        publishedTitle.text = nil
+        postNameButton.setTitle(nil, for: .normal)
+        avatarView.image = nil
+    }
+    
     func setupForInPost() {
         
     }
@@ -122,7 +141,7 @@ class CommentHeaderView: UIView {
             make.size.equalTo(imageSize.height)
         }
 
-        lineStackView.insertArrangedSubview(avatarView, at: 0)
+        infoStackView.insertArrangedSubview(avatarView, at: 0)
     }
 
     private func setupButtonTargets() {
@@ -148,16 +167,23 @@ extension CommentHeaderView: ProgrammaticallyViewProtocol {
     func setupView() { }
     
     func addSubviews() {
-        lineStackView.addStackViewItems(
-            .view(usernameButton),
-            .view(toTitle),
+        bottomInnerStackView.addStackViewItems(
             .view(communityButton),
-            .view(scoreLabel),
+            .view(dotTitle),
             .view(publishedTitle)
         )
         
-        mainStackView.addStackViewItems(
+        lineStackView.addStackViewItems(
+            .view(usernameButton),
+            .view(bottomInnerStackView)
+        )
+        
+        infoStackView.addStackViewItems(
             .view(lineStackView)
+        )
+        
+        mainStackView.addStackViewItems(
+            .view(infoStackView)
         )
         
         self.addSubview(mainStackView)
