@@ -45,6 +45,10 @@ class CommentCenterView: UIView {
         
         commentLabel.attributedText = commentText
     }
+    
+    func prepareForReuse() {
+        commentLabel.attributedText = nil
+    }
 
     // MARK: - Overrided
     override var intrinsicContentSize: CGSize {

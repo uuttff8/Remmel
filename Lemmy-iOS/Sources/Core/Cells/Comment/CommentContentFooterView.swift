@@ -72,6 +72,8 @@ class CommentFooterView: UIView {
 
     // MARK: - Public
     func bind(with: CommentFooterView.ViewData) { }
+    
+    func prepareForReuse() { }
 
     // MARK: - Overrided
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

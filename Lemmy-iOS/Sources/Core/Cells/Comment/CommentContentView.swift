@@ -66,8 +66,8 @@ class CommentContentView: UIView {
     
     func prepareForReuse() {
         headerView.prepareForReuse()
-        // centerView.prepareForReuse()
-        // footerView.prepareForReuse()
+        centerView.prepareForReuse()
+        footerView.prepareForReuse()
     }
     
     func setupSetting(_ setting: Setting) {

@@ -85,6 +85,7 @@ class CommentHeaderView: UIView {
     private let mainStackView = UIStackView().then {
         $0.axis = .vertical
         $0.alignment = .leading
+        $0.spacing = 8
     }
 
     // MARK: - Init
