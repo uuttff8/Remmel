@@ -29,8 +29,6 @@ class FrontPageViewController: UIViewController {
         return bar
     }()
     private let headerSegmentView = FrontPageHeaderView(contentSelected: LemmyContentType.comments)
-
-    private lazy var toolbar = UIToolbar()
     
     // at init always posts
     var currentContentType: LemmyContentType = LemmyContentType.posts {
@@ -86,10 +84,7 @@ class FrontPageViewController: UIViewController {
     }
 
     private func setupToolbar() {
-        let barButtonItem = UIBarButtonItem(customView: headerSegmentView)
-
-        self.view.addSubview(toolbar)
-        self.toolbar.setItems([barButtonItem], animated: true)
+        self.view.addSubview(headerSegmentView)
     }
 
     private func setupContainered() {
@@ -99,7 +94,7 @@ class FrontPageViewController: UIViewController {
     }
 
     private func setupContaineredView(for viewController: UIViewController) {
-        self.view.insertSubview(viewController.view, belowSubview: self.toolbar)
+        self.view.insertSubview(viewController.view, belowSubview: self.headerSegmentView)
         self.addChild(viewController)
         viewController.didMove(toParent: self)
 
@@ -108,7 +103,7 @@ class FrontPageViewController: UIViewController {
 
     private func addContainerViewConstraints(viewController: UIViewController, containerView: UIView) {
         viewController.view.snp.makeConstraints { (make) in
-            make.top.equalTo(self.toolbar.snp.bottom)
+            make.top.equalTo(self.headerSegmentView.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
             make.centerX.equalToSuperview()
         }
@@ -121,8 +116,13 @@ class FrontPageViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        self.toolbar.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        self.headerSegmentView.snp.makeConstraints {
+            // sorry for these values
+            
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(5)
+            $0.leading.equalToSuperview().inset(10)
+            $0.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(30)
         }
     }
 }

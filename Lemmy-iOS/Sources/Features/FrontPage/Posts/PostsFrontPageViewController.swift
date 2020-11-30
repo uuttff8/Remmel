@@ -24,11 +24,25 @@ class PostsFrontPageViewController: UIViewController {
         $0.registerClass(PostContentTableCell.self)
         $0.keyboardDismissMode = .onDrag
     }
+    
     private lazy var dataSource = makeDataSource()
     private var snapshot = NSDiffableDataSourceSnapshot<Section, LemmyModel.PostView>()
     
     let pickerView = LemmySortListingPickersView()
     
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        
+        setupView()
+        addSubviews()
+        makeConstraints()
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+        
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.showActivityIndicator()
@@ -36,7 +50,6 @@ class PostsFrontPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubview(tableView)
         setupTableHeaderView()
         
         model.loadPosts()
@@ -49,15 +62,10 @@ class PostsFrontPageViewController: UIViewController {
         model.newDataLoaded = { [self] newPosts in
             addRows(with: newPosts)
         }
-        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        tableView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
-        
         tableView.layoutTableHeaderView()
     }
     
@@ -78,13 +86,6 @@ class PostsFrontPageViewController: UIViewController {
     }
     
     fileprivate func setupTableHeaderView() {
-        tableView.tableHeaderView = pickerView
-        
-        pickerView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(5)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(UIScreen.main.bounds.width)
-        }
         
         pickerView.sortTypeView.addTap {
             self.present(self.pickerView.sortTypeView.configuredAlert, animated: true)
@@ -121,12 +122,27 @@ class PostsFrontPageViewController: UIViewController {
         return UITableViewDiffableDataSource<Section, LemmyModel.PostView>(
             tableView: tableView,
             cellProvider: { (tableView, indexPath, _) -> UITableViewCell? in
-                
-                    let cell = tableView.cell(forClass: PostContentTableCell.self)
-                    cell.postContentView.delegate = self
-                    cell.bind(with: self.model.postsDataSource[indexPath.row], config: .default)
-                    return cell
+                let cell = tableView.cell(forClass: PostContentTableCell.self)
+                cell.postContentView.delegate = self
+                cell.bind(with: self.model.postsDataSource[indexPath.row], config: .default)
+                return cell
             })
+    }
+}
+
+extension PostsFrontPageViewController: ProgrammaticallyViewProtocol {
+    func setupView() {
+        tableView.tableHeaderView = pickerView
+    }
+    
+    func addSubviews() {
+        self.view.addSubview(tableView)
+    }
+    
+    func makeConstraints() {
+        tableView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
     }
 }
 
