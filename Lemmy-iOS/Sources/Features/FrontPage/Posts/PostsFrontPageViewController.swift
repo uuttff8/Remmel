@@ -179,7 +179,7 @@ extension PostsFrontPageViewController: PostContentTableCellDelegate {
     }
     
     func usernameTapped(in post: LemmyModel.PostView) {
-        coordinator?.goToPostScreen(post: post)
+        coordinator?.goToProfileScreen(by: post.creatorId)
     }
     
     func communityTapped(in post: LemmyModel.PostView) {

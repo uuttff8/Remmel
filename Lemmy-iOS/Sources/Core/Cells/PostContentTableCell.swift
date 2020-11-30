@@ -527,7 +527,7 @@ private class PostContentHeaderView: UIView {
         )
         
         mainStackView.addStackViewItems(
-            .view(avatarImageView),
+            // avatarImageView if presented
             .view(userCommunityStackView)
         )
         
@@ -576,7 +576,8 @@ private class PostContentHeaderView: UIView {
         avatarImageView.snp.makeConstraints { (make) in
             make.size.equalTo(imageSize.height)
         }
-        self.mainStackView.insertArrangedSubview(avatarImageView, at: 0)
+        
+        mainStackView.insertArrangedSubview(avatarImageView, at: 0)
     }
     
     func setupUIForInsidePost() {
@@ -589,9 +590,9 @@ private class PostContentHeaderView: UIView {
     }
     
     func prepareForReuse() {
+        avatarImageView.image = nil
         publishedTitle.text = nil
         urlDomainTitle.text = nil
-        avatarImageView.image = nil
         usernameButton.setTitle(nil, for: .normal)
         communityButton.setTitle(nil, for: .normal)
     }
