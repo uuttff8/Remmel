@@ -832,9 +832,9 @@
 			children = (
 				4ECCEF1E250DFBC90075F921 /* CommentContentTableCell.swift */,
 				4E9185B72570646500702F04 /* CommentContentView.swift */,
-				4E9185BF2570649D00702F04 /* CommentContentFooterView.swift */,
-				4E9185C92570650400702F04 /* CommentContentCenterView.swift */,
 				4E9185C4257064CA00702F04 /* CommentContentHeaderView.swift */,
+				4E9185C92570650400702F04 /* CommentContentCenterView.swift */,
+				4E9185BF2570649D00702F04 /* CommentContentFooterView.swift */,
 			);
 			path = Comment;
 			sourceTree = "<group>";
