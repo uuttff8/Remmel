@@ -191,6 +191,7 @@
 		4EF312F22576D3230032B58D /* PostContentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312F12576D3230032B58D /* PostContentHeaderView.swift */; };
 		4EF312F72576D3400032B58D /* PostContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312F62576D3400032B58D /* PostContentView.swift */; };
 		4EF313002576D4610032B58D /* VoteButtonsWithScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312FF2576D4610032B58D /* VoteButtonsWithScoreView.swift */; };
+		4EF3130F2576E2150032B58D /* FrameLayoutKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4EF3130E2576E2150032B58D /* FrameLayoutKit */; };
 		4EF3AC5D254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */; };
 		4EF3AC62254A01DA00BEC9F1 /* CreateCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */; };
 		4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */; };
@@ -489,6 +490,7 @@
 				4EF3ACF625506EC900BEC9F1 /* SwiftyMarkdown in Frameworks */,
 				4E9183B8256AF77700702F04 /* IQKeyboardManagerSwift in Frameworks */,
 				4E9184FC256E9E4E00702F04 /* SwipeCellKit in Frameworks */,
+				4EF3130F2576E2150032B58D /* FrameLayoutKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1438,6 +1440,7 @@
 				4E8165982563346100907D31 /* Nantes */,
 				4E9183B7256AF77700702F04 /* IQKeyboardManagerSwift */,
 				4E9184FB256E9E4E00702F04 /* SwipeCellKit */,
+				4EF3130E2576E2150032B58D /* FrameLayoutKit */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */;
@@ -1518,6 +1521,7 @@
 				4E8165972563346100907D31 /* XCRemoteSwiftPackageReference "Nantes" */,
 				4E9183B6256AF77700702F04 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
+				4EF3130D2576E2150032B58D /* XCRemoteSwiftPackageReference "FrameLayoutKit" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
@@ -2198,6 +2202,14 @@
 				minimumVersion = 5.0.1;
 			};
 		};
+		4EF3130D2576E2150032B58D /* XCRemoteSwiftPackageReference "FrameLayoutKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kennic/FrameLayoutKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.2;
+			};
+		};
 		4EF3ACF425506EC900BEC9F1 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SimonFairbairn/SwiftyMarkdown";
@@ -2233,6 +2245,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		4EF3130E2576E2150032B58D /* FrameLayoutKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EF3130D2576E2150032B58D /* XCRemoteSwiftPackageReference "FrameLayoutKit" */;
+			productName = FrameLayoutKit;
 		};
 		4EF3ACF525506EC900BEC9F1 /* SwiftyMarkdown */ = {
 			isa = XCSwiftPackageProductDependency;

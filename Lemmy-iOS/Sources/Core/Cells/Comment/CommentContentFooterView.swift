@@ -30,15 +30,17 @@ class CommentFooterView: UIView {
         $0.setImage(image, for: .normal)
     }
 
-    private let upvoteButton = UIButton().then {
-        let image = Config.Image.arrowUp
-        $0.setImage(image, for: .normal)
-    }
+//    private let upvoteButton = UIButton().then {
+//        let image = Config.Image.arrowUp
+//        $0.setImage(image, for: .normal)
+//    }
+//
+//    private let downvoteButton = UIButton().then {
+//        let image = Config.Image.arrowDown
+//        $0.setImage(image, for: .normal)
+//    }
     
-    private let downvoteButton = UIButton().then {
-        let image = Config.Image.arrowDown
-        $0.setImage(image, for: .normal)
-    }
+    private let upvoteDownvoteButtons = VoteButtonsWithScoreView()
 
     private let replyButton = UIButton().then {
         let image = Config.Image.arrowshapeTurnUp
@@ -89,8 +91,8 @@ class CommentFooterView: UIView {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         replyButton.setImage(Config.Image.arrowshapeTurnUp, for: .normal)
         showMoreButton.setImage(Config.Image.ellipsis, for: .normal)
-        upvoteButton.setImage(Config.Image.arrowUp, for: .normal)
-        downvoteButton.setImage(Config.Image.arrowDown, for: .normal)
+//        upvoteButton.setImage(Config.Image.arrowUp, for: .normal)
+//        downvoteButton.setImage(Config.Image.arrowDown, for: .normal)
         showContextButton.setImage(Config.Image.link, for: .normal)
     }
 
@@ -101,8 +103,8 @@ class CommentFooterView: UIView {
     // MARK: - Private
     private func setupTargets() {
         showContextButton.addTarget(self, action: #selector(showContextButtonTapped(sender:)), for: .touchUpInside)
-        upvoteButton.addTarget(self, action: #selector(upvoteButtonTapped(sender:)), for: .touchUpInside)
-        downvoteButton.addTarget(self, action: #selector(downvoteButtonTapped(sender:)), for: .touchUpInside)
+//        upvoteButton.addTarget(self, action: #selector(upvoteButtonTapped(sender:)), for: .touchUpInside)
+//        downvoteButton.addTarget(self, action: #selector(downvoteButtonTapped(sender:)), for: .touchUpInside)
         replyButton.addTarget(self, action: #selector(replyButtonTapped(sender:)), for: .touchUpInside)
         showMoreButton.addTarget(self, action: #selector(showMoreButtonTapped(sender:)), for: .touchUpInside)
     }
@@ -136,8 +138,9 @@ extension CommentFooterView: ProgrammaticallyViewProtocol {
         
         stackView.addStackViewItems(
             .view(showContextButton), // deleted if in post
-            .view(upvoteButton),
-            .view(downvoteButton),
+//            .view(upvoteButton),
+//            .view(downvoteButton),
+            .view(upvoteDownvoteButtons),
             .view(UIView()),
             .view(replyButton),
             .view(showMoreButton)
@@ -149,11 +152,11 @@ extension CommentFooterView: ProgrammaticallyViewProtocol {
             make.top.leading.trailing.equalToSuperview()
         }
         
-        [showContextButton, upvoteButton, downvoteButton, replyButton, showMoreButton].forEach { (btn) in
+        [showContextButton, /*upvoteButton, downvoteButton,*/ replyButton, showMoreButton].forEach { (btn) in
             btn.snp.makeConstraints { (make) in
                 make.height.equalTo(20)
                 make.width.equalTo(20)
             }
-        }
+        }        
     }
 }
