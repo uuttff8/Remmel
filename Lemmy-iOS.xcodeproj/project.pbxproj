@@ -190,6 +190,7 @@
 		4EF312ED2576D2EA0032B58D /* PostContentCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312EC2576D2EA0032B58D /* PostContentCenterView.swift */; };
 		4EF312F22576D3230032B58D /* PostContentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312F12576D3230032B58D /* PostContentHeaderView.swift */; };
 		4EF312F72576D3400032B58D /* PostContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312F62576D3400032B58D /* PostContentView.swift */; };
+		4EF313002576D4610032B58D /* VoteButtonsWithScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312FF2576D4610032B58D /* VoteButtonsWithScoreView.swift */; };
 		4EF3AC5D254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */; };
 		4EF3AC62254A01DA00BEC9F1 /* CreateCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */; };
 		4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */; };
@@ -433,6 +434,7 @@
 		4EF312EC2576D2EA0032B58D /* PostContentCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentCenterView.swift; sourceTree = "<group>"; };
 		4EF312F12576D3230032B58D /* PostContentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentHeaderView.swift; sourceTree = "<group>"; };
 		4EF312F62576D3400032B58D /* PostContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentView.swift; sourceTree = "<group>"; };
+		4EF312FF2576D4610032B58D /* VoteButtonsWithScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteButtonsWithScoreView.swift; sourceTree = "<group>"; };
 		4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityCoordinator.swift; sourceTree = "<group>"; };
 		4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityViewController.swift; sourceTree = "<group>"; };
 		4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityUI.swift; sourceTree = "<group>"; };
@@ -1194,6 +1196,7 @@
 		4ECCEF2C2512535F0075F921 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				4EF312FE2576D44D0032B58D /* UpvoteDownvote */,
 				4E9185D82571353700702F04 /* Inputs */,
 				4E9185E22571357200702F04 /* Picking */,
 				4ECCEF2D251253680075F921 /* NavBar */,
@@ -1230,6 +1233,14 @@
 				4EF312E42576D2D10032B58D /* PostContentFooterView.swift */,
 			);
 			path = Post;
+			sourceTree = "<group>";
+		};
+		4EF312FE2576D44D0032B58D /* UpvoteDownvote */ = {
+			isa = PBXGroup;
+			children = (
+				4EF312FF2576D4610032B58D /* VoteButtonsWithScoreView.swift */,
+			);
+			path = UpvoteDownvote;
 			sourceTree = "<group>";
 		};
 		4EF3AC5B254A019800BEC9F1 /* CreateCommunity */ = {
@@ -1787,6 +1798,7 @@
 				4EB89B00251F4882007129BF /* PostScreenUI.swift in Sources */,
 				4ECCEF09250CC3A60075F921 /* RequestsManager.swift in Sources */,
 				4EBB220E25598AC100B88079 /* ProgrammaticallyInitializableView.swift in Sources */,
+				4EF313002576D4610032B58D /* VoteButtonsWithScoreView.swift in Sources */,
 				4E0A8E35255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift in Sources */,
 				4EF3AC7B254AE12800BEC9F1 /* CreateCommunityNamesCell.swift in Sources */,
 				4EF312E52576D2D10032B58D /* PostContentFooterView.swift in Sources */,
