@@ -22,6 +22,8 @@ class CommentFooterView: UIView {
     // MARK: - Data
     struct ViewData {
         let id: Int
+        let score: Int
+        let voteType: LemmyVoteType
     }
 
     // MARK: - UI Elements
@@ -73,8 +75,9 @@ class CommentFooterView: UIView {
     }
 
     // MARK: - Public
-    func bind(with: CommentFooterView.ViewData, config: CommentContentView.Setting) {
+    func bind(with data: CommentFooterView.ViewData, config: CommentContentView.Setting) {
         setup(for: config)
+        upvoteDownvoteButtons.bind(with: .init(score: data.score, voteType: data.voteType))
     }
     
     func prepareForReuse() { }

@@ -60,7 +60,14 @@ class CommentContentView: UIView {
         )
 
         centerView.bind(with: .init(comment: comment.content, isDeleted: comment.deleted))
-        footerView.bind(with: .init(id: comment.id), config: setting)
+        footerView.bind(
+            with: .init(
+                id: comment.id,
+                score: comment.score,
+                voteType: comment.getVoteType()
+            ),
+            config: setting
+        )
     }
     
     func prepareForReuse() {

@@ -11,6 +11,13 @@ import FrameLayoutKit
 
 class VoteButtonsWithScoreView: UIView {
     
+    struct ViewData {
+        let score: Int
+        var voteType: LemmyVoteType
+    }
+    
+    var viewData: ViewData?
+    
     var upvoteButtonTap: ((VoteButton, LemmyVoteType) -> Void)?
     var downvoteButtonTap: ((VoteButton, LemmyVoteType) -> Void)?
     
@@ -25,7 +32,7 @@ class VoteButtonsWithScoreView: UIView {
     }
     
     private let scoreLabel = UILabel()
-
+    
     init() {
         super.init(frame: .zero)
         
@@ -42,35 +49,40 @@ class VoteButtonsWithScoreView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func bind(with viewData: ViewData) {
+        self.viewData = viewData
+        self.scoreLabel.text = String(viewData.score)
+    }
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         upvoteBtn.setImage(Config.Image.arrowUp, for: .normal)
         downvoteBtn.setImage(Config.Image.arrowDown, for: .normal)
     }
     
     @objc private func upvoteButtonTapped(sender: VoteButton!) {
-//        if let viewData = viewData {
-//
-//            // TODO: handle if no login
-//
-//            let type = viewData.voteType == .up ? .none : LemmyVoteType.up
-//            self.viewData?.voteType = type
-//
-//            downvoteBtn.scoreValue = .none
-//            upvoteButtonTap?(sender, type)
-//        }
+        if let viewData = viewData {
+
+            // TODO: handle if no login
+
+            let type = viewData.voteType == .up ? .none : LemmyVoteType.up
+            self.viewData?.voteType = type
+
+            downvoteBtn.scoreValue = .none
+            upvoteButtonTap?(sender, type)
+        }
     }
     
     @objc private func downvoteButtonTapped(sender: VoteButton!) {
-//        if let viewData = viewData {
-//
-//            // TODO: handle if no login
-//
-//            let type = viewData.voteType == .down ? .none : LemmyVoteType.down
-//            self.viewData?.voteType = type
-//
-//            upvoteBtn.scoreValue = .none
-//            downvoteButtonTap?(sender, type)
-//        }
+        if let viewData = viewData {
+
+            // TODO: handle if no login
+
+            let type = viewData.voteType == .down ? .none : LemmyVoteType.down
+            self.viewData?.voteType = type
+
+            upvoteBtn.scoreValue = .none
+            downvoteButtonTap?(sender, type)
+        }
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -100,8 +112,6 @@ extension VoteButtonsWithScoreView: ProgrammaticallyViewProtocol {
             ($0 + upvoteBtn).extendSize = CGSize(width: 20, height: 20)
             $0 + scoreLabel
             ($0 + downvoteBtn).extendSize = CGSize(width: 20, height: 20)
-            
-            $0.debug = true
         }
     }
 }
