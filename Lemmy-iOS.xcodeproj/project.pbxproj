@@ -186,6 +186,10 @@
 		4ECCEF31251F24AD0075F921 /* LemmyFrontPageNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF30251F24AD0075F921 /* LemmyFrontPageNavBar.swift */; };
 		4ECCEF33251F27170075F921 /* LemmyProfileIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF32251F27170075F921 /* LemmyProfileIconView.swift */; };
 		4EE26859255972590009D2BC /* ProfileScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE26858255972590009D2BC /* ProfileScreenAssembly.swift */; };
+		4EF312E52576D2D10032B58D /* PostContentFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312E42576D2D10032B58D /* PostContentFooterView.swift */; };
+		4EF312ED2576D2EA0032B58D /* PostContentCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312EC2576D2EA0032B58D /* PostContentCenterView.swift */; };
+		4EF312F22576D3230032B58D /* PostContentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312F12576D3230032B58D /* PostContentHeaderView.swift */; };
+		4EF312F72576D3400032B58D /* PostContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312F62576D3400032B58D /* PostContentView.swift */; };
 		4EF3AC5D254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */; };
 		4EF3AC62254A01DA00BEC9F1 /* CreateCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */; };
 		4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */; };
@@ -425,6 +429,10 @@
 		4ECCEF30251F24AD0075F921 /* LemmyFrontPageNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyFrontPageNavBar.swift; sourceTree = "<group>"; };
 		4ECCEF32251F27170075F921 /* LemmyProfileIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyProfileIconView.swift; sourceTree = "<group>"; };
 		4EE26858255972590009D2BC /* ProfileScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenAssembly.swift; sourceTree = "<group>"; };
+		4EF312E42576D2D10032B58D /* PostContentFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentFooterView.swift; sourceTree = "<group>"; };
+		4EF312EC2576D2EA0032B58D /* PostContentCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentCenterView.swift; sourceTree = "<group>"; };
+		4EF312F12576D3230032B58D /* PostContentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentHeaderView.swift; sourceTree = "<group>"; };
+		4EF312F62576D3400032B58D /* PostContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentView.swift; sourceTree = "<group>"; };
 		4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityCoordinator.swift; sourceTree = "<group>"; };
 		4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityViewController.swift; sourceTree = "<group>"; };
 		4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityUI.swift; sourceTree = "<group>"; };
@@ -1174,7 +1182,7 @@
 		4ECCEF0F250CEFF80075F921 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				4ECCEF12250CF0290075F921 /* PostContentTableCell.swift */,
+				4EF312E32576D2B90032B58D /* Post */,
 				4E9185B52570644900702F04 /* Comment */,
 				4E106F5C25273A0C009EABDA /* CommentTreeTableCell.swift */,
 				4ECCEF2A250FF56A0075F921 /* CommunityPreviewTableCell.swift */,
@@ -1210,6 +1218,18 @@
 				4ECCEF32251F27170075F921 /* LemmyProfileIconView.swift */,
 			);
 			path = NavBar;
+			sourceTree = "<group>";
+		};
+		4EF312E32576D2B90032B58D /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				4ECCEF12250CF0290075F921 /* PostContentTableCell.swift */,
+				4EF312F62576D3400032B58D /* PostContentView.swift */,
+				4EF312F12576D3230032B58D /* PostContentHeaderView.swift */,
+				4EF312EC2576D2EA0032B58D /* PostContentCenterView.swift */,
+				4EF312E42576D2D10032B58D /* PostContentFooterView.swift */,
+			);
+			path = Post;
 			sourceTree = "<group>";
 		};
 		4EF3AC5B254A019800BEC9F1 /* CreateCommunity */ = {
@@ -1645,6 +1665,7 @@
 				4E1070712534E970009EABDA /* CreatePostOrCommunityViewController.swift in Sources */,
 				4ECCEF1D250D63BE0075F921 /* CommentRequests.swift in Sources */,
 				4E0A8E93255DDE4500B06AF6 /* PostScreenAssembly.swift in Sources */,
+				4EF312F72576D3400032B58D /* PostContentView.swift in Sources */,
 				4EB89B0A2521FA73007129BF /* LoginOrRegisterButton.swift in Sources */,
 				4E91850A256E9EAA00702F04 /* CommentCell.swift in Sources */,
 				4E26FEA02573E36C009DE4A7 /* PostScreenCoordinator.swift in Sources */,
@@ -1674,6 +1695,7 @@
 				4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */,
 				4E0A8E5C255D586F00B06AF6 /* ProfileScreenAboutInputProtocol.swift in Sources */,
 				4EF3AC5D254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift in Sources */,
+				4EF312F22576D3230032B58D /* PostContentHeaderView.swift in Sources */,
 				4E9BBA2C25553516004FF2F9 /* Error.swift in Sources */,
 				4EFA8157255F3215008AF535 /* FrontPageSearchViewController.swift in Sources */,
 				4ECCEEED250BE8870075F921 /* FrontPageViewController.swift in Sources */,
@@ -1748,6 +1770,7 @@
 				4E886C73253CD4270076B162 /* CreateDismissTransitionDriver.swift in Sources */,
 				4ECCEEF4250C04280075F921 /* LemmyTabBarController.swift in Sources */,
 				4EF3AC85254B456400BEC9F1 /* CreateCommunityChooseCategoryCell.swift in Sources */,
+				4EF312ED2576D2EA0032B58D /* PostContentCenterView.swift in Sources */,
 				4E9183AF25696EAA00702F04 /* ChooseCommunityAssembly.swift in Sources */,
 				4E886CE225422BDC0076B162 /* SearchRequests.swift in Sources */,
 				4E1070652534771C009EABDA /* CommentsFrontPageModel.swift in Sources */,
@@ -1766,6 +1789,7 @@
 				4EBB220E25598AC100B88079 /* ProgrammaticallyInitializableView.swift in Sources */,
 				4E0A8E35255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift in Sources */,
 				4EF3AC7B254AE12800BEC9F1 /* CreateCommunityNamesCell.swift in Sources */,
+				4EF312E52576D2D10032B58D /* PostContentFooterView.swift in Sources */,
 				4E9183502566C16C00702F04 /* SettingsRightDetailSwitchTableViewCell.swift in Sources */,
 				4EBB222E2559EEFF00B88079 /* MilticastDelegate.swift in Sources */,
 				4ECCEF1F250DFBC90075F921 /* CommentContentTableCell.swift in Sources */,
