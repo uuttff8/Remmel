@@ -55,30 +55,18 @@ class CommentContentView: UIView {
                 published: comment.published.shortTimeAgoSinceNow,
                 score: comment.score,
                 postName: comment.postName
-            )
+            ),
+            config: setting
         )
 
         centerView.bind(with: .init(comment: comment.content, isDeleted: comment.deleted))
-        footerView.bind(with: .init(id: comment.id))
-        
-        setupSetting(setting)
+        footerView.bind(with: .init(id: comment.id), config: setting)
     }
     
     func prepareForReuse() {
         headerView.prepareForReuse()
         centerView.prepareForReuse()
         footerView.prepareForReuse()
-    }
-    
-    func setupSetting(_ setting: Setting) {
-        switch setting {
-        case .inPost:
-            headerView.setupForInPost()
-            
-        case .list:
-            headerView.setupForList()
-            
-        }
     }
 
     // MARK: - Overrided

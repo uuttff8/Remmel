@@ -105,7 +105,7 @@ class CommentHeaderView: UIView {
     }
 
     // MARK: - Public API
-    func bind(with comment: CommentHeaderView.ViewData) {
+    func bind(with comment: CommentHeaderView.ViewData, config: CommentContentView.Setting) {
         let usernameButtonText = "@" + comment.username
         
         usernameButton.setTitle(usernameButtonText, for: .normal)
@@ -117,6 +117,8 @@ class CommentHeaderView: UIView {
         if let avatarUrl = comment.avatarImageUrl {
             bindAvatar(url: avatarUrl)
         }
+        
+        setup(for: config)
     }
     
     func prepareForReuse() {
@@ -127,11 +129,16 @@ class CommentHeaderView: UIView {
         avatarView.image = nil
     }
     
-    func setupForInPost() {
+    func setup(for config: CommentContentView.Setting) {
+        
+        switch config {
+        case .inPost: break
+        case .list: setupForList()
+        }
         
     }
     
-    func setupForList() {
+    private func setupForList() {
         mainStackView.addArrangedSubview(postNameButton)
     }
 

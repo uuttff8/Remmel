@@ -51,7 +51,7 @@ class CommentFooterView: UIView {
     }
 
     private let stackView = UIStackView().then {
-        $0.alignment = .center
+        $0.axis = .horizontal
         $0.spacing = 40
     }
 
@@ -71,9 +71,19 @@ class CommentFooterView: UIView {
     }
 
     // MARK: - Public
-    func bind(with: CommentFooterView.ViewData) { }
+    func bind(with: CommentFooterView.ViewData, config: CommentContentView.Setting) {
+        setup(for: config)
+    }
     
     func prepareForReuse() { }
+    
+    func setup(for config: CommentContentView.Setting) {
+        switch config {
+        case .inPost:
+            showContextButton.removeFromSuperview()
+        case .list: break
+        }
+    }
 
     // MARK: - Overrided
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -123,6 +133,15 @@ extension CommentFooterView: ProgrammaticallyViewProtocol {
     
     func addSubviews() {
         self.addSubview(stackView)
+        
+        stackView.addStackViewItems(
+            .view(showContextButton), // deleted if in post
+            .view(upvoteButton),
+            .view(downvoteButton),
+            .view(UIView()),
+            .view(replyButton),
+            .view(showMoreButton)
+        )
     }
     
     func makeConstraints() {
@@ -131,14 +150,10 @@ extension CommentFooterView: ProgrammaticallyViewProtocol {
         }
         
         [showContextButton, upvoteButton, downvoteButton, replyButton, showMoreButton].forEach { (btn) in
-            self.stackView.addArrangedSubview(btn)
-
             btn.snp.makeConstraints { (make) in
                 make.height.equalTo(20)
                 make.width.equalTo(20)
             }
         }
-
-        self.stackView.addArrangedSubview(UIView())
     }
 }
