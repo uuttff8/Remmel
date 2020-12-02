@@ -103,45 +103,6 @@ extension CommentsFrontPageModel: UITableViewDelegate {
     }
 }
 
-extension CommentsFrontPageModel: CommentContentTableCellDelegate {
-    
-    func postNameTapped(in comment: LemmyModel.CommentView) {
-        goToPostScreen?(comment.postId)
-    }
-    
-    func usernameTapped(in comment: LemmyModel.CommentView) {
-        print(comment.creatorName)
-    }
-    
-    // TODO(uuttff8): Implement coordinator to post
-    func communityTapped(in comment: LemmyModel.CommentView) {
-        print(comment.communityName)
-        
-        fatalError("Implement coordinator to post")
-    }
-    
-    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
-        // TODO
-    }
-    
-    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
-        // TODO
-    }
-
-        
-    func showContext(in comment: LemmyModel.CommentView) {
-        print("show context in \(comment.id)")
-    }
-    
-    func reply(to comment: LemmyModel.CommentView) {
-        print("reply to \(comment.id)")
-    }
-    
-    func showMoreAction(in comment: LemmyModel.CommentView) {
-        print("show more in \(comment.id)")
-    }
-}
-
 extension CommentsFrontPageModel: FrontPageHeaderCellDelegate {
     func contentTypeChanged(to content: LemmyContentType) {
         self.currentContentType = content

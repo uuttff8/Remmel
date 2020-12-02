@@ -18,16 +18,16 @@ class VoteButtonsWithScoreView: UIView {
     
     var viewData: ViewData?
     
-    var upvoteButtonTap: ((VoteButton, LemmyVoteType) -> Void)?
-    var downvoteButtonTap: ((VoteButton, LemmyVoteType) -> Void)?
+    var upvoteButtonTap: ((VoteButtonsWithScoreView, LemmyVoteType) -> Void)?
+    var downvoteButtonTap: ((VoteButtonsWithScoreView, LemmyVoteType) -> Void)?
     
     private let frameLayout = StackFrameLayout(axis: .horizontal)
     
-    private let upvoteBtn = VoteButton(voteType: .top).then {
+    let upvoteBtn = VoteButton(voteType: .top).then {
         $0.setImage(Config.Image.arrowUp, for: .normal)
     }
     
-    private let downvoteBtn = VoteButton(voteType: .down).then {
+    let downvoteBtn = VoteButton(voteType: .down).then {
         $0.setImage(Config.Image.arrowDown, for: .normal)
     }
     
@@ -63,27 +63,24 @@ class VoteButtonsWithScoreView: UIView {
     
     @objc private func upvoteButtonTapped(sender: VoteButton!) {
         if let viewData = viewData {
-
+            
             // TODO: handle if no login
 
             let type = viewData.voteType == .up ? .none : LemmyVoteType.up
-            self.viewData?.voteType = type
-
-            downvoteBtn.scoreValue = .none
-            upvoteButtonTap?(sender, type)
+            
+            upvoteButtonTap?(self, type)
         }
     }
     
     @objc private func downvoteButtonTapped(sender: VoteButton!) {
         if let viewData = viewData {
 
-            // TODO: handle if no login
 
             let type = viewData.voteType == .down ? .none : LemmyVoteType.down
             self.viewData?.voteType = type
 
             upvoteBtn.scoreValue = .none
-            downvoteButtonTap?(sender, type)
+            downvoteButtonTap?(self, type)
         }
     }
     
@@ -103,6 +100,8 @@ extension VoteButtonsWithScoreView: ProgrammaticallyViewProtocol {
     
     func addSubviews() {
         self.addSubview(frameLayout)
+        self.addSubview(upvoteBtn)
+        self.addSubview(downvoteBtn)
     }
     
     func makeConstraints() {

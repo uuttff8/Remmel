@@ -77,10 +77,60 @@ class CommentsFrontPageViewController: UIViewController {
             tableView: tableView,
             cellProvider: { (tableView, indexPath, _) -> UITableViewCell? in
                 let cell = tableView.cell(forClass: CommentContentTableCell.self)
-                cell.commentContentView.delegate = self.model
+                cell.commentContentView.delegate = self
                 cell.bind(with: self.model.commentsDataSource[indexPath.row], level: 0)
 
                 return cell
         })
+    }
+}
+
+extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
+    
+    func postNameTapped(in comment: LemmyModel.CommentView) {
+        self.coordinator?.goToPostScreen(postId: comment.postId)
+    }
+    
+    func usernameTapped(in comment: LemmyModel.CommentView) {
+        self.coordinator?.goToProfileScreen(by: comment.creatorId)
+    }
+    
+    func communityTapped(in comment: LemmyModel.CommentView) {
+        self.coordinator?.goToCommunityScreen(communityId: comment.communityId)
+    }
+    
+    func upvote(voteButton: VoteButtonsWithScoreView, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+        guard let coordinator = coordinator else { return }
+        
+        ContinueIfLogined(on: self, coordinator: coordinator) {
+            print("LOL")
+        } elseAction: {
+            print("KEK")
+        }
+    }
+    
+    func downvote(voteButton: VoteButtonsWithScoreView, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+        guard let coordinator = coordinator else { return }
+        
+        ContinueIfLogined(on: self, coordinator: coordinator) {
+            let type = voteButton.viewData?.voteType == .down ? .none : LemmyVoteType.down
+            voteButton.viewData?.voteType = type
+            
+            voteButton.downvoteBtn.setVoted(to: type)
+        } elseAction: {
+            print("asasd")
+        }
+    }
+        
+    func showContext(in comment: LemmyModel.CommentView) {
+        print("show context in \(comment.id)")
+    }
+    
+    func reply(to comment: LemmyModel.CommentView) {
+        print("reply to \(comment.id)")
+    }
+    
+    func showMoreAction(in comment: LemmyModel.CommentView) {
+        print("show more in \(comment.id)")
     }
 }
