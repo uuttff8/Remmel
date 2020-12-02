@@ -92,6 +92,13 @@ enum LemmySearchSortType: String, Codable {
     case url = "Url"
 }
 
+enum LemmySearchType: Equatable, CaseIterable {
+    case comments
+    case posts
+    case communities
+    case users
+}
+
 enum LemmyPostListingType: String, Codable, CaseIterable {
     case all = "All"
     case subscribed = "Subscribed"

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FrontPageSearchViewDelegate: AnyObject {
-    func searchView(_ searchView: FrontPageSearchView, searchWith query: String, type: SearchView.TableRow)
+    func searchView(_ searchView: FrontPageSearchView, searchWith query: String, type: LemmySearchType)
 }
 
 extension FrontPageSearchView {
@@ -76,13 +76,13 @@ extension FrontPageSearchView: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Data Source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        SearchView.TableRow.allCases.count
+        LemmySearchType.allCases.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: FrontPageSearchSubjectTableCell
         
-        switch SearchView.TableRow.allCases[indexPath.row] {
+        switch LemmySearchType.allCases[indexPath.row] {
         case .comments:
             cell = tableView.cell(forRowAt: indexPath)
             cell.configure(with: searchText, type: .comments)
@@ -104,7 +104,7 @@ extension FrontPageSearchView: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.delegate?.searchView(self, searchWith: searchText, type: SearchView.TableRow.allCases[indexPath.row])
+        self.delegate?.searchView(self, searchWith: searchText, type: LemmySearchType.allCases[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
