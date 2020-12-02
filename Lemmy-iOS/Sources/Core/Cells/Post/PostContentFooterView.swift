@@ -20,9 +20,7 @@ class PostContentFooterView: UIView {
     // MARK: - Properties
     var upvoteButtonTap: ((VoteButton, LemmyVoteType) -> Void)?
     var downvoteButtonTap: ((VoteButton, LemmyVoteType) -> Void)?
-    
-    private let iconSize = CGSize(width: 20, height: 20)
-    
+        
     private let upvoteBtn = VoteButton(voteType: .top).then {
         $0.setImage(Config.Image.arrowUp, for: .normal)
     }

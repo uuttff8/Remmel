@@ -185,6 +185,11 @@ enum LemmyModel {
             case myVote = "my_vote"
             case subscribed, read, saved
         }
+        
+        func getVoteType() -> LemmyVoteType {
+            guard let myVote = self.myVote, myVote != 0 else { return LemmyVoteType.none }
+            return myVote == 1 ? .up : .down
+        }
     }
 
     struct ModRemoveCommentView: Codable, Equatable, Hashable {
