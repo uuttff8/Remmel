@@ -120,14 +120,15 @@ extension CommentsFrontPageModel: CommentContentTableCellDelegate {
         fatalError("Implement coordinator to post")
     }
     
-    func upvote(comment: LemmyModel.CommentView) {
-        print("\(comment) upvoted")
+    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+        // TODO
     }
     
-    func downvote(comment: LemmyModel.CommentView) {
-        print("\(comment) downvoted")
+    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+        // TODO
     }
-    
+
+        
     func showContext(in comment: LemmyModel.CommentView) {
         print("show context in \(comment.id)")
     }

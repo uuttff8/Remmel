@@ -102,12 +102,12 @@ class CommentContentView: UIView {
             self?.delegate?.showContext(in: comment)
         }
 
-        footerView.upvoteTap = { [weak self] in
-            self?.delegate?.upvote(comment: comment)
+        footerView.downvoteTap = { [weak self] (button, voteType) in
+            self?.delegate?.downvote(voteButton: button, newVote: voteType, comment: comment)
         }
-
-        footerView.downvoteTap = { [weak self] in
-            self?.delegate?.downvote(comment: comment)
+        
+        footerView.upvoteTap = { [weak self] (button, voteType) in
+            self?.delegate?.upvote(voteButton: button, newVote: voteType, comment: comment)
         }
 
         footerView.replyTap = { [weak self] in

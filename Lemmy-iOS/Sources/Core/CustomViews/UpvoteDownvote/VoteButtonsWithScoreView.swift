@@ -31,7 +31,9 @@ class VoteButtonsWithScoreView: UIView {
         $0.setImage(Config.Image.arrowDown, for: .normal)
     }
     
-    private let scoreLabel = UILabel()
+    private let scoreLabel = UILabel().then {
+        $0.textAlignment = .center
+    }
     
     init() {
         super.init(frame: .zero)
@@ -106,12 +108,12 @@ extension VoteButtonsWithScoreView: ProgrammaticallyViewProtocol {
     func makeConstraints() {
         frameLayout + HStackLayout {
             $0.spacing = 8
-            $0.distribution = .center
-            $0.alignment = (.center , .fit)
+            $0.distribution = .equal
+            $0.alignment = (.center , .center)
             
-            ($0 + upvoteBtn).extendSize = CGSize(width: 20, height: 20)
+            ($0 + upvoteBtn).extendSize = CGSize(width: 22, height: 22)
             $0 + scoreLabel
-            ($0 + downvoteBtn).extendSize = CGSize(width: 20, height: 20)
+            ($0 + downvoteBtn).extendSize = CGSize(width: 22, height: 22)
         }
     }
 }
