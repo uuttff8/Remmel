@@ -435,6 +435,7 @@
 		4EF312F12576D3230032B58D /* PostContentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentHeaderView.swift; sourceTree = "<group>"; };
 		4EF312F62576D3400032B58D /* PostContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentView.swift; sourceTree = "<group>"; };
 		4EF312FF2576D4610032B58D /* VoteButtonsWithScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteButtonsWithScoreView.swift; sourceTree = "<group>"; };
+		4EF3131F25782BBD0032B58D /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityCoordinator.swift; sourceTree = "<group>"; };
 		4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityViewController.swift; sourceTree = "<group>"; };
 		4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityUI.swift; sourceTree = "<group>"; };
@@ -1081,6 +1082,7 @@
 		4ECCEEE2250B8F4A0075F921 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				4EF3131E25782BA90032B58D /* Search */,
 				4E10706F2534E942009EABDA /* CreatePostOrCommunity */,
 				4EB89AF5251F4783007129BF /* Screens */,
 				4ECCEEF5250C0E230075F921 /* Communities */,
@@ -1241,6 +1243,14 @@
 				4EF312FF2576D4610032B58D /* VoteButtonsWithScoreView.swift */,
 			);
 			path = UpvoteDownvote;
+			sourceTree = "<group>";
+		};
+		4EF3131E25782BA90032B58D /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				4EF3131F25782BBD0032B58D /* SearchViewModel.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		4EF3AC5B254A019800BEC9F1 /* CreateCommunity */ = {
@@ -1620,6 +1630,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EF3132025782BBD0032B58D /* SearchViewModel.swift in Sources */,
 				4E9183452566C16C00702F04 /* SettingsTableViewModel.swift in Sources */,
 				4EBB22392559FC3000B88079 /* Collection+SafeSubscript.swift in Sources */,
 				4E9183AA2567FF4200702F04 /* ChooseCommunityTableDataSource.swift in Sources */,

@@ -49,16 +49,15 @@ extension FrontPageSearchViewController: FrontPageSearchViewDelegate {
         
         switch type {
         case .comments:
-            print("comments")
-            fatalError()
+            print("comments in \(#file) \(#line)")
         case .posts:
-            print("posts")
+            print("posts in \(#file) \(#line)")
             fatalError()
         case .communities:
-            print("communities")
+            print("communities in \(#file) \(#line)")
             fatalError()
         case .users:
-            print("users")
+            print("users in \(#file) \(#line)")
             fatalError()
         }
     }
