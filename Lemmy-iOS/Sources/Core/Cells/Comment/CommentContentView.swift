@@ -60,7 +60,14 @@ class CommentContentView: UIView {
         )
 
         centerView.bind(with: .init(comment: comment.content, isDeleted: comment.deleted))
-        footerView.bind(with: .init(id: comment.id), config: setting)
+        footerView.bind(
+            with: .init(
+                id: comment.id,
+                score: comment.score,
+                voteType: comment.getVoteType()
+            ),
+            config: setting
+        )
     }
     
     func prepareForReuse() {
@@ -95,12 +102,12 @@ class CommentContentView: UIView {
             self?.delegate?.showContext(in: comment)
         }
 
-        footerView.upvoteTap = { [weak self] in
-            self?.delegate?.upvote(comment: comment)
+        footerView.downvoteTap = { [weak self] (button, voteType) in
+            self?.delegate?.downvote(voteButton: button, newVote: voteType, comment: comment)
         }
-
-        footerView.downvoteTap = { [weak self] in
-            self?.delegate?.downvote(comment: comment)
+        
+        footerView.upvoteTap = { [weak self] (button, voteType) in
+            self?.delegate?.upvote(voteButton: button, newVote: voteType, comment: comment)
         }
 
         footerView.replyTap = { [weak self] in

@@ -10,9 +10,10 @@ import UIKit
 
 // MARK: - CommentFooterView: UIView
 class CommentFooterView: UIView {
+    
     var showContextTap: (() -> Void)?
-    var upvoteTap: (() -> Void)?
-    var downvoteTap: (() -> Void)?
+    var upvoteTap: ((VoteButtonsWithScoreView, LemmyVoteType) -> Void)?
+    var downvoteTap: ((VoteButtonsWithScoreView, LemmyVoteType) -> Void)?
     var replyTap: (() -> Void)?
     var showMoreTap: (() -> Void)?
 
@@ -22,6 +23,8 @@ class CommentFooterView: UIView {
     // MARK: - Data
     struct ViewData {
         let id: Int
+        let score: Int
+        let voteType: LemmyVoteType
     }
 
     // MARK: - UI Elements
@@ -29,16 +32,8 @@ class CommentFooterView: UIView {
         let image = Config.Image.link
         $0.setImage(image, for: .normal)
     }
-
-    private let upvoteButton = UIButton().then {
-        let image = Config.Image.arrowUp
-        $0.setImage(image, for: .normal)
-    }
     
-    private let downvoteButton = UIButton().then {
-        let image = Config.Image.arrowDown
-        $0.setImage(image, for: .normal)
-    }
+    private let upvoteDownvoteButtons = VoteButtonsWithScoreView()
 
     private let replyButton = UIButton().then {
         let image = Config.Image.arrowshapeTurnUp
@@ -52,7 +47,7 @@ class CommentFooterView: UIView {
 
     private let stackView = UIStackView().then {
         $0.axis = .horizontal
-        $0.spacing = 40
+        $0.spacing = 20
     }
 
     // MARK: - Init
@@ -71,8 +66,9 @@ class CommentFooterView: UIView {
     }
 
     // MARK: - Public
-    func bind(with: CommentFooterView.ViewData, config: CommentContentView.Setting) {
+    func bind(with data: CommentFooterView.ViewData, config: CommentContentView.Setting) {
         setup(for: config)
+        upvoteDownvoteButtons.bind(with: .init(score: data.score, voteType: data.voteType))
     }
     
     func prepareForReuse() { }
@@ -89,8 +85,8 @@ class CommentFooterView: UIView {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         replyButton.setImage(Config.Image.arrowshapeTurnUp, for: .normal)
         showMoreButton.setImage(Config.Image.ellipsis, for: .normal)
-        upvoteButton.setImage(Config.Image.arrowUp, for: .normal)
-        downvoteButton.setImage(Config.Image.arrowDown, for: .normal)
+//        upvoteButton.setImage(Config.Image.arrowUp, for: .normal)
+//        downvoteButton.setImage(Config.Image.arrowDown, for: .normal)
         showContextButton.setImage(Config.Image.link, for: .normal)
     }
 
@@ -101,22 +97,18 @@ class CommentFooterView: UIView {
     // MARK: - Private
     private func setupTargets() {
         showContextButton.addTarget(self, action: #selector(showContextButtonTapped(sender:)), for: .touchUpInside)
-        upvoteButton.addTarget(self, action: #selector(upvoteButtonTapped(sender:)), for: .touchUpInside)
-        downvoteButton.addTarget(self, action: #selector(downvoteButtonTapped(sender:)), for: .touchUpInside)
+        upvoteDownvoteButtons.upvoteButtonTap = {
+            self.upvoteTap?($0, $1)
+        }
+        upvoteDownvoteButtons.downvoteButtonTap = {
+            self.downvoteTap?($0, $1)
+        }
         replyButton.addTarget(self, action: #selector(replyButtonTapped(sender:)), for: .touchUpInside)
         showMoreButton.addTarget(self, action: #selector(showMoreButtonTapped(sender:)), for: .touchUpInside)
     }
 
     @objc private func showContextButtonTapped(sender: UIButton!) {
         showContextTap?()
-    }
-
-    @objc private func upvoteButtonTapped(sender: UIButton!) {
-        upvoteTap?()
-    }
-
-    @objc private func downvoteButtonTapped(sender: UIButton!) {
-        downvoteTap?()
     }
 
     @objc private func replyButtonTapped(sender: UIButton!) {
@@ -135,11 +127,10 @@ extension CommentFooterView: ProgrammaticallyViewProtocol {
         self.addSubview(stackView)
         
         stackView.addStackViewItems(
-            .view(showContextButton), // deleted if in post
-            .view(upvoteButton),
-            .view(downvoteButton),
+            .view(upvoteDownvoteButtons),
             .view(UIView()),
             .view(replyButton),
+            .view(showContextButton), // deleted if in post
             .view(showMoreButton)
         )
     }
@@ -149,10 +140,10 @@ extension CommentFooterView: ProgrammaticallyViewProtocol {
             make.top.leading.trailing.equalToSuperview()
         }
         
-        [showContextButton, upvoteButton, downvoteButton, replyButton, showMoreButton].forEach { (btn) in
+        [showContextButton, replyButton, showMoreButton].forEach { (btn) in
             btn.snp.makeConstraints { (make) in
-                make.height.equalTo(20)
-                make.width.equalTo(20)
+                make.height.equalTo(22)
+                make.width.equalTo(22)
             }
         }
     }
