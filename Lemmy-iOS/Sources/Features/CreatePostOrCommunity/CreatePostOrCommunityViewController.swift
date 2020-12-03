@@ -15,6 +15,7 @@ class CreatePostOrCommunityViewController: UIViewController {
     lazy var createLabel: UILabel = {
         let lbl = UILabel()
         lbl.text = "Create"
+        lbl.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         return lbl
     }()
 
@@ -110,6 +111,7 @@ private class ImageWithTextContainer: UIView {
     lazy var titleLabel: UILabel = {
         let lbl = UILabel()
         lbl.text = text
+        lbl.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         return lbl
     }()
 
