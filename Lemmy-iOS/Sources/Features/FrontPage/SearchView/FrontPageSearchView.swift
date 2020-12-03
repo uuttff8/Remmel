@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FrontPageSearchViewDelegate: AnyObject {
-    func searchView(_ searchView: FrontPageSearchView, searchWith query: String, type: LemmySearchType)
+    func searchView(_ searchView: FrontPageSearchView, searchWith query: String, type: LemmySearchSortType)
 }
 
 extension FrontPageSearchView {
@@ -76,13 +76,13 @@ extension FrontPageSearchView: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Data Source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        LemmySearchType.allCases.count
+        LemmySearchSortType.searchViewConfig.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: FrontPageSearchSubjectTableCell
         
-        switch LemmySearchType.allCases[indexPath.row] {
+        switch LemmySearchSortType.searchViewConfig[indexPath.row] {
         case .comments:
             cell = tableView.cell(forRowAt: indexPath)
             cell.configure(with: searchText, type: .comments)
@@ -99,12 +99,18 @@ extension FrontPageSearchView: UITableViewDataSource, UITableViewDelegate {
             cell = tableView.cell(forRowAt: indexPath)
             cell.configure(with: searchText, type: .users)
             return cell
+        default:
+            fatalError("This sort type should never call at this time")
         }
     }
     
     // MARK: - Delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.delegate?.searchView(self, searchWith: searchText, type: LemmySearchType.allCases[indexPath.row])
+        self.delegate?.searchView(
+            self,
+            searchWith: searchText,
+            type: LemmySearchSortType.searchViewConfig[indexPath.row]
+        )
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

@@ -195,6 +195,8 @@
 		4EF3133A2578323C0032B58D /* SearchResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3131F25782BBD0032B58D /* SearchResultsViewModel.swift */; };
 		4EF3133F257832700032B58D /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3133E257832700032B58D /* SearchResultsViewController.swift */; };
 		4EF31347257839CF0032B58D /* SearchResultsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF31346257839CF0032B58D /* SearchResultsTableDataSource.swift */; };
+		4EF3134C257910F00032B58D /* SearchResultsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3134B257910F00032B58D /* SearchResultsAssembly.swift */; };
+		4EF31354257920820032B58D /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF31353257920820032B58D /* SearchResultsView.swift */; };
 		4EF3AC5D254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */; };
 		4EF3AC62254A01DA00BEC9F1 /* CreateCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */; };
 		4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */; };
@@ -441,6 +443,8 @@
 		4EF3131F25782BBD0032B58D /* SearchResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewModel.swift; sourceTree = "<group>"; };
 		4EF3133E257832700032B58D /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		4EF31346257839CF0032B58D /* SearchResultsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsTableDataSource.swift; sourceTree = "<group>"; };
+		4EF3134B257910F00032B58D /* SearchResultsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsAssembly.swift; sourceTree = "<group>"; };
+		4EF31353257920820032B58D /* SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
 		4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityCoordinator.swift; sourceTree = "<group>"; };
 		4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityViewController.swift; sourceTree = "<group>"; };
 		4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityUI.swift; sourceTree = "<group>"; };
@@ -1252,8 +1256,10 @@
 		4EF3131E25782BA90032B58D /* SearchResults */ = {
 			isa = PBXGroup;
 			children = (
+				4EF3134B257910F00032B58D /* SearchResultsAssembly.swift */,
 				4EF3131F25782BBD0032B58D /* SearchResultsViewModel.swift */,
 				4EF3133E257832700032B58D /* SearchResultsViewController.swift */,
+				4EF31353257920820032B58D /* SearchResultsView.swift */,
 				4EF31346257839CF0032B58D /* SearchResultsTableDataSource.swift */,
 			);
 			path = SearchResults;
@@ -1667,6 +1673,7 @@
 				4E9183462566C16C00702F04 /* SettingsTableView.swift in Sources */,
 				4E886C1C25364DD70076B162 /* AuthRequests.swift in Sources */,
 				4EB89B302521FDBE007129BF /* LemmyLinkedClickableUILabel.swift in Sources */,
+				4EF3134C257910F00032B58D /* SearchResultsAssembly.swift in Sources */,
 				4EFAB5DD2552FA4300B32780 /* Notification+Ext.swift in Sources */,
 				4EFAB5C22552D32600B32780 /* Then.swift in Sources */,
 				4E886CD32541E1A20076B162 /* ChooseCommunityUI.swift in Sources */,
@@ -1818,6 +1825,7 @@
 				4ECCEF09250CC3A60075F921 /* RequestsManager.swift in Sources */,
 				4EBB220E25598AC100B88079 /* ProgrammaticallyInitializableView.swift in Sources */,
 				4EF313002576D4610032B58D /* VoteButtonsWithScoreView.swift in Sources */,
+				4EF31354257920820032B58D /* SearchResultsView.swift in Sources */,
 				4E0A8E35255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift in Sources */,
 				4EF3AC7B254AE12800BEC9F1 /* CreateCommunityNamesCell.swift in Sources */,
 				4EF312E52576D2D10032B58D /* PostContentFooterView.swift in Sources */,

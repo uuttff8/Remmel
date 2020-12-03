@@ -15,38 +15,48 @@ protocol SearchResultsTableDataSourceDelegate: AnyObject {
 }
 
 final class SearchResultsTableDataSource: NSObject {
-    let viewModels: [AnyObject]
-    let searchType: LemmySearchType
+    var viewModels: SearchResults.Results
     
     let delegateImpl: SearchResultsViewController
     
-    init(viewModels: [AnyObject] = [], searchType: LemmySearchType, delegateImpl: SearchResultsViewController) {
+    init(viewModels: SearchResults.Results = .posts([]), delegateImpl: SearchResultsViewController) {
         self.viewModels = viewModels
-        self.searchType = searchType
         self.delegateImpl = delegateImpl
         super.init()
     }
     
-    func appendNew(objects: [AnyObject]) -> [IndexPath] {
-        let startIndex = viewModels.count - objects.count
+    func appendNew(objects: [AnyObject] = []) -> [IndexPath] {
+        let startIndex = countViewModels() - objects.count
         let endIndex = startIndex + objects.count
         
-        let newIndexPaths =
-            Array(startIndex ..< endIndex)
-            .map { (index) in
-                IndexPath(row: index, section: 0)
-            }
+        let newIndexPaths = Array(startIndex ..< endIndex)
+            .map { IndexPath(row: $0, section: 0) }
         
         return newIndexPaths
+    }
+    
+    private func countViewModels() -> Int {
+        switch viewModels {
+        case let .comments(data): return data.count
+        case let .posts(data): return data.count
+        case let .communities(data): return data.count
+        case let .users(data): return data.count
+        }
     }
 }
 
 extension SearchResultsTableDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.viewModels.count
+        self.countViewModels()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
+    }
+}
+
+extension SearchResultsTableDataSource: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
 }

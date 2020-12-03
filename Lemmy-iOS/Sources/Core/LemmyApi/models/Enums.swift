@@ -90,13 +90,10 @@ enum LemmySearchSortType: String, Codable {
     case communities = "Communities"
     case users = "Users"
     case url = "Url"
-}
-
-enum LemmySearchType: Equatable, CaseIterable {
-    case comments
-    case posts
-    case communities
-    case users
+    
+    static var searchViewConfig: [LemmySearchSortType] {
+        [.comments, .posts, .communities, .users]
+    }
 }
 
 enum LemmyPostListingType: String, Codable, CaseIterable {

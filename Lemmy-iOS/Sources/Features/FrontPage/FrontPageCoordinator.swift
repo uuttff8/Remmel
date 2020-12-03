@@ -92,6 +92,11 @@ class FrontPageCoordinator: Coordinator {
         navigationController?.pushViewController(assembly.makeModule(), animated: true)
     }
     
+    func goToSearchResults(searchQuery: String, searchType: LemmySearchSortType) {
+        let assembly = SearchResultsAssembly(searchQuery: searchQuery, type: searchType)
+        navigationController?.pushViewController(assembly.makeModule(), animated: true)
+    }
+    
     func showSearchIfNeeded(with query: String) {
         self.searchViewController.showSearchIfNeeded()
         self.searchViewController.searchQuery = query

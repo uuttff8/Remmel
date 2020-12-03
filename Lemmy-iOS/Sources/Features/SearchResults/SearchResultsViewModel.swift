@@ -10,28 +10,28 @@ import UIKit
 import Combine
 
 protocol SearchResultsViewModelProtocol: AnyObject {
-    func doLoadPosts(request: SearchResults.LoadPosts.Request)
-    func doLoadUsers(request: SearchResults.LoadUsers.Request)
-    func doLoadCommunities(request: SearchResults.LoadCommunities.Request)
-    func doLoadComments(request: SearchResults.LoadComments.Request)
+    func doLoadContent(request: SearchResults.LoadContent.Request)
 }
 
-class SearchResultsSearchViewModel: SearchResultsViewModelProtocol {
+class SearchResultsViewModel: SearchResultsViewModelProtocol {
     weak var viewController: SearchResultsViewController?
     
     private var cancellable = Set<AnyCancellable>()
     
     private let searchQuery: String
+    private let searchType: LemmySearchSortType
     
     init(
-        searchQuery: String
+        searchQuery: String,
+        searchType: LemmySearchSortType
     ) {
         self.searchQuery = searchQuery
+        self.searchType = searchType
     }
     
-    func doLoadPosts(request: SearchResults.LoadPosts.Request) {
+    func doLoadContent(request: SearchResults.LoadContent.Request) {
         let params = LemmyModel.Search.SearchRequest(query: self.searchQuery,
-                                                     type: .posts,
+                                                     type: self.searchType,
                                                      communityId: nil,
                                                      communityName: nil,
                                                      sort: .active,
@@ -45,129 +45,57 @@ class SearchResultsSearchViewModel: SearchResultsViewModelProtocol {
                 print(completion)
             } receiveValue: { (response) in
                 
-                self.viewController?.displayPosts(
-                    viewModel: .init(state: .result(response.posts))
-                )
-                
-            }.store(in: &cancellable)
-
-    }
-    
-    func doLoadUsers(request: SearchResults.LoadUsers.Request) {
-        let params = LemmyModel.Search.SearchRequest(query: self.searchQuery,
-                                                     type: .users,
-                                                     communityId: nil,
-                                                     communityName: nil,
-                                                     sort: .active,
-                                                     page: 0,
-                                                     limit: 50,
-                                                     auth: "")
-        
-        ApiManager.requests.asyncSearch(parameters: params)
-            .receive(on: RunLoop.main)
-            .sink { (completion) in
-                print(completion)
-            } receiveValue: { (response) in
-                
-                self.viewController?.displayUsers(
-                    viewModel: .init(state: .result(response.users))
-                )
-                
-            }.store(in: &cancellable)
-
-    }
-    
-    func doLoadCommunities(request: SearchResults.LoadCommunities.Request) {
-        let params = LemmyModel.Search.SearchRequest(query: self.searchQuery,
-                                                     type: .communities,
-                                                     communityId: nil,
-                                                     communityName: self.searchQuery,
-                                                     sort: .active,
-                                                     page: 0,
-                                                     limit: 50,
-                                                     auth: "")
-        
-        ApiManager.requests.asyncSearch(parameters: params)
-            .receive(on: RunLoop.main)
-            .sink { (completion) in
-                print(completion)
-            } receiveValue: { (response) in
-                
-                self.viewController?.displayCommunities(
-                    viewModel: .init(state: .result(response.communities))
-                )
+                self.makeViewModelAndPresent(type: self.searchType,
+                                             response: response)
                 
             }.store(in: &cancellable)
     }
     
-    func doLoadComments(request: SearchResults.LoadComments.Request) {
-        let params = LemmyModel.Search.SearchRequest(query: self.searchQuery,
-                                                     type: .comments,
-                                                     communityId: nil,
-                                                     communityName: nil,
-                                                     sort: .active,
-                                                     page: 0,
-                                                     limit: 50,
-                                                     auth: "")
+    private func makeViewModelAndPresent(
+        type: LemmySearchSortType,
+        response: LemmyModel.Search.SearchResponse
+    ) {
         
-        ApiManager.requests.asyncSearch(parameters: params)
-            .receive(on: RunLoop.main)
-            .sink { (completion) in
-                print(completion)
-            } receiveValue: { (response) in
-                
-                self.viewController?.displayComments(
-                    viewModel: .init(state: .result(response.comments))
-                )
-                
-            }.store(in: &cancellable)
+        let result: SearchResults.Results
+        
+        switch type {
+        case .comments:
+            result = .comments(response.comments)
+        case .posts:
+            result = .posts(response.posts)
+        case .communities:
+            result = .communities(response.communities)
+        case .users:
+            result = .users(response.users)
+        default:
+            fatalError("This: \(type) should never be called on search.")
+        }
+        
+        self.viewController?.displayContent(
+            viewModel: .init(state: .result(result))
+        )
     }
 }
 
 enum SearchResults {
     
-    enum LoadPosts {
-        struct Request {
-            let query: String
-        }
+    enum LoadContent {
+        struct Request { }
         
         struct ViewModel {
-            let state: ViewControllerState<[LemmyModel.PostView]>
+            let state: ViewControllerState
         }
     }
-    
-    enum LoadUsers {
-        struct Request {
-            let query: String
-        }
         
-        struct ViewModel {
-            let state: ViewControllerState<[LemmyModel.UserView]>
-        }
+    enum Results {
+        case comments([LemmyModel.CommentView])
+        case posts([LemmyModel.PostView])
+        case communities([LemmyModel.CommunityView])
+        case users([LemmyModel.UserView])
     }
     
-    enum LoadCommunities {
-        struct Request {
-            let query: String
-        }
-        
-        struct ViewModel {
-            let state: ViewControllerState<[LemmyModel.CommunityView]>
-        }
-    }
-    
-    enum LoadComments {
-        struct Request {
-            let query: String
-        }
-        
-        struct ViewModel {
-            let state: ViewControllerState<[LemmyModel.CommentView]>
-        }
-    }
-    
-    enum ViewControllerState<T: Codable> {
+    enum ViewControllerState {
         case loading
-        case result(T)
+        case result(Results)
     }
 }

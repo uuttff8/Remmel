@@ -16,7 +16,7 @@ class FrontPageSearchSubjectTableCell: UITableViewCell {
         textLabel?.font = .systemFont(ofSize: 14)
     }
     
-    func configure(with query: String, type: LemmySearchType) {
+    func configure(with query: String, type: LemmySearchSortType) {
         
         switch type {
         case .comments:
@@ -27,6 +27,8 @@ class FrontPageSearchSubjectTableCell: UITableViewCell {
             textLabel?.text = "Search communities with !\(query)"
         case .posts:
             textLabel?.text = "Search posts with \(query)"
+        default:
+            break
         }
         
     }
