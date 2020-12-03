@@ -13,6 +13,7 @@ class SearchResultsView: UIView {
     private lazy var tableView = LemmyTableView(style: .plain, separator: false).then {
         $0.registerClass(PostContentTableCell.self)
         $0.registerClass(CommentContentTableCell.self)
+        $0.registerClass(CommunityPreviewTableCell.self)
         
         $0.delegate = tableManager
         $0.dataSource = tableManager

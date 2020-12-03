@@ -71,6 +71,7 @@ extension SearchResultsViewController: SearchResultsViewControllerProtocol {
         guard case let .result(data) = viewModel.state else { return }
         
         self.tableManager.viewModels = data
+        self.updateState(newState: viewModel.state)
     }
 }
 

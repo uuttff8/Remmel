@@ -43,6 +43,35 @@ final class SearchResultsTableDataSource: NSObject {
         case let .users(data): return data.count
         }
     }
+    
+    private func createPostCell(
+        post: LemmyModel.PostView,
+        tableView: UITableView,
+        indexPath: IndexPath
+    ) -> UITableViewCell {
+        let cell: PostContentTableCell = tableView.cell(forRowAt: indexPath)
+        cell.bind(with: post, config: .default)
+        return cell
+    }
+    
+    private func createCommentCell(
+        comment: LemmyModel.CommentView,
+        tableView: UITableView,
+        indexPath: IndexPath
+    ) -> UITableViewCell {
+        let cell: CommentContentTableCell = tableView.cell(forRowAt: indexPath)
+        cell.bind(with: comment, level: 0)
+        return cell
+    }
+    
+    private func createCommunityCell(
+        community: LemmyModel.CommunityView,
+        tableView: UITableView,
+        indexPath: IndexPath
+    ) -> UITableViewCell {
+        let cell = CommunityPreviewTableCell(community: community)
+        return cell
+    }
 }
 
 extension SearchResultsTableDataSource: UITableViewDataSource {
@@ -51,7 +80,18 @@ extension SearchResultsTableDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        
+        switch viewModels {
+        case let .comments(data):
+            return createCommentCell(comment: data[indexPath.row], tableView: tableView, indexPath: indexPath)
+        case let .posts(data):
+            return createPostCell(post: data[indexPath.row], tableView: tableView, indexPath: indexPath)
+        case let .communities(data):
+            return createCommunityCell(community: data[indexPath.row], tableView: tableView, indexPath: indexPath)
+        case .users(_):
+            // todo: implement users cell
+            return UITableViewCell()
+        }
     }
 }
 
