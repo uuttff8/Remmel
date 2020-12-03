@@ -45,20 +45,7 @@ class FrontPageSearchViewController: UIViewController {
 }
 
 extension FrontPageSearchViewController: FrontPageSearchViewDelegate {
-    func searchView(_ searchView: FrontPageSearchView, searchWith query: String, type: SearchView.TableRow) {
-        
-        switch type {
-        case .comments:
-            print("comments in \(#file) \(#line)")
-        case .posts:
-            print("posts in \(#file) \(#line)")
-            fatalError()
-        case .communities:
-            print("communities in \(#file) \(#line)")
-            fatalError()
-        case .users:
-            print("users in \(#file) \(#line)")
-            fatalError()
-        }
+    func searchView(_ searchView: FrontPageSearchView, searchWith query: String, type: LemmySearchSortType) {
+        self.coordinator?.goToSearchResults(searchQuery: query, searchType: type)
     }
 }

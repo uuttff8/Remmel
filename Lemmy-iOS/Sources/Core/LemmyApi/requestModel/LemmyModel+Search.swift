@@ -32,7 +32,7 @@ extension LemmyModel {
         }
 
         struct SearchResponse: Codable, Equatable, Hashable {
-            let type: LemmySortType
+            let type: LemmySearchSortType
             let comments: [CommentView]
             let posts: [PostView]
             let communities: [CommunityView]

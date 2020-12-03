@@ -7,15 +7,21 @@
 //
 
 import UIKit
+import Combine
 
 private protocol SearchRequestManagerProtocol {
     func search(
         parameters: LemmyModel.Search.SearchRequest,
         completion: @escaping (Result<LemmyModel.Search.SearchResponse, LemmyGenericError>) -> Void
     )
+    
+    func asyncSearch(
+        parameters: LemmyModel.Search.SearchRequest
+    ) -> AnyPublisher<LemmyModel.Search.SearchResponse, LemmyGenericError>
 }
 
 extension RequestsManager: SearchRequestManagerProtocol {
+    
     func search(
         parameters: LemmyModel.Search.SearchRequest,
         completion: @escaping (Result<LemmyModel.Search.SearchResponse, LemmyGenericError>) -> Void
@@ -28,4 +34,12 @@ extension RequestsManager: SearchRequestManagerProtocol {
             completion: completion
         )
     }
+    
+    func asyncSearch(
+        parameters: LemmyModel.Search.SearchRequest
+    ) -> AnyPublisher<LemmyModel.Search.SearchResponse, LemmyGenericError> {
+        
+        asyncRequestDecodable(path: WSEndpoint.Site.search.endpoint, parameters: parameters)
+    }
+
 }
