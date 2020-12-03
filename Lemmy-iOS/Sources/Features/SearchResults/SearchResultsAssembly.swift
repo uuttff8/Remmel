@@ -18,7 +18,11 @@ class SearchResultsAssembly: Assembly {
     }
     
     func makeModule() -> SearchResultsViewController {
-        let viewModel = SearchResultsViewModel(searchQuery: searchQuery, searchType: searchType)
+        let viewModel = SearchResultsViewModel(
+            searchQuery: searchQuery,
+            searchType: searchType,
+            userAccountService: UserAccountService()
+        )
         let vc = SearchResultsViewController(viewModel: viewModel)
         viewModel.viewController = vc
         

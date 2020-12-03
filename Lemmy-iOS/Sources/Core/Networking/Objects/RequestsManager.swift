@@ -77,23 +77,24 @@ class RequestsManager {
         Future { promise in
             
             if parsingFromData {
-                guard let apiResponse = try? self.decoder.decode(ApiResponse<D>.self, from: data)
-                else {
-                    promise(.failure("Can't decode api response \(String(data: data, encoding: .utf8)!)".toLemmyError))
-                    return
+                
+                do {
+                    let apiResponse = try self.decoder.decode(ApiResponse<D>.self, from: data)
+                    let normalResponse = apiResponse.data
+                    promise(.success(normalResponse))
+                } catch {
+                    promise(.failure("Can't decode api response: \n \(error)".toLemmyError))
                 }
                 
-                let normalResponse = apiResponse.data
-                promise(.success(normalResponse))
             } else {
-                guard let apiResponse = try? self.decoder.decode(D.self, from: data)
-                else {
-                    promise(.failure("Can't decode api response \(String(data: data, encoding: .utf8)!)".toLemmyError))
-                    return
+                
+                do {
+                    let apiResponse = try self.decoder.decode(D.self, from: data)
+                    promise(.success(apiResponse))
+                } catch {
+                    promise(.failure("Can't decode api response: \n \(error)".toLemmyError))
                 }
-                                
-                let normalResponse = apiResponse
-                promise(.success(normalResponse))
+                
             }
         }
     }

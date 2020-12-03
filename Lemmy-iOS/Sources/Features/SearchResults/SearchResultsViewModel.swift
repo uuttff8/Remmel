@@ -21,12 +21,16 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
     private let searchQuery: String
     private let searchType: LemmySearchSortType
     
+    private let userAccountService: UserAccountSerivceProtocol
+    
     init(
         searchQuery: String,
-        searchType: LemmySearchSortType
+        searchType: LemmySearchSortType,
+        userAccountService: UserAccountSerivceProtocol
     ) {
         self.searchQuery = searchQuery
         self.searchType = searchType
+        self.userAccountService = userAccountService
     }
     
     func doLoadContent(request: SearchResults.LoadContent.Request) {
@@ -35,9 +39,9 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
                                                      communityId: nil,
                                                      communityName: nil,
                                                      sort: .active,
-                                                     page: 0,
+                                                     page: 1,
                                                      limit: 50,
-                                                     auth: "")
+                                                     auth: userAccountService.jwtToken)
         
         ApiManager.requests.asyncSearch(parameters: params)
             .receive(on: RunLoop.main)
