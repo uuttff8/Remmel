@@ -20,6 +20,8 @@ class CreateCommunityViewController: UIViewController {
     
     lazy var createCommunityView = self.view as! CreateCommunityUI
     
+    lazy var styledNavController = self.navigationController as! StyledNavigationController
+    
     lazy var imagePicker: UIImagePickerController = {
         let picker = UIImagePickerController()
         picker.delegate = self
@@ -80,6 +82,11 @@ class CreateCommunityViewController: UIViewController {
         //            self.currentImagePick = imagePick
         //            self.present(self.imagePicker, animated: true, completion: nil)
         //        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.styledNavController.setNeedsNavigationBarAppearanceUpdate(sender: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -349,5 +356,12 @@ extension CreateCommunityViewController: CreateCommunityViewDelegate {
             )
         default: break
         }
+    }
+}
+
+// MARK: - CreateCommunityViewController: StyledNavigationControllerPresentable -
+extension CreateCommunityViewController: StyledNavigationControllerPresentable {
+    var navigationBarAppearanceOnFirstPresentation: StyledNavigationController.NavigationBarAppearanceState {
+        .pageSheetAppearance()
     }
 }

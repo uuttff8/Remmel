@@ -21,7 +21,7 @@ protocol CreatePostScreenViewControllerProtocol: AnyObject {
 
 extension CreatePostScreenViewController {
     struct Appearance {
-        var navBarAppearance: StyledNavigationController.NavigationBarAppearanceState = .pageSheetAppearance()
+        let navBarAppearance: StyledNavigationController.NavigationBarAppearanceState = .pageSheetAppearance()
     }
 }
 
@@ -364,7 +364,7 @@ extension CreatePostScreenViewController: CreatePostViewDelegate {
     }
 }
 
-// MARK: - SettingsViewController: StyledNavigationControllerPresentable -
+// MARK: - CreatePostScreenViewController: StyledNavigationControllerPresentable -
 extension CreatePostScreenViewController: StyledNavigationControllerPresentable {
     var navigationBarAppearanceOnFirstPresentation: StyledNavigationController.NavigationBarAppearanceState {
         self.appearance.navBarAppearance
