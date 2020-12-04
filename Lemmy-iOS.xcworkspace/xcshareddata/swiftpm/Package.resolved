@@ -2,15 +2,6 @@
   "object": {
     "pins": [
       {
-        "package": "FrameLayoutKit",
-        "repositoryURL": "https://github.com/kennic/FrameLayoutKit.git",
-        "state": {
-          "branch": null,
-          "revision": "587505007a55c319ebaa730727aa35f67b18bd22",
-          "version": "5.2.2"
-        }
-      },
-      {
         "package": "IQKeyboardManagerSwift",
         "repositoryURL": "https://github.com/hackiftekhar/IQKeyboardManager.git",
         "state": {
