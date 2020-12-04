@@ -10,6 +10,10 @@ import UIKit
 import SafariServices
 import SnapKit
 
+protocol PostScreenViewDelegate: AnyObject {
+    func postView(didEmbedTappedWith url: URL)
+}
+
 extension PostScreenViewController.View {
     struct Appearance { }
 }
@@ -22,11 +26,10 @@ extension PostScreenViewController {
             let post: LemmyModel.PostView
             let comments: [LemmyComment]
         }
+        
+        weak var delegate: PostScreenViewDelegate?
                 
         let appearance = Appearance()
-        
-        var presentOnVc: ((UIViewController) -> Void)?
-        var dismissOnVc: (() -> Void)?
         
         var headerView = PostScreenUITableCell()
                 
@@ -45,6 +48,12 @@ extension PostScreenViewController {
         
         func bind(with viewData: LemmyModel.PostView) {
             self.headerView.bind(with: viewData)
+            
+            if let url = viewData.url {
+                headerView.postGreenOutlineView.addTap {
+                    self.delegate?.postView(didEmbedTappedWith: URL(string: url)!)
+                }
+            }
         }
                 
         func showLoadingView() {

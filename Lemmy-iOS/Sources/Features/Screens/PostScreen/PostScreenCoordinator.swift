@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SafariServices
 
-class PostScreenCoordinator: Coordinator {
+class PostScreenCoordinator: NSObject, Coordinator {
     var rootViewController: PostScreenViewController
     var childCoordinators: [Coordinator] = []
 
@@ -34,5 +35,17 @@ class PostScreenCoordinator: Coordinator {
     func goToProfileScreen(by userId: Int) {
         let assembly = ProfileInfoScreenAssembly(profileId: userId)
         navigationController?.pushViewController(assembly.makeModule(), animated: true)
+    }
+    
+    func goToBrowser(with url: URL) {
+        let safariVc = SFSafariViewController(url: url)
+        safariVc.delegate = self
+        rootViewController.present(safariVc, animated: true)
+    }
+}
+
+extension PostScreenCoordinator: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        rootViewController.dismiss(animated: true)
     }
 }

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SafariServices
 
 protocol PostScreenViewControllerProtocol: AnyObject {
     func displayPost(response: PostScreen.PostLoad.ViewModel)
@@ -19,6 +18,7 @@ class PostScreenViewController: UIViewController, Containered {
         
     lazy var postScreenView = PostScreenViewController.View().then {
         $0.headerView.postHeaderView.delegate = self
+        $0.delegate = self
     }
     
     let foldableCommentsViewController = FoldableLemmyCommentsViewController()
@@ -46,14 +46,6 @@ class PostScreenViewController: UIViewController, Containered {
         
         viewModel.doPostFetch()
         self.updateState(newState: state)
-
-        postScreenView.presentOnVc = { toPresentVc in
-            self.present(toPresentVc, animated: true)
-        }
-
-        postScreenView.dismissOnVc = {
-            self.dismiss(animated: true)
-        }
     }
         
     private func updateState(newState: PostScreen.ViewControllerState) {
@@ -105,9 +97,7 @@ extension PostScreenViewController: PostContentTableCellDelegate {
     }
     
     func onLinkTap(in post: LemmyModel.PostView, url: URL) {
-        let safariVc = SFSafariViewController(url: url)
-        safariVc.delegate = self
-        present(safariVc, animated: true)
+        coordinator?.goToBrowser(with: url)
     }
     
     private func vote(voteButton: VoteButton, for newVote: LemmyVoteType, post: LemmyModel.PostView) {
@@ -120,8 +110,8 @@ extension PostScreenViewController: PostContentTableCellDelegate {
     }
 }
 
-extension PostScreenViewController: SFSafariViewControllerDelegate {
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        self.dismiss(animated: true)
+extension PostScreenViewController: PostScreenViewDelegate {
+    func postView(didEmbedTappedWith url: URL) {
+        self.coordinator?.goToBrowser(with: url)
     }
 }
