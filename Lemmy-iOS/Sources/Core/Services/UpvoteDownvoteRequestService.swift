@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 
-protocol UpvoteDownvoteServiceProtocol: AnyObject {
+protocol UpvoteDownvoteRequestServiceProtocol: AnyObject {
     func like(post: LemmyModel.PostView) -> AnyPublisher<LemmyModel.PostView, LemmyGenericError>
     func dislike(post: LemmyModel.PostView) -> AnyPublisher<LemmyModel.PostView, LemmyGenericError>
     
@@ -21,7 +21,7 @@ protocol UpvoteDownvoteServiceProtocol: AnyObject {
     ) -> AnyPublisher<LemmyModel.PostView, LemmyGenericError>
 }
 
-final class UpvoteDownvoteService: UpvoteDownvoteServiceProtocol {
+final class UpvoteDownvoteRequestService: UpvoteDownvoteRequestServiceProtocol {
     private let userAccountService: UserAccountSerivceProtocol
     
     private var cancellable = Set<AnyCancellable>()

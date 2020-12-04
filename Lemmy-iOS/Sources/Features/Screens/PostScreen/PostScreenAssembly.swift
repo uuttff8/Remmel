@@ -22,7 +22,11 @@ class PostScreenAssembly: Assembly {
         let viewModel = PostScreenViewModel(
             postId: self.postId,
             postInfo: self.postInfo,
-            upvoteDownvoteService: UpvoteDownvoteService(userAccountService: UserAccountService())
+            contentScoreService: ContentScoreService(
+                voteService: UpvoteDownvoteRequestService(
+                    userAccountService: UserAccountService()
+                )
+            )
         )
         
         let vc = PostScreenViewController(viewModel: viewModel)

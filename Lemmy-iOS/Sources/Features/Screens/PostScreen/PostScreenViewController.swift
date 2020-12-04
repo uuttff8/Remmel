@@ -104,8 +104,7 @@ extension PostScreenViewController: PostContentTableCellDelegate {
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            voteButton.setVoted(to: newVote)
-            viewModel.doPostLike(newVote: newVote, post: post)
+            viewModel.doPostLike(voteButton: voteButton, for: newVote, post: post)
         }
     }
 }

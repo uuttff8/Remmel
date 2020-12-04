@@ -17,7 +17,7 @@ class PostsFrontPageModel: NSObject {
     var newDataLoaded: (([LemmyModel.PostView]) -> Void)?
     var dataLoaded: (([LemmyModel.PostView]) -> Void)?
     
-    private let upvoteDownvoteService = UpvoteDownvoteService(userAccountService: UserAccountService())
+    private let upvoteDownvoteService = UpvoteDownvoteRequestService(userAccountService: UserAccountService())
     
     private var cancellable = Set<AnyCancellable>()
     
