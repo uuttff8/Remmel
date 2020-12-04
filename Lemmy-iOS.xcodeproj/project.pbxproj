@@ -198,6 +198,7 @@
 		4EF3134C257910F00032B58D /* SearchResultsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3134B257910F00032B58D /* SearchResultsAssembly.swift */; };
 		4EF31354257920820032B58D /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF31353257920820032B58D /* SearchResultsView.swift */; };
 		4EF31360257A7B530032B58D /* ContentScoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3135F257A7B530032B58D /* ContentScoreService.swift */; };
+		4EF3136C257A7F910032B58D /* ScaledControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3136B257A7F910032B58D /* ScaledControl.swift */; };
 		4EF3AC5D254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */; };
 		4EF3AC62254A01DA00BEC9F1 /* CreateCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */; };
 		4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */; };
@@ -447,6 +448,7 @@
 		4EF3134B257910F00032B58D /* SearchResultsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsAssembly.swift; sourceTree = "<group>"; };
 		4EF31353257920820032B58D /* SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
 		4EF3135F257A7B530032B58D /* ContentScoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentScoreService.swift; sourceTree = "<group>"; };
+		4EF3136B257A7F910032B58D /* ScaledControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledControl.swift; sourceTree = "<group>"; };
 		4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityCoordinator.swift; sourceTree = "<group>"; };
 		4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityViewController.swift; sourceTree = "<group>"; };
 		4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityUI.swift; sourceTree = "<group>"; };
@@ -1209,6 +1211,7 @@
 		4ECCEF2C2512535F0075F921 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				4EF3136A257A7F860032B58D /* Controls */,
 				4EF312FE2576D44D0032B58D /* UpvoteDownvote */,
 				4E9185D82571353700702F04 /* Inputs */,
 				4E9185E22571357200702F04 /* Picking */,
@@ -1273,6 +1276,14 @@
 			children = (
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		4EF3136A257A7F860032B58D /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				4EF3136B257A7F910032B58D /* ScaledControl.swift */,
+			);
+			path = Controls;
 			sourceTree = "<group>";
 		};
 		4EF3AC5B254A019800BEC9F1 /* CreateCommunity */ = {
@@ -1778,6 +1789,7 @@
 				4E9185C5257064CA00702F04 /* CommentContentHeaderView.swift in Sources */,
 				4EB89B3B25220DC6007129BF /* CommentListingSort.swift in Sources */,
 				4E9185C02570649D00702F04 /* CommentContentFooterView.swift in Sources */,
+				4EF3136C257A7F910032B58D /* ScaledControl.swift in Sources */,
 				4EF3AC62254A01DA00BEC9F1 /* CreateCommunityViewController.swift in Sources */,
 				4EBB221325598B0C00B88079 /* Assembly.swift in Sources */,
 				4E9183492566C16C00702F04 /* SettingsInputTableViewCell.swift in Sources */,
