@@ -103,7 +103,10 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            print("LOL")
+            let type = voteButton.viewData?.voteType == .up ? .none : LemmyVoteType.up
+            voteButton.viewData?.voteType = type
+            
+            voteButton.upvoteBtn.setVoted(to: type)
         } elseAction: {
             print("KEK")
         }
