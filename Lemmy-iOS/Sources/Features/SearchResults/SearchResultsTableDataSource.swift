@@ -72,6 +72,18 @@ final class SearchResultsTableDataSource: NSObject {
         let cell = CommunityPreviewTableCell(community: community)
         return cell
     }
+    
+    private func createUserPreviewCell(
+        user: LemmyModel.UserView,
+        tableView: UITableView,
+        indexPath: IndexPath
+    ) -> UITableViewCell {
+        let cell: UserPreviewCell = tableView.cell(forRowAt: indexPath)
+        cell.configure(with: .init(name: user.name,
+                                   numberOfComments: user.numberOfComments,
+                                   thumbailUrl: user.avatar))
+        return cell
+    }
 }
 
 extension SearchResultsTableDataSource: UITableViewDataSource {
@@ -88,9 +100,8 @@ extension SearchResultsTableDataSource: UITableViewDataSource {
             return createPostCell(post: data[indexPath.row], tableView: tableView, indexPath: indexPath)
         case let .communities(data):
             return createCommunityCell(community: data[indexPath.row], tableView: tableView, indexPath: indexPath)
-        case .users(_):
-            // todo: implement users cell
-            return UITableViewCell()
+        case let .users(data):
+            return createUserPreviewCell(user: data[indexPath.row], tableView: tableView, indexPath: indexPath)
         }
     }
 }

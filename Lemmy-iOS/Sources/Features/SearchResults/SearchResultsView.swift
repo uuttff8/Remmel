@@ -10,23 +10,14 @@ import UIKit
 
 class SearchResultsView: UIView {
     
-    private lazy var tableView = LemmyTableView(style: .plain, separator: false).then {
-        $0.registerClass(PostContentTableCell.self)
-        $0.registerClass(CommentContentTableCell.self)
-        $0.registerClass(CommunityPreviewTableCell.self)
-        
-        $0.delegate = tableManager
-        $0.dataSource = tableManager
-    }
+    private var tableView: LemmyTableView!
     private var tableManager: (UITableViewDataSource & UITableViewDelegate)
     
-    init(tableManager: (UITableViewDataSource & UITableViewDelegate)) {
+    init(tableManager: (SearchResultsTableDataSource)) {
         self.tableManager = tableManager
         super.init(frame: .zero)
         
         setupView()
-        addSubviews()
-        makeConstraints()
     }
     
     @available(*, unavailable)
@@ -34,9 +25,31 @@ class SearchResultsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateTableViewData(delegate: UITableViewDelegate & UITableViewDataSource) {
+    func updateTableViewData(delegate: SearchResultsTableDataSource) {
         self.tableManager = delegate
-
+        
+        let type: UITableView.Style
+        
+        if case .users = delegate.viewModels {
+            type = .insetGrouped
+        } else {
+            type = .plain
+        }
+        
+        self.tableView = LemmyTableView(style: type, separator: false).then {
+            $0.registerClass(PostContentTableCell.self)
+            $0.registerClass(CommentContentTableCell.self)
+            $0.registerClass(CommunityPreviewTableCell.self)
+            $0.registerClass(UserPreviewCell.self)
+            
+            $0.delegate = tableManager
+            $0.dataSource = tableManager
+        }
+        
+        setupView()
+        addSubviews()
+        makeConstraints()
+        
         self.tableView.dataSource = self.tableManager
         self.tableView.reloadData()
     }
@@ -44,12 +57,13 @@ class SearchResultsView: UIView {
 
 extension SearchResultsView: ProgrammaticallyViewProtocol {
     func setupView() {
+        self.backgroundColor = .systemBackground
     }
     
     func addSubviews() {
         self.addSubview(self.tableView)
     }
-
+    
     func makeConstraints() {
         
         self.tableView.snp.makeConstraints { make in

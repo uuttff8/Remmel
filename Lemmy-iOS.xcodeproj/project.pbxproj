@@ -201,6 +201,7 @@
 		4EF313A2257BD5370032B58D /* MultilineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF313A1257BD5370032B58D /* MultilineButton.swift */; };
 		4EF313AA257BDF6E0032B58D /* ShowMoreHandlerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF313A9257BDF6E0032B58D /* ShowMoreHandlerService.swift */; };
 		4EF313B3257BE8670032B58D /* SafariActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF313B2257BE8670032B58D /* SafariActivity.swift */; };
+		4EF313BC257BEDC20032B58D /* UserPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF313BB257BEDC20032B58D /* UserPreviewCell.swift */; };
 		4EF3AC5D254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */; };
 		4EF3AC62254A01DA00BEC9F1 /* CreateCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */; };
 		4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */; };
@@ -454,6 +455,7 @@
 		4EF313A1257BD5370032B58D /* MultilineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineButton.swift; sourceTree = "<group>"; };
 		4EF313A9257BDF6E0032B58D /* ShowMoreHandlerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowMoreHandlerService.swift; sourceTree = "<group>"; };
 		4EF313B2257BE8670032B58D /* SafariActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariActivity.swift; sourceTree = "<group>"; };
+		4EF313BB257BEDC20032B58D /* UserPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreviewCell.swift; sourceTree = "<group>"; };
 		4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityCoordinator.swift; sourceTree = "<group>"; };
 		4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityViewController.swift; sourceTree = "<group>"; };
 		4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityUI.swift; sourceTree = "<group>"; };
@@ -1208,6 +1210,7 @@
 				4E106F5C25273A0C009EABDA /* CommentTreeTableCell.swift */,
 				4ECCEF2A250FF56A0075F921 /* CommunityPreviewTableCell.swift */,
 				4E1A7E6025573CC900E193B7 /* LoadingTableViewCell.swift */,
+				4EF313BB257BEDC20032B58D /* UserPreviewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1712,6 +1715,7 @@
 				4ECCEEEF250BE89B0075F921 /* FrontPageCoordinator.swift in Sources */,
 				4EBB226D255AF4F900B88079 /* ProfileScreenPostsAssembly.swift in Sources */,
 				4E886C6E253CD40F0076B162 /* CreateDismissAnimator.swift in Sources */,
+				4EF313BC257BEDC20032B58D /* UserPreviewCell.swift in Sources */,
 				4E81655B2562A38400907D31 /* UpvoteDownvoteRequestService.swift in Sources */,
 				4E9183462566C16C00702F04 /* SettingsTableView.swift in Sources */,
 				4E886C1C25364DD70076B162 /* AuthRequests.swift in Sources */,
