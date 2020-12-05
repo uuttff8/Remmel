@@ -31,31 +31,31 @@ class PostContentView: UIView {
         setupUI()
         setupTargets(with: post)
         
-        headerView.bind(with:
-                            PostContentHeaderView.ViewData(
-                                avatarImageUrl: post.creatorAvatar,
-                                username: post.creatorName,
-                                community: post.communityName,
-                                published: post.published.require().shortTimeAgoSinceNow,
-                                urlDomain: post.getUrlDomain()
-                            )
+        headerView.bind(
+            with: .init(
+                avatarImageUrl: post.creatorAvatar,
+                username: post.creatorName,
+                community: post.communityName,
+                published: post.published.require().shortTimeAgoSinceNow,
+                urlDomain: post.getUrlDomain()
+            )
         )
         
-        centerView.bind(with:
-                            PostContentCenterView.ViewData(
-                                imageUrl: post.thumbnailUrl,
-                                title: post.name,
-                                subtitle: post.body
-                            )
+        centerView.bind(
+            with: .init(
+                imageUrl: post.thumbnailUrl,
+                title: post.name,
+                subtitle: post.body
+            )
         )
         
-        footerView.bind(with:
-                            PostContentFooterView.ViewData(
-                                score: post.score,
-                                myVote: post.myVote,
-                                numberOfComments: post.numberOfComments,
-                                voteType: post.getVoteType()
-                            )
+        footerView.bind(
+            with: .init(
+                score: post.score,
+                myVote: post.myVote,
+                numberOfComments: post.numberOfComments,
+                voteType: post.getVoteType()
+            )
         )
         
     }
@@ -67,6 +67,10 @@ class PostContentView: UIView {
         
         headerView.usernameButtonTap = { [weak self] in
             self?.delegate?.usernameTapped(in: post)
+        }
+        
+        headerView.showMoreButtonTap = { [weak self] in
+            self?.delegate?.showMore(in: post)
         }
         
         centerView.onLinkTap = { [weak self] (url) in

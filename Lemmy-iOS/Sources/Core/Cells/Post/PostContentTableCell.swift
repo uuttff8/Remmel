@@ -18,6 +18,7 @@ protocol PostContentTableCellDelegate: AnyObject {
     func usernameTapped(in post: LemmyModel.PostView)
     func communityTapped(in post: LemmyModel.PostView)
     func onLinkTap(in post: LemmyModel.PostView, url: URL)
+    func showMore(in post: LemmyModel.PostView)
 }
 
 class PostContentTableCell: UITableViewCell {

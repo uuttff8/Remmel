@@ -16,6 +16,7 @@ class PostScreenViewController: UIViewController, Containered {
     weak var coordinator: PostScreenCoordinator?
     private let viewModel: PostScreenViewModelProtocol
         
+    private let showMoreHandlerService = ShowMoreHandlerService()
     lazy var postScreenView = PostScreenViewController.View().then {
         $0.headerView.postHeaderView.delegate = self
         $0.delegate = self
@@ -98,6 +99,10 @@ extension PostScreenViewController: PostContentTableCellDelegate {
     
     func onLinkTap(in post: LemmyModel.PostView, url: URL) {
         coordinator?.goToBrowser(with: url)
+    }
+    
+    func showMore(in post: LemmyModel.PostView) {
+        self.showMoreHandlerService.showMoreInPost(on: self, post: post)
     }
     
     private func vote(voteButton: VoteButton, for newVote: LemmyVoteType, post: LemmyModel.PostView) {

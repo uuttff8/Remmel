@@ -17,6 +17,7 @@ protocol PostsTableDataSourceDelegate: AnyObject {
     func usernameTapped(in post: LemmyModel.PostView)
     func communityTapped(in post: LemmyModel.PostView)
     func onLinkTap(in post: LemmyModel.PostView, url: URL)
+    func showMore(in post: LemmyModel.PostView)
 }
 
 final class PostsTableDataSource: NSObject {
@@ -105,5 +106,9 @@ extension PostsTableDataSource: PostContentTableCellDelegate {
     
     func onLinkTap(in post: LemmyModel.PostView, url: URL) {
         self.delegate?.onLinkTap(in: post, url: url)
+    }
+    
+    func showMore(in post: LemmyModel.PostView) {
+        self.delegate?.showMore(in: post)
     }
 }

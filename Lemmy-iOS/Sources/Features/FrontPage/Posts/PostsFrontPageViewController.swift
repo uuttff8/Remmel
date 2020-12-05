@@ -18,6 +18,7 @@ class PostsFrontPageViewController: UIViewController {
     weak var coordinator: FrontPageCoordinator?    
     
     let model = PostsFrontPageModel()
+    let showMoreHandler = ShowMoreHandlerService()
     
     lazy var tableView = LemmyTableView(style: .plain).then {
         $0.delegate = self
@@ -200,6 +201,10 @@ extension PostsFrontPageViewController: PostContentTableCellDelegate {
     
     func communityTapped(in post: LemmyModel.PostView) {
         coordinator?.goToCommunityScreen(communityId: post.communityId)
+    }
+    
+    func showMore(in post: LemmyModel.PostView) {
+        showMoreHandler.showMoreInPost(on: self, post: post)
     }
     
     private func vote(voteButton: VoteButton, for newVote: LemmyVoteType, post: LemmyModel.PostView) {

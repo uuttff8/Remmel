@@ -41,7 +41,7 @@
 		4E10709D25361846009EABDA /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10709C25361846009EABDA /* SignInView.swift */; };
 		4E1A7E6125573CC900E193B7 /* LoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A7E6025573CC900E193B7 /* LoadingTableViewCell.swift */; };
 		4E1A7E6625573EA400E193B7 /* ProfileScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A7E6525573EA400E193B7 /* ProfileScreenUI.swift */; };
-		4E1A7E6B25573F1800E193B7 /* ProfileScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A7E6A25573F1800E193B7 /* ProfileScreenModel.swift */; };
+		4E1A7E6B25573F1800E193B7 /* ProfileScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A7E6A25573F1800E193B7 /* ProfileScreenViewModel.swift */; };
 		4E26FEA02573E36C009DE4A7 /* PostScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E26FE9F2573E36C009DE4A7 /* PostScreenCoordinator.swift */; };
 		4E3E0F722555BCF70086CE0C /* ProfileScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3E0F712555BCF70086CE0C /* ProfileScreenViewController.swift */; };
 		4E3E0F7A2555F5BC0086CE0C /* LemmyJSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3E0F792555F5BC0086CE0C /* LemmyJSONDecoder.swift */; };
@@ -199,6 +199,8 @@
 		4EF31360257A7B530032B58D /* ContentScoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3135F257A7B530032B58D /* ContentScoreService.swift */; };
 		4EF3136C257A7F910032B58D /* ScaledControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3136B257A7F910032B58D /* ScaledControl.swift */; };
 		4EF313A2257BD5370032B58D /* MultilineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF313A1257BD5370032B58D /* MultilineButton.swift */; };
+		4EF313AA257BDF6E0032B58D /* ShowMoreHandlerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF313A9257BDF6E0032B58D /* ShowMoreHandlerService.swift */; };
+		4EF313B3257BE8670032B58D /* SafariActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF313B2257BE8670032B58D /* SafariActivity.swift */; };
 		4EF3AC5D254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */; };
 		4EF3AC62254A01DA00BEC9F1 /* CreateCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */; };
 		4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */; };
@@ -290,7 +292,7 @@
 		4E10709C25361846009EABDA /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		4E1A7E6025573CC900E193B7 /* LoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTableViewCell.swift; sourceTree = "<group>"; };
 		4E1A7E6525573EA400E193B7 /* ProfileScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenUI.swift; sourceTree = "<group>"; };
-		4E1A7E6A25573F1800E193B7 /* ProfileScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenModel.swift; sourceTree = "<group>"; };
+		4E1A7E6A25573F1800E193B7 /* ProfileScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewModel.swift; sourceTree = "<group>"; };
 		4E26FE9F2573E36C009DE4A7 /* PostScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenCoordinator.swift; sourceTree = "<group>"; };
 		4E3E0F712555BCF70086CE0C /* ProfileScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewController.swift; sourceTree = "<group>"; };
 		4E3E0F792555F5BC0086CE0C /* LemmyJSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyJSONDecoder.swift; sourceTree = "<group>"; };
@@ -450,6 +452,8 @@
 		4EF3135F257A7B530032B58D /* ContentScoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentScoreService.swift; sourceTree = "<group>"; };
 		4EF3136B257A7F910032B58D /* ScaledControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledControl.swift; sourceTree = "<group>"; };
 		4EF313A1257BD5370032B58D /* MultilineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineButton.swift; sourceTree = "<group>"; };
+		4EF313A9257BDF6E0032B58D /* ShowMoreHandlerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowMoreHandlerService.swift; sourceTree = "<group>"; };
+		4EF313B2257BE8670032B58D /* SafariActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariActivity.swift; sourceTree = "<group>"; };
 		4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityCoordinator.swift; sourceTree = "<group>"; };
 		4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityViewController.swift; sourceTree = "<group>"; };
 		4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityUI.swift; sourceTree = "<group>"; };
@@ -638,7 +642,7 @@
 				4EE26858255972590009D2BC /* ProfileScreenAssembly.swift */,
 				4E3E0F712555BCF70086CE0C /* ProfileScreenViewController.swift */,
 				4E1A7E6525573EA400E193B7 /* ProfileScreenUI.swift */,
-				4E1A7E6A25573F1800E193B7 /* ProfileScreenModel.swift */,
+				4E1A7E6A25573F1800E193B7 /* ProfileScreenViewModel.swift */,
 				4EBB227D255AF7A600B88079 /* ProfileScreenSubmoduleProtocol.swift */,
 				4EBB2255255AE64800B88079 /* Submodules */,
 			);
@@ -1295,6 +1299,14 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		4EF313B1257BE85E0032B58D /* Acitivities */ = {
+			isa = PBXGroup;
+			children = (
+				4EF313B2257BE8670032B58D /* SafariActivity.swift */,
+			);
+			path = Acitivities;
+			sourceTree = "<group>";
+		};
 		4EF3AC5B254A019800BEC9F1 /* CreateCommunity */ = {
 			isa = PBXGroup;
 			children = (
@@ -1408,6 +1420,7 @@
 				4EF3135F257A7B530032B58D /* ContentScoreService.swift */,
 				4EFA81B5255FF6B7008AF535 /* UserAccountService.swift */,
 				4E81655A2562A38400907D31 /* UpvoteDownvoteRequestService.swift */,
+				4EF313A9257BDF6E0032B58D /* ShowMoreHandlerService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1424,6 +1437,7 @@
 		4EFAB58F2551857C00B32780 /* UIExt */ = {
 			isa = PBXGroup;
 			children = (
+				4EF313B1257BE85E0032B58D /* Acitivities */,
 				4EFAB5902551858C00B32780 /* UIAlertController+Ext.swift */,
 				4EFAB5C62552F85D00B32780 /* UIView+Ext.swift */,
 				4EFAB5D72552FA1100B32780 /* UILabel+Ext.swift */,
@@ -1753,7 +1767,7 @@
 				4ECCEEDD250B8D930075F921 /* AppCoordinator.swift in Sources */,
 				4EF3AC6F254A021400BEC9F1 /* CreateCommunityViewModel.swift in Sources */,
 				4E10708E2534F7A7009EABDA /* LoginData.swift in Sources */,
-				4E1A7E6B25573F1800E193B7 /* ProfileScreenModel.swift in Sources */,
+				4E1A7E6B25573F1800E193B7 /* ProfileScreenViewModel.swift in Sources */,
 				4EF3ACFF2550757200BEC9F1 /* MarkdownParsedViewController.swift in Sources */,
 				4E1070602534770B009EABDA /* CommentsFrontPageViewController.swift in Sources */,
 				4EF3AC95254B60F000BEC9F1 /* CreateCommunityImagesCell.swift in Sources */,
@@ -1763,6 +1777,7 @@
 				4E0A8E5C255D586F00B06AF6 /* ProfileScreenAboutInputProtocol.swift in Sources */,
 				4EF3AC5D254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift in Sources */,
 				4EF312F22576D3230032B58D /* PostContentHeaderView.swift in Sources */,
+				4EF313B3257BE8670032B58D /* SafariActivity.swift in Sources */,
 				4E9BBA2C25553516004FF2F9 /* Error.swift in Sources */,
 				4EFA8157255F3215008AF535 /* FrontPageSearchViewController.swift in Sources */,
 				4ECCEEED250BE8870075F921 /* FrontPageViewController.swift in Sources */,
@@ -1873,6 +1888,7 @@
 				4E9183D0256C011200702F04 /* ChooseCategoryViewModel.swift in Sources */,
 				4E918383256726A400702F04 /* CreatePostDataFlow.swift in Sources */,
 				4EF3ACEA25502D5600BEC9F1 /* CommunityHeaderView.swift in Sources */,
+				4EF313AA257BDF6E0032B58D /* ShowMoreHandlerService.swift in Sources */,
 				4E886C8D253F51B90076B162 /* CreatePostViewModel.swift in Sources */,
 				4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */,
 				4E886C17253626950076B162 /* SignUpView.swift in Sources */,

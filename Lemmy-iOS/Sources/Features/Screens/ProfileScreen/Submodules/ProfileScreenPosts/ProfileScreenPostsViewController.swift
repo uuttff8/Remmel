@@ -21,6 +21,8 @@ class ProfileScreenPostsViewController: UIViewController {
         $0.delegate = self
     }
     
+    private let showMoreHandlerService = ShowMoreHandlerService()
+    
     lazy var profilePostsView = self.view as! ProfileScreenPostsViewController.View
     
     private var state: ProfileScreenPosts.ViewControllerState
@@ -99,6 +101,10 @@ extension ProfileScreenPostsViewController: ProfileScreenPostsViewDelegate {
 }
 
 extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
+    func showMore(in post: LemmyModel.PostView) {
+        self.showMoreHandlerService.showMoreInPost(on: self, post: post)
+    }
+    
     func upvote(voteButton: VoteButton, post: LemmyModel.PostView) {
         
     }

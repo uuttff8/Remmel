@@ -24,6 +24,7 @@ class PostContentHeaderView: UIView {
     // MARK: - Properties
     var communityButtonTap: (() -> Void)?
     var usernameButtonTap: (() -> Void)?
+    var showMoreButtonTap: (() -> Void)?
     
     private let imageSize = CGSize(width: 32, height: 32)
     
@@ -118,6 +119,7 @@ class PostContentHeaderView: UIView {
     private func setupTargets() {
         usernameButton.addTarget(self, action: #selector(usernameButtonTapped(sender:)), for: .touchUpInside)
         communityButton.addTarget(self, action: #selector(communityButtonTapped(sender:)), for: .touchUpInside)
+        showMoreButton.addTarget(self, action: #selector(showMoreButtonTapped(sender:)), for: .touchUpInside)
     }
     
     @objc private func usernameButtonTapped(sender: UIButton!) {
@@ -126,6 +128,10 @@ class PostContentHeaderView: UIView {
     
     @objc private func communityButtonTapped(sender: UIButton!) {
         communityButtonTap?()
+    }
+    
+    @objc private func showMoreButtonTapped(sender: UIButton!) {
+        showMoreButtonTap?()
     }
     
     private func setupAvatar(with url: String) {
