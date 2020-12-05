@@ -47,6 +47,11 @@ class PostContentHeaderView: UIView {
         $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
     }
     
+    private let showMoreButton = UIButton().then {
+        let image = Config.Image.ellipsis
+        $0.setImage(image, for: .normal)
+    }
+    
     private let byTitle = UILabel().then {
         $0.text = "by"
         $0.textColor = UIColor(red: 108/255, green: 117/255, blue: 125/255, alpha: 1)
@@ -81,30 +86,10 @@ class PostContentHeaderView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        
-        self.addSubview(mainStackView)
-        
-        bottomStackView.addStackViewItems(
-            .view(byTitle),
-            .view(usernameButton),
-            .view(dotTitle),
-            .view(publishedTitle)
-        )
-        
-        userCommunityStackView.addStackViewItems(
-            .view(communityButton),
-            .view(bottomStackView)
-        )
-        
-        mainStackView.addStackViewItems(
-            // avatarImageView if presented
-            .view(userCommunityStackView)
-        )
-        
-        mainStackView.snp.makeConstraints {
-            $0.top.bottom.leading.equalToSuperview()
-        }
-        
+                
+        setupView()
+        addSubviews()
+        makeConstraints()
         setupTargets()
     }
     
@@ -124,6 +109,8 @@ class PostContentHeaderView: UIView {
         
         if let avatarUrl = data.avatarImageUrl {
             setupAvatar(with: avatarUrl)
+        } else {
+            avatarImageView.removeFromSuperview()
         }
     }
     
@@ -146,8 +133,6 @@ class PostContentHeaderView: UIView {
         avatarImageView.snp.makeConstraints { (make) in
             make.size.equalTo(imageSize.height)
         }
-        
-        mainStackView.insertArrangedSubview(avatarImageView, at: 0)
     }
     
     func setupUIForInsidePost() {
@@ -170,5 +155,38 @@ class PostContentHeaderView: UIView {
     // MARK: - Overrided
     override var intrinsicContentSize: CGSize {
         CGSize(width: UIScreen.main.bounds.width, height: 30)
+    }
+}
+
+extension PostContentHeaderView: ProgrammaticallyViewProtocol {
+    func setupView() {
+    }
+    
+    func addSubviews() {
+        self.addSubview(mainStackView)
+        
+        bottomStackView.addStackViewItems(
+            .view(byTitle),
+            .view(usernameButton),
+            .view(dotTitle),
+            .view(publishedTitle)
+        )
+        
+        userCommunityStackView.addStackViewItems(
+            .view(communityButton),
+            .view(bottomStackView)
+        )
+        
+        mainStackView.addStackViewItems(
+            .view(avatarImageView),
+            .view(userCommunityStackView),
+            .view(showMoreButton)
+        )
+    }
+    
+    func makeConstraints() {
+        mainStackView.snp.makeConstraints {
+            $0.top.bottom.leading.trailing.equalToSuperview()
+        }
     }
 }

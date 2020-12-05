@@ -131,7 +131,6 @@ class CommentHeaderView: UIView {
         }
         
         setup(for: config)
-        mainStackView.setNeedsLayout()
     }
     
     func prepareForReuse() {
