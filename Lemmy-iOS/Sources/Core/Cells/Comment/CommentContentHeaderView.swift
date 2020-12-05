@@ -26,6 +26,7 @@ class CommentHeaderView: UIView {
     var communityButtonTap: (() -> Void)?
     var usernameButtonTap: (() -> Void)?
     var postNameButtonTap: (() -> Void)?
+    var showMoreTap: (() -> Void)?
 
     private let imageSize = CGSize(width: 32, height: 32)
 
@@ -65,6 +66,11 @@ class CommentHeaderView: UIView {
         $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
     }
     
+    private let showMoreButton = UIButton().then {
+        let image = Config.Image.ellipsis
+        $0.setImage(image, for: .normal)
+    }
+    
     private let bottomInnerStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.alignment = .center
@@ -72,6 +78,12 @@ class CommentHeaderView: UIView {
     }
     
     private let lineStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.distribution = .fillEqually
+//        $0.alignment = .leading
+    }
+    
+    private let lineInnerStackView = UIStackView().then {
         $0.axis = .vertical
         $0.alignment = .leading
     }
@@ -156,6 +168,7 @@ class CommentHeaderView: UIView {
         usernameButton.addTarget(self, action: #selector(usernameButtonTapped(sender:)), for: .touchUpInside)
         communityButton.addTarget(self, action: #selector(communityButtonTapped(sender:)), for: .touchUpInside)
         postNameButton.addTarget(self, action: #selector(postNameButtonTapped(sender:)), for: .touchUpInside)
+        showMoreButton.addTarget(self, action: #selector(showMoreButtonTapped(sender:)), for: .touchUpInside)
     }
 
     @objc private func communityButtonTapped(sender: UIButton!) {
@@ -169,6 +182,10 @@ class CommentHeaderView: UIView {
     @objc private func postNameButtonTapped(sender: UIButton!) {
         postNameButtonTap?()
     }
+    
+    @objc private func showMoreButtonTapped(sender: UIButton!) {
+        showMoreTap?()
+    }
 }
 
 extension CommentHeaderView: ProgrammaticallyViewProtocol {
@@ -181,9 +198,14 @@ extension CommentHeaderView: ProgrammaticallyViewProtocol {
             .view(publishedTitle)
         )
         
-        lineStackView.addStackViewItems(
+        lineInnerStackView.addStackViewItems(
             .view(usernameButton),
             .view(bottomInnerStackView)
+        )
+        
+        lineStackView.addStackViewItems(
+            .view(lineInnerStackView),
+            .view(showMoreButton)
         )
         
         infoStackView.addStackViewItems(

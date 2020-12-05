@@ -22,6 +22,8 @@ extension UIStackView {
         items.forEach {
             switch $0 {
             case .view(let view):
+                guard view !== self else { fatalError("Cant add subview item as self") }
+                
                 addArrangedSubview(view)
             case .customSpace(let space):
                 

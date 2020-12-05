@@ -96,6 +96,10 @@ class CommentContentView: UIView {
         headerView.postNameButtonTap = { [weak self] in
             self?.delegate?.postNameTapped(in: comment)
         }
+        
+        headerView.showMoreTap = { [weak self] in
+            self?.delegate?.showMoreAction(in: comment)
+        }
 
         // footer view
         footerView.showContextTap = { [weak self] in
@@ -112,10 +116,6 @@ class CommentContentView: UIView {
 
         footerView.replyTap = { [weak self] in
             self?.delegate?.reply(to: comment)
-        }
-
-        footerView.showMoreTap = { [weak self] in
-            self?.delegate?.showMoreAction(in: comment)
         }
     }
 }
