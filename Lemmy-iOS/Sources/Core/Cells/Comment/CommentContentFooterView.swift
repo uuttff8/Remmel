@@ -114,10 +114,6 @@ class CommentFooterView: UIView {
     @objc private func replyButtonTapped(sender: UIButton!) {
         replyTap?()
     }
-
-    @objc private func showMoreButtonTapped(sender: UIButton!) {
-//        showMoreTap?()
-    }
 }
 
 extension CommentFooterView: ProgrammaticallyViewProtocol {
@@ -131,7 +127,6 @@ extension CommentFooterView: ProgrammaticallyViewProtocol {
             .view(UIView()),
             .view(replyButton),
             .view(showContextButton) // deleted if in post
-//            .view(showMoreButton)
         )
     }
     

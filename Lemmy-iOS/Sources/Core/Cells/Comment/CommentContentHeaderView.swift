@@ -52,7 +52,7 @@ class CommentHeaderView: UIView {
         $0.font = UIFont.systemFont(ofSize: 14, weight: .regular)
     }
 
-    let postNameButton = UIButton().then {
+    let postNameButton = MultiLineButton().then {
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         $0.setTitleColor(UIColor(red: 241/255, green: 100/255, blue: 30/255, alpha: 1), for: .normal)
         $0.titleLabel?.lineBreakMode = .byTruncatingTail
@@ -79,8 +79,6 @@ class CommentHeaderView: UIView {
     
     private let lineStackView = UIStackView().then {
         $0.axis = .horizontal
-        $0.distribution = .fillEqually
-//        $0.alignment = .leading
     }
     
     private let lineInnerStackView = UIStackView().then {
@@ -128,9 +126,12 @@ class CommentHeaderView: UIView {
 
         if let avatarUrl = comment.avatarImageUrl {
             bindAvatar(url: avatarUrl)
+        } else {
+            avatarView.removeFromSuperview()
         }
         
         setup(for: config)
+        mainStackView.setNeedsLayout()
     }
     
     func prepareForReuse() {
@@ -144,14 +145,11 @@ class CommentHeaderView: UIView {
     func setup(for config: CommentContentView.Setting) {
         
         switch config {
-        case .inPost: break
-        case .list: setupForList()
+        case .inPost:
+            postNameButton.removeFromSuperview()
+        case .list:
+            break
         }
-        
-    }
-    
-    private func setupForList() {
-        mainStackView.addArrangedSubview(postNameButton)
     }
 
     // MARK: - Private API
@@ -160,8 +158,6 @@ class CommentHeaderView: UIView {
         avatarView.snp.makeConstraints { (make) in
             make.size.equalTo(imageSize.height)
         }
-
-        infoStackView.insertArrangedSubview(avatarView, at: 0)
     }
 
     private func setupButtonTargets() {
@@ -205,21 +201,33 @@ extension CommentHeaderView: ProgrammaticallyViewProtocol {
         
         lineStackView.addStackViewItems(
             .view(lineInnerStackView),
+            .view(UIView()),
             .view(showMoreButton)
         )
         
         infoStackView.addStackViewItems(
+            .view(avatarView),
             .view(lineStackView)
         )
         
         mainStackView.addStackViewItems(
-            .view(infoStackView)
+            .view(infoStackView),
+            .view(postNameButton)
         )
         
         self.addSubview(mainStackView)
     }
     
     func makeConstraints() {
+        
+        infoStackView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+        }
+        
+        postNameButton.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+        }
+        
         mainStackView.snp.makeConstraints { (make) in
             make.top.bottom.leading.trailing.equalToSuperview()
         }
