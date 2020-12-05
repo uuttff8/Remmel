@@ -46,3 +46,10 @@ class ChooseCategoryViewController: UIViewController {
         }
     }
 }
+
+// MARK: - CreatePostScreenViewController: StyledNavigationControllerPresentable -
+extension ChooseCategoryViewController: StyledNavigationControllerPresentable {
+    var navigationBarAppearanceOnFirstPresentation: StyledNavigationController.NavigationBarAppearanceState {
+        .pageSheetAppearance()
+    }
+}

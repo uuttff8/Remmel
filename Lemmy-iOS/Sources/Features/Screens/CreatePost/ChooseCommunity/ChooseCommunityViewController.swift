@@ -78,3 +78,10 @@ extension ChooseCommunityViewController: ChooseCommunityUIDelegate {
         self.viewModel.doSearchCommunities(request: .init(query: query))
     }
 }
+
+// MARK: - CreatePostScreenViewController: StyledNavigationControllerPresentable -
+extension ChooseCommunityViewController: StyledNavigationControllerPresentable {
+    var navigationBarAppearanceOnFirstPresentation: StyledNavigationController.NavigationBarAppearanceState {
+        .pageSheetAppearance()
+    }
+}
