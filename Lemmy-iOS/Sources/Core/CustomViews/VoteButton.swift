@@ -68,7 +68,8 @@ final class VoteButton: ScaledButton {
         let trDistance: CGFloat = voteType == .top ?
             -appearance.transitionDistance
             : appearance.transitionDistance
-                
+        
+        // TODO: rewrite with UIViewPropertyAnimator
         UIView.animate(
             withDuration: self.appearance.voteAnimationDuration,
             delay: 0.0,
