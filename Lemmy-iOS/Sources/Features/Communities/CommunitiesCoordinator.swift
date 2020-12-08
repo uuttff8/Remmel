@@ -22,4 +22,10 @@ class CommunitiesCoordinator: Coordinator {
     func start() {
         navigationController?.pushViewController(self.rootViewController, animated: true)
     }
+    
+    func goToCommunityScreen(communityId: Int) {
+        let assembly = CommunityScreenAssembly(communityId: communityId, communityInfo: nil)
+        let module = assembly.makeModule()
+        self.navigationController?.pushViewController(module, animated: true)
+    }
 }
