@@ -17,6 +17,7 @@ protocol CommentContentTableCellDelegate: AnyObject {
     func downvote(voteButton: VoteButtonsWithScoreView, newVote: LemmyVoteType, comment: LemmyModel.CommentView)
     func showContext(in comment: LemmyModel.CommentView)
     func reply(to comment: LemmyModel.CommentView)
+    func onLinkTap(in comment: LemmyModel.CommentView, url: URL)
     func showMoreAction(in comment: LemmyModel.CommentView)
 }
 

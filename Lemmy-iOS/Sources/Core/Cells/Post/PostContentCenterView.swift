@@ -129,4 +129,3 @@ extension PostContentCenterView: NantesLabelDelegate {
         onLinkTap?(link)
     }
 }
-

@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SafariServices
 
-class FrontPageCoordinator: Coordinator {
+class FrontPageCoordinator: NSObject, Coordinator {
     var rootViewController: FrontPageViewController
     var childCoordinators: [Coordinator] = []
 
@@ -105,5 +106,17 @@ class FrontPageCoordinator: Coordinator {
     func hideSearchIfNeeded() {
         self.searchViewController.hideSearchIfNeeded()
         self.searchViewController.searchQuery = ""
+    }
+    
+    func goToBrowser(with url: URL) {
+        let safariVc = SFSafariViewController(url: url)
+        safariVc.delegate = self
+        rootViewController.present(safariVc, animated: true)
+    }
+}
+
+extension FrontPageCoordinator: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        rootViewController.dismiss(animated: true)
     }
 }

@@ -100,6 +100,11 @@ class CommentContentView: UIView {
         headerView.showMoreTap = { [weak self] in
             self?.delegate?.showMoreAction(in: comment)
         }
+        
+        // center view
+        centerView.onLinkTap = { [weak self] url in
+            self?.delegate?.onLinkTap(in: comment, url: url)
+        }
 
         // footer view
         footerView.showContextTap = { [weak self] in

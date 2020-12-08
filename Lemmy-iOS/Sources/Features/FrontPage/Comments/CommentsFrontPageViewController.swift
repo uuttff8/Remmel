@@ -132,6 +132,10 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
         print("reply to \(comment.id)")
     }
     
+    func onLinkTap(in comment: LemmyModel.CommentView, url: URL) {
+        self.coordinator?.goToBrowser(with: url)
+    }
+    
     func showMoreAction(in comment: LemmyModel.CommentView) {
         showMoreHandler.showMoreInComment(on: self, comment: comment)
     }

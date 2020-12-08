@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Nantes
+import SwiftyMarkdown
 
 // MARK: - CommentCenterView: UIView -
 class CommentCenterView: UIView {
@@ -18,8 +20,11 @@ class CommentCenterView: UIView {
     }
 
     // MARK: - Properties
-    private let commentLabel = UILabel().then {
+    var onLinkTap: ((URL) -> Void)?
+    
+    private lazy var commentLabel = NantesLabel().then {
         $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        $0.delegate = self
         $0.numberOfLines = 0
     }
 
@@ -40,10 +45,11 @@ class CommentCenterView: UIView {
     // MARK: - Public API
     func bind(with data: CommentCenterView.ViewData) {
         let commentText: NSAttributedString = data.isDeleted
-            ? NSAttributedString(string: "Deleted by creator", attributes: [.font: UIFont.italicSystemFont(ofSize: 17)])
-            : NSAttributedString(string: data.comment)
+            ? createAttributesForDeletedComment()
+            : createAttributesForNormalComment(data: data)
         
         commentLabel.attributedText = commentText
+        commentLabel.linkAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
     }
     
     func prepareForReuse() {
@@ -53,6 +59,16 @@ class CommentCenterView: UIView {
     // MARK: - Overrided
     override var intrinsicContentSize: CGSize {
         CGSize(width: UIScreen.main.bounds.width, height: 30)
+    }
+    
+    private func createAttributesForDeletedComment() -> NSAttributedString {
+        NSAttributedString(string: "Deleted by creator", attributes: [.font: UIFont.italicSystemFont(ofSize: 17)])
+    }
+    
+    private func createAttributesForNormalComment(data: CommentCenterView.ViewData) -> NSAttributedString {
+        let md = SwiftyMarkdown(string: data.comment)
+        md.link.color = .systemBlue
+        return md.attributedString()
     }
 }
 
@@ -67,5 +83,11 @@ extension CommentCenterView: ProgrammaticallyViewProtocol {
         commentLabel.snp.makeConstraints { (make) in
             make.top.leading.trailing.bottom.equalToSuperview()
         }
+    }
+}
+
+extension CommentCenterView: NantesLabelDelegate {
+    func attributedLabel(_ label: NantesLabel, didSelectLink link: URL) {
+        onLinkTap?(link)
     }
 }
