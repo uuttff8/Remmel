@@ -107,5 +107,42 @@ extension LemmyModel {
         struct DeleteCommunityResponse: Codable, Equatable, Hashable {
             let community: CommunityView
         }
+        
+        // MARK: - BanFromCommunity -
+        struct BanFromCommunityRequest: Codable, Equatable, Hashable {
+            let userId: Int
+            let communityId: Int
+            let ban: Bool
+            let removeData: Bool? // Removes/Restores their comments and posts for that community
+            let reason: String?
+            let expires: Int?
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case userId = "user_id"
+                case communityId = "community_id"
+                case ban
+                case removeData = "remove_data"
+                case reason, expires, auth
+            }
+        }
+        
+        struct BanFromCommunityResponse: Codable, Equatable, Hashable {
+            let user: UserView
+            let banned: Bool
+        }
+        
+        // MARK: - AddModToCommunity -
+        struct AddModToCommunityRequest: Codable, Equatable, Hashable {
+            let community_id: Int
+            let user_id: Int
+            let added: Bool
+            let auth: String
+        }
+        
+        struct AddModToCommunityResponse: Codable, Equatable, Hashable {
+            let moderators: [CommunityModeratorView]
+        }
+        
     }
 }
