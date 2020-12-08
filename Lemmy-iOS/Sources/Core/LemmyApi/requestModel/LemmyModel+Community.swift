@@ -56,5 +56,21 @@ extension LemmyModel {
             let community: CommunityView
             let moderators: [CommunityModeratorView]
         }
+        
+        // MARK: - Follow Community -
+        struct FollowCommunityRequest: Codable, Equatable, Hashable {
+            let communityId: Int
+            let follow: Bool
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case communityId = "community_id"
+                case follow, auth
+            }
+        }
+        
+        struct FollowCommunityResponse: Codable, Equatable, Hashable {
+            let community: CommunityView
+        }
     }
 }
