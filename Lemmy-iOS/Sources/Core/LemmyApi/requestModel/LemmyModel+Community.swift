@@ -194,5 +194,31 @@ extension LemmyModel {
             let moderators: [CommunityModeratorView]
             let admins: [UserView]
         }
+        
+        // MARK: - CommunityJoin -
+        struct CommunityJoinRequest: Codable, Equatable, Hashable {
+            let communityId: Int
+            
+            enum CodingKeys: String, CodingKey {
+                case communityId = "community_id"
+            }
+        }
+        
+        struct CommunityJoinResponse: Codable, Equatable, Hashable {
+            let joined: Bool
+        }
+        
+        // MARK: - ModJoin -
+        struct ModJoinRequest: Codable, Equatable, Hashable {
+            let communityId: Int
+            
+            enum CodingKeys: String, CodingKey {
+                case communityId = "community_id"
+            }
+        }
+        
+        struct ModJoinResponse: Codable, Equatable, Hashable {
+            let joined: Bool
+        }
     }
 }
