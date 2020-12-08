@@ -26,6 +26,18 @@ class PostContentView: UIView {
     private let footerView = PostContentFooterView()
     private let separatorView = UIView.Configutations.separatorView
     
+    init() {
+        super.init(frame: .zero)
+        setupView()
+        addSubviews()
+        makeConstraints()
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func bind(with post: LemmyModel.PostView, config: Configuration) {
         self.configuration = config
         setupUI()
@@ -87,47 +99,6 @@ class PostContentView: UIView {
     }
     
     private func setupUI() {
-        
-        // padding and separator
-        self.addSubview(paddingView)
-        self.addSubview(separatorView)
-        
-        paddingView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(5) // SELF SIZE TOP HERE
-            make.bottom.equalToSuperview().inset(5)
-            make.leading.trailing.equalToSuperview().inset(16)
-        }
-        
-        separatorView.snp.makeConstraints { (make) in
-            make.bottom.equalToSuperview()
-            make.trailing.equalToSuperview().inset(10)
-            make.leading.equalToSuperview().offset(10)
-        }
-        
-        // header view
-        paddingView.addSubview(headerView)
-        
-        headerView.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalToSuperview()
-        }
-        
-        // center view
-        paddingView.addSubview(centerView)
-        
-        centerView.snp.makeConstraints { (make) in
-            make.top.equalTo(headerView.snp.bottom).offset(5)
-            make.leading.trailing.equalToSuperview()
-        }
-        
-        // footer view
-        paddingView.addSubview(footerView)
-        
-        footerView.snp.makeConstraints { (make) in
-            make.top.equalTo(centerView.snp.bottom).offset(15)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview() // SELF SIZE BOTTOM HERE
-        }
-        
         switch configuration {
         case .default: break
         case .insideComminity: setupUIForInsidePost()
@@ -150,5 +121,51 @@ class PostContentView: UIView {
     
     private func setupUIForInsidePost() {
         self.headerView.setupUIForInsidePost()
+    }
+}
+
+extension PostContentView: ProgrammaticallyViewProtocol {
+    func setupView() {
+        
+    }
+    
+    func addSubviews() {
+        // padding and separator
+        self.addSubview(paddingView)
+        self.addSubview(separatorView)
+        
+        paddingView.addSubview(headerView)
+        paddingView.addSubview(centerView)
+        paddingView.addSubview(footerView)
+    }
+    
+    func makeConstraints() {
+        paddingView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(5) // SELF SIZE TOP HERE
+            make.bottom.equalToSuperview().inset(5)
+            make.leading.trailing.equalToSuperview().inset(16)
+        }
+        
+        separatorView.snp.makeConstraints { (make) in
+            make.bottom.equalToSuperview()
+            make.trailing.equalToSuperview().inset(10)
+            make.leading.equalToSuperview().offset(10)
+        }
+                
+        headerView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalToSuperview()
+        }
+                
+        centerView.snp.makeConstraints { (make) in
+            make.top.equalTo(headerView.snp.bottom).offset(5)
+            make.leading.trailing.equalToSuperview()
+        }
+                
+        footerView.snp.makeConstraints { (make) in
+            make.top.equalTo(centerView.snp.bottom).offset(15)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview() // SELF SIZE BOTTOM HERE
+        }
+
     }
 }
