@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FrameLayoutKit
 
 class VoteButtonsWithScoreView: UIView {
     
@@ -21,7 +20,6 @@ class VoteButtonsWithScoreView: UIView {
     var upvoteButtonTap: ((VoteButtonsWithScoreView, LemmyVoteType) -> Void)?
     var downvoteButtonTap: ((VoteButtonsWithScoreView, LemmyVoteType) -> Void)?
     
-//    private let frameLayout = StackFrameLayout(axis: .horizontal)
     private let stackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 8
@@ -78,15 +76,6 @@ class VoteButtonsWithScoreView: UIView {
             downvoteButtonTap?(self, type)
         }
     }
-    
-//    override func sizeThatFits(_ size: CGSize) -> CGSize {
-//        return frameLayout.sizeThatFits(size)
-//    }
-//
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        frameLayout.frame = bounds
-//    }
 }
 
 extension VoteButtonsWithScoreView: ProgrammaticallyViewProtocol {
@@ -100,23 +89,11 @@ extension VoteButtonsWithScoreView: ProgrammaticallyViewProtocol {
             .view(scoreLabel),
             .view(downvoteBtn)
         )
-//        self.addSubview(frameLayout)
-//        self.addSubview(upvoteBtn)
-//        self.addSubview(downvoteBtn)
     }
     
     func makeConstraints() {
         stackView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-//        frameLayout + HStackLayout {
-//            $0.spacing = 8
-//            $0.distribution = .equal
-//            $0.alignment = (.center , .center)
-//
-//            ($0 + upvoteBtn).extendSize = CGSize(width: 22, height: 22)
-//            $0 + scoreLabel
-//            ($0 + downvoteBtn).extendSize = CGSize(width: 22, height: 22)
-//        }
     }
 }
