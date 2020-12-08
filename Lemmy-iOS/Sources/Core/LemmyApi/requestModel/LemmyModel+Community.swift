@@ -166,5 +166,33 @@ extension LemmyModel {
         struct EditCommunityResponse: Codable, Equatable, Hashable {
             let community: CommunityView
         }
+        
+        // MARK: - GetFollowedCommunities -
+        struct GetFollowedCommunitiesRequest: Codable, Equatable, Hashable {
+            let auth: String
+        }
+        
+        struct GetFollowedCommunitiesResponse: Codable, Equatable, Hashable {
+            let communities: [CommunityFollowerView]
+        }
+        
+        // MARK: - TransferCommunity -
+        struct TransferCommunityRequest: Codable, Equatable, Hashable {
+            let communityId: Int
+            let userId: Int
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case communityId = "community_id"
+                case userId = "user_id"
+                case auth
+            }
+        }
+        
+        struct TransferCommunityResponse: Codable, Equatable, Hashable {
+            let community: CommunityView
+            let moderators: [CommunityModeratorView]
+            let admins: [UserView]
+        }
     }
 }

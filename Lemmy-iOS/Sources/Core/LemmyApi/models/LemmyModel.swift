@@ -589,7 +589,7 @@ enum LemmyModel {
     }
 
     // MARK: - CommunityFollowerView -
-    struct CommunityFollowerView: Codable, Equatable {
+    struct CommunityFollowerView: Codable, Equatable, Hashable {
         let id: Int
         let communityId: Int
         let userId: Int
