@@ -4,10 +4,6 @@
 
 import Foundation
 
-// Deprecated in 8.4
-@available(*, deprecated, message: "Deprecated to avoid name clashes with SwiftUI. Please use `PlatformImage` instead.")
-public typealias Image = PlatformImage
-
 public extension ImagePipeline.Configuration {
     // Deprecated in 9.0
     @available(*, deprecated, message: "Please use `dataCacheOptions.contents` instead.")
@@ -42,7 +38,7 @@ public extension ImagePipeline.Configuration {
     /// - warning: Soft-deprecated in 9.0. The default image decoder now
     /// automatically attaches image data to the newly added ImageContainer type.
     /// To learn how to implement animated image support using this new type,
-    /// see the new Image Formats guide https://github.com/kean/Nuke/blob/9.1.0/Documentation/Guides/image-formats.md"
+    /// see the new Image Formats guide https://github.com/kean/Nuke/blob/9.2.0/Documentation/Guides/image-formats.md"
     static var isAnimatedImageDataEnabled: Bool {
         get { _isAnimatedImageDataEnabled }
         set { _isAnimatedImageDataEnabled = newValue }
@@ -87,4 +83,16 @@ extension PlatformImage {
         get { objc_getAssociatedObject(self, &_animatedImageDataAK) as? Data }
         set { objc_setAssociatedObject(self, &_animatedImageDataAK, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
+}
+
+public extension DataCaching {
+    // Deprecated in 9.2
+    @available(*, deprecated, message: "This method exists for backward-compatibility with Nuke 9.1.x and lower.")
+    func removeData(for key: String) {}
+}
+
+public extension DataLoading {
+    // Deprecated in 9.2
+    @available(*, deprecated, message: "This method exists for backward-compatibility with Nuke 9.1.x and lower.")
+    func removeData(for request: URLRequest) {}
 }

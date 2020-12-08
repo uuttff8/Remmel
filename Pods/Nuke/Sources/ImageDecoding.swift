@@ -257,7 +257,11 @@ public final class ImageDecoderRegistry {
     /// A shared registry.
     public static let shared = ImageDecoderRegistry()
 
-    private var matches = [(ImageDecodingContext) -> ImageDecoding?]()
+    private struct Match {
+        let closure: (ImageDecodingContext) -> ImageDecoding?
+    }
+
+    private var matches = [Match]()
 
     public init() {
         self.register(ImageDecoders.Default.self)
@@ -266,7 +270,7 @@ public final class ImageDecoderRegistry {
     /// Returns a decoder which matches the given context.
     public func decoder(for context: ImageDecodingContext) -> ImageDecoding? {
         for match in matches {
-            if let decoder = match(context) {
+            if let decoder = match.closure(context) {
                 return decoder
             }
         }
@@ -289,7 +293,7 @@ public final class ImageDecoderRegistry {
     /// Registers a decoder to be used in a given decoding context. The closure
     /// is going to be executed before all other already registered closures.
     public func register(_ match: @escaping (ImageDecodingContext) -> ImageDecoding?) {
-        matches.insert(match, at: 0)
+        matches.insert(Match(closure: match), at: 0)
     }
 
     /// Removes all registered decoders.
@@ -334,6 +338,11 @@ public struct ImageType: ExpressibleByStringLiteral, Hashable {
     /// HEIF (High Effeciency Image Format) by Apple.
     public static let heic: ImageType = "public.heic"
 
+    /// WebP
+    ///
+    /// Native decoding support only available on the following platforms: macOS 11,
+    /// iOS 14, watchOS 7, tvOS 14.
+    public static let webp: ImageType = "public.webp"
 }
 
 public extension ImageType {
@@ -346,12 +355,13 @@ public extension ImageType {
     }
 
     private static func make(_ data: Data) -> ImageType? {
-        func _match(_ numbers: [UInt8]) -> Bool {
+        func _match(_ numbers: [UInt8?]) -> Bool {
             guard data.count >= numbers.count else {
                 return false
             }
-            return !zip(numbers.indices, numbers).contains { (index, number) in
-                data[index] != number
+            return zip(numbers.indices, numbers).allSatisfy { index, number in
+                guard let number = number else { return true }
+                return data[index] == number
             }
         }
 
@@ -363,6 +373,9 @@ public extension ImageType {
 
         // GIF magic numbers https://en.wikipedia.org/wiki/GIF
         if _match([0x47, 0x49, 0x46]) { return .gif }
+
+        // WebP magic numbers https://en.wikipedia.org/wiki/List_of_file_signatures
+        if _match([0x52, 0x49, 0x46, 0x46, nil, nil, nil, nil, 0x57, 0x45, 0x42, 0x50]) { return .webp }
 
         // Either not enough data, or we just don't support this format.
         return nil
