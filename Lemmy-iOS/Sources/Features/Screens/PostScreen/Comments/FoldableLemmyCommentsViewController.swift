@@ -8,9 +8,13 @@
 
 import UIKit
 
+protocol CommentsViewControllerDelegate: CommentContentTableCellDelegate { }
+
 final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyCommentTableViewDataSource {
     var allComments: [LemmyComment] = []
-        
+    
+    weak var commentDelegate: CommentsViewControllerDelegate?
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -52,6 +56,7 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         let comment = currentlyDisplayed[indexPath.row] as! LemmyComment
         
         commentCell.bind(with: comment.commentContent!, level: comment.level, appearance: .init(config: .inPost))
+        commentCell.commentContentView.delegate = commentDelegate
         
         return commentCell
     }

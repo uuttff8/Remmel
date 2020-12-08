@@ -22,7 +22,9 @@ class PostScreenViewController: UIViewController, Containered {
         $0.delegate = self
     }
     
-    let foldableCommentsViewController = FoldableLemmyCommentsViewController()
+    private lazy var foldableCommentsViewController = FoldableLemmyCommentsViewController().then {
+        $0.commentDelegate = self
+    }
     
     private var state: PostScreen.ViewControllerState
 
@@ -111,6 +113,54 @@ extension PostScreenViewController: PostContentTableCellDelegate {
         ContinueIfLogined(on: self, coordinator: coordinator) {
             viewModel.doPostLike(voteButton: voteButton, for: newVote, post: post)
         }
+    }
+}
+
+extension PostScreenViewController: CommentsViewControllerDelegate {
+    func postNameTapped(in comment: LemmyModel.CommentView) {
+        // not using
+    }
+    
+    func usernameTapped(in comment: LemmyModel.CommentView) {
+        self.coordinator?.goToProfileScreen(by: comment.creatorId)
+    }
+    
+    func communityTapped(in comment: LemmyModel.CommentView) {
+        self.coordinator?.goToCommunityScreen(communityId: comment.communityId)
+    }
+    
+    func upvote(voteButton: VoteButtonsWithScoreView, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+        guard let coordinator = coordinator else { return }
+        
+        ContinueIfLogined(on: self, coordinator: coordinator) {
+            let type = voteButton.viewData?.voteType == .up ? .none : LemmyVoteType.up
+            voteButton.viewData?.voteType = type
+            
+            voteButton.upvoteBtn.setVoted(to: type)
+        }
+    }
+    
+    func downvote(voteButton: VoteButtonsWithScoreView, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+        guard let coordinator = coordinator else { return }
+        
+        ContinueIfLogined(on: self, coordinator: coordinator) {
+            let type = voteButton.viewData?.voteType == .down ? .none : LemmyVoteType.down
+            voteButton.viewData?.voteType = type
+            
+            voteButton.downvoteBtn.setVoted(to: type)
+        }
+    }
+        
+    func showContext(in comment: LemmyModel.CommentView) {
+        print("show context in \(comment.id)")
+    }
+    
+    func reply(to comment: LemmyModel.CommentView) {
+        print("reply to \(comment.id)")
+    }
+    
+    func showMoreAction(in comment: LemmyModel.CommentView) {
+        showMoreHandlerService.showMoreInComment(on: self, comment: comment)
     }
 }
 

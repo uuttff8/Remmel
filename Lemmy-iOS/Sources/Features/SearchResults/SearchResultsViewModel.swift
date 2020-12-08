@@ -36,13 +36,13 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
     func doLoadContent(request: SearchResults.LoadContent.Request) {
         let params = LemmyModel.Search.SearchRequest(query: self.searchQuery,
                                                      type: self.searchType,
+                                                     sort: .topAll,
+                                                     page: 1,
+                                                     limit: 20,
                                                      communityId: nil,
                                                      communityName: nil,
-                                                     sort: .active,
-                                                     page: 1,
-                                                     limit: 50,
                                                      auth: userAccountService.jwtToken)
-        
+
         ApiManager.requests.asyncSearch(parameters: params)
             .receive(on: RunLoop.main)
             .sink { (completion) in
@@ -103,3 +103,30 @@ enum SearchResults {
         case result(Results)
     }
 }
+
+
+// yes
+//{
+//  "op": "Search",
+//  "data": {
+//    "q": "There are subtantail privacy ",
+//    "type_": "Posts",
+//    "sort": "TopAll",
+//    "page": 1
+//    "limit": 50,
+//    "auth": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTQxNjUsImlzcyI6ImxlbW15Lm1sIn0.NNTF0FbKEyG-y1fPqvccQ8ut-rBCyYEncU5LbHv-CTE",
+//  }
+//}
+//
+//// no
+//{
+//  "op": "Search",
+//  "data": {
+//    "limit": 20,
+//    "type_": "Posts",
+//    "auth": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTQxNjUsImlzcyI6ImxlbW15Lm1sIn0.NNTF0FbKEyG-y1fPqvccQ8ut-rBCyYEncU5LbHv-CTE",
+//    "q": "There are subtantail privacy",
+//    "sort": "TopAll",
+//    "page": 1
+//  }
+//}

@@ -190,6 +190,10 @@ enum LemmyModel {
             guard let myVote = self.myVote, myVote != 0 else { return LemmyVoteType.none }
             return myVote == 1 ? .up : .down
         }
+        
+        func getApIdRelatedToPost() -> String {
+            return "https://lemmy.ml/post/\(self.postId)/comment/\(self.id)"
+        }
     }
 
     struct ModRemoveCommentView: Codable, Equatable, Hashable {

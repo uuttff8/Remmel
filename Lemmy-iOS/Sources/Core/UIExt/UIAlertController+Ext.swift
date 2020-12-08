@@ -25,6 +25,9 @@ extension UIAlertController {
             
             return alertControl
         }
-        
+    }
+    
+    open func addActions(_ actions: [UIAlertAction]) {
+        actions.forEach { self.addAction($0) }
     }
 }

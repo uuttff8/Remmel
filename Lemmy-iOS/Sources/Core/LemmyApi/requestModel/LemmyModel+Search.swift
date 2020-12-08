@@ -15,11 +15,11 @@ extension LemmyModel {
         struct SearchRequest: Codable, Equatable, Hashable {
             let query: String
             let type: LemmySearchSortType
-            let communityId: Int?
-            let communityName: String?
             let sort: LemmySortType
             let page: Int?
             let limit: Int?
+            let communityId: Int?
+            let communityName: String?
             let auth: String?
 
             enum CodingKeys: String, CodingKey {

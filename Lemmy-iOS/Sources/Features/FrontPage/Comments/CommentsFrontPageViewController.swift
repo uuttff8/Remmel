@@ -23,6 +23,9 @@ class CommentsFrontPageViewController: UIViewController {
         $0.delegate = model
         $0.keyboardDismissMode = .onDrag
     }
+    
+    private let showMoreHandler = ShowMoreHandlerService()
+    
     private lazy var dataSource = makeDataSource()
     private var snapshot = NSDiffableDataSourceSnapshot<Section, LemmyModel.CommentView>()
 
@@ -107,8 +110,6 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
             voteButton.viewData?.voteType = type
             
             voteButton.upvoteBtn.setVoted(to: type)
-        } elseAction: {
-            print("KEK")
         }
     }
     
@@ -120,8 +121,6 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
             voteButton.viewData?.voteType = type
             
             voteButton.downvoteBtn.setVoted(to: type)
-        } elseAction: {
-            print("asasd")
         }
     }
         
@@ -134,6 +133,6 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
     }
     
     func showMoreAction(in comment: LemmyModel.CommentView) {
-        print("show more in \(comment.id)")
+        showMoreHandler.showMoreInComment(on: self, comment: comment)
     }
 }
