@@ -144,5 +144,27 @@ extension LemmyModel {
             let moderators: [CommunityModeratorView]
         }
         
+        // MARK: - EditCommunity -
+        struct EditCommunityRequest: Codable, Equatable, Hashable {
+            let editId: Int
+            let title: String
+            let description: String?
+            let icon: String?
+            let banner: String?
+            let categoryId: Int
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case editId = "edit_id"
+                case categoryId = "category_id"
+                case title, description
+                case icon, banner
+                case auth
+            }
+        }
+        
+        struct EditCommunityResponse: Codable, Equatable, Hashable {
+            let community: CommunityView
+        }
     }
 }
