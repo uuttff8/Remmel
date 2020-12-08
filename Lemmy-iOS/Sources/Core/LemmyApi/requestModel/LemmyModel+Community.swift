@@ -57,7 +57,7 @@ extension LemmyModel {
             let moderators: [CommunityModeratorView]
         }
         
-        // MARK: - Follow Community -
+        // MARK: - FollowCommunity -
         struct FollowCommunityRequest: Codable, Equatable, Hashable {
             let communityId: Int
             let follow: Bool
@@ -70,6 +70,41 @@ extension LemmyModel {
         }
         
         struct FollowCommunityResponse: Codable, Equatable, Hashable {
+            let community: CommunityView
+        }
+        
+        // MARK: - RemoveCommunity -
+        // Only admins can remove a community.
+        struct RemoveCommunityRequest: Codable, Equatable, Hashable {
+            let editId: Int
+            let removed: Bool
+            let reason: String?
+            let expires: Int?
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case editId = "edit_id"
+                case removed, reason, expires, auth
+            }
+        }
+        
+        struct RemoveCommunityResponse: Codable, Equatable, Hashable {
+            let community: CommunityView
+        }
+        
+        // MARK: - DeleteCommunity -
+        struct DeleteCommunityRequest: Codable, Equatable, Hashable {
+            let editId: Int
+            let deleted: Bool
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case editId = "edit_id"
+                case deleted, auth
+            }
+        }
+        
+        struct DeleteCommunityResponse: Codable, Equatable, Hashable {
             let community: CommunityView
         }
     }
