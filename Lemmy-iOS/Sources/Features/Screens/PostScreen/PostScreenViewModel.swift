@@ -42,7 +42,8 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
             .receive(on: RunLoop.main)
             .sink { (error) in
                 print(error)
-            } receiveValue: { (response) in
+            } receiveValue: { [weak self] (response) in
+                guard let self = self else { return }
                 self.viewController?.displayPost(
                     response: .init(
                         state: .result(
@@ -68,8 +69,6 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     private func makeViewData(from data: LemmyModel.Post.GetPostResponse) -> PostScreenViewController.View.ViewData {
         let comments = CommentListingSort(comments: data.comments)
             .createCommentsTree()
-        
-        print(comments)
         
         return .init(post: data.post, comments: comments)
     }

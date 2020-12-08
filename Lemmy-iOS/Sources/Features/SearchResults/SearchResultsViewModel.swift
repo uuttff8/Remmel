@@ -47,8 +47,8 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
             .receive(on: RunLoop.main)
             .sink { (completion) in
                 print(completion)
-            } receiveValue: { (response) in
-                
+            } receiveValue: { [weak self] (response) in
+                guard let self = self else { return }
                 self.makeViewModelAndPresent(type: self.searchType,
                                              response: response)
                 
@@ -103,30 +103,3 @@ enum SearchResults {
         case result(Results)
     }
 }
-
-
-// yes
-//{
-//  "op": "Search",
-//  "data": {
-//    "q": "There are subtantail privacy ",
-//    "type_": "Posts",
-//    "sort": "TopAll",
-//    "page": 1
-//    "limit": 50,
-//    "auth": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTQxNjUsImlzcyI6ImxlbW15Lm1sIn0.NNTF0FbKEyG-y1fPqvccQ8ut-rBCyYEncU5LbHv-CTE",
-//  }
-//}
-//
-//// no
-//{
-//  "op": "Search",
-//  "data": {
-//    "limit": 20,
-//    "type_": "Posts",
-//    "auth": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTQxNjUsImlzcyI6ImxlbW15Lm1sIn0.NNTF0FbKEyG-y1fPqvccQ8ut-rBCyYEncU5LbHv-CTE",
-//    "q": "There are subtantail privacy",
-//    "sort": "TopAll",
-//    "page": 1
-//  }
-//}
