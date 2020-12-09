@@ -19,7 +19,11 @@ final class ProfileScreenPostsAssembly: Assembly {
     }
 
     func makeModule() -> ProfileScreenPostsViewController {
-        let viewModel = ProfileScreenPostsViewModel()
+        let viewModel = ProfileScreenPostsViewModel(
+            contentScoreService: ContentScoreService(
+                voteService: UpvoteDownvoteRequestService(userAccountService: UserAccountService())
+            )
+        )
         let vc = ProfileScreenPostsViewController(viewModel: viewModel)
         vc.coordinator = coordinator.value
         viewModel.viewController = vc

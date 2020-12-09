@@ -17,6 +17,7 @@ final class ProfileScreenCoordinator: GenericCoordinator<ProfileScreenViewContro
     }
     
     override func start() {
+        rootViewController.coordinator = self
         navigationController?.pushViewController(rootViewController, animated: true)
     }
     

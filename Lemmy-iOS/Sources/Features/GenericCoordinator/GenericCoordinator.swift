@@ -16,8 +16,8 @@ class GenericCoordinator<T: UIViewController>: NSObject, Coordinator, SFSafariVi
     var navigationController: UINavigationController?
     
     init(navigationController: UINavigationController?) {
-        self.rootViewController = T()
         self.navigationController = navigationController
+        self.rootViewController = T(nibName: nil, bundle: nil)
     }
     
     func start() {
@@ -31,8 +31,9 @@ class GenericCoordinator<T: UIViewController>: NSObject, Coordinator, SFSafariVi
     }
     
     func goToProfileScreen(by userId: Int) {
-        let assembly = ProfileInfoScreenAssembly(profileId: userId)
-        navigationController?.pushViewController(assembly.makeModule(), animated: true)
+        let coordinator = ProfileScreenCoordinator(navigationController: navigationController, profileId: userId)
+        self.store(coordinator: coordinator)
+        coordinator.start()
     }
     
     func goToBrowser(with url: URL) {

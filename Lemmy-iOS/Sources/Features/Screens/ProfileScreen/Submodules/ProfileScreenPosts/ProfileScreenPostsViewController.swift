@@ -104,11 +104,19 @@ extension ProfileScreenPostsViewController: ProfileScreenPostsViewDelegate {
 
 extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
     func upvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
+        guard let coordinator = coordinator else { return }
         
+        ContinueIfLogined(on: self, coordinator: coordinator) {
+            self.viewModel.doPostLike(voteButton: voteButton, for: newVote, post: post)
+        }
     }
     
     func downvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
+        guard let coordinator = coordinator else { return }
         
+        ContinueIfLogined(on: self, coordinator: coordinator) {
+            self.viewModel.doPostLike(voteButton: voteButton, for: newVote, post: post)
+        }
     }
     
     func showMore(in post: LemmyModel.PostView) {
@@ -135,6 +143,6 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
     }
     
     func tableDidSelect(post: LemmyModel.PostView) {
-        
+        self.coordinator?.goToPostScreen(post: post)
     }
 }

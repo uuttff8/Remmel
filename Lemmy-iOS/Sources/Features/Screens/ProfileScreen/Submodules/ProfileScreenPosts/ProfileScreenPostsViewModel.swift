@@ -11,16 +11,23 @@ import Combine
 
 protocol ProfileScreenPostsViewModelProtocol {
     func doNextPostsFetch(request: ProfileScreenPosts.NextProfilePostsLoad.Request)
+    func doPostLike(voteButton: VoteButton, for newVote: LemmyVoteType, post: LemmyModel.PostView) 
 }
 
 class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
     typealias PaginationState = (page: Int, hasNext: Bool)
         
+    private let contentScoreService: ContentScoreServiceProtocol
+    
     weak var viewController: ProfileScreenPostViewControllerProtocol?
     
     private var paginationState = PaginationState(page: 1, hasNext: true)
     
     var cancellable = Set<AnyCancellable>()
+    
+    init(contentScoreService: ContentScoreServiceProtocol) {
+        self.contentScoreService = contentScoreService
+    }
     
     func doNextPostsFetch(request: ProfileScreenPosts.NextProfilePostsLoad.Request) {
         self.paginationState.page += 1
@@ -47,6 +54,13 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
                 
             }.store(in: &cancellable)
     }
+    
+    func doPostLike(voteButton: VoteButton, for newVote: LemmyVoteType, post: LemmyModel.PostView) {
+        self.contentScoreService.votePost(voteButton: voteButton, for: newVote, post: post) { (post) in
+            // save this post to table data source
+        }
+    }
+
 }
 
 extension ProfileScreenPostsViewModel: ProfileScreenPostsInputProtocol {
