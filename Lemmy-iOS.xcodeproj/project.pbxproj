@@ -203,6 +203,7 @@
 		4EF313B3257BE8670032B58D /* SafariActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF313B2257BE8670032B58D /* SafariActivity.swift */; };
 		4EF313BC257BEDC20032B58D /* UserPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF313BB257BEDC20032B58D /* UserPreviewCell.swift */; };
 		4EF3142F25811F880032B58D /* GenericCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3142E25811F870032B58D /* GenericCoordinator.swift */; };
+		4EF314352581534C0032B58D /* ProfileScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF314342581534C0032B58D /* ProfileScreenCoordinator.swift */; };
 		4EF3AC5D254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */; };
 		4EF3AC62254A01DA00BEC9F1 /* CreateCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */; };
 		4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */; };
@@ -458,6 +459,7 @@
 		4EF313B2257BE8670032B58D /* SafariActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariActivity.swift; sourceTree = "<group>"; };
 		4EF313BB257BEDC20032B58D /* UserPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreviewCell.swift; sourceTree = "<group>"; };
 		4EF3142E25811F870032B58D /* GenericCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericCoordinator.swift; sourceTree = "<group>"; };
+		4EF314342581534C0032B58D /* ProfileScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenCoordinator.swift; sourceTree = "<group>"; };
 		4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityCoordinator.swift; sourceTree = "<group>"; };
 		4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityViewController.swift; sourceTree = "<group>"; };
 		4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityUI.swift; sourceTree = "<group>"; };
@@ -644,6 +646,7 @@
 			children = (
 				4EBB2242255AD4F700B88079 /* Views */,
 				4EE26858255972590009D2BC /* ProfileScreenAssembly.swift */,
+				4EF314342581534C0032B58D /* ProfileScreenCoordinator.swift */,
 				4E3E0F712555BCF70086CE0C /* ProfileScreenViewController.swift */,
 				4E1A7E6525573EA400E193B7 /* ProfileScreenUI.swift */,
 				4E1A7E6A25573F1800E193B7 /* ProfileScreenViewModel.swift */,
@@ -1779,6 +1782,7 @@
 				4E0A8E2F255BFC0000B06AF6 /* UIApplication+Ext.swift in Sources */,
 				4E10707E2534F5EC009EABDA /* LemmyCheckLogin.swift in Sources */,
 				4E91834D2566C16C00702F04 /* SettingsRightDetailTableViewCell.swift in Sources */,
+				4EF314352581534C0032B58D /* ProfileScreenCoordinator.swift in Sources */,
 				4ECCEEDD250B8D930075F921 /* AppCoordinator.swift in Sources */,
 				4EF3AC6F254A021400BEC9F1 /* CreateCommunityViewModel.swift in Sources */,
 				4E10708E2534F7A7009EABDA /* LoginData.swift in Sources */,

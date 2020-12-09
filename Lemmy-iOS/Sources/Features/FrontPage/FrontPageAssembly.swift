@@ -10,7 +10,7 @@ import UIKit
 
 class FrontPageAssembly: Assembly {
     
-    func makeModule() -> UIViewController {
+    func makeModule() -> FrontPageViewController {
         let viewModel = FrontPageViewModel(
             userAccountService: UserAccountService()
         )

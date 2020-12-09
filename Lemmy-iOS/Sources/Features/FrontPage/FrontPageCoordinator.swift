@@ -9,12 +9,8 @@
 import UIKit
 import SafariServices
 
-class FrontPageCoordinator: NSObject, Coordinator {
-    var rootViewController: FrontPageViewController
-    var childCoordinators: [Coordinator] = []
-
-    var navigationController: UINavigationController?
-
+class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
+    
     lazy var postsViewController: PostsFrontPageViewController = {
         let vc = PostsFrontPageViewController()
         return vc
@@ -27,14 +23,13 @@ class FrontPageCoordinator: NSObject, Coordinator {
     
     lazy var searchViewController = FrontPageSearchViewController()
 
-    init(navigationController: UINavigationController?) {
+    override init(navigationController: UINavigationController?) {
+        super.init(navigationController: navigationController)
         let assembly = FrontPageAssembly()
-        
-        self.rootViewController = assembly.makeModule() as! FrontPageViewController
-        self.navigationController = navigationController
+        self.rootViewController = assembly.makeModule()
     }
 
-    func start() {
+    override func start() {
         rootViewController.coordinator = self
         postsViewController.coordinator = self
         commentsViewController.coordinator = self
@@ -65,34 +60,7 @@ class FrontPageCoordinator: NSObject, Coordinator {
 
         rootViewController.present(loginNavController, animated: true, completion: nil)
     }
-    
-    func goToPostScreen(postId: Int) {
-        self.goToPostScreenWrapper(post: nil, postId: postId)
-    }
-    
-    func goToPostScreen(post: LemmyModel.PostView) {
-        self.goToPostScreenWrapper(post: post, postId: post.id)
-    }
-    
-    private func goToPostScreenWrapper(post: LemmyModel.PostView?, postId: Int) {
-        let coordinator = PostScreenCoordinator(navigationController: navigationController,
-                                             postId: postId,
-                                             postInfo: post)
-        self.store(coordinator: coordinator)
-        coordinator.start()
-    }
-    
-    func goToCommunityScreen(communityId: Int) {
-        let assembly = CommunityScreenAssembly(communityId: communityId, communityInfo: nil)
-        let module = assembly.makeModule()
-        self.navigationController?.pushViewController(module, animated: true)
-    }
-    
-    func goToProfileScreen(by userId: Int) {
-        let assembly = ProfileInfoScreenAssembly(profileId: userId)
-        navigationController?.pushViewController(assembly.makeModule(), animated: true)
-    }
-    
+        
     func goToSearchResults(searchQuery: String, searchType: LemmySearchSortType) {
         let assembly = SearchResultsAssembly(searchQuery: searchQuery, type: searchType)
         let vc = assembly.makeModule()
@@ -108,17 +76,5 @@ class FrontPageCoordinator: NSObject, Coordinator {
     func hideSearchIfNeeded() {
         self.searchViewController.hideSearchIfNeeded()
         self.searchViewController.searchQuery = ""
-    }
-    
-    func goToBrowser(with url: URL) {
-        let safariVc = SFSafariViewController(url: url)
-        safariVc.delegate = self
-        rootViewController.present(safariVc, animated: true)
-    }
-}
-
-extension FrontPageCoordinator: SFSafariViewControllerDelegate {
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        rootViewController.dismiss(animated: true)
     }
 }

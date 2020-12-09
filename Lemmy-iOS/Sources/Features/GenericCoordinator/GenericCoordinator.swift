@@ -9,13 +9,13 @@
 import UIKit
 import SafariServices
 
-final class GenericCoordinator<T: UIViewController>: NSObject, Coordinator, SFSafariViewControllerDelegate {
+class GenericCoordinator<T: UIViewController>: NSObject, Coordinator, SFSafariViewControllerDelegate {
     var rootViewController: T
     var childCoordinators: [Coordinator] = []
 
     var navigationController: UINavigationController?
     
-    required init(navigationController: UINavigationController?) {
+    init(navigationController: UINavigationController?) {
         self.rootViewController = T()
         self.navigationController = navigationController
     }

@@ -15,7 +15,7 @@ final class ProfileInfoScreenAssembly: Assembly {
         self.profileId = profileId
     }
     
-    func makeModule() -> UIViewController {
+    func makeModule() -> ProfileScreenViewController {
         let viewModel = ProfileScreenViewModel(
             profileId: self.profileId,
             userAccountService: UserAccountService()

@@ -8,16 +8,9 @@
 
 import UIKit
 
-protocol PostsTableDataSourceDelegate: AnyObject {
+protocol PostsTableDataSourceDelegate: PostContentTableCellDelegate {
     func tableDidRequestPagination(_ tableDataSource: PostsTableDataSource)
     func tableDidSelect(post: LemmyModel.PostView)
-    
-    func upvote(voteButton: VoteButton, post: LemmyModel.PostView)
-    func downvote(voteButton: VoteButton, post: LemmyModel.PostView)
-    func usernameTapped(in post: LemmyModel.PostView)
-    func communityTapped(in post: LemmyModel.PostView)
-    func onLinkTap(in post: LemmyModel.PostView, url: URL)
-    func showMore(in post: LemmyModel.PostView)
 }
 
 final class PostsTableDataSource: NSObject {
@@ -62,7 +55,7 @@ extension PostsTableDataSource: UITableViewDataSource {
         let cell: PostContentTableCell = tableView.cell(forRowAt: indexPath)
         cell.updateConstraintsIfNeeded()
         
-        cell.postContentView.delegate = self
+        cell.postContentView.delegate = delegate
         
         let viewModel = self.viewModels[indexPath.row]
         cell.bind(with: viewModel, config: .insideComminity)
@@ -84,31 +77,5 @@ extension PostsTableDataSource: UITableViewDelegate {
            tableView.numberOfSections == 1 {
             self.delegate?.tableDidRequestPagination(self)
         }
-    }
-}
-
-extension PostsTableDataSource: PostContentTableCellDelegate {
-    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
-        self.delegate?.downvote(voteButton: voteButton, post: post)
-    }
-    
-    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
-        self.delegate?.upvote(voteButton: voteButton, post: post)
-    }
-    
-    func usernameTapped(in post: LemmyModel.PostView) {
-        self.delegate?.usernameTapped(in: post)
-    }
-    
-    func communityTapped(in post: LemmyModel.PostView) {
-        self.delegate?.communityTapped(in: post)
-    }
-    
-    func onLinkTap(in post: LemmyModel.PostView, url: URL) {
-        self.delegate?.onLinkTap(in: post, url: url)
-    }
-    
-    func showMore(in post: LemmyModel.PostView) {
-        self.delegate?.showMore(in: post)
     }
 }

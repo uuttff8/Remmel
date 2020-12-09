@@ -25,6 +25,8 @@ protocol ProfileScreenViewControllerProtocol: AnyObject {
 class ProfileScreenViewController: UIViewController {
     private static let topBarAlphaStatusBarThreshold = 0.85
     
+    weak var coordinator: ProfileScreenCoordinator?
+    
     private let viewModel: ProfileScreenViewModelProtocol
 
     private var availableTabs: [ProfileScreenDataFlow.Tab] = [.posts, .comments, .about]
@@ -146,10 +148,12 @@ class ProfileScreenViewController: UIViewController {
     
     private func loadSubmodules() {
         
+        guard let coordinator = coordinator else { return }
+        
         availableTabs.forEach { (tab) in
             switch tab {
             case .posts:
-                let assembly = ProfileScreenPostsAssembly()
+                let assembly = ProfileScreenPostsAssembly(coordinator: WeakBox(coordinator))
                 submodulesControllers.append(assembly.makeModule())
                 submoduleInputs.append(assembly.moduleInput!)
             case .comments:

@@ -17,6 +17,8 @@ protocol ProfileScreenPostViewControllerProtocol: AnyObject {
 class ProfileScreenPostsViewController: UIViewController {
     private let viewModel: ProfileScreenPostsViewModel
     
+    weak var coordinator: ProfileScreenCoordinator?
+    
     private lazy var tableDataSource = PostsTableDataSource().then {
         $0.delegate = self
     }
@@ -101,30 +103,28 @@ extension ProfileScreenPostsViewController: ProfileScreenPostsViewDelegate {
 }
 
 extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
+    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
+        
+    }
+    
+    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
+        
+    }
+    
     func showMore(in post: LemmyModel.PostView) {
         self.showMoreHandlerService.showMoreInPost(on: self, post: post)
     }
     
-    func upvote(voteButton: VoteButton, post: LemmyModel.PostView) {
-        
-    }
-    
-    func downvote(voteButton: VoteButton, post: LemmyModel.PostView) {
-        
-    }
-    
     func usernameTapped(in post: LemmyModel.PostView) {
-        // todo
+        self.coordinator?.goToProfileScreen(by: post.creatorId)
     }
     
     func communityTapped(in post: LemmyModel.PostView) {
-        // todo
+        self.coordinator?.goToCommunityScreen(communityId: post.communityId)
     }
     
     func onLinkTap(in post: LemmyModel.PostView, url: URL) {
-        let safariVc = SFSafariViewController(url: url)
-        safariVc.delegate = self
-        present(safariVc, animated: true)
+        self.coordinator?.goToBrowser(with: url)
     }
     
     func tableDidRequestPagination(_ tableDataSource: PostsTableDataSource) {
@@ -136,11 +136,5 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
     
     func tableDidSelect(post: LemmyModel.PostView) {
         
-    }
-}
-
-extension ProfileScreenPostsViewController: SFSafariViewControllerDelegate {
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        self.dismiss(animated: true, completion: nil)
     }
 }

@@ -9,43 +9,16 @@
 import UIKit
 import SafariServices
 
-class PostScreenCoordinator: NSObject, Coordinator {
-    var rootViewController: PostScreenViewController
-    var childCoordinators: [Coordinator] = []
-
-    var navigationController: UINavigationController?
-
+class PostScreenCoordinator: GenericCoordinator<PostScreenViewController> {
+    
     init(navigationController: UINavigationController?, postId: Int, postInfo: LemmyModel.PostView? = nil) {
+        super.init(navigationController: navigationController)
         let assembly = PostScreenAssembly(postId: postId, postInfo: postInfo)
         self.rootViewController = assembly.makeModule()
-        self.navigationController = navigationController
     }
 
-    func start() {
+    override func start() {
         rootViewController.coordinator = self
         navigationController?.pushViewController(rootViewController, animated: true)
-    }
-    
-    func goToCommunityScreen(communityId: Int) {
-        let assembly = CommunityScreenAssembly(communityId: communityId, communityInfo: nil)
-        let module = assembly.makeModule()
-        self.navigationController?.pushViewController(module, animated: true)
-    }
-    
-    func goToProfileScreen(by userId: Int) {
-        let assembly = ProfileInfoScreenAssembly(profileId: userId)
-        navigationController?.pushViewController(assembly.makeModule(), animated: true)
-    }
-    
-    func goToBrowser(with url: URL) {
-        let safariVc = SFSafariViewController(url: url)
-        safariVc.delegate = self
-        rootViewController.present(safariVc, animated: true)
-    }
-}
-
-extension PostScreenCoordinator: SFSafariViewControllerDelegate {
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        rootViewController.dismiss(animated: true)
     }
 }

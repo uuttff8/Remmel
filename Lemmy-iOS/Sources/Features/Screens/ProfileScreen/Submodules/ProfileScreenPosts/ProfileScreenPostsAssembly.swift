@@ -12,10 +12,16 @@ final class ProfileScreenPostsAssembly: Assembly {
     
     // Module Input
     var moduleInput: ProfileScreenPostsInputProtocol?
+    private let coordinator: WeakBox<ProfileScreenCoordinator>
+    
+    init(coordinator: WeakBox<ProfileScreenCoordinator>) {
+        self.coordinator = coordinator
+    }
 
-    func makeModule() -> UIViewController {
+    func makeModule() -> ProfileScreenPostsViewController {
         let viewModel = ProfileScreenPostsViewModel()
         let vc = ProfileScreenPostsViewController(viewModel: viewModel)
+        vc.coordinator = coordinator.value
         viewModel.viewController = vc
         self.moduleInput = viewModel
         
