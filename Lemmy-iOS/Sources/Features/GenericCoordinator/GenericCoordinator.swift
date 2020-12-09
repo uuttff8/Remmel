@@ -10,14 +10,13 @@ import UIKit
 import SafariServices
 
 class GenericCoordinator<T: UIViewController>: NSObject, Coordinator, SFSafariViewControllerDelegate {
-    var rootViewController: T
+    var rootViewController: T! // implement it 
     var childCoordinators: [Coordinator] = []
 
     var navigationController: UINavigationController?
     
     init(navigationController: UINavigationController?) {
         self.navigationController = navigationController
-        self.rootViewController = T(nibName: nil, bundle: nil)
     }
     
     func start() {

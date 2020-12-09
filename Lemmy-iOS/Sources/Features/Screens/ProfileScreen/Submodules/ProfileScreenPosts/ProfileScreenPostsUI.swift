@@ -43,6 +43,13 @@ extension ProfileScreenPostsViewController {
             $0.delegate = self
         }
         
+        private lazy var scrollingStack = ScrollableStackView(orientation: .vertical)
+        
+        private lazy var emptyStateLabel = UILabel().then {
+            $0.text = "No Posts here yet..."
+            $0.textAlignment = .center
+        }
+        
         private lazy var profileScreenHeader = ProfileScreenTableHeaderView().then { view in
             view.contentTypeView.addTap {
                 let vc = view.contentTypeView.configuredAlert
@@ -90,6 +97,12 @@ extension ProfileScreenPostsViewController {
             self.tableView.reloadData()
         }
         
+        func displayNoData() {
+            self.scrollingStack.isHidden = false
+            self.tableView.isHidden = true
+            makeConstraints()
+        }
+        
         func appendNew(data: [LemmyModel.PostView]) {
             self.tableViewDelegate?.appendNew(posts: data) { (newIndexpaths) in
                 tableView.performBatchUpdates {
@@ -107,11 +120,13 @@ extension ProfileScreenPostsViewController {
 
 extension ProfileScreenPostsViewController.View: ProgrammaticallyViewProtocol {
     func setupView() {
-        
+        self.scrollingStack.isHidden = true
     }
     
     func addSubviews() {
         self.addSubview(tableView)
+        self.addSubview(scrollingStack)
+        self.scrollingStack.addArrangedView(emptyStateLabel)
     }
     
     func makeConstraints() {
@@ -119,6 +134,13 @@ extension ProfileScreenPostsViewController.View: ProgrammaticallyViewProtocol {
             make.top.leading.trailing.equalToSuperview()
             make.bottom.equalTo(self.safeAreaLayoutGuide) // tab bar
         }
+        
+        self.scrollingStack.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(370) // hardcode is bad
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(self.safeAreaLayoutGuide)
+        }
+        
         self.tableView.layoutTableHeaderView()
     }
 }
@@ -153,7 +175,6 @@ extension ProfileScreenPostsViewController.View: ProfileScreenScrollablePageView
         }
         set {
             self.tableView.contentInset = newValue
-
         }
     }
 

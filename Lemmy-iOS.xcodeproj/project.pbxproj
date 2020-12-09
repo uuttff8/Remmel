@@ -145,7 +145,6 @@
 		4EBB2258255AE6E600B88079 /* ProfileScreenPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB2257255AE6E600B88079 /* ProfileScreenPostsViewController.swift */; };
 		4EBB225D255AE71E00B88079 /* ProfileScreenPostsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB225C255AE71E00B88079 /* ProfileScreenPostsViewModel.swift */; };
 		4EBB2263255AECB500B88079 /* ProfileScreenPostsUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB2262255AECB500B88079 /* ProfileScreenPostsUI.swift */; };
-		4EBB2268255AEF0E00B88079 /* ProfileScreenPostsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB2267255AEF0E00B88079 /* ProfileScreenPostsTableDataSource.swift */; };
 		4EBB226D255AF4F900B88079 /* ProfileScreenPostsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB226C255AF4F900B88079 /* ProfileScreenPostsAssembly.swift */; };
 		4EBB2276255AF77400B88079 /* ProfileScreenPostsInputOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB2275255AF77400B88079 /* ProfileScreenPostsInputOutput.swift */; };
 		4EBB227E255AF7A600B88079 /* ProfileScreenSubmoduleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB227D255AF7A600B88079 /* ProfileScreenSubmoduleProtocol.swift */; };
@@ -396,7 +395,6 @@
 		4EBB2257255AE6E600B88079 /* ProfileScreenPostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsViewController.swift; sourceTree = "<group>"; };
 		4EBB225C255AE71E00B88079 /* ProfileScreenPostsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsViewModel.swift; sourceTree = "<group>"; };
 		4EBB2262255AECB500B88079 /* ProfileScreenPostsUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsUI.swift; sourceTree = "<group>"; };
-		4EBB2267255AEF0E00B88079 /* ProfileScreenPostsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsTableDataSource.swift; sourceTree = "<group>"; };
 		4EBB226C255AF4F900B88079 /* ProfileScreenPostsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsAssembly.swift; sourceTree = "<group>"; };
 		4EBB2275255AF77400B88079 /* ProfileScreenPostsInputOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsInputOutput.swift; sourceTree = "<group>"; };
 		4EBB227D255AF7A600B88079 /* ProfileScreenSubmoduleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenSubmoduleProtocol.swift; sourceTree = "<group>"; };
@@ -1019,7 +1017,6 @@
 				4EBB2257255AE6E600B88079 /* ProfileScreenPostsViewController.swift */,
 				4EBB225C255AE71E00B88079 /* ProfileScreenPostsViewModel.swift */,
 				4EBB2262255AECB500B88079 /* ProfileScreenPostsUI.swift */,
-				4EBB2267255AEF0E00B88079 /* ProfileScreenPostsTableDataSource.swift */,
 				4E8165622562B6FC00907D31 /* PostsTableDataSource.swift */,
 			);
 			path = ProfileScreenPosts;
@@ -1790,7 +1787,6 @@
 				4EF3ACFF2550757200BEC9F1 /* MarkdownParsedViewController.swift in Sources */,
 				4E1070602534770B009EABDA /* CommentsFrontPageViewController.swift in Sources */,
 				4EF3AC95254B60F000BEC9F1 /* CreateCommunityImagesCell.swift in Sources */,
-				4EBB2268255AEF0E00B88079 /* ProfileScreenPostsTableDataSource.swift in Sources */,
 				4E0A8E4D255C0AF900B06AF6 /* ProfileScreenCommentsInputOutput.swift in Sources */,
 				4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */,
 				4E0A8E5C255D586F00B06AF6 /* ProfileScreenAboutInputProtocol.swift in Sources */,

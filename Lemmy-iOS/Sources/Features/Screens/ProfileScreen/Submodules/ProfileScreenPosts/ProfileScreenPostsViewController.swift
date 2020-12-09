@@ -67,6 +67,7 @@ class ProfileScreenPostsViewController: UIViewController {
 
         if case .loading = self.state {
             self.profilePostsView.hideActivityIndicatorView()
+            self.profilePostsView.displayNoData()
         }
 
         if case .result = newState {

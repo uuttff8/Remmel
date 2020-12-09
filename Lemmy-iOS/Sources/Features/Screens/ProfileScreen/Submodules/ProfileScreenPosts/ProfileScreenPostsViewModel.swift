@@ -44,9 +44,9 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
             .receive(on: RunLoop.main)
             .sink { (error) in
                 print(error)
-            } receiveValue: { (response) in
+            } receiveValue: { [weak self] (response) in
                 
-                self.viewController?.displayNextPosts(
+                self?.viewController?.displayNextPosts(
                     viewModel: .init(
                         state: .result(data: response.posts)
                     )
@@ -57,7 +57,7 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
     
     func doPostLike(voteButton: VoteButton, for newVote: LemmyVoteType, post: LemmyModel.PostView) {
         self.contentScoreService.votePost(voteButton: voteButton, for: newVote, post: post) { (post) in
-            // save this post to table data source
+            // TODO save this post to table data source
         }
     }
 
