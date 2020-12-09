@@ -14,6 +14,8 @@ protocol SearchResultsViewControllerProtocol: AnyObject {
 
 class SearchResultsViewController: UIViewController {
     
+    weak var coordinator: FrontPageCoordinator?
+    
     private let viewModel: SearchResultsViewModelProtocol
     
     private var state: SearchResults.ViewControllerState
@@ -76,11 +78,71 @@ extension SearchResultsViewController: SearchResultsViewControllerProtocol {
 }
 
 extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
-    func tableDidRequestPagination(_ tableDataSource: SearchResultsTableDataSource) {
+    func tableDidSelect(viewModel: SearchResults.Results) {
         
     }
     
-    func postDidSelect(post: LemmyModel.PostView) {
+    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
+        
+    }
+    
+    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
+        
+    }
+    
+    func usernameTapped(in post: LemmyModel.PostView) {
+        
+    }
+    
+    func communityTapped(in post: LemmyModel.PostView) {
+        
+    }
+    
+    func onLinkTap(in post: LemmyModel.PostView, url: URL) {
+        
+    }
+    
+    func showMore(in post: LemmyModel.PostView) {
+        
+    }
+    
+    func usernameTapped(in comment: LemmyModel.CommentView) {
+        
+    }
+    
+    func communityTapped(in comment: LemmyModel.CommentView) {
+        
+    }
+    
+    func postNameTapped(in comment: LemmyModel.CommentView) {
+        
+    }
+    
+    func upvote(voteButton: VoteButtonsWithScoreView, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+        
+    }
+    
+    func downvote(voteButton: VoteButtonsWithScoreView, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+        
+    }
+    
+    func showContext(in comment: LemmyModel.CommentView) {
+        
+    }
+    
+    func reply(to comment: LemmyModel.CommentView) {
+        
+    }
+    
+    func onLinkTap(in comment: LemmyModel.CommentView, url: URL) {
+        
+    }
+    
+    func showMoreAction(in comment: LemmyModel.CommentView) {
+        
+    }
+    
+    func tableDidRequestPagination(_ tableDataSource: SearchResultsTableDataSource) {
         
     }
 }

@@ -8,20 +8,18 @@
 
 import UIKit
 
-protocol SearchResultsTableDataSourceDelegate: AnyObject {
+protocol SearchResultsTableDataSourceDelegate: PostContentTableCellDelegate, CommentContentTableCellDelegate {
     func tableDidRequestPagination(_ tableDataSource: SearchResultsTableDataSource)
-    func postDidSelect(post: LemmyModel.PostView)
-    // other functions
+    func tableDidSelect(viewModel: SearchResults.Results)
 }
 
 final class SearchResultsTableDataSource: NSObject {
     var viewModels: SearchResults.Results
     
-    let delegateImpl: SearchResultsViewController
+    weak var delegate: SearchResultsTableDataSourceDelegate?
     
     init(viewModels: SearchResults.Results = .posts([]), delegateImpl: SearchResultsViewController) {
         self.viewModels = viewModels
-        self.delegateImpl = delegateImpl
         super.init()
     }
     
@@ -51,6 +49,7 @@ final class SearchResultsTableDataSource: NSObject {
     ) -> UITableViewCell {
         let cell: PostContentTableCell = tableView.cell(forRowAt: indexPath)
         cell.bind(with: post, config: .default)
+        cell.postContentView.delegate = delegate
         return cell
     }
     
@@ -61,6 +60,7 @@ final class SearchResultsTableDataSource: NSObject {
     ) -> UITableViewCell {
         let cell: CommentContentTableCell = tableView.cell(forRowAt: indexPath)
         cell.bind(with: comment, level: 0)
+        cell.commentContentView.delegate = delegate
         return cell
     }
     
@@ -108,6 +108,7 @@ extension SearchResultsTableDataSource: UITableViewDataSource {
 
 extension SearchResultsTableDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

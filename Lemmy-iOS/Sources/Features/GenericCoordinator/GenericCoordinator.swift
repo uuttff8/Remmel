@@ -1,0 +1,63 @@
+//
+//  GenericCoordinator.swift
+//  Lemmy-iOS
+//
+//  Created by uuttff8 on 09.12.2020.
+//  Copyright © 2020 Anton Kuzmin. All rights reserved.
+//
+
+import UIKit
+import SafariServices
+
+final class GenericCoordinator<T: UIViewController>: NSObject, Coordinator, SFSafariViewControllerDelegate {
+    var rootViewController: T
+    var childCoordinators: [Coordinator] = []
+
+    var navigationController: UINavigationController?
+    
+    required init(navigationController: UINavigationController?) {
+        self.rootViewController = T()
+        self.navigationController = navigationController
+    }
+    
+    func start() {
+        fatalError("Override this")
+    }
+    
+    func goToCommunityScreen(communityId: Int) {
+        let assembly = CommunityScreenAssembly(communityId: communityId, communityInfo: nil)
+        let module = assembly.makeModule()
+        self.navigationController?.pushViewController(module, animated: true)
+    }
+    
+    func goToProfileScreen(by userId: Int) {
+        let assembly = ProfileInfoScreenAssembly(profileId: userId)
+        navigationController?.pushViewController(assembly.makeModule(), animated: true)
+    }
+    
+    func goToBrowser(with url: URL) {
+        let safariVc = SFSafariViewController(url: url)
+        safariVc.delegate = self
+        rootViewController.present(safariVc, animated: true)
+    }
+    
+    func goToPostScreen(postId: Int) {
+        self.goToPostScreenWrapper(post: nil, postId: postId)
+    }
+    
+    func goToPostScreen(post: LemmyModel.PostView) {
+        self.goToPostScreenWrapper(post: post, postId: post.id)
+    }
+    
+    private func goToPostScreenWrapper(post: LemmyModel.PostView?, postId: Int) {
+        let coordinator = PostScreenCoordinator(navigationController: navigationController,
+                                             postId: postId,
+                                             postInfo: post)
+        self.store(coordinator: coordinator)
+        coordinator.start()
+    }
+    
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        self.rootViewController.dismiss(animated: true)
+    }
+}

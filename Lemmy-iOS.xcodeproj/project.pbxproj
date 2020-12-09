@@ -202,6 +202,7 @@
 		4EF313AA257BDF6E0032B58D /* ShowMoreHandlerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF313A9257BDF6E0032B58D /* ShowMoreHandlerService.swift */; };
 		4EF313B3257BE8670032B58D /* SafariActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF313B2257BE8670032B58D /* SafariActivity.swift */; };
 		4EF313BC257BEDC20032B58D /* UserPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF313BB257BEDC20032B58D /* UserPreviewCell.swift */; };
+		4EF3142F25811F880032B58D /* GenericCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3142E25811F870032B58D /* GenericCoordinator.swift */; };
 		4EF3AC5D254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */; };
 		4EF3AC62254A01DA00BEC9F1 /* CreateCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */; };
 		4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */; };
@@ -456,6 +457,7 @@
 		4EF313A9257BDF6E0032B58D /* ShowMoreHandlerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowMoreHandlerService.swift; sourceTree = "<group>"; };
 		4EF313B2257BE8670032B58D /* SafariActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariActivity.swift; sourceTree = "<group>"; };
 		4EF313BB257BEDC20032B58D /* UserPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreviewCell.swift; sourceTree = "<group>"; };
+		4EF3142E25811F870032B58D /* GenericCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericCoordinator.swift; sourceTree = "<group>"; };
 		4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityCoordinator.swift; sourceTree = "<group>"; };
 		4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityViewController.swift; sourceTree = "<group>"; };
 		4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityUI.swift; sourceTree = "<group>"; };
@@ -1109,6 +1111,7 @@
 				4ECCEEE3250B8F690075F921 /* Auth */,
 				4EBB22172559EB0E00B88079 /* StyledNavigationController */,
 				4ECCEEF0250C03910075F921 /* LemmyTabBar */,
+				4EF3142A25811F0C0032B58D /* GenericCoordinator */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -1308,6 +1311,14 @@
 				4EF313B2257BE8670032B58D /* SafariActivity.swift */,
 			);
 			path = Acitivities;
+			sourceTree = "<group>";
+		};
+		4EF3142A25811F0C0032B58D /* GenericCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				4EF3142E25811F870032B58D /* GenericCoordinator.swift */,
+			);
+			path = GenericCoordinator;
 			sourceTree = "<group>";
 		};
 		4EF3AC5B254A019800BEC9F1 /* CreateCommunity */ = {
@@ -1797,6 +1808,7 @@
 				4EBB22262559EBAA00B88079 /* ColorPalette.swift in Sources */,
 				4ECCEEEA250BA6230075F921 /* WSLemmyClient.swift in Sources */,
 				4EBB224C255ADE4C00B88079 /* TabSegmentedControlView.swift in Sources */,
+				4EF3142F25811F880032B58D /* GenericCoordinator.swift in Sources */,
 				4EFA81B6255FF6B7008AF535 /* UserAccountService.swift in Sources */,
 				4E886C88253F4FF40076B162 /* CreatePostUI.swift in Sources */,
 				4E886C7E253F4F290076B162 /* CreatePostViewController.swift in Sources */,

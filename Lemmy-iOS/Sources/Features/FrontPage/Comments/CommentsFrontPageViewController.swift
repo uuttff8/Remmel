@@ -42,11 +42,7 @@ class CommentsFrontPageViewController: UIViewController {
 
         model.newDataLoaded = { [self] newComments in
             addRows(with: newComments)
-        }
-        
-        model.goToPostScreen = { postId in
-            self.coordinator?.goToPostScreen(postId: postId)
-        }
+        }        
     }
     
     override func viewDidLayoutSubviews() {

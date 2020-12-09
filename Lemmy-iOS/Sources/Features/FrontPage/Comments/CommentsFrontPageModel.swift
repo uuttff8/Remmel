@@ -11,8 +11,6 @@ import UIKit
 class CommentsFrontPageModel: NSObject {
     var dataLoaded: (([LemmyModel.CommentView]) -> Void)?
     var newDataLoaded: (([LemmyModel.CommentView]) -> Void)?
-    var goToCommentScreen: ((LemmyModel.CommentView) -> Void)?
-    var goToPostScreen: ((_ postId: Int) -> Void)?
     
     private var isFetchingNewContent = false
     private var currentPage = 1
