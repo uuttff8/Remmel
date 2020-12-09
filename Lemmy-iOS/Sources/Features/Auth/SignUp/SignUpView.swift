@@ -9,7 +9,7 @@
 import UIKit
 
 class SignUpView: UIView {
-    struct ViewDataSignUp {
+    struct ViewData {
         let username: String
         let email: String
         let password: String?
@@ -17,64 +17,52 @@ class SignUpView: UIView {
         let captchaCode: String
     }
 
-    var onSignUp: ((ViewDataSignUp) -> Void)?
+    var onSignUp: ((ViewData) -> Void)?
 
     let model = SignUpModel()
 
-    lazy var signUpLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.text = "Sign up"
-        lbl.font = .boldSystemFont(ofSize: 23)
-        return lbl
-    }()
+    lazy var signUpLabel = UILabel().then {
+        $0.text = "Sign up"
+        $0.font = .boldSystemFont(ofSize: 23)
+    }
 
-    lazy var usernameTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Username"
-        return textField
-    }()
+    lazy var usernameTextField = UITextField().then {
+        $0.placeholder = "Username"
+        $0.textContentType = .username
+    }
 
-    lazy var emailTextField: UITextField = {
-        let tf = UITextField()
-        tf.placeholder = "Email"
-        return tf
-    }()
+    lazy var emailTextField = UITextField().then {
+        $0.placeholder = "Email"
+        $0.textContentType = .emailAddress
+    }
 
-    lazy var emailDescription: UILabel = {
-        let lbl = UILabel()
-        lbl.textColor = .label
-        lbl.text = "You will not be able to reset your password without an email."
-        lbl.numberOfLines = 0
-        lbl.textColor = .systemGray3
-        lbl.font = .systemFont(ofSize: 14)
-        return lbl
-    }()
+    lazy var emailDescription = UILabel().then {
+        $0.textColor = .label
+        $0.text = "You will not be able to reset your password without an email."
+        $0.numberOfLines = 0
+        $0.textColor = .systemGray3
+        $0.font = .systemFont(ofSize: 14)
+    }
 
-    lazy var passwordTextField: UITextField = {
-        let textField = UITextField()
-        textField.isSecureTextEntry = true
-        textField.placeholder = "Password"
-        return textField
-    }()
+    lazy var passwordTextField = UITextField().then {
+        $0.isSecureTextEntry = true
+        $0.placeholder = "Password"
+        $0.textContentType = .password
+    }
 
-    lazy var passwordVerifyTextField: UITextField = {
-        let tf = UITextField()
-        tf.isSecureTextEntry = true
-        tf.placeholder = "Verify Password"
-        return tf
-    }()
+    lazy var passwordVerifyTextField = UITextField().then {
+        $0.isSecureTextEntry = true
+        $0.placeholder = "Verify Password"
+        $0.textContentType = .password
+    }
 
-    lazy var captchaImageView: UIImageView = {
-        let iv = UIImageView()
-        return iv
-    }()
+    lazy var captchaImageView = UIImageView()
 
-    lazy var captchaTextField: UITextField = {
-        let tf = UITextField()
-        tf.placeholder = "Captcha code"
-        tf.autocapitalizationType = .none
-        return tf
-    }()
+    lazy var captchaTextField = UITextField().then {
+        $0.placeholder = "Captcha code"
+        $0.autocapitalizationType = .none
+        $0.textContentType = .oneTimeCode
+    }
 
     lazy var showNsfwSwitch: LemmyLabelWithSwitch = {
         let switcher = LemmyLabelWithSwitch()

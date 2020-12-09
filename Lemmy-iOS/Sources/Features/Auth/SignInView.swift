@@ -11,26 +11,22 @@ import UIKit
 class SignInView: UIView {
     var onSignIn: ((_ emailOrUsername: String, _ password: String) -> Void)?
 
-    lazy var signInLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.text = "Sign in"
-        lbl.font = .boldSystemFont(ofSize: 23)
-        return lbl
-    }()
+    lazy var signInLabel = UILabel().then {
+        $0.text = "Sign in"
+        $0.font = .boldSystemFont(ofSize: 23)
+    }
 
-    lazy var emailOrUsernameTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Email or username"
-        textField.autocapitalizationType = .none
-        return textField
-    }()
+    lazy var emailOrUsernameTextField = UITextField().then {
+        $0.placeholder = "Email or username"
+        $0.autocapitalizationType = .none
+        $0.textContentType = .username
+    }
 
-    lazy var passwordTextField: UITextField = {
-        let tf = UITextField()
-        tf.placeholder = "Password"
-        tf.isSecureTextEntry = true
-        return tf
-    }()
+    lazy var passwordTextField = UITextField().then {
+        $0.placeholder = "Password"
+        $0.isSecureTextEntry = true
+        $0.textContentType = .password
+    }
 
     init() {
         super.init(frame: .zero)

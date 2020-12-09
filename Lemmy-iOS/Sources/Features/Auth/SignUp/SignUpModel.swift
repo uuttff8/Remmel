@@ -17,8 +17,7 @@ class SignUpModel {
     var player: AVAudioPlayer?
 
     func getCaptcha(completion: @escaping ((Result<(UIImage), Error>) -> Void)) {
-        ApiManager.requests
-            .getCaptcha { (result) in
+        ApiManager.requests.getCaptcha { (result) in
             switch result {
             case let .success(response):
                 if let wavString = response.ok?.wav {
