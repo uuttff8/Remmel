@@ -1,42 +1,24 @@
 //
-//  CreateCommunityUI.swift
+//  WriteCommentUI.swift
 //  Lemmy-iOS
 //
-//  Created by uuttff8 on 28.10.2020.
+//  Created by uuttff8 on 09.12.2020.
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
 import UIKit
 import Combine
 
-protocol CreateCommunityViewDelegate: SettingsTableViewDelegate { }
-
-extension CreateCommunityUI {
-    struct Appearance {
-    }
-}
-
 // MARK: - CreateCommunityUI: UIView -
-class CreateCommunityUI: UIView {
+class WriteCommentView: UIView {
     
     // MARK: - Properties
-    
-    let appearance: Appearance
-    
-    weak var delegate: CreateCommunityViewDelegate? {
-        didSet {
-            self.tableView.delegate = self.delegate
-        }
-    }
-    
     private lazy var tableView = SettingsTableView(appearance: .init(style: .insetGrouped))
     
     // MARK: - Init
-    init(
-        frame: CGRect = .zero,
-        appearance: Appearance = Appearance()
+    override init(
+        frame: CGRect = .zero
     ) {
-        self.appearance = appearance
         super.init(frame: .zero)
         
         self.setupView()
@@ -54,7 +36,7 @@ class CreateCommunityUI: UIView {
     }
 }
 
-extension CreateCommunityUI: ProgrammaticallyViewProtocol {
+extension WriteCommentView: ProgrammaticallyViewProtocol {
     func setupView() {
         
     }

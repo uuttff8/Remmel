@@ -53,12 +53,4 @@ class CreatePostViewModel: CreatePostViewModelProtocol {
                 
             }.store(in: &cancellable)
     }
-    
-    // MARK: - Api Request
-    func createPost(
-        data: Data,
-        completion: @escaping ((Result<LemmyModel.PostView, LemmyGenericError>) -> Void)
-    ) {
-        // TODO handle creating post
-    }
 }
