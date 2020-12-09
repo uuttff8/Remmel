@@ -129,25 +129,25 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
         self.coordinator?.goToCommunityScreen(communityId: comment.communityId)
     }
     
-    func upvote(voteButton: VoteButtonsWithScoreView, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            let type = voteButton.viewData?.voteType == .up ? .none : LemmyVoteType.up
-            voteButton.viewData?.voteType = type
+//            let type = voteButton.viewData?.voteType == .up ? .none : LemmyVoteType.up
+//            voteButton.viewData?.voteType = type
             
-            voteButton.upvoteBtn.setVoted(to: type)
+            voteButton.setVoted(to: newVote)
         }
     }
     
-    func downvote(voteButton: VoteButtonsWithScoreView, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            let type = voteButton.viewData?.voteType == .down ? .none : LemmyVoteType.down
-            voteButton.viewData?.voteType = type
+//            let type = voteButton.viewData?.voteType == .down ? .none : LemmyVoteType.down
+//            voteButton.viewData?.voteType = type
             
-            voteButton.downvoteBtn.setVoted(to: type)
+            voteButton.setVoted(to: newVote)
         }
     }
         

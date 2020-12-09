@@ -12,10 +12,9 @@ import UIKit
 class CommentFooterView: UIView {
     
     var showContextTap: (() -> Void)?
-    var upvoteTap: ((VoteButtonsWithScoreView, LemmyVoteType) -> Void)?
-    var downvoteTap: ((VoteButtonsWithScoreView, LemmyVoteType) -> Void)?
+    var upvoteTap: ((VoteButton, LemmyVoteType) -> Void)?
+    var downvoteTap: ((VoteButton, LemmyVoteType) -> Void)?
     var replyTap: (() -> Void)?
-//    var showMoreTap: (() -> Void)?
 
     // MARK: - Constants
     private let iconSize = CGSize(width: 20, height: 20)
@@ -40,11 +39,6 @@ class CommentFooterView: UIView {
         $0.setImage(image, for: .normal)
     }
 
-//    private let showMoreButton = UIButton().then {
-//        let image = Config.Image.ellipsis
-//        $0.setImage(image, for: .normal)
-//    }
-//
     private let stackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 20
@@ -84,9 +78,6 @@ class CommentFooterView: UIView {
     // MARK: - Overrided
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         replyButton.setImage(Config.Image.arrowshapeTurnUp, for: .normal)
-//        showMoreButton.setImage(Config.Image.ellipsis, for: .normal)
-//        upvoteButton.setImage(Config.Image.arrowUp, for: .normal)
-//        downvoteButton.setImage(Config.Image.arrowDown, for: .normal)
         showContextButton.setImage(Config.Image.link, for: .normal)
     }
 
@@ -104,7 +95,6 @@ class CommentFooterView: UIView {
             self.downvoteTap?($0, $1)
         }
         replyButton.addTarget(self, action: #selector(replyButtonTapped(sender:)), for: .touchUpInside)
-//        showMoreButton.addTarget(self, action: #selector(showMoreButtonTapped(sender:)), for: .touchUpInside)
     }
 
     @objc private func showContextButtonTapped(sender: UIButton!) {

@@ -19,16 +19,21 @@ class SearchResultsViewController: UIViewController {
     private let viewModel: SearchResultsViewModelProtocol
     
     private var state: SearchResults.ViewControllerState
+    private let showMoreHandler: ShowMoreHandlerServiceProtocol
     
-    private lazy var tableManager = SearchResultsTableDataSource(delegateImpl: self)
+    private lazy var tableManager = SearchResultsTableDataSource().then {
+        $0.delegate = self
+    }
     private lazy var resultsView = self.view as! SearchResultsView
     
     init(
         viewModel: SearchResultsViewModelProtocol,
-        state: SearchResults.ViewControllerState = .loading
+        state: SearchResults.ViewControllerState = .loading,
+        showMoreHandler: ShowMoreHandlerServiceProtocol
     ) {
         self.viewModel = viewModel
         self.state = state
+        self.showMoreHandler = showMoreHandler
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -78,71 +83,99 @@ extension SearchResultsViewController: SearchResultsViewControllerProtocol {
 }
 
 extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
-    func tableDidSelect(viewModel: SearchResults.Results) {
-        
-    }
-    
     func upvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
-        
+        guard let coordinator = coordinator else { return }
+
+        ContinueIfLogined(on: self, coordinator: coordinator) {
+            self.viewModel.doPostLike(voteButton: voteButton, for: newVote, post: post)
+        }
     }
     
     func downvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
+        guard let coordinator = coordinator else { return }
         
+        ContinueIfLogined(on: self, coordinator: coordinator) {
+            self.viewModel.doPostLike(voteButton: voteButton, for: newVote, post: post)
+        }
     }
     
     func usernameTapped(in post: LemmyModel.PostView) {
-        
+        self.coordinator?.goToProfileScreen(by: post.creatorId)
     }
     
     func communityTapped(in post: LemmyModel.PostView) {
-        
+        self.coordinator?.goToCommunityScreen(communityId: post.communityId)
     }
     
     func onLinkTap(in post: LemmyModel.PostView, url: URL) {
-        
+        self.coordinator?.goToBrowser(with: url)
     }
     
     func showMore(in post: LemmyModel.PostView) {
-        
+        self.showMoreHandler.showMoreInPost(on: self, post: post)
     }
     
     func usernameTapped(in comment: LemmyModel.CommentView) {
-        
+        self.coordinator?.goToProfileScreen(by: comment.creatorId)
     }
     
     func communityTapped(in comment: LemmyModel.CommentView) {
-        
+        self.coordinator?.goToCommunityScreen(communityId: comment.communityId)
     }
     
     func postNameTapped(in comment: LemmyModel.CommentView) {
-        
+        self.coordinator?.goToPostScreen(postId: comment.postId)
     }
     
-    func upvote(voteButton: VoteButtonsWithScoreView, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+        guard let coordinator = coordinator else { return }
         
+        ContinueIfLogined(on: self, coordinator: coordinator) {
+            print("asdasd")
+        }
     }
     
-    func downvote(voteButton: VoteButtonsWithScoreView, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+        guard let coordinator = coordinator else { return }
         
+        ContinueIfLogined(on: self, coordinator: coordinator) {
+            print("asdasd")
+        }
     }
     
     func showContext(in comment: LemmyModel.CommentView) {
-        
+        // no more yet
     }
     
     func reply(to comment: LemmyModel.CommentView) {
-        
+        // no more yet
     }
     
     func onLinkTap(in comment: LemmyModel.CommentView, url: URL) {
-        
+        self.coordinator?.goToBrowser(with: url)
     }
     
     func showMoreAction(in comment: LemmyModel.CommentView) {
-        
+        self.showMoreHandler.showMoreInComment(on: self, comment: comment)
     }
     
     func tableDidRequestPagination(_ tableDataSource: SearchResultsTableDataSource) {
-        
+        // no more yet
+    }
+    
+    func tableDidSelect(viewModel: SearchResults.Results, indexPath: IndexPath) {
+        switch viewModel {
+        case .comments:
+            break
+        case .posts(let data):
+            let post = data[indexPath.row]
+            self.coordinator?.goToPostScreen(post: post)
+        case .communities(let data):
+            let community = data[indexPath.row]
+            self.coordinator?.goToCommunityScreen(communityId: community.id)
+        case .users(let data):
+            let user = data[indexPath.row]
+            self.coordinator?.goToProfileScreen(by: user.id)
+        }
     }
 }

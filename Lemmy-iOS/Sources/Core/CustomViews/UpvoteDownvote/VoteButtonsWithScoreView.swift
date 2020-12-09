@@ -17,8 +17,8 @@ class VoteButtonsWithScoreView: UIView {
     
     var viewData: ViewData?
     
-    var upvoteButtonTap: ((VoteButtonsWithScoreView, LemmyVoteType) -> Void)?
-    var downvoteButtonTap: ((VoteButtonsWithScoreView, LemmyVoteType) -> Void)?
+    var upvoteButtonTap: ((VoteButton, LemmyVoteType) -> Void)?
+    var downvoteButtonTap: ((VoteButton, LemmyVoteType) -> Void)?
     
     private let stackView = UIStackView().then {
         $0.axis = .horizontal
@@ -65,15 +65,23 @@ class VoteButtonsWithScoreView: UIView {
     
     @objc private func upvoteButtonTapped(sender: VoteButton!) {
         if let viewData = viewData {
+                        
             let type = viewData.voteType == .up ? .none : LemmyVoteType.up
-            upvoteButtonTap?(self, type)
+            self.viewData?.voteType = type
+            
+            downvoteBtn.scoreValue = .none
+            upvoteButtonTap?(sender, type)
         }
     }
     
     @objc private func downvoteButtonTapped(sender: VoteButton!) {
         if let viewData = viewData {
+            
             let type = viewData.voteType == .down ? .none : LemmyVoteType.down
-            downvoteButtonTap?(self, type)
+            self.viewData?.voteType = type
+            
+            upvoteBtn.scoreValue = .none
+            downvoteButtonTap?(sender, type)
         }
     }
 }

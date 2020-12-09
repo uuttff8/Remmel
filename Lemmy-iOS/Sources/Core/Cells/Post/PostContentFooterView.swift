@@ -100,9 +100,7 @@ class PostContentFooterView: UIView {
     
     @objc private func upvoteButtonTapped(sender: VoteButton!) {
         if let viewData = viewData {
-            
-            // TODO: handle if no login
-            
+                        
             let type = viewData.voteType == .up ? .none : LemmyVoteType.up
             self.viewData?.voteType = type
             
@@ -113,8 +111,6 @@ class PostContentFooterView: UIView {
     
     @objc private func downvoteButtonTapped(sender: VoteButton!) {
         if let viewData = viewData {
-            
-            // TODO: handle if no login
             
             let type = viewData.voteType == .down ? .none : LemmyVoteType.down
             self.viewData?.voteType = type

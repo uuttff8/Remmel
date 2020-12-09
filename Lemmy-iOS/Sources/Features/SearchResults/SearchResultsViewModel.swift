@@ -11,7 +11,7 @@ import Combine
 
 protocol SearchResultsViewModelProtocol: AnyObject {
     func doLoadContent(request: SearchResults.LoadContent.Request)
-    
+    func doPostLike(voteButton: VoteButton, for newVote: LemmyVoteType, post: LemmyModel.PostView) // refactor
 }
 
 class SearchResultsViewModel: SearchResultsViewModelProtocol {
@@ -23,15 +23,18 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
     private let searchType: LemmySearchSortType
     
     private let userAccountService: UserAccountSerivceProtocol
+    private let contentScoreService: ContentScoreServiceProtocol
     
     init(
         searchQuery: String,
         searchType: LemmySearchSortType,
-        userAccountService: UserAccountSerivceProtocol
+        userAccountService: UserAccountSerivceProtocol,
+        contentScoreService: ContentScoreServiceProtocol
     ) {
         self.searchQuery = searchQuery
         self.searchType = searchType
         self.userAccountService = userAccountService
+        self.contentScoreService = contentScoreService
     }
     
     func doLoadContent(request: SearchResults.LoadContent.Request) {
@@ -54,6 +57,16 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
                                              response: response)
                 
             }.store(in: &cancellable)
+    }
+    
+    func doPostLike(voteButton: VoteButton, for newVote: LemmyVoteType, post: LemmyModel.PostView) {
+        self.contentScoreService.votePost(
+            voteButton: voteButton,
+            for: newVote,
+            post: post
+        ) { (post) in
+//            self.saveNewPost(post)
+        }
     }
     
     private func makeViewModelAndPresent(

@@ -21,9 +21,15 @@ class SearchResultsAssembly: Assembly {
         let viewModel = SearchResultsViewModel(
             searchQuery: searchQuery,
             searchType: searchType,
-            userAccountService: UserAccountService()
+            userAccountService: UserAccountService(),
+            contentScoreService: ContentScoreService(
+                voteService: UpvoteDownvoteRequestService(userAccountService: UserAccountService())
+            )
         )
-        let vc = SearchResultsViewController(viewModel: viewModel)
+        let vc = SearchResultsViewController(
+            viewModel: viewModel,
+            showMoreHandler: ShowMoreHandlerService()
+        )
         viewModel.viewController = vc
         
         return vc

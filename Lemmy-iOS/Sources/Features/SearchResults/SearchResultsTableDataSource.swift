@@ -10,7 +10,7 @@ import UIKit
 
 protocol SearchResultsTableDataSourceDelegate: PostContentTableCellDelegate, CommentContentTableCellDelegate {
     func tableDidRequestPagination(_ tableDataSource: SearchResultsTableDataSource)
-    func tableDidSelect(viewModel: SearchResults.Results)
+    func tableDidSelect(viewModel: SearchResults.Results, indexPath: IndexPath)
 }
 
 final class SearchResultsTableDataSource: NSObject {
@@ -18,7 +18,7 @@ final class SearchResultsTableDataSource: NSObject {
     
     weak var delegate: SearchResultsTableDataSourceDelegate?
     
-    init(viewModels: SearchResults.Results = .posts([]), delegateImpl: SearchResultsViewController) {
+    init(viewModels: SearchResults.Results = .posts([])) {
         self.viewModels = viewModels
         super.init()
     }
@@ -108,7 +108,7 @@ extension SearchResultsTableDataSource: UITableViewDataSource {
 
 extension SearchResultsTableDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        self.delegate?.tableDidSelect(viewModel: viewModels, indexPath: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

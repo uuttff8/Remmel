@@ -96,6 +96,7 @@ class FrontPageCoordinator: NSObject, Coordinator {
     func goToSearchResults(searchQuery: String, searchType: LemmySearchSortType) {
         let assembly = SearchResultsAssembly(searchQuery: searchQuery, type: searchType)
         let vc = assembly.makeModule()
+        vc.coordinator = self
         navigationController?.pushViewController(vc, animated: true)
     }
     
