@@ -11,6 +11,8 @@ import Combine
 
 protocol ProfileScreenViewModelProtocol: AnyObject {
     func doProfileFetch()
+    func doIdentifyProfile()
+    func doProfileLogout()
     func doSubmoduleControllerAppearanceUpdate(request: ProfileScreenDataFlow.SubmoduleAppearanceUpdate.Request)
     func doSubmodulesRegistration(request: ProfileScreenDataFlow.SubmoduleRegistration.Request)
     func doSubmodulesDataFilling(request: ProfileScreenDataFlow.SubmoduleDataFilling.Request)
@@ -21,19 +23,22 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     
     weak var viewController: ProfileScreenViewControllerProtocol?
     
+    private let userAccountService: UserAccountSerivceProtocol
+    
     private var cancellable = Set<AnyCancellable>()
     
-    private var currentProfile: LemmyModel.UserView?
+    private var loadedProfile: LemmyModel.UserView?
 
     // Tab index -> Submodule
     private var submodules: [ProfileScreenSubmoduleProtocol] = []
     
-    init(profileId: Int) {
+    init(profileId: Int, userAccountService: UserAccountSerivceProtocol) {
         self.profileId = profileId
+        self.userAccountService = userAccountService
     }
     
     func doProfileFetch() {
-        self.viewController?.displayNotBlockingActivityIndicator(response: .init(shouldDismiss: false))
+        self.viewController?.displayNotBlockingActivityIndicator(viewModel: .init(shouldDismiss: false))
         
         let parameters = LemmyModel.User.GetUserDetailsRequest(userId: profileId,
                                                                username: nil,
@@ -48,16 +53,33 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
             .receive(on: RunLoop.main)
             .sink { (error) in
                 print(error)
-            } receiveValue: { (response) in
-                self.viewController?.displayNotBlockingActivityIndicator(response: .init(shouldDismiss: true))
-                self.currentProfile = response.user
+            } receiveValue: { [weak self] response in
+                guard let self = self else { return }
+                
+                self.viewController?.displayNotBlockingActivityIndicator(viewModel: .init(shouldDismiss: true))
+                self.loadedProfile = response.user
                 self.viewController?.displayProfile(
-                    response: .init(state: .result(profile: self.makeHeaderViewData(profile: response.user),
+                    viewModel: .init(state: .result(profile: self.makeHeaderViewData(profile: response.user),
                                                    posts: response.posts,
                                                    comments: response.comments,
                                                    subscribers: response.follows))
                 )
             }.store(in: &cancellable)
+    }
+    
+    func doIdentifyProfile() {
+        let isCurrent = loadedProfile?.id == userAccountService.currentUser?.id
+        ? true
+        : false
+        
+        self.viewController?.displayMoreButtonAlert(
+            viewModel: .init(isCurrentProfile: isCurrent)
+        )
+    }
+    
+    func doProfileLogout() {
+        userAccountService.logOut()
+        NotificationCenter.default.post(name: .didLogin, object: nil)
     }
     
     func doSubmoduleControllerAppearanceUpdate(request: ProfileScreenDataFlow.SubmoduleAppearanceUpdate.Request) {
@@ -106,17 +128,17 @@ enum ProfileScreenDataFlow {
     
     enum ProfileLoad {
         struct Request { }
-        
-        struct Response {
-            struct Data {
-                let profile: LemmyModel.UserView
-            }
-            
-            var result: Swift.Result<Data, Swift.Error>
-        }
-        
+                
         struct ViewModel {
             var state: ViewControllerState
+        }
+    }
+    
+    enum IdentifyProfile {
+        struct Request { }
+        
+        struct ViewModel {
+            let isCurrentProfile: Bool
         }
     }
     
@@ -144,7 +166,7 @@ enum ProfileScreenDataFlow {
     }
     
     enum ShowingActivityIndicator {
-        struct Response {
+        struct ViewModel {
             let shouldDismiss: Bool
         }
     }

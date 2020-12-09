@@ -37,6 +37,7 @@ class LemmyFrontPageNavBar: UIView {
         guard let photoStr = LemmyShareData.shared.userdata?.avatar,
               let photoUrl = URL(string: photoStr)
         else {
+            self.profileIcon.imageButton.setImage(UIImage(systemName: "person"), for: .normal)
             return
         }
 

@@ -40,7 +40,7 @@ class LemmyImageTextTypePicker<T: CaseIterable & LemmyTypePickable & Equatable>:
             
             control.addAction(action)
         }
-        control.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+        control.addAction(UIAlertAction.cancelAction)
         
         return control
     }()

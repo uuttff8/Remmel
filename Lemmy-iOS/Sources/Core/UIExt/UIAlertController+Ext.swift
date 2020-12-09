@@ -31,3 +31,9 @@ extension UIAlertController {
         actions.forEach { self.addAction($0) }
     }
 }
+
+extension UIAlertAction {
+    static var cancelAction: UIAlertAction {
+        UIAlertAction(title: "Cancel", style: .cancel)
+    }
+}

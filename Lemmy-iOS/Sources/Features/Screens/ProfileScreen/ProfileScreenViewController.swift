@@ -17,8 +17,9 @@ protocol ProfileScreenScrollablePageViewProtocol: AnyObject {
 }
 
 protocol ProfileScreenViewControllerProtocol: AnyObject {
-    func displayProfile(response: ProfileScreenDataFlow.ProfileLoad.ViewModel)
-    func displayNotBlockingActivityIndicator(response: ProfileScreenDataFlow.ShowingActivityIndicator.Response)
+    func displayProfile(viewModel: ProfileScreenDataFlow.ProfileLoad.ViewModel)
+    func displayNotBlockingActivityIndicator(viewModel: ProfileScreenDataFlow.ShowingActivityIndicator.ViewModel)
+    func displayMoreButtonAlert(viewModel: ProfileScreenDataFlow.IdentifyProfile.ViewModel)
 }
 
 class ProfileScreenViewController: UIViewController {
@@ -40,6 +41,11 @@ class ProfileScreenViewController: UIViewController {
     private lazy var profileScreenView = self.view as! ProfileScreenViewController.View
     lazy var styledNavigationController = self.navigationController as? StyledNavigationController
     
+    private lazy var showMoreBarButton = UIBarButtonItem(
+        image: Config.Image.ellipsis,
+        primaryAction: UIAction(handler: moreBarButtonTapped),
+        style: .plain)
+    
     private var storedViewModel: ProfileScreenHeaderView.ViewData?
     
     init(viewModel: ProfileScreenViewModel) {
@@ -51,22 +57,6 @@ class ProfileScreenViewController: UIViewController {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-        
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.loadSubmodules()
-        
-        self.addChild(self.pageViewController)
-        self.pageViewController.dataSource = self
-        self.pageViewController.delegate = self
-        
-        self.profileScreenView.updateCurrentPageIndex(ProfileScreenDataFlow.Tab.posts.rawValue)
-        
-        styledNavigationController?.removeBackButtonTitleForTopController()        
-        
-        viewModel.doProfileFetch()
     }
     
     override func loadView() {
@@ -88,7 +78,24 @@ class ProfileScreenViewController: UIViewController {
         
         self.view = view
     }
-    
+        
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.loadSubmodules()
+        
+        self.addChild(self.pageViewController)
+        self.pageViewController.dataSource = self
+        self.pageViewController.delegate = self
+        
+        self.profileScreenView.updateCurrentPageIndex(ProfileScreenDataFlow.Tab.posts.rawValue)
+        
+        styledNavigationController?.removeBackButtonTitleForTopController()
+        navigationItem.rightBarButtonItem = showMoreBarButton
+        
+        viewModel.doProfileFetch()
+    }
+        
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         styledNavigationController?.insertBackButtonTitleForTopController()
@@ -101,6 +108,10 @@ class ProfileScreenViewController: UIViewController {
             // Update status bar style.
             self.updateContentOffset(scrollOffset: self.lastKnownScrollOffset)
         }
+    }
+    
+    private func moreBarButtonTapped(_ action: UIAction) {
+        self.viewModel.doIdentifyProfile()
     }
     
     private func updateTopBar(alpha: CGFloat) {
@@ -121,15 +132,15 @@ class ProfileScreenViewController: UIViewController {
                 sender: self
             )
 
-            let statusBarStyle: UIStatusBarStyle = {
-                if alpha > CGFloat(ProfileScreenViewController.topBarAlphaStatusBarThreshold) {
-                    return self.view.isDarkInterfaceStyle ? .lightContent : .dark
-                } else {
-                    return .lightContent
-                }
-            }()
-
-            self.styledNavigationController?.changeStatusBarStyle(statusBarStyle, sender: self)
+//            let statusBarStyle: UIStatusBarStyle = {
+//                if alpha > CGFloat(ProfileScreenViewController.topBarAlphaStatusBarThreshold) {
+//                    return self.view.isDarkInterfaceStyle ? .lightContent : .dark
+//                } else {
+//                    return .lightContent
+//                }
+//            }()
+//
+//            self.styledNavigationController?.changeStatusBarStyle(statusBarStyle, sender: self)
         }
     }
     
@@ -296,8 +307,8 @@ extension ProfileScreenViewController: UIScrollViewDelegate {
 }
 
 extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
-    func displayProfile(response: ProfileScreenDataFlow.ProfileLoad.ViewModel) {
-        guard case let .result(headerData, posts, comments, subscribers) = response.state else { return }
+    func displayProfile(viewModel: ProfileScreenDataFlow.ProfileLoad.ViewModel) {
+        guard case let .result(headerData, posts, comments, subscribers) = viewModel.state else { return }
         self.title = headerData.name
         self.storedViewModel = headerData
         profileScreenView.configure(viewData: headerData)
@@ -308,10 +319,35 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
                                                               subscribers: subscribers))
     }
     
-    func displayNotBlockingActivityIndicator(response: ProfileScreenDataFlow.ShowingActivityIndicator.Response) {
-        response.shouldDismiss
+    func displayNotBlockingActivityIndicator( viewModel: ProfileScreenDataFlow.ShowingActivityIndicator.ViewModel) {
+         viewModel.shouldDismiss
             ? self.profileScreenView.hideActivityIndicatorView()
             : self.profileScreenView.showActivityIndicatorView()
+    }
+    
+    func displayMoreButtonAlert(viewModel: ProfileScreenDataFlow.IdentifyProfile.ViewModel) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        if viewModel.isCurrentProfile {
+            let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { _ in
+                self.viewModel.doProfileLogout()
+                _ = self.styledNavigationController?.popViewController(animated: true)
+            }
+            
+            alert.addAction(logoutAction)
+            
+        } else {
+            
+            let sendMessageAction = UIAlertAction(title: "Send Message", style: .default) { _ in
+                print("Send message")
+            }
+            
+            alert.addAction(sendMessageAction)
+        }
+        
+        alert.addAction(UIAlertAction.cancelAction)
+        
+        self.present(alert, animated: true)
     }
 }
 
@@ -338,7 +374,7 @@ extension ProfileScreenViewController: StyledNavigationControllerPresentable {
             statusBarColor: StyledNavigationController.Appearance.statusBarColor.withAlphaComponent(0.0),
             textColor: StyledNavigationController.Appearance.tintColor.withAlphaComponent(0.0),
             tintColor: .label,
-            statusBarStyle: .lightContent
+            statusBarStyle: .default
         )
     }
 }

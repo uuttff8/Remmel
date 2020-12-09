@@ -25,9 +25,9 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         }
         
         alertController.addActions([
-                                    shareAction,
-                                    reportAction,
-                                    UIAlertAction(title: "Cancel", style: .cancel)
+            shareAction,
+            reportAction,
+            UIAlertAction.cancelAction
         ])
         
         viewController.present(alertController, animated: true)
@@ -42,9 +42,9 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         }
         
         alertController.addActions([
-                                    shareAction,
-                                    reportAction,
-                                    UIAlertAction(title: "Cancel", style: .cancel)
+            shareAction,
+            reportAction,
+            UIAlertAction.cancelAction
         ])
         
         viewController.present(alertController, animated: true)

@@ -170,7 +170,7 @@ extension UIAlertController {
             onRegister()
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
+        let cancelAction = UIAlertAction.cancelAction
         
         [loginAction, signUpAction, cancelAction].forEach { (action) in
             alertController.addAction(action)

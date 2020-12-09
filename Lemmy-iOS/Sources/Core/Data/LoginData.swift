@@ -29,7 +29,6 @@ class LoginData {
 
     func logout() {
         self.clear()
-        userDefaults.removeSuite(named: UserDefaults.appSuiteName)
         userDefaults.resetDefaults()
         URLCache.shared.removeAllCachedResponses()
     }
