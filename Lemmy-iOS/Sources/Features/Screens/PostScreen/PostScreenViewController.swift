@@ -133,10 +133,7 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-//            let type = voteButton.viewData?.voteType == .up ? .none : LemmyVoteType.up
-//            voteButton.viewData?.voteType = type
-            
-            voteButton.setVoted(to: newVote)
+            self.viewModel.doCommentLike(voteButton: voteButton, for: newVote, comment: comment)
         }
     }
     
@@ -144,10 +141,7 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-//            let type = voteButton.viewData?.voteType == .down ? .none : LemmyVoteType.down
-//            voteButton.viewData?.voteType = type
-            
-            voteButton.setVoted(to: newVote)
+            self.viewModel.doCommentLike(voteButton: voteButton, for: newVote, comment: comment)
         }
     }
         

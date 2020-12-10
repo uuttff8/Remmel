@@ -12,14 +12,33 @@ import Combine
 protocol ProfileScreenCommentsViewModelProtocol {
     // TODO do pagination
     func doProfileCommentsFetch()
+    func doCommentLike(voteButton: VoteButton, for newVote: LemmyVoteType, comment: LemmyModel.CommentView)
 }
 
 class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
     weak var viewController: ProfileScreenCommentsViewControllerProtocol?
     
+    private let contentScoreService: ContentScoreServiceProtocol
+    
     var cancellable = Set<AnyCancellable>()
     
+    init(
+        contentScoreService: ContentScoreServiceProtocol
+    ) {
+        self.contentScoreService = contentScoreService
+    }
+    
     func doProfileCommentsFetch() { }
+    
+    func doCommentLike(voteButton: VoteButton, for newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+        self.contentScoreService.voteComment(
+            voteButton: voteButton,
+            for: newVote,
+            comment: comment
+        ) { (comment) in
+            // self.saveNewComment()
+        }
+    }
 }
 
 extension ProfileScreenCommentsViewModel: ProfileScreenCommentsInputProtocol {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 class CommentsFrontPageModel: NSObject {
     var dataLoaded: (([LemmyModel.CommentView]) -> Void)?
@@ -16,6 +17,10 @@ class CommentsFrontPageModel: NSObject {
     private var currentPage = 1
     
     var commentsDataSource: [LemmyModel.CommentView] = []
+    
+    private let upvoteDownvoteService = UpvoteDownvoteRequestService(userAccountService: UserAccountService())
+    
+    private var cancellable = Set<AnyCancellable>()
     
     // at init always posts
     var currentContentType: LemmyContentType = LemmyContentType.posts {
@@ -69,6 +74,20 @@ class CommentsFrontPageModel: NSObject {
                 print(error)
             }
         }
+    }
+    
+    func createCommentLike(newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+        self.upvoteDownvoteService.createCommentLike(vote: newVote, comment: comment)
+            .receive(on: RunLoop.main)
+            .sink { (completion) in
+                print(completion)
+            } receiveValue: { (comment) in
+                self.saveNewComment(comment)
+            }.store(in: &cancellable)
+    }
+    
+    private func saveNewComment(_ comment: LemmyModel.CommentView) {
+        
     }
     
 }

@@ -12,10 +12,20 @@ final class ProfileScreenCommentsAssembly: Assembly {
     
     // Module Input
     var moduleInput: ProfileScreenCommentsInputProtocol?
+    private let coordinator: WeakBox<ProfileScreenCoordinator>
+    
+    init(coordinator: WeakBox<ProfileScreenCoordinator>) {
+        self.coordinator = coordinator
+    }
 
     func makeModule() -> UIViewController {
-        let viewModel = ProfileScreenCommentsViewModel()
-        let vc = ProfileScreenCommentsViewController(viewModel: viewModel)
+        let viewModel = ProfileScreenCommentsViewModel(
+            contentScoreService: ContentScoreService(
+                voteService: UpvoteDownvoteRequestService(userAccountService: UserAccountService())
+            )
+        )
+        let vc = ProfileScreenCommentsViewController(viewModel: viewModel, showMoreHandler: ShowMoreHandlerService())
+        vc.coordinator = coordinator.value
         viewModel.viewController = vc
         self.moduleInput = viewModel
         

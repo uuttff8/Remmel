@@ -131,7 +131,7 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            print("asdasd")
+            self.viewModel.doCommentLike(voteButton: voteButton, for: newVote, comment: comment)
         }
     }
     
@@ -139,7 +139,7 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            print("asdasd")
+            self.viewModel.doCommentLike(voteButton: voteButton, for: newVote, comment: comment)
         }
     }
     

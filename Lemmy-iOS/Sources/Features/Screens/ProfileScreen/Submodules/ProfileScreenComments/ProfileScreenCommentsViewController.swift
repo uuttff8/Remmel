@@ -14,8 +14,13 @@ protocol ProfileScreenCommentsViewControllerProtocol: AnyObject {
 
 class ProfileScreenCommentsViewController: UIViewController {
     private let viewModel: ProfileScreenCommentsViewModel
+    
+    weak var coordinator: ProfileScreenCoordinator?
 
-    private let tableDataSource = ProfileScreenCommentsTableDataSource()
+    private lazy var tableDataSource = ProfileScreenCommentsTableDataSource().then {
+        $0.delegate = self
+    }
+    private let showMoreHandler: ShowMoreHandlerServiceProtocol
 
     lazy var commentsPostsView = self.view as? ProfileScreenCommentsViewController.View
 
@@ -25,10 +30,12 @@ class ProfileScreenCommentsViewController: UIViewController {
 
     init(
         viewModel: ProfileScreenCommentsViewModel,
-        initialState: ProfileScreenComments.ViewControllerState = .loading
+        initialState: ProfileScreenComments.ViewControllerState = .loading,
+        showMoreHandler: ShowMoreHandlerServiceProtocol
     ) {
         self.viewModel = viewModel
         self.state = initialState
+        self.showMoreHandler = showMoreHandler
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -71,5 +78,51 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsViewControll
         guard case let .result(data) = viewModel.state else { return }
         self.tableDataSource.viewModels = data.comments
         self.updateState(newState: viewModel.state)
+    }
+}
+
+extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSourceDelegate {
+    func usernameTapped(in comment: LemmyModel.CommentView) {
+        self.coordinator?.goToProfileScreen(by: comment.creatorId)
+    }
+    
+    func communityTapped(in comment: LemmyModel.CommentView) {
+        self.coordinator?.goToCommunityScreen(communityId: comment.communityId)
+    }
+    
+    func postNameTapped(in comment: LemmyModel.CommentView) {
+        self.coordinator?.goToPostScreen(postId: comment.postId)
+    }
+    
+    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+        guard let coordinator = coordinator else { return }
+        
+        ContinueIfLogined(on: self, coordinator: coordinator) {
+            self.viewModel.doCommentLike(voteButton: voteButton, for: newVote, comment: comment)
+        }
+    }
+    
+    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+        guard let coordinator = coordinator else { return }
+        
+        ContinueIfLogined(on: self, coordinator: coordinator) {
+            self.viewModel.doCommentLike(voteButton: voteButton, for: newVote, comment: comment)
+        }
+    }
+    
+    func showContext(in comment: LemmyModel.CommentView) {
+        // no more yet
+    }
+    
+    func reply(to comment: LemmyModel.CommentView) {
+        // no more yet
+    }
+    
+    func onLinkTap(in comment: LemmyModel.CommentView, url: URL) {
+        self.coordinator?.goToBrowser(with: url)
+    }
+    
+    func showMoreAction(in comment: LemmyModel.CommentView) {
+        self.showMoreHandler.showMoreInComment(on: self, comment: comment)
     }
 }

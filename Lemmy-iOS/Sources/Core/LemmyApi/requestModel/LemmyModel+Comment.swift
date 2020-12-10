@@ -34,7 +34,7 @@ extension LemmyModel {
             let content: String
             let parentId: Int?
             let postId: Int
-            let formId: String?, // An optional form id, so you know which message came bac
+            let formId: String? // An optional form id, so you know which message came bac
             let auth: String
             
             enum CodingKeys: String, CodingKey {

@@ -12,6 +12,7 @@ import Combine
 protocol SearchResultsViewModelProtocol: AnyObject {
     func doLoadContent(request: SearchResults.LoadContent.Request)
     func doPostLike(voteButton: VoteButton, for newVote: LemmyVoteType, post: LemmyModel.PostView) // refactor
+    func doCommentLike(voteButton: VoteButton, for newVote: LemmyVoteType, comment: LemmyModel.CommentView)
 }
 
 class SearchResultsViewModel: SearchResultsViewModelProtocol {
@@ -66,6 +67,16 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
             post: post
         ) { (post) in
 //            self.saveNewPost(post)
+        }
+    }
+    
+    func doCommentLike(voteButton: VoteButton, for newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+        self.contentScoreService.voteComment(
+            voteButton: voteButton,
+            for: newVote,
+            comment: comment
+        ) { (comment) in
+            // self.saveNewComment(comment)
         }
     }
     

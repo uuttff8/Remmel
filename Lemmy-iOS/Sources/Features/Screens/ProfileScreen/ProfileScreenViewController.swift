@@ -157,7 +157,7 @@ class ProfileScreenViewController: UIViewController {
                 submodulesControllers.append(assembly.makeModule())
                 submoduleInputs.append(assembly.moduleInput!)
             case .comments:
-                let assembly = ProfileScreenCommentsAssembly()
+                let assembly = ProfileScreenCommentsAssembly(coordinator: WeakBox(coordinator))
                 submodulesControllers.append(assembly.makeModule())
                 submoduleInputs.append(assembly.moduleInput!)
             case .about:

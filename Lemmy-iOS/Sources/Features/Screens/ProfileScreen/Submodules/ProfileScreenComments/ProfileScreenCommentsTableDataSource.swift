@@ -8,9 +8,13 @@
 
 import UIKit
 
+protocol ProfileScreenCommentsTableDataSourceDelegate: CommentContentTableCellDelegate { }
+
 class ProfileScreenCommentsTableDataSource: NSObject {
     var viewModels: [LemmyModel.CommentView]
 
+    weak var delegate: ProfileScreenCommentsTableDataSourceDelegate?
+    
     init(viewModels: [LemmyModel.CommentView] = []) {
         self.viewModels = viewModels
         super.init()
@@ -33,6 +37,7 @@ extension ProfileScreenCommentsTableDataSource: UITableViewDataSource {
         cell.updateConstraintsIfNeeded()
 
         let viewModel = self.viewModels[indexPath.row]
+        cell.commentContentView.delegate = delegate
         cell.bind(with: viewModel, level: 0)
 
         return cell

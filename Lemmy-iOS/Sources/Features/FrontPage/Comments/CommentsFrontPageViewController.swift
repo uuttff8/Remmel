@@ -99,19 +99,11 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
     }
     
     func upvote(voteButton: VoteButton, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
-        guard let coordinator = coordinator else { return }
-        
-        ContinueIfLogined(on: self, coordinator: coordinator) {
-            voteButton.setVoted(to: newVote)
-        }
+        vote(voteButton: voteButton, for: newVote, comment: comment)
     }
     
     func downvote(voteButton: VoteButton, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
-        guard let coordinator = coordinator else { return }
-        
-        ContinueIfLogined(on: self, coordinator: coordinator) {
-            voteButton.setVoted(to: newVote)
-        }
+        vote(voteButton: voteButton, for: newVote, comment: comment)
     }
         
     func showContext(in comment: LemmyModel.CommentView) {
@@ -128,5 +120,14 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
     
     func showMoreAction(in comment: LemmyModel.CommentView) {
         showMoreHandler.showMoreInComment(on: self, comment: comment)
+    }
+    
+    private func vote(voteButton: VoteButton, for newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+        guard let coordinator = coordinator else { return }
+        
+        ContinueIfLogined(on: self, coordinator: coordinator) {
+            voteButton.setVoted(to: newVote)
+            model.createCommentLike(newVote: newVote, comment: comment)
+        }
     }
 }

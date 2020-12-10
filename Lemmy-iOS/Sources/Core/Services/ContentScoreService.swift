@@ -67,8 +67,8 @@ class ContentScoreService: ContentScoreServiceProtocol {
             .receive(on: RunLoop.main)
             .sink { (completion) in
                 print(completion)
-            } receiveValue: { (post) in
-                completion(post)
+            } receiveValue: { (comment) in
+                completion(comment)
             }.store(in: &cancellable)
     }
 }
