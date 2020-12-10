@@ -55,6 +55,8 @@ class VoteButtonsWithScoreView: UIView {
     
     func bind(with viewData: ViewData) {
         self.viewData = viewData
+        upvoteBtn.scoreValue = viewData.voteType
+        downvoteBtn.scoreValue = viewData.voteType
         self.scoreLabel.text = String(viewData.score)
     }
     

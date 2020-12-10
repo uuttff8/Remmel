@@ -21,14 +21,8 @@ class PostContentFooterView: UIView {
     var upvoteButtonTap: ((VoteButton, LemmyVoteType) -> Void)?
     var downvoteButtonTap: ((VoteButton, LemmyVoteType) -> Void)?
         
-    private let upvoteBtn = VoteButton(voteType: .top).then {
-        $0.setImage(Config.Image.arrowUp, for: .normal)
-    }
-    
-    private let downvoteBtn = VoteButton(voteType: .down).then {
-        $0.setImage(Config.Image.arrowDown, for: .normal)
-    }
-    
+    private let upvoteDownvoteButtons = VoteButtonsWithScoreView()
+
     let scoreLabel = UILabel()
     
     private let commentBtn = UIButton().then {
@@ -51,11 +45,9 @@ class PostContentFooterView: UIView {
         super.init(frame: .zero)
         
         self.addSubview(stackView)
-        
+
         stackView.addStackViewItems(
-            .view(upvoteBtn),
-            .view(scoreLabel),
-            .view(downvoteBtn),
+            .view(upvoteDownvoteButtons),
             .view(UIView()),
             .view(commentBtn)
         )
@@ -76,15 +68,12 @@ class PostContentFooterView: UIView {
         self.viewData = data
         
         scoreLabel.text = String(data.score)
-        upvoteBtn.scoreValue = data.voteType
-        downvoteBtn.scoreValue = data.voteType
+        upvoteDownvoteButtons.bind(with: .init(score: data.score, voteType: data.voteType))
         commentBtn.setTitle(String(data.numberOfComments), for: .normal)
     }
     
     // MARK: - Overrided
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        upvoteBtn.setImage(Config.Image.arrowUp, for: .normal)
-        downvoteBtn.setImage(Config.Image.arrowDown, for: .normal)
         commentBtn.setImage(Config.Image.comments, for: .normal)
     }
     
@@ -94,29 +83,11 @@ class PostContentFooterView: UIView {
     
     // MARK: - Private
     private func setupTargets() {
-        downvoteBtn.addTarget(self, action: #selector(downvoteButtonTapped(sender:)), for: .touchUpInside)
-        upvoteBtn.addTarget(self, action: #selector(upvoteButtonTapped(sender:)), for: .touchUpInside)
-    }
-    
-    @objc private func upvoteButtonTapped(sender: VoteButton!) {
-        if let viewData = viewData {
-                        
-            let type = viewData.voteType == .up ? .none : LemmyVoteType.up
-            self.viewData?.voteType = type
-            
-            downvoteBtn.scoreValue = .none
-            upvoteButtonTap?(sender, type)
+        upvoteDownvoteButtons.upvoteButtonTap = {
+            self.upvoteButtonTap?($0, $1)
         }
-    }
-    
-    @objc private func downvoteButtonTapped(sender: VoteButton!) {
-        if let viewData = viewData {
-            
-            let type = viewData.voteType == .down ? .none : LemmyVoteType.down
-            self.viewData?.voteType = type
-            
-            upvoteBtn.scoreValue = .none
-            downvoteButtonTap?(sender, type)
+        upvoteDownvoteButtons.downvoteButtonTap = {
+            self.downvoteButtonTap?($0, $1)
         }
-    }
+    }    
 }
