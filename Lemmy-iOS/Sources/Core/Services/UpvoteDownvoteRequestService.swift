@@ -19,6 +19,11 @@ protocol UpvoteDownvoteRequestServiceProtocol: AnyObject {
         vote: LemmyVoteType,
         post: LemmyModel.PostView
     ) -> AnyPublisher<LemmyModel.PostView, LemmyGenericError>
+    
+    func createCommentLike(
+        vote: LemmyVoteType,
+        comment: LemmyModel.CommentView
+    ) -> AnyPublisher<LemmyModel.CommentView, LemmyGenericError>
 }
 
 final class UpvoteDownvoteRequestService: UpvoteDownvoteRequestServiceProtocol {
@@ -99,6 +104,26 @@ final class UpvoteDownvoteRequestService: UpvoteDownvoteRequestServiceProtocol {
         
         return ApiManager.requests.asyncCreatePostLike(parameters: params)
             .map({ $0.post })
+            .eraseToAnyPublisher()
+    }
+    
+    func createCommentLike(
+        vote: LemmyVoteType,
+        comment: LemmyModel.CommentView
+    ) -> AnyPublisher<LemmyModel.CommentView, LemmyGenericError> {
+        
+        guard let jwtToken = self.userAccountService.jwtToken
+        else {
+            return Fail(error: LemmyGenericError.string("failed to fetch jwt token"))
+                .eraseToAnyPublisher()
+        }
+        
+        let params = LemmyModel.Comment.CreateCommentLikeRequest(commentId: comment.id,
+                                                                 score: vote.rawValue,
+                                                                 auth: jwtToken)
+        
+        return ApiManager.requests.asyncCreateCommentLike(parameters: params)
+            .map({ $0.comment })
             .eraseToAnyPublisher()
     }
 }

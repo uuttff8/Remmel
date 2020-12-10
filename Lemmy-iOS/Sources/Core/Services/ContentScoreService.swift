@@ -16,6 +16,13 @@ protocol ContentScoreServiceProtocol {
         post: LemmyModel.PostView,
         completion: @escaping (LemmyModel.PostView) -> Void
     )
+    
+    func voteComment(
+        voteButton: VoteButton,
+        for newVote: LemmyVoteType,
+        comment: LemmyModel.CommentView,
+        completion: @escaping (LemmyModel.CommentView) -> Void
+    )
 }
 
 class ContentScoreService: ContentScoreServiceProtocol {
@@ -46,5 +53,22 @@ class ContentScoreService: ContentScoreServiceProtocol {
                 completion(post)
             }.store(in: &cancellable)
         
+    }
+    
+    func voteComment(
+        voteButton: VoteButton,
+        for newVote: LemmyVoteType,
+        comment: LemmyModel.CommentView,
+        completion: @escaping (LemmyModel.CommentView) -> Void
+    ) {
+        
+        voteButton.setVoted(to: newVote)
+        self.voteService.createCommentLike(vote: newVote, comment: comment)
+            .receive(on: RunLoop.main)
+            .sink { (completion) in
+                print(completion)
+            } receiveValue: { (post) in
+                completion(post)
+            }.store(in: &cancellable)
     }
 }
