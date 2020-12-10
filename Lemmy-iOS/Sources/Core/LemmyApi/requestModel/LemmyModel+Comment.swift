@@ -28,5 +28,26 @@ extension LemmyModel {
         struct GetCommentsResponse: Codable, Equatable {
             let comments: [CommentView]
         }
+        
+        // MARK: - CreateComment -
+        struct CreateCommentRequest: Codable, Equatable, Hashable {
+            let content: String
+            let parentId: Int?
+            let postId: Int
+            let formId: String?, // An optional form id, so you know which message came bac
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case content
+                case parentId = "parent_id"
+                case postId = "post_id"
+                case formId = "form_id"
+                case auth
+            }
+        }
+        
+        struct CreateCommentResponse: Codable, Equatable, Hashable {
+            let comment: CommentView
+        }
     }
 }

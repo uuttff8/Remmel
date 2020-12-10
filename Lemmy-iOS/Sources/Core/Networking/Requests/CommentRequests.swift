@@ -7,12 +7,17 @@
 //
 
 import Foundation
+import Combine
 
 private protocol CommentRequestManagerProtocol {
     func getComments(
         parameters: LemmyModel.Comment.GetCommentsRequest,
         completion: @escaping ((Result<LemmyModel.Comment.GetCommentsResponse, LemmyGenericError>) -> Void)
     )
+    
+    func asyncCreateComment(
+        parameters: LemmyModel.Comment.CreateCommentRequest
+    ) -> AnyPublisher<LemmyModel.Comment.CreateCommentResponse, LemmyGenericError>
 }
 
 extension RequestsManager: CommentRequestManagerProtocol {
@@ -27,4 +32,11 @@ extension RequestsManager: CommentRequestManagerProtocol {
             completion: completion
         )
     }
+    
+    func asyncCreateComment(
+        parameters: LemmyModel.Comment.CreateCommentRequest
+    ) -> AnyPublisher<LemmyModel.Comment.CreateCommentResponse, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.Comment.createComment.endpoint, parameters: parameters)
+    }
+
 }
