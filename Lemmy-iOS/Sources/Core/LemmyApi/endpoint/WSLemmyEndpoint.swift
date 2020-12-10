@@ -166,6 +166,9 @@ enum WSEndpoint {
         case saveComment
         case getComments
         case createCommentLike // score can be 0, -1, or 1
+        case createCommentReport
+        case resolveCommentReport
+        case listCommentReports
 
         var endpoint: String {
             switch self {
@@ -177,6 +180,9 @@ enum WSEndpoint {
             case .saveComment: return "SaveComment"
             case .getComments: return "GetComments"
             case .createCommentLike: return "CreateCommentLike"
+            case .createCommentReport: return "CreateCommentReport"
+            case .resolveCommentReport: return "ResolveCommentReport"
+            case .listCommentReports: return "ListCommentReports"
             }
         }
     }

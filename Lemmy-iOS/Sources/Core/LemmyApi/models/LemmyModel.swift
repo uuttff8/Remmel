@@ -195,6 +195,66 @@ enum LemmyModel {
             return "https://lemmy.ml/post/\(self.postId)/comment/\(self.id)"
         }
     }
+    
+    struct CommentReportView: Codable, Equatable, Hashable {
+        let id: Int
+        let creatorId: Int
+        let commentId: Int
+        let originalCommentText: String
+        let reason: String
+        let resolved: Bool
+        let resolverId: Int?
+        let published: Date
+        let updated: Date
+        let postId: Int
+        let currentCommentText: String
+        let communityId: Int
+        let creatorActorId: String
+        let creatorName: String
+        let creatorPreferredUsername: String?
+        let creatorAvatar: String?
+        let creatorLocal: Bool
+        let commentCreatorId: Int
+        let commentCreatorActorId: String
+        let commentCreatorName: String
+        let commentCreatorPreferredUsername: String?
+        let commentCreatorAvatar: String?
+        let commentCreatorLocal: Bool
+        let resolverActorId: String?
+        let resolverName: String?
+        let resolverPreferredUsername: String?
+        let resolverAvatar: String?
+        let resolverLocal: Bool?
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case creatorId = "creator_id"
+            case commentId = "comment_id"
+            case originalCommentText = "original_comment_text"
+            case reason, resolved
+            case resolverId = "resolver_id"
+            case published, updated
+            case postId = "post_id"
+            case currentCommentText = "current_comment_text"
+            case communityId = "community_id"
+            case creatorActorId = "creator_actor_id"
+            case creatorName = "creator_name"
+            case creatorPreferredUsername = "creator_preferred_username"
+            case creatorLocal = "creator_local"
+            case creatorAvatar = "creator_avatar"
+            case commentCreatorId = "comment_creator_id"
+            case commentCreatorActorId = "comment_creator_actor_id"
+            case commentCreatorName = "comment_creator_name"
+            case commentCreatorPreferredUsername = "comment_creator_preferred_username"
+            case commentCreatorAvatar = "comment_creator_avatar"
+            case commentCreatorLocal = "comment_creator_local"
+            case resolverActorId = "resolver_actor_id"
+            case resolverName = "resolver_name"
+            case resolverPreferredUsername = "resolver_preferred_username"
+            case resolverAvatar = "resolver_avatar"
+            case resolverLocal = "resolver_local"
+        }
+    }
 
     struct ModRemoveCommentView: Codable, Equatable, Hashable {
         let id: Int

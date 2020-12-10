@@ -68,5 +68,136 @@ extension LemmyModel {
         struct EditCommentResponse: Codable, Equatable, Hashable {
             let comment: CommentView
         }
+        
+        // MARK: - DeleteComment -
+        struct DeleteCommentRequest: Codable, Equatable, Hashable {
+            let editId: Int
+            let deleted: Bool
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case editId = "edit_id"
+                case deleted
+                case auth
+            }
+        }
+        
+        struct DeleteCommentResponse: Codable, Equatable, Hashable {
+            let comment: CommentView
+        }
+        
+        // MARK: - RemoveComment -
+        struct RemoveCommentRequest: Codable, Equatable, Hashable {
+            let editId: Int
+            let removed: Bool
+            let reason: String?
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case editId = "edit_id"
+                case removed, reason, auth
+            }
+        }
+        
+        struct RemoveCommentResponse: Codable, Equatable, Hashable {
+            let comment: CommentView
+        }
+        
+        // MARK: - MarkCommentAsRead -
+        struct MarkCommentAsReadRequest: Codable, Equatable, Hashable {
+            let editId: Int
+            let read: Bool
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case editId = "edit_id"
+                case read, auth
+            }
+        }
+        
+        struct MarkCommentAsReadResponse: Codable, Equatable, Hashable {
+            let comment: CommentView
+        }
+        
+        // MARK: - SaveComment -
+        struct SaveCommentRequest: Codable, Equatable, Hashable {
+            let commentId: Int
+            let save: Bool
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case commentId = "comment_id"
+                case save, auth
+            }
+        }
+        
+        struct SaveCommentResponse: Codable, Equatable, Hashable {
+            let comment: CommentView
+        }
+        
+        // MARK: - CreateCommentLike -
+        struct CreateCommentLikeRequest: Codable, Equatable, Hashable {
+            let commentId: Int
+            let score: Int
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case commentId = "comment_id"
+                case score, auth
+            }
+        }
+        
+        struct CreateCommentLikeResponse: Codable, Equatable, Hashable {
+            let comment: CommentView
+        }
+        
+        // MARK: - CreateCommentReport -
+        struct CreateCommentReportRequest: Codable, Equatable, Hashable {
+            let commentId: Int
+            let reason: String
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case commentId = "comment_id"
+                case reason, auth
+            }
+        }
+        
+        struct CreateCommentReportResponse: Codable, Equatable, Hashable {
+            let success: Bool
+        }
+        
+        // MARK: - ResolveCommentReport -
+        struct ResolveCommentReportRequest: Codable, Equatable, Hashable {
+            let reportId: Int
+            let resolved: Bool
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case reportId = "report_id"
+                case resolved, auth
+            }
+        }
+        
+        struct ResolveCommentReportResponse: Codable, Equatable, Hashable {
+            let reportId: Int
+            let resolved: Bool
+            
+            enum CodingKeys: String, CodingKey {
+                case reportId = "report_id"
+                case resolved
+            }
+        }
+        
+        struct ListCommentReportsRequest: Codable, Equatable, Hashable {
+            let page: Int?
+            let limit: Int?
+            let community: Int?
+            let auth: String
+        }
+        
+        struct ListCommentReportsResponse: Codable, Equatable, Hashable {
+            let comments: [CommentReportView]
+        }
     }
 }
