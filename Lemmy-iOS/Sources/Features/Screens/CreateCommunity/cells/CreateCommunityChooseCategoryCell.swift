@@ -16,17 +16,13 @@ class CreateCommunityChooseCategoryCell: UITableViewCell {
     // MARK: - Properties
     private var viewData: ViewData?
 
-    let commTitle: UILabel = {
-        let lbl = UILabel()
-        lbl.text = "Choose Category"
-        return lbl
-    }()
-
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.contentView.addSubview(commTitle)
+        setupView()
+        addSubviews()
+        makeConstraints()
     }
 
     required init?(coder: NSCoder) {
@@ -37,16 +33,19 @@ class CreateCommunityChooseCategoryCell: UITableViewCell {
         self.accessoryType = showDisclosure ? .disclosureIndicator : .none
         self.viewData = data
 
-        commTitle.text = data.title
+        textLabel?.text = data.title
     }
+}
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.commTitle.snp.makeConstraints { (make) in
-            make.top.bottom.equalToSuperview().inset(5)
-            make.height.equalTo(44)
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.centerY.equalToSuperview()
-        }
+extension CreateCommunityChooseCategoryCell: ProgrammaticallyViewProtocol {
+    func setupView() {
+        textLabel?.text = "Choose Category"
+    }
+    
+    func addSubviews() {
+    }
+    
+    func makeConstraints() {
+        
     }
 }

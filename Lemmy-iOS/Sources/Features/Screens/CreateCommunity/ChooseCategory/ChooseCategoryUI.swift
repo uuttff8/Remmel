@@ -16,7 +16,9 @@ class ChooseCategoryUI: UIView {
 
     var cancellable = Set<AnyCancellable>()
 
-    private let tableView = LemmyTableView(style: .insetGrouped, separator: true)
+    private let tableView = LemmyTableView(style: .insetGrouped, separator: true).then {
+        $0.registerClass(CreateCommunityChooseCategoryCell.self)
+    }
     private let searchBar = UISearchBar().then {
         $0.isOpaque = true
         $0.barTintColor = .systemBackground
@@ -123,7 +125,7 @@ extension ChooseCategoryUI: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let data = currentCellData(indexPath)
 
-        let cell = CreateCommunityChooseCategoryCell()
+        let cell = tableView.cell(forClass: CreateCommunityChooseCategoryCell.self)
         cell.bind(with: .init(title: data.name), showDisclosure: false)
         return cell
     }
