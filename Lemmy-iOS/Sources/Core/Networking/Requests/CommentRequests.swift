@@ -18,6 +18,10 @@ private protocol CommentRequestManagerProtocol {
     func asyncCreateComment(
         parameters: LemmyModel.Comment.CreateCommentRequest
     ) -> AnyPublisher<LemmyModel.Comment.CreateCommentResponse, LemmyGenericError>
+    
+    func asyncEditComment(
+        parameters: LemmyModel.Comment.EditCommentRequest
+    ) -> AnyPublisher<LemmyModel.Comment.EditCommentResponse, LemmyGenericError>
 }
 
 extension RequestsManager: CommentRequestManagerProtocol {
@@ -37,6 +41,12 @@ extension RequestsManager: CommentRequestManagerProtocol {
         parameters: LemmyModel.Comment.CreateCommentRequest
     ) -> AnyPublisher<LemmyModel.Comment.CreateCommentResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Comment.createComment.endpoint, parameters: parameters)
+    }
+    
+    func asyncEditComment(
+        parameters: LemmyModel.Comment.EditCommentRequest
+    ) -> AnyPublisher<LemmyModel.Comment.EditCommentResponse, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.Comment.editComment.endpoint, parameters: parameters)
     }
 
 }
