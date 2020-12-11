@@ -15,6 +15,14 @@ protocol WriteCommentViewModelProtocol: AnyObject {
 class WriteCommentViewModel: WriteCommentViewModelProtocol {
     weak var viewController: WriteCommentViewControllerProtocol?
     
+    private let parentId: Int?
+    private let postId: Int
+    
+    init(parentId: Int?, postId: Int) {
+        self.parentId = parentId
+        self.postId = postId
+    }
+
     func doWriteCommentFormLoad(request: WriteComment.FormLoad.Request) {
         
     }

@@ -43,6 +43,7 @@ enum SettingsTableSectionCellType {
     case input(options: InputCellOptions)
     case largeInput(options: LargeInputCellOptions)
     case rightDetail(options: RightDetailCellOptions)
+    case custom(options: UITableViewCell)
 }
 
 struct InputCellOptions {

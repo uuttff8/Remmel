@@ -255,6 +255,8 @@ extension SettingsTableView: UITableViewDataSource {
                 )
                 return cell
             }
+        case .custom(let cell):
+            return cell
         }
     }
 

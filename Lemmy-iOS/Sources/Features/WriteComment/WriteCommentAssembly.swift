@@ -9,8 +9,17 @@
 import UIKit
 
 final class WriteCommentAssembly: Assembly {
+    
+    private let parentId: Int?
+    private let postId: Int
+    
+    init(parentId: Int?, postId: Int) {
+        self.parentId = parentId
+        self.postId = postId
+    }
+    
     func makeModule() -> WriteCommentViewController {
-        let viewModel = WriteCommentViewModel()
+        let viewModel = WriteCommentViewModel(parentId: parentId, postId: postId)
         let vc = WriteCommentViewController(viewModel: viewModel)
         viewModel.viewController = vc
         
