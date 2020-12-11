@@ -84,6 +84,24 @@ final class SearchResultsTableDataSource: NSObject {
                                    thumbailUrl: user.avatar))
         return cell
     }
+    
+    func saveNewPost(post: LemmyModel.PostView) {
+        guard case .posts(var data) = viewModels else { return }
+        
+        if let index = data.firstIndex(where: { $0.id == post.id }) {
+            data[index] = post
+            viewModels = .posts(data)
+        }
+    }
+    
+    func saveNewComment(comment: LemmyModel.CommentView) {
+        guard case .comments(var data) = viewModels else { return }
+        
+        if let index = data.firstIndex(where: { $0.id == comment.id }) {
+            data[index] = comment
+            viewModels = .comments(data)
+        }
+    }
 }
 
 extension SearchResultsTableDataSource: UITableViewDataSource {

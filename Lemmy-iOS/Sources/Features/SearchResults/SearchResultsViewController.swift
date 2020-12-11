@@ -10,6 +10,8 @@ import UIKit
 
 protocol SearchResultsViewControllerProtocol: AnyObject {
     func displayContent(viewModel: SearchResults.LoadContent.ViewModel)
+    func operateSaveNewPost(viewModel: SearchResults.SavePost.ViewModel)
+    func operateSaveNewComment(viewModel: SearchResults.SaveComment.ViewModel)
 }
 
 class SearchResultsViewController: UIViewController {
@@ -80,6 +82,15 @@ extension SearchResultsViewController: SearchResultsViewControllerProtocol {
         self.tableManager.viewModels = data
         self.updateState(newState: viewModel.state)
     }
+    
+    func operateSaveNewPost(viewModel: SearchResults.SavePost.ViewModel) {
+        tableManager.saveNewPost(post: viewModel.post)
+    }
+    
+    func operateSaveNewComment(viewModel: SearchResults.SaveComment.ViewModel) {
+        tableManager.saveNewComment(comment: viewModel.comment)
+    }
+
 }
 
 extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {

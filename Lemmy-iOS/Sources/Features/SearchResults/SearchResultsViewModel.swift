@@ -65,8 +65,8 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
             voteButton: voteButton,
             for: newVote,
             post: post
-        ) { (post) in
-//            self.saveNewPost(post)
+        ) {
+            self.viewController?.operateSaveNewPost(viewModel: .init(post: $0))
         }
     }
     
@@ -75,8 +75,8 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
             voteButton: voteButton,
             for: newVote,
             comment: comment
-        ) { (comment) in
-            // self.saveNewComment(comment)
+        ) {
+            self.viewController?.operateSaveNewComment(viewModel: .init(comment: $0))
         }
     }
     
@@ -113,6 +113,22 @@ enum SearchResults {
         
         struct ViewModel {
             let state: ViewControllerState
+        }
+    }
+    
+    enum SavePost {
+        struct Request { }
+        
+        struct ViewModel {
+            let post: LemmyModel.PostView
+        }
+    }
+    
+    enum SaveComment {
+        struct Request { }
+        
+        struct ViewModel {
+            let comment: LemmyModel.CommentView
         }
     }
         
