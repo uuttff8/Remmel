@@ -9,7 +9,8 @@
 import UIKit
 
 protocol PostScreenViewControllerProtocol: AnyObject {
-    func displayPost(response: PostScreen.PostLoad.ViewModel)
+    func displayPost(viewModel: PostScreen.PostLoad.ViewModel)
+    func operateSaveNewPost(viewModel: PostScreen.SaveComment.ViewModel)
 }
 
 class PostScreenViewController: UIViewController, Containered {
@@ -74,11 +75,15 @@ class PostScreenViewController: UIViewController, Containered {
 }
 
 extension PostScreenViewController: PostScreenViewControllerProtocol {
-    func displayPost(response: PostScreen.PostLoad.ViewModel) {
+    func displayPost(viewModel: PostScreen.PostLoad.ViewModel) {
 //        guard case let .result(data) = response.state else { return }
                 
 //        self.tableDataSource.viewModels = data.comments
-        self.updateState(newState: response.state)
+        self.updateState(newState: viewModel.state)
+    }
+    
+    func operateSaveNewPost(viewModel: PostScreen.SaveComment.ViewModel) {
+        foldableCommentsViewController.saveNewComment(comment: viewModel.comment)
     }
 }
 

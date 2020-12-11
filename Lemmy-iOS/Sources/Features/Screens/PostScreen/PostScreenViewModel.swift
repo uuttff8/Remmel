@@ -46,7 +46,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
             } receiveValue: { [weak self] (response) in
                 guard let self = self else { return }
                 self.viewController?.displayPost(
-                    response: .init(
+                    viewModel: .init(
                         state: .result(
                             data: self.makeViewData(from: response)
                         )
@@ -75,7 +75,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
             for: newVote,
             comment: comment
         ) { (comment) in
-            // self.saveNewComment(comment)
+            self.viewController?.operateSaveNewPost(viewModel: .init(comment: comment))
         }
     }
     
@@ -97,6 +97,14 @@ enum PostScreen {
         
         struct ViewModel {
             let state: ViewControllerState
+        }
+    }
+    
+    enum SaveComment {
+        struct Request { }
+        
+        struct ViewModel {
+            let comment: LemmyModel.CommentView
         }
     }
     

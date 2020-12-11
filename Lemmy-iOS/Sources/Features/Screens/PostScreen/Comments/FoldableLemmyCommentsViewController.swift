@@ -11,9 +11,11 @@ import UIKit
 protocol CommentsViewControllerDelegate: CommentContentTableCellDelegate { }
 
 final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyCommentTableViewDataSource {
-    var allComments: [LemmyComment] = []
-    
     weak var commentDelegate: CommentsViewControllerDelegate?
+    
+    var commentDataSource: [LemmyComment] {
+        currentlyDisplayed as! [LemmyComment]
+    }
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -31,14 +33,18 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
     }
     
     func showComments(with comments: [LemmyComment]) {
-        self.allComments = comments
-        
         self.delegate = self
         self.fullyExpanded = true
         
         self.dataSource = self
         self.currentlyDisplayed = comments
         self.tableView.reloadData()
+    }
+    
+    func saveNewComment(comment: LemmyModel.CommentView) {
+        if let index = commentDataSource.firstIndex(where: { $0.id == comment.id }) {
+            (currentlyDisplayed[index] as! LemmyComment).commentContent = comment
+        }
     }
     
     func setupHeaderView(_ headerView: UIView) {
@@ -53,12 +59,16 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
     ) -> CommentCell {
         
         let commentCell: CommentContentTableCell = tableView.cell(forRowAt: indexPath)
-        let comment = currentlyDisplayed[indexPath.row] as! LemmyComment
+        let comment = getCommentData(from: indexPath)
         
         commentCell.bind(with: comment.commentContent!, level: comment.level, appearance: .init(config: .inPost))
         commentCell.commentContentView.delegate = commentDelegate
         
         return commentCell
+    }
+    
+    private func getCommentData(from indexPath: IndexPath) -> LemmyComment {
+        currentlyDisplayed[indexPath.row] as! LemmyComment
     }
 }
 
