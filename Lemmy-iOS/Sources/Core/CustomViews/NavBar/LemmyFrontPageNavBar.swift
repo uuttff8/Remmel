@@ -9,12 +9,6 @@
 import UIKit
 import Nuke
 
-extension UIButton: Nuke_ImageDisplaying {
-    public func nuke_display(image: Nuke.PlatformImage?) {
-        self.setImage(image, for: .normal)
-    }
-}
-
 class LemmyFrontPageNavBar: UIView {
     var onProfileIconTap: (() -> Void)?
     

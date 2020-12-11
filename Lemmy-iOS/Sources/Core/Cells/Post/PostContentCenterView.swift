@@ -87,11 +87,7 @@ class PostContentCenterView: UIView {
             subtitleLabel.linkAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
         }
         
-        if let image = data.imageUrl {
-            Nuke.loadImage(with: ImageRequest(url: URL(string: image)!), into: thumbailImageView)
-        } else {
-            thumbailImageView.isHidden = true
-        }
+        thumbailImageView.loadImage(urlString: data.imageUrl)
         
         layoutUI()
     }

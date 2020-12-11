@@ -48,12 +48,7 @@ class ChooseCommunityCell: UITableViewCell {
     func bind(with data: ViewData) {
         self.viewData = data
 
-        if let imageString = data.icon, let url = URL(string: imageString) {
-            Nuke.loadImage(with: ImageRequest(url: url), into: commImageView)
-        } else {
-            self.commImageView.isHidden = true
-        }
-
+        commImageView.loadImage(urlString: data.icon)
         commTitle.text = data.title
     }
     

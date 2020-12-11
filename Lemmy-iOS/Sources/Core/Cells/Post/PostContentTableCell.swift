@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Nuke
 import DateToolsSwift
 import SwiftyMarkdown
 import Nantes

@@ -6,7 +6,6 @@
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import Nuke
 import UIKit
 import SnapKit
 

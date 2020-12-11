@@ -42,10 +42,7 @@ class CommunityPreviewTableCell: UITableViewCell {
     }
 
     func bind() {
-        if let imageUrl = community.icon {
-//            self.imageView!.image = UIImage(systemName: "hourglass.tophalf.fill")
-            Nuke.loadImage(with: ImageRequest(url: URL(string: imageUrl)!), into: self.imageView!)
-        }
+        self.imageView?.loadImage(urlString: community.icon)
 
         self.textLabel?.text = community.name
         self.detailTextLabel?.text = community.categoryName

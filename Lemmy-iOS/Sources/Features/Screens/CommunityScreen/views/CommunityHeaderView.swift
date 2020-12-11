@@ -102,11 +102,7 @@ class CommunityHeaderView: UIView {
     }
     
     func bind(with data: LemmyModel.CommunityView) {
-        if let commImageString = data.icon {
-            Nuke.loadImage(with: URL(string: commImageString)!, into: commImageView)
-        } else {
-            commImageView.isHidden = true
-        }
+        commImageView.loadImage(urlString: data.icon)
         
         commNameLabel.text = data.name
         subscribersLabel.text = String(data.numberOfSubscribers) + " Subscribers"

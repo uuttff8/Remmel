@@ -98,9 +98,11 @@ extension ProfileScreenPostsViewController {
         }
         
         func displayNoData() {
-            self.scrollingStack.isHidden = false
-            self.tableView.isHidden = true
-            makeConstraints()
+            
+            // TODO: do it right
+//            self.scrollingStack.isHidden = false
+//            self.tableView.isHidden = true
+//            makeConstraints()
         }
         
         func appendNew(data: [LemmyModel.PostView]) {

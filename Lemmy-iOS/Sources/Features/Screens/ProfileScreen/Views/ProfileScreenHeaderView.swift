@@ -25,8 +25,8 @@ class ProfileScreenHeaderView: UIView {
     
     struct ViewData {
         let name: String
-        let avatarUrl: URL?
-        let bannerUrl: URL?
+        let avatarUrl: String?
+        let bannerUrl: String?
         let numberOfComments: Int
         let numberOfPosts: Int
         let published: Date
@@ -108,28 +108,11 @@ class ProfileScreenHeaderView: UIView {
     
     func configure(viewData: ViewData) {
         usernameLabel.text = viewData.name
-        loadImage(url: viewData.avatarUrl, imageView: iconImageView)
-        loadImage(url: viewData.bannerUrl, imageView: bannerImageView)
+        iconImageView.loadImage(urlString: viewData.avatarUrl)
+        bannerImageView.loadImage(urlString: viewData.bannerUrl)
         numberOfCommentsLabel.text = String(viewData.numberOfComments) + " Comments"
         numberOfPostsLabel.text = String(viewData.numberOfPosts) + " Posts"
         pubslihedLabel.text = "Joined " + String(viewData.published.shortTimeAgoSinceNow) + " ago"
-    }
-    
-    private func loadImage(url: URL?, imageView: UIImageView) {
-        if let url = url {
-            Nuke.loadImage(
-                with: url,
-                options: ImageLoadingOptions(
-                    transition: ImageLoadingOptions.Transition.fadeIn(
-                        duration: self.appearance.imageFadeInDuration
-                    )
-                ),
-                into: imageView
-            )
-        } else {
-            imageView.isHidden = true
-            imageView.image = nil
-        }
     }
 }
 

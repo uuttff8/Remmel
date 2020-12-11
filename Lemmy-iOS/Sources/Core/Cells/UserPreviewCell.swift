@@ -30,9 +30,7 @@ class UserPreviewCell: UITableViewCell {
         self.textLabel?.text = viewData.name
         self.detailTextLabel?.text = String(viewData.numberOfComments) + " Comments"
         
-        if let url = URL(string: viewData.thumbailUrl ?? "") {
-            Nuke.loadImage(with: url, into: imageView!)
-        }
+        imageView?.loadImage(urlString: viewData.thumbailUrl)
     }
     
     override func prepareForReuse() {

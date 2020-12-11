@@ -102,8 +102,8 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     ) -> ProfileScreenHeaderView.ViewData {
         return .init(
             name: profile.name,
-            avatarUrl: URL(string: profile.avatar ?? ""),
-            bannerUrl: URL(string: profile.banner ?? ""),
+            avatarUrl: profile.avatar,
+            bannerUrl: profile.banner,
             numberOfComments: profile.numberOfComments,
             numberOfPosts: profile.numberOfPosts,
             published: profile.published
