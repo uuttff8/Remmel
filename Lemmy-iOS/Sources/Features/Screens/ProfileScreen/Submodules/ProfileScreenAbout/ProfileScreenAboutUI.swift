@@ -62,8 +62,7 @@ extension ProfileScreenAboutViewController {
 
             self.tableView.dataSource = dataSource
             self.tableView.reloadData()
-        }
-
+        }        
     }
 }
 

@@ -89,9 +89,6 @@ extension ProfileScreenPostsViewController {
         }
         
         func updateTableViewData(dataSource: UITableViewDataSource) {
-            self.emptyStateLabel.isHidden = true
-            self.tableView.isHidden = false
-            
             _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
 //            self.emptyStateLabel.isHidden = numberOfRows != 0
 

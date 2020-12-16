@@ -64,11 +64,15 @@ class ProfileScreenCommentsViewController: UIViewController {
         }
 
         if case .loading = self.state {
-            self.commentsPostsView?.hideActivityIndicatorView()
+            self.commentsPostsView?.hideLoadingIndicator()
         }
 
-        if case .result = newState {
-            self.commentsPostsView?.updateTableViewData(dataSource: self.tableDataSource)
+        if case .result(let data) = newState {
+            if data.comments.isEmpty {
+                self.commentsPostsView?.displayNoData()
+            } else {
+                self.commentsPostsView?.updateTableViewData(dataSource: self.tableDataSource)
+            }
         }
     }
 }

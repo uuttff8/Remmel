@@ -34,6 +34,12 @@ extension ProfileScreenCommentsViewController {
             $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 90, right: 0) // tab bar
         }
         
+        private lazy var emptyStateLabel = UILabel().then {
+            $0.text = "No Comments here yet..."
+            $0.textAlignment = .center
+            $0.textColor = .tertiaryLabel
+        }
+        
         init(frame: CGRect = .zero, appearance: Appearance = Appearance()) {
             self.appearance = appearance
             super.init(frame: frame)
@@ -52,7 +58,7 @@ extension ProfileScreenCommentsViewController {
             tableView.showActivityIndicator()
         }
         
-        func hideActivityIndicator() {
+        func hideLoadingIndicator() {
             tableView.hideActivityIndicator()
         }
         
@@ -63,19 +69,34 @@ extension ProfileScreenCommentsViewController {
             self.tableView.dataSource = dataSource
             self.tableView.reloadData()
         }
-
+        
+        func displayNoData() {
+            self.emptyStateLabel.isHidden = false
+            self.tableView.isHidden = true
+            makeConstraints()
+        }
     }
 }
 
 extension ProfileScreenCommentsViewController.View: ProgrammaticallyViewProtocol {
+    func setupView() {
+        self.emptyStateLabel.isHidden = true
+    }
+    
     func addSubviews() {
         self.addSubview(tableView)
+        self.addSubview(emptyStateLabel)
     }
     
     func makeConstraints() {
         self.tableView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.bottom.equalTo(self.safeAreaLayoutGuide) // tab bar
+        }
+        
+        self.emptyStateLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(350)
+            $0.leading.trailing.equalToSuperview()
         }
     }
 }
