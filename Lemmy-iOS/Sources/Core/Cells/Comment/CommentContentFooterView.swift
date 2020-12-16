@@ -12,8 +12,8 @@ import UIKit
 class CommentFooterView: UIView {
     
     var showContextTap: (() -> Void)?
-    var upvoteTap: ((VoteButton, LemmyVoteType) -> Void)?
-    var downvoteTap: ((VoteButton, LemmyVoteType) -> Void)?
+    var upvoteTap: ((VoteButtonsWithScoreView, VoteButton, LemmyVoteType) -> Void)?
+    var downvoteTap: ((VoteButtonsWithScoreView, VoteButton, LemmyVoteType) -> Void)?
     var replyTap: (() -> Void)?
 
     // MARK: - Constants
@@ -89,10 +89,10 @@ class CommentFooterView: UIView {
     private func setupTargets() {
         showContextButton.addTarget(self, action: #selector(showContextButtonTapped(sender:)), for: .touchUpInside)
         upvoteDownvoteButtons.upvoteButtonTap = {
-            self.upvoteTap?($0, $1)
+            self.upvoteTap?($0, $1, $2)
         }
         upvoteDownvoteButtons.downvoteButtonTap = {
-            self.downvoteTap?($0, $1)
+            self.downvoteTap?($0, $1, $2)
         }
         replyButton.addTarget(self, action: #selector(replyButtonTapped(sender:)), for: .touchUpInside)
     }

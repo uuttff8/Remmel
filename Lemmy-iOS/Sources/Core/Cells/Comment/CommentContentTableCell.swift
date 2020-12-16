@@ -13,8 +13,18 @@ protocol CommentContentTableCellDelegate: AnyObject {
     func usernameTapped(in comment: LemmyModel.CommentView)
     func communityTapped(in comment: LemmyModel.CommentView)
     func postNameTapped(in comment: LemmyModel.CommentView)
-    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, comment: LemmyModel.CommentView)
-    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, comment: LemmyModel.CommentView)
+    func upvote(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        comment: LemmyModel.CommentView
+    )
+    func downvote(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        comment: LemmyModel.CommentView
+    )
     func showContext(in comment: LemmyModel.CommentView)
     func reply(to comment: LemmyModel.CommentView)
     func onLinkTap(in comment: LemmyModel.CommentView, url: URL)

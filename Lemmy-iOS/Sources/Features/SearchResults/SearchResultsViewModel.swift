@@ -11,8 +11,18 @@ import Combine
 
 protocol SearchResultsViewModelProtocol: AnyObject {
     func doLoadContent(request: SearchResults.LoadContent.Request)
-    func doPostLike(voteButton: VoteButton, for newVote: LemmyVoteType, post: LemmyModel.PostView) // refactor
-    func doCommentLike(voteButton: VoteButton, for newVote: LemmyVoteType, comment: LemmyModel.CommentView)
+    func doPostLike(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        for newVote: LemmyVoteType,
+        post: LemmyModel.PostView
+    ) // refactor
+    func doCommentLike(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        for newVote: LemmyVoteType,
+        comment: LemmyModel.CommentView
+    )
 }
 
 class SearchResultsViewModel: SearchResultsViewModelProtocol {
@@ -60,8 +70,14 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
             }.store(in: &cancellable)
     }
     
-    func doPostLike(voteButton: VoteButton, for newVote: LemmyVoteType, post: LemmyModel.PostView) {
+    func doPostLike(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        for newVote: LemmyVoteType,
+        post: LemmyModel.PostView
+    ) {
         self.contentScoreService.votePost(
+            scoreView: scoreView,
             voteButton: voteButton,
             for: newVote,
             post: post
@@ -70,8 +86,14 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
         }
     }
     
-    func doCommentLike(voteButton: VoteButton, for newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+    func doCommentLike(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        for newVote: LemmyVoteType,
+        comment: LemmyModel.CommentView
+    ) {
         self.contentScoreService.voteComment(
+            scoreView: scoreView,
             voteButton: voteButton,
             for: newVote,
             comment: comment

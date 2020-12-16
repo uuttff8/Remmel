@@ -17,9 +17,12 @@ class VoteButtonsWithScoreView: UIView {
     
     var viewData: ViewData?
     
-    var upvoteButtonTap: ((VoteButton, LemmyVoteType) -> Void)?
-    var downvoteButtonTap: ((VoteButton, LemmyVoteType) -> Void)?
+    private var lastKnownVoteType: LemmyVoteType = .none
+    private var lastKnownVoteScore: Int = 0
     
+    var upvoteButtonTap: ((VoteButtonsWithScoreView, VoteButton, LemmyVoteType) -> Void)?
+    var downvoteButtonTap: ((VoteButtonsWithScoreView, VoteButton, LemmyVoteType) -> Void)?
+        
     private let stackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 8
@@ -55,14 +58,52 @@ class VoteButtonsWithScoreView: UIView {
     
     func bind(with viewData: ViewData) {
         self.viewData = viewData
+        
         upvoteBtn.scoreValue = viewData.voteType
         downvoteBtn.scoreValue = viewData.voteType
+        
+        self.lastKnownVoteType = viewData.voteType
+        self.lastKnownVoteScore = viewData.score
         self.scoreLabel.text = String(viewData.score)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         upvoteBtn.setImage(Config.Image.arrowUp, for: .normal)
         downvoteBtn.setImage(Config.Image.arrowDown, for: .normal)
+    }
+    
+    func setVoted(voteButton: VoteButton, to newVote: LemmyVoteType) {
+        voteButton.setVoted(to: newVote)
+        
+        switch newVote {
+        case .none:
+            
+            switch lastKnownVoteType {
+            
+            case .up:
+                self.lastKnownVoteScore -= 1
+                self.lastKnownVoteType = .none
+                
+                self.scoreLabel.text = String(lastKnownVoteScore)
+            case .down:
+                self.lastKnownVoteScore += 1
+                self.lastKnownVoteType = .none
+                
+                self.scoreLabel.text = String(lastKnownVoteScore)
+                
+            default:
+                fatalError("Must be no way to set .none from .none")
+            }
+            
+        case .up:
+            self.scoreLabel.text = String(self.lastKnownVoteScore + 1)
+            self.lastKnownVoteScore += 1
+            self.lastKnownVoteType = .up
+        case .down:
+            self.scoreLabel.text = String(self.lastKnownVoteScore - 1)
+            self.lastKnownVoteScore -= 1
+            self.lastKnownVoteType = .down
+        }
     }
     
     @objc private func upvoteButtonTapped(sender: VoteButton!) {
@@ -72,7 +113,7 @@ class VoteButtonsWithScoreView: UIView {
             self.viewData?.voteType = type
             
             downvoteBtn.scoreValue = .none
-            upvoteButtonTap?(sender, type)
+            upvoteButtonTap?(self, sender, type)
         }
     }
     
@@ -83,7 +124,7 @@ class VoteButtonsWithScoreView: UIView {
             self.viewData?.voteType = type
             
             upvoteBtn.scoreValue = .none
-            downvoteButtonTap?(sender, type)
+            downvoteButtonTap?(self, sender, type)
         }
     }
 }

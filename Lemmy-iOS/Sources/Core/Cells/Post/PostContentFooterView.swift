@@ -18,12 +18,10 @@ class PostContentFooterView: UIView {
     }
     
     // MARK: - Properties
-    var upvoteButtonTap: ((VoteButton, LemmyVoteType) -> Void)?
-    var downvoteButtonTap: ((VoteButton, LemmyVoteType) -> Void)?
+    var upvoteButtonTap: ((VoteButtonsWithScoreView, VoteButton, LemmyVoteType) -> Void)?
+    var downvoteButtonTap: ((VoteButtonsWithScoreView, VoteButton, LemmyVoteType) -> Void)?
         
     private let upvoteDownvoteButtons = VoteButtonsWithScoreView()
-
-    let scoreLabel = UILabel()
     
     private let commentBtn = UIButton().then {
         $0.setImage(Config.Image.comments, for: .normal)
@@ -66,11 +64,9 @@ class PostContentFooterView: UIView {
     // MARK: - Bind
     func bind(with data: PostContentFooterView.ViewData) {
         self.viewData = data
-        
-        scoreLabel.text = String(data.score)
         upvoteDownvoteButtons.bind(with: .init(score: data.score, voteType: data.voteType))
         commentBtn.setTitle(String(data.numberOfComments), for: .normal)
-    }
+    }    
     
     // MARK: - Overrided
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -84,10 +80,10 @@ class PostContentFooterView: UIView {
     // MARK: - Private
     private func setupTargets() {
         upvoteDownvoteButtons.upvoteButtonTap = {
-            self.upvoteButtonTap?($0, $1)
+            self.upvoteButtonTap?($0, $1, $2)
         }
         upvoteDownvoteButtons.downvoteButtonTap = {
-            self.downvoteButtonTap?($0, $1)
+            self.downvoteButtonTap?($0, $1, $2)
         }
     }    
 }

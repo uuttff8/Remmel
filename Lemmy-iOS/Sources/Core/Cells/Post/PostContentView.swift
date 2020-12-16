@@ -89,12 +89,12 @@ class PostContentView: UIView {
             self?.delegate?.onLinkTap(in: post, url: url)
         }
         
-        footerView.downvoteButtonTap = { [weak self] (button, voteType) in
-            self?.delegate?.downvote(voteButton: button, newVote: voteType, post: post)
+        footerView.downvoteButtonTap = { [weak self] (scoreView, button, voteType) in
+            self?.delegate?.downvote(scoreView: scoreView, voteButton: button, newVote: voteType, post: post)
         }
         
-        footerView.upvoteButtonTap = { [weak self] (button, voteType) in
-            self?.delegate?.upvote(voteButton: button, newVote: voteType, post: post)
+        footerView.upvoteButtonTap = { [weak self] (scoreView, button, voteType) in
+            self?.delegate?.upvote(scoreView: scoreView, voteButton: button, newVote: voteType, post: post)
         }
     }
     

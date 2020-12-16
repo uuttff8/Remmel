@@ -12,7 +12,7 @@ extension VoteButton {
     struct Appearance {
         let voteAnimationDuration: TimeInterval = 0.1
         let scaleValue: CGFloat = 0.8
-        let transitionDistance: CGFloat = 15
+        let transitionDistance: CGFloat = 10
         
         let upvotedColor: UIColor = .systemBlue
         let downvotedColor: UIColor = .systemRed
@@ -44,8 +44,13 @@ final class VoteButton: ScaledButton {
     
     var appearance: Appearance
     
-    private let voteType: VoteType
-        
+    let voteType: VoteType
+    
+    private lazy var animator = UIViewPropertyAnimator(
+        duration: self.appearance.voteAnimationDuration,
+        curve: .easeInOut
+    )
+    
     init(voteType: VoteType, appearance: Appearance = Appearance()) {
         self.voteType = voteType
         self.appearance = appearance
@@ -65,31 +70,32 @@ final class VoteButton: ScaledButton {
         self.isTransformAnimationEnded = false
         self.isEnabled = false
         
-        let trDistance: CGFloat = voteType == .top ?
-            -appearance.transitionDistance
-            : appearance.transitionDistance
+//        let trDistance: CGFloat = voteType == .top ?
+//            -appearance.transitionDistance
+//            : appearance.transitionDistance
         
-        // TODO: rewrite with UIViewPropertyAnimator
-        UIView.animate(
+        /* // FIX: make it work
+        UIViewPropertyAnimator.runningPropertyAnimator(
             withDuration: self.appearance.voteAnimationDuration,
             delay: 0.0,
-            options: [.curveEaseIn],
+            options: [],
             animations: {
                 self.center.y += trDistance
             },
             completion: { _ in
                 
-                UIView.animate(
+                UIViewPropertyAnimator.runningPropertyAnimator(
                     withDuration: self.appearance.voteAnimationDuration,
                     delay: 0.0,
-                    options: [.curveEaseIn],
+                    options: [],
                     animations: {
                         self.center.y -= trDistance
-                    }
-                )
+                    },
+                    completion: nil)
                 
             }
         )
+        */
         
         self.isEnabled = true
         isTransformAnimationEnded = true

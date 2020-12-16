@@ -181,12 +181,22 @@ extension PostsFrontPageViewController: SFSafariViewControllerDelegate {
 }
 
 extension PostsFrontPageViewController: PostContentTableCellDelegate {
-    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
-        vote(voteButton: voteButton, for: newVote, post: post)
+    func upvote(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        post: LemmyModel.PostView
+    ) {
+        vote(scoreView: scoreView, voteButton: voteButton, newVote: newVote, post: post)
     }
     
-    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
-        vote(voteButton: voteButton, for: newVote, post: post)
+    func downvote(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        post: LemmyModel.PostView
+    ) {
+        vote(scoreView: scoreView, voteButton: voteButton, newVote: newVote, post: post)
     }
     
     func onLinkTap(in post: LemmyModel.PostView, url: URL) {
@@ -207,11 +217,16 @@ extension PostsFrontPageViewController: PostContentTableCellDelegate {
         showMoreHandler.showMoreInPost(on: self, post: post)
     }
     
-    private func vote(voteButton: VoteButton, for newVote: LemmyVoteType, post: LemmyModel.PostView) {
+    private func vote(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        post: LemmyModel.PostView
+    ) {
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            voteButton.setVoted(to: newVote)
+            scoreView.setVoted(voteButton: voteButton, to: newVote)
             model.createPostLike(newVote: newVote, post: post)
         }
     }

@@ -94,19 +94,29 @@ extension SearchResultsViewController: SearchResultsViewControllerProtocol {
 }
 
 extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
-    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
+    func upvote(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        post: LemmyModel.PostView
+    ) {
         guard let coordinator = coordinator else { return }
 
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            self.viewModel.doPostLike(voteButton: voteButton, for: newVote, post: post)
+            self.viewModel.doPostLike(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post)
         }
     }
     
-    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
+    func downvote(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        post: LemmyModel.PostView
+    ) {
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            self.viewModel.doPostLike(voteButton: voteButton, for: newVote, post: post)
+            self.viewModel.doPostLike(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post)
         }
     }
     
@@ -138,19 +148,29 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
         self.coordinator?.goToPostScreen(postId: comment.postId)
     }
     
-    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+    func upvote(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        comment: LemmyModel.CommentView
+    ) {
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            self.viewModel.doCommentLike(voteButton: voteButton, for: newVote, comment: comment)
+            self.viewModel.doCommentLike(scoreView: scoreView, voteButton: voteButton, for: newVote, comment: comment)
         }
     }
     
-    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+    func downvote(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        comment: LemmyModel.CommentView
+    ) {
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            self.viewModel.doCommentLike(voteButton: voteButton, for: newVote, comment: comment)
+            self.viewModel.doCommentLike(scoreView: scoreView, voteButton: voteButton, for: newVote, comment: comment)
         }
     }
     

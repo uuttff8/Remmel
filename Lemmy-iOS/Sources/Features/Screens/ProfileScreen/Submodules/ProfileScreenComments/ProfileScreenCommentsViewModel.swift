@@ -12,7 +12,12 @@ import Combine
 protocol ProfileScreenCommentsViewModelProtocol {
     // TODO do pagination
     func doProfileCommentsFetch()
-    func doCommentLike(voteButton: VoteButton, for newVote: LemmyVoteType, comment: LemmyModel.CommentView)
+    func doCommentLike(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        for newVote: LemmyVoteType,
+        comment: LemmyModel.CommentView
+    )
 }
 
 class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
@@ -30,8 +35,14 @@ class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
     
     func doProfileCommentsFetch() { }
     
-    func doCommentLike(voteButton: VoteButton, for newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+    func doCommentLike(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        for newVote: LemmyVoteType,
+        comment: LemmyModel.CommentView
+    ) {
         self.contentScoreService.voteComment(
+            scoreView: scoreView,
             voteButton: voteButton,
             for: newVote,
             comment: comment

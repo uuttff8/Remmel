@@ -107,19 +107,29 @@ extension ProfileScreenPostsViewController: ProfileScreenPostsViewDelegate {
 }
 
 extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
-    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
+    func upvote(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        post: LemmyModel.PostView
+    ) {
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            self.viewModel.doPostLike(voteButton: voteButton, for: newVote, post: post)
+            self.viewModel.doPostLike(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post)
         }
     }
     
-    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView) {
+    func downvote(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        post: LemmyModel.PostView
+    ) {
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            self.viewModel.doPostLike(voteButton: voteButton, for: newVote, post: post)
+            self.viewModel.doPostLike(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post)
         }
     }
     

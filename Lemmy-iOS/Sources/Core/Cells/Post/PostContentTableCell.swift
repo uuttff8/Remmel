@@ -12,8 +12,18 @@ import SwiftyMarkdown
 import Nantes
 
 protocol PostContentTableCellDelegate: AnyObject {
-    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView)
-    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, post: LemmyModel.PostView)
+    func upvote(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        post: LemmyModel.PostView
+    )
+    func downvote(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        post: LemmyModel.PostView
+    )
     func usernameTapped(in post: LemmyModel.PostView)
     func communityTapped(in post: LemmyModel.PostView)
     func onLinkTap(in post: LemmyModel.PostView, url: URL)

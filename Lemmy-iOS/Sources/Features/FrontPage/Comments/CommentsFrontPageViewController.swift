@@ -98,12 +98,22 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
         self.coordinator?.goToCommunityScreen(communityId: comment.communityId)
     }
     
-    func upvote(voteButton: VoteButton, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
-        vote(voteButton: voteButton, for: newVote, comment: comment)
+    func upvote(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        comment: LemmyModel.CommentView
+    ) {
+        vote(scoreView: scoreView, voteButton: voteButton, newVote: newVote, comment: comment)
     }
     
-    func downvote(voteButton: VoteButton, newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
-        vote(voteButton: voteButton, for: newVote, comment: comment)
+    func downvote(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        comment: LemmyModel.CommentView
+    ) {
+        vote(scoreView: scoreView, voteButton: voteButton, newVote: newVote, comment: comment)
     }
         
     func showContext(in comment: LemmyModel.CommentView) {
@@ -122,11 +132,16 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
         showMoreHandler.showMoreInComment(on: self, comment: comment)
     }
     
-    private func vote(voteButton: VoteButton, for newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
+    private func vote(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        comment: LemmyModel.CommentView
+    ) {
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            voteButton.setVoted(to: newVote)
+            scoreView.setVoted(voteButton: voteButton, to: newVote)
             model.createCommentLike(newVote: newVote, comment: comment)
         }
     }

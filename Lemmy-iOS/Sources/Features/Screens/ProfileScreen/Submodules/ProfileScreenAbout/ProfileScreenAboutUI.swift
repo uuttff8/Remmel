@@ -62,7 +62,7 @@ extension ProfileScreenAboutViewController {
 
             self.tableView.dataSource = dataSource
             self.tableView.reloadData()
-        }        
+        }
     }
 }
 
@@ -105,7 +105,6 @@ extension ProfileScreenAboutViewController.View: ProfileScreenScrollablePageView
         }
         set {
             self.tableView.contentInset = newValue
-
         }
     }
 

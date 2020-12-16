@@ -11,6 +11,7 @@ import UIKit
 
 protocol ContentScoreServiceProtocol {
     func votePost(
+        scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
         post: LemmyModel.PostView,
@@ -18,6 +19,7 @@ protocol ContentScoreServiceProtocol {
     )
     
     func voteComment(
+        scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
         comment: LemmyModel.CommentView,
@@ -38,13 +40,14 @@ class ContentScoreService: ContentScoreServiceProtocol {
     }
     
     func votePost(
+        scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
         post: LemmyModel.PostView,
         completion: @escaping (LemmyModel.PostView) -> Void
     ) {
         
-        voteButton.setVoted(to: newVote)
+        scoreView.setVoted(voteButton: voteButton, to: newVote)
         self.voteService.createPostLike(vote: newVote, post: post)
             .receive(on: RunLoop.main)
             .sink { (completion) in
@@ -56,13 +59,14 @@ class ContentScoreService: ContentScoreServiceProtocol {
     }
     
     func voteComment(
+        scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
         comment: LemmyModel.CommentView,
         completion: @escaping (LemmyModel.CommentView) -> Void
     ) {
         
-        voteButton.setVoted(to: newVote)
+        scoreView.setVoted(voteButton: voteButton, to: newVote)
         self.voteService.createCommentLike(vote: newVote, comment: comment)
             .receive(on: RunLoop.main)
             .sink { (completion) in
