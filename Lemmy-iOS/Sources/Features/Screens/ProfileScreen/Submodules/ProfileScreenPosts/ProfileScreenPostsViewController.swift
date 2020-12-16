@@ -67,11 +67,14 @@ class ProfileScreenPostsViewController: UIViewController {
 
         if case .loading = self.state {
             self.profilePostsView.hideActivityIndicatorView()
-            self.profilePostsView.displayNoData()
         }
 
-        if case .result = newState {
-            self.profilePostsView.updateTableViewData(dataSource: self.tableDataSource)
+        if case .result(let data) = newState {
+            if data.posts.isEmpty {
+                self.profilePostsView.displayNoData()
+            } else {
+                self.profilePostsView.updateTableViewData(dataSource: self.tableDataSource)
+            }
         }
     }
 }

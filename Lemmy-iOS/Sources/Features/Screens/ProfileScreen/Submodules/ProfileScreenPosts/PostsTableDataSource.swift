@@ -48,7 +48,7 @@ final class PostsTableDataSource: NSObject {
 // MARK: - UITableViewDataSource -
 extension PostsTableDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.viewModels.count
+        return self.viewModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

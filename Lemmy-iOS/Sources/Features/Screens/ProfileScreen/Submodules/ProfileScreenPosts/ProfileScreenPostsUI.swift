@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 protocol ProfileScreenPostsViewDelegate: AnyObject {
     func profileScreenPostsViewDidPickerTapped(toVc: UIViewController)
@@ -30,7 +31,7 @@ extension ProfileScreenPostsViewController {
         
         let appearance: Appearance
         var contentType: LemmySortType = .active
-        
+                
         // Proxify delegates
         private weak var pageScrollViewDelegate: UIScrollViewDelegate?
         
@@ -42,12 +43,11 @@ extension ProfileScreenPostsViewController {
             $0.showsVerticalScrollIndicator = false
             $0.delegate = self
         }
-        
-        private lazy var scrollingStack = ScrollableStackView(orientation: .vertical)
-        
+                
         private lazy var emptyStateLabel = UILabel().then {
             $0.text = "No Posts here yet..."
             $0.textAlignment = .center
+            $0.textColor = .tertiaryLabel
         }
         
         private lazy var profileScreenHeader = ProfileScreenTableHeaderView().then { view in
@@ -89,6 +89,9 @@ extension ProfileScreenPostsViewController {
         }
         
         func updateTableViewData(dataSource: UITableViewDataSource) {
+            self.emptyStateLabel.isHidden = true
+            self.tableView.isHidden = false
+            
             _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
 //            self.emptyStateLabel.isHidden = numberOfRows != 0
 
@@ -98,11 +101,9 @@ extension ProfileScreenPostsViewController {
         }
         
         func displayNoData() {
-            
-            // TODO: do it right
-//            self.scrollingStack.isHidden = false
-//            self.tableView.isHidden = true
-//            makeConstraints()
+            self.emptyStateLabel.isHidden = false
+            self.tableView.isHidden = true
+            makeConstraints()
         }
         
         func appendNew(data: [LemmyModel.PostView]) {
@@ -122,13 +123,12 @@ extension ProfileScreenPostsViewController {
 
 extension ProfileScreenPostsViewController.View: ProgrammaticallyViewProtocol {
     func setupView() {
-        self.scrollingStack.isHidden = true
+        self.emptyStateLabel.isHidden = true
     }
     
     func addSubviews() {
         self.addSubview(tableView)
-        self.addSubview(scrollingStack)
-        self.scrollingStack.addArrangedView(emptyStateLabel)
+        self.addSubview(emptyStateLabel)
     }
     
     func makeConstraints() {
@@ -137,10 +137,9 @@ extension ProfileScreenPostsViewController.View: ProgrammaticallyViewProtocol {
             make.bottom.equalTo(self.safeAreaLayoutGuide) // tab bar
         }
         
-        self.scrollingStack.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(370) // hardcode is bad
+        self.emptyStateLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(350)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(self.safeAreaLayoutGuide)
         }
         
         self.tableView.layoutTableHeaderView()
@@ -149,6 +148,7 @@ extension ProfileScreenPostsViewController.View: ProgrammaticallyViewProtocol {
 
 extension ProfileScreenPostsViewController.View: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.emptyStateLabel.bounds.origin = scrollView.contentOffset
         self.pageScrollViewDelegate?.scrollViewDidScroll?(scrollView)
     }
     
