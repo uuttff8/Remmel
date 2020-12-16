@@ -9,17 +9,19 @@
 import UIKit
 
 class CommunitiesCoordinator: Coordinator {
-    var rootViewController: CommunitiesViewController
+    var rootViewController: CommunitiesPreviewViewController
     var childCoordinators: [Coordinator] = []
 
     var navigationController: UINavigationController?
 
     init(navigationController: UINavigationController?) {
-        self.rootViewController = CommunitiesViewController()
+        let assembly = CommunitiesPreviewAssembly()
+        self.rootViewController = assembly.makeModule()
         self.navigationController = navigationController
     }
 
     func start() {
+        rootViewController.coordinator = self
         navigationController?.pushViewController(self.rootViewController, animated: true)
     }
     

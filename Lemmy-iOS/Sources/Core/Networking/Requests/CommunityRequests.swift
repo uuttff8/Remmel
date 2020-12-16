@@ -32,6 +32,10 @@ private protocol LemmyCommunityRequestManagerProtocol {
     func asyncFollowCommunity(
         parameters: LemmyModel.Community.FollowCommunityRequest
     ) -> AnyPublisher<LemmyModel.Community.FollowCommunityResponse, LemmyGenericError>
+    
+    func asyncListCommunity(
+        parameters: LemmyModel.Community.ListCommunitiesRequest
+    ) -> AnyPublisher<LemmyModel.Community.ListCommunitiesResponse, LemmyGenericError>
 }
 
 extension RequestsManager: LemmyCommunityRequestManagerProtocol {
@@ -85,6 +89,14 @@ extension RequestsManager: LemmyCommunityRequestManagerProtocol {
         asyncRequestDecodable(path: WSEndpoint.Community.followCommunity.endpoint,
                               parameters: parameters)
         
+    }
+    
+    func asyncListCommunity(
+        parameters: LemmyModel.Community.ListCommunitiesRequest
+    ) -> AnyPublisher<LemmyModel.Community.ListCommunitiesResponse, LemmyGenericError> {
+        
+        asyncRequestDecodable(path: WSEndpoint.Community.listCommunities.endpoint,
+                              parameters: parameters)
     }
     
 }

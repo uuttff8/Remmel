@@ -45,6 +45,10 @@
 		4E26FEA02573E36C009DE4A7 /* PostScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E26FE9F2573E36C009DE4A7 /* PostScreenCoordinator.swift */; };
 		4E3E0F722555BCF70086CE0C /* ProfileScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3E0F712555BCF70086CE0C /* ProfileScreenViewController.swift */; };
 		4E3E0F7A2555F5BC0086CE0C /* LemmyJSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3E0F792555F5BC0086CE0C /* LemmyJSONDecoder.swift */; };
+		4E3FBC44258A812000F97671 /* CommunitiesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC43258A812000F97671 /* CommunitiesAssembly.swift */; };
+		4E3FBC49258A812B00F97671 /* CommunitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC48258A812B00F97671 /* CommunitiesViewModel.swift */; };
+		4E3FBC51258A82B100F97671 /* CommunitiesPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC50258A82B100F97671 /* CommunitiesPreviewView.swift */; };
+		4E3FBC59258A857600F97671 /* CommunitiesPreviewDataSoucre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSoucre.swift */; };
 		4E7CFCC125841B140082AC3D /* WriteCommentParrentPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7CFCC025841B140082AC3D /* WriteCommentParrentPreviewCell.swift */; };
 		4E7CFCD52584215F0082AC3D /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7CFCD42584215F0082AC3D /* UIImageView+Ext.swift */; };
 		4E81655B2562A38400907D31 /* UpvoteDownvoteRequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E81655A2562A38400907D31 /* UpvoteDownvoteRequestService.swift */; };
@@ -178,8 +182,7 @@
 		4ECCEF1D250D63BE0075F921 /* CommentRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF1C250D63BE0075F921 /* CommentRequests.swift */; };
 		4ECCEF1F250DFBC90075F921 /* CommentContentTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF1E250DFBC90075F921 /* CommentContentTableCell.swift */; };
 		4ECCEF21250FB3D40075F921 /* CommunitiesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF20250FB3D40075F921 /* CommunitiesCoordinator.swift */; };
-		4ECCEF23250FB3DE0075F921 /* CommunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF22250FB3DE0075F921 /* CommunitiesViewController.swift */; };
-		4ECCEF25250FB3E50075F921 /* CommunitiesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF24250FB3E50075F921 /* CommunitiesModel.swift */; };
+		4ECCEF23250FB3DE0075F921 /* CommunitiesPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF22250FB3DE0075F921 /* CommunitiesPreviewViewController.swift */; };
 		4ECCEF27250FB62F0075F921 /* LemmyModel+Community.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF26250FB62F0075F921 /* LemmyModel+Community.swift */; };
 		4ECCEF29250FB8260075F921 /* CommunityRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF28250FB8260075F921 /* CommunityRequests.swift */; };
 		4ECCEF2B250FF56A0075F921 /* CommunityPreviewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF2A250FF56A0075F921 /* CommunityPreviewTableCell.swift */; };
@@ -304,6 +307,10 @@
 		4E26FE9F2573E36C009DE4A7 /* PostScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenCoordinator.swift; sourceTree = "<group>"; };
 		4E3E0F712555BCF70086CE0C /* ProfileScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewController.swift; sourceTree = "<group>"; };
 		4E3E0F792555F5BC0086CE0C /* LemmyJSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyJSONDecoder.swift; sourceTree = "<group>"; };
+		4E3FBC43258A812000F97671 /* CommunitiesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesAssembly.swift; sourceTree = "<group>"; };
+		4E3FBC48258A812B00F97671 /* CommunitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesViewModel.swift; sourceTree = "<group>"; };
+		4E3FBC50258A82B100F97671 /* CommunitiesPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewView.swift; sourceTree = "<group>"; };
+		4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSoucre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewDataSoucre.swift; sourceTree = "<group>"; };
 		4E7CFCC025841B140082AC3D /* WriteCommentParrentPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteCommentParrentPreviewCell.swift; sourceTree = "<group>"; };
 		4E7CFCD42584215F0082AC3D /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
 		4E81655A2562A38400907D31 /* UpvoteDownvoteRequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpvoteDownvoteRequestService.swift; sourceTree = "<group>"; };
@@ -439,8 +446,7 @@
 		4ECCEF1C250D63BE0075F921 /* CommentRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRequests.swift; sourceTree = "<group>"; };
 		4ECCEF1E250DFBC90075F921 /* CommentContentTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentContentTableCell.swift; sourceTree = "<group>"; };
 		4ECCEF20250FB3D40075F921 /* CommunitiesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesCoordinator.swift; sourceTree = "<group>"; };
-		4ECCEF22250FB3DE0075F921 /* CommunitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesViewController.swift; sourceTree = "<group>"; };
-		4ECCEF24250FB3E50075F921 /* CommunitiesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesModel.swift; sourceTree = "<group>"; };
+		4ECCEF22250FB3DE0075F921 /* CommunitiesPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewViewController.swift; sourceTree = "<group>"; };
 		4ECCEF26250FB62F0075F921 /* LemmyModel+Community.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LemmyModel+Community.swift"; sourceTree = "<group>"; };
 		4ECCEF28250FB8260075F921 /* CommunityRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityRequests.swift; sourceTree = "<group>"; };
 		4ECCEF2A250FF56A0075F921 /* CommunityPreviewTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPreviewTableCell.swift; sourceTree = "<group>"; };
@@ -1127,7 +1133,7 @@
 				4EF3131E25782BA90032B58D /* SearchResults */,
 				4E10706F2534E942009EABDA /* CreatePostOrCommunity */,
 				4EB89AF5251F4783007129BF /* Screens */,
-				4ECCEEF5250C0E230075F921 /* Communities */,
+				4ECCEEF5250C0E230075F921 /* CommunitiesPreview */,
 				4ECCEEEB250BE85B0075F921 /* FrontPage */,
 				4ECCEEE3250B8F690075F921 /* Auth */,
 				4EBB22172559EB0E00B88079 /* StyledNavigationController */,
@@ -1185,14 +1191,17 @@
 			path = LemmyTabBar;
 			sourceTree = "<group>";
 		};
-		4ECCEEF5250C0E230075F921 /* Communities */ = {
+		4ECCEEF5250C0E230075F921 /* CommunitiesPreview */ = {
 			isa = PBXGroup;
 			children = (
-				4ECCEF24250FB3E50075F921 /* CommunitiesModel.swift */,
-				4ECCEF22250FB3DE0075F921 /* CommunitiesViewController.swift */,
+				4E3FBC43258A812000F97671 /* CommunitiesAssembly.swift */,
+				4ECCEF22250FB3DE0075F921 /* CommunitiesPreviewViewController.swift */,
+				4E3FBC48258A812B00F97671 /* CommunitiesViewModel.swift */,
+				4E3FBC50258A82B100F97671 /* CommunitiesPreviewView.swift */,
+				4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSoucre.swift */,
 				4ECCEF20250FB3D40075F921 /* CommunitiesCoordinator.swift */,
 			);
-			path = Communities;
+			path = CommunitiesPreview;
 			sourceTree = "<group>";
 		};
 		4ECCEEFC250C151A0075F921 /* cells */ = {
@@ -1780,6 +1789,7 @@
 				4EFAB6112553279700B32780 /* CommunityHeaderCell.swift in Sources */,
 				4E9BBA24255534B0004FF2F9 /* LemmyModel.swift in Sources */,
 				4E9183C3256AFB1200702F04 /* CreateCommunityDataFlow.swift in Sources */,
+				4E3FBC44258A812000F97671 /* CommunitiesAssembly.swift in Sources */,
 				4E0A8E62255D589A00B06AF6 /* ProfileScreenAboutAssembly.swift in Sources */,
 				4E05D637255EBA63002307E0 /* Optional+Ext.swift in Sources */,
 				4E886CA62540A27E0076B162 /* CreatePostUrlCell.swift in Sources */,
@@ -1799,6 +1809,7 @@
 				4E91850A256E9EAA00702F04 /* CommentCell.swift in Sources */,
 				4E26FEA02573E36C009DE4A7 /* PostScreenCoordinator.swift in Sources */,
 				4E91837B2566F60600702F04 /* TableInputTextView.swift in Sources */,
+				4E3FBC51258A82B100F97671 /* CommunitiesPreviewView.swift in Sources */,
 				4EF3AC90254B46BD00BEC9F1 /* ChooseCategoryUI.swift in Sources */,
 				4E9183472566C16C00702F04 /* SettingsTableSectionFooterView.swift in Sources */,
 				4E91834E2566C16C00702F04 /* SettingsRightDetailCellView.swift in Sources */,
@@ -1848,7 +1859,6 @@
 				4EFA81B6255FF6B7008AF535 /* UserAccountService.swift in Sources */,
 				4E886C88253F4FF40076B162 /* CreatePostUI.swift in Sources */,
 				4E886C7E253F4F290076B162 /* CreatePostViewController.swift in Sources */,
-				4ECCEF25250FB3E50075F921 /* CommunitiesModel.swift in Sources */,
 				4E9183512566C16C00702F04 /* SettingsTableSectionHeaderView.swift in Sources */,
 				4E886CA1254093050076B162 /* CreatePostCommunityCell.swift in Sources */,
 				4EFA81D525617580008AF535 /* CommunityScreenUI.swift in Sources */,
@@ -1872,7 +1882,7 @@
 				4ECCEF13250CF0290075F921 /* PostContentTableCell.swift in Sources */,
 				4EBB225D255AE71E00B88079 /* ProfileScreenPostsViewModel.swift in Sources */,
 				4E107093253500DA009EABDA /* LemmyModel+User.swift in Sources */,
-				4ECCEF23250FB3DE0075F921 /* CommunitiesViewController.swift in Sources */,
+				4ECCEF23250FB3DE0075F921 /* CommunitiesPreviewViewController.swift in Sources */,
 				4E1A7E6625573EA400E193B7 /* ProfileScreenUI.swift in Sources */,
 				4ECCEEAC250B8B6B0075F921 /* SceneDelegate.swift in Sources */,
 				4EF3ACD1254EF82C00BEC9F1 /* CommunityScreenViewController.swift in Sources */,
@@ -1889,6 +1899,7 @@
 				4E886CAE2540A9820076B162 /* CreatePostContentCell.swift in Sources */,
 				4EF3AC80254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift in Sources */,
 				4E10704B2534756B009EABDA /* Protocols.swift in Sources */,
+				4E3FBC49258A812B00F97671 /* CommunitiesViewModel.swift in Sources */,
 				4ECCEF31251F24AD0075F921 /* LemmyFrontPageNavBar.swift in Sources */,
 				4ECCEF33251F27170075F921 /* LemmyProfileIconView.swift in Sources */,
 				4E10706B253477C1009EABDA /* LemmyTableView.swift in Sources */,
@@ -1934,6 +1945,7 @@
 				4E9183502566C16C00702F04 /* SettingsRightDetailSwitchTableViewCell.swift in Sources */,
 				4EBB222E2559EEFF00B88079 /* MilticastDelegate.swift in Sources */,
 				4ECCEF1F250DFBC90075F921 /* CommentContentTableCell.swift in Sources */,
+				4E3FBC59258A857600F97671 /* CommunitiesPreviewDataSoucre.swift in Sources */,
 				4EFAB5E22552FA5C00B32780 /* UIBarButton+Ext.swift in Sources */,
 				4E9BBA592555560C004FF2F9 /* LemmyImageTextPickerView.swift in Sources */,
 				4E0A8E3F255C01F400B06AF6 /* ProfileScreenCommentsTableDataSource.swift in Sources */,

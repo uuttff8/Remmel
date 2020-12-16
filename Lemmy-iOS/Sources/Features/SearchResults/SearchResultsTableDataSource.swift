@@ -69,7 +69,8 @@ final class SearchResultsTableDataSource: NSObject {
         tableView: UITableView,
         indexPath: IndexPath
     ) -> UITableViewCell {
-        let cell = CommunityPreviewTableCell(community: community)
+        let cell: CommunityPreviewTableCell = tableView.cell(forRowAt: indexPath)
+        cell.bind(community: community)
         return cell
     }
     

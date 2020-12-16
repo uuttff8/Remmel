@@ -43,4 +43,3 @@ final class SafariActivity: UIActivity {
         self.activityDidFinish(true)
     }
 }
-
