@@ -28,7 +28,7 @@ class FrontPageViewController: UIViewController {
         }
         return bar
     }()
-    private let headerSegmentView = FrontPageHeaderView(contentSelected: LemmyContentType.comments)
+    private let headerSegmentView = FrontPageHeaderView(contentSelected: LemmyContentType.posts)
     
     // at init always posts
     var currentContentType: LemmyContentType = LemmyContentType.posts {

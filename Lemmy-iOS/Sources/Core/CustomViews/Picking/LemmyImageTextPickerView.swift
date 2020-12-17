@@ -8,15 +8,15 @@
 
 import UIKit
 
-protocol LemmyTypePickable {
+protocol LemmyTypePickable: Equatable {
     var label: String { get }
 }
 
-class LemmyImageTextTypePicker<T: CaseIterable & LemmyTypePickable & Equatable>: UIView {
+class LemmyImageTextTypePicker<T: LemmyTypePickable>: UIView {
     
     var newCasePicked: ((T) -> Void)?
     
-    let caseArray: T.Type
+    let caseArray: [T]
     
     var currentPick: T {
         didSet {
@@ -29,7 +29,7 @@ class LemmyImageTextTypePicker<T: CaseIterable & LemmyTypePickable & Equatable>:
     lazy var configuredAlert: UIAlertController = {
         let control = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        caseArray.allCases.forEach { (enumCase) in
+        caseArray.forEach { (enumCase) in
             
             let action = UIAlertAction(
                 title: enumCase.label,
@@ -58,7 +58,7 @@ class LemmyImageTextTypePicker<T: CaseIterable & LemmyTypePickable & Equatable>:
         $0.spacing = 5
     }
     
-    init(cases: T.Type, firstPicked: T, image: UIImage) {
+    init(cases: [T], firstPicked: T, image: UIImage) {
         self.currentPick = firstPicked
         self.caseArray = cases
         self.typeImageView.image = image

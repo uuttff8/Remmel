@@ -53,6 +53,11 @@ enum LemmySortType: String, Codable, CaseIterable, LemmyTypePickable {
     case topAll = "TopAll"
     
     case all = "All"
+    
+    // all is not included in sorting FronPage
+    static var reallySort: [LemmySortType] {
+        [.active, .hot, .new, topDay, topWeek, topMonth, .topYear, .topAll]
+    }
 
     var label: String {
         switch self {

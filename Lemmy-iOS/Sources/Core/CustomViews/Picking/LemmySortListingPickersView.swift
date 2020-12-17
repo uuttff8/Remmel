@@ -30,13 +30,13 @@ class LemmySortListingPickersView: UIView {
     }
     
     let sortTypeView = LemmyImageTextTypePicker(
-        cases: LemmySortType.self,
+        cases: LemmySortType.reallySort,
         firstPicked: .active,
         image: Config.Image.sortType
     )
     
     let listingTypeView = LemmyImageTextTypePicker(
-        cases: PostListingAdapted.self,
+        cases: PostListingAdapted.allCases,
         firstPicked: .all,
         image: Config.Image.postListing
     )

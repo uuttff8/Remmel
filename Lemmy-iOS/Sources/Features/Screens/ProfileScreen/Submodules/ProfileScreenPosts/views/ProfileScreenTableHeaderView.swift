@@ -19,7 +19,7 @@ final class ProfileScreenTableHeaderView: UIView {
         $0.alignment = .leading
     }
         
-    let contentTypeView = LemmyImageTextTypePicker(cases: LemmySortType.self,
+    let contentTypeView = LemmyImageTextTypePicker(cases: LemmySortType.allCases,
                                                    firstPicked: LemmySortType.active,
                                                    image: Config.Image.sortType)
     
