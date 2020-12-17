@@ -81,7 +81,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
             for: newVote,
             post: post
         ) { (post) in
-            self.saveNewPost(post)
+            self.viewController?.operateSaveNewPost(viewModel: .init(post: post))
         }
     }
     
@@ -97,11 +97,13 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
             for: newVote,
             comment: comment
         ) { (comment) in
-            self.viewController?.operateSaveNewPost(viewModel: .init(comment: comment))
+            self.viewController?.operateSaveNewComment(viewModel: .init(comment: comment))
         }
     }
     
-    private func makeViewData(from data: LemmyModel.Post.GetPostResponse) -> PostScreenViewController.View.ViewData {
+    private func makeViewData(
+        from data: LemmyModel.Post.GetPostResponse
+    ) -> PostScreenViewController.View.ViewData {
         let comments = CommentListingSort(comments: data.comments)
             .createCommentsTree()
         
@@ -119,6 +121,14 @@ enum PostScreen {
         
         struct ViewModel {
             let state: ViewControllerState
+        }
+    }
+    
+    enum SavePost {
+        struct Request { }
+        
+        struct ViewModel {
+            let post: LemmyModel.PostView
         }
     }
     

@@ -43,7 +43,7 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
     
     func saveNewComment(comment: LemmyModel.CommentView) {
         if let index = commentDataSource.firstIndex(where: { $0.id == comment.id }) {
-            (currentlyDisplayed[index] as! LemmyComment).commentContent = comment
+            commentDataSource[index].commentContent = comment
         }
     }
     
