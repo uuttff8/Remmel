@@ -15,16 +15,16 @@ protocol WriteCommentViewModelProtocol: AnyObject {
 class WriteCommentViewModel: WriteCommentViewModelProtocol {
     weak var viewController: WriteCommentViewControllerProtocol?
     
-    private let parentId: Int?
+    private let parentComment: LemmyModel.CommentView?
     private let postId: Int
     
-    init(parentId: Int?, postId: Int) {
-        self.parentId = parentId
+    init(parentComment: LemmyModel.CommentView?, postId: Int) {
+        self.parentComment = parentComment
         self.postId = postId
     }
 
     func doWriteCommentFormLoad(request: WriteComment.FormLoad.Request) {
-        
+        self.viewController?.displayWriteCommentForm(viewModel: .init(parrentCommentText: self.parentComment?.content))
     }
 }
 
@@ -32,6 +32,8 @@ enum WriteComment {
     enum FormLoad {
         struct Request { }
         
-        struct ViewModel { }
+        struct ViewModel {
+            let parrentCommentText: String?
+        }
     }
 }
