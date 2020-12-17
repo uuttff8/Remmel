@@ -24,7 +24,12 @@ class CommunityScreenAssembly: Assembly {
         let viewModel = CommunityScreenViewModel(communityId: communityId,
                                                  communityInfo: communityInfo)
         
-        let vc = CommunityScreenViewController(viewModel: viewModel)
+        let vc = CommunityScreenViewController(
+            viewModel: viewModel,
+            followService: CommunityFollowService(
+                userAccountService: UserAccountService()
+            )
+        )
         viewModel.viewController = vc
         
         return vc

@@ -16,6 +16,7 @@ protocol CommunityScreenViewControllerProtocol: AnyObject {
 }
 
 class CommunityScreenViewController: UIViewController {
+    
     private let viewModel: CommunityScreenViewModelProtocol
     private lazy var tableDataSource = CommunityScreenTableDataSource().then {
         $0.delegate = self
@@ -25,13 +26,18 @@ class CommunityScreenViewController: UIViewController {
     
     private var canTriggerPagination = true
     private var state: CommunityScreen.ViewControllerState
+    private let followService: CommunityFollowServiceProtocol
+    
+    private var cancellable = Set<AnyCancellable>()
     
     init(
         viewModel: CommunityScreenViewModelProtocol,
-        state: CommunityScreen.ViewControllerState = .loading
+        state: CommunityScreen.ViewControllerState = .loading,
+        followService: CommunityFollowServiceProtocol
     ) {
         self.viewModel = viewModel
         self.state = state
+        self.followService = followService
         super.init(nibName: nil, bundle: nil)
     }    
     
@@ -108,6 +114,13 @@ extension CommunityScreenViewController: CommunityScreenViewControllerProtocol {
 }
 
 extension CommunityScreenViewController: CommunityScreenViewDelegate {
+    func headerViewDidTapped(followButton: FollowButton, in community: LemmyModel.CommunityView) {
+        self.followService.followUi(followButton: followButton, to: community)
+            .sink { (community) in
+                self.communityView.communityHeaderViewData = community
+            }.store(in: &self.cancellable)
+    }
+    
     func communityViewDidPickerTapped(_ communityView: View, toVc: UIViewController) {
         self.present(toVc, animated: true)
     }

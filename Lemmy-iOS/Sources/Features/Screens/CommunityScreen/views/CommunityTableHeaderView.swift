@@ -8,7 +8,12 @@
 
 import UIKit
 
+protocol CommunityTableHeaderViewDelegate: CommunityHeaderViewDelegate {}
+
 final class CommunityTableHeaderView: UIView {
+    
+    weak var delegate: CommunityTableHeaderViewDelegate?
+    
     let mainStackView = UIStackView().then {
         $0.axis = .vertical
         $0.spacing = 10
@@ -39,6 +44,7 @@ final class CommunityTableHeaderView: UIView {
     
     func bindData(community: LemmyModel.CommunityView) {
         communityHeaderView.bind(with: community)
+        communityHeaderView.delegate = delegate
     }
 }
 

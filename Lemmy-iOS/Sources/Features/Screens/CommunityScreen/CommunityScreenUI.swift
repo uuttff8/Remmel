@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol CommunityScreenViewDelegate: AnyObject {
+protocol CommunityScreenViewDelegate: CommunityTableHeaderViewDelegate {
     func communityViewDidReadMoreTapped(
         _ communityView: CommunityScreenViewController.View,
         toVc: MarkdownParsedViewController
@@ -42,6 +42,7 @@ extension CommunityScreenViewController {
         var communityHeaderViewData: LemmyModel.CommunityView? {
             didSet {
                 let view = CommunityTableHeaderView()
+                view.delegate = delegate
                 
                 view.communityHeaderView.descriptionReadMoreButton.addAction(UIAction(handler: { (_) in
                     if let desc = self.communityHeaderViewData.require().description {

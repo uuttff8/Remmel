@@ -10,7 +10,15 @@ import UIKit
 import Nuke
 import SwiftyMarkdown
 
+protocol CommunityHeaderViewDelegate: AnyObject {
+    func headerViewDidTapped(followButton: FollowButton, in community: LemmyModel.CommunityView)
+}
+
 class CommunityHeaderView: UIView {    
+    
+    weak var delegate: CommunityHeaderViewDelegate?
+    
+    var communityData: LemmyModel.CommunityView?
     
     let descriptionReadMoreButton = ResizableButton().then {
         $0.setTitle("Read more", for: .normal)
@@ -24,10 +32,7 @@ class CommunityHeaderView: UIView {
         $0.font = .systemFont(ofSize: 17, weight: .semibold)
     }
     
-    let followButton = UIButton().then {
-        $0.setTitle("Follow", for: .normal)
-        $0.setTitleColor(.systemRed, for: .normal)
-    }
+    let followButton = FollowButton()
     
     let horizontalStackView = UIStackView().then {
         $0.axis = .horizontal
@@ -102,12 +107,14 @@ class CommunityHeaderView: UIView {
     }
     
     func bind(with data: LemmyModel.CommunityView) {
+        self.communityData = data
         commImageView.loadImage(urlString: data.icon)
         
         commNameLabel.text = data.name
         subscribersLabel.text = String(data.numberOfSubscribers) + " Subscribers"
         categoryLabel.text = data.categoryName
         postsCountLabel.text = String(data.numberOfPosts) + " Posts"
+        self.followButton.bind(isSubcribed: data.subscribed)
         
         if let communityDesciption = data.description {
             communityDescriptionLabel.text = communityDesciption
@@ -117,6 +124,12 @@ class CommunityHeaderView: UIView {
         } else {
             communityDescriptionLabel.isHidden = true
         }
+        
+        followButton.addTarget(self, action: #selector(followButtonDidTapped), for: .touchUpInside)
+    }
+    
+    func updateFollowingState(isSubscribed: Bool?) {
+        followButton.bind(isSubcribed: isSubscribed)
     }
     
     fileprivate func showReadMoreButtonIfTruncated(mdString: String) {        
@@ -131,5 +144,10 @@ class CommunityHeaderView: UIView {
                 make.bottom.equalTo(communityDescriptionLabel.snp.bottom)
             }
         }
+    }
+    
+    @objc func followButtonDidTapped(_ sender: FollowButton) {
+        guard let community = communityData else { return }
+        self.delegate?.headerViewDidTapped(followButton: sender, in: community)
     }
 }
