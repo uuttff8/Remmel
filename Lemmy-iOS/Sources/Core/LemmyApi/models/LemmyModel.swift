@@ -11,7 +11,7 @@ import Foundation
 enum LemmyModel {
 
     // MARK: - PostView -
-    struct PostView: Codable, Equatable, Hashable {
+    struct PostView: Identifiable, Codable, Equatable, Hashable {
         typealias Id = Int
         
         let id: Int
@@ -121,7 +121,7 @@ enum LemmyModel {
     }
 
     // MARK: - CommentView -
-    struct CommentView: Codable, Equatable, Hashable {
+    struct CommentView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let creatorId: Int
         let postId: Int
@@ -196,7 +196,7 @@ enum LemmyModel {
         }
     }
     
-    struct CommentReportView: Codable, Equatable, Hashable {
+    struct CommentReportView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let creatorId: Int
         let commentId: Int
@@ -256,7 +256,7 @@ enum LemmyModel {
         }
     }
 
-    struct ModRemoveCommentView: Codable, Equatable, Hashable {
+    struct ModRemoveCommentView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
         let commentId: Int
@@ -290,7 +290,7 @@ enum LemmyModel {
     }
 
     // MARK: - CommunityView -
-    struct CommunityView: Codable, Equatable, Hashable {
+    struct CommunityView: Identifiable, Codable, Equatable, Hashable {
         typealias Id = Int
         
         let id: Int
@@ -338,7 +338,7 @@ enum LemmyModel {
         }
     }
 
-    struct ModRemoveCommunityView: Codable, Equatable, Hashable {
+    struct ModRemoveCommunityView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
         let communityId: Int
@@ -360,7 +360,7 @@ enum LemmyModel {
         }
     }
 
-    struct ModBanFromCommunityView: Codable, Equatable, Hashable {
+    struct ModBanFromCommunityView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
         let otherUserId: Int
@@ -386,7 +386,7 @@ enum LemmyModel {
         }
     }
 
-    struct ModAddCommunityView: Codable, Equatable, Hashable {
+    struct ModAddCommunityView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
         let otherUserId: Int
@@ -411,7 +411,7 @@ enum LemmyModel {
     }
 
     // MARK: - CommunityModeratorView -
-    struct CommunityModeratorView: Codable, Equatable, Hashable {
+    struct CommunityModeratorView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let communityId: Int
         let userId: Int
@@ -443,7 +443,7 @@ enum LemmyModel {
         }
     }
 
-    struct ModRemovePostView: Codable, Equatable, Hashable {
+    struct ModRemovePostView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
         let postId: Int
@@ -468,7 +468,7 @@ enum LemmyModel {
         }
     }
 
-    struct ModLockPostView: Codable, Equatable, Hashable {
+    struct ModLockPostView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
         let postId: Int
@@ -492,7 +492,7 @@ enum LemmyModel {
         }
     }
 
-    struct ModStickyPostView: Codable, Equatable, Hashable {
+    struct ModStickyPostView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
         let postId: Int
@@ -517,7 +517,7 @@ enum LemmyModel {
     }
 
     // MARK: - UserView -
-    struct UserView: Codable, Equatable, Hashable {
+    struct UserView: Identifiable, Codable, Equatable, Hashable {
         typealias UserId = Int
         
         let id: Int
@@ -554,7 +554,7 @@ enum LemmyModel {
 
     // MARK: - MyUser -
     // inner struct in lemmy backend called User_, that is why its not a *View
-    struct MyUser: Codable, Equatable {
+    struct MyUser: Identifiable, Codable, Equatable, Hashable {
         typealias UserId = Int
         
         let id: Int
@@ -606,7 +606,7 @@ enum LemmyModel {
         }
     }
 
-    struct ModBanView: Codable, Equatable, Hashable {
+    struct ModBanView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
         let otherUserId: Int
@@ -628,7 +628,7 @@ enum LemmyModel {
         }
     }
 
-    struct ModAddView: Codable, Equatable, Hashable {
+    struct ModAddView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
         let otherUserId: Int
@@ -649,7 +649,7 @@ enum LemmyModel {
     }
 
     // MARK: - CommunityFollowerView -
-    struct CommunityFollowerView: Codable, Equatable, Hashable {
+    struct CommunityFollowerView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let communityId: Int
         let userId: Int
@@ -682,7 +682,7 @@ enum LemmyModel {
     }
 
     // MARK: - ReplyView -
-    struct ReplyView: Codable, Equatable {
+    struct ReplyView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let creatorId: Int
         let postId: Int
@@ -754,7 +754,7 @@ enum LemmyModel {
     }
 
     // MARK: - UserMentionView -
-    struct UserMentionView: Codable, Equatable {
+    struct UserMentionView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let userMentionId: Int
         let creatorId: Int
@@ -825,7 +825,7 @@ enum LemmyModel {
     }
 
     // MARK: - SiteView -
-    struct SiteView: Codable, Equatable {
+    struct SiteView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let name: String
         let description: String?
@@ -864,7 +864,7 @@ enum LemmyModel {
     }
 
     // MARK: - PrivateMessageView -
-    struct PrivateMessageView: Codable, Equatable, Hashable {
+    struct PrivateMessageView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let creatorId: Int
         let recipientId: Int
@@ -907,7 +907,7 @@ enum LemmyModel {
 
     // MARK: - CategoryView -
     // usually referred in lemmy-db as just Category, we name it *_View just because convention
-    struct CategoryView: Codable, Equatable, Hashable {
+    struct CategoryView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let name: String
     }
