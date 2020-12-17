@@ -64,4 +64,12 @@ class GenericCoordinator<T: UIViewController>: NSObject, Coordinator, SFSafariVi
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         self.rootViewController.dismiss(animated: true)
     }
+    
+    func goToWriteComment(postId: Int, parrentComment: LemmyModel.CommentView?) {
+        let assembly = WriteCommentAssembly(parentComment: parrentComment, postId: postId)
+        let vc = assembly.makeModule()
+        let navigationController = StyledNavigationController(rootViewController: vc)
+        navigationController.presentationController?.delegate = vc
+        rootViewController.present(navigationController, animated: true)
+    }
 }
