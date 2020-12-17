@@ -20,7 +20,7 @@ class CommunityScreenAssembly: Assembly {
         self.communityInfo = communityInfo
     }
     
-    func makeModule() -> UIViewController {
+    func makeModule() -> CommunityScreenViewController {
         let viewModel = CommunityScreenViewModel(communityId: communityId,
                                                  communityInfo: communityInfo)
         

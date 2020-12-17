@@ -17,6 +17,8 @@ protocol CommunityScreenViewControllerProtocol: AnyObject {
 
 class CommunityScreenViewController: UIViewController {
     
+    weak var coordinator: CommunityScreenCoordinator?
+    
     private let viewModel: CommunityScreenViewModelProtocol
     private lazy var tableDataSource = CommunityScreenTableDataSource().then {
         $0.delegate = self
@@ -139,6 +141,6 @@ extension CommunityScreenViewController: CommunityScreenTableDataSourceDelegate 
     }
     
     func tableDidSelect(post: LemmyModel.PostView) {
-        fatalError("handle it with coordinators \(post)")
+        coordinator?.goToPostScreen(post: post)
     }
 }

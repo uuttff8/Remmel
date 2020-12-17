@@ -59,6 +59,7 @@
 		4E8165722562D08B00907D31 /* ProfileScreenTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8165712562D08B00907D31 /* ProfileScreenTableHeaderView.swift */; };
 		4E8165992563346100907D31 /* Nantes in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8165982563346100907D31 /* Nantes */; };
 		4E87C637258BF2AB0007FE5E /* CommunityFollowService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C636258BF2AB0007FE5E /* CommunityFollowService.swift */; };
+		4E87C63C258C04BB0007FE5E /* CommunityScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C63B258C04BB0007FE5E /* CommunityScreenCoordinator.swift */; };
 		4E886C17253626950076B162 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C16253626950076B162 /* SignUpView.swift */; };
 		4E886C1C25364DD70076B162 /* AuthRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C1B25364DD70076B162 /* AuthRequests.swift */; };
 		4E886C2125364EC30076B162 /* UserRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C2025364EC30076B162 /* UserRequests.swift */; };
@@ -324,6 +325,7 @@
 		4E8165622562B6FC00907D31 /* PostsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsTableDataSource.swift; sourceTree = "<group>"; };
 		4E8165712562D08B00907D31 /* ProfileScreenTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenTableHeaderView.swift; sourceTree = "<group>"; };
 		4E87C636258BF2AB0007FE5E /* CommunityFollowService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityFollowService.swift; sourceTree = "<group>"; };
+		4E87C63B258C04BB0007FE5E /* CommunityScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityScreenCoordinator.swift; sourceTree = "<group>"; };
 		4E886C16253626950076B162 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		4E886C1B25364DD70076B162 /* AuthRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequests.swift; sourceTree = "<group>"; };
 		4E886C2025364EC30076B162 /* UserRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequests.swift; sourceTree = "<group>"; };
@@ -1420,6 +1422,7 @@
 				4EFA81D425617580008AF535 /* CommunityScreenUI.swift */,
 				4EFA81CF256165B1008AF535 /* CommunityScreenViewModel.swift */,
 				4EFA81D9256175B3008AF535 /* CommunityTableDataSource.swift */,
+				4E87C63B258C04BB0007FE5E /* CommunityScreenCoordinator.swift */,
 			);
 			path = CommunityScreen;
 			sourceTree = "<group>";
@@ -1931,6 +1934,7 @@
 				4E886C2B253758A30076B162 /* LemmyModel+Site.swift in Sources */,
 				4EFA81D0256165B1008AF535 /* CommunityScreenViewModel.swift in Sources */,
 				4E886C73253CD4270076B162 /* CreateDismissTransitionDriver.swift in Sources */,
+				4E87C63C258C04BB0007FE5E /* CommunityScreenCoordinator.swift in Sources */,
 				4EF31453258166680032B58D /* WriteCommentViewController.swift in Sources */,
 				4ECCEEF4250C04280075F921 /* LemmyTabBarController.swift in Sources */,
 				4EF3AC85254B456400BEC9F1 /* CreateCommunityChooseCategoryCell.swift in Sources */,
