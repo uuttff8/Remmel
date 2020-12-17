@@ -48,8 +48,8 @@ class CommentsFrontPageViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        tableView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+        tableView.snp.makeConstraints {
+            $0.edges.equalTo(self.view.safeAreaLayoutGuide)
         }
         
         tableView.layoutTableHeaderView()

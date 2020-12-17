@@ -142,7 +142,7 @@ extension PostsFrontPageViewController: ProgrammaticallyViewProtocol {
     
     func makeConstraints() {
         tableView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            make.edges.equalTo(self.view.safeAreaLayoutGuide)
         }
     }
 }

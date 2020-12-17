@@ -87,7 +87,9 @@ class CommentsFrontPageModel: NSObject {
     }
     
     private func saveNewComment(_ comment: LemmyModel.CommentView) {
-        
+        if let index = commentsDataSource.firstIndex(where: { $0.id == comment.id }) {
+            commentsDataSource[index] = comment
+        }
     }
     
 }
