@@ -26,7 +26,11 @@ class CommunitiesCoordinator: Coordinator {
     }
     
     func goToCommunityScreen(communityId: Int) {
-        let coordniator = CommunityScreenCoordinator(navigationController: navigationController, communityId: communityId, communityInfo: nil)
+        let coordniator = CommunityScreenCoordinator(
+            navigationController: navigationController,
+            communityId: communityId,
+            communityInfo: nil
+        )
         self.store(coordinator: coordniator)
         coordniator.start()
     }

@@ -24,7 +24,11 @@ class GenericCoordinator<T: UIViewController>: NSObject, Coordinator, SFSafariVi
     }
     
     func goToCommunityScreen(communityId: Int) {
-        let coordinator = CommunityScreenCoordinator(navigationController: navigationController, communityId: communityId, communityInfo: nil)
+        let coordinator = CommunityScreenCoordinator(
+            navigationController: navigationController,
+            communityId: communityId,
+            communityInfo: nil
+        )
         self.store(coordinator: coordinator)
         coordinator.start()
     }
