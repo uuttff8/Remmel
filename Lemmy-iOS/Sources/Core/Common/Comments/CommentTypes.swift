@@ -8,7 +8,7 @@
 
 import Foundation
 
-class LemmyComment: BaseComment {
+class LemmyComment: BaseComment, Identifiable {
     var id: Int? {
         commentContent?.id
     }

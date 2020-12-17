@@ -64,11 +64,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
                 )
             }.store(in: &cancellable)
     }
-    
-    private func saveNewPost(_ post: LemmyModel.PostView) {
         
-    }
-    
     func doPostLike(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,

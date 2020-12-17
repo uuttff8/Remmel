@@ -14,7 +14,8 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
     weak var commentDelegate: CommentsViewControllerDelegate?
     
     var commentDataSource: [LemmyComment] {
-        currentlyDisplayed as! [LemmyComment]
+        get { currentlyDisplayed as! [LemmyComment] }
+        set { (currentlyDisplayed) = newValue }
     }
     
     init() {
@@ -42,7 +43,9 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
     }
     
     func saveNewComment(comment: LemmyModel.CommentView) {
-        if let index = commentDataSource.firstIndex(where: { $0.id == comment.id }) {
+        if let index = commentDataSource.firstIndex(where: { comment in
+            comment.commentContent?.id == comment.id
+        }) {
             commentDataSource[index].commentContent = comment
         }
     }
