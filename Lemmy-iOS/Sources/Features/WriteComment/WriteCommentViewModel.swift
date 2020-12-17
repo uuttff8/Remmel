@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Combine
 
 protocol WriteCommentViewModelProtocol: AnyObject {
     func doWriteCommentFormLoad(request: WriteComment.FormLoad.Request)
+    func doRemoveCreateComment(request: WriteComment.RemoteCreateComment.Request)
 }
 
 class WriteCommentViewModel: WriteCommentViewModelProtocol {
@@ -18,13 +20,50 @@ class WriteCommentViewModel: WriteCommentViewModelProtocol {
     private let parentComment: LemmyModel.CommentView?
     private let postId: Int
     
-    init(parentComment: LemmyModel.CommentView?, postId: Int) {
+    private let userAccountService: UserAccountSerivceProtocol
+    
+    private var cancellable = Set<AnyCancellable>()
+    
+    init(
+        parentComment: LemmyModel.CommentView?,
+        postId: Int,
+        userAccountService: UserAccountSerivceProtocol
+    ) {
         self.parentComment = parentComment
         self.postId = postId
+        self.userAccountService = userAccountService
     }
 
     func doWriteCommentFormLoad(request: WriteComment.FormLoad.Request) {
         self.viewController?.displayWriteCommentForm(viewModel: .init(parrentCommentText: self.parentComment?.content))
+    }
+    
+    func doRemoveCreateComment(request: WriteComment.RemoteCreateComment.Request) {
+        guard let jwtToken = userAccountService.jwtToken else {
+            print("No Jwt Token found")
+            return
+        }
+        
+        let params = LemmyModel.Comment.CreateCommentRequest(content: request.text,
+                                                             parentId: parentComment?.id,
+                                                             postId: postId,
+                                                             formId: nil,
+                                                             auth: jwtToken)
+        
+        ApiManager.requests.asyncCreateComment(parameters: params)
+            .receive(on: RunLoop.main)
+            .sink { (completion) in
+                switch completion {
+                case .failure(let error):
+                    self.viewController?.displayCreatePostError(
+                        viewModel: .init(error: error.description)
+                    )
+                case .finished: break
+                }
+                print(completion)
+            } receiveValue: { (response) in
+                self.viewController?.displaySuccessCreatingComment(viewModel: .init(comment: response.comment))
+            }.store(in: &self.cancellable)
     }
 }
 
@@ -34,6 +73,24 @@ enum WriteComment {
         
         struct ViewModel {
             let parrentCommentText: String?
+        }
+    }
+    
+    enum RemoteCreateComment {
+        struct Request {
+            let text: String
+        }
+        
+        struct ViewModel {
+            let comment: LemmyModel.CommentView
+        }
+    }
+    
+    enum CreateCommentError {
+        struct Request { }
+        
+        struct ViewModel {
+            let error: String
         }
     }
 }

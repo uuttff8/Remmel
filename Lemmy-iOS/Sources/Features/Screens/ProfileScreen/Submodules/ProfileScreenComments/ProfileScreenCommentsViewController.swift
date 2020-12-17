@@ -129,7 +129,7 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
     }
     
     func reply(to comment: LemmyModel.CommentView) {
-        // no more yet
+        self.coordinator?.goToWriteComment(postId: comment.postId, parrentComment: comment)
     }
     
     func onLinkTap(in comment: LemmyModel.CommentView, url: URL) {

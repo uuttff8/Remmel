@@ -179,7 +179,7 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
     }
     
     func reply(to comment: LemmyModel.CommentView) {
-        // no more yet
+        coordinator?.goToWriteComment(postId: comment.postId, parrentComment: comment)
     }
     
     func onLinkTap(in comment: LemmyModel.CommentView, url: URL) {

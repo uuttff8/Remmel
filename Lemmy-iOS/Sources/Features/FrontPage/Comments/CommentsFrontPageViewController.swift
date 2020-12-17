@@ -121,7 +121,7 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
     }
     
     func reply(to comment: LemmyModel.CommentView) {
-        print("reply to \(comment.id)")
+        coordinator?.goToWriteComment(postId: comment.postId, parrentComment: comment)
     }
     
     func onLinkTap(in comment: LemmyModel.CommentView, url: URL) {

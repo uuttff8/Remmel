@@ -10,6 +10,8 @@ import UIKit
 
 protocol WriteCommentViewControllerProtocol: AnyObject {
     func displayWriteCommentForm(viewModel: WriteComment.FormLoad.ViewModel)
+    func displaySuccessCreatingComment(viewModel: WriteComment.RemoteCreateComment.ViewModel)
+    func displayCreatePostError(viewModel: WriteComment.CreateCommentError.ViewModel)
 }
 
 class WriteCommentViewController: UIViewController {
@@ -26,7 +28,7 @@ class WriteCommentViewController: UIViewController {
     lazy var writeCommentView = self.view as! WriteCommentView
     
     private lazy var createBarButton = UIBarButtonItem(
-        title: "POST",
+        title: "CREATE",
         primaryAction: UIAction(handler: createBarButtonTapped),
         style: .done
     )
@@ -52,17 +54,23 @@ class WriteCommentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setupNavigationItems()
+        
         self.viewModel.doWriteCommentFormLoad(request: .init())
     }
     
-    // MARK : Objective-c Actions
+    // MARK: - Objective-c Actions
     func createBarButtonTapped(_ action: UIAction) {
         guard let text = formData.text else {
             UIAlertController.createOkAlert(message: "Please enter comment")
             return
         }
         
-        
+        self.viewModel.doRemoveCreateComment(request: .init(text: text))
+    }
+    
+    private func setupNavigationItems() {
+        self.navigationItem.rightBarButtonItem = createBarButton
     }
 }
 
@@ -83,7 +91,7 @@ extension WriteCommentViewController: WriteCommentViewControllerProtocol {
             type: .largeInput(
                 options: .init(
                     valueText: nil,
-                    placeholderText: nil,
+                    placeholderText: "Agree!",
                     maxLength: nil
                 )
             )
@@ -105,6 +113,15 @@ extension WriteCommentViewController: WriteCommentViewControllerProtocol {
         let viewModel = SettingsTableViewModel(sections: sections)
         self.writeCommentView.configure(viewModel: viewModel)
     }
+    
+    func displaySuccessCreatingComment(viewModel: WriteComment.RemoteCreateComment.ViewModel) {
+        self.dismiss(animated: true)
+    }
+    
+    func displayCreatePostError(viewModel: WriteComment.CreateCommentError.ViewModel) {
+        UIAlertController.createOkAlert(message: viewModel.error)
+    }
+
 }
 
 // MARK: - UIAdaptivePresentationControllerDelegate -

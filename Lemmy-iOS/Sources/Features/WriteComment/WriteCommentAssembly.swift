@@ -19,7 +19,9 @@ final class WriteCommentAssembly: Assembly {
     }
     
     func makeModule() -> WriteCommentViewController {
-        let viewModel = WriteCommentViewModel(parentComment: parentComment, postId: postId)
+        let viewModel = WriteCommentViewModel(parentComment: parentComment,
+                                              postId: postId,
+                                              userAccountService: UserAccountService())
         let vc = WriteCommentViewController(viewModel: viewModel)
         viewModel.viewController = vc
         
