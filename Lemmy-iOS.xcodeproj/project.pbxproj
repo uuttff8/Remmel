@@ -50,12 +50,15 @@
 		4E3FBC51258A82B100F97671 /* CommunitiesPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC50258A82B100F97671 /* CommunitiesPreviewView.swift */; };
 		4E3FBC59258A857600F97671 /* CommunitiesPreviewDataSoucre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSoucre.swift */; };
 		4E73DF4F258BDBF2001608F2 /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E73DF4E258BDBF2001608F2 /* Array+Ext.swift */; };
+		4E73DF65258BE78D001608F2 /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E73DF64258BE78D001608F2 /* LoadingButton.swift */; };
+		4E73DF6A258BE964001608F2 /* FollowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E73DF69258BE964001608F2 /* FollowButton.swift */; };
 		4E7CFCC125841B140082AC3D /* WriteCommentParrentPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7CFCC025841B140082AC3D /* WriteCommentParrentPreviewCell.swift */; };
 		4E7CFCD52584215F0082AC3D /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7CFCD42584215F0082AC3D /* UIImageView+Ext.swift */; };
 		4E81655B2562A38400907D31 /* UpvoteDownvoteRequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E81655A2562A38400907D31 /* UpvoteDownvoteRequestService.swift */; };
 		4E8165632562B6FC00907D31 /* PostsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8165622562B6FC00907D31 /* PostsTableDataSource.swift */; };
 		4E8165722562D08B00907D31 /* ProfileScreenTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8165712562D08B00907D31 /* ProfileScreenTableHeaderView.swift */; };
 		4E8165992563346100907D31 /* Nantes in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8165982563346100907D31 /* Nantes */; };
+		4E87C637258BF2AB0007FE5E /* CommunityFollowService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C636258BF2AB0007FE5E /* CommunityFollowService.swift */; };
 		4E886C17253626950076B162 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C16253626950076B162 /* SignUpView.swift */; };
 		4E886C1C25364DD70076B162 /* AuthRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C1B25364DD70076B162 /* AuthRequests.swift */; };
 		4E886C2125364EC30076B162 /* UserRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C2025364EC30076B162 /* UserRequests.swift */; };
@@ -313,11 +316,14 @@
 		4E3FBC50258A82B100F97671 /* CommunitiesPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewView.swift; sourceTree = "<group>"; };
 		4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSoucre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewDataSoucre.swift; sourceTree = "<group>"; };
 		4E73DF4E258BDBF2001608F2 /* Array+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Ext.swift"; sourceTree = "<group>"; };
+		4E73DF64258BE78D001608F2 /* LoadingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
+		4E73DF69258BE964001608F2 /* FollowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowButton.swift; sourceTree = "<group>"; };
 		4E7CFCC025841B140082AC3D /* WriteCommentParrentPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteCommentParrentPreviewCell.swift; sourceTree = "<group>"; };
 		4E7CFCD42584215F0082AC3D /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
 		4E81655A2562A38400907D31 /* UpvoteDownvoteRequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpvoteDownvoteRequestService.swift; sourceTree = "<group>"; };
 		4E8165622562B6FC00907D31 /* PostsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsTableDataSource.swift; sourceTree = "<group>"; };
 		4E8165712562D08B00907D31 /* ProfileScreenTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenTableHeaderView.swift; sourceTree = "<group>"; };
+		4E87C636258BF2AB0007FE5E /* CommunityFollowService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityFollowService.swift; sourceTree = "<group>"; };
 		4E886C16253626950076B162 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		4E886C1B25364DD70076B162 /* AuthRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequests.swift; sourceTree = "<group>"; };
 		4E886C2025364EC30076B162 /* UserRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequests.swift; sourceTree = "<group>"; };
@@ -1266,7 +1272,7 @@
 				4EB89B2F2521FDBE007129BF /* LemmyLinkedClickableUILabel.swift */,
 				4E10707D2534F5EC009EABDA /* LemmyCheckLogin.swift */,
 				4E886C3A2538BE830076B162 /* LemmyTextWithSwitch.swift */,
-				4E9182D22564151800702F04 /* VoteButton.swift */,
+				4E73DF64258BE78D001608F2 /* LoadingButton.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -1334,6 +1340,8 @@
 				4EBB2250255ADFC900B88079 /* ScrollableStackView.swift */,
 				4EF313A1257BD5370032B58D /* MultilineButton.swift */,
 				4EBB224B255ADE4C00B88079 /* TabSegmentedControlView.swift */,
+				4E9182D22564151800702F04 /* VoteButton.swift */,
+				4E73DF69258BE964001608F2 /* FollowButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1479,6 +1487,7 @@
 				4EFA81B5255FF6B7008AF535 /* UserAccountService.swift */,
 				4E81655A2562A38400907D31 /* UpvoteDownvoteRequestService.swift */,
 				4EF313A9257BDF6E0032B58D /* ShowMoreHandlerService.swift */,
+				4E87C636258BF2AB0007FE5E /* CommunityFollowService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1747,6 +1756,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E73DF65258BE78D001608F2 /* LoadingButton.swift in Sources */,
 				4E9183452566C16C00702F04 /* SettingsTableViewModel.swift in Sources */,
 				4EBB22392559FC3000B88079 /* Collection+SafeSubscript.swift in Sources */,
 				4E9183AA2567FF4200702F04 /* ChooseCommunityTableDataSource.swift in Sources */,
@@ -1846,6 +1856,7 @@
 				4EF313B3257BE8670032B58D /* SafariActivity.swift in Sources */,
 				4E9BBA2C25553516004FF2F9 /* Error.swift in Sources */,
 				4EFA8157255F3215008AF535 /* FrontPageSearchViewController.swift in Sources */,
+				4E87C637258BF2AB0007FE5E /* CommunityFollowService.swift in Sources */,
 				4ECCEEED250BE8870075F921 /* FrontPageViewController.swift in Sources */,
 				4EFAB5D82552FA1100B32780 /* UILabel+Ext.swift in Sources */,
 				4E9183482566C16C00702F04 /* SettingsTableViewCell.swift in Sources */,
@@ -1902,6 +1913,7 @@
 				4EB89AF8251F47A7007129BF /* PostScreenViewController.swift in Sources */,
 				4E886CAE2540A9820076B162 /* CreatePostContentCell.swift in Sources */,
 				4EF3AC80254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift in Sources */,
+				4E73DF6A258BE964001608F2 /* FollowButton.swift in Sources */,
 				4E10704B2534756B009EABDA /* Protocols.swift in Sources */,
 				4E3FBC49258A812B00F97671 /* CommunitiesViewModel.swift in Sources */,
 				4ECCEF31251F24AD0075F921 /* LemmyFrontPageNavBar.swift in Sources */,

@@ -12,7 +12,10 @@ final class CommunitiesPreviewAssembly: Assembly {
     
     func makeModule() -> CommunitiesPreviewViewController {
         let viewModel = CommunitiesPreviewViewModel()
-        let vc = CommunitiesPreviewViewController(viewModel: viewModel)
+        let vc = CommunitiesPreviewViewController(
+            viewModel: viewModel,
+            followService: CommunityFollowService(userAccountService: UserAccountService())
+        )
         viewModel.viewContoller = vc
         
         return vc

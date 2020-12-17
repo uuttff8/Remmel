@@ -10,6 +10,7 @@ import UIKit
 
 protocol CommunitiesPreviewTableDataSourceDelegate: AnyObject {
     func tableDidSelect(community: LemmyModel.CommunityView)
+    func tableDidTapped(followButton: FollowButton, in community: LemmyModel.CommunityView)
 }
 
 class CommunitiesPreviewDataSource: NSObject {
@@ -34,6 +35,7 @@ extension CommunitiesPreviewDataSource: UITableViewDelegate, UITableViewDataSour
         
         let viewModel = self.viewModels[indexPath.row]
         cell.bind(community: viewModel)
+        cell.delegate = self
         
         return cell
     }
@@ -42,5 +44,15 @@ extension CommunitiesPreviewDataSource: UITableViewDelegate, UITableViewDataSour
         let viewModel = self.viewModels[indexPath.row]
         self.delegate?.tableDidSelect(community: viewModel)
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension CommunitiesPreviewDataSource: CommunityPreviewTableCellDelegate {
+    func communityPreviewCell(_ cell: CommunityPreviewTableCell, didTapped followButton: FollowButton) {
+        guard let communityCell = cell.community else { return }
+        
+        if let index = viewModels.firstIndex(where: { $0.id == communityCell.id }) {
+            self.delegate?.tableDidTapped(followButton: followButton, in: viewModels[index])
+        }
     }
 }

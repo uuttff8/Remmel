@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 protocol CommunitiesPreviewViewControllerProtocol: AnyObject {
     func displayCommunities(viewModel: CommunitiesPreview.CommunitiesLoad.ViewModel)
@@ -23,14 +24,19 @@ class CommunitiesPreviewViewController: UIViewController {
         $0.delegate = self
     }
     
+    private let followService: CommunityFollowServiceProtocol
     private var state: CommunitiesPreview.ViewControllerState
+    
+    private var cancellable = Set<AnyCancellable>()
     
     init(
         viewModel: CommunitiesPreviewViewModel,
-        state: CommunitiesPreview.ViewControllerState = .loading
+        state: CommunitiesPreview.ViewControllerState = .loading,
+        followService: CommunityFollowServiceProtocol
     ) {
         self.viewModel = viewModel
         self.state = state
+        self.followService = followService
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -81,6 +87,14 @@ extension CommunitiesPreviewViewController: CommunitiesPreviewViewControllerProt
 }
 
 extension CommunitiesPreviewViewController: CommunitiesPreviewTableDataSourceDelegate {
+    func tableDidTapped(followButton: FollowButton, in community: LemmyModel.CommunityView) {
+        self.followService.followUi(followButton: followButton, to: community)
+            .sink { (community) in
+                self.tableManager.viewModels.updateElement(community)
+            }.store(in: &self.cancellable)
+
+    }
+    
     func tableDidSelect(community: LemmyModel.CommunityView) {
         self.coordinator?.goToCommunityScreen(communityId: community.id)
     }

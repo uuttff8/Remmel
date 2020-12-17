@@ -9,7 +9,7 @@
 import UIKit
 
 class CommunitiesPreviewView: UIView {
-    
+        
     private lazy var tableView = LemmyTableView(style: .plain, separator: false).then {
         $0.registerClass(CommunityPreviewTableCell.self)
     }
