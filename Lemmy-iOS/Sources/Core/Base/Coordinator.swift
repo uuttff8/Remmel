@@ -16,6 +16,7 @@ protocol Coordinator: AnyObject {
     
     // extension implemented
     func removeDependency(_ coordinator: Coordinator?)
+    func store(coordinator: Coordinator)
 }
 
 extension Coordinator {

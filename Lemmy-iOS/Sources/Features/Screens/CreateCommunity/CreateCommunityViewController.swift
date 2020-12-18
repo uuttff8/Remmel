@@ -89,6 +89,11 @@ class CreateCommunityViewController: UIViewController {
         self.styledNavController.setNeedsNavigationBarAppearanceUpdate(sender: self)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.coordinator?.removeDependency(coordinator)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         

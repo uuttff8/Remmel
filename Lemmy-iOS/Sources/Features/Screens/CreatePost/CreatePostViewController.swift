@@ -101,6 +101,11 @@ class CreatePostScreenViewController: UIViewController {
         self.styledNavController.setNeedsNavigationBarAppearanceUpdate(sender: self)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.coordinator?.removeDependency(coordinator)
+    }
+    
     // MARK: - Private API
     
     private func setupNavigationItem() {

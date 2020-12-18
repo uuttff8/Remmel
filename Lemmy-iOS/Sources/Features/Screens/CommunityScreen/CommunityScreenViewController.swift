@@ -62,6 +62,11 @@ class CommunityScreenViewController: UIViewController {
         self.updateState(newState: state)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        coordinator?.removeDependency(coordinator)
+    }
+    
     private func updateState(newState: CommunityScreen.ViewControllerState) {
         defer {
             self.state = newState

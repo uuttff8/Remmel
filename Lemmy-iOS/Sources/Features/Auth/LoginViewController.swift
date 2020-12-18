@@ -14,6 +14,8 @@ enum LemmyAuthMethod {
 
 class LoginViewController: UIViewController {
     
+    weak var coordinator: LoginCoordinator?
+    
     var signInView: SignInView?
     var signUpView: SignUpView?
     let shareData = LemmyShareData.shared
@@ -62,6 +64,11 @@ class LoginViewController: UIViewController {
             action: #selector(onLoginOrRegisterSelector(sender:))
         )
         navigationItem.rightBarButtonItem = barItem
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.coordinator?.removeDependency(coordinator)
     }
     
     @objc func onLoginOrRegisterSelector(sender: UIBarButtonItem!) {

@@ -33,7 +33,6 @@ class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
         rootViewController.coordinator = self
         postsViewController.coordinator = self
         commentsViewController.coordinator = self
-        searchViewController.coordinator = self
         navigationController?.pushViewController(self.rootViewController, animated: true)
         
         rootViewController.configureSearchView(searchViewController.view)
@@ -69,11 +68,13 @@ class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
     }
     
     func showSearchIfNeeded(with query: String) {
+        searchViewController.coordinator = self
         self.searchViewController.showSearchIfNeeded()
         self.searchViewController.searchQuery = query
     }
     
     func hideSearchIfNeeded() {
+        searchViewController.coordinator = nil
         self.searchViewController.hideSearchIfNeeded()
         self.searchViewController.searchQuery = ""
     }

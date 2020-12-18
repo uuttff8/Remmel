@@ -20,6 +20,7 @@ class LoginCoordinator: Coordinator {
     }
 
     func start() {
+        self.rootViewController.coordinator = self
         navigationController?.pushViewController(rootViewController, animated: true)
     }
 }

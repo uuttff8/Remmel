@@ -56,6 +56,11 @@ class SearchResultsViewController: UIViewController {
         self.viewModel.doLoadContent(request: .init())
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.coordinator?.removeDependency(coordinator)
+    }
+    
     private func updateState(newState: SearchResults.ViewControllerState) {
         defer {
             self.state = newState
