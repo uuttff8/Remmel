@@ -107,13 +107,12 @@ extension WriteCommentViewController: WriteCommentViewControllerProtocol {
         ]
         
         if viewModel.parrentCommentText != nil {
-            sections.append(
+            sections.insert(
                 .init(
                     header: nil,
                     cells: [headerCell],
                     footer: nil
-                )
-            )
+                ), at: 0)
         }
         
         let viewModel = SettingsTableViewModel(sections: sections)
