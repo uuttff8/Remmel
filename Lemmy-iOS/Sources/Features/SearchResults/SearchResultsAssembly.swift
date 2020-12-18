@@ -18,17 +18,20 @@ class SearchResultsAssembly: Assembly {
     }
     
     func makeModule() -> SearchResultsViewController {
+        let userAccountService = UserAccountService()
+        
         let viewModel = SearchResultsViewModel(
             searchQuery: searchQuery,
             searchType: searchType,
-            userAccountService: UserAccountService(),
+            userAccountService: userAccountService,
             contentScoreService: ContentScoreService(
-                voteService: UpvoteDownvoteRequestService(userAccountService: UserAccountService())
+                voteService: UpvoteDownvoteRequestService(userAccountService: userAccountService)
             )
         )
         let vc = SearchResultsViewController(
             viewModel: viewModel,
-            showMoreHandler: ShowMoreHandlerService()
+            showMoreHandler: ShowMoreHandlerService(),
+            followService: CommunityFollowService(userAccountService: userAccountService)
         )
         viewModel.viewController = vc
         

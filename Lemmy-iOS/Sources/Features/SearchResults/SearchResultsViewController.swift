@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 protocol SearchResultsViewControllerProtocol: AnyObject {
     func displayContent(viewModel: SearchResults.LoadContent.ViewModel)
@@ -22,6 +23,9 @@ class SearchResultsViewController: UIViewController {
     
     private var state: SearchResults.ViewControllerState
     private let showMoreHandler: ShowMoreHandlerServiceProtocol
+    private let followService: CommunityFollowServiceProtocol
+    
+    private var cancellable = Set<AnyCancellable>()
     
     private lazy var tableManager = SearchResultsTableDataSource().then {
         $0.delegate = self
@@ -31,11 +35,13 @@ class SearchResultsViewController: UIViewController {
     init(
         viewModel: SearchResultsViewModelProtocol,
         state: SearchResults.ViewControllerState = .loading,
-        showMoreHandler: ShowMoreHandlerServiceProtocol
+        showMoreHandler: ShowMoreHandlerServiceProtocol,
+        followService: CommunityFollowServiceProtocol
     ) {
         self.viewModel = viewModel
         self.state = state
         self.showMoreHandler = showMoreHandler
+        self.followService = followService
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -99,6 +105,13 @@ extension SearchResultsViewController: SearchResultsViewControllerProtocol {
 }
 
 extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
+    func tableDidTapped(followButton: FollowButton, in community: LemmyModel.CommunityView) {
+        self.followService.followUi(followButton: followButton, to: community)
+            .sink { (community) in
+                self.tableManager.saveNewCommunity(community: community)
+            }.store(in: &cancellable)
+    }
+        
     func onMentionTap(in post: LemmyModel.CommentView, mention: LemmyMention) {
         self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }

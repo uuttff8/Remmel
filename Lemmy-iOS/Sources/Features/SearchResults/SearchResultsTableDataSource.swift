@@ -11,6 +11,7 @@ import UIKit
 protocol SearchResultsTableDataSourceDelegate: PostContentTableCellDelegate, CommentContentTableCellDelegate {
     func tableDidRequestPagination(_ tableDataSource: SearchResultsTableDataSource)
     func tableDidSelect(viewModel: SearchResults.Results, indexPath: IndexPath)
+    func tableDidTapped(followButton: FollowButton, in community: LemmyModel.CommunityView)
 }
 
 final class SearchResultsTableDataSource: NSObject {
@@ -71,6 +72,7 @@ final class SearchResultsTableDataSource: NSObject {
     ) -> UITableViewCell {
         let cell: CommunityPreviewTableCell = tableView.cell(forRowAt: indexPath)
         cell.bind(community: community)
+        cell.delegate = self
         return cell
     }
     
@@ -101,6 +103,26 @@ final class SearchResultsTableDataSource: NSObject {
         if let index = data.firstIndex(where: { $0.id == comment.id }) {
             data[index] = comment
             viewModels = .comments(data)
+        }
+    }
+    
+    func saveNewCommunity(community: LemmyModel.CommunityView) {
+        guard case .communities(var data) = viewModels else { return }
+        
+        if let index = data.firstIndex(where: { $0.id == community.id }) {
+            data[index] = community
+            viewModels = .communities(data)
+        }
+    }
+}
+
+extension SearchResultsTableDataSource: CommunityPreviewTableCellDelegate {
+    func communityPreviewCell(_ cell: CommunityPreviewTableCell, didTapped followButton: FollowButton) {
+        guard let communityCell = cell.community else { return }
+        guard case .communities(let viewModels) = viewModels else { return }
+        
+        if let index = viewModels.firstIndex(where: { $0.id == communityCell.id }) {
+            self.delegate?.tableDidTapped(followButton: followButton, in: viewModels[index])
         }
     }
 }
