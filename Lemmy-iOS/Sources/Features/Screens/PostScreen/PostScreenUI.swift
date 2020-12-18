@@ -12,6 +12,7 @@ import SnapKit
 
 protocol PostScreenViewDelegate: AnyObject {
     func postView(didEmbedTappedWith url: URL)
+    func postView(_ postView: PostScreenViewController.View, didWriteCommentTappedWith post: LemmyModel.PostView)
 }
 
 extension PostScreenViewController.View {
@@ -32,6 +33,8 @@ extension PostScreenViewController {
         let appearance = Appearance()
         
         var headerView = PostScreenUITableCell()
+        
+        var postData: LemmyModel.PostView?
                 
         init() {
             super.init(frame: .zero)
@@ -39,6 +42,10 @@ extension PostScreenViewController {
             self.setupView()
             self.addSubviews()
             self.makeConstraints()
+            
+            headerView.writeNewCommentButton.addTarget(self,
+                                                       action: #selector(writeCommentTapped(_:)),
+                                                       for: .touchUpInside)
         }
         
         @available(*, unavailable)
@@ -47,6 +54,7 @@ extension PostScreenViewController {
         }
         
         func bind(with viewData: LemmyModel.PostView) {
+            self.postData = viewData
             self.headerView.bind(with: viewData)
             
             if let url = viewData.url {
@@ -62,7 +70,13 @@ extension PostScreenViewController {
 
         func hideLoadingView() {
             self.hideActivityIndicatorView()
-        }        
+        }
+        
+        @objc func writeCommentTapped(_ sender: WriteNewCommentButton) {
+            guard let post = postData else { return }
+            
+            self.delegate?.postView(self, didWriteCommentTappedWith: post)
+        }
     }
 }
 
@@ -81,7 +95,8 @@ extension PostScreenViewController.View: ProgrammaticallyViewProtocol {
 class PostScreenUITableCell: UIView {
     
     let postHeaderView = PostContentView()
-    private(set) lazy var postGreenOutlineView = LemmyGreenOutlinePostEmbed()
+    let postGreenOutlineView = LemmyGreenOutlinePostEmbed()
+    let writeNewCommentButton = WriteNewCommentButton()
     
     init() {
         super.init(frame: .zero)
@@ -119,6 +134,7 @@ extension PostScreenUITableCell: ProgrammaticallyViewProtocol {
     func addSubviews() {
         self.addSubview(postHeaderView)
         self.addSubview(postGreenOutlineView)
+        self.addSubview(writeNewCommentButton)
     }
     
     func makeConstraints() {
@@ -130,12 +146,47 @@ extension PostScreenUITableCell: ProgrammaticallyViewProtocol {
             self.postGreenOutlineView.snp.makeConstraints { (make) in
                 make.top.equalTo(postHeaderView.snp.bottom).offset(10)
                 make.trailing.leading.equalToSuperview().inset(10)
-                make.bottom.equalToSuperview()
+            }
+            
+            self.writeNewCommentButton.snp.makeConstraints {
+                $0.top.equalTo(postGreenOutlineView.snp.bottom)
+                $0.leading.trailing.equalToSuperview()
+                $0.height.equalTo(44)
+                $0.bottom.equalToSuperview()
             }
         } else {
-            self.postHeaderView.snp.remakeConstraints { (make) in
-                make.edges.equalToSuperview()
+            self.writeNewCommentButton.snp.makeConstraints {
+                $0.top.equalTo(postHeaderView.snp.bottom)
+                $0.leading.trailing.equalToSuperview()
+                $0.height.equalTo(44)
+                $0.bottom.equalToSuperview()
             }
         }
+        
+    }
+}
+
+class WriteNewCommentButton: UIButton {
+    
+    init() {
+        super.init(frame: .zero)
+        
+        setTitle("Write Comment", for: .normal)
+        setImage(Config.Image.writeComment, for: .normal)
+        
+        titleEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        setImage(Config.Image.writeComment, for: .normal)
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        CGSize(width: UIScreen.main.bounds.width, height: 44)
     }
 }

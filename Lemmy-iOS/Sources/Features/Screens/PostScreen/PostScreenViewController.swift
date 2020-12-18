@@ -210,6 +210,10 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
 }
 
 extension PostScreenViewController: PostScreenViewDelegate {
+    func postView(_ postView: View, didWriteCommentTappedWith post: LemmyModel.PostView) {
+        self.coordinator?.goToWriteComment(postId: post.id, parrentComment: nil)
+    }
+    
     func postView(didEmbedTappedWith url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }

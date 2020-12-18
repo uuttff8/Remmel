@@ -96,6 +96,10 @@ extension Config {
             UIImage(systemName: "text.quote")!.withTintColor(.label, renderingMode: .alwaysOriginal)
         }
         
+        static var writeComment: UIImage {
+            UIImage(systemName: "square.and.pencil")!.withTintColor(.label, renderingMode: .alwaysOriginal)
+        }
+        
         static var sortType: UIImage {
             UIImage(systemName: "tray.and.arrow.down.fill")!
                 .withTintColor(.darkGray, renderingMode: .alwaysOriginal)
