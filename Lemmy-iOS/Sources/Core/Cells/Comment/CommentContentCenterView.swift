@@ -22,10 +22,15 @@ class CommentCenterView: UIView {
     // MARK: - Properties
     var onLinkTap: ((URL) -> Void)?
     
-    private lazy var commentLabel = NantesLabel().then {
+    private lazy var commentLabel = LabeledTextView().then {
         $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        $0.isUserInteractionEnabled = true
+        $0.isScrollEnabled = false
+        $0.isEditable = false
+        $0.isSelectable = true
+        $0.dataDetectorTypes = [.link]
         $0.delegate = self
-        $0.numberOfLines = 0
+        $0.numberOfLines = 6
     }
 
     // MARK: - Init
@@ -49,7 +54,7 @@ class CommentCenterView: UIView {
             : createAttributesForNormalComment(data: data)
         
         commentLabel.attributedText = commentText
-        commentLabel.linkAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
+        commentLabel.linkTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
     }
     
     func prepareForReuse() {
@@ -83,6 +88,14 @@ extension CommentCenterView: ProgrammaticallyViewProtocol {
         commentLabel.snp.makeConstraints { (make) in
             make.top.leading.trailing.bottom.equalToSuperview()
         }
+    }
+}
+
+extension CommentCenterView: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        print(URL)
+        
+        return true
     }
 }
 

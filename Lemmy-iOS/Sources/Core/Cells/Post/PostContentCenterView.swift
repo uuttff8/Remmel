@@ -9,7 +9,6 @@
 import UIKit
 import SwiftyMarkdown
 import Nantes
-import Nuke
 
 // MARK: - PostContentCenterView: UIView
 class PostContentCenterView: UIView {
@@ -23,6 +22,7 @@ class PostContentCenterView: UIView {
     
     // MARK: - Properties
     var onLinkTap: ((URL) -> Void)?
+    var onMentionTap: ((LemmyMention) -> Void)?
     
     private let imageSize = CGSize(width: 110, height: 60)
     
@@ -58,6 +58,60 @@ class PostContentCenterView: UIView {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
+        setupView()
+        addSubviews()
+        makeConstraints()
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Public
+    func bind(with data: PostContentCenterView.ViewData) {
+        titleLabel.text = data.title
+        
+        if let subtitle = data.subtitle {
+            let md = SwiftyMarkdown(string: subtitle)
+            md.link.color = .systemBlue
+            subtitleLabel.attributedText = md.attributedString()
+            subtitleLabel.linkAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
+        }
+        
+        thumbailImageView.loadImage(urlString: data.imageUrl)
+    }
+    
+    func setupUIForPost() {
+        self.subtitleLabel.numberOfLines = 0
+    }
+    
+    func prepareForReuse() {
+        titleLabel.text = nil
+        subtitleLabel.text = nil
+        thumbailImageView.image = nil
+        thumbailImageView.isHidden = false
+    }
+        
+    // MARK: - Overrided
+    override var intrinsicContentSize: CGSize {
+        CGSize(width: UIScreen.main.bounds.width, height: UIView.noIntrinsicMetric)
+    }
+}
+
+extension PostContentCenterView: NantesLabelDelegate {
+    func attributedLabel(_ label: NantesLabel, didSelectLink link: URL) {
+        if let mention = LemmyMention(url: link) {
+            onMentionTap?(mention)
+            return
+        }
+        
+        onLinkTap?(link)
+    }
+}
+
+extension PostContentCenterView: ProgrammaticallyViewProtocol {
+    func addSubviews() {
         self.addSubview(mainStackView)
         
         titleImageStackView.addStackViewItems(
@@ -71,40 +125,7 @@ class PostContentCenterView: UIView {
         )
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Public
-    func bind(with data: PostContentCenterView.ViewData) {
-        titleLabel.text = data.title
-        
-        if let subtitle = data.subtitle {
-            let md = SwiftyMarkdown(string: subtitle)
-            md.link.color = .systemBlue
-            subtitleLabel.attributedText = md.attributedString()
-            
-            subtitleLabel.linkAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
-        }
-        
-        thumbailImageView.loadImage(urlString: data.imageUrl)
-        
-        layoutUI()
-    }
-    
-    func setupUIForPost() {
-        self.subtitleLabel.numberOfLines = 0
-    }
-    
-    func prepareForReuse() {
-        titleLabel.text = nil
-        subtitleLabel.text = nil
-        thumbailImageView.image = nil
-        thumbailImageView.isHidden = false
-    }
-    
-    // MARK: - Private
-    private func layoutUI() {
+    func makeConstraints() {
         thumbailImageView.snp.makeConstraints { (make) in
             make.size.equalTo(imageSize)
         }
@@ -112,16 +133,5 @@ class PostContentCenterView: UIView {
         mainStackView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-    }
-    
-    // MARK: - Overrided
-    override var intrinsicContentSize: CGSize {
-        CGSize(width: UIScreen.main.bounds.width, height: UIView.noIntrinsicMetric)
-    }
-}
-
-extension PostContentCenterView: NantesLabelDelegate {
-    func attributedLabel(_ label: NantesLabel, didSelectLink link: URL) {
-        onLinkTap?(link)
     }
 }

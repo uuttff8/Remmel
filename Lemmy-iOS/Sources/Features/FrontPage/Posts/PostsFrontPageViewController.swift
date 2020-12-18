@@ -151,6 +151,15 @@ extension PostsFrontPageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         handleDidSelectForPosts(indexPath: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let cell = tableView.cellForRow(at: indexPath)! as UITableViewCell
+
+        // find first textView inside this cell and select it
+        for case let textView as UITextView in cell.subviews {
+          textView.isUserInteractionEnabled = true
+          textView.becomeFirstResponder()
+          return
+        }
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -181,6 +190,10 @@ extension PostsFrontPageViewController: SFSafariViewControllerDelegate {
 }
 
 extension PostsFrontPageViewController: PostContentTableCellDelegate {
+    func onMentionTap(in post: LemmyModel.PostView, mention: LemmyMention) {
+        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
+    }
+    
     func upvote(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,

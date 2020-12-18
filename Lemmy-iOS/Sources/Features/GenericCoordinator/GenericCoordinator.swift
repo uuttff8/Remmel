@@ -34,7 +34,13 @@ class GenericCoordinator<T: UIViewController>: NSObject, Coordinator, SFSafariVi
     }
     
     func goToProfileScreen(by userId: Int) {
-        let coordinator = ProfileScreenCoordinator(navigationController: navigationController, profileId: userId)
+        let coordinator = ProfileScreenCoordinator(navigationController: navigationController, profileId: userId, profileUsername: nil)
+        self.store(coordinator: coordinator)
+        coordinator.start()
+    }
+    
+    func goToProfileScreen(by username: String) {
+        let coordinator = ProfileScreenCoordinator(navigationController: navigationController, profileId: nil, profileUsername: username)
         self.store(coordinator: coordinator)
         coordinator.start()
     }

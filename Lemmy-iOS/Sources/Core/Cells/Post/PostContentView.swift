@@ -89,6 +89,10 @@ class PostContentView: UIView {
             self?.delegate?.onLinkTap(in: post, url: url)
         }
         
+        centerView.onMentionTap = { [weak self] mention in
+            self?.delegate?.onMentionTap(in: post, mention: mention)
+        }
+        
         footerView.downvoteButtonTap = { [weak self] (scoreView, button, voteType) in
             self?.delegate?.downvote(scoreView: scoreView, voteButton: button, newVote: voteType, post: post)
         }

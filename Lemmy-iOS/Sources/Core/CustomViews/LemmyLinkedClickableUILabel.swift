@@ -8,49 +8,56 @@
 
 import UIKit
 
-class LemmyLinkedClickableUILabel: UILabel {
-
-    typealias YourCompletion = () -> Void
-
-    var linkedRange: NSRange!
-    var completion: YourCompletion?
-
-    @objc func linkClicked(sender: UITapGestureRecognizer) {
-
-        if let completionBlock = completion {
-
-            let textView = UITextView(frame: self.frame)
-            textView.text = self.text
-            textView.attributedText = self.attributedText
-            let index = textView.layoutManager.characterIndex(for: sender.location(in: self),
-                                                              in: textView.textContainer,
-                                                              fractionOfDistanceBetweenInsertionPoints: nil)
-
-            if linkedRange.lowerBound <= index && linkedRange.upperBound >= index {
-
-                completionBlock()
-            }
+class LabeledTextView: UITextView {    
+    
+    var numberOfLines: Int = 1 {
+        didSet {
+            self.textContainer.maximumNumberOfLines = numberOfLines
+            self.textContainer.lineBreakMode = .byTruncatingTail
         }
     }
+    
+    override init(frame: CGRect, textContainer: NSTextContainer?) {
+        super.init(frame: frame, textContainer: textContainer)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    override var selectedTextRange: UITextRange? {
+        get { return nil }
+        set {}
+    }
 
-/**
- *  This method will be used to set an attributed text specifying the linked text with a
- *  handler when the link is clicked
- */
-    @discardableResult
-    public func setLinkedTextWithHandler(text: String, link: String, handler: @escaping () -> Void) -> Bool {
-
-        let attributextText = NSMutableAttributedString(string: text)
-        let foundRange = attributextText.mutableString.range(of: link)
-
-        if foundRange.location != NSNotFound {
-            self.linkedRange = foundRange
-            self.completion = handler
-            attributextText.addAttribute(NSAttributedString.Key.link, value: text, range: foundRange)
-            self.isUserInteractionEnabled = true
-            self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(linkClicked(sender:))))
-            return true
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer is UIPanGestureRecognizer {
+            // required for compatibility with isScrollEnabled
+            return super.gestureRecognizerShouldBegin(gestureRecognizer)
         }
+        if let tapGestureRecognizer = gestureRecognizer as? UITapGestureRecognizer,
+            tapGestureRecognizer.numberOfTapsRequired == 1 {
+            // required for compatibility with links
+            return super.gestureRecognizerShouldBegin(gestureRecognizer)
+        }
+        // allowing smallDelayRecognizer for links
+        // https://stackoverflow.com/questions/46143868/xcode-9-uitextview-links-no-longer-clickable
+        if let longPressGestureRecognizer = gestureRecognizer as? UILongPressGestureRecognizer,
+            // comparison value is used to distinguish between 0.12 (smallDelayRecognizer) and 0.5 (textSelectionForce and textLoupe)
+            longPressGestureRecognizer.minimumPressDuration < 0.325 {
+            return super.gestureRecognizerShouldBegin(gestureRecognizer)
+        }
+        // preventing selection from loupe/magnifier (_UITextSelectionForceGesture), multi tap, tap and a half, etc.
+        gestureRecognizer.isEnabled = false
         return false
+    }
+
+    private func commonInit() {
+        self.textContainerInset = .zero
+        self.textContainer.lineFragmentPadding = 0
+        self.sizeToFit()
+        self.layoutManager.usesFontLeading = false
     }
 }

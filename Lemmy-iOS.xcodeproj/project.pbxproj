@@ -60,6 +60,8 @@
 		4E8165992563346100907D31 /* Nantes in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8165982563346100907D31 /* Nantes */; };
 		4E87C637258BF2AB0007FE5E /* CommunityFollowService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C636258BF2AB0007FE5E /* CommunityFollowService.swift */; };
 		4E87C63C258C04BB0007FE5E /* CommunityScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C63B258C04BB0007FE5E /* CommunityScreenCoordinator.swift */; };
+		4E87C642258D2A370007FE5E /* ActiveLabel in Frameworks */ = {isa = PBXBuildFile; productRef = 4E87C641258D2A370007FE5E /* ActiveLabel */; };
+		4E87C648258D33810007FE5E /* LemmyMention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C647258D33810007FE5E /* LemmyMention.swift */; };
 		4E886C17253626950076B162 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C16253626950076B162 /* SignUpView.swift */; };
 		4E886C1C25364DD70076B162 /* AuthRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C1B25364DD70076B162 /* AuthRequests.swift */; };
 		4E886C2125364EC30076B162 /* UserRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C2025364EC30076B162 /* UserRequests.swift */; };
@@ -326,6 +328,7 @@
 		4E8165712562D08B00907D31 /* ProfileScreenTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenTableHeaderView.swift; sourceTree = "<group>"; };
 		4E87C636258BF2AB0007FE5E /* CommunityFollowService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityFollowService.swift; sourceTree = "<group>"; };
 		4E87C63B258C04BB0007FE5E /* CommunityScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityScreenCoordinator.swift; sourceTree = "<group>"; };
+		4E87C647258D33810007FE5E /* LemmyMention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyMention.swift; sourceTree = "<group>"; };
 		4E886C16253626950076B162 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		4E886C1B25364DD70076B162 /* AuthRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequests.swift; sourceTree = "<group>"; };
 		4E886C2025364EC30076B162 /* UserRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequests.swift; sourceTree = "<group>"; };
@@ -539,6 +542,7 @@
 				4EF3ACF625506EC900BEC9F1 /* SwiftyMarkdown in Frameworks */,
 				4E9183B8256AF77700702F04 /* IQKeyboardManagerSwift in Frameworks */,
 				4E9184FC256E9E4E00702F04 /* SwipeCellKit in Frameworks */,
+				4E87C642258D2A370007FE5E /* ActiveLabel in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,6 +645,7 @@
 		4E1070882534F78D009EABDA /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				4E87C646258D33790007FE5E /* Types */,
 				4EFA81B4255FF64A008AF535 /* Services */,
 				4EBB22322559EF1800B88079 /* Concurrency */,
 				4EB89B3925220DB0007129BF /* Common */,
@@ -696,6 +701,14 @@
 				4E8165712562D08B00907D31 /* ProfileScreenTableHeaderView.swift */,
 			);
 			path = views;
+			sourceTree = "<group>";
+		};
+		4E87C646258D33790007FE5E /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				4E87C647258D33810007FE5E /* LemmyMention.swift */,
+			);
+			path = Types;
 			sourceTree = "<group>";
 		};
 		4E886C34253872B90076B162 /* SignUp */ = {
@@ -1577,6 +1590,7 @@
 				4E8165982563346100907D31 /* Nantes */,
 				4E9183B7256AF77700702F04 /* IQKeyboardManagerSwift */,
 				4E9184FB256E9E4E00702F04 /* SwipeCellKit */,
+				4E87C641258D2A370007FE5E /* ActiveLabel */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */;
@@ -1657,6 +1671,7 @@
 				4E8165972563346100907D31 /* XCRemoteSwiftPackageReference "Nantes" */,
 				4E9183B6256AF77700702F04 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
+				4E87C640258D2A370007FE5E /* XCRemoteSwiftPackageReference "ActiveLabel.swift" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
@@ -1870,6 +1885,7 @@
 				4E886C61253CAF650076B162 /* CreateTransitionDelegateImpl.swift in Sources */,
 				4E9BBA1925553176004FF2F9 /* Enums.swift in Sources */,
 				4EFA81B0255F3FEB008AF535 /* FrontPageSearchSubjectTableCell.swift in Sources */,
+				4E87C648258D33810007FE5E /* LemmyMention.swift in Sources */,
 				4EBB22262559EBAA00B88079 /* ColorPalette.swift in Sources */,
 				4ECCEEEA250BA6230075F921 /* WSLemmyClient.swift in Sources */,
 				4EBB224C255ADE4C00B88079 /* TabSegmentedControlView.swift in Sources */,
@@ -2338,6 +2354,14 @@
 				minimumVersion = 0.1.2;
 			};
 		};
+		4E87C640258D2A370007FE5E /* XCRemoteSwiftPackageReference "ActiveLabel.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/optonaut/ActiveLabel.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.5;
+			};
+		};
 		4E9183B6256AF77700702F04 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
@@ -2382,6 +2406,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E8165972563346100907D31 /* XCRemoteSwiftPackageReference "Nantes" */;
 			productName = Nantes;
+		};
+		4E87C641258D2A370007FE5E /* ActiveLabel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E87C640258D2A370007FE5E /* XCRemoteSwiftPackageReference "ActiveLabel.swift" */;
+			productName = ActiveLabel;
 		};
 		4E9183B7256AF77700702F04 /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;

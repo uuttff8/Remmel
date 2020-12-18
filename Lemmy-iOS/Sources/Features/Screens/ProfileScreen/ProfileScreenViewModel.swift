@@ -19,7 +19,8 @@ protocol ProfileScreenViewModelProtocol: AnyObject {
 }
 
 class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
-    private var profileId: Int
+    private var profileId: Int?
+    private let profileUsername: String?
     
     weak var viewController: ProfileScreenViewControllerProtocol?
     
@@ -32,8 +33,13 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     // Tab index -> Submodule
     private var submodules: [ProfileScreenSubmoduleProtocol] = []
     
-    init(profileId: Int, userAccountService: UserAccountSerivceProtocol) {
+    init(
+        profileId: Int?,
+        profileUsername: String?,
+        userAccountService: UserAccountSerivceProtocol
+    ) {
         self.profileId = profileId
+        self.profileUsername = profileUsername
         self.userAccountService = userAccountService
     }
     
@@ -41,7 +47,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
         self.viewController?.displayNotBlockingActivityIndicator(viewModel: .init(shouldDismiss: false))
         
         let parameters = LemmyModel.User.GetUserDetailsRequest(userId: profileId,
-                                                               username: nil,
+                                                               username: profileUsername,
                                                                sort: .active,
                                                                page: 1,
                                                                limit: 50,

@@ -10,9 +10,11 @@ import UIKit
 
 final class ProfileScreenCoordinator: GenericCoordinator<ProfileScreenViewController> {
     
-    init(navigationController: UINavigationController?, profileId: Int) {
+    init(navigationController: UINavigationController?, profileId: Int?, profileUsername: String?) {
+        assert(profileId != nil || profileUsername != nil, "One of these arguments should not be nil")
+        
         super.init(navigationController: navigationController)
-        let assembly = ProfileInfoScreenAssembly(profileId: profileId)
+        let assembly = ProfileInfoScreenAssembly(profileId: profileId, profileUsername: profileUsername)
         self.rootViewController = assembly.makeModule()
     }
     

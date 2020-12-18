@@ -107,6 +107,10 @@ extension ProfileScreenPostsViewController: ProfileScreenPostsViewDelegate {
 }
 
 extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
+    func onMentionTap(in post: LemmyModel.PostView, mention: LemmyMention) {
+        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
+    }
+    
     func upvote(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,

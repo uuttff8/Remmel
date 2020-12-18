@@ -94,6 +94,10 @@ extension SearchResultsViewController: SearchResultsViewControllerProtocol {
 }
 
 extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
+    func onMentionTap(in post: LemmyModel.PostView, mention: LemmyMention) {
+        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
+    }
+    
     func upvote(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
