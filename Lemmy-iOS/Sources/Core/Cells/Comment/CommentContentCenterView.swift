@@ -21,14 +21,10 @@ class CommentCenterView: UIView {
 
     // MARK: - Properties
     var onLinkTap: ((URL) -> Void)?
+    var onMentionTap: ((LemmyMention) -> Void)?
     
-    private lazy var commentLabel = LabeledTextView().then {
+    private lazy var commentLabel = NantesLabel().then {
         $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        $0.isUserInteractionEnabled = true
-        $0.isScrollEnabled = false
-        $0.isEditable = false
-        $0.isSelectable = true
-        $0.dataDetectorTypes = [.link]
         $0.delegate = self
         $0.numberOfLines = 6
     }
@@ -54,7 +50,7 @@ class CommentCenterView: UIView {
             : createAttributesForNormalComment(data: data)
         
         commentLabel.attributedText = commentText
-        commentLabel.linkTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
+        commentLabel.linkAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
     }
     
     func prepareForReuse() {
@@ -91,16 +87,13 @@ extension CommentCenterView: ProgrammaticallyViewProtocol {
     }
 }
 
-extension CommentCenterView: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        print(URL)
-        
-        return true
-    }
-}
-
 extension CommentCenterView: NantesLabelDelegate {
     func attributedLabel(_ label: NantesLabel, didSelectLink link: URL) {
+        if let mention = LemmyMention(url: link) {
+            onMentionTap?(mention)
+            return
+        }
+        
         onLinkTap?(link)
     }
 }

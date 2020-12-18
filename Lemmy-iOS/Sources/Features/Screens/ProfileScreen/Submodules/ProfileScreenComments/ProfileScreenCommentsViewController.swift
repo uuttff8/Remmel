@@ -86,6 +86,10 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsViewControll
 }
 
 extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSourceDelegate {
+    func onMentionTap(in post: LemmyModel.CommentView, mention: LemmyMention) {
+        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
+    }
+    
     func usernameTapped(in comment: LemmyModel.CommentView) {
         self.coordinator?.goToProfileScreen(by: comment.creatorId)
     }

@@ -28,6 +28,7 @@ protocol CommentContentTableCellDelegate: AnyObject {
     func showContext(in comment: LemmyModel.CommentView)
     func reply(to comment: LemmyModel.CommentView)
     func onLinkTap(in comment: LemmyModel.CommentView, url: URL)
+    func onMentionTap(in post: LemmyModel.CommentView, mention: LemmyMention)
     func showMoreAction(in comment: LemmyModel.CommentView)
 }
 

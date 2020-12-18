@@ -146,6 +146,10 @@ extension PostScreenViewController: PostContentTableCellDelegate {
 }
 
 extension PostScreenViewController: CommentsViewControllerDelegate {
+    func onMentionTap(in post: LemmyModel.CommentView, mention: LemmyMention) {
+        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
+    }
+    
     func postNameTapped(in comment: LemmyModel.CommentView) {
         // not using
     }

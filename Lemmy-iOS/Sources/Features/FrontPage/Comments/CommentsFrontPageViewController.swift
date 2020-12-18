@@ -85,6 +85,13 @@ class CommentsFrontPageViewController: UIViewController {
 }
 
 extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
+    func onMentionTap(in post: LemmyModel.CommentView, mention: LemmyMention) {
+        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
+    }
+    
+    func onMentionTap(in post: LemmyModel.PostView, mention: LemmyMention) {
+        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
+    }
     
     func postNameTapped(in comment: LemmyModel.CommentView) {
         self.coordinator?.goToPostScreen(postId: comment.postId)
