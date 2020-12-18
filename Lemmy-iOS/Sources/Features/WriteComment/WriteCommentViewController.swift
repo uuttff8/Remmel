@@ -54,6 +54,7 @@ class WriteCommentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Create Comment"
         self.setupNavigationItems()
         
         self.viewModel.doWriteCommentFormLoad(request: .init())
@@ -96,19 +97,24 @@ extension WriteCommentViewController: WriteCommentViewControllerProtocol {
                 )
             )
         )
-        
-        let sections: [SettingsTableSectionViewModel] = [
-            .init(
-                header: nil,
-                cells: [headerCell],
-                footer: nil
-            ),
+                
+        var sections: [SettingsTableSectionViewModel] = [
             .init(
                 header: nil,
                 cells: [textFieldCell],
                 footer: nil
             )
         ]
+        
+        if viewModel.parrentCommentText != nil {
+            sections.append(
+                .init(
+                    header: nil,
+                    cells: [headerCell],
+                    footer: nil
+                )
+            )
+        }
         
         let viewModel = SettingsTableViewModel(sections: sections)
         self.writeCommentView.configure(viewModel: viewModel)
