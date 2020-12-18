@@ -47,6 +47,7 @@ class CommunitiesPreviewViewController: UIViewController {
     
     override func loadView() {
         let view = CommunitiesPreviewView()
+        view.delegate = self
         self.view = view
     }
 
@@ -97,5 +98,14 @@ extension CommunitiesPreviewViewController: CommunitiesPreviewTableDataSourceDel
     
     func tableDidSelect(community: LemmyModel.CommunityView) {
         self.coordinator?.goToCommunityScreen(communityId: community.id)
+    }
+}
+
+extension CommunitiesPreviewViewController: CommunitiesPreviewViewDelagate {
+    func previewViewDidRequestRefresh() {
+        // Small delay for pretty refresh
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            self?.viewModel.doLoadCommunities(request: .init())
+        }
     }
 }

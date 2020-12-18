@@ -8,11 +8,21 @@
 
 import UIKit
 
+protocol CommunitiesPreviewViewDelagate: AnyObject {
+    func previewViewDidRequestRefresh()
+}
+
 class CommunitiesPreviewView: UIView {
         
+    weak var delegate: CommunitiesPreviewViewDelagate?
+    
     private lazy var tableView = LemmyTableView(style: .plain, separator: false).then {
         $0.registerClass(CommunityPreviewTableCell.self)
+        $0.refreshControl = self.refreshControl
+        self.refreshControl.addTarget(self, action: #selector(self.refreshControlValueChanged), for: .valueChanged)
     }
+    
+    private let refreshControl = UIRefreshControl()
     
     init() {
         super.init(frame: .zero)
@@ -36,6 +46,9 @@ class CommunitiesPreviewView: UIView {
     }
     
     func updateTableViewData(dataSource: (UITableViewDataSource & UITableViewDelegate)) {
+        if refreshControl.isRefreshing {
+            self.refreshControl.endRefreshing()
+        }
         _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
         //            self.emptyStateLabel.isHidden = numberOfRows != 0
         
@@ -43,9 +56,16 @@ class CommunitiesPreviewView: UIView {
         self.tableView.delegate = dataSource
         self.tableView.reloadData()
     }
+    
+    @objc func refreshControlValueChanged() {
+        self.delegate?.previewViewDidRequestRefresh()
+    }
 }
 
 extension CommunitiesPreviewView: ProgrammaticallyViewProtocol {
+    func setupView() {
+    }
+    
     func addSubviews() {
         self.addSubview(tableView)
     }
