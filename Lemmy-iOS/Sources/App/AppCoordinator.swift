@@ -14,19 +14,35 @@ class AppCoordinator: Coordinator {
     var navigationController: UINavigationController?
 
     let window: UIWindow
+    
+    private let userAccountService = UserAccountService()
 
     init(window: UIWindow) {
         self.window = window
     }
 
     func start() {
-        let myCoordinator = LemmyTabBarCoordinator()
+        
+        if userAccountService.isAuthorized {
+            let myCoordinator = LemmyTabBarCoordinator()
+            
+            // store child coordinator
+            self.store(coordinator: myCoordinator)
+            myCoordinator.start()
 
-        // store child coordinator
-        self.store(coordinator: myCoordinator)
-        myCoordinator.start()
+            window.rootViewController = myCoordinator.rootViewController
 
-        window.rootViewController = myCoordinator.rootViewController
+        } else {
+            let myCoordinator = InstancesCoordinator()
+            
+            // store child coordinator
+            self.store(coordinator: myCoordinator)
+            myCoordinator.start()
+
+            window.rootViewController = myCoordinator.rootViewController
+
+        }
+
         window.makeKeyAndVisible()
     }
 }

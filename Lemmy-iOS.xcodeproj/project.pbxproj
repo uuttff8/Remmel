@@ -71,6 +71,7 @@
 		4E87C6A4258E68560007FE5E /* InstancesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C6A3258E68560007FE5E /* InstancesAssembly.swift */; };
 		4E87C6A9258E68C20007FE5E /* InstancesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C6A8258E68C20007FE5E /* InstancesView.swift */; };
 		4E87C6AE258E696C0007FE5E /* InstancesTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C6AD258E696C0007FE5E /* InstancesTableDataSource.swift */; };
+		4E87C6B4258E92460007FE5E /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C6B3258E92460007FE5E /* Instance.swift */; };
 		4E886C17253626950076B162 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C16253626950076B162 /* SignUpView.swift */; };
 		4E886C1C25364DD70076B162 /* AuthRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C1B25364DD70076B162 /* AuthRequests.swift */; };
 		4E886C2125364EC30076B162 /* UserRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C2025364EC30076B162 /* UserRequests.swift */; };
@@ -347,6 +348,7 @@
 		4E87C6A3258E68560007FE5E /* InstancesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancesAssembly.swift; sourceTree = "<group>"; };
 		4E87C6A8258E68C20007FE5E /* InstancesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancesView.swift; sourceTree = "<group>"; };
 		4E87C6AD258E696C0007FE5E /* InstancesTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancesTableDataSource.swift; sourceTree = "<group>"; };
+		4E87C6B3258E92460007FE5E /* Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instance.swift; sourceTree = "<group>"; };
 		4E886C16253626950076B162 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		4E886C1B25364DD70076B162 /* AuthRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequests.swift; sourceTree = "<group>"; };
 		4E886C2025364EC30076B162 /* UserRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequests.swift; sourceTree = "<group>"; };
@@ -663,6 +665,7 @@
 		4E1070882534F78D009EABDA /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				4E87C6B2258E922C0007FE5E /* Models */,
 				4E87C646258D33790007FE5E /* Types */,
 				4EFA81B4255FF64A008AF535 /* Services */,
 				4EBB22322559EF1800B88079 /* Concurrency */,
@@ -767,6 +770,14 @@
 				4E87C6AD258E696C0007FE5E /* InstancesTableDataSource.swift */,
 			);
 			path = Instances;
+			sourceTree = "<group>";
+		};
+		4E87C6B2258E922C0007FE5E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4E87C6B3258E92460007FE5E /* Instance.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		4E886C34253872B90076B162 /* SignUp */ = {
@@ -1839,6 +1850,7 @@
 				4E9183AA2567FF4200702F04 /* ChooseCommunityTableDataSource.swift in Sources */,
 				4E0A8E52255C0BEC00B06AF6 /* ProfileScreenCommentsAssembly.swift in Sources */,
 				4ECCEF27250FB62F0075F921 /* LemmyModel+Community.swift in Sources */,
+				4E87C6B4258E92460007FE5E /* Instance.swift in Sources */,
 				4ECCEF1A250D62580075F921 /* LemmyModel+Comment.swift in Sources */,
 				4E9183C8256AFD8800702F04 /* CreateCommunityAssembly.swift in Sources */,
 				4EF3AC8B254B469F00BEC9F1 /* ChooseCategoryViewController.swift in Sources */,

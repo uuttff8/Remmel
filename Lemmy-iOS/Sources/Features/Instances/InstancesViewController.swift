@@ -13,7 +13,14 @@ protocol InstancesViewControllerProtocol: AnyObject {
 }
 
 class InstancesViewController: UIViewController {
+    
     weak var coordinator: InstancesCoordinator?
+    
+    private lazy var createInstanceBarButton = UIBarButtonItem(
+        image: UIImage(systemName: "plus.circle"),
+        primaryAction: UIAction(handler: createInstanceButtonTapped),
+        style: .done
+    )
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -22,5 +29,21 @@ class InstancesViewController: UIViewController {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        title = "Instances"
+        
+        setupNavigationItem()
+    }
+    
+    @objc func createInstanceButtonTapped(_ action: UIAction) {
+        // present(!) new view controller through coordinator(!)
+    }
+    
+    private func setupNavigationItem() {
+        navigationItem.rightBarButtonItem = createInstanceBarButton
     }
 }

@@ -8,16 +8,19 @@
 
 import UIKit
 
-final class InstancesCoordinator: GenericCoordinator<InstancesViewController> {
+final class InstancesCoordinator: GenericCoordinator<UINavigationController> {
     
-    override init(navigationController: UINavigationController?) {
-        super.init(navigationController: navigationController)
-        let assembly = InstancesAssembly()
-        self.rootViewController = assembly.makeModule()
+    init() {
+        let navController = StyledNavigationController(rootViewController: InstancesViewController())
+        
+        super.init(navigationController: navController)
+        self.rootViewController = navigationController
     }
     
+    // TODO: rewrite
     override func start() {
-        rootViewController.coordinator = self
-        navigationController?.pushViewController(rootViewController, animated: true)
+        if let vc =  rootViewController.topViewController as? InstancesViewController {
+            vc.coordinator = self
+        }
     }
 }

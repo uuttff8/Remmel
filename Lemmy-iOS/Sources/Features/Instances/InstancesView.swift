@@ -10,9 +10,7 @@ import UIKit
 
 final class InstancesView: UIView {
     
-    private lazy var tableView = LemmyTableView(style: .insetGrouped, separator: true).then {
-        $0
-    }
+    private let tableView = LemmyTableView(style: .insetGrouped, separator: true)
 }
 
 extension InstancesView: ProgrammaticallyViewProtocol {
