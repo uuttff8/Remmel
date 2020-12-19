@@ -34,7 +34,10 @@ class CreateCommunityCoordinator: Coordinator {
     }
 
     func goToCommunity(comm: LemmyModel.CommunityView) {
-        // TODO(uuttff8): see fatal error
-        fatalError("Please implement community view")
+        self.rootViewController.dismiss(animated: true)
+        
+        if let presentingVc = rootViewController.presentingViewController as? LemmyTabBarController {
+            presentingVc.coordinator?.goToCommunity(community: comm)
+        }
     }
 }

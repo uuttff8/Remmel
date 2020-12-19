@@ -11,51 +11,50 @@ import Combine
 
 protocol CreateCommunityViewModelProtocol: AnyObject {
     func doCreateCommunityFormLoad(request: CreateCommunity.CreateCommunityFormLoad.Request)
+    func doRemoteCreateCommunity(request: CreateCommunity.RemoteCreateCommunity.Request)
 }
 
 class CreateCommunityViewModel: CreateCommunityViewModelProtocol {
     
     weak var viewController: CreateCommunityViewControllerProtocol?
     
-    struct CreateCommunityData {
-        let name: String
-        let title: String
-        let description: String?
-        let icon: String?
-        let banner: String?
-        let categoryId: Int?
-        let nsfwOption: Bool
-    }    
+    private var cancellable = Set<AnyCancellable>()
+    
+    func doRemoteCreateCommunity(request: CreateCommunity.RemoteCreateCommunity.Request) {
+        guard let jwtToken = LemmyShareData.shared.jwtToken
+        else {
+            print("Not Logined")
+            return
+        }
+        
+        let params = LemmyModel.Community.CreateCommunityRequest(name: request.name,
+                                                                 title: request.displayName,
+                                                                 description: request.sidebar,
+                                                                 icon: request.icon,
+                                                                 banner: request.banner,
+                                                                 categoryId: request.category?.id ?? 1,
+                                                                 nsfw: request.nsfwOption,
+                                                                 auth: jwtToken)
+        ApiManager.requests.asyncCreateCommunity(parameters: params)
+            .receive(on: RunLoop.main)
+            .sink { (completion) in
+                
+                switch completion {
+                case .failure(let error):
+                    self.viewController?.displayErrorCreatingCommunity(
+                        viewModel: .init(error: error.description)
+                    )
+                case .finished:
+                    print(completion)
+                }
+                
+            } receiveValue: { (response) in
+                self.viewController?.displaySuccessCreatingCommunity(
+                    viewModel: .init(community: response.community)
+                )
+            }.store(in: &cancellable)
 
-//    func createCommunity(
-//        data: CreateCommunityModel.CreateCommunityData,
-//        completion: @escaping ((Result<LemmyModel.CommunityView, LemmyGenericError>) -> Void)
-//    ) {
-//        guard let jwtToken = LemmyShareData.shared.jwtToken
-//        else {
-//            completion(.failure(.string("Not logined")))
-//            return
-//        }
-//
-//        let params = LemmyModel.Community.CreateCommunityRequest(name: data.name,
-//                                                                      title: data.title,
-//                                                                      description: data.description,
-//                                                                      icon: data.icon,
-//                                                                      banner: data.banner,
-//                                                                      categoryId: data.categoryId ?? 1,
-//                                                                      nsfw: data.nsfwOption,
-//                                                                      auth: jwtToken)
-//
-//        ApiManager.requests.createCommunity(parameters: params) { (res) in
-//            switch res {
-//            case let .success(response):
-//                completion(.success(response.community))
-//            case let .failure(error):
-//                print(error)
-//                completion(.failure(error))
-//            }
-//        }
-//    }
+    }
     
     func doCreateCommunityFormLoad(request: CreateCommunity.CreateCommunityFormLoad.Request) {
         self.viewController?.displayCreateCommunityForm(viewModel: .init())

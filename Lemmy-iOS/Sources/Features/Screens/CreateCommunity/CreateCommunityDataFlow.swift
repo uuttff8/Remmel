@@ -16,4 +16,34 @@ enum CreateCommunity {
         struct ViewModel { }
     }
     
+    enum RemoteCreateCommunity {
+        struct Request {
+            let name: String
+            let displayName: String
+            let sidebar: String?
+            let icon: String?
+            let banner: String?
+            let category: LemmyModel.CategoryView?
+            let nsfwOption: Bool
+        }
+        
+        struct ViewModel { }
+    }
+    
+    enum SuccessCreateCommunity {
+        struct Request { }
+        
+        struct ViewModel {
+            let community: LemmyModel.CommunityView
+        }
+    }
+    
+    enum ErrorCreateCommunity {
+        struct Request { }
+        
+        struct ViewModel {
+            let error: String
+        }
+    }
+    
 }

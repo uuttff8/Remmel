@@ -74,4 +74,8 @@ final class LemmyTabBarCoordinator: Coordinator {
     func goToPost(post: LemmyModel.PostView) {
         rootViewController.frontPageCoordinator.goToPostScreen(post: post)
     }
+    
+    func goToCommunity(community: LemmyModel.CommunityView) {
+        rootViewController.frontPageCoordinator.goToCommunityScreen(communityId: community.id)
+    }
 }

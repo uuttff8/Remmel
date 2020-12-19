@@ -10,6 +10,33 @@ import UIKit
 
 protocol CreateCommunityViewControllerProtocol: AnyObject {
     func displayCreateCommunityForm(viewModel: CreateCommunity.CreateCommunityFormLoad.ViewModel)
+    func displaySuccessCreatingCommunity(viewModel: CreateCommunity.SuccessCreateCommunity.ViewModel)
+    func displayErrorCreatingCommunity(viewModel: CreateCommunity.ErrorCreateCommunity.ViewModel)
+}
+
+extension CreateCommunityViewController {
+    // MARK: - Inner Types
+    enum FormField: String {
+        case name, displayName, category, icon, banner, sidebar, nsfwOption
+        
+        init?(uniqueIdentifier: UniqueIdentifierType) {
+            if let value = FormField(rawValue: uniqueIdentifier) {
+                self = value
+            } else {
+                return nil
+            }
+        }
+    }
+    
+    struct FormData {
+        var name: String?
+        var displayName: String?
+        var sidebar: String?
+        var icon: String?
+        var banner: String?
+        var category: LemmyModel.CategoryView?
+        var nsfwOption: Bool
+    }
 }
 
 class CreateCommunityViewController: UIViewController {
@@ -73,15 +100,6 @@ class CreateCommunityViewController: UIViewController {
         super.viewDidLoad()
         
         setupNavigationItem()
-        
-        //        customView.goToChoosingCategory = {
-        //            self.coordinator?.goToChoosingCommunity(model: self.model)
-        //        }
-        //
-        //        customView.onPickImage = { imagePick in
-        //            self.currentImagePick = imagePick
-        //            self.present(self.imagePicker, animated: true, completion: nil)
-        //        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -108,69 +126,36 @@ class CreateCommunityViewController: UIViewController {
     }
     
     private func createBarButtonTapped(_ action: UIAction) {
-        //        let category = model.selectedCategory.value
-        //        guard let nameText = customView.nameCell.nameTextField.text?.lowercased() else {
-        //            UIAlertController.createOkAlert(message: "Please name your community")
-        //            return
-        //        }
-        //        guard let titleText = customView.displayNameCell.nameTextField.text else {
-        //            UIAlertController.createOkAlert(message: "Please title your community")
-        //            return
-        //        }
-        //        var descriptionText = customView.sidebarCell.sidebarTextView.text
-        //        let iconText = customView.imagesCell.iconImageString
-        //        let bannerText = customView.imagesCell.bannerImageString
-        //        let nsfwOption = customView.nsfwCell.customView.switcher.isOn
-        //
-        //        if descriptionText == "" {
-        //            descriptionText = nil
-        //        }
-        //
-        //        let data = CreateCommunityModel.CreateCommunityData(
-        //            name: nameText,
-        //            title: titleText,
-        //            description: descriptionText,
-        //            icon: iconText,
-        //            banner: bannerText,
-        //            categoryId: category?.id,
-        //            nsfwOption: nsfwOption
-        //        )
-        //
-        //        model.createCommunity(data: data) { (res) in
-        //            switch res {
-        //            case .success(let community):
-        //                DispatchQueue.main.async {
-        //                    self.coordinator?.goToCommunity(comm: community)
-        //                }
-        //            case .failure(let error):
-        //                DispatchQueue.main.async {
-        //                    UIAlertController.createOkAlert(message: error.description)
-        //                }
-        //            }
-        //        }
-    }
-    
-    // MARK: - Inner Types
-    enum FormField: String {
-        case name, displayName, category, icon, banner, sidebar, nsfwOption
-        
-        init?(uniqueIdentifier: UniqueIdentifierType) {
-            if let value = FormField(rawValue: uniqueIdentifier) {
-                self = value
-            } else {
-                return nil
-            }
+        let category = createComminityData.category
+        guard let nameText = createComminityData.name?.lowercased() else {
+            UIAlertController.createOkAlert(message: "Please name your community")
+            return
         }
-    }
-    
-    struct FormData {
-        var name: String?
-        var displayName: String?
-        var sidebar: String?
-        var icon: String?
-        var banner: String?
-        var category: LemmyModel.CategoryView?
-        var nsfwOption: Bool
+        guard let displayNameText = createComminityData.displayName else {
+            UIAlertController.createOkAlert(message: "Please title your community")
+            return
+        }
+        var descriptionText = createComminityData.sidebar
+        let iconText = createComminityData.icon
+        let bannerText = createComminityData.banner
+        let nsfwOption = createComminityData.nsfwOption
+        
+        if descriptionText == "" {
+            descriptionText = nil
+        }
+        
+        self.viewModel.doRemoteCreateCommunity(
+            request:
+                .init(
+                    name: nameText,
+                      displayName: displayNameText,
+                      sidebar: descriptionText,
+                      icon: iconText,
+                      banner: bannerText,
+                      category: category,
+                      nsfwOption: nsfwOption
+                )
+            )
     }
 }
 
@@ -269,6 +254,14 @@ extension CreateCommunityViewController: CreateCommunityViewControllerProtocol {
         self.createCommunityView.configure(
             viewModel: SettingsTableViewModel(sections: sectionsViewModel)
         )
+    }
+    
+    func displaySuccessCreatingCommunity(viewModel: CreateCommunity.SuccessCreateCommunity.ViewModel) {
+        self.coordinator?.goToCommunity(comm: viewModel.community)
+    }
+    
+    func displayErrorCreatingCommunity(viewModel: CreateCommunity.ErrorCreateCommunity.ViewModel) {
+        UIAlertController.createOkAlert(message: viewModel.error)
     }
 }
 

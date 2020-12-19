@@ -36,6 +36,10 @@ private protocol LemmyCommunityRequestManagerProtocol {
     func asyncListCommunity(
         parameters: LemmyModel.Community.ListCommunitiesRequest
     ) -> AnyPublisher<LemmyModel.Community.ListCommunitiesResponse, LemmyGenericError>
+    
+    func asyncCreateCommunity(
+        parameters: LemmyModel.Community.CreateCommunityRequest
+    ) -> AnyPublisher<LemmyModel.Community.CreateCommunityResponse, LemmyGenericError>
 }
 
 extension RequestsManager: LemmyCommunityRequestManagerProtocol {
@@ -99,4 +103,10 @@ extension RequestsManager: LemmyCommunityRequestManagerProtocol {
                               parameters: parameters)
     }
     
+    func asyncCreateCommunity(
+        parameters: LemmyModel.Community.CreateCommunityRequest
+    ) -> AnyPublisher<LemmyModel.Community.CreateCommunityResponse, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.Community.createCommunity.endpoint,
+                              parameters: parameters)
+    }
 }
