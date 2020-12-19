@@ -18,8 +18,9 @@ class InstancesViewController: UIViewController {
     
     private lazy var createInstanceBarButton = UIBarButtonItem(
         image: UIImage(systemName: "plus.circle"),
-        primaryAction: UIAction(handler: createInstanceButtonTapped),
-        style: .done
+        style: .done,
+        target: self,
+        action: #selector(createInstanceButtonTapped(_:))
     )
     
     init() {
@@ -39,7 +40,7 @@ class InstancesViewController: UIViewController {
         setupNavigationItem()
     }
     
-    @objc func createInstanceButtonTapped(_ action: UIAction) {
+    @objc func createInstanceButtonTapped(_ action: UIBarButtonItem) {
         // present(!) new view controller through coordinator(!)
     }
     

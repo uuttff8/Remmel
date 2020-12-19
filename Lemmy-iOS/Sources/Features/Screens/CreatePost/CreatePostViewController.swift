@@ -51,8 +51,9 @@ class CreatePostScreenViewController: UIViewController {
     
     private lazy var postBarButton = UIBarButtonItem(
         title: "CREATE",
-        primaryAction: UIAction(handler: postBarButtonTapped),
-        style: .done
+        style: .done,
+        target: self,
+        action: #selector(postBarButtonTapped(_:))
     )
     
     private lazy var imagePicker = UIImagePickerController().then {
@@ -145,7 +146,7 @@ class CreatePostScreenViewController: UIViewController {
     }
     
     // MARK: - Action
-    private func postBarButtonTapped(_ action: UIAction) {
+    @objc private func postBarButtonTapped(_ sender: UIBarButtonItem) {
         guard let communityId = self.createPostData.community?.id else {
             self.displayCreatePostError(viewModel: .init(error: "Community not specified"))
             return

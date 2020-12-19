@@ -59,8 +59,9 @@ class CreateCommunityViewController: UIViewController {
     
     private lazy var createBarButton = UIBarButtonItem(
         title: "CREATE",
-        primaryAction: UIAction(handler: createBarButtonTapped),
-        style: .done
+        style: .done,
+        target: self,
+        action: #selector(createBarButtonTapped(_:))
     )
     
     private var currentImagePick: CreateCommunityImagesCell.ImagePick?
@@ -125,7 +126,7 @@ class CreateCommunityViewController: UIViewController {
         title = "Create community"
     }
     
-    private func createBarButtonTapped(_ action: UIAction) {
+    @objc private func createBarButtonTapped(_ sender: UIBarButtonItem) {
         let category = createComminityData.category
         guard let nameText = createComminityData.name?.lowercased() else {
             UIAlertController.createOkAlert(message: "Please name your community")

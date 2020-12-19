@@ -44,13 +44,8 @@ extension CommunityScreenViewController {
                 let view = CommunityTableHeaderView()
                 view.delegate = delegate
                 
-                view.communityHeaderView.descriptionReadMoreButton.addAction(UIAction(handler: { (_) in
-                    if let desc = self.communityHeaderViewData.require().description {
-                        
-                        let vc = MarkdownParsedViewController(mdString: desc)
-                        self.delegate?.communityViewDidReadMoreTapped(self, toVc: vc)
-                    }
-                }), for: .touchUpInside)
+                view.communityHeaderView.descriptionReadMoreButton
+                    .addTarget(self, action: #selector(descriptionMoreButtonTapped), for: .touchUpInside)
                 
                 view.contentTypeView.addTap {
                     let vc = view.contentTypeView.configuredAlert
@@ -108,6 +103,14 @@ extension CommunityScreenViewController {
         override func layoutSubviews() {
             super.layoutSubviews()
             self.tableView.layoutTableHeaderView()
+        }
+        
+        @objc func descriptionMoreButtonTapped(_ sender: UIButton) {
+            if let desc = self.communityHeaderViewData.require().description {
+                
+                let vc = MarkdownParsedViewController(mdString: desc)
+                self.delegate?.communityViewDidReadMoreTapped(self, toVc: vc)
+            }
         }
     }
 }

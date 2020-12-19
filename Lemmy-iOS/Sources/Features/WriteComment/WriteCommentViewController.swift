@@ -29,8 +29,9 @@ class WriteCommentViewController: UIViewController {
     
     private lazy var createBarButton = UIBarButtonItem(
         title: "CREATE",
-        primaryAction: UIAction(handler: createBarButtonTapped),
-        style: .done
+        style: .done,
+        target: self,
+        action: #selector(createBarButtonTapped(_:))
     )
     
     private var formData = FormData(text: nil)
@@ -61,7 +62,7 @@ class WriteCommentViewController: UIViewController {
     }
     
     // MARK: - Objective-c Actions
-    func createBarButtonTapped(_ action: UIAction) {
+    @objc func createBarButtonTapped(_ action: UIBarButtonItem) {
         guard let text = formData.text else {
             UIAlertController.createOkAlert(message: "Please enter comment")
             return

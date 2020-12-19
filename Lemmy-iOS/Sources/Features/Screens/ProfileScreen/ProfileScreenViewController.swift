@@ -45,8 +45,9 @@ class ProfileScreenViewController: UIViewController {
     
     private lazy var showMoreBarButton = UIBarButtonItem(
         image: Config.Image.ellipsis,
-        primaryAction: UIAction(handler: moreBarButtonTapped),
-        style: .plain
+        style: .done,
+        target: self,
+        action: #selector(moreBarButtonTapped(_:))
     )
     
     private var storedViewModel: ProfileScreenHeaderView.ViewData?
@@ -114,7 +115,7 @@ class ProfileScreenViewController: UIViewController {
         }
     }
     
-    private func moreBarButtonTapped(_ action: UIAction) {
+    @objc private func moreBarButtonTapped(_ action: UIBarButtonItem) {
         self.viewModel.doIdentifyProfile()
     }
     
