@@ -66,6 +66,11 @@
 		4E87C67E258E1AD90007FE5E /* PostContentPreviewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C67D258E1AD90007FE5E /* PostContentPreviewTableCell.swift */; };
 		4E87C683258E1B970007FE5E /* PostContentPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C682258E1B970007FE5E /* PostContentPreviewView.swift */; };
 		4E87C688258E23990007FE5E /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C687258E23990007FE5E /* String+Ext.swift */; };
+		4E87C69A258E67B60007FE5E /* InstancesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C699258E67B60007FE5E /* InstancesViewController.swift */; };
+		4E87C69F258E680F0007FE5E /* InstancesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C69E258E680F0007FE5E /* InstancesCoordinator.swift */; };
+		4E87C6A4258E68560007FE5E /* InstancesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C6A3258E68560007FE5E /* InstancesAssembly.swift */; };
+		4E87C6A9258E68C20007FE5E /* InstancesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C6A8258E68C20007FE5E /* InstancesView.swift */; };
+		4E87C6AE258E696C0007FE5E /* InstancesTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C6AD258E696C0007FE5E /* InstancesTableDataSource.swift */; };
 		4E886C17253626950076B162 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C16253626950076B162 /* SignUpView.swift */; };
 		4E886C1C25364DD70076B162 /* AuthRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C1B25364DD70076B162 /* AuthRequests.swift */; };
 		4E886C2125364EC30076B162 /* UserRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C2025364EC30076B162 /* UserRequests.swift */; };
@@ -337,6 +342,11 @@
 		4E87C67D258E1AD90007FE5E /* PostContentPreviewTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentPreviewTableCell.swift; sourceTree = "<group>"; };
 		4E87C682258E1B970007FE5E /* PostContentPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentPreviewView.swift; sourceTree = "<group>"; };
 		4E87C687258E23990007FE5E /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		4E87C699258E67B60007FE5E /* InstancesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancesViewController.swift; sourceTree = "<group>"; };
+		4E87C69E258E680F0007FE5E /* InstancesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancesCoordinator.swift; sourceTree = "<group>"; };
+		4E87C6A3258E68560007FE5E /* InstancesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancesAssembly.swift; sourceTree = "<group>"; };
+		4E87C6A8258E68C20007FE5E /* InstancesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancesView.swift; sourceTree = "<group>"; };
+		4E87C6AD258E696C0007FE5E /* InstancesTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancesTableDataSource.swift; sourceTree = "<group>"; };
 		4E886C16253626950076B162 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		4E886C1B25364DD70076B162 /* AuthRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequests.swift; sourceTree = "<group>"; };
 		4E886C2025364EC30076B162 /* UserRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequests.swift; sourceTree = "<group>"; };
@@ -745,6 +755,18 @@
 				4EF312E42576D2D10032B58D /* PostContentFooterView.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		4E87C698258E67A50007FE5E /* Instances */ = {
+			isa = PBXGroup;
+			children = (
+				4E87C699258E67B60007FE5E /* InstancesViewController.swift */,
+				4E87C6A8258E68C20007FE5E /* InstancesView.swift */,
+				4E87C69E258E680F0007FE5E /* InstancesCoordinator.swift */,
+				4E87C6A3258E68560007FE5E /* InstancesAssembly.swift */,
+				4E87C6AD258E696C0007FE5E /* InstancesTableDataSource.swift */,
+			);
+			path = Instances;
 			sourceTree = "<group>";
 		};
 		4E886C34253872B90076B162 /* SignUp */ = {
@@ -1188,6 +1210,7 @@
 		4ECCEEE2250B8F4A0075F921 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				4E87C698258E67A50007FE5E /* Instances */,
 				4EF31449258166480032B58D /* WriteComment */,
 				4EF3131E25782BA90032B58D /* SearchResults */,
 				4E10706F2534E942009EABDA /* CreatePostOrCommunity */,
@@ -1863,6 +1886,7 @@
 				4ECCEEE0250B8DEE0075F921 /* Coordinator.swift in Sources */,
 				4E10705B253476FC009EABDA /* PostsFrontPageModel.swift in Sources */,
 				4ECCEEFE250CA30E0075F921 /* FrontPageHeaderCell.swift in Sources */,
+				4E87C69F258E680F0007FE5E /* InstancesCoordinator.swift in Sources */,
 				4E91834F2566C16C00702F04 /* SettingsRightDetailSwitchCellView.swift in Sources */,
 				4E9183762566F5B900702F04 /* TableInputTextField.swift in Sources */,
 				4E9185CA2570650400702F04 /* CommentContentCenterView.swift in Sources */,
@@ -1873,6 +1897,7 @@
 				4E0A8E93255DDE4500B06AF6 /* PostScreenAssembly.swift in Sources */,
 				4EF312F72576D3400032B58D /* PostContentView.swift in Sources */,
 				4EB89B0A2521FA73007129BF /* LoginOrRegisterButton.swift in Sources */,
+				4E87C6AE258E696C0007FE5E /* InstancesTableDataSource.swift in Sources */,
 				4E91850A256E9EAA00702F04 /* CommentCell.swift in Sources */,
 				4E26FEA02573E36C009DE4A7 /* PostScreenCoordinator.swift in Sources */,
 				4E91837B2566F60600702F04 /* TableInputTextView.swift in Sources */,
@@ -1899,6 +1924,7 @@
 				4EF3AC6F254A021400BEC9F1 /* CreateCommunityViewModel.swift in Sources */,
 				4E10708E2534F7A7009EABDA /* LoginData.swift in Sources */,
 				4E1A7E6B25573F1800E193B7 /* ProfileScreenViewModel.swift in Sources */,
+				4E87C69A258E67B60007FE5E /* InstancesViewController.swift in Sources */,
 				4EF3ACFF2550757200BEC9F1 /* MarkdownParsedViewController.swift in Sources */,
 				4E1070602534770B009EABDA /* CommentsFrontPageViewController.swift in Sources */,
 				4EF3AC95254B60F000BEC9F1 /* CreateCommunityImagesCell.swift in Sources */,
@@ -1991,6 +2017,7 @@
 				4E886C73253CD4270076B162 /* CreateDismissTransitionDriver.swift in Sources */,
 				4E87C63C258C04BB0007FE5E /* CommunityScreenCoordinator.swift in Sources */,
 				4EF31453258166680032B58D /* WriteCommentViewController.swift in Sources */,
+				4E87C6A9258E68C20007FE5E /* InstancesView.swift in Sources */,
 				4ECCEEF4250C04280075F921 /* LemmyTabBarController.swift in Sources */,
 				4EF3AC85254B456400BEC9F1 /* CreateCommunityChooseCategoryCell.swift in Sources */,
 				4EF312ED2576D2EA0032B58D /* PostContentCenterView.swift in Sources */,
@@ -2009,6 +2036,7 @@
 				4E886C2125364EC30076B162 /* UserRequests.swift in Sources */,
 				4EBB2258255AE6E600B88079 /* ProfileScreenPostsViewController.swift in Sources */,
 				4E91850C256E9EAA00702F04 /* AbstractComment.swift in Sources */,
+				4E87C6A4258E68560007FE5E /* InstancesAssembly.swift in Sources */,
 				4EB89B00251F4882007129BF /* PostScreenUI.swift in Sources */,
 				4ECCEF09250CC3A60075F921 /* RequestsManager.swift in Sources */,
 				4EBB220E25598AC100B88079 /* ProgrammaticallyInitializableView.swift in Sources */,
