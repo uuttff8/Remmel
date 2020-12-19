@@ -91,7 +91,7 @@ extension CommunitiesPreviewViewController: CommunitiesPreviewTableDataSourceDel
     func tableDidTapped(followButton: FollowButton, in community: LemmyModel.CommunityView) {
         self.followService.followUi(followButton: followButton, to: community)
             .sink { (community) in
-                self.tableManager.viewModels.updateElement(community)
+                self.tableManager.viewModels.updateElementById(community)
             }.store(in: &self.cancellable)
 
     }

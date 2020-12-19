@@ -23,7 +23,8 @@ class ProfileScreenPostsViewController: UIViewController {
         $0.delegate = self
     }
     
-    private let showMoreHandlerService = ShowMoreHandlerService()
+    private let showMoreHandlerService: ShowMoreHandlerServiceProtocol
+    private let contentScoreService: ContentScoreServiceProtocol
     
     lazy var profilePostsView = self.view as! ProfileScreenPostsViewController.View
     
@@ -32,10 +33,14 @@ class ProfileScreenPostsViewController: UIViewController {
 
     init(
         viewModel: ProfileScreenPostsViewModel,
-        initialState: ProfileScreenPosts.ViewControllerState = .loading
+        initialState: ProfileScreenPosts.ViewControllerState = .loading,
+        showMoreHandlerService: ShowMoreHandlerServiceProtocol,
+        contentScoreService: ContentScoreServiceProtocol
     ) {
         self.viewModel = viewModel
         self.state = initialState
+        self.showMoreHandlerService = showMoreHandlerService
+        self.contentScoreService = contentScoreService
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -125,7 +130,14 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            self.viewModel.doPostLike(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post)
+            self.contentScoreService.votePost(scoreView: scoreView,
+                                              voteButton: voteButton,
+                                              for: newVote,
+                                              post: post) { (post) in
+                
+                self.tableDataSource.viewModels.updateElementById(post)
+                
+            }
         }
     }
     
@@ -138,7 +150,14 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            self.viewModel.doPostLike(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post)
+            self.contentScoreService.votePost(scoreView: scoreView,
+                                              voteButton: voteButton,
+                                              for: newVote,
+                                              post: post) { (post) in
+                
+                self.tableDataSource.viewModels.updateElementById(post)
+                
+            }
         }
     }
     

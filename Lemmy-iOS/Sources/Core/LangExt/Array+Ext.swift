@@ -17,7 +17,7 @@ extension Array where Element: Identifiable {
         return nil
     }
     
-    mutating func updateElement(_ element: Element) {
+    mutating func updateElementById(_ element: Element) {
         if let index = self.firstIndex(where: { $0.id == element.id }) {
             self[index] = element
         }

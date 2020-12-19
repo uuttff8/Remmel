@@ -97,7 +97,7 @@ class PostsFrontPageModel: NSObject {
     }
     
     private func saveNewPost(_ post: LemmyModel.PostView) {
-        postsDataSource.updateElement(post)
+        postsDataSource.updateElementById(post)
     }
     
     func createPostLike(newVote: LemmyVoteType, post: LemmyModel.PostView) {

@@ -24,7 +24,13 @@ final class ProfileScreenPostsAssembly: Assembly {
                 voteService: UpvoteDownvoteRequestService(userAccountService: UserAccountService())
             )
         )
-        let vc = ProfileScreenPostsViewController(viewModel: viewModel)
+        let vc = ProfileScreenPostsViewController(
+            viewModel: viewModel,
+            showMoreHandlerService: ShowMoreHandlerService(),
+            contentScoreService: ContentScoreService(
+                voteService: UpvoteDownvoteRequestService(userAccountService: UserAccountService())
+            )
+        )
         vc.coordinator = coordinator.value
         viewModel.viewController = vc
         self.moduleInput = viewModel

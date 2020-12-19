@@ -11,12 +11,6 @@ import Combine
 
 protocol ProfileScreenPostsViewModelProtocol {
     func doNextPostsFetch(request: ProfileScreenPosts.NextProfilePostsLoad.Request)
-    func doPostLike(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        for newVote: LemmyVoteType,
-        post: LemmyModel.PostView
-    )
 }
 
 class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
@@ -59,18 +53,6 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
                 
             }.store(in: &cancellable)
     }
-    
-    func doPostLike(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        for newVote: LemmyVoteType,
-        post: LemmyModel.PostView
-    ) {
-        self.contentScoreService.votePost(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post) { (_) in
-            // TODO save this post to table data source
-        }
-    }
-
 }
 
 extension ProfileScreenPostsViewModel: ProfileScreenPostsInputProtocol {
