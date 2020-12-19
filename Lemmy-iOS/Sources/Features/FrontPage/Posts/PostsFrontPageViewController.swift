@@ -148,20 +148,6 @@ extension PostsFrontPageViewController: ProgrammaticallyViewProtocol {
 }
 
 extension PostsFrontPageViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        handleDidSelectForPosts(indexPath: indexPath)
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        let cell = tableView.cellForRow(at: indexPath)! as UITableViewCell
-
-        // find first textView inside this cell and select it
-        for case let textView as UITextView in cell.subviews {
-          textView.isUserInteractionEnabled = true
-          textView.becomeFirstResponder()
-          return
-        }
-    }
-
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let indexPathRow = indexPath.row
         let bottomItems = self.model.postsDataSource.count - 5
@@ -190,6 +176,11 @@ extension PostsFrontPageViewController: SFSafariViewControllerDelegate {
 }
 
 extension PostsFrontPageViewController: PostContentTableCellDelegate {
+    func postCellDidSelected(postId: LemmyModel.PostView.ID) {
+        let post = model.getPost(by: postId).require()
+        self.coordinator?.goToPostScreen(post: post)
+    }
+    
     func onMentionTap(in post: LemmyModel.PostView, mention: LemmyMention) {
         self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }

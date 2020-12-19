@@ -66,7 +66,7 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
         for newVote: LemmyVoteType,
         post: LemmyModel.PostView
     ) {
-        self.contentScoreService.votePost(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post) { (post) in
+        self.contentScoreService.votePost(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post) { (_) in
             // TODO save this post to table data source
         }
     }

@@ -1,43 +1,22 @@
 //
-//  PostContentTableCell.swift
+//  PostContentPreviewTableCell.swift
 //  Lemmy-iOS
 //
-//  Created by uuttff8 on 9/12/20.
+//  Created by uuttff8 on 19.12.2020.
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
 import UIKit
-import DateToolsSwift
-import SwiftyMarkdown
-import Nantes
 
-protocol PostContentTableCellDelegate: AnyObject {
-    func upvote(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        newVote: LemmyVoteType,
-        post: LemmyModel.PostView
-    )
-    func downvote(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        newVote: LemmyVoteType,
-        post: LemmyModel.PostView
-    )
-    func usernameTapped(in post: LemmyModel.PostView)
-    func communityTapped(in post: LemmyModel.PostView)
-    func onLinkTap(in post: LemmyModel.PostView, url: URL)
-    func onMentionTap(in post: LemmyModel.PostView, mention: LemmyMention)
-    func showMore(in post: LemmyModel.PostView)
-}
-
-class PostContentTableCell: UITableViewCell {
+class PostContentPreviewTableCell: UITableViewCell {
     
     var postContentView = PostContentView()
     let selBackView = UIView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        self.selectionStyle = .none
         
         setupView()
         addSubviews()
@@ -62,7 +41,7 @@ class PostContentTableCell: UITableViewCell {
     }
 }
 
-extension PostContentTableCell: ProgrammaticallyViewProtocol {
+extension PostContentPreviewTableCell: ProgrammaticallyViewProtocol {
     func setupView() {
         selBackView.backgroundColor = Config.Color.highlightCell
         self.selectedBackgroundView = selBackView

@@ -21,7 +21,6 @@ extension UIFont {
     }
 }
 
-
 extension UIFont {
     var monospacedDigitFont: UIFont {
         let newFontDescriptor = fontDescriptor.monospacedDigitFontDescriptor
@@ -38,4 +37,3 @@ private extension UIFontDescriptor {
         return fontDescriptor
     }
 }
-

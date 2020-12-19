@@ -105,6 +105,12 @@ extension SearchResultsViewController: SearchResultsViewControllerProtocol {
 }
 
 extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
+    func postCellDidSelected(postId: LemmyModel.PostView.ID) {
+        guard case .posts(let posts) = tableManager.viewModels else { return }
+        let post = posts.getElement(by: postId).require()
+        self.coordinator?.goToPostScreen(post: post)
+    }
+    
     func tableDidTapped(followButton: FollowButton, in community: LemmyModel.CommunityView) {
         self.followService.followUi(followButton: followButton, to: community)
             .sink { (community) in

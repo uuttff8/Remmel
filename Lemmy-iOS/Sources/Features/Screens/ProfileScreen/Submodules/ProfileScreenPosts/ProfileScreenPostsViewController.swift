@@ -107,6 +107,11 @@ extension ProfileScreenPostsViewController: ProfileScreenPostsViewDelegate {
 }
 
 extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
+    func postCellDidSelected(postId: LemmyModel.PostView.ID) {
+        let post = tableDataSource.viewModels.getElement(by: postId).require()
+        self.coordinator?.goToPostScreen(post: post)
+    }
+    
     func onMentionTap(in post: LemmyModel.PostView, mention: LemmyMention) {
         self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }

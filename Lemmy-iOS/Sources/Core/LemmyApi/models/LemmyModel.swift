@@ -11,9 +11,7 @@ import Foundation
 enum LemmyModel {
 
     // MARK: - PostView -
-    struct PostView: Identifiable, Codable, Equatable, Hashable {
-        typealias Id = Int
-        
+    struct PostView: Identifiable, Codable, Equatable, Hashable {        
         let id: Int
         let name: String
         let url: String?

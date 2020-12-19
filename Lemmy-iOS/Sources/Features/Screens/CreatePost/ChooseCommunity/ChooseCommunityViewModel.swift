@@ -72,7 +72,6 @@ class ChooseCommunityViewModel: ChooseCommunityViewModelProtocol {
     
 }
 
-
 enum ChooseCommunity {
     
     enum CommunitiesLoad {

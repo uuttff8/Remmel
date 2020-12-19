@@ -46,7 +46,7 @@ class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
             voteButton: voteButton,
             for: newVote,
             comment: comment
-        ) { (comment) in
+        ) { (_) in
             // self.saveNewComment()
         }
     }

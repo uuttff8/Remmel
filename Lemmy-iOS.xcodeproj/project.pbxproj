@@ -63,6 +63,7 @@
 		4E87C642258D2A370007FE5E /* ActiveLabel in Frameworks */ = {isa = PBXBuildFile; productRef = 4E87C641258D2A370007FE5E /* ActiveLabel */; };
 		4E87C648258D33810007FE5E /* LemmyMention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C647258D33810007FE5E /* LemmyMention.swift */; };
 		4E87C66E258E09D00007FE5E /* UIFont+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C66D258E09D00007FE5E /* UIFont+Ext.swift */; };
+		4E87C67E258E1AD90007FE5E /* PostContentPreviewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C67D258E1AD90007FE5E /* PostContentPreviewTableCell.swift */; };
 		4E886C17253626950076B162 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C16253626950076B162 /* SignUpView.swift */; };
 		4E886C1C25364DD70076B162 /* AuthRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C1B25364DD70076B162 /* AuthRequests.swift */; };
 		4E886C2125364EC30076B162 /* UserRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C2025364EC30076B162 /* UserRequests.swift */; };
@@ -331,6 +332,7 @@
 		4E87C63B258C04BB0007FE5E /* CommunityScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityScreenCoordinator.swift; sourceTree = "<group>"; };
 		4E87C647258D33810007FE5E /* LemmyMention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyMention.swift; sourceTree = "<group>"; };
 		4E87C66D258E09D00007FE5E /* UIFont+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Ext.swift"; sourceTree = "<group>"; };
+		4E87C67D258E1AD90007FE5E /* PostContentPreviewTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentPreviewTableCell.swift; sourceTree = "<group>"; };
 		4E886C16253626950076B162 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		4E886C1B25364DD70076B162 /* AuthRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequests.swift; sourceTree = "<group>"; };
 		4E886C2025364EC30076B162 /* UserRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequests.swift; sourceTree = "<group>"; };
@@ -711,6 +713,33 @@
 				4E87C647258D33810007FE5E /* LemmyMention.swift */,
 			);
 			path = Types;
+			sourceTree = "<group>";
+		};
+		4E87C679258E1A970007FE5E /* FullPost */ = {
+			isa = PBXGroup;
+			children = (
+				4ECCEF12250CF0290075F921 /* PostContentTableCell.swift */,
+				4EF312F62576D3400032B58D /* PostContentView.swift */,
+			);
+			path = FullPost;
+			sourceTree = "<group>";
+		};
+		4E87C67B258E1AA50007FE5E /* PreviewPost */ = {
+			isa = PBXGroup;
+			children = (
+				4E87C67D258E1AD90007FE5E /* PostContentPreviewTableCell.swift */,
+			);
+			path = PreviewPost;
+			sourceTree = "<group>";
+		};
+		4E87C67C258E1AAE0007FE5E /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				4EF312F12576D3230032B58D /* PostContentHeaderView.swift */,
+				4EF312EC2576D2EA0032B58D /* PostContentCenterView.swift */,
+				4EF312E42576D2D10032B58D /* PostContentFooterView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		4E886C34253872B90076B162 /* SignUp */ = {
@@ -1307,11 +1336,9 @@
 		4EF312E32576D2B90032B58D /* Post */ = {
 			isa = PBXGroup;
 			children = (
-				4ECCEF12250CF0290075F921 /* PostContentTableCell.swift */,
-				4EF312F62576D3400032B58D /* PostContentView.swift */,
-				4EF312F12576D3230032B58D /* PostContentHeaderView.swift */,
-				4EF312EC2576D2EA0032B58D /* PostContentCenterView.swift */,
-				4EF312E42576D2D10032B58D /* PostContentFooterView.swift */,
+				4E87C67C258E1AAE0007FE5E /* Components */,
+				4E87C67B258E1AA50007FE5E /* PreviewPost */,
+				4E87C679258E1A970007FE5E /* FullPost */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -1894,6 +1921,7 @@
 				4EBB224C255ADE4C00B88079 /* TabSegmentedControlView.swift in Sources */,
 				4EF3142F25811F880032B58D /* GenericCoordinator.swift in Sources */,
 				4EFA81B6255FF6B7008AF535 /* UserAccountService.swift in Sources */,
+				4E87C67E258E1AD90007FE5E /* PostContentPreviewTableCell.swift in Sources */,
 				4E886C88253F4FF40076B162 /* CreatePostUI.swift in Sources */,
 				4E886C7E253F4F290076B162 /* CreatePostViewController.swift in Sources */,
 				4E9183512566C16C00702F04 /* SettingsTableSectionHeaderView.swift in Sources */,

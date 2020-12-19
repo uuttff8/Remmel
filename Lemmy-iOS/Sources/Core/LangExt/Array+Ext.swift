@@ -9,6 +9,14 @@
 import Foundation
 
 extension Array where Element: Identifiable {
+    func getElement(by id: Element.ID) -> Element? {
+        if let index = self.firstIndex(where: { $0.id == id }) {
+            return self[index]
+        }
+        
+        return nil
+    }
+    
     mutating func updateElement(_ element: Element) {
         if let index = self.firstIndex(where: { $0.id == element.id }) {
             self[index] = element

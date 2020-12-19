@@ -42,6 +42,33 @@ final class SearchResultsTableDataSource: NSObject {
         case let .users(data): return data.count
         }
     }
+        
+    func saveNewPost(post: LemmyModel.PostView) {
+        guard case .posts(var data) = viewModels else { return }
+        
+        if let index = data.firstIndex(where: { $0.id == post.id }) {
+            data[index] = post
+            viewModels = .posts(data)
+        }
+    }
+    
+    func saveNewComment(comment: LemmyModel.CommentView) {
+        guard case .comments(var data) = viewModels else { return }
+        
+        if let index = data.firstIndex(where: { $0.id == comment.id }) {
+            data[index] = comment
+            viewModels = .comments(data)
+        }
+    }
+    
+    func saveNewCommunity(community: LemmyModel.CommunityView) {
+        guard case .communities(var data) = viewModels else { return }
+        
+        if let index = data.firstIndex(where: { $0.id == community.id }) {
+            data[index] = community
+            viewModels = .communities(data)
+        }
+    }
     
     private func createPostCell(
         post: LemmyModel.PostView,
@@ -86,33 +113,6 @@ final class SearchResultsTableDataSource: NSObject {
                                    numberOfComments: user.numberOfComments,
                                    thumbailUrl: user.avatar))
         return cell
-    }
-    
-    func saveNewPost(post: LemmyModel.PostView) {
-        guard case .posts(var data) = viewModels else { return }
-        
-        if let index = data.firstIndex(where: { $0.id == post.id }) {
-            data[index] = post
-            viewModels = .posts(data)
-        }
-    }
-    
-    func saveNewComment(comment: LemmyModel.CommentView) {
-        guard case .comments(var data) = viewModels else { return }
-        
-        if let index = data.firstIndex(where: { $0.id == comment.id }) {
-            data[index] = comment
-            viewModels = .comments(data)
-        }
-    }
-    
-    func saveNewCommunity(community: LemmyModel.CommunityView) {
-        guard case .communities(var data) = viewModels else { return }
-        
-        if let index = data.firstIndex(where: { $0.id == community.id }) {
-            data[index] = community
-            viewModels = .communities(data)
-        }
     }
 }
 

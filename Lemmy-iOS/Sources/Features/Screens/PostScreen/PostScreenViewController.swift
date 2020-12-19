@@ -98,6 +98,11 @@ extension PostScreenViewController: PostScreenViewControllerProtocol {
 }
 
 extension PostScreenViewController: PostContentTableCellDelegate {
+    func postCellDidSelected(postId: LemmyModel.PostView.ID) {
+        let post = postScreenView.postData.require()
+        self.coordinator?.goToPostScreen(post: post)
+    }
+    
     func onMentionTap(in post: LemmyModel.PostView, mention: LemmyMention) {
         self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }

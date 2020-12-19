@@ -88,6 +88,14 @@ class PostsFrontPageModel: NSObject {
             })
     }
     
+    func getPost(by id: LemmyModel.PostView.ID) -> LemmyModel.PostView? {
+        if let index = postsDataSource.firstIndex(where: { $0.id == id }) {
+            return postsDataSource[index]
+        }
+        
+        return nil
+    }
+    
     private func saveNewPost(_ post: LemmyModel.PostView) {
         postsDataSource.updateElement(post)
     }
