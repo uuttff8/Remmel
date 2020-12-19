@@ -38,6 +38,7 @@ class VoteButtonsWithScoreView: UIView {
     
     private let scoreLabel = UILabel().then {
         $0.textAlignment = .center
+        $0.font = $0.font.monospacedDigitFont
     }
     
     init() {

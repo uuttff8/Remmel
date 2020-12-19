@@ -10,7 +10,7 @@ import UIKit
 
 extension VoteButton {
     struct Appearance {
-        let voteAnimationDuration: TimeInterval = 0.1
+        let voteAnimationDuration: TimeInterval = 0.5
         let scaleValue: CGFloat = 0.8
         let transitionDistance: CGFloat = 10
         
@@ -70,32 +70,16 @@ final class VoteButton: ScaledButton {
         self.isTransformAnimationEnded = false
         self.isEnabled = false
         
-//        let trDistance: CGFloat = voteType == .top ?
-//            -appearance.transitionDistance
+        // FIXIT: For a unknown reason self.center.y is jump to incorrect position at start
+//        let trDistance: CGFloat = voteType == .top
+//            ? -appearance.transitionDistance
 //            : appearance.transitionDistance
-        
-        /* // FIX: make it work
-        UIViewPropertyAnimator.runningPropertyAnimator(
-            withDuration: self.appearance.voteAnimationDuration,
-            delay: 0.0,
-            options: [],
-            animations: {
-                self.center.y += trDistance
-            },
-            completion: { _ in
-                
-                UIViewPropertyAnimator.runningPropertyAnimator(
-                    withDuration: self.appearance.voteAnimationDuration,
-                    delay: 0.0,
-                    options: [],
-                    animations: {
-                        self.center.y -= trDistance
-                    },
-                    completion: nil)
-                
-            }
-        )
-        */
+//
+//        animator.addAnimations {
+//            self.center.y -= trDistance
+//        }
+//
+//        animator.startAnimation()
         
         self.isEnabled = true
         isTransformAnimationEnded = true
