@@ -78,32 +78,11 @@ class VoteButtonsWithScoreView: UIView {
         
         switch newVote {
         case .none:
-            
-            switch lastKnownVoteType {
-            
-            case .up:
-                self.lastKnownVoteScore -= 1
-                self.lastKnownVoteType = .none
-                
-                self.scoreLabel.text = String(lastKnownVoteScore)
-            case .down:
-                self.lastKnownVoteScore += 1
-                self.lastKnownVoteType = .none
-                
-                self.scoreLabel.text = String(lastKnownVoteScore)
-                
-            default:
-                fatalError("Must be no way to set .none from .none")
-            }
-            
+            resetScoreToDefaults()
         case .up:
-            self.scoreLabel.text = String(self.lastKnownVoteScore + 1)
-            self.lastKnownVoteScore += 1
-            self.lastKnownVoteType = .up
+            updateScoreUp()
         case .down:
-            self.scoreLabel.text = String(self.lastKnownVoteScore - 1)
-            self.lastKnownVoteScore -= 1
-            self.lastKnownVoteType = .down
+            updateScoreDown()
         }
     }
     
@@ -128,6 +107,49 @@ class VoteButtonsWithScoreView: UIView {
             downvoteButtonTap?(self, sender, type)
         }
     }
+    
+    private func updateScoreUp() {
+        
+        switch lastKnownVoteType {
+        case .up:
+            resetScoreToDefaults()
+        case .down:
+            self.scoreLabel.text = String(self.lastKnownVoteScore + 2)
+            self.lastKnownVoteScore += 2
+            self.lastKnownVoteType = .down
+        case .none:
+            self.scoreLabel.text = String(self.lastKnownVoteScore + 1)
+            self.lastKnownVoteScore += 1
+            self.lastKnownVoteType = .up
+        }
+    }
+    
+    private func updateScoreDown() {
+        
+        switch lastKnownVoteType {
+        case .up:
+            
+            self.scoreLabel.text = String(self.lastKnownVoteScore - 2)
+            self.lastKnownVoteScore -= 2
+            self.lastKnownVoteType = .down
+            
+        case .down:
+            resetScoreToDefaults()
+        case .none:
+            self.scoreLabel.text = String(self.lastKnownVoteScore - 1)
+            self.lastKnownVoteScore -= 1
+            self.lastKnownVoteType = .down
+        }
+    }
+    
+    private func resetScoreToDefaults() {
+        guard let initialViewData = viewData else { return }
+        
+        self.scoreLabel.text = String(initialViewData.score)
+        self.lastKnownVoteScore = initialViewData.score
+        self.lastKnownVoteType = .none
+    }
+
 }
 
 extension VoteButtonsWithScoreView: ProgrammaticallyViewProtocol {
