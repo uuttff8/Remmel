@@ -22,7 +22,7 @@ class PostsFrontPageViewController: UIViewController {
     
     lazy var tableView = LemmyTableView(style: .plain).then {
         $0.delegate = self
-        $0.registerClass(PostContentTableCell.self)
+        $0.registerClass(PostContentPreviewTableCell.self)
         $0.keyboardDismissMode = .onDrag
     }
     
@@ -123,9 +123,9 @@ class PostsFrontPageViewController: UIViewController {
         return UITableViewDiffableDataSource<Section, LemmyModel.PostView>(
             tableView: tableView,
             cellProvider: { (tableView, indexPath, _) -> UITableViewCell? in
-                let cell = tableView.cell(forClass: PostContentTableCell.self)
+                let cell = tableView.cell(forClass: PostContentPreviewTableCell.self)
                 cell.postContentView.delegate = self
-                cell.bind(with: self.model.postsDataSource[indexPath.row], config: .default)
+                cell.bind(with: self.model.postsDataSource[indexPath.row])
                 return cell
             })
     }
@@ -175,16 +175,12 @@ extension PostsFrontPageViewController: SFSafariViewControllerDelegate {
     }
 }
 
-extension PostsFrontPageViewController: PostContentTableCellDelegate {
+extension PostsFrontPageViewController: PostContentPreviewTableCellDelegate {
     func postCellDidSelected(postId: LemmyModel.PostView.ID) {
         let post = model.getPost(by: postId).require()
         self.coordinator?.goToPostScreen(post: post)
     }
-    
-    func onMentionTap(in post: LemmyModel.PostView, mention: LemmyMention) {
-        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
-    }
-    
+        
     func upvote(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
@@ -201,12 +197,6 @@ extension PostsFrontPageViewController: PostContentTableCellDelegate {
         post: LemmyModel.PostView
     ) {
         vote(scoreView: scoreView, voteButton: voteButton, newVote: newVote, post: post)
-    }
-    
-    func onLinkTap(in post: LemmyModel.PostView, url: URL) {
-        let vc = SFSafariViewController(url: url)
-        vc.delegate = self
-        present(vc, animated: true, completion: nil)
     }
     
     func usernameTapped(in post: LemmyModel.PostView) {

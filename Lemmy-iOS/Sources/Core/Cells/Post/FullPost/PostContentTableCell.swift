@@ -29,7 +29,6 @@ protocol PostContentTableCellDelegate: AnyObject {
     func onLinkTap(in post: LemmyModel.PostView, url: URL)
     func onMentionTap(in post: LemmyModel.PostView, mention: LemmyMention)
     func showMore(in post: LemmyModel.PostView)
-    func postCellDidSelected(postId: LemmyModel.PostView.ID)
 }
 
 class PostContentTableCell: UITableViewCell {
@@ -52,7 +51,7 @@ class PostContentTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind(with post: LemmyModel.PostView, config: PostContentView.Configuration) {
+    func bind(with post: LemmyModel.PostView, config: PostContentType) {
         postContentView.bind(with: post, config: config)
     }
     

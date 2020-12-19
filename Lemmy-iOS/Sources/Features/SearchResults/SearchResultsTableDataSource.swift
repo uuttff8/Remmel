@@ -76,7 +76,7 @@ final class SearchResultsTableDataSource: NSObject {
         indexPath: IndexPath
     ) -> UITableViewCell {
         let cell: PostContentTableCell = tableView.cell(forRowAt: indexPath)
-        cell.bind(with: post, config: .default)
+        cell.bind(with: post, config: .preview)
         cell.postContentView.delegate = delegate
         return cell
     }

@@ -1,23 +1,16 @@
 //
-//  PostContentView.swift
+//  PostContentPreviewView.swift
 //  Lemmy-iOS
 //
-//  Created by uuttff8 on 01.12.2020.
+//  Created by uuttff8 on 19.12.2020.
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
 import UIKit
 
-enum PostContentType {
-    case preview
-    case fullPost
-    case insideComminity
-}
-
-
-class PostContentView: UIView {
-        
-    weak var delegate: PostContentTableCellDelegate?
+class PostContentPreviewView: UIView {
+    
+    weak var delegate: PostContentPreviewTableCellDelegate?
     
     var configuration: PostContentType = .preview
     
@@ -87,12 +80,8 @@ class PostContentView: UIView {
             self?.delegate?.showMore(in: post)
         }
         
-        centerView.onLinkTap = { [weak self] (url) in
-            self?.delegate?.onLinkTap(in: post, url: url)
-        }
-        
-        centerView.onMentionTap = { [weak self] mention in
-            self?.delegate?.onMentionTap(in: post, mention: mention)
+        centerView.addTap {
+            self.delegate?.postCellDidSelected(postId: post.id)
         }
         
         footerView.downvoteButtonTap = { [weak self] (scoreView, button, voteType) in
@@ -106,9 +95,9 @@ class PostContentView: UIView {
     
     private func setupUI() {
         switch configuration {
-        case .preview: break
         case .insideComminity: setupUIForInsidePost()
         case .fullPost: break
+        default: break
         }
     }
     
@@ -126,7 +115,7 @@ class PostContentView: UIView {
     }
 }
 
-extension PostContentView: ProgrammaticallyViewProtocol {
+extension PostContentPreviewView: ProgrammaticallyViewProtocol {
     func setupView() {
         
     }

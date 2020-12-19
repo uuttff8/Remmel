@@ -8,9 +8,28 @@
 
 import UIKit
 
+protocol PostContentPreviewTableCellDelegate: AnyObject {
+    func upvote(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        post: LemmyModel.PostView
+    )
+    func downvote(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        post: LemmyModel.PostView
+    )
+    func usernameTapped(in post: LemmyModel.PostView)
+    func communityTapped(in post: LemmyModel.PostView)
+    func showMore(in post: LemmyModel.PostView)
+    func postCellDidSelected(postId: LemmyModel.PostView.ID)
+}
+
 class PostContentPreviewTableCell: UITableViewCell {
     
-    var postContentView = PostContentView()
+    var postContentView = PostContentPreviewView()
     let selBackView = UIView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -28,8 +47,8 @@ class PostContentPreviewTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind(with post: LemmyModel.PostView, config: PostContentView.Configuration) {
-        postContentView.bind(with: post, config: config)
+    func bind(with post: LemmyModel.PostView) {
+        postContentView.bind(with: post, config: .preview)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

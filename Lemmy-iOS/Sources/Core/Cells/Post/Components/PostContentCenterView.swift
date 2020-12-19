@@ -27,14 +27,13 @@ class PostContentCenterView: UIView {
     private let imageSize = CGSize(width: 110, height: 60)
     
     private let titleLabel = UILabel().then {
-        $0.font = UIFont.systemFont(ofSize: 19, weight: .semibold)
+        $0.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         $0.numberOfLines = 3
     }
     
     private lazy var subtitleLabel = NantesLabel().then {
-        $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         $0.delegate = self
-        $0.numberOfLines = 6
     }
     
     private let thumbailImageView = UIImageView().then {
@@ -69,21 +68,44 @@ class PostContentCenterView: UIView {
     }
     
     // MARK: - Public
-    func bind(with data: PostContentCenterView.ViewData) {
+    func bind(config: PostContentType, with data: PostContentCenterView.ViewData) {
         titleLabel.text = data.title
         
         if let subtitle = data.subtitle {
             let md = SwiftyMarkdown(string: subtitle)
-            md.link.color = .systemBlue
+            
+            // if not case .preview
+            if case .preview = config {
+                
+            } else {
+                md.link.color = .systemBlue
+            }
+            
             subtitleLabel.attributedText = md.attributedString()
-            subtitleLabel.linkAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
+        }
+        
+        switch config {
+        case .fullPost:
+            subtitleLabel.numberOfLines = 0
+            
+            if let subtitle = data.subtitle {
+                let md = SwiftyMarkdown(string: subtitle)
+                md.link.color = .systemBlue
+                md.setFontSizeForAllStyles(with: 13)
+                subtitleLabel.attributedText = md.attributedString()
+            }
+        case .insideComminity, .preview:
+            
+            subtitleLabel.numberOfLines = 6
+            
+            if let subtitle = data.subtitle?.removeNewLines() {
+                let md = SwiftyMarkdown(string: subtitle)
+                md.setFontSizeForAllStyles(with: 13)
+                subtitleLabel.attributedText = md.attributedString()
+            }
         }
         
         thumbailImageView.loadImage(urlString: data.imageUrl)
-    }
-    
-    func setupUIForPost() {
-        self.subtitleLabel.numberOfLines = 0
     }
     
     func prepareForReuse() {
