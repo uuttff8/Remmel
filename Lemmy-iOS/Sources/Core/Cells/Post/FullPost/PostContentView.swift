@@ -14,13 +14,10 @@ enum PostContentType {
     case insideComminity
 }
 
-
 class PostContentView: UIView {
         
     weak var delegate: PostContentTableCellDelegate?
-    
-    var configuration: PostContentType = .preview
-    
+        
     private let paddingView = UIView()
     private let headerView = PostContentHeaderView()
     private let centerView = PostContentCenterView()
@@ -40,11 +37,10 @@ class PostContentView: UIView {
     }
     
     func bind(with post: LemmyModel.PostView, config: PostContentType) {
-        self.configuration = config
-        setupUI()
         setupTargets(with: post)
         
         headerView.bind(
+            config: config,
             with: .init(
                 avatarImageUrl: post.creatorAvatar,
                 username: post.creatorName,
@@ -104,14 +100,6 @@ class PostContentView: UIView {
         }
     }
     
-    private func setupUI() {
-        switch configuration {
-        case .preview: break
-        case .insideComminity: setupUIForInsidePost()
-        case .fullPost: break
-        }
-    }
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         separatorView.backgroundColor = Config.Color.separator
     }
@@ -119,11 +107,7 @@ class PostContentView: UIView {
     func prepareForReuse() {
         centerView.prepareForReuse()
         headerView.prepareForReuse()
-    }
-    
-    private func setupUIForInsidePost() {
-        self.headerView.setupUIForInsidePost()
-    }
+    }    
 }
 
 extension PostContentView: ProgrammaticallyViewProtocol {

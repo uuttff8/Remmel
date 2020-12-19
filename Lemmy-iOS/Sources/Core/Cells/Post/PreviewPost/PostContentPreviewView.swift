@@ -10,9 +10,7 @@ import UIKit
 
 class PostContentPreviewView: UIView {
     
-    weak var delegate: PostContentPreviewTableCellDelegate?
-    
-    var configuration: PostContentType = .preview
+    weak var delegate: PostContentPreviewTableCellDelegate?    
     
     private let paddingView = UIView()
     private let headerView = PostContentHeaderView()
@@ -33,11 +31,10 @@ class PostContentPreviewView: UIView {
     }
     
     func bind(with post: LemmyModel.PostView, config: PostContentType) {
-        self.configuration = config
-        setupUI()
         setupTargets(with: post)
         
         headerView.bind(
+            config: config,
             with: .init(
                 avatarImageUrl: post.creatorAvatar,
                 username: post.creatorName,
@@ -93,14 +90,6 @@ class PostContentPreviewView: UIView {
         }
     }
     
-    private func setupUI() {
-        switch configuration {
-        case .insideComminity: setupUIForInsidePost()
-        case .fullPost: break
-        default: break
-        }
-    }
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         separatorView.backgroundColor = Config.Color.separator
     }
@@ -108,11 +97,7 @@ class PostContentPreviewView: UIView {
     func prepareForReuse() {
         centerView.prepareForReuse()
         headerView.prepareForReuse()
-    }
-    
-    private func setupUIForInsidePost() {
-        self.headerView.setupUIForInsidePost()
-    }
+    }    
 }
 
 extension PostContentPreviewView: ProgrammaticallyViewProtocol {

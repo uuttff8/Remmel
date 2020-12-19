@@ -100,7 +100,7 @@ class PostContentHeaderView: UIView {
     }
     
     // MARK: - Public
-    func bind(with data: PostContentHeaderView.ViewData) {
+    func bind(config: PostContentType, with data: PostContentHeaderView.ViewData) {
         let usernameButtonText = "@" + data.username
         let communityButtonText = "!" + data.community
         
@@ -112,6 +112,13 @@ class PostContentHeaderView: UIView {
             setupAvatar(with: avatarUrl)
         } else {
             avatarImageView.removeFromSuperview()
+        }
+        
+        switch config {
+        case .insideComminity:
+            byTitle.removeFromSuperview()
+            communityButton.removeFromSuperview()
+        default: break
         }
     }
     
@@ -140,16 +147,7 @@ class PostContentHeaderView: UIView {
             make.size.equalTo(imageSize.height)
         }
     }
-    
-    func setupUIForInsidePost() {
-        byTitle.removeFromSuperview()
-        communityButton.removeFromSuperview()
-    }
-    
-    func setupUIForPost() {
         
-    }
-    
     func prepareForReuse() {
         avatarImageView.image = nil
         publishedTitle.text = nil
