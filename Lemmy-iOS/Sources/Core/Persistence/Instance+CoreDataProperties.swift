@@ -14,15 +14,25 @@ extension CodingUserInfoKey {
 }
 
 extension Instance {
-
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Instance> {
-        return NSFetchRequest<Instance>(entityName: "Instance")
+    
+    static var fetchRequest: NSFetchRequest<Instance> {
+        NSFetchRequest<Instance>(entityName: String(describing: Instance.self))
+    }
+    
+    static var defaultSortDescriptors: [NSSortDescriptor] {
+        [NSSortDescriptor(key: #keyPath(managedLabel), ascending: false)]
     }
 
     @NSManaged public var managedLabel: String?
+    @NSManaged public var managedIconUrl: String?
     
     var label: String {
         get { self.managedLabel ?? "No label" }
+        set { self.managedLabel = newValue }
+    }
+    
+    var iconUrl: String {
+        get { self.managedLabel ?? "No icon" }
         set { self.managedLabel = newValue }
     }
 
