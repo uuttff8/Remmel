@@ -92,10 +92,12 @@ extension AddInstanceViewController: AddInstanceViewControllerProtocol {
     
     func displayAddInstanceCheck(viewModel: AddInstanceDataFlow.InstanceCheck.ViewModel) {
         switch viewModel.state {
-        case .result:
+        case .result(let iconUrl):
             self.setNewBarButton(loading: false, isEnabled: true)
+            self.addView.bindImage(with: iconUrl)
         case .noResult:
             self.setNewBarButton(loading: false, isEnabled: false)
+            self.addView.unbindImage()
         }
     }
 }

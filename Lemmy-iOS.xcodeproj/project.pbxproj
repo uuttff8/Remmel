@@ -180,6 +180,7 @@
 		4EBB226D255AF4F900B88079 /* ProfileScreenPostsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB226C255AF4F900B88079 /* ProfileScreenPostsAssembly.swift */; };
 		4EBB2276255AF77400B88079 /* ProfileScreenPostsInputOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB2275255AF77400B88079 /* ProfileScreenPostsInputOutput.swift */; };
 		4EBB227E255AF7A600B88079 /* ProfileScreenSubmoduleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB227D255AF7A600B88079 /* ProfileScreenSubmoduleProtocol.swift */; };
+		4EBF1D4325913117004068CD /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBF1D4225913117004068CD /* UnderlineTextField.swift */; };
 		4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */; };
 		4ECCEEAC250B8B6B0075F921 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEAB250B8B6B0075F921 /* SceneDelegate.swift */; };
 		4ECCEEAE250B8B6B0075F921 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEAD250B8B6B0075F921 /* LoginViewController.swift */; };
@@ -463,6 +464,7 @@
 		4EBB226C255AF4F900B88079 /* ProfileScreenPostsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsAssembly.swift; sourceTree = "<group>"; };
 		4EBB2275255AF77400B88079 /* ProfileScreenPostsInputOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsInputOutput.swift; sourceTree = "<group>"; };
 		4EBB227D255AF7A600B88079 /* ProfileScreenSubmoduleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenSubmoduleProtocol.swift; sourceTree = "<group>"; };
+		4EBF1D4225913117004068CD /* UnderlineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
 		4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lemmy-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4ECCEEAB250B8B6B0075F921 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -1010,6 +1012,7 @@
 			children = (
 				4E9183752566F5B900702F04 /* TableInputTextField.swift */,
 				4E91837A2566F60600702F04 /* TableInputTextView.swift */,
+				4EBF1D4225913117004068CD /* UnderlineTextField.swift */,
 			);
 			path = Inputs;
 			sourceTree = "<group>";
@@ -1412,7 +1415,6 @@
 			children = (
 				4EF3139F257BD5150032B58D /* Components */,
 				4EF3136A257A7F860032B58D /* Controls */,
-				4EF312FE2576D44D0032B58D /* UpvoteDownvote */,
 				4E9185D82571353700702F04 /* Inputs */,
 				4E9185E22571357200702F04 /* Picking */,
 				4ECCEF2D251253680075F921 /* NavBar */,
@@ -1450,6 +1452,7 @@
 		4EF312FE2576D44D0032B58D /* UpvoteDownvote */ = {
 			isa = PBXGroup;
 			children = (
+				4E9182D22564151800702F04 /* VoteButton.swift */,
 				4EF312FF2576D4610032B58D /* VoteButtonsWithScoreView.swift */,
 			);
 			path = UpvoteDownvote;
@@ -1485,10 +1488,10 @@
 		4EF3139F257BD5150032B58D /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4EF312FE2576D44D0032B58D /* UpvoteDownvote */,
 				4EBB2250255ADFC900B88079 /* ScrollableStackView.swift */,
 				4EF313A1257BD5370032B58D /* MultilineButton.swift */,
 				4EBB224B255ADE4C00B88079 /* TabSegmentedControlView.swift */,
-				4E9182D22564151800702F04 /* VoteButton.swift */,
 				4E73DF69258BE964001608F2 /* FollowButton.swift */,
 			);
 			path = Components;
@@ -2070,6 +2073,7 @@
 				4EB89B052521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift in Sources */,
 				4E886C302537598F0076B162 /* SiteRequests.swift in Sources */,
 				4EF3AC9A254C690400BEC9F1 /* CreateCommunitySidebarCell.swift in Sources */,
+				4EBF1D4325913117004068CD /* UnderlineTextField.swift in Sources */,
 				4EBB22212559EB8B00B88079 /* UIColor+Ext.swift in Sources */,
 				4E886CE7254429280076B162 /* WSLemmyEndpoint.swift in Sources */,
 				4E9183712566F51600702F04 /* UniqueIdentifierType.swift in Sources */,

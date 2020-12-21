@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Nuke
 
 protocol AddInstanceViewDelegate: AnyObject {
     func addInstanceView(_ view: AddInstanceView, didTyped text: String?)
@@ -16,11 +17,17 @@ final class AddInstanceView: UIView {
     
     weak var delegate: AddInstanceViewDelegate?
     
-    private lazy var scrollableStackView = ScrollableStackView(orientation: .vertical)
+    private lazy var scrollableStackView = ScrollableStackView(orientation: .vertical).then {
+        $0.spacing = 5
+    }
     
-    private lazy var textField = UITextField().then {
+    private lazy var textField = SloyTextField().then {
         $0.placeholder = "Enter instance link here"
         $0.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+    }
+    
+    private lazy var instanceImageView = UIImageView().then {
+        $0.frame.size = .init(width: 50, height: 50)
     }
     
     init() {
@@ -34,6 +41,14 @@ final class AddInstanceView: UIView {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func bindImage(with url: String?) {
+        self.instanceImageView.loadImage(urlString: url)
+    }
+    
+    func unbindImage() {
+        self.instanceImageView.image = nil
     }
     
     // MARK: Actions
@@ -58,16 +73,27 @@ final class AddInstanceView: UIView {
 extension AddInstanceView: ProgrammaticallyViewProtocol {
     func setupView() {
         self.backgroundColor = .systemBackground
+        self.scrollableStackView.contentInsets = .init(top: 30, left: 0, bottom: 0, right: 0)
     }
     
     func addSubviews() {
         self.addSubview(scrollableStackView)
         scrollableStackView.addArrangedView(textField)
+        
+        let view = UIView()
+        view.addSubview(instanceImageView)
+        instanceImageView.center = view.center
+        scrollableStackView.addArrangedView(view)
     }
     
     func makeConstraints() {
+        self.instanceImageView.snp.makeConstraints {
+            $0.size.equalTo(50)
+        }
+        
         self.scrollableStackView.snp.makeConstraints {
-            $0.edges.equalTo(self.safeAreaLayoutGuide)
+            $0.top.bottom.equalTo(self.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview().inset(16)
         }
     }
 }
