@@ -6,7 +6,7 @@
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-// https://github.com/brave/brave-ios/blob/development/ThirdParty/Then.swift
+// https://github.com/devxoul/Then/blob/master/Sources/Then/Then.swift
 // https://github.com/capnslipp/With/blob/master/Sources/With.swift
 
 // Use then { } function where available, if not then use with(Type()) {  }
@@ -110,4 +110,3 @@ public func withMap<SubjectT, ReturnT>(
     var subject = subject
     return try transform(&subject)
 }
-

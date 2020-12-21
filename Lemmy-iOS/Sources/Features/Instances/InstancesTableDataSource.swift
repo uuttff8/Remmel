@@ -9,9 +9,9 @@
 import UIKit
 
 final class InstancesTableDataSource: NSObject {
-    var viewModels: [String]
+    var viewModels: [Instance]
     
-    init(viewModels: [String] = []) {
+    init(viewModels: [Instance] = []) {
         self.viewModels = viewModels
         super.init()
     }
@@ -23,6 +23,12 @@ extension InstancesTableDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = UITableViewCell()
+        cell.accessoryType = .detailDisclosureButton
+        
+        let instance = viewModels[indexPath.row]
+        cell.textLabel?.text = instance.label
+        
+        return cell
     }
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol InstancesViewControllerProtocol: AnyObject {
-    
+    func displayInstances(viewModel: InstancesDataFlow.InstancesLoad.ViewModel)
 }
 
 class InstancesViewController: UIViewController {
@@ -46,5 +46,11 @@ class InstancesViewController: UIViewController {
     
     private func setupNavigationItem() {
         navigationItem.rightBarButtonItem = createInstanceBarButton
+    }
+}
+
+extension InstancesViewController: InstancesViewModelProtocol {
+    func doInstancesRefresh(request: InstancesDataFlow.InstancesLoad.Request) {
+        
     }
 }
