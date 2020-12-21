@@ -21,10 +21,14 @@ class RequestsManager {
         let data: T
     }
     
-    let wsClient = WSLemmyClient()
+    let wsClient: WSLemmyClient
     let httpClient = HttpLemmyClient()
     
     let decoder = LemmyJSONDecoder()
+    
+    init(instanceUrl: String) {
+        wsClient = WSLemmyClient(instanceUrl: instanceUrl)
+    }
     
     func asyncRequestDecodable<Req: Codable, Res: Codable>(
         path: String,

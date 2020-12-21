@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 private protocol SiteRequestManagerProtocol {
     func getSite(
@@ -17,6 +18,10 @@ private protocol SiteRequestManagerProtocol {
         parameters: LemmyModel.Site.ListCategoriesRequest,
         completion: @escaping (Result<LemmyModel.Site.ListCategoriesResponse, LemmyGenericError>) -> Void
     )
+    
+    func asyncGetSite(
+        parameters: LemmyModel.Site.GetSiteRequest
+    ) -> AnyPublisher<LemmyModel.Site.GetSiteResponse, LemmyGenericError>
 }
 
 extension RequestsManager: SiteRequestManagerProtocol {
@@ -45,5 +50,11 @@ extension RequestsManager: SiteRequestManagerProtocol {
             completion: completion
         )
     }
-
+    
+    func asyncGetSite(
+        parameters: LemmyModel.Site.GetSiteRequest
+    ) -> AnyPublisher<LemmyModel.Site.GetSiteResponse, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.Site.getSite.endpoint,
+                              parameters: parameters)
+    }
 }

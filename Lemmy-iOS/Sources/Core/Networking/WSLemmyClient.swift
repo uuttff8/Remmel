@@ -10,6 +10,13 @@ import UIKit
 import Combine
 
 class WSLemmyClient {
+    
+    let instanceUrl: String
+    
+    init(instanceUrl: String) {
+        self.instanceUrl = instanceUrl
+    }
+    
     func asyncSend<D: Codable>(on endpoint: String, data: D? = nil) -> Future<String, LemmyGenericError> {
         asyncWrapper(url: endpoint, data: data)
     }
@@ -46,7 +53,7 @@ class WSLemmyClient {
             }
         }
     }
-
+    
     private func wrapper<D: Codable>(url: String, data: D? = nil, completion: @escaping (String) -> Void) {
         
         guard let reqStr = makeRequestString(url: url, data: data) else { return }
@@ -55,13 +62,13 @@ class WSLemmyClient {
         let wsMessage = createWebsocketMessage(request: reqStr)
         let wsTask = createWebsocketTask(endpoint: "wss://dev.lemmy.ml/api/v1/ws")
         wsTask.resume()
-
+        
         wsTask.send(wsMessage) { (error) in
             if let error = error {
                 print("WebSocket couldn’t send message because: \(error)")
             }
         }
-
+        
         wsTask.receive { (res) in
             switch res {
             case let .failure(error):
@@ -74,7 +81,7 @@ class WSLemmyClient {
     
     private func makeRequestString<T: Codable>(url: String, data: T?) -> String? {
         if let data = data {
-
+            
             let encoder = JSONEncoder()
             encoder.outputFormatting = .prettyPrinted
             guard let orderJsonData = try? encoder.encode(data)
@@ -83,7 +90,7 @@ class WSLemmyClient {
                 return nil
             }
             let sss = String(data: orderJsonData, encoding: .utf8)!
-
+            
             return """
             {"op": "\(url)","data": \(sss)}
             """
@@ -114,6 +121,26 @@ class WSLemmyClient {
         
         return ""
     }
+    
+    private func cleanUpUrl(url: inout String) -> String {
+        if url.hasPrefix("https://") {
+            url.removeFirst(8)
+            return url
+        }
+        
+        if url.hasPrefix("www.") {
+            url.removeFirst(4)
+            return url
+        }
+        
+        if url.hasSuffix("/") {
+            url.removeLast()
+            return url
+        }
+        
+        return url;
+    }
+    
 }
 
 // wss://dev.lemmy.ml/api/v1/ws
