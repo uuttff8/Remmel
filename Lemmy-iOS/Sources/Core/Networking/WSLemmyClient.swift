@@ -34,7 +34,7 @@ class WSLemmyClient {
             print(reqStr)
             
             let wsMessage = createWebsocketMessage(request: reqStr)
-            let wsTask = createWebsocketTask(instanceUrl: cleanUpUrl(url: &instanceUrl))
+            let wsTask = createWebsocketTask(instanceUrl: String.cleanUpUrl(url: &instanceUrl))
             wsTask.resume()
             
             wsTask.send(wsMessage) { (error) in
@@ -60,7 +60,7 @@ class WSLemmyClient {
         print(reqStr)
         
         let wsMessage = createWebsocketMessage(request: reqStr)
-        let wsTask = createWebsocketTask(instanceUrl: cleanUpUrl(url: &instanceUrl))
+        let wsTask = createWebsocketTask(instanceUrl: String.cleanUpUrl(url: &instanceUrl))
         wsTask.resume()
         
         wsTask.send(wsMessage) { (error) in
@@ -122,8 +122,10 @@ class WSLemmyClient {
         
         return ""
     }
-    
-    private func cleanUpUrl(url: inout String) -> String {
+}
+
+extension String {
+    static func cleanUpUrl(url: inout String) -> String {
         if url.hasPrefix("https://") {
             url.removeFirst(8)
             return url
@@ -139,9 +141,8 @@ class WSLemmyClient {
             return url
         }
         
-        return url;
+        return url
     }
-    
 }
 
 // wss://dev.lemmy.ml/api/v1/ws

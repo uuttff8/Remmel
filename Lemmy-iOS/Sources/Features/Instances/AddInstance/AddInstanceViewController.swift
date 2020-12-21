@@ -18,7 +18,11 @@ final class AddInstanceViewController: UIViewController {
     weak var coordinator: InstancesCoordinator?
     private let viewModel: AddInstanceViewModelProtocol
     
+    var completionHandler: (() -> Void)?
+    
     private lazy var addView = self.view as! AddInstanceView
+    
+    private var validUrl: String?
     
     private lazy var addBarButton = UIBarButtonItem(
         title: "Add",
@@ -58,7 +62,8 @@ final class AddInstanceViewController: UIViewController {
     
     @objc
     func addBarButtonTapped(_ sender: UIBarButtonItem) {
-        
+        completionHandler?()
+        self.dismiss(animated: true)
     }
     
     private func setNewBarButton(loading: Bool, isEnabled: Bool) {

@@ -45,6 +45,12 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
                     )
                 }
             } receiveValue: { (response) in
+                
+                let instance = Instance(entity: Instance.entity(), insertInto: CoreDataHelper.shared.context)
+                var query = request.query
+                instance.label = String.cleanUpUrl(url: &query)
+                CoreDataHelper.shared.save()
+                
                 self.viewController?.displayAddInstanceCheck(
                     viewModel: .init(state: .result(iconUrl: response.site?.icon))
                 )

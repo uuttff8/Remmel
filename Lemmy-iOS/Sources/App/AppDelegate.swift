@@ -24,14 +24,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 24
         IQKeyboardManager.shared.enableAutoToolbar = false
         
-        #if DEBUG
-        let helper = CoreDataHelper.shared
-        let instanceObject = Instance(entity: Instance.entity(), insertInto: helper.context)
-        
-        instanceObject.label = "Hello man"
-        
-        helper.save()
-        #endif
+//        #if DEBUG
+//        let helper = CoreDataHelper.shared
+//        let instanceObject = Instance(entity: Instance.entity(), insertInto: helper.context)
+//        
+//        instanceObject.label = "Hello man"
+//        
+//        helper.save()
+//        #endif
  
         // Override point for customization after application launch.
         return true
