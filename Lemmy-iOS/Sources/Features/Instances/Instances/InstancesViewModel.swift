@@ -45,9 +45,7 @@ class InstancesViewModel: InstancesViewModelProtocol {
     func doInstanceDelete(request: InstancesDataFlow.DeleteInstance.Request) {
         
         self.provider.delete(request.instance)
-            .sink(receiveValue: {
-                print("Success deleting instance \(request.instance)")
-            })
+            .sink(receiveValue: {})
             .store(in: &cancellable)
         
     }
