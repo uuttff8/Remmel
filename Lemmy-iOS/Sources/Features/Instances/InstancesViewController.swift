@@ -15,6 +15,10 @@ protocol InstancesViewControllerProtocol: AnyObject {
 class InstancesViewController: UIViewController {
     
     weak var coordinator: InstancesCoordinator?
+    private let viewModel: InstancesViewModelProtocol
+    
+    private let tableManager = InstancesTableDataSource()
+    private lazy var instancesView = self.view as! InstancesView
     
     private lazy var createInstanceBarButton = UIBarButtonItem(
         image: UIImage(systemName: "plus.circle"),
@@ -23,7 +27,14 @@ class InstancesViewController: UIViewController {
         action: #selector(createInstanceButtonTapped(_:))
     )
     
-    init() {
+    private var state: InstancesDataFlow.ViewControllerState
+    
+    init(
+        viewModel: InstancesViewModelProtocol,
+        state: InstancesDataFlow.ViewControllerState = .loading
+    ) {
+        self.viewModel = viewModel
+        self.state = state
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -32,12 +43,42 @@ class InstancesViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func loadView() {
+        let view = InstancesView()
+        self.view = view
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.viewModel.doInstancesRefresh(request: .init())
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Instances"
         
         setupNavigationItem()
+    }
+    
+    private func updateState(newState: InstancesDataFlow.ViewControllerState) {
+        defer {
+            self.state = newState
+        }
+
+        if case .loading = newState {
+            self.instancesView.showLoadingView()
+            return
+        }
+
+        if case .loading = self.state {
+            self.instancesView.hideLoadingView()
+        }
+
+        if case .result = newState {
+            self.instancesView.updateTableViewData(dataSource: self.tableManager)
+        }
     }
     
     @objc func createInstanceButtonTapped(_ action: UIBarButtonItem) {
@@ -49,8 +90,11 @@ class InstancesViewController: UIViewController {
     }
 }
 
-extension InstancesViewController: InstancesViewModelProtocol {
-    func doInstancesRefresh(request: InstancesDataFlow.InstancesLoad.Request) {
+extension InstancesViewController: InstancesViewControllerProtocol {
+    func displayInstances(viewModel: InstancesDataFlow.InstancesLoad.ViewModel) {
+        guard case .result(let instances) = viewModel.state else { return }
         
+        self.tableManager.viewModels = instances
+        self.updateState(newState: viewModel.state)
     }
 }

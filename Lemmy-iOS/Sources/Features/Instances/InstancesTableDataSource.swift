@@ -24,11 +24,20 @@ extension InstancesTableDataSource: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.accessoryType = .detailDisclosureButton
+        cell.accessoryType = .disclosureIndicator
         
         let instance = viewModels[indexPath.row]
         cell.textLabel?.text = instance.label
         
         return cell
+    }
+}
+
+extension InstancesTableDataSource: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let instance = viewModels[indexPath.row]
+        print(instance)
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

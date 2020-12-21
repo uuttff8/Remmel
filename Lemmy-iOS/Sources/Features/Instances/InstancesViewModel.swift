@@ -33,6 +33,10 @@ class InstancesViewModel: InstancesViewModelProtocol {
             .receive(on: RunLoop.main)
             .sink { instances in
                 
+                self.viewController?.displayInstances(
+                    viewModel: .init(state: .result(data: instances))
+                )
+                
             }.store(in: &cancellable)
         
     }

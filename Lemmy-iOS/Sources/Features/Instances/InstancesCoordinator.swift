@@ -11,7 +11,8 @@ import UIKit
 final class InstancesCoordinator: GenericCoordinator<UINavigationController> {
     
     init() {
-        let navController = StyledNavigationController(rootViewController: InstancesViewController())
+        let assembly = InstancesAssembly()
+        let navController = StyledNavigationController(rootViewController: assembly.makeModule())
         
         super.init(navigationController: navController)
         self.rootViewController = navigationController

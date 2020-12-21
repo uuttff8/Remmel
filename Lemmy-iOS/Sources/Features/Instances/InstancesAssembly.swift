@@ -10,6 +10,16 @@ import UIKit
 
 class InstancesAssembly: Assembly {
     func makeModule() -> InstancesViewController {
-        return InstancesViewController()
+        let provider = InstancesProvider(
+            instancesPersistenceService: InstancePersistenceService()
+        )
+        let viewModel = InstancesViewModel(
+            provider: provider
+        )
+        
+        let vc = InstancesViewController(viewModel: viewModel)
+        viewModel.viewController = vc
+        
+        return vc
     }
 }
