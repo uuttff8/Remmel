@@ -11,6 +11,7 @@ import Combine
 
 protocol InstancesViewModelProtocol {
     func doInstancesRefresh(request: InstancesDataFlow.InstancesLoad.Request)
+    func doInstanceDelete(request: InstancesDataFlow.DeleteInstance.Request)
 }
 
 class InstancesViewModel: InstancesViewModelProtocol {
@@ -40,6 +41,16 @@ class InstancesViewModel: InstancesViewModelProtocol {
             }.store(in: &cancellable)
         
     }
+    
+    func doInstanceDelete(request: InstancesDataFlow.DeleteInstance.Request) {
+        
+        self.provider.delete(request.instance)
+            .sink(receiveValue: {
+                print("Success deleting instance \(request.instance)")
+            })
+            .store(in: &cancellable)
+        
+    }
 }
 
 enum InstancesDataFlow {
@@ -49,6 +60,12 @@ enum InstancesDataFlow {
         
         struct ViewModel {
             let state: ViewControllerState
+        }
+    }
+    
+    enum DeleteInstance {
+        struct Request {
+            let instance: Instance
         }
     }
     

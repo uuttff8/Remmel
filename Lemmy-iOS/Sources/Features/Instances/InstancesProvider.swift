@@ -11,6 +11,8 @@ import Combine
 
 protocol InstancesProviderProtocol {
     func fetchCachedInstances() -> AnyPublisher<[Instance], Never>
+    
+    func delete(_ instance: Instance) -> AnyPublisher<(), Never>
 }
 
 class InstancesProvider: InstancesProviderProtocol {
@@ -31,7 +33,14 @@ class InstancesProvider: InstancesProviderProtocol {
             promise(.success(instances))
             
         }.eraseToAnyPublisher()
-    
+        
     }
-
+    
+    func delete(_ instance: Instance) -> AnyPublisher<(), Never> {
+        
+        Future<(), Never> { promise in
+            CoreDataHelper.shared.deleteFromStore(instance, save: true)
+            promise(.success(()))
+        }.eraseToAnyPublisher()
+    }
 }

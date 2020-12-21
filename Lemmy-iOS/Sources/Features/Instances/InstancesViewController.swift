@@ -17,7 +17,9 @@ class InstancesViewController: UIViewController {
     weak var coordinator: InstancesCoordinator?
     private let viewModel: InstancesViewModelProtocol
     
-    private let tableManager = InstancesTableDataSource()
+    private lazy var tableManager = InstancesTableDataSource().then {
+        $0.delegate = self
+    }
     private lazy var instancesView = self.view as! InstancesView
     
     private lazy var createInstanceBarButton = UIBarButtonItem(
@@ -96,5 +98,11 @@ extension InstancesViewController: InstancesViewControllerProtocol {
         
         self.tableManager.viewModels = instances
         self.updateState(newState: viewModel.state)
+    }
+}
+
+extension InstancesViewController: InstancesTableDataSourceDelegate {
+    func tableDidRequestDelete(_ instance: Instance) {
+        self.viewModel.doInstanceDelete(request: .init(instance: instance))
     }
 }

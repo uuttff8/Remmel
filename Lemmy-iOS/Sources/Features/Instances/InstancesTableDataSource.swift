@@ -8,7 +8,14 @@
 
 import UIKit
 
+protocol InstancesTableDataSourceDelegate: AnyObject {
+    func tableDidRequestDelete(_ instance: Instance)
+}
+
 final class InstancesTableDataSource: NSObject {
+    
+    weak var delegate: InstancesTableDataSourceDelegate?
+    
     var viewModels: [Instance]
     
     init(viewModels: [Instance] = []) {
@@ -39,5 +46,38 @@ extension InstancesTableDataSource: UITableViewDelegate {
         print(instance)
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        
+        let instance = viewModels[indexPath.row]
+        
+        let deleteAction = UIContextualAction(
+            style: .destructive,
+            title: "Delete",
+            handler: { (_, _, completion) in
+                
+                if let index = self.viewModels.firstIndex(where: { $0.label == instance.label }) {
+                    self.viewModels.remove(at: index)
+                    
+                    self.delegate?.tableDidRequestDelete(instance)
+                    
+                    completion(true)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        tableView.reloadData()
+                    }
+                }
+            })
+        
+        return UISwipeActionsConfiguration(
+            actions: [
+                deleteAction
+            ]
+        )
+        
     }
 }
