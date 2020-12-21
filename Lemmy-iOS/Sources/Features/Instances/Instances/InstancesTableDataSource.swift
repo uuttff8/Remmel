@@ -66,10 +66,7 @@ extension InstancesTableDataSource: UITableViewDelegate {
                     self.delegate?.tableDidRequestDelete(instance)
                     
                     completion(true)
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        tableView.reloadData()
-                    }
+                    tableView.reloadData()
                 }
             })
         

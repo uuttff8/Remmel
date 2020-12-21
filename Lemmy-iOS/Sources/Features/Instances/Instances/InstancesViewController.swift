@@ -84,7 +84,7 @@ class InstancesViewController: UIViewController {
     }
     
     @objc func createInstanceButtonTapped(_ action: UIBarButtonItem) {
-        // present(!) new view controller through coordinator(!)
+        self.coordinator?.goToAddInstance()
     }
     
     private func setupNavigationItem() {

@@ -11,7 +11,7 @@ import Combine
 
 class WSLemmyClient {
     
-    let instanceUrl: String
+    var instanceUrl: String
     
     init(instanceUrl: String) {
         self.instanceUrl = instanceUrl
@@ -34,7 +34,7 @@ class WSLemmyClient {
             print(reqStr)
             
             let wsMessage = createWebsocketMessage(request: reqStr)
-            let wsTask = createWebsocketTask(endpoint: "wss://dev.lemmy.ml/api/v1/ws")
+            let wsTask = createWebsocketTask(instanceUrl: cleanUpUrl(url: &instanceUrl))
             wsTask.resume()
             
             wsTask.send(wsMessage) { (error) in
@@ -60,7 +60,7 @@ class WSLemmyClient {
         print(reqStr)
         
         let wsMessage = createWebsocketMessage(request: reqStr)
-        let wsTask = createWebsocketTask(endpoint: "wss://dev.lemmy.ml/api/v1/ws")
+        let wsTask = createWebsocketTask(instanceUrl: cleanUpUrl(url: &instanceUrl))
         wsTask.resume()
         
         wsTask.send(wsMessage) { (error) in
@@ -101,7 +101,8 @@ class WSLemmyClient {
         }
     }
     
-    private func createWebsocketTask(endpoint: String) -> URLSessionWebSocketTask {
+    private func createWebsocketTask(instanceUrl: String) -> URLSessionWebSocketTask {
+        let endpoint = "wss://" + instanceUrl + "/api/v1/ws"
         let urlSession = URLSession(configuration: .default)
         return urlSession.webSocketTask(with: URL(string: endpoint)!)
     }

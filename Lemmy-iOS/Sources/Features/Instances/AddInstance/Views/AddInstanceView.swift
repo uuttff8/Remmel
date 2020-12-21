@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AddInstanceViewDelegate: AnyObject {
-    func addInstanceView(_ view: AddInstanceView, didTyped text: String)
+    func addInstanceView(_ view: AddInstanceView, didTyped text: String?)
 }
 
 final class AddInstanceView: UIView {
@@ -25,6 +25,10 @@ final class AddInstanceView: UIView {
     
     init() {
         super.init(frame: .zero)
+        
+        setupView()
+        addSubviews()
+        makeConstraints()
     }
     
     @available(*, unavailable)
@@ -43,10 +47,27 @@ final class AddInstanceView: UIView {
     }
 
     @objc
-    private func textFieldDidChange(_ textField: UITextField) {
+    private func textFieldDidChange(_ textField: UITextField) {        
         NSObject.cancelPreviousPerformRequests(withTarget: self,
                                                selector: #selector(reload(_:)),
                                                object: textField)
         self.perform(#selector(reload(_:)), with: textField, afterDelay: 0.5)
+    }
+}
+
+extension AddInstanceView: ProgrammaticallyViewProtocol {
+    func setupView() {
+        self.backgroundColor = .systemBackground
+    }
+    
+    func addSubviews() {
+        self.addSubview(scrollableStackView)
+        scrollableStackView.addArrangedView(textField)
+    }
+    
+    func makeConstraints() {
+        self.scrollableStackView.snp.makeConstraints {
+            $0.edges.equalTo(self.safeAreaLayoutGuide)
+        }
     }
 }

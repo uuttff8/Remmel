@@ -7,13 +7,18 @@
 //
 
 import Foundation
+import UIKit
 
 final class AddInstanceAssembly: Assembly {
-    func makeModule() -> AddInstanceViewController {
-        let viewModel = AddInstanceViewModel()
+    func makeModule() -> UINavigationController {
+        let viewModel = AddInstanceViewModel(userAccountService: UserAccountService())
         let vc = AddInstanceViewController(viewModel: viewModel)
+        let navController = UINavigationController(
+            rootViewController: vc
+        )
+
         viewModel.viewController = vc
         
-        return vc
+        return navController
     }
 }

@@ -33,7 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         helper.save()
         #endif
  
-        
         // Override point for customization after application launch.
         return true
     }

@@ -10,10 +10,12 @@ import UIKit
 
 protocol AddInstanceViewControllerProtocol: AnyObject {
     func displayAddInstancePresentation(viewModel: AddInstanceDataFlow.InstancePresentation.ViewModel)
+    func displayAddInstanceCheck(viewModel: AddInstanceDataFlow.InstanceCheck.ViewModel)
 }
 
 final class AddInstanceViewController: UIViewController {
     
+    weak var coordinator: InstancesCoordinator?
     private let viewModel: AddInstanceViewModelProtocol
     
     private lazy var addView = self.view as! AddInstanceView
@@ -25,7 +27,9 @@ final class AddInstanceViewController: UIViewController {
         action: #selector(addBarButtonTapped(_:))
     )
     
-    private lazy var _activityIndicator = UIActivityIndicatorView(style: .medium)
+    private lazy var _activityIndicator = UIActivityIndicatorView(style: .medium).then {
+        $0.startAnimating()
+    }
     private lazy var loadingBarButton = UIBarButtonItem(customView: _activityIndicator)
     
     init(
@@ -57,23 +61,44 @@ final class AddInstanceViewController: UIViewController {
         
     }
     
-    private func setNewBarButton(loading: Bool) {
-        let button = loading == true ? loadingBarButton : addBarButton
+    private func setNewBarButton(loading: Bool, isEnabled: Bool) {
+        let button: UIBarButtonItem
+        if loading {
+            button = loadingBarButton
+            addBarButton.isEnabled = isEnabled
+        } else {
+            button = addBarButton
+            addBarButton.isEnabled = isEnabled
+        }
         self.navigationItem.rightBarButtonItem = button
     }
     
     private func setupNavigationItem() {
+        title = "Create Instance"
         self.navigationItem.rightBarButtonItem = addBarButton
+        addBarButton.isEnabled = false
     }
 }
 
 extension AddInstanceViewController: AddInstanceViewControllerProtocol {
     func displayAddInstancePresentation(viewModel: AddInstanceDataFlow.InstancePresentation.ViewModel) {
-        
+        // nothing
+    }
+    
+    func displayAddInstanceCheck(viewModel: AddInstanceDataFlow.InstanceCheck.ViewModel) {
+        switch viewModel.state {
+        case .result:
+            self.setNewBarButton(loading: false, isEnabled: true)
+        case .noResult:
+            self.setNewBarButton(loading: false, isEnabled: false)
+        }
     }
 }
 extension AddInstanceViewController: AddInstanceViewDelegate {
-    func addInstanceView(_ view: AddInstanceView, didTyped text: String) {
-        
+    func addInstanceView(_ view: AddInstanceView, didTyped text: String?) {
+        self.setNewBarButton(loading: true, isEnabled: false)
+        if let text = text {
+            self.viewModel.doAddInstanceCheck(request: .init(query: text))
+        }
     }
 }

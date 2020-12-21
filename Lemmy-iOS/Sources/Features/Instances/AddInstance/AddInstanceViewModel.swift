@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 protocol AddInstanceViewModelProtocol: AnyObject {
     func doAddInstancePresentation(request: AddInstanceDataFlow.InstancePresentation.Request)
@@ -17,11 +18,37 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
     
     weak var viewController: AddInstanceViewControllerProtocol?
     
+    private let userAccountService: UserAccountSerivceProtocol
+    
+    private var cancellable = Set<AnyCancellable>()
+    
+    init(userAccountService: UserAccountSerivceProtocol) {
+        self.userAccountService = userAccountService
+    }
+    
     func doAddInstancePresentation(request: AddInstanceDataFlow.InstancePresentation.Request) {
         self.viewController?.displayAddInstancePresentation(viewModel: .init())
     }
     
     func doAddInstanceCheck(request: AddInstanceDataFlow.InstanceCheck.Request) {
+        ApiManager(instanceUrl: request.query)
+            .requestsManager
+            .asyncGetSite(parameters: .init(auth: userAccountService.jwtToken))
+            .receive(on: RunLoop.main)
+            .sink { (completion) in
+                switch completion {
+                case .finished:
+                    print(completion)
+                case .failure:
+                    self.viewController?.displayAddInstanceCheck(
+                        viewModel: .init(state: .noResult)
+                    )
+                }
+            } receiveValue: { (response) in
+                self.viewController?.displayAddInstanceCheck(
+                    viewModel: .init(state: .result(iconUrl: response.site?.icon))
+                )
+            }.store(in: &self.cancellable)
         
     }
 }
@@ -40,11 +67,12 @@ enum AddInstanceDataFlow {
         }
         
         struct ViewModel {
+            let state: ViewControllerState
         }
     }
     
     enum ViewControllerState {
-        case result(iconUrl: String)
+        case result(iconUrl: String?)
         case noResult
     }
 }

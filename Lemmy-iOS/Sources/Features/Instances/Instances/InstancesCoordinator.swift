@@ -24,4 +24,14 @@ final class InstancesCoordinator: GenericCoordinator<UINavigationController> {
             vc.coordinator = self
         }
     }
+    
+    func goToAddInstance() {
+        let assembly = AddInstanceAssembly()
+        let module = assembly.makeModule()
+        if let vc = module.topViewController as? InstancesViewController {
+            vc.coordinator = self
+        }
+        
+        self.rootViewController.present(module, animated: true)
+    }
 }
