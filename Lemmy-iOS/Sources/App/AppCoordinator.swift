@@ -10,48 +10,48 @@ import UIKit
 
 class AppCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
-
+    
     var navigationController: UINavigationController?
-
+    
     let window: UIWindow
     
     private let userAccountService = UserAccountService()
-
+    
     init(window: UIWindow) {
         self.window = window
     }
-
+    
     func start() {
         
-                    let myCoordinator = LemmyTabBarCoordinator()
+        //                    let myCoordinator = LemmyTabBarCoordinator()
+        //
+        //                    // store child coordinator
+        //                    self.store(coordinator: myCoordinator)
+        //                    myCoordinator.start()
+        //        
+        //                    window.rootViewController = myCoordinator.rootViewController
         
-                    // store child coordinator
-                    self.store(coordinator: myCoordinator)
-                    myCoordinator.start()
         
-                    window.rootViewController = myCoordinator.rootViewController
-
+        if userAccountService.isAuthorized {
+            let myCoordinator = LemmyTabBarCoordinator()
+            
+            // store child coordinator
+            self.store(coordinator: myCoordinator)
+            myCoordinator.start()
+            
+            window.rootViewController = myCoordinator.rootViewController
+            
+        } else {
+            let myCoordinator = InstancesCoordinator()
+            
+            // store child coordinator
+            self.store(coordinator: myCoordinator)
+            myCoordinator.start()
+            
+            window.rootViewController = myCoordinator.rootViewController
+            
+        }
         
-//        if userAccountService.isAuthorized {
-//            let myCoordinator = LemmyTabBarCoordinator()
-//
-//            // store child coordinator
-//            self.store(coordinator: myCoordinator)
-//            myCoordinator.start()
-//
-//            window.rootViewController = myCoordinator.rootViewController
-//
-//        } else {
-//            let myCoordinator = InstancesCoordinator()
-//
-//            // store child coordinator
-//            self.store(coordinator: myCoordinator)
-//            myCoordinator.start()
-//
-//            window.rootViewController = myCoordinator.rootViewController
-//
-//        }
-
         window.makeKeyAndVisible()
     }
 }
