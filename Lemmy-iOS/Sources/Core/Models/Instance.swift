@@ -9,6 +9,8 @@
 import Foundation
 import CoreData
 
+private let log = Logger.commonLog
+
 @objc(Instance)
 public class Instance: NSManagedObject, Codable, Identifiable {
         
@@ -51,7 +53,7 @@ public class Instance: NSManagedObject, Codable, Identifiable {
             let results = try CoreDataHelper.shared.context.fetch(request)
             return results as! [Instance]
         } catch {
-            print("Error while getting videos")
+            log.error("Error while getting all videos from CoreData")
             return []
         }
     }

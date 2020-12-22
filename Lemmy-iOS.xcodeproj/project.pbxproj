@@ -181,6 +181,8 @@
 		4EBF1D4325913117004068CD /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBF1D4225913117004068CD /* UnderlineTextField.swift */; };
 		4EBF1D4925920AC1004068CD /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBF1D4725920AC1004068CD /* Instance.swift */; };
 		4EBF1D4A25920AC1004068CD /* Instance+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBF1D4825920AC1004068CD /* Instance+CoreDataProperties.swift */; };
+		4EBF1D582592365A004068CD /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBF1D572592365A004068CD /* Logger.swift */; };
+		4EBF1D5E25923723004068CD /* XCGLogger in Frameworks */ = {isa = PBXBuildFile; productRef = 4EBF1D5D25923723004068CD /* XCGLogger */; };
 		4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */; };
 		4ECCEEAC250B8B6B0075F921 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEAB250B8B6B0075F921 /* SceneDelegate.swift */; };
 		4ECCEEAE250B8B6B0075F921 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEAD250B8B6B0075F921 /* LoginViewController.swift */; };
@@ -465,6 +467,7 @@
 		4EBF1D4225913117004068CD /* UnderlineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
 		4EBF1D4725920AC1004068CD /* Instance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instance.swift; sourceTree = "<group>"; };
 		4EBF1D4825920AC1004068CD /* Instance+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Instance+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4EBF1D572592365A004068CD /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lemmy-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4ECCEEAB250B8B6B0075F921 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -578,6 +581,7 @@
 				921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */,
 				4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */,
 				4EF3ACF625506EC900BEC9F1 /* SwiftyMarkdown in Frameworks */,
+				4EBF1D5E25923723004068CD /* XCGLogger in Frameworks */,
 				4E9183B8256AF77700702F04 /* IQKeyboardManagerSwift in Frameworks */,
 				4E9184FC256E9E4E00702F04 /* SwipeCellKit in Frameworks */,
 				4E87C642258D2A370007FE5E /* ActiveLabel in Frameworks */,
@@ -1146,6 +1150,7 @@
 				4EBB222D2559EEFF00B88079 /* MilticastDelegate.swift */,
 				4E9183702566F51600702F04 /* UniqueIdentifierType.swift */,
 				4E91838F2567DBE200702F04 /* PushRouterSourceProtocol.swift */,
+				4EBF1D572592365A004068CD /* Logger.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1728,6 +1733,7 @@
 				4E9183B7256AF77700702F04 /* IQKeyboardManagerSwift */,
 				4E9184FB256E9E4E00702F04 /* SwipeCellKit */,
 				4E87C641258D2A370007FE5E /* ActiveLabel */,
+				4EBF1D5D25923723004068CD /* XCGLogger */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */;
@@ -1809,6 +1815,7 @@
 				4E9183B6256AF77700702F04 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
 				4E87C640258D2A370007FE5E /* XCRemoteSwiftPackageReference "ActiveLabel.swift" */,
+				4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
@@ -2098,6 +2105,7 @@
 				4E9BBA5425555571004FF2F9 /* LemmySortListingPickersView.swift in Sources */,
 				4EFA81E82561EFBD008AF535 /* CommunityTableHeaderView.swift in Sources */,
 				4E0A8E71255D58E400B06AF6 /* ProfileScreenAboutUI.swift in Sources */,
+				4EBF1D582592365A004068CD /* Logger.swift in Sources */,
 				4EFA81BB255FFD14008AF535 /* FrontPageAssembly.swift in Sources */,
 				4E886C36253872D10076B162 /* SignUpModel.swift in Sources */,
 				4E10709D25361846009EABDA /* SignInView.swift in Sources */,
@@ -2536,6 +2544,14 @@
 				minimumVersion = 2.7.1;
 			};
 		};
+		4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/DaveWoodCom/XCGLogger.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.1;
+			};
+		};
 		4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -2579,6 +2595,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */;
 			productName = SwipeCellKit;
+		};
+		4EBF1D5D25923723004068CD /* XCGLogger */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger" */;
+			productName = XCGLogger;
 		};
 		4ECCEEFA250C13240075F921 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
