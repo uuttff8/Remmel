@@ -60,7 +60,6 @@
 		4E8165992563346100907D31 /* Nantes in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8165982563346100907D31 /* Nantes */; };
 		4E87C637258BF2AB0007FE5E /* CommunityFollowService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C636258BF2AB0007FE5E /* CommunityFollowService.swift */; };
 		4E87C63C258C04BB0007FE5E /* CommunityScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C63B258C04BB0007FE5E /* CommunityScreenCoordinator.swift */; };
-		4E87C642258D2A370007FE5E /* ActiveLabel in Frameworks */ = {isa = PBXBuildFile; productRef = 4E87C641258D2A370007FE5E /* ActiveLabel */; };
 		4E87C648258D33810007FE5E /* LemmyMention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C647258D33810007FE5E /* LemmyMention.swift */; };
 		4E87C66E258E09D00007FE5E /* UIFont+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C66D258E09D00007FE5E /* UIFont+Ext.swift */; };
 		4E87C67E258E1AD90007FE5E /* PostContentPreviewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C67D258E1AD90007FE5E /* PostContentPreviewTableCell.swift */; };
@@ -584,7 +583,6 @@
 				4EBF1D5E25923723004068CD /* XCGLogger in Frameworks */,
 				4E9183B8256AF77700702F04 /* IQKeyboardManagerSwift in Frameworks */,
 				4E9184FC256E9E4E00702F04 /* SwipeCellKit in Frameworks */,
-				4E87C642258D2A370007FE5E /* ActiveLabel in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1732,7 +1730,6 @@
 				4E8165982563346100907D31 /* Nantes */,
 				4E9183B7256AF77700702F04 /* IQKeyboardManagerSwift */,
 				4E9184FB256E9E4E00702F04 /* SwipeCellKit */,
-				4E87C641258D2A370007FE5E /* ActiveLabel */,
 				4EBF1D5D25923723004068CD /* XCGLogger */,
 			);
 			productName = "Lemmy-iOS";
@@ -1814,7 +1811,6 @@
 				4E8165972563346100907D31 /* XCRemoteSwiftPackageReference "Nantes" */,
 				4E9183B6256AF77700702F04 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
-				4E87C640258D2A370007FE5E /* XCRemoteSwiftPackageReference "ActiveLabel.swift" */,
 				4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
@@ -2520,14 +2516,6 @@
 				minimumVersion = 0.1.2;
 			};
 		};
-		4E87C640258D2A370007FE5E /* XCRemoteSwiftPackageReference "ActiveLabel.swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/optonaut/ActiveLabel.swift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.5;
-			};
-		};
 		4E9183B6256AF77700702F04 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
@@ -2580,11 +2568,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E8165972563346100907D31 /* XCRemoteSwiftPackageReference "Nantes" */;
 			productName = Nantes;
-		};
-		4E87C641258D2A370007FE5E /* ActiveLabel */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E87C640258D2A370007FE5E /* XCRemoteSwiftPackageReference "ActiveLabel.swift" */;
-			productName = ActiveLabel;
 		};
 		4E9183B7256AF77700702F04 /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;
