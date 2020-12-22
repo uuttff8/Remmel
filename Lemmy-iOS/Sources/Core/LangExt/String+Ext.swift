@@ -16,4 +16,12 @@ extension String {
     func trim() -> String {
         return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
+    
+    var encodeUrl: String {
+        self.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+    }
+    
+    var decodeUrl: String {
+        self.removingPercentEncoding!
+    }
 }

@@ -14,7 +14,7 @@ class WSLemmyClient {
     var instanceUrl: String
     
     init(instanceUrl: String) {
-        self.instanceUrl = instanceUrl
+        self.instanceUrl = instanceUrl.encodeUrl
     }
     
     func asyncSend<D: Codable>(on endpoint: String, data: D? = nil) -> Future<String, LemmyGenericError> {
