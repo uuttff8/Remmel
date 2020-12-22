@@ -118,6 +118,7 @@ enum LemmyModel {
         }
     }
     
+    // MARK: - PostReportView -
     struct PostReportView: Codable, Identifiable, Equatable {
         let id: Int
         let creatorId: Int
@@ -511,9 +512,6 @@ enum LemmyModel {
             case communityIcon = "community_icon"
         }
     }
-    
-    // MARK: - PostReportView -
-
     
     // MARK: - ModRemovePostView -
     struct ModRemovePostView: Identifiable, Codable, Equatable, Hashable {

@@ -13,11 +13,13 @@ class WSLemmyClient {
     
     var instanceUrl: String
     
+    private let requestQueue = DispatchQueue(label: "Lemmy-iOS.RequestQueue")
+    
     init(instanceUrl: String) {
         self.instanceUrl = instanceUrl.encodeUrl
     }
     
-    func asyncSend<D: Codable>(on endpoint: String, data: D? = nil) -> Future<String, LemmyGenericError> {
+    func asyncSend<D: Codable>(on endpoint: String, data: D? = nil) -> AnyPublisher<String, LemmyGenericError> {
         asyncWrapper(url: endpoint, data: data)
     }
     
@@ -25,7 +27,7 @@ class WSLemmyClient {
         wrapper(url: endpoint, data: data, completion: completion)
     }
     
-    private func asyncWrapper<D: Codable>(url: String, data: D? = nil) -> Future<String, LemmyGenericError> {
+    private func asyncWrapper<D: Codable>(url: String, data: D? = nil) -> AnyPublisher<String, LemmyGenericError> {
         Future { [self] promise in
             
             guard let reqStr = makeRequestString(url: url, data: data)
@@ -33,7 +35,7 @@ class WSLemmyClient {
             
             Logger.commonLog.info(
             """
-                Current Instance: \(instanceUrl)
+                Current Instance: \(instanceUrl) \n
                 \(reqStr)
             """)
             
@@ -58,7 +60,7 @@ class WSLemmyClient {
                     promise(.failure(LemmyGenericError.error(error)))
                 }
             }
-        }
+        }.eraseToAnyPublisher()
     }
     
     private func wrapper<D: Codable>(url: String, data: D? = nil, completion: @escaping (String) -> Void) {

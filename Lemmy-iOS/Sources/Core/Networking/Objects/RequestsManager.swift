@@ -23,8 +23,9 @@ class RequestsManager {
     
     let wsClient: WSLemmyClient
     let httpClient = HttpLemmyClient()
-    
     let decoder = LemmyJSONDecoder()
+    
+    private let requestQueue = DispatchQueue(label: "Lemmy-iOS.RequestQueue")
     
     init(instanceUrl: String) {
         wsClient = WSLemmyClient(instanceUrl: instanceUrl)
@@ -37,6 +38,7 @@ class RequestsManager {
     ) -> AnyPublisher<Res, LemmyGenericError> {
         
         wsClient.asyncSend(on: path, data: parameters)
+            .receive(on: requestQueue)
             .flatMap { (outString: String) in
                 self.asyncDecode(data: outString.data(using: .utf8)!)
             }.eraseToAnyPublisher()
@@ -48,8 +50,10 @@ class RequestsManager {
         parsingFromRootKey rootKey: String? = nil,
         completion: @escaping ((Result<Res, LemmyGenericError>) -> Void)
     ) {
-        wsClient.send(on: path, data: parameters) { (outString) in
-            self.decode(data: outString.data(using: .utf8)!, rootKey: rootKey, completion: completion)
+        requestQueue.async {
+            self.wsClient.send(on: path, data: parameters) { (outString) in
+                self.decode(data: outString.data(using: .utf8)!, rootKey: rootKey, completion: completion)
+            }
         }
     }
     
