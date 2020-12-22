@@ -36,7 +36,7 @@ class CreateCommunityViewModel: CreateCommunityViewModelProtocol {
                                                                  nsfw: request.nsfwOption,
                                                                  auth: jwtToken)
         ApiManager.requests.asyncCreateCommunity(parameters: params)
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.commonLog.notice(completion)
                 

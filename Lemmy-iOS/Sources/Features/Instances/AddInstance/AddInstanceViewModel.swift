@@ -34,7 +34,7 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
         ApiManager(instanceUrl: request.query)
             .requestsManager
             .asyncGetSite(parameters: .init(auth: userAccountService.jwtToken))
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 if case .failure = completion {
                     Logger.commonLog.error("GetSite request with \(request) completion: \(completion)")

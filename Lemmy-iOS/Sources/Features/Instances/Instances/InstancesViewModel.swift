@@ -31,7 +31,7 @@ class InstancesViewModel: InstancesViewModelProtocol {
     func doInstancesRefresh(request: InstancesDataFlow.InstancesLoad.Request) {
         
         self.provider.fetchCachedInstances()
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { instances in
                 
                 self.viewController?.displayInstances(

@@ -41,7 +41,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
                                                                   auth: LoginData.shared.jwtToken)
         
         ApiManager.requests.asyncGetCommunity(parameters: parameters)
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
@@ -62,7 +62,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
                                                          auth: LoginData.shared.jwtToken)
         
         ApiManager.shared.requestsManager.asyncGetPosts(parameters: parameters)
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
@@ -87,7 +87,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
                                                          auth: LoginData.shared.jwtToken)
         
         ApiManager.requests.asyncGetPosts(parameters: parameters)
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in

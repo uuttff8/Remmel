@@ -39,7 +39,7 @@ class CommunityFollowService: CommunityFollowServiceProtocol {
             followButton.followState = .pending
             
             self.follow(to: community)
-                .receive(on: RunLoop.main)
+                .receive(on: DispatchQueue.main)
                 .sink { (completion) in
                     Logger.logCombineCompletion(completion)
                 } receiveValue: { (respCommunity) in

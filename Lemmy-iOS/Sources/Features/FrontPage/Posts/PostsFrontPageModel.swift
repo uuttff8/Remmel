@@ -57,7 +57,7 @@ class PostsFrontPageModel: NSObject {
                                                          auth: LemmyShareData.shared.jwtToken)
         
         ApiManager.shared.requestsManager.asyncGetPosts(parameters: parameters)
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
@@ -102,7 +102,7 @@ class PostsFrontPageModel: NSObject {
     
     func createPostLike(newVote: LemmyVoteType, post: LemmyModel.PostView) {
         self.upvoteDownvoteService.createPostLike(vote: newVote, post: post)
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
             } receiveValue: { (post) in

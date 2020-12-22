@@ -40,7 +40,7 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
                                                      auth: LemmyShareData.shared.jwtToken)
         
         ApiManager.requests.asyncGetPosts(parameters: params)
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.commonLog.notice(completion)
             } receiveValue: { [weak self] (response) in

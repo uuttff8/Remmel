@@ -78,7 +78,7 @@ class CommentsFrontPageModel: NSObject {
     
     func createCommentLike(newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
         self.upvoteDownvoteService.createCommentLike(vote: newVote, comment: comment)
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 print(completion)
             } receiveValue: { (comment) in

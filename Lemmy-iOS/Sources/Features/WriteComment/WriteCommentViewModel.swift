@@ -51,7 +51,7 @@ class WriteCommentViewModel: WriteCommentViewModelProtocol {
                                                              auth: jwtToken)
         
         ApiManager.requests.asyncCreateComment(parameters: params)
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
 

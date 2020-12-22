@@ -28,7 +28,7 @@ class CommunitiesPreviewViewModel: CommunitiesPreviewViewModelProtocol {
         )
         
         ApiManager.requests.asyncListCommunity(parameters: parameters)
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
