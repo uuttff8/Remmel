@@ -34,7 +34,10 @@ class WSLemmyClient {
             print(reqStr)
             
             let wsMessage = createWebsocketMessage(request: reqStr)
-            let wsTask = createWebsocketTask(instanceUrl: String.cleanUpUrl(url: &instanceUrl))
+            guard let wsTask = createWebsocketTask(instanceUrl: String.cleanUpUrl(url: &instanceUrl)) else {
+                return promise(.failure(.string("Failed to create webscoket task")))
+            }
+            
             wsTask.resume()
             
             wsTask.send(wsMessage) { (error) in
@@ -60,7 +63,11 @@ class WSLemmyClient {
         print(reqStr)
         
         let wsMessage = createWebsocketMessage(request: reqStr)
-        let wsTask = createWebsocketTask(instanceUrl: String.cleanUpUrl(url: &instanceUrl))
+        guard let wsTask = createWebsocketTask(instanceUrl: String.cleanUpUrl(url: &instanceUrl)) else {
+            print("Failed to create webscoket task")
+            return
+        }
+        
         wsTask.resume()
         
         wsTask.send(wsMessage) { (error) in
@@ -101,10 +108,14 @@ class WSLemmyClient {
         }
     }
     
-    private func createWebsocketTask(instanceUrl: String) -> URLSessionWebSocketTask {
+    private func createWebsocketTask(instanceUrl: String) -> URLSessionWebSocketTask? {
         let endpoint = "wss://" + instanceUrl + "/api/v1/ws"
         let urlSession = URLSession(configuration: .default)
-        return urlSession.webSocketTask(with: URL(string: endpoint)!)
+        if let url = URL(string: endpoint) {
+            return urlSession.webSocketTask(with: url)
+        }
+        
+        return nil
     }
     
     private func createWebsocketMessage(request: String) -> URLSessionWebSocketTask.Message {
