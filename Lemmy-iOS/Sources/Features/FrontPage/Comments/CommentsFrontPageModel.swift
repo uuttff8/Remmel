@@ -51,7 +51,7 @@ class CommentsFrontPageModel: NSObject {
                 self.commentsDataSource = response.comments
                 self.dataLoaded?(response.comments)
             case .failure(let error):
-                print(error)
+                Logger.commonLog.error("Failed to get valid response from getComments request \(error)")
             }
         }
     }
@@ -71,7 +71,7 @@ class CommentsFrontPageModel: NSObject {
                 self.newDataLoaded?(response.comments)
                 completion()
             case .failure(let error):
-                print(error)
+                Logger.commonLog.error("Failed to get valid response from getComments request \(error)")
             }
         }
     }

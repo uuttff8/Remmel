@@ -58,8 +58,8 @@ class PostsFrontPageModel: NSObject {
         
         ApiManager.shared.requestsManager.asyncGetPosts(parameters: parameters)
             .receive(on: RunLoop.main)
-            .sink { (error) in
-                print(error)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
                 self.postsDataSource = response.posts
                 self.dataLoaded?(response.posts)
@@ -83,7 +83,7 @@ class PostsFrontPageModel: NSObject {
                     self.newDataLoaded?(posts.posts)
                     completion()
                 case .failure(let error):
-                    print(error)
+                    Logger.commonLog.error("Failed to get response form GetPosts: \(error)")
                 }
             })
     }
@@ -104,7 +104,7 @@ class PostsFrontPageModel: NSObject {
         self.upvoteDownvoteService.createPostLike(vote: newVote, post: post)
             .receive(on: RunLoop.main)
             .sink { (completion) in
-                print(completion)
+                Logger.logCombineCompletion(completion)
             } receiveValue: { (post) in
                 self.saveNewPost(post)
             }.store(in: &cancellable)

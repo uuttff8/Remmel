@@ -35,9 +35,7 @@ extension ProfileScreenAboutViewModel: ProfileScreenAboutInputProtocol {
     
     func registerSubmodule() { }
     
-    func handleControllerAppearance() {
-        print("asdasd")
-    }
+    func handleControllerAppearance() { }
 }
 
 class ProfileScreenAbout {

@@ -37,14 +37,13 @@ class CreatePostViewModel: CreatePostViewModelProtocol {
         ApiManager.requests.asyncCreatePost(parameters: params)
             .receive(on: RunLoop.main)
             .sink { (completion) in
-                switch completion {
-                case .failure(let error):
+                Logger.logCombineCompletion(completion)
+
+                if case .failure(let error) = completion {
                     self.viewController?.displayCreatePostError(
                         viewModel: .init(error: error.description)
                     )
-                case .finished: break
                 }
-                print(completion)
             } receiveValue: { (response) in
                 
                 self.viewController?.displaySuccessCreatingPost(

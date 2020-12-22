@@ -30,7 +30,7 @@ class CommunitiesPreviewViewModel: CommunitiesPreviewViewModelProtocol {
         ApiManager.requests.asyncListCommunity(parameters: parameters)
             .receive(on: RunLoop.main)
             .sink { (completion) in
-                print(completion)
+                Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
                 
                 self.viewContoller?.displayCommunities(

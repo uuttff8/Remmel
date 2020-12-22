@@ -42,8 +42,8 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
         
         ApiManager.requests.asyncGetCommunity(parameters: parameters)
             .receive(on: RunLoop.main)
-            .sink { (error) in
-                print(error)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
                 
                 self.viewController?.displayCommunityHeader(
@@ -63,8 +63,8 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
         
         ApiManager.shared.requestsManager.asyncGetPosts(parameters: parameters)
             .receive(on: RunLoop.main)
-            .sink { (error) in
-                print(error)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
                 
                 self.viewController?.displayPosts(
@@ -88,8 +88,8 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
         
         ApiManager.requests.asyncGetPosts(parameters: parameters)
             .receive(on: RunLoop.main)
-            .sink { (error) in
-                print(error)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
                 
                 self.viewController?.displayNextPosts(

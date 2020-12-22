@@ -73,7 +73,7 @@ class CreatePostUrlCell: UITableViewCell {
                         self.urlTextField.text = "" + filename
                     }
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    Logger.commonLog.error(error)
                 }
             }
 

@@ -43,18 +43,5 @@ public class Instance: NSManagedObject, Codable, Identifiable {
         
         try container.encode(label, forKey: .label)
         try container.encode(iconUrl, forKey: .iconUrl)
-    }
-    
-    static func getAllInstances() -> [Instance] {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Instance.self))
-        let predicate = NSPredicate(value: true)
-        request.predicate = predicate
-        do {
-            let results = try CoreDataHelper.shared.context.fetch(request)
-            return results as! [Instance]
-        } catch {
-            log.error("Error while getting all videos from CoreData")
-            return []
-        }
-    }
+    }    
 }

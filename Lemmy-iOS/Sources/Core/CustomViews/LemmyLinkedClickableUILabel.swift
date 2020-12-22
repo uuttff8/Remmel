@@ -45,7 +45,8 @@ class LabeledTextView: UITextView {
         // allowing smallDelayRecognizer for links
         // https://stackoverflow.com/questions/46143868/xcode-9-uitextview-links-no-longer-clickable
         if let longPressGestureRecognizer = gestureRecognizer as? UILongPressGestureRecognizer,
-            // comparison value is used to distinguish between 0.12 (smallDelayRecognizer) and 0.5 (textSelectionForce and textLoupe)
+           // comparison value is used to distinguish between 0.12 (smallDelayRecognizer)
+           // and 0.5 (textSelectionForce and textLoupe)
             longPressGestureRecognizer.minimumPressDuration < 0.325 {
             return super.gestureRecognizerShouldBegin(gestureRecognizer)
         }

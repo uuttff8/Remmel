@@ -23,7 +23,7 @@ class CreateCommunityViewModel: CreateCommunityViewModelProtocol {
     func doRemoteCreateCommunity(request: CreateCommunity.RemoteCreateCommunity.Request) {
         guard let jwtToken = LemmyShareData.shared.jwtToken
         else {
-            print("Not Logined")
+            Logger.commonLog.emergency("Create Community should be unreachable when user is not authed")
             return
         }
         
@@ -38,14 +38,12 @@ class CreateCommunityViewModel: CreateCommunityViewModelProtocol {
         ApiManager.requests.asyncCreateCommunity(parameters: params)
             .receive(on: RunLoop.main)
             .sink { (completion) in
+                Logger.commonLog.notice(completion)
                 
-                switch completion {
-                case .failure(let error):
+                if case .failure(let error) = completion {
                     self.viewController?.displayErrorCreatingCommunity(
                         viewModel: .init(error: error.description)
                     )
-                case .finished:
-                    print(completion)
                 }
                 
             } receiveValue: { (response) in

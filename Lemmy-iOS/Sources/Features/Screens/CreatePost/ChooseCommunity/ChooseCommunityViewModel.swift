@@ -36,7 +36,9 @@ class ChooseCommunityViewModel: ChooseCommunityViewModelProtocol {
                     )
                 }
             case let .failure(why):
-                print(why)
+                Logger.commonLog.error(
+                    "Failed to get valid response from listCommunities request \(why)"
+                )
             }
         }
     }
@@ -65,7 +67,9 @@ class ChooseCommunityViewModel: ChooseCommunityViewModelProtocol {
                     )
                 }
             case let .failure(why):
-                print(why)
+                Logger.commonLog.error(
+                    "Failed to get valid response from listCommunities request \(why)"
+                )
             }
         }
     }

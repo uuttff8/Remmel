@@ -57,8 +57,8 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
         
         ApiManager.requests.asyncGetUserDetails(parameters: parameters)
             .receive(on: RunLoop.main)
-            .sink { (error) in
-                print(error)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
             } receiveValue: { [weak self] response in
                 guard let self = self else { return }
                 

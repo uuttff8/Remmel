@@ -41,8 +41,8 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
         
         ApiManager.requests.asyncGetPosts(parameters: params)
             .receive(on: RunLoop.main)
-            .sink { (error) in
-                print(error)
+            .sink { (completion) in
+                Logger.commonLog.notice(completion)
             } receiveValue: { [weak self] (response) in
                 
                 self?.viewController?.displayNextPosts(

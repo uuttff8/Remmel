@@ -88,9 +88,10 @@ class LoginViewController: UIViewController {
         ) { (result: Result<LemmyModel.Authentication.RegisterResponse, LemmyGenericError>) in
             switch result {
             case let .success(response):
+                // TODO: add registration flow next
                 print(response)
             case let .failure(error):
-                print(error)
+                Logger.commonLog.info("Failed to login: \(error)")
                 DispatchQueue.main.async {
                     UIAlertController.createOkAlert(message: error.description)
                 }
@@ -190,7 +191,7 @@ class LoginViewController: UIViewController {
         ) { (res: Result<LemmyModel.Site.GetSiteResponse, LemmyGenericError>) in
             switch res {
             case let .failure(error):
-                print(error)
+                Logger.commonLog.error("Failed to get valid response: \(error)")
             case let .success(data):
                 guard let myUser = data.myUser else { return }
                 completion(myUser)

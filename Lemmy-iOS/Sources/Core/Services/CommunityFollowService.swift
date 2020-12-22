@@ -41,7 +41,7 @@ class CommunityFollowService: CommunityFollowServiceProtocol {
             self.follow(to: community)
                 .receive(on: RunLoop.main)
                 .sink { (completion) in
-                    print(completion)
+                    Logger.logCombineCompletion(completion)
                 } receiveValue: { (respCommunity) in
                     followButton.bind(isSubcribed: respCommunity.subscribed)
                     

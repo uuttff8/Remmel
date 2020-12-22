@@ -7,6 +7,7 @@
 //
 
 import XCGLogger
+import Combine
 
 class Logger {
     private static let appleLogDestination = "advancedLogger.systemDestination"
@@ -28,5 +29,14 @@ class Logger {
     static let commonLog = with(XCGLogger(identifier: commonLogDestitation, includeDefaultDestinations: false)) {
         $0.add(destination: systemDestination)
         $0.logAppDetails()
+    }
+    
+    static func logCombineCompletion<T: Error>(_ completion: Subscribers.Completion<T>) {
+        switch completion {
+        case .finished:
+            commonLog.verbose(completion)
+        case .failure(let error):
+            commonLog.error(error)
+        }
     }
 }

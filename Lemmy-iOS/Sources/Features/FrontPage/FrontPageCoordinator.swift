@@ -53,7 +53,7 @@ class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
         loginCoordinator.start()
 
         guard let loginNavController = loginCoordinator.navigationController else {
-            print("\(#file) loginCoordinator.navigationController is nil")
+            Logger.commonLog.emergency("FrontPage coordinator is nil")
             return
         }
 

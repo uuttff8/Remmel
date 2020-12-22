@@ -36,13 +36,13 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
             .asyncGetSite(parameters: .init(auth: userAccountService.jwtToken))
             .receive(on: RunLoop.main)
             .sink { (completion) in
-                switch completion {
-                case .finished:
-                    print(completion)
-                case .failure:
+                if case .failure = completion {
+                    Logger.commonLog.error("GetSite request with \(request) completion: \(completion)")
                     self.viewController?.displayAddInstanceCheck(
                         viewModel: .init(state: .noResult)
                     )
+                } else {
+                    Logger.commonLog.verbose(completion)
                 }
             } receiveValue: { (response) in
                 

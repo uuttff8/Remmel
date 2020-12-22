@@ -60,11 +60,11 @@ class WSLemmyClient {
     private func wrapper<D: Codable>(url: String, data: D? = nil, completion: @escaping (String) -> Void) {
         
         guard let reqStr = makeRequestString(url: url, data: data) else { return }
-        print(reqStr)
+        Logger.commonLog.info(reqStr)
         
         let wsMessage = createWebsocketMessage(request: reqStr)
         guard let wsTask = createWebsocketTask(instanceUrl: String.cleanUpUrl(url: &instanceUrl)) else {
-            print("Failed to create webscoket task")
+            Logger.commonLog.error("Failed to create webscoket task")
             return
         }
         
@@ -72,14 +72,14 @@ class WSLemmyClient {
         
         wsTask.send(wsMessage) { (error) in
             if let error = error {
-                print("WebSocket couldn’t send message because: \(error)")
+                Logger.commonLog.error("WebSocket couldn’t send message because: \(error)")
             }
         }
         
         wsTask.receive { (res) in
             switch res {
             case let .failure(error):
-                print(error)
+                Logger.commonLog.error(error)
             case let .success(messageType):
                 completion(self.handleMessage(type: messageType))
             }
@@ -93,7 +93,7 @@ class WSLemmyClient {
             encoder.outputFormatting = .prettyPrinted
             guard let orderJsonData = try? encoder.encode(data)
             else {
-                print("failed to encode data \(#file) \(#line)")
+                Logger.commonLog.error("failed to encode data \(#file) \(#line)")
                 return nil
             }
             let sss = String(data: orderJsonData, encoding: .utf8)!

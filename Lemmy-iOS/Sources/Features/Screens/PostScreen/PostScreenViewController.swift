@@ -197,9 +197,8 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
         }
     }
         
-    func showContext(in comment: LemmyModel.CommentView) {
-        print("show context in \(comment.id)")
-    }
+    // TODO: add implementation
+    func showContext(in comment: LemmyModel.CommentView) { }
     
     func reply(to comment: LemmyModel.CommentView) {
         coordinator?.goToWriteComment(postId: comment.postId, parrentComment: comment)

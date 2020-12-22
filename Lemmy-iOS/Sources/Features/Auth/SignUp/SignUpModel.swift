@@ -52,7 +52,7 @@ class SignUpModel {
             player.play()
 
         } catch {
-            print(error.localizedDescription)
+            Logger.commonLog.error("Error while playing audio: \(error)")
         }
     }
 }

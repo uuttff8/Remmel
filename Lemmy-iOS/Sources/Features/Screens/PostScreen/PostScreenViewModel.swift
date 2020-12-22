@@ -51,8 +51,8 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
         
         ApiManager.shared.requestsManager.asyncGetPost(parameters: parameters)
             .receive(on: RunLoop.main)
-            .sink { (error) in
-                print(error)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
             } receiveValue: { [weak self] (response) in
                 guard let self = self else { return }
                 self.viewController?.displayPost(
