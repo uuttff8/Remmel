@@ -25,7 +25,7 @@ final class ApiManager {
     }
     
     class var currentInstance: String {
-        ""
+        "lemmy.ml"
     }
     
     init(instanceUrl: String) {

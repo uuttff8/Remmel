@@ -31,7 +31,11 @@ class WSLemmyClient {
             guard let reqStr = makeRequestString(url: url, data: data)
             else { return promise(.failure("Can't make request string".toLemmyError)) }
             
-            print(reqStr)
+            Logger.commonLog.info(
+            """
+                Current Instance: \(instanceUrl)
+                \(reqStr)
+            """)
             
             let wsMessage = createWebsocketMessage(request: reqStr)
             guard let wsTask = createWebsocketTask(instanceUrl: String.cleanUpUrl(url: &instanceUrl)) else {

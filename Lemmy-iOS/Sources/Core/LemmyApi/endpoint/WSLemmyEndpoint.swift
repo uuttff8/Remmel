@@ -156,7 +156,7 @@ enum WSEndpoint {
             case .lockPost: return "LockPost"
             case .stickyPost: return "StickyPost"
             case .savePost: return "SavePost"
-            case .createPostReport: return "ListPostReports"
+            case .createPostReport: return "CreatePostReport"
             case .resolvePostReport: return "ResolvePostReport"
             case .listPostReports: return "ListPostReports"
             }
