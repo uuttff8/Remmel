@@ -72,8 +72,6 @@
 		4E87C6A9258E68C20007FE5E /* InstancesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C6A8258E68C20007FE5E /* InstancesView.swift */; };
 		4E87C6AE258E696C0007FE5E /* InstancesTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C6AD258E696C0007FE5E /* InstancesTableDataSource.swift */; };
 		4E87C6C9258EA92B0007FE5E /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C6C8258EA92A0007FE5E /* CoreDataManager.swift */; };
-		4E87C6D2258EAAD50007FE5E /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C6D1258EAAD40007FE5E /* Instance.swift */; };
-		4E87C6D3258EAAD50007FE5E /* Instance+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C6D0258EAAD40007FE5E /* Instance+CoreDataProperties.swift */; };
 		4E886C17253626950076B162 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C16253626950076B162 /* SignUpView.swift */; };
 		4E886C1C25364DD70076B162 /* AuthRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C1B25364DD70076B162 /* AuthRequests.swift */; };
 		4E886C2125364EC30076B162 /* UserRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886C2025364EC30076B162 /* UserRequests.swift */; };
@@ -181,6 +179,8 @@
 		4EBB2276255AF77400B88079 /* ProfileScreenPostsInputOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB2275255AF77400B88079 /* ProfileScreenPostsInputOutput.swift */; };
 		4EBB227E255AF7A600B88079 /* ProfileScreenSubmoduleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB227D255AF7A600B88079 /* ProfileScreenSubmoduleProtocol.swift */; };
 		4EBF1D4325913117004068CD /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBF1D4225913117004068CD /* UnderlineTextField.swift */; };
+		4EBF1D4925920AC1004068CD /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBF1D4725920AC1004068CD /* Instance.swift */; };
+		4EBF1D4A25920AC1004068CD /* Instance+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBF1D4825920AC1004068CD /* Instance+CoreDataProperties.swift */; };
 		4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */; };
 		4ECCEEAC250B8B6B0075F921 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEAB250B8B6B0075F921 /* SceneDelegate.swift */; };
 		4ECCEEAE250B8B6B0075F921 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEAD250B8B6B0075F921 /* LoginViewController.swift */; };
@@ -358,8 +358,6 @@
 		4E87C6A8258E68C20007FE5E /* InstancesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancesView.swift; sourceTree = "<group>"; };
 		4E87C6AD258E696C0007FE5E /* InstancesTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancesTableDataSource.swift; sourceTree = "<group>"; };
 		4E87C6C8258EA92A0007FE5E /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		4E87C6D0258EAAD40007FE5E /* Instance+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Instance+CoreDataProperties.swift"; path = "/Users/uuttff8/Developer/Lemmy-iOS/Lemmy-iOS/Sources/Core/Persistence/Instance+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
-		4E87C6D1258EAAD40007FE5E /* Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Instance.swift; path = "/Users/uuttff8/Developer/Lemmy-iOS/Lemmy-iOS/Sources/Core/Persistence/Instance.swift"; sourceTree = "<absolute>"; };
 		4E886C16253626950076B162 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		4E886C1B25364DD70076B162 /* AuthRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequests.swift; sourceTree = "<group>"; };
 		4E886C2025364EC30076B162 /* UserRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequests.swift; sourceTree = "<group>"; };
@@ -465,6 +463,8 @@
 		4EBB2275255AF77400B88079 /* ProfileScreenPostsInputOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenPostsInputOutput.swift; sourceTree = "<group>"; };
 		4EBB227D255AF7A600B88079 /* ProfileScreenSubmoduleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenSubmoduleProtocol.swift; sourceTree = "<group>"; };
 		4EBF1D4225913117004068CD /* UnderlineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
+		4EBF1D4725920AC1004068CD /* Instance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instance.swift; sourceTree = "<group>"; };
+		4EBF1D4825920AC1004068CD /* Instance+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Instance+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lemmy-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4ECCEEAB250B8B6B0075F921 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -791,8 +791,8 @@
 		4E87C6B2258E922C0007FE5E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				4E87C6D1258EAAD40007FE5E /* Instance.swift */,
-				4E87C6D0258EAAD40007FE5E /* Instance+CoreDataProperties.swift */,
+				4EBF1D4725920AC1004068CD /* Instance.swift */,
+				4EBF1D4825920AC1004068CD /* Instance+CoreDataProperties.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1916,6 +1916,7 @@
 				4EBB22392559FC3000B88079 /* Collection+SafeSubscript.swift in Sources */,
 				4E9183AA2567FF4200702F04 /* ChooseCommunityTableDataSource.swift in Sources */,
 				4E0A8E52255C0BEC00B06AF6 /* ProfileScreenCommentsAssembly.swift in Sources */,
+				4EBF1D4A25920AC1004068CD /* Instance+CoreDataProperties.swift in Sources */,
 				4ECCEF27250FB62F0075F921 /* LemmyModel+Community.swift in Sources */,
 				4ECCEF1A250D62580075F921 /* LemmyModel+Comment.swift in Sources */,
 				4EB4F689259024C40057BDCC /* InstancesViewModel.swift in Sources */,
@@ -2024,14 +2025,12 @@
 				4EFAB5D82552FA1100B32780 /* UILabel+Ext.swift in Sources */,
 				4E9183482566C16C00702F04 /* SettingsTableViewCell.swift in Sources */,
 				4EFAB5E72552FA9300B32780 /* UITableView+Ext.swift in Sources */,
-				4E87C6D2258EAAD50007FE5E /* Instance.swift in Sources */,
 				4E3E0F722555BCF70086CE0C /* ProfileScreenViewController.swift in Sources */,
 				4E1A7E6125573CC900E193B7 /* LoadingTableViewCell.swift in Sources */,
 				4E886CEC25442B3B0076B162 /* HttpEndpoint.swift in Sources */,
 				4E886C61253CAF650076B162 /* CreateTransitionDelegateImpl.swift in Sources */,
 				4E9BBA1925553176004FF2F9 /* Enums.swift in Sources */,
 				4EFA81B0255F3FEB008AF535 /* FrontPageSearchSubjectTableCell.swift in Sources */,
-				4E87C6D3258EAAD50007FE5E /* Instance+CoreDataProperties.swift in Sources */,
 				4E87C648258D33810007FE5E /* LemmyMention.swift in Sources */,
 				4EBB22262559EBAA00B88079 /* ColorPalette.swift in Sources */,
 				4ECCEEEA250BA6230075F921 /* WSLemmyClient.swift in Sources */,
@@ -2071,6 +2070,7 @@
 				4ECCEEAC250B8B6B0075F921 /* SceneDelegate.swift in Sources */,
 				4EF3ACD1254EF82C00BEC9F1 /* CommunityScreenViewController.swift in Sources */,
 				4EB89B052521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift in Sources */,
+				4EBF1D4925920AC1004068CD /* Instance.swift in Sources */,
 				4E886C302537598F0076B162 /* SiteRequests.swift in Sources */,
 				4EF3AC9A254C690400BEC9F1 /* CreateCommunitySidebarCell.swift in Sources */,
 				4EBF1D4325913117004068CD /* UnderlineTextField.swift in Sources */,
