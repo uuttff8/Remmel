@@ -82,5 +82,55 @@ extension LemmyModel {
         struct CreatePostLikeResponse: Codable, Equatable, Hashable {
             let post: PostView
         }
+        
+        // MARK: - CreatePostReport -
+        struct CreatePostReportRequest: Codable, Equatable {
+            let postId: Int
+            let reason: String
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case postId = "post_id"
+                case reason, auth
+            }
+        }
+        
+        struct CreatePostReportResponse: Codable, Equatable {
+            let success: Bool
+        }
+        
+        // MARK: - ResolvePostReport -
+        struct ResolvePostReportRequest: Codable, Equatable {
+            let reportId: Int
+            let resolved: Bool
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case reportId = "report_id"
+                case resolved, auth
+            }
+        }
+        
+        struct ResolvePostReportResponse: Codable, Equatable {
+            let reportId: Int
+            let resolved: Bool
+            
+            enum CodingKeys: String, CodingKey {
+                case reportId = "report_id"
+                case resolved
+            }
+        }
+        
+        // MARK: - ListPostReports -
+        struct ListPostReportsRequest: Codable, Equatable {
+            let page: Int?
+            let limit: Int?
+            let community: Int?
+            let auth: String
+        }
+        
+        struct ListPostReportsResponse: Codable, Equatable {
+            let posts: [PostReportView]
+        }
     }
 }

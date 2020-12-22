@@ -32,6 +32,18 @@ private protocol LemmyPostRequestManagerProtocol {
     func asyncCreatePostLike(
         parameters: LemmyModel.Post.CreatePostLikeRequest
     ) -> AnyPublisher<LemmyModel.Post.CreatePostLikeResponse, LemmyGenericError>
+    
+    func asyncCreatePostReport(
+        parameters: LemmyModel.Post.CreatePostReportRequest
+    ) -> AnyPublisher<LemmyModel.Post.CreatePostReportResponse, LemmyGenericError>
+    
+    func asyncResolvePostReport(
+        parameters: LemmyModel.Post.ResolvePostReportRequest
+    ) -> AnyPublisher<LemmyModel.Post.ResolvePostReportResponse, LemmyGenericError>
+    
+    func asyncListPostReportsRequest(
+        parameters: LemmyModel.Post.ListPostReportsRequest
+    ) -> AnyPublisher<LemmyModel.Post.ListPostReportsResponse, LemmyGenericError>
 }
 
 extension RequestsManager: LemmyPostRequestManagerProtocol {
@@ -103,4 +115,23 @@ extension RequestsManager: LemmyPostRequestManagerProtocol {
         
         asyncRequestDecodable(path: WSEndpoint.Post.createPost.endpoint, parameters: parameters)
     }
+    
+    func asyncCreatePostReport(
+        parameters: LemmyModel.Post.CreatePostReportRequest
+    ) -> AnyPublisher<LemmyModel.Post.CreatePostReportResponse, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.Post.createPostReport.endpoint, parameters: parameters)
+    }
+    
+    func asyncResolvePostReport(
+        parameters: LemmyModel.Post.ResolvePostReportRequest
+    ) -> AnyPublisher<LemmyModel.Post.ResolvePostReportResponse, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.Post.resolvePostReport.endpoint, parameters: parameters)
+    }
+    
+    func asyncListPostReportsRequest(
+        parameters: LemmyModel.Post.ListPostReportsRequest
+    ) -> AnyPublisher<LemmyModel.Post.ListPostReportsResponse, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.Post.listPostReports.endpoint, parameters: parameters)
+    }
+
 }

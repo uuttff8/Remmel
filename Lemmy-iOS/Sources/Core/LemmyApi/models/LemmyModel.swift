@@ -117,6 +117,74 @@ enum LemmyModel {
             }
         }
     }
+    
+    struct PostReportView: Codable, Identifiable, Equatable {
+        let id: Int
+        let creatorId: Int
+        let postId: Int
+        let originalPostName: String
+        let originalPostUrl: String?
+        let originalPostBody: String?
+        let reason: String
+        let resolved: Bool
+        let resolverId: Int?
+        let published: Date
+        let updated: Date
+        let currentPostName: String
+        let currentPostUrl: String?
+        let currentPostBody: String?
+        let communityId: Int
+        let creatorActorId: String
+        let creatorName: String
+        let creatorPreferredUsername: String?
+        let creatorAvatar: String?
+        let creatorLocal: Bool
+        let postCreatorId: Int
+        let postCreatorActorId: String
+        let postCreatorName: String
+        let postCreatorPreferredUsername: String?
+        let postCreatorAvatar: String?
+        let postCreatorLocal: Bool
+        let resolverActorId: String?
+        let resolverName: String?
+        let resolverPreferredUsername: String?
+        let resolverAvatar: String?
+        let resolverLocal: Bool?
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case creatorId = "creator_id"
+            case postId = "post_id"
+            case originalPostName = "original_post_name"
+            case originalPostUrl = "original_post_url"
+            case originalPostBody = "original_post_body"
+            case reason, resolved
+            case resolverId = "resolver_id"
+            case published
+            case updated = "updated"
+            case currentPostName = "current_post_name"
+            case currentPostUrl = "current_post_url"
+            case currentPostBody = "current_post_body"
+            case communityId = "community_id"
+            case creatorActorId = "creator_actor_id"
+            case creatorName = "creator_name"
+            case creatorPreferredUsername = "creator_preferred_username"
+            case creatorAvatar = "creator_avatar"
+            case creatorLocal = "creator_local"
+            case postCreatorId = "post_creator_id"
+            case postCreatorActorId = "post_creator_actor_id"
+            case postCreatorName = "post_creator_name"
+            case postCreatorPreferredUsername = "post_creator_preferred_username"
+            case postCreatorAvatar = "post_creator_avatar"
+            case postCreatorLocal = "post_creator_local"
+            case resolverActorId = "resolver_actor_id"
+            case resolverName = "resolver_name"
+            case resolverPreferredUsername = "resolver_preferred_username"
+            case resolverAvatar = "resolver_avatar"
+            case resolverLocal = "resolver_local"
+
+        }
+    }
 
     // MARK: - CommentView -
     struct CommentView: Identifiable, Codable, Equatable, Hashable {
@@ -194,6 +262,7 @@ enum LemmyModel {
         }
     }
     
+    // MARK: - CommentReportView -
     struct CommentReportView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let creatorId: Int
@@ -254,6 +323,7 @@ enum LemmyModel {
         }
     }
 
+    // MARK: - ModRemoveCommentView -
     struct ModRemoveCommentView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
@@ -358,6 +428,7 @@ enum LemmyModel {
         }
     }
 
+    // MARK: - ModBanFromCommunityView -
     struct ModBanFromCommunityView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
@@ -440,7 +511,11 @@ enum LemmyModel {
             case communityIcon = "community_icon"
         }
     }
+    
+    // MARK: - PostReportView -
 
+    
+    // MARK: - ModRemovePostView -
     struct ModRemovePostView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
@@ -466,6 +541,7 @@ enum LemmyModel {
         }
     }
 
+    // MARK: - ModLockPostView -
     struct ModLockPostView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
@@ -490,6 +566,7 @@ enum LemmyModel {
         }
     }
 
+    // MARK: - ModStickyPostView -
     struct ModStickyPostView: Identifiable, Codable, Equatable, Hashable {
         let id: Int
         let modUserId: Int
