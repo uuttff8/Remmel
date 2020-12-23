@@ -29,7 +29,7 @@ class LabeledTextView: UITextView {
     
     override var selectedTextRange: UITextRange? {
         get { return nil }
-        set {}
+        set { /* do nothing to prevent compiler error */ }
     }
 
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {

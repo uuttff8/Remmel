@@ -36,7 +36,7 @@ extension CommunityScreenViewController {
         
         private lazy var tableView = LemmyTableView(style: .plain).then {
             $0.delegate = tableViewDelegate
-            $0.registerClass(PostContentTableCell.self)
+            $0.registerClass(PostContentPreviewTableCell.self)
         }
         
         var communityHeaderViewData: LemmyModel.CommunityView? {

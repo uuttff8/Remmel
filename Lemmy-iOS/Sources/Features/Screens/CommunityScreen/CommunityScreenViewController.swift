@@ -29,17 +29,23 @@ class CommunityScreenViewController: UIViewController {
     private var canTriggerPagination = true
     private var state: CommunityScreen.ViewControllerState
     private let followService: CommunityFollowServiceProtocol
+    private let contentScoreService: ContentScoreServiceProtocol
+    private let showMoreService: ShowMoreHandlerServiceProtocol
     
     private var cancellable = Set<AnyCancellable>()
     
     init(
         viewModel: CommunityScreenViewModelProtocol,
         state: CommunityScreen.ViewControllerState = .loading,
-        followService: CommunityFollowServiceProtocol
+        followService: CommunityFollowServiceProtocol,
+        contentScoreService: ContentScoreServiceProtocol,
+        showMoreService: ShowMoreHandlerServiceProtocol
     ) {
         self.viewModel = viewModel
         self.state = state
         self.followService = followService
+        self.contentScoreService = contentScoreService
+        self.showMoreService = showMoreService
         super.init(nibName: nil, bundle: nil)
     }    
     
@@ -143,9 +149,63 @@ extension CommunityScreenViewController: CommunityScreenTableDataSourceDelegate 
         
         self.canTriggerPagination = false
         self.viewModel.doNextPostsFetch(request: .init(contentType: communityView.contentType))
+    }    
+}
+
+extension CommunityScreenViewController: PostContentPreviewTableCellDelegate {
+    func upvote(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        post: LemmyModel.PostView
+    ) {
+        guard let coordinator = coordinator else { return }
+        
+        ContinueIfLogined(on: self, coordinator: coordinator) {
+            self.contentScoreService.votePost(
+                scoreView: scoreView,
+                voteButton: voteButton,
+                for: newVote,
+                post: post
+            ) { (newPost) in
+                self.tableDataSource.viewModels.updateElementById(newPost)
+            }
+        }
     }
     
-    func tableDidSelect(post: LemmyModel.PostView) {
-        coordinator?.goToPostScreen(post: post)
+    func downvote(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        post: LemmyModel.PostView
+    ) {
+        guard let coordinator = coordinator else { return }
+        
+        ContinueIfLogined(on: self, coordinator: coordinator) {
+            self.contentScoreService.votePost(
+                scoreView: scoreView,
+                voteButton: voteButton,
+                for: newVote,
+                post: post
+            ) { (newPost) in
+                self.tableDataSource.viewModels.updateElementById(newPost)
+            }
+        }
+    }
+    
+    func usernameTapped(in post: LemmyModel.PostView) {
+        self.coordinator?.goToProfileScreen(by: post.creatorId)
+    }
+    
+    func communityTapped(in post: LemmyModel.PostView) {
+        // not used
+    }
+    
+    func showMore(in post: LemmyModel.PostView) {
+        self.showMoreService.showMoreInPost(on: self, post: post)
+    }
+    
+    func postCellDidSelected(postId: LemmyModel.PostView.ID) {
+        self.coordinator?.goToPostScreen(postId: postId)
     }
 }

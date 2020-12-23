@@ -125,7 +125,7 @@ class PostsFrontPageViewController: UIViewController {
             cellProvider: { (tableView, indexPath, _) -> UITableViewCell? in
                 let cell = tableView.cell(forClass: PostContentPreviewTableCell.self)
                 cell.postContentView.delegate = self
-                cell.bind(with: self.model.postsDataSource[indexPath.row])
+                cell.bind(with: self.model.postsDataSource[indexPath.row], isInsideCommunity: false)
                 return cell
             })
     }

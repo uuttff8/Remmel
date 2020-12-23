@@ -46,9 +46,14 @@ class PostContentPreviewTableCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func bind(with post: LemmyModel.PostView) {
-        postContentView.bind(with: post, config: .preview)
+
+    // TODO: refactor this
+    func bind(with post: LemmyModel.PostView, isInsideCommunity: Bool) {
+        if isInsideCommunity {
+            postContentView.bind(with: post, config: .insideComminity)
+        } else {
+            postContentView.bind(with: post, config: .preview)
+        }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

@@ -8,9 +8,8 @@
 
 import UIKit
 
-protocol CommunityScreenTableDataSourceDelegate: AnyObject {
+protocol CommunityScreenTableDataSourceDelegate: PostContentPreviewTableCellDelegate {
     func tableDidRequestPagination(_ tableDataSource: CommunityScreenTableDataSource)
-    func tableDidSelect(post: LemmyModel.PostView)
 }
 
 final class CommunityScreenTableDataSource: NSObject {
@@ -52,24 +51,18 @@ extension CommunityScreenTableDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: PostContentTableCell = tableView.cell(forRowAt: indexPath)
+        let cell: PostContentPreviewTableCell = tableView.cell(forRowAt: indexPath)
         cell.updateConstraintsIfNeeded()
         
         let viewModel = self.viewModels[indexPath.row]
-        cell.bind(with: viewModel, config: .insideComminity)
+        cell.bind(with: viewModel, isInsideCommunity: true)
+        cell.postContentView.delegate = delegate
         
         return cell
     }
 }
 
 extension CommunityScreenTableDataSource: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let post = viewModels[indexPath.row]
-        
-        self.delegate?.tableDidSelect(post: post)
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 5,
            tableView.numberOfSections == 1 {
