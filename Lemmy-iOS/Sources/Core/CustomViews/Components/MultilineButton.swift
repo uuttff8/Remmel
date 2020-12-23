@@ -8,35 +8,33 @@
 
 import UIKit
 
-@IBDesignable
-class MultiLineButton: UIButton {
+/// Drop-in replacement for multiline button containing only a label
+class LabelControl: UIControl {
 
-    // MARK: Setup
-    func setup () {
-        self.titleLabel?.numberOfLines = 0
-
-        //The next two lines are essential in making sure autolayout sizes us correctly
-        self.setContentHuggingPriority(UILayoutPriority.defaultLow + 1, for: .vertical)
-        self.setContentHuggingPriority(UILayoutPriority.defaultLow + 1, for: .horizontal)
-    }
-
-    // MARK: Method overrides
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
-    }
+    let titleLabel: UILabel = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.numberOfLines = 0
+        return $0
+    }(UILabel())
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
+
+        addSubview(titleLabel)
+        
+        titleLabel.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
 
-    override var intrinsicContentSize: CGSize {
-        return self.titleLabel!.intrinsicContentSize
+    override var isHighlighted: Bool {
+        didSet {
+            backgroundColor = backgroundColor?.withAlphaComponent(isHighlighted ? 0.7 : 1.0)
+            titleLabel.textColor = titleLabel.textColor.withAlphaComponent(isHighlighted ? 0.7 : 1.0)
+        }
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        titleLabel?.preferredMaxLayoutWidth = self.titleLabel!.frame.size.width
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
