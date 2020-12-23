@@ -13,7 +13,7 @@ class Logger {
     private static let appleLogDestination = "advancedLogger.systemDestination"
     private static let commonLogDestitation = "advancedLogger"
     
-    private static let systemDestination = with(AppleSystemLogDestination(identifier: appleLogDestination) ) {
+    private static let systemDestination: AppleSystemLogDestination = {
         $0.outputLevel = .debug
         $0.showLogIdentifier = false
         $0.showFunctionName = true
@@ -24,12 +24,14 @@ class Logger {
         $0.showDate = true
         
         $0.logQueue = XCGLogger.logQueue
-    }
+        return $0
+    }(AppleSystemLogDestination(identifier: appleLogDestination))
     
-    static let commonLog = with(XCGLogger(identifier: commonLogDestitation, includeDefaultDestinations: false)) {
+    static let commonLog: XCGLogger = {
         $0.add(destination: systemDestination)
         $0.logAppDetails()
-    }
+        return $0
+    }(XCGLogger(identifier: commonLogDestitation, includeDefaultDestinations: false))
     
     static func logCombineCompletion<T: Error>(
         _ completion: Subscribers.Completion<T>,
