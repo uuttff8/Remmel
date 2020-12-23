@@ -10,7 +10,7 @@ import UIKit
 
 extension CreatePresentTransitionDriver {
     struct Appearance {
-        let backViewAlpha = 0.5
+        let backViewAlpha: CGFloat = 0.5
         let dropdownViewHeight = 150
     }
 }
@@ -51,7 +51,7 @@ class CreatePresentTransitionDriver {
         self.createViewController.view.layoutIfNeeded()
 
         animator = UIViewPropertyAnimator(duration: CreateTransitionDelegateImpl.duration, curve: .easeIn, animations: {
-            self.fromVC.view.alpha = 0.5
+            self.fromVC.view.alpha = self.appearance.backViewAlpha
 
             self.createViewController.createView.snp.makeConstraints { (make) in
                 make.height.equalTo(self.appearance.dropdownViewHeight)
@@ -64,7 +64,6 @@ class CreatePresentTransitionDriver {
         animator?.addCompletion { [weak self] _ in
             self?.completeAnimation()
         }
-
     }
 
     private func completeAnimation() {

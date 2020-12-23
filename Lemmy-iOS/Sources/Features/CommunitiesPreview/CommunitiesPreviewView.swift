@@ -37,6 +37,10 @@ class CommunitiesPreviewView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func scrollToTop() {
+        self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+    }
+    
     func showLoadingView() {
         tableView.showActivityIndicator()
     }
