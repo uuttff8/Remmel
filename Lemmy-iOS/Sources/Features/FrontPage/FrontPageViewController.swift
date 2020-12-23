@@ -120,8 +120,7 @@ class FrontPageViewController: UIViewController {
             // sorry for these values
             
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(5)
-            $0.leading.equalToSuperview().inset(10)
-            $0.trailing.equalToSuperview().inset(16)
+            $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
             $0.height.equalTo(30)
         }
     }
