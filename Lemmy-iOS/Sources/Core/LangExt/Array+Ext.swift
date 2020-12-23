@@ -21,5 +21,5 @@ extension Array where Element: Identifiable {
         if let index = self.firstIndex(where: { $0.id == element.id }) {
             self[index] = element
         }
-    }
+    }    
 }

@@ -24,18 +24,22 @@ class PostScreenViewController: UIViewController, Containered {
         $0.delegate = self
     }
     
-    private lazy var foldableCommentsViewController = FoldableLemmyCommentsViewController().then {
+    private lazy var commentsViewController = FoldableLemmyCommentsViewController().then {
         $0.commentDelegate = self
     }
     
     private var state: PostScreen.ViewControllerState
+    
+    private let scrollToComment: LemmyModel.CommentView?
 
     init(
         viewModel: PostScreenViewModelProtocol,
-        state: PostScreen.ViewControllerState = .loading
+        state: PostScreen.ViewControllerState = .loading,
+        scrollToComment: LemmyModel.CommentView?
     ) {
         self.viewModel = viewModel
         self.state = state
+        self.scrollToComment = scrollToComment
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -47,7 +51,7 @@ class PostScreenViewController: UIViewController, Containered {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.add(asChildViewController: foldableCommentsViewController)
+        self.add(asChildViewController: commentsViewController)
         
         viewModel.doPostFetch()
         self.updateState(newState: state)
@@ -73,23 +77,25 @@ class PostScreenViewController: UIViewController, Containered {
         }
 
         if case .result(let data) = newState {
+            self.state = .result(data: data)
             self.postScreenView.bind(with: data.post)
-            self.foldableCommentsViewController.showComments(with: data.comments)
-            self.foldableCommentsViewController.setupHeaderView(postScreenView)
+            self.commentsViewController.showComments(with: data.comments)
+            self.commentsViewController.setupHeaderView(postScreenView)
+            
+            if let comment = self.scrollToComment {
+                self.commentsViewController.scrollTo(comment)
+            }
         }
     }
 }
 
 extension PostScreenViewController: PostScreenViewControllerProtocol {
     func displayPost(viewModel: PostScreen.PostLoad.ViewModel) {
-//        guard case let .result(data) = response.state else { return }
-                
-//        self.tableDataSource.viewModels = data.comments
         self.updateState(newState: viewModel.state)
     }
         
     func operateSaveNewComment(viewModel: PostScreen.SaveComment.ViewModel) {
-        foldableCommentsViewController.saveNewComment(comment: viewModel.comment)
+        commentsViewController.saveNewComment(comment: viewModel.comment)
     }
 
     func operateSaveNewPost(viewModel: PostScreen.SavePost.ViewModel) {

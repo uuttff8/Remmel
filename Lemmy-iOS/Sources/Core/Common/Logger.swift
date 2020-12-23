@@ -31,12 +31,17 @@ class Logger {
         $0.logAppDetails()
     }
     
-    static func logCombineCompletion<T: Error>(_ completion: Subscribers.Completion<T>) {
+    static func logCombineCompletion<T: Error>(
+        _ completion: Subscribers.Completion<T>,
+        functionName: StaticString = #function,
+        fileName: StaticString = #file,
+        lineNumber: Int = #line
+    ) {
         switch completion {
         case .finished:
-            commonLog.verbose(completion)
+            commonLog.verbose(completion, functionName: functionName, fileName: fileName, lineNumber: lineNumber)
         case .failure(let error):
-            commonLog.error(error)
+            commonLog.error(error, functionName: functionName, fileName: fileName, lineNumber: lineNumber)
         }
     }
 }

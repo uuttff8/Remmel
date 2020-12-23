@@ -124,7 +124,9 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
     }
     
     // TODO: add implementation
-    func showContext(in comment: LemmyModel.CommentView) { }
+    func showContext(in comment: LemmyModel.CommentView) {
+        self.coordinator?.goToPostAndScroll(to: comment)
+    }
     
     func reply(to comment: LemmyModel.CommentView) {
         coordinator?.goToWriteComment(postId: comment.postId, parrentComment: comment)

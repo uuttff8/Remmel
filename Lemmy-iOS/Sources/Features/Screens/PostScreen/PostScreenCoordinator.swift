@@ -11,9 +11,14 @@ import SafariServices
 
 class PostScreenCoordinator: GenericCoordinator<PostScreenViewController> {
     
-    init(navigationController: UINavigationController?, postId: Int, postInfo: LemmyModel.PostView? = nil) {
+    init(
+        navigationController: UINavigationController?,
+        postId: Int,
+        postInfo: LemmyModel.PostView? = nil,
+        scrollToComment: LemmyModel.CommentView? = nil
+    ) {
         super.init(navigationController: navigationController)
-        let assembly = PostScreenAssembly(postId: postId, postInfo: postInfo)
+        let assembly = PostScreenAssembly(postId: postId, postInfo: postInfo, scrollToComment: scrollToComment)
         self.rootViewController = assembly.makeModule()
     }
 

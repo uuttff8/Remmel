@@ -50,6 +50,15 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         }
     }
     
+    func scrollTo(_ comment: LemmyModel.CommentView) {
+        if let index = commentDataSource.firstIndex(where: { comment in
+            comment.commentContent?.id == comment.id
+        }) {
+            let indexPathToScroll = IndexPath(row: index, section: 0)
+            tableView.scrollToRow(at: indexPathToScroll, at: .middle, animated: true)
+        }
+    }
+    
     func setupHeaderView(_ headerView: UIView) {
         self.tableView.tableHeaderView = headerView
         self.tableView.layoutTableHeaderView()
