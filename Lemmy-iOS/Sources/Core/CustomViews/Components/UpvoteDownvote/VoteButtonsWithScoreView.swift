@@ -116,7 +116,7 @@ class VoteButtonsWithScoreView: UIView {
         case .down:
             self.scoreLabel.text = String(self.lastKnownVoteScore + 2)
             self.lastKnownVoteScore += 2
-            self.lastKnownVoteType = .down
+            self.lastKnownVoteType = .up
         case .none:
             self.scoreLabel.text = String(self.lastKnownVoteScore + 1)
             self.lastKnownVoteScore += 1
