@@ -53,7 +53,7 @@ extension CommentContentTableCell {
 }
 
 // MARK: - CommentContentTableCell: CommentCell
-class CommentContentTableCell: CommentCell {
+class CommentContentTableCell: CommentCell, ContentFocusable {
 
     var appearance = Appearance()
     

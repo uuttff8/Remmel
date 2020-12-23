@@ -183,6 +183,7 @@
 		4EBF1D582592365A004068CD /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBF1D572592365A004068CD /* Logger.swift */; };
 		4EBF1D5E25923723004068CD /* XCGLogger in Frameworks */ = {isa = PBXBuildFile; productRef = 4EBF1D5D25923723004068CD /* XCGLogger */; };
 		4EBF1D662593A692004068CD /* ShowContextCommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBF1D652593A691004068CD /* ShowContextCommentService.swift */; };
+		4EBF1D6E2593EFCA004068CD /* ContentFocusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBF1D6D2593EFCA004068CD /* ContentFocusable.swift */; };
 		4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */; };
 		4ECCEEAC250B8B6B0075F921 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEAB250B8B6B0075F921 /* SceneDelegate.swift */; };
 		4ECCEEAE250B8B6B0075F921 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEAD250B8B6B0075F921 /* LoginViewController.swift */; };
@@ -469,6 +470,7 @@
 		4EBF1D4825920AC1004068CD /* Instance+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Instance+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4EBF1D572592365A004068CD /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		4EBF1D652593A691004068CD /* ShowContextCommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContextCommentService.swift; sourceTree = "<group>"; };
+		4EBF1D6D2593EFCA004068CD /* ContentFocusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentFocusable.swift; sourceTree = "<group>"; };
 		4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lemmy-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4ECCEEAB250B8B6B0075F921 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -1161,6 +1163,7 @@
 				4EBB220825598AA700B88079 /* Containered.swift */,
 				4EBB220D25598AC100B88079 /* ProgrammaticallyInitializableView.swift */,
 				4EBB221225598B0C00B88079 /* Assembly.swift */,
+				4EBF1D6D2593EFCA004068CD /* ContentFocusable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -2149,6 +2152,7 @@
 				4E9BBA592555560C004FF2F9 /* LemmyImageTextPickerView.swift in Sources */,
 				4E0A8E3F255C01F400B06AF6 /* ProfileScreenCommentsTableDataSource.swift in Sources */,
 				4E918512256E9EFD00702F04 /* CommentTypes.swift in Sources */,
+				4EBF1D6E2593EFCA004068CD /* ContentFocusable.swift in Sources */,
 				4EFA81DA256175B3008AF535 /* CommunityTableDataSource.swift in Sources */,
 				4EBB22342559EF2100B88079 /* WeakBox.swift in Sources */,
 				4EBB22192559EB3600B88079 /* StyledNavigationController.swift in Sources */,
