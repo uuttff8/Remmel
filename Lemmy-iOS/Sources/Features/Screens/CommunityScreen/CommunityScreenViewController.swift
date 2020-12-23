@@ -152,28 +152,8 @@ extension CommunityScreenViewController: CommunityScreenTableDataSourceDelegate 
     }    
 }
 
-extension CommunityScreenViewController: PostContentPreviewTableCellDelegate {
-    func upvote(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        newVote: LemmyVoteType,
-        post: LemmyModel.PostView
-    ) {
-        guard let coordinator = coordinator else { return }
-        
-        ContinueIfLogined(on: self, coordinator: coordinator) {
-            self.contentScoreService.votePost(
-                scoreView: scoreView,
-                voteButton: voteButton,
-                for: newVote,
-                post: post
-            ) { (newPost) in
-                self.tableDataSource.viewModels.updateElementById(newPost)
-            }
-        }
-    }
-    
-    func downvote(
+extension CommunityScreenViewController: PostContentPreviewTableCellDelegate {    
+    func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,

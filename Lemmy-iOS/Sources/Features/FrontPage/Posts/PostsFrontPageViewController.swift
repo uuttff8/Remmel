@@ -79,8 +79,9 @@ class PostsFrontPageViewController: UIViewController {
     }
     
     func addFirstRows(with list: [LemmyModel.PostView], animate: Bool = true) {
-        snapshot.appendSections(Section.allCases)
-        snapshot.appendItems(list, toSection: .posts)
+        self.tableView.hideActivityIndicator()
+        self.snapshot.appendSections(Section.allCases)
+        self.snapshot.appendItems(list, toSection: .posts)
         DispatchQueue.main.async { [self] in
             dataSource.apply(snapshot, animatingDifferences: false)
         }
@@ -180,38 +181,8 @@ extension PostsFrontPageViewController: PostContentPreviewTableCellDelegate {
         let post = model.getPost(by: postId).require()
         self.coordinator?.goToPostScreen(post: post)
     }
-        
-    func upvote(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        newVote: LemmyVoteType,
-        post: LemmyModel.PostView
-    ) {
-        vote(scoreView: scoreView, voteButton: voteButton, newVote: newVote, post: post)
-    }
-    
-    func downvote(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        newVote: LemmyVoteType,
-        post: LemmyModel.PostView
-    ) {
-        vote(scoreView: scoreView, voteButton: voteButton, newVote: newVote, post: post)
-    }
-    
-    func usernameTapped(in post: LemmyModel.PostView) {
-        coordinator?.goToProfileScreen(by: post.creatorId)
-    }
-    
-    func communityTapped(in post: LemmyModel.PostView) {
-        coordinator?.goToCommunityScreen(communityId: post.communityId)
-    }
-    
-    func showMore(in post: LemmyModel.PostView) {
-        showMoreHandler.showMoreInPost(on: self, post: post)
-    }
-    
-    private func vote(
+            
+    func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
@@ -224,4 +195,16 @@ extension PostsFrontPageViewController: PostContentPreviewTableCellDelegate {
             model.createPostLike(newVote: newVote, post: post)
         }
     }
+    
+    func usernameTapped(in post: LemmyModel.PostView) {
+        coordinator?.goToProfileScreen(by: post.creatorId)
+    }
+    
+    func communityTapped(in post: LemmyModel.PostView) {
+        coordinator?.goToCommunityScreen(communityId: post.communityId)
+    }
+    
+    func showMore(in post: LemmyModel.PostView) {
+        showMoreHandler.showMoreInPost(on: self, post: post)
+    }    
 }

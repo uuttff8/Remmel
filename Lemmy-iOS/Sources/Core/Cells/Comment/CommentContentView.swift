@@ -116,11 +116,11 @@ class CommentContentView: UIView {
         }
 
         footerView.downvoteTap = { [weak self] (scoreView, button, voteType) in
-            self?.delegate?.downvote(scoreView: scoreView, voteButton: button, newVote: voteType, comment: comment)
+            self?.delegate?.voteContent(scoreView: scoreView, voteButton: button, newVote: voteType, comment: comment)
         }
         
         footerView.upvoteTap = { [weak self] (scoreView, button, voteType) in
-            self?.delegate?.upvote(scoreView: scoreView, voteButton: button, newVote: voteType, comment: comment)
+            self?.delegate?.voteContent(scoreView: scoreView, voteButton: button, newVote: voteType, comment: comment)
         }
 
         footerView.replyTap = { [weak self] in

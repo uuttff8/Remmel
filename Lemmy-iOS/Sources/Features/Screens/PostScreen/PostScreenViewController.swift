@@ -113,22 +113,17 @@ extension PostScreenViewController: PostContentTableCellDelegate {
         self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }
     
-    func upvote(
+    func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
         post: LemmyModel.PostView
     ) {
-        vote(scoreView: scoreView, voteButton: voteButton, newVote: newVote, post: post)
-    }
-    
-    func downvote(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        newVote: LemmyVoteType,
-        post: LemmyModel.PostView
-    ) {
-        vote(scoreView: scoreView, voteButton: voteButton, newVote: newVote, post: post)
+        guard let coordinator = coordinator else { return }
+        
+        ContinueIfLogined(on: self, coordinator: coordinator) {
+            viewModel.doPostLike(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post)
+        }
     }
     
     func usernameTapped(in post: LemmyModel.PostView) {
@@ -145,19 +140,6 @@ extension PostScreenViewController: PostContentTableCellDelegate {
     
     func showMore(in post: LemmyModel.PostView) {
         self.showMoreHandlerService.showMoreInPost(on: self, post: post)
-    }
-    
-    private func vote(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        newVote: LemmyVoteType,
-        post: LemmyModel.PostView
-    ) {
-        guard let coordinator = coordinator else { return }
-        
-        ContinueIfLogined(on: self, coordinator: coordinator) {
-            viewModel.doPostLike(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post)
-        }
     }
 }
 
@@ -177,20 +159,8 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
     func communityTapped(in comment: LemmyModel.CommentView) {
         self.coordinator?.goToCommunityScreen(communityId: comment.communityId)
     }
-    
-    func upvote(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView) {
-        guard let coordinator = coordinator else { return }
         
-        ContinueIfLogined(on: self, coordinator: coordinator) {
-            self.viewModel.doCommentLike(scoreView: scoreView, voteButton: voteButton, for: newVote, comment: comment)
-        }
-    }
-    
-    func downvote(
+    func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,

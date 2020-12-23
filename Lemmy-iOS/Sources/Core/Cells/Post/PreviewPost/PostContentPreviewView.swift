@@ -82,11 +82,11 @@ class PostContentPreviewView: UIView {
         }
         
         footerView.downvoteButtonTap = { [weak self] (scoreView, button, voteType) in
-            self?.delegate?.downvote(scoreView: scoreView, voteButton: button, newVote: voteType, post: post)
+            self?.delegate?.voteContent(scoreView: scoreView, voteButton: button, newVote: voteType, post: post)
         }
         
         footerView.upvoteButtonTap = { [weak self] (scoreView, button, voteType) in
-            self?.delegate?.upvote(scoreView: scoreView, voteButton: button, newVote: voteType, post: post)
+            self?.delegate?.voteContent(scoreView: scoreView, voteButton: button, newVote: voteType, post: post)
         }
     }
     

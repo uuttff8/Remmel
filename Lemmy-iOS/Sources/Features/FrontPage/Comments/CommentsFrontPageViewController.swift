@@ -45,6 +45,11 @@ class CommentsFrontPageViewController: UIViewController {
         }        
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.showActivityIndicator()
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -64,6 +69,7 @@ class CommentsFrontPageViewController: UIViewController {
     }
 
     func addFirstRows(with list: [LemmyModel.CommentView], animate: Bool = true) {
+        self.tableView.hideActivityIndicator()
         snapshot.appendSections([.main])
         snapshot.appendItems(list)
         DispatchQueue.main.async { [self] in
@@ -104,26 +110,21 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
     func communityTapped(in comment: LemmyModel.CommentView) {
         self.coordinator?.goToCommunityScreen(communityId: comment.communityId)
     }
-    
-    func upvote(
+        
+    func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
         comment: LemmyModel.CommentView
     ) {
-        vote(scoreView: scoreView, voteButton: voteButton, newVote: newVote, comment: comment)
+        guard let coordinator = coordinator else { return }
+        
+        ContinueIfLogined(on: self, coordinator: coordinator) {
+            scoreView.setVoted(voteButton: voteButton, to: newVote)
+            model.createCommentLike(newVote: newVote, comment: comment)
+        }
     }
     
-    func downvote(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView
-    ) {
-        vote(scoreView: scoreView, voteButton: voteButton, newVote: newVote, comment: comment)
-    }
-    
-    // TODO: add implementation
     func showContext(in comment: LemmyModel.CommentView) {
         self.coordinator?.goToPostAndScroll(to: comment)
     }
@@ -138,19 +139,5 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
     
     func showMoreAction(in comment: LemmyModel.CommentView) {
         showMoreHandler.showMoreInComment(on: self, comment: comment)
-    }
-    
-    private func vote(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView
-    ) {
-        guard let coordinator = coordinator else { return }
-        
-        ContinueIfLogined(on: self, coordinator: coordinator) {
-            scoreView.setVoted(voteButton: voteButton, to: newVote)
-            model.createCommentLike(newVote: newVote, comment: comment)
-        }
-    }
+    }    
 }

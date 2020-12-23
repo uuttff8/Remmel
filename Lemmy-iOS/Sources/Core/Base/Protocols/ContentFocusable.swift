@@ -19,7 +19,6 @@ extension ContentFocusable where Self: UITableViewCell {
             UIView.animate(withDuration: 1.0) {
                 self.contentView.backgroundColor = UIColor.systemBackground
             }
-
         }
     }
 }

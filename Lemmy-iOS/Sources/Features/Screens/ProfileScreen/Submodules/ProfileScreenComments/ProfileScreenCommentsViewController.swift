@@ -101,21 +101,8 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
     func postNameTapped(in comment: LemmyModel.CommentView) {
         self.coordinator?.goToPostScreen(postId: comment.postId)
     }
-    
-    func upvote(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView
-    ) {
-        guard let coordinator = coordinator else { return }
         
-        ContinueIfLogined(on: self, coordinator: coordinator) {
-            self.viewModel.doCommentLike(scoreView: scoreView, voteButton: voteButton, for: newVote, comment: comment)
-        }
-    }
-    
-    func downvote(
+    func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,

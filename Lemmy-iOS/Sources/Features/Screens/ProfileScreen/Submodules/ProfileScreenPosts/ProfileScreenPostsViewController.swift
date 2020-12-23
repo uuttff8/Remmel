@@ -120,28 +120,8 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
     func onMentionTap(in post: LemmyModel.PostView, mention: LemmyMention) {
         self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }
-    
-    func upvote(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        newVote: LemmyVoteType,
-        post: LemmyModel.PostView
-    ) {
-        guard let coordinator = coordinator else { return }
         
-        ContinueIfLogined(on: self, coordinator: coordinator) {
-            self.contentScoreService.votePost(scoreView: scoreView,
-                                              voteButton: voteButton,
-                                              for: newVote,
-                                              post: post) { (post) in
-                
-                self.tableDataSource.viewModels.updateElementById(post)
-                
-            }
-        }
-    }
-    
-    func downvote(
+    func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
