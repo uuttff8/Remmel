@@ -47,6 +47,7 @@ extension ProfileScreenPostsViewController {
             $0.backgroundColor = .clear
             $0.showsVerticalScrollIndicator = false
             $0.delegate = self
+            $0.tableHeaderView = profileScreenHeader
         }
                 
         private lazy var emptyStateLabel = UILabel().then {
@@ -98,7 +99,6 @@ extension ProfileScreenPostsViewController {
             _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
 //            self.emptyStateLabel.isHidden = numberOfRows != 0
 
-            self.tableView.tableHeaderView = profileScreenHeader
             self.tableView.dataSource = dataSource
             self.tableView.reloadData()
         }

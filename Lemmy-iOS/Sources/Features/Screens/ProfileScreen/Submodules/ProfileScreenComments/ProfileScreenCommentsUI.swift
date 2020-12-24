@@ -10,6 +10,7 @@ import UIKit
 
 protocol ProfileScreenCommentsViewDelegate: AnyObject {
     func profileScreenPostsViewDidPickerTapped(toVc: UIViewController)
+    func profileScreenComments(_ view: ProfileScreenCommentsViewController.View, didPickedNewSort type: LemmySortType)
 }
 
 extension ProfileScreenCommentsViewController.View {
@@ -28,18 +29,23 @@ extension ProfileScreenCommentsViewController {
         weak var delegate: ProfileScreenCommentsViewDelegate?
         
         let appearance: Appearance
-        var contentType: LemmySortType = .active
+        var sortType: LemmySortType = .active {
+            didSet {
+                self.delegate?.profileScreenComments(self, didPickedNewSort: sortType)
+            }
+        }
         
         // Proxify delegates
         private weak var pageScrollViewDelegate: UIScrollViewDelegate?
         
-        weak var tableViewManager: ProfileScreenCommentsTableDataSource?
+        weak var tableManager: ProfileScreenCommentsTableDataSource?
         
         private lazy var tableView = LemmyTableView(style: .plain, separator: false).then {
             $0.registerClass(CommentContentTableCell.self)
             $0.backgroundColor = .clear
             $0.showsVerticalScrollIndicator = false
             $0.delegate = self
+            $0.tableHeaderView = commentsHeaderView
         }
         
         private lazy var commentsHeaderView = ProfileScreenTableHeaderView().then { view in
@@ -49,7 +55,7 @@ extension ProfileScreenCommentsViewController {
             }
 
             view.contentTypeView.newCasePicked = { newCase in
-                self.contentType = newCase
+                self.sortType = newCase
             }
         }
         
@@ -65,7 +71,7 @@ extension ProfileScreenCommentsViewController {
             appearance: Appearance = Appearance()
         ) {
             self.appearance = appearance
-            self.tableViewManager = tableViewManager
+            self.tableManager = tableViewManager
             super.init(frame: frame)
 
             self.setupView()
@@ -87,10 +93,10 @@ extension ProfileScreenCommentsViewController {
         }
         
         func updateTableViewData(dataSource: UITableViewDataSource & UITableViewDelegate) {
+            self.hideLoadingIndicator()
             _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
 //            self.emptyStateLabel.isHidden = numberOfRows != 0
 
-            self.tableView.tableHeaderView = commentsHeaderView
             self.tableView.dataSource = dataSource
             self.tableView.reloadData()
         }
@@ -102,11 +108,16 @@ extension ProfileScreenCommentsViewController {
         }
         
         func appendNew(data: [LemmyModel.CommentView]) {
-            self.tableViewManager?.appendNew(comments: data) { (newIndexpaths) in
+            self.tableManager?.appendNew(comments: data) { (newIndexpaths) in
                 tableView.performBatchUpdates {
                     tableView.insertRows(at: newIndexpaths, with: .none)
                 }
             }
+        }
+        
+        func deleteAllContent() {
+            self.tableManager?.viewModels = []
+            self.tableView.reloadData()
         }
         
         override func layoutSubviews() {
@@ -145,7 +156,7 @@ extension ProfileScreenCommentsViewController.View: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        self.tableViewManager?.tableView(tableView, willDisplay: cell, forRowAt: indexPath)
+        self.tableManager?.tableView(tableView, willDisplay: cell, forRowAt: indexPath)
     }
 }
 

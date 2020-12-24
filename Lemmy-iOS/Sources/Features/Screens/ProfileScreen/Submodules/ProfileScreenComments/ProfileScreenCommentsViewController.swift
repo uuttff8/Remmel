@@ -168,6 +168,12 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
 }
 
 extension ProfileScreenCommentsViewController: ProfileScreenCommentsViewDelegate {
+    func profileScreenComments(_ view: View, didPickedNewSort type: LemmySortType) {
+        self.commentsPostsView?.showLoadingIndicator()
+        self.commentsPostsView?.deleteAllContent()
+        self.viewModel.doProfileCommentsFetch(request: .init(sortType: type))
+    }
+    
     func profileScreenPostsViewDidPickerTapped(toVc: UIViewController) {
         self.present(toVc, animated: true)
     }

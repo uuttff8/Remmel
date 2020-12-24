@@ -11,7 +11,7 @@ import Combine
 
 protocol ProfileScreenCommentsViewModelProtocol {
     // TODO do pagination
-    func doProfileCommentsFetch()
+    func doProfileCommentsFetch(request: ProfileScreenComments.CommentsLoad.Request)
     func doNextCommentsFetch(request: ProfileScreenComments.NextProfileCommentsLoad.Request)
 }
 
@@ -26,7 +26,32 @@ class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
 
     var cancellable = Set<AnyCancellable>()
     
-    func doProfileCommentsFetch() { }
+    func doProfileCommentsFetch(request: ProfileScreenComments.CommentsLoad.Request) {
+        self.paginationState.page = 1
+        
+        let params = LemmyModel.User.GetUserDetailsRequest(userId: loadedProfile?.id,
+                                                           username: loadedProfile?.name,
+                                                           sort: request.sortType,
+                                                           page: paginationState.page,
+                                                           limit: 50,
+                                                           communityId: nil,
+                                                           savedOnly: false,
+                                                           auth: LemmyShareData.shared.jwtToken)
+
+        ApiManager.requests.asyncGetUserDetails(parameters: params)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
+            } receiveValue: { [weak self] (response) in
+                
+                self?.viewController?.displayNextComments(
+                    viewModel: .init(
+                        state: .result(data: response.comments)
+                    )
+                )
+                
+            }.store(in: &cancellable)
+    }
     
     func doNextCommentsFetch(request: ProfileScreenComments.NextProfileCommentsLoad.Request) {
         self.paginationState.page += 1
@@ -76,8 +101,8 @@ extension ProfileScreenCommentsViewModel: ProfileScreenCommentsInputProtocol {
 
 enum ProfileScreenComments {
     enum CommentsLoad {
-        struct Response {
-            let comments: [LemmyModel.CommentView]
+        struct Request {
+            let sortType: LemmySortType
         }
         
         struct ViewModel {
