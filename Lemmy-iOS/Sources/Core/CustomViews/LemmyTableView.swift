@@ -28,6 +28,7 @@ final class LemmyTableView: UITableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // https://www.rightpoint.com/rplabs/fixing-controls-and-scrolling-button-views-ios
     override func touchesShouldCancel(in view: UIView) -> Bool {
         if view is UIControl
             && !(view is UITextInput)

@@ -18,18 +18,10 @@ protocol ProfileScreenCommentsViewModelProtocol {
 class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
     weak var viewController: ProfileScreenCommentsViewControllerProtocol?
     
-    private let contentScoreService: ContentScoreServiceProtocol
-    
     typealias PaginationState = (page: Int, hasNext: Bool)
     private var paginationState = PaginationState(page: 1, hasNext: true)
 
     var cancellable = Set<AnyCancellable>()
-    
-    init(
-        contentScoreService: ContentScoreServiceProtocol
-    ) {
-        self.contentScoreService = contentScoreService
-    }
     
     func doProfileCommentsFetch() { }
     

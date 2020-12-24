@@ -22,6 +22,7 @@ class ProfileScreenCommentsViewController: UIViewController {
         $0.delegate = self
     }
     private let showMoreHandler: ShowMoreHandlerServiceProtocol
+    private let contentScoreService: ContentScoreServiceProtocol
 
     lazy var commentsPostsView = self.view as? ProfileScreenCommentsViewController.View
 
@@ -32,11 +33,13 @@ class ProfileScreenCommentsViewController: UIViewController {
     init(
         viewModel: ProfileScreenCommentsViewModel,
         initialState: ProfileScreenComments.ViewControllerState = .loading,
-        showMoreHandler: ShowMoreHandlerServiceProtocol
+        showMoreHandler: ShowMoreHandlerServiceProtocol,
+        contentScoreService: ContentScoreServiceProtocol
     ) {
         self.viewModel = viewModel
         self.state = initialState
         self.showMoreHandler = showMoreHandler
+        self.contentScoreService = contentScoreService
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -133,7 +136,14 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-//            self.viewModel.
+            self.contentScoreService.voteComment(
+                scoreView: scoreView,
+                voteButton: voteButton,
+                for: newVote,
+                comment: comment
+            ) { (comment) in
+                self.tableDataSource.viewModels.updateElementById(comment)
+            }
         }
     }
     
