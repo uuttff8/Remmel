@@ -77,16 +77,5 @@ class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
         searchViewController.coordinator = nil
         self.searchViewController.hideSearchIfNeeded()
         self.searchViewController.searchQuery = ""
-    }
-    
-    func goToPostAndScroll(to comment: LemmyModel.CommentView) {
-        let coordinator = PostScreenCoordinator(
-            navigationController: navigationController,
-            postId: comment.postId,
-            postInfo: nil,
-            scrollToComment: comment                                    
-        )
-        self.store(coordinator: coordinator)
-        coordinator.start()
-    }
+    }    
 }

@@ -25,7 +25,7 @@ class ProfileScreenCommentsViewController: UIViewController {
     private let showMoreHandler: ShowMoreHandlerServiceProtocol
     private let contentScoreService: ContentScoreServiceProtocol
 
-    lazy var commentsPostsView = self.view as? ProfileScreenCommentsViewController.View
+    lazy var commentsPostsView = self.view as! ProfileScreenCommentsViewController.View
 
     private var tablePage = 1
     private var state: ProfileScreenComments.ViewControllerState
@@ -66,19 +66,19 @@ class ProfileScreenCommentsViewController: UIViewController {
         }
 
         if case .loading = newState {
-            self.commentsPostsView?.showLoadingIndicator()
+            self.commentsPostsView.showLoadingIndicator()
             return
         }
 
         if case .loading = self.state {
-            self.commentsPostsView?.hideLoadingIndicator()
+            self.commentsPostsView.hideLoadingIndicator()
         }
 
         if case .result(let data) = newState {
             if data.comments.isEmpty {
-                self.commentsPostsView?.displayNoData()
+                self.commentsPostsView.displayNoData()
             } else {
-                self.commentsPostsView?.updateTableViewData(dataSource: self.tableDataSource)
+                self.commentsPostsView.updateTableViewData(dataSource: self.tableDataSource)
             }
         }
     }
@@ -95,7 +95,7 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsViewControll
         guard case let .result(comments) = viewModel.state else { return }
         
         self.tableDataSource.viewModels.append(contentsOf: comments)
-        self.commentsPostsView?.appendNew(data: comments)
+        self.commentsPostsView.appendNew(data: comments)
         
         if comments.isEmpty {
             self.canTriggerPagination = false
@@ -110,8 +110,7 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
         guard self.canTriggerPagination else { return }
         
         self.canTriggerPagination = false
-        // TODO support other type of content
-        self.viewModel.doNextCommentsFetch(request: .init(sortType: .active))
+        self.viewModel.doNextCommentsFetch(request: .init(sortType: commentsPostsView.sortType))
     }
     
     func onMentionTap(in post: LemmyModel.CommentView, mention: LemmyMention) {
@@ -151,7 +150,7 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
     }
     
     func showContext(in comment: LemmyModel.CommentView) {
-        // no more yet
+        self.coordinator?.goToPostAndScroll(to: comment)
     }
     
     func reply(to comment: LemmyModel.CommentView) {
@@ -169,8 +168,8 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
 
 extension ProfileScreenCommentsViewController: ProfileScreenCommentsViewDelegate {
     func profileScreenComments(_ view: View, didPickedNewSort type: LemmySortType) {
-        self.commentsPostsView?.showLoadingIndicator()
-        self.commentsPostsView?.deleteAllContent()
+        self.commentsPostsView.showLoadingIndicator()
+        self.commentsPostsView.deleteAllContent()
         self.viewModel.doProfileCommentsFetch(request: .init(sortType: type))
     }
     
