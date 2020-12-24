@@ -111,7 +111,7 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
         
         self.canTriggerPagination = false
         // TODO support other type of content
-        self.viewModel.doNextCommentsFetch(request: .init(contentType: .active))
+        self.viewModel.doNextCommentsFetch(request: .init(sortType: .active))
     }
     
     func onMentionTap(in post: LemmyModel.CommentView, mention: LemmyMention) {

@@ -10,36 +10,64 @@ import UIKit
 import Combine
 
 protocol ProfileScreenPostsViewModelProtocol {
+    func doPostFetch(request: ProfileScreenPosts.NextProfilePostsLoad.Request)
     func doNextPostsFetch(request: ProfileScreenPosts.NextProfilePostsLoad.Request)
 }
 
 class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
     typealias PaginationState = (page: Int, hasNext: Bool)
-        
-    private let contentScoreService: ContentScoreServiceProtocol
     
     weak var viewController: ProfileScreenPostViewControllerProtocol?
     
-    private var paginationState = PaginationState(page: 1, hasNext: true)
+    private let contentScoreService: ContentScoreServiceProtocol
     
-    var cancellable = Set<AnyCancellable>()
+    private var loadedProfile: LemmyModel.UserView?
+    
+    private var paginationState = PaginationState(page: 1, hasNext: true)
+    private var cancellable = Set<AnyCancellable>()
     
     init(contentScoreService: ContentScoreServiceProtocol) {
         self.contentScoreService = contentScoreService
     }
     
+    func doPostFetch(request: ProfileScreenPosts.NextProfilePostsLoad.Request) {
+        self.paginationState.page = 1
+        
+        let params = LemmyModel.User.GetUserDetailsRequest(userId: loadedProfile?.id,
+                                                           username: loadedProfile?.name,
+                                                           sort: request.sortType,
+                                                           page: paginationState.page,
+                                                           limit: 50,
+                                                           communityId: nil,
+                                                           savedOnly: false,
+                                                           auth: LemmyShareData.shared.jwtToken)
+
+        ApiManager.requests.asyncGetUserDetails(parameters: params)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.commonLog.notice(completion)
+            } receiveValue: { [weak self] (response) in
+                
+                self?.viewController?.displayProfilePosts(
+                    viewModel: .init(state: .result(data: .init(posts: response.posts)))
+                )
+
+            }.store(in: &cancellable)
+    }
+    
     func doNextPostsFetch(request: ProfileScreenPosts.NextProfilePostsLoad.Request) {
         self.paginationState.page += 1
         
-        let params = LemmyModel.Post.GetPostsRequest(type: .all,
-                                                     sort: request.contentType,
-                                                     page: paginationState.page,
-                                                     limit: 50,
-                                                     communityId: nil,
-                                                     communityName: nil,
-                                                     auth: LemmyShareData.shared.jwtToken)
+        let params = LemmyModel.User.GetUserDetailsRequest(userId: loadedProfile?.id,
+                                                           username: loadedProfile?.name,
+                                                           sort: request.sortType,
+                                                           page: paginationState.page,
+                                                           limit: 50,
+                                                           communityId: nil,
+                                                           savedOnly: false,
+                                                           auth: LemmyShareData.shared.jwtToken)
         
-        ApiManager.requests.asyncGetPosts(parameters: params)
+        ApiManager.requests.asyncGetUserDetails(parameters: params)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.commonLog.notice(completion)
@@ -57,10 +85,12 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
 
 extension ProfileScreenPostsViewModel: ProfileScreenPostsInputProtocol {
     func updateFirstData(
+        profile: LemmyModel.UserView,
         posts: [LemmyModel.PostView],
         comments: [LemmyModel.CommentView],
         subscribers: [LemmyModel.CommunityFollowerView]
     ) {
+        self.loadedProfile = profile
         self.viewController?.displayProfilePosts(
             viewModel: .init(state: .result(data: .init(posts: posts)))
         )
@@ -74,7 +104,7 @@ extension ProfileScreenPostsViewModel: ProfileScreenPostsInputProtocol {
 class ProfileScreenPosts {
     enum PostsLoad {
         struct Request {
-            let contentType: LemmySortType
+            let sortType: LemmySortType
         }
 
         struct ViewModel {
@@ -84,7 +114,7 @@ class ProfileScreenPosts {
     
     enum NextProfilePostsLoad {
         struct Request {
-            let contentType: LemmySortType
+            let sortType: LemmySortType
         }
         
         struct ViewModel {

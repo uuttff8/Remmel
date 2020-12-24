@@ -16,10 +16,13 @@ protocol ProfileScreenCommentsViewModelProtocol {
 }
 
 class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
+    typealias PaginationState = (page: Int, hasNext: Bool)
+    
     weak var viewController: ProfileScreenCommentsViewControllerProtocol?
     
-    typealias PaginationState = (page: Int, hasNext: Bool)
     private var paginationState = PaginationState(page: 1, hasNext: true)
+    
+    private var loadedProfile: LemmyModel.UserView?
 
     var cancellable = Set<AnyCancellable>()
     
@@ -28,13 +31,16 @@ class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
     func doNextCommentsFetch(request: ProfileScreenComments.NextProfileCommentsLoad.Request) {
         self.paginationState.page += 1
         
-        let params = LemmyModel.Comment.GetCommentsRequest(type: .all,
-                                                           sort: request.contentType,
+        let params = LemmyModel.User.GetUserDetailsRequest(userId: loadedProfile?.id,
+                                                           username: loadedProfile?.name,
+                                                           sort: request.sortType,
                                                            page: paginationState.page,
                                                            limit: 50,
+                                                           communityId: nil,
+                                                           savedOnly: false,
                                                            auth: LemmyShareData.shared.jwtToken)
-        
-        ApiManager.requests.asyncGetComments(parameters: params)
+
+        ApiManager.requests.asyncGetUserDetails(parameters: params)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
@@ -52,10 +58,12 @@ class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
 
 extension ProfileScreenCommentsViewModel: ProfileScreenCommentsInputProtocol {
     func updateFirstData(
+        profile: LemmyModel.UserView,
         posts: [LemmyModel.PostView],
         comments: [LemmyModel.CommentView],
         subscribers: [LemmyModel.CommunityFollowerView]
     ) {
+        self.loadedProfile = profile
         self.viewController?.displayProfileComments(
             viewModel: .init(state: .result(data: .init(comments: comments)))
         )
@@ -79,7 +87,7 @@ enum ProfileScreenComments {
     
     enum NextProfileCommentsLoad {
         struct Request {
-            let contentType: LemmySortType
+            let sortType: LemmySortType
         }
         
         struct ViewModel {

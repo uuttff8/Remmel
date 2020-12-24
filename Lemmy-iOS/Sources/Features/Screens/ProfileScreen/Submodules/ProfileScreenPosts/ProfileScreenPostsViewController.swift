@@ -107,7 +107,9 @@ extension ProfileScreenPostsViewController: ProfileScreenPostViewControllerProto
 
 extension ProfileScreenPostsViewController: ProfileScreenPostsViewDelegate {
     func profileScreenPosts(_ view: View, didPickedNewSort type: LemmySortType) {
-        
+        self.profilePostsView.deleteAllContent()
+        self.profilePostsView.showLoadingIndicator()
+        self.viewModel.doPostFetch(request: .init(sortType: profilePostsView.sortType))
     }
     
     func profileScreenPostsViewDidPickerTapped(toVc: UIViewController) {
@@ -165,7 +167,7 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
         guard self.canTriggerPagination else { return }
         
         self.canTriggerPagination = false
-        self.viewModel.doNextPostsFetch(request: .init(contentType: profilePostsView.sortType))
+        self.viewModel.doNextPostsFetch(request: .init(sortType: profilePostsView.sortType))
     }
     
     func tableDidSelect(post: LemmyModel.PostView) {

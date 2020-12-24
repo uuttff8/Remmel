@@ -97,9 +97,16 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     }
     
     func doSubmodulesDataFilling(request: ProfileScreenDataFlow.SubmoduleDataFilling.Request) {
+        guard let profile = loadedProfile else { return }
+        
         self.submodules = request.submodules
         request.submodules.forEach {
-            $0.updateFirstData(posts: request.posts, comments: request.comments, subscribers: request.subscribers)
+            $0.updateFirstData(
+                profile: profile,
+                posts: request.posts,
+                comments: request.comments,
+                subscribers: request.subscribers
+            )
         }
     }
     
