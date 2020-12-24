@@ -17,7 +17,7 @@ class PostsFrontPageViewController: UIViewController {
     
     weak var coordinator: FrontPageCoordinator?    
     
-    let model = PostsFrontPageModel()
+    let viewModel = PostsFrontPageModel()
     let showMoreHandler = ShowMoreHandlerService()
     
     lazy var tableView = LemmyTableView(style: .plain).then {
@@ -51,16 +51,15 @@ class PostsFrontPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.loadPosts()
         setupTableHeaderView()
         
-        model.loadPosts()
-        
-        model.dataLoaded = { [self] newPosts in
+        viewModel.dataLoaded = { [self] newPosts in
             addFirstRows(with: newPosts)
             tableView.hideActivityIndicator()
         }
         
-        model.newDataLoaded = { [self] newPosts in
+        viewModel.newDataLoaded = { [self] newPosts in
             addRows(with: newPosts)
         }
     }
@@ -71,8 +70,10 @@ class PostsFrontPageViewController: UIViewController {
     }
     
     func addRows(with list: [LemmyModel.PostView], animate: Bool = true) {
-        snapshot.insertItems(list, afterItem: model.postsDataSource.last!)
-        self.model.postsDataSource.append(contentsOf: list)
+        guard !list.isEmpty else { return }
+        
+        snapshot.insertItems(list, afterItem: viewModel.postsDataSource.last!)
+        self.viewModel.postsDataSource.append(contentsOf: list)
         DispatchQueue.main.async { [self] in
             dataSource.apply(snapshot, animatingDifferences: false)
         }
@@ -88,6 +89,8 @@ class PostsFrontPageViewController: UIViewController {
     }
     
     fileprivate func setupTableHeaderView() {
+        pickerView.listingFirstPick = viewModel.currentListingType.asAdapted
+        pickerView.sortFirstPick = viewModel.currentSortType
         
         pickerView.sortTypeView.addTap {
             self.present(self.pickerView.sortTypeView.configuredAlert, animated: true)
@@ -98,25 +101,25 @@ class PostsFrontPageViewController: UIViewController {
         }
         
         pickerView.listingTypeView.newCasePicked = { [self] pickedValue in
-            self.model.currentFeedType = pickedValue.toInitiallyListing
+            self.viewModel.currentListingType = pickedValue.toInitiallyListing
             
             snapshot.deleteAllItems()
             DispatchQueue.main.async {
                 dataSource.apply(snapshot)
             }
             
-            model.loadPosts()
+            viewModel.loadPosts()
         }
         
         pickerView.sortTypeView.newCasePicked = { [self] pickedValue in
-            self.model.currentSortType = pickedValue
+            self.viewModel.currentSortType = pickedValue
             
             snapshot.deleteAllItems()
             DispatchQueue.main.async {
                 dataSource.apply(snapshot)
             }
 
-            model.loadPosts()
+            viewModel.loadPosts()
         }
     }
     
@@ -126,7 +129,7 @@ class PostsFrontPageViewController: UIViewController {
             cellProvider: { (tableView, indexPath, _) -> UITableViewCell? in
                 let cell = tableView.cell(forClass: PostContentPreviewTableCell.self)
                 cell.postContentView.delegate = self
-                cell.bind(with: self.model.postsDataSource[indexPath.row], isInsideCommunity: false)
+                cell.bind(with: self.viewModel.postsDataSource[indexPath.row], isInsideCommunity: false)
                 return cell
             })
     }
@@ -151,21 +154,21 @@ extension PostsFrontPageViewController: ProgrammaticallyViewProtocol {
 extension PostsFrontPageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let indexPathRow = indexPath.row
-        let bottomItems = self.model.postsDataSource.count - 5
+        let bottomItems = self.viewModel.postsDataSource.count - 5
 
         if indexPathRow >= bottomItems {
-            guard !model.isFetchingNewContent else { return }
+            guard !viewModel.isFetchingNewContent else { return }
 
-            model.isFetchingNewContent = true
-            model.currentPage += 1
-            model.loadMorePosts {
-                self.model.isFetchingNewContent = false
+            viewModel.isFetchingNewContent = true
+            viewModel.currentPage += 1
+            viewModel.loadMorePosts {
+                self.viewModel.isFetchingNewContent = false
             }
         }
     }
 
     private func handleDidSelectForPosts(indexPath: IndexPath) {
-        let post = model.postsDataSource[indexPath.row]
+        let post = viewModel.postsDataSource[indexPath.row]
         coordinator?.goToPostScreen(post: post)
     }
 }
@@ -178,7 +181,7 @@ extension PostsFrontPageViewController: SFSafariViewControllerDelegate {
 
 extension PostsFrontPageViewController: PostContentPreviewTableCellDelegate {
     func postCellDidSelected(postId: LemmyModel.PostView.ID) {
-        let post = model.getPost(by: postId).require()
+        let post = viewModel.getPost(by: postId).require()
         self.coordinator?.goToPostScreen(post: post)
     }
             
@@ -192,7 +195,7 @@ extension PostsFrontPageViewController: PostContentPreviewTableCellDelegate {
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
             scoreView.setVoted(voteButton: voteButton, to: newVote)
-            model.createPostLike(newVote: newVote, post: post)
+            viewModel.createPostLike(newVote: newVote, post: post)
         }
     }
     

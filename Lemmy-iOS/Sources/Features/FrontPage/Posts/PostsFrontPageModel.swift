@@ -10,14 +10,11 @@ import UIKit
 import Combine
 
 class PostsFrontPageModel: NSObject {
-    var goToPostScreen: ((LemmyModel.PostView) -> Void)?
-    var goToCommunityScreen: ((_ fromPost: LemmyModel.PostView) -> Void)?
-    var goToProfileScreen: ((_ userId: Int) -> Void)?
-    var onLinkTap: ((URL) -> Void)?
     var newDataLoaded: (([LemmyModel.PostView]) -> Void)?
     var dataLoaded: (([LemmyModel.PostView]) -> Void)?
     
     private let upvoteDownvoteService = UpvoteDownvoteRequestService(userAccountService: UserAccountService())
+    private let contentPreferenceService = ContentPreferencesStorageManager()
     
     private var cancellable = Set<AnyCancellable>()
     
@@ -25,31 +22,26 @@ class PostsFrontPageModel: NSObject {
     var currentPage = 1
     
     var postsDataSource: [LemmyModel.PostView] = []
-    
-    // at init always posts
-    var currentContentType: LemmyContentType = LemmyContentType.posts {
-        didSet {
-            print(currentContentType)
+        
+    var currentSortType: LemmySortType {
+        get { contentPreferenceService.contentSortType }
+        set {
+            self.currentPage = 1
+            contentPreferenceService.contentSortType = newValue
         }
     }
     
-    // at init always all
-    var currentFeedType: LemmyPostListingType = LemmyPostListingType.all {
-        didSet {
+    var currentListingType: LemmyPostListingType {
+        get { contentPreferenceService.listingType }
+        set {
             self.currentPage = 1
-            print(currentFeedType)
-        }
-    }
-    
-    var currentSortType: LemmySortType = LemmySortType.active {
-        didSet {
-            self.currentPage = 1
+            contentPreferenceService.listingType = newValue
         }
     }
     
     func loadPosts() {
-        let parameters = LemmyModel.Post.GetPostsRequest(type: self.currentFeedType,
-                                                         sort: currentSortType,
+        let parameters = LemmyModel.Post.GetPostsRequest(type: self.currentListingType,
+                                                         sort: self.currentSortType,
                                                          page: 1,
                                                          limit: 50,
                                                          communityId: nil,
@@ -67,9 +59,9 @@ class PostsFrontPageModel: NSObject {
     }
     
     func loadMorePosts(completion: @escaping (() -> Void)) {
-        let parameters = LemmyModel.Post.GetPostsRequest(type: self.currentFeedType,
-                                                         sort: currentSortType,
-                                                         page: currentPage,
+        let parameters = LemmyModel.Post.GetPostsRequest(type: self.currentListingType,
+                                                         sort: self.currentSortType,
+                                                         page: self.currentPage,
                                                          limit: 50,
                                                          communityId: nil,
                                                          communityName: nil,
@@ -111,12 +103,6 @@ class PostsFrontPageModel: NSObject {
 
 extension PostsFrontPageModel: FrontPageHeaderCellDelegate {
     func contentTypeChanged(to content: LemmyContentType) {
-        self.currentContentType = content
-        //        self.loadPosts()
-    }
-    
-    func feedTypeChanged(to feed: LemmyPostListingType) {
-        self.currentFeedType = feed
-        //        self.loadPosts()
+        
     }
 }
