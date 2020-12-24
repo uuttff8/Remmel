@@ -138,7 +138,7 @@ extension CommunityScreenViewController: CommunityScreenViewDelegate {
         self.present(toVc, animated: true)
     }
     
-    func communityViewDidReadMoreTapped(_ communityView: View, toVc: MarkdownParsedViewController) {
+    func communityViewDidReadMoreTapped(_ communityView: View, toVc: UIViewController) {
         self.present(toVc, animated: true)
     }
 }

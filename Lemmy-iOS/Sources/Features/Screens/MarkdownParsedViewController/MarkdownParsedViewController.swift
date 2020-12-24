@@ -9,7 +9,16 @@
 import UIKit
 import SwiftyMarkdown
 
-class MarkdownParsedViewController: UIViewController {
+final class MarkdownParsedViewController: UIViewController {
+    
+    let scrollableStackView = ScrollableStackView(orientation: .vertical)
+    
+    private lazy var closeBarButton = UIBarButtonItem(
+        title: "Close",
+        style: .done,
+        target: self,
+        action: #selector(dismissVc)
+    )
     
     let lbl: UILabel = {
         let lbl = UILabel()
@@ -20,21 +29,47 @@ class MarkdownParsedViewController: UIViewController {
     
     init(mdString: String) {
         super.init(nibName: nil, bundle: nil)
-        view.backgroundColor = .systemBackground
-        view.addSubview(lbl)
+        
+        self.navigationItem.rightBarButtonItem = closeBarButton
         let md = SwiftyMarkdown(string: mdString)
         lbl.attributedText = md.attributedString()
+        
+        setupView()
+        addSubviews()
+        makeConstraints()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        lbl.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalToSuperview().inset(16)
+    @objc func dismissVc() {
+        self.dismiss(animated: true)
+    }
+}
+
+extension MarkdownParsedViewController: ProgrammaticallyViewProtocol {
+    func setupView() {
+        view.backgroundColor = .systemBackground
+    }
+    
+    func addSubviews() {
+        view.addSubview(scrollableStackView)
+        scrollableStackView.addArrangedView(lbl)
+        scrollableStackView.contentInsets = .init(top: 16, left: 0, bottom: 0, right: 0)
+        scrollableStackView.showsHorizontalScrollIndicator = false
+    }
+    
+    func makeConstraints() {
+        scrollableStackView.snp.makeConstraints { (make) in
+            make.edges.equalTo(self.view.safeAreaLayoutGuide)
         }
+    }
+}
+
+extension MarkdownParsedViewController: StyledNavigationControllerPresentable {
+    var navigationBarAppearanceOnFirstPresentation: StyledNavigationController.NavigationBarAppearanceState {
+        .pageSheetAppearance()
     }
 }
