@@ -12,12 +12,7 @@ import Combine
 protocol ProfileScreenCommentsViewModelProtocol {
     // TODO do pagination
     func doProfileCommentsFetch()
-    func doCommentLike(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        for newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView
-    )
+    func doNextCommentsFetch(request: ProfileScreenComments.NextProfileCommentsLoad.Request)
 }
 
 class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
@@ -25,6 +20,9 @@ class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
     
     private let contentScoreService: ContentScoreServiceProtocol
     
+    typealias PaginationState = (page: Int, hasNext: Bool)
+    private var paginationState = PaginationState(page: 1, hasNext: true)
+
     var cancellable = Set<AnyCancellable>()
     
     init(
@@ -35,20 +33,28 @@ class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
     
     func doProfileCommentsFetch() { }
     
-    func doCommentLike(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        for newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView
-    ) {
-        self.contentScoreService.voteComment(
-            scoreView: scoreView,
-            voteButton: voteButton,
-            for: newVote,
-            comment: comment
-        ) { (_) in
-            // self.saveNewComment()
-        }
+    func doNextCommentsFetch(request: ProfileScreenComments.NextProfileCommentsLoad.Request) {
+        self.paginationState.page += 1
+        
+        let params = LemmyModel.Comment.GetCommentsRequest(type: .all,
+                                                           sort: request.contentType,
+                                                           page: paginationState.page,
+                                                           limit: 50,
+                                                           auth: LemmyShareData.shared.jwtToken)
+        
+        ApiManager.requests.asyncGetComments(parameters: params)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
+            } receiveValue: { [weak self] (response) in
+                
+                self?.viewController?.displayNextComments(
+                    viewModel: .init(
+                        state: .result(data: response.comments)
+                    )
+                )
+                
+            }.store(in: &cancellable)
     }
 }
 
@@ -68,7 +74,7 @@ extension ProfileScreenCommentsViewModel: ProfileScreenCommentsInputProtocol {
     func handleControllerAppearance() { }
 }
 
-class ProfileScreenComments {
+enum ProfileScreenComments {
     enum CommentsLoad {
         struct Response {
             let comments: [LemmyModel.CommentView]
@@ -79,9 +85,24 @@ class ProfileScreenComments {
         }
     }
     
+    enum NextProfileCommentsLoad {
+        struct Request {
+            let contentType: LemmySortType
+        }
+        
+        struct ViewModel {
+            let state: PaginationState
+        }
+    }
+    
     // MARK: States
     enum ViewControllerState {
         case loading
         case result(data: ProfileScreenCommentsViewController.View.ViewData)
+    }
+    
+    enum PaginationState {
+        case result(data: [LemmyModel.CommentView])
+        case error(message: String)
     }
 }

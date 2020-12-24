@@ -11,7 +11,7 @@ import SafariServices
 
 protocol ProfileScreenPostViewControllerProtocol: AnyObject {
     func displayProfilePosts(viewModel: ProfileScreenPosts.PostsLoad.ViewModel)
-    func displayNextPosts(viewModel: CommunityScreen.NextCommunityPostsLoad.ViewModel)
+    func displayNextPosts(viewModel: ProfileScreenPosts.NextProfilePostsLoad.ViewModel)
 }
 
 class ProfileScreenPostsViewController: UIViewController {
@@ -84,14 +84,14 @@ class ProfileScreenPostsViewController: UIViewController {
     }
 }
 
-extension ProfileScreenPostsViewController: ProfileScreenPostViewControllerProtocol {
+extension ProfileScreenPostsViewController: ProfileScreenPostViewControllerProtocol {    
     func displayProfilePosts(viewModel: ProfileScreenPosts.PostsLoad.ViewModel) {
         guard case let .result(data) = viewModel.state else { return }
         self.tableDataSource.viewModels = data.posts
         self.updateState(newState: viewModel.state)
     }
     
-    func displayNextPosts(viewModel: CommunityScreen.NextCommunityPostsLoad.ViewModel) {
+    func displayNextPosts(viewModel: ProfileScreenPosts.NextProfilePostsLoad.ViewModel) {
         guard case let .result(posts) = viewModel.state else { return }
         
         self.tableDataSource.viewModels.append(contentsOf: posts)

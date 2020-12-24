@@ -26,6 +26,8 @@ extension ProfileScreenCommentsViewController {
         // Proxify delegates
         private weak var pageScrollViewDelegate: UIScrollViewDelegate?
         
+        weak var tableViewManager: ProfileScreenCommentsTableDataSource?
+        
         private lazy var tableView = LemmyTableView(style: .plain, separator: false).then {
             $0.registerClass(CommentContentTableCell.self)
             $0.backgroundColor = .clear
@@ -40,8 +42,13 @@ extension ProfileScreenCommentsViewController {
             $0.textColor = .tertiaryLabel
         }
         
-        init(frame: CGRect = .zero, appearance: Appearance = Appearance()) {
+        init(
+            frame: CGRect = .zero,
+            tableViewManager: ProfileScreenCommentsTableDataSource,
+            appearance: Appearance = Appearance()
+        ) {
             self.appearance = appearance
+            self.tableViewManager = tableViewManager
             super.init(frame: frame)
 
             self.setupView()
@@ -62,7 +69,7 @@ extension ProfileScreenCommentsViewController {
             tableView.hideActivityIndicator()
         }
         
-        func updateTableViewData(dataSource: UITableViewDataSource) {
+        func updateTableViewData(dataSource: UITableViewDataSource & UITableViewDelegate) {
             _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
 //            self.emptyStateLabel.isHidden = numberOfRows != 0
 
@@ -74,6 +81,14 @@ extension ProfileScreenCommentsViewController {
             self.emptyStateLabel.isHidden = false
             self.tableView.isHidden = true
             makeConstraints()
+        }
+        
+        func appendNew(data: [LemmyModel.CommentView]) {
+            self.tableViewManager?.appendNew(comments: data) { (newIndexpaths) in
+                tableView.performBatchUpdates {
+                    tableView.insertRows(at: newIndexpaths, with: .none)
+                }
+            }
         }
     }
 }
@@ -106,8 +121,8 @@ extension ProfileScreenCommentsViewController.View: UITableViewDelegate {
         self.pageScrollViewDelegate?.scrollViewDidScroll?(scrollView)
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        self.tableViewManager?.tableView(tableView, willDisplay: cell, forRowAt: indexPath)
     }
 }
 

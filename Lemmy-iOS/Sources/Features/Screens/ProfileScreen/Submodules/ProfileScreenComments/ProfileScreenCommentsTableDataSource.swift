@@ -8,7 +8,9 @@
 
 import UIKit
 
-protocol ProfileScreenCommentsTableDataSourceDelegate: CommentContentTableCellDelegate { }
+protocol ProfileScreenCommentsTableDataSourceDelegate: CommentContentTableCellDelegate {
+    func tableDidRequestPagination(_ tableDataSource: ProfileScreenCommentsTableDataSource)
+}
 
 class ProfileScreenCommentsTableDataSource: NSObject {
     var viewModels: [LemmyModel.CommentView]
@@ -24,6 +26,19 @@ class ProfileScreenCommentsTableDataSource: NSObject {
         if let index = self.viewModels.firstIndex(where: { $0.id == viewModel.id }) {
             self.viewModels[index] = viewModel
         }
+    }
+    
+    func appendNew(comments: [LemmyModel.CommentView], completion: (_ indexPaths: [IndexPath]) -> Void) {
+        let startIndex = viewModels.count - comments.count
+        let endIndex = startIndex + comments.count
+        
+        let newIndexpaths =
+            Array(startIndex ..< endIndex)
+            .map { (index) in
+                IndexPath(row: index, section: 0)
+            }
+        
+        completion(newIndexpaths)
     }
 }
 
@@ -41,5 +56,14 @@ extension ProfileScreenCommentsTableDataSource: UITableViewDataSource {
         cell.bind(with: viewModel, level: 0)
 
         return cell
+    }
+}
+
+extension ProfileScreenCommentsTableDataSource: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 5,
+           tableView.numberOfSections == 1 {
+            self.delegate?.tableDidRequestPagination(self)
+        }
     }
 }

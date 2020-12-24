@@ -10,6 +10,7 @@ import UIKit
 
 protocol ProfileScreenCommentsViewControllerProtocol: AnyObject {
     func displayProfileComments(viewModel: ProfileScreenComments.CommentsLoad.ViewModel)
+    func displayNextComments(viewModel: ProfileScreenComments.NextProfileCommentsLoad.ViewModel)
 }
 
 class ProfileScreenCommentsViewController: UIViewController {
@@ -50,7 +51,7 @@ class ProfileScreenCommentsViewController: UIViewController {
     }
 
     override func loadView() {
-        self.view = ProfileScreenCommentsViewController.View()
+        self.view = ProfileScreenCommentsViewController.View(tableViewManager: tableDataSource)
     }
 
     private func updateState(newState: ProfileScreenComments.ViewControllerState) {
@@ -83,9 +84,30 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsViewControll
         self.tableDataSource.viewModels = data.comments
         self.updateState(newState: viewModel.state)
     }
+    
+    func displayNextComments(viewModel: ProfileScreenComments.NextProfileCommentsLoad.ViewModel) {
+        guard case let .result(comments) = viewModel.state else { return }
+        
+        self.tableDataSource.viewModels.append(contentsOf: comments)
+        self.commentsPostsView?.appendNew(data: comments)
+        
+        if comments.isEmpty {
+            self.canTriggerPagination = false
+        } else {
+            self.canTriggerPagination = true
+        }
+    }
 }
 
 extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSourceDelegate {
+    func tableDidRequestPagination(_ tableDataSource: ProfileScreenCommentsTableDataSource) {
+        guard self.canTriggerPagination else { return }
+        
+        self.canTriggerPagination = false
+        // TODO support other type of content
+        self.viewModel.doNextCommentsFetch(request: .init(contentType: .active))
+    }
+    
     func onMentionTap(in post: LemmyModel.CommentView, mention: LemmyMention) {
         self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }
@@ -111,7 +133,7 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            self.viewModel.doCommentLike(scoreView: scoreView, voteButton: voteButton, for: newVote, comment: comment)
+//            self.viewModel.
         }
     }
     
