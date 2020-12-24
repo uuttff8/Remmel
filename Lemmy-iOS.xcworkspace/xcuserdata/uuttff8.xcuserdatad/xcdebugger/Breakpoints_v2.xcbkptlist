@@ -48,5 +48,69 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "741136FF-5E3F-4969-83D0-C0BDB88744DD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Lemmy-iOS/Sources/Core/Networking/WSLemmyClient.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "receiveMessage()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "741136FF-5E3F-4969-83D0-C0BDB88744DD - 464427931297b767"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;(extension in Foundation):__C.NSURLSessionWebSocketTask.Message, Swift.Error&gt;) -&gt; () in Lemmy_iOS.WSLemmyClient.receiveMessage() -&gt; ()"
+                  moduleName = "Lemmy-iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/uuttff8/Developer/Lemmy-iOS/Lemmy-iOS/Sources/Core/Networking/WSLemmyClient.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "98"
+                  endingLineNumber = "98"
+                  offsetFromSymbolStart = "3117">
+               </Location>
+               <Location
+                  uuid = "741136FF-5E3F-4969-83D0-C0BDB88744DD - 464427931297b767"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;(extension in Foundation):__C.NSURLSessionWebSocketTask.Message, Swift.Error&gt;) -&gt; () in Lemmy_iOS.WSLemmyClient.receiveMessage() -&gt; ()"
+                  moduleName = "Lemmy-iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/uuttff8/Developer/Lemmy-iOS/Lemmy-iOS/Sources/Core/Networking/WSLemmyClient.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "98"
+                  endingLineNumber = "98"
+                  offsetFromSymbolStart = "3743">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6FA02326-F2DA-4539-BE0C-A6531D766AB8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Lemmy-iOS/Sources/Core/Networking/WSLemmyClient.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "receiveMessage()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

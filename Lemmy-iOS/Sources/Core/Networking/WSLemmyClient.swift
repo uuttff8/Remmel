@@ -9,22 +9,123 @@
 import UIKit
 import Combine
 
-class WSLemmyClient {
+public enum NetworkCloseError: Error {
+    case socketReceiveFailure(Error)
+    case socketPingFailure(Error)
+    case socketSendFailure(Error)
     
-    var instanceUrl: String
+    public var errorCode: String {
+        switch self {
+        case .socketReceiveFailure: return "3000"
+        case .socketPingFailure: return "3001"
+        case .socketSendFailure: return "3002"
+        }
+    }
+    
+    public var errorDescription: String {
+        switch self {
+        case .socketReceiveFailure(let error): return error.localizedDescription
+        case .socketPingFailure(let error): return error.localizedDescription
+        case .socketSendFailure(let error): return error.localizedDescription
+        }
+    }
+}
+
+public protocol WebsocketHandlerProtocol {
+    var subject: PassthroughSubject<URLSessionWebSocketTask.Message, NetworkCloseError> { get }
+    
+    func start()
+    func receiveMessage()
+    func ping()
+    func send(message: URLSessionWebSocketTask.Message)
+    func close()
+}
+
+class WSLemmyClient: WebsocketHandlerProtocol {
+    
+    public private(set) var subject = PassthroughSubject<URLSessionWebSocketTask.Message, NetworkCloseError>()
+    let instanceUrl: String
+    private var webSocketTask: URLSessionWebSocketTask
     
     private let requestQueue = DispatchQueue(label: "Lemmy-iOS.RequestQueue")
+    private let encoder = JSONEncoder()
     
     init(instanceUrl: String) {
-        self.instanceUrl = instanceUrl.encodeUrl
+        self.instanceUrl = instanceUrl
+        
+        let instanceUrl = String.cleanUpUrl(url: instanceUrl)
+        let url = URL(string: "wss://" + instanceUrl + "/api/v1/ws")!
+        
+        let urlSession = URLSession(configuration: .default)
+        self.webSocketTask = urlSession.webSocketTask(with: url)
+
+        Logger.commonLog.info("URLSession webSocketTask opened to \(instanceUrl)")
     }
     
+    func start() {
+        Logger.commonLog.info("Start WebSocketTask Session")
+        webSocketTask.resume()
+        receiveMessage()
+    }
+        
+    public func ping() {
+        Logger.commonLog.info("PING Websocket")
+        webSocketTask.sendPing { [weak self] error in
+            guard let error = error else { return }
+            self?.subject.send(completion: .failure(.socketPingFailure(error)))
+            Logger.commonLog.error("SocketPingFailure: \(error.localizedDescription)")
+        }
+    }
+    
+    public func receiveMessage() {
+        webSocketTask.receive { [weak self] result in
+            switch result {
+            case .failure(let error):
+                self?.subject.send(completion: .failure(.socketReceiveFailure(error)))
+                Logger.commonLog.error("SocketReceiveFailure: \(error.localizedDescription)")
+            case .success(let message):
+                self?.subject.send(message)
+                
+                guard case .string(let message) = message else { return }
+                let op = message.convertToDictionary()!["op"] as! String
+                let type: LemmyModel.Post.GetPostsResponse.Type = WSResponseMapper(op: op)!
+                
+                let decoder = LemmyJSONDecoder()
+                
+                do {
+                    let response = try decoder.decode(RequestsManager.ApiResponse<LemmyModel.Post.GetPostsResponse
+                    >.self, from: message.data(using: .utf8)!)
+                    print(response)
+                } catch {
+                    print(error)
+                }
+                
+                Logger.commonLog.info("WebSocket task received message")
+                self?.receiveMessage()
+            }
+        }
+    }
+
+    public func send(message: URLSessionWebSocketTask.Message) {
+        Logger.commonLog.info("Send WebSocketTask Message")
+        webSocketTask.send(message) { error in
+            guard let error = error else { return }
+            self.subject.send(completion: .failure(.socketSendFailure(error)))
+            Logger.commonLog.error("SocketSendFailure: \(error.localizedDescription)")
+        }
+    }
+    
+    public func close() {
+        webSocketTask.cancel(with: .normalClosure, reason: nil)
+        self.subject.send(completion: .finished)
+        Logger.commonLog.info("Close webSocketTask")
+    }
+
+    @available(*, deprecated, message: "Legacy method, use use full-flow connect()")
     func asyncSend<D: Codable>(on endpoint: String, data: D? = nil) -> AnyPublisher<String, LemmyGenericError> {
         asyncWrapper(url: endpoint, data: data)
-    }
-    
-    func send<D: Codable>(on endpoint: String, data: D? = nil, completion: @escaping (String) -> Void) {
-        wrapper(url: endpoint, data: data, completion: completion)
+            .receive(on: requestQueue)
+            .eraseToAnyPublisher()
     }
     
     private func asyncWrapper<D: Codable>(url: String, data: D? = nil) -> AnyPublisher<String, LemmyGenericError> {
@@ -40,7 +141,7 @@ class WSLemmyClient {
             """)
             
             let wsMessage = createWebsocketMessage(request: reqStr)
-            guard let wsTask = createWebsocketTask(instanceUrl: String.cleanUpUrl(url: &instanceUrl)) else {
+            guard let wsTask = createWebsocketTask(instanceUrl: String.cleanUpUrl(url: instanceUrl)) else {
                 return promise(.failure(.string("Failed to create webscoket task")))
             }
             
@@ -63,49 +164,19 @@ class WSLemmyClient {
         }.eraseToAnyPublisher()
     }
     
-    private func wrapper<D: Codable>(url: String, data: D? = nil, completion: @escaping (String) -> Void) {
-        
-        guard let reqStr = makeRequestString(url: url, data: data) else { return }
-        Logger.commonLog.info(reqStr)
-        
-        let wsMessage = createWebsocketMessage(request: reqStr)
-        guard let wsTask = createWebsocketTask(instanceUrl: String.cleanUpUrl(url: &instanceUrl)) else {
-            Logger.commonLog.error("Failed to create webscoket task")
-            return
-        }
-        
-        wsTask.resume()
-        
-        wsTask.send(wsMessage) { (error) in
-            if let error = error {
-                Logger.commonLog.error("WebSocket couldn’t send message because: \(error)")
-            }
-        }
-        
-        wsTask.receive { (res) in
-            switch res {
-            case let .failure(error):
-                Logger.commonLog.error(error)
-            case let .success(messageType):
-                completion(self.handleMessage(type: messageType))
-            }
-        }
-    }
-    
-    private func makeRequestString<T: Codable>(url: String, data: T?) -> String? {
+    func makeRequestString<T: Codable>(url: String, data: T?) -> String? {
         if let data = data {
             
-            let encoder = JSONEncoder()
             encoder.outputFormatting = .prettyPrinted
             guard let orderJsonData = try? encoder.encode(data)
             else {
                 Logger.commonLog.error("failed to encode data \(#file) \(#line)")
                 return nil
             }
-            let sss = String(data: orderJsonData, encoding: .utf8)!
+            let parameters = String(data: orderJsonData, encoding: .utf8)!
             
             return """
-            {"op": "\(url)","data": \(sss)}
+            {"op": "\(url)","data": \(parameters)}
             """
         } else {
             return """
@@ -142,18 +213,21 @@ class WSLemmyClient {
 }
 
 extension String {
-    static func cleanUpUrl(url: inout String) -> String {
+    static func cleanUpUrl(url: String) -> String {
         if url.hasPrefix("https://") {
+            var url = url
             url.removeFirst(8)
             return url
         }
         
         if url.hasPrefix("www.") {
+            var url = url
             url.removeFirst(4)
             return url
         }
         
         if url.hasSuffix("/") {
+            var url = url
             url.removeLast()
             return url
         }
@@ -163,3 +237,16 @@ extension String {
 }
 
 // wss://dev.lemmy.ml/api/v1/ws
+
+extension String {
+    func convertToDictionary() -> [String: Any]? {
+        if let data = self.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
+}

@@ -47,6 +47,7 @@ class PostsFrontPageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.showActivityIndicator()
+        viewModel.receiveMessages()
     }
     
     override func viewDidLoad() {

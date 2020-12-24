@@ -21,14 +21,23 @@ class RequestsManager {
         let data: T
     }
     
+    var websocketSubject: AnyPublisher<Data, NetworkCloseError> {
+        self.wsClient.subject
+            .compactMap({ self.parseMessage($0) })
+            .eraseToAnyPublisher()
+    }
+    
     let wsClient: WSLemmyClient
     let httpClient = HttpLemmyClient()
     let decoder = LemmyJSONDecoder()
     
     private let requestQueue = DispatchQueue(label: "Lemmy-iOS.RequestQueue")
-    
+        
     init(instanceUrl: String) {
         wsClient = WSLemmyClient(instanceUrl: instanceUrl)
+        
+        wsClient.start()
+        pingWebSocket()
     }
     
     func asyncRequestDecodable<Req: Codable, Res: Codable>(
@@ -38,25 +47,11 @@ class RequestsManager {
     ) -> AnyPublisher<Res, LemmyGenericError> {
         
         wsClient.asyncSend(on: path, data: parameters)
-            .receive(on: requestQueue)
             .flatMap { (outString: String) in
                 self.asyncDecode(data: outString.data(using: .utf8)!)
             }.eraseToAnyPublisher()
     }
-    
-    func requestDecodable<Req: Codable, Res: Codable>(
-        path: String,
-        parameters: Req? = nil,
-        parsingFromRootKey rootKey: String? = nil,
-        completion: @escaping ((Result<Res, LemmyGenericError>) -> Void)
-    ) {
-        requestQueue.async {
-            self.wsClient.send(on: path, data: parameters) { (outString) in
-                self.decode(data: outString.data(using: .utf8)!, rootKey: rootKey, completion: completion)
-            }
-        }
-    }
-    
+        
     func uploadImage<Res: Codable>(
         path: String,
         image: UIImage,
@@ -77,15 +72,41 @@ class RequestsManager {
         }
     }
     
+    func sendMessage<T: Codable>(url: String, parameters: T) {
+        guard let requestString = self.wsClient.makeRequestString(url: url, data: parameters)
+        else { return }
+        
+        let message = URLSessionWebSocketTask.Message.string(requestString)
+        
+        self.wsClient.send(message: message)
+    }
+    
+    private func parseMessage(_ message: URLSessionWebSocketTask.Message) -> Data? {
+        switch message {
+        case .data(let data):
+            Logger.commonLog.info("received unknown data")
+            print(data)
+            return nil
+        case .string(let value):
+            return value.data(using: .utf8)!
+        @unknown default: return nil
+        }
+    }
+    
+    private func pingWebSocket() {
+        requestQueue.asyncAfter(deadline: .now() + 10) { [weak self] in
+            self?.wsClient.ping()
+            self?.pingWebSocket()
+        }
+    }
+    
     private func asyncDecode<D: Codable>(
         data: Data,
         parsingFromData: Bool = true
-    ) -> Future<D, LemmyGenericError> {
+    ) -> AnyPublisher<D, LemmyGenericError> {
         
         Future { promise in
-            
             if parsingFromData {
-                
                 do {
                     let apiResponse = try self.decoder.decode(ApiResponse<D>.self, from: data)
                     let normalResponse = apiResponse.data
@@ -102,45 +123,8 @@ class RequestsManager {
                 } catch {
                     promise(.failure("Can't decode api response: \n \(error)".toLemmyError))
                 }
-                
             }
-        }
-    }
-    
-    private func decode<D: Codable>(
-        data: Data,
-        rootKey: String?,
-        completion: ((Result<D, LemmyGenericError>) -> Void)
-    ) {
-        if let rootKey = rootKey {
-            
-            do {
-                let dict = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                guard dict?.keys.firstIndex(of: rootKey) != nil, let items = dict?[rootKey] else {
-                    
-                    // if no root key it maybe an error from backend
-                    if let backendError = try? JSONDecoder().decode(ApiErrorResponse.self, from: data) {
-                        completion(.failure(.string(backendError.error)))
-                        return
-                    }
-                    
-                    completion(.failure(.string("Root key not found")))
-                    return
-                }
-                let serializedData = try JSONSerialization.data(withJSONObject: items, options: .prettyPrinted)
-                let dec = try decoder.decode(D.self, from: serializedData)
-                completion(.success(dec))
-            } catch let error {
-                completion(.failure(.string("JSON decoding failed with error: \(error)")))
-            }
-        } else {
-            do {
-                let dec = try decoder.decode(D.self, from: data)
-                completion(.success(dec))
-            } catch {
-                completion(.failure(.string("JSON decoding failed with error: \(error)")))
-            }
-        }
+        }.eraseToAnyPublisher()
     }
 }
 
