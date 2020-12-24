@@ -10,51 +10,29 @@ import Foundation
 import Combine
 
 private protocol UserRequestManagerProtocol {
-    func getUserDetails(
-        parameters: LemmyModel.User.GetUserDetailsRequest,
-        completion: @escaping (Result<LemmyModel.User.GetUserDetailsResponse, LemmyGenericError>) -> Void
-    )
-    
     func asyncGetUserDetails(
         parameters: LemmyModel.User.GetUserDetailsRequest
     ) -> AnyPublisher<LemmyModel.User.GetUserDetailsResponse, LemmyGenericError>
     
-    func saveUserSettings(
-        parameters: LemmyModel.User.SaveUserSettingsRequest,
-        completion: @escaping (Result<LemmyModel.User.SaveUserSettingsResponse, LemmyGenericError>) -> Void
-    )
+    func asyncSaveUserSettings(
+        parameters: LemmyModel.User.SaveUserSettingsRequest
+    ) -> AnyPublisher<LemmyModel.User.SaveUserSettingsResponse, LemmyGenericError>
     
-    func getReplies(
-        parameters: LemmyModel.User.GetRepliesRequest,
-        completion: @escaping (Result<LemmyModel.User.GetRepliesResponse, LemmyGenericError>) -> Void
-    )
+    func asyncGetReplies(
+        parameters: LemmyModel.User.GetRepliesRequest
+    ) -> AnyPublisher<LemmyModel.User.GetRepliesResponse, LemmyGenericError>
+        
+    func asyncGetUserMentions(
+        parameters: LemmyModel.User.GetUserMentionsRequest
+    ) -> AnyPublisher<LemmyModel.User.GetUserMentionsResponse, LemmyGenericError>
     
-    func getUserMentions(
-        parameters: LemmyModel.User.GetUserMentionsRequest,
-        completion: @escaping (Result<LemmyModel.User.GetUserMentionsResponse, LemmyGenericError>) -> Void
-    )
-    
-    func markUserMentionAsRead<Req: Codable, Res: Codable>(
-        parameters: Req,
-        completion: @escaping (Result<Res, LemmyGenericError>) -> Void
-    )
+    func asyncMarkUserMentionAsRead<Req: Codable, Res: Codable>(
+        parameters: Req
+    ) -> AnyPublisher<Res, LemmyGenericError>
 }
 
 extension RequestsManager: UserRequestManagerProtocol {
-    
-    func getUserDetails(
-        parameters: LemmyModel.User.GetUserDetailsRequest,
-        completion: @escaping (Result<LemmyModel.User.GetUserDetailsResponse, LemmyGenericError>) -> Void
-    ) {
-
-        return requestDecodable(
-            path: WSEndpoint.User.getUserDetails.endpoint,
-            parameters: parameters,
-            parsingFromRootKey: "data",
-            completion: completion
-        )
-    }
-    
+        
     func asyncGetUserDetails(
         parameters: LemmyModel.User.GetUserDetailsRequest
     ) -> AnyPublisher<LemmyModel.User.GetUserDetailsResponse, LemmyGenericError> {
@@ -62,56 +40,28 @@ extension RequestsManager: UserRequestManagerProtocol {
         asyncRequestDecodable(path: WSEndpoint.User.getUserDetails.endpoint,
                               parameters: parameters)
     }
-
-    func saveUserSettings(
-        parameters: LemmyModel.User.SaveUserSettingsRequest,
-        completion: @escaping (Result<LemmyModel.User.SaveUserSettingsResponse, LemmyGenericError>) -> Void
-    ) {
-
-        return requestDecodable(
-            path: WSEndpoint.User.saveUserSettings.endpoint,
-            parameters: parameters,
-            parsingFromRootKey: "data",
-            completion: completion
-        )
+    
+    func asyncSaveUserSettings(
+        parameters: LemmyModel.User.SaveUserSettingsRequest
+    ) -> AnyPublisher<LemmyModel.User.SaveUserSettingsResponse, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.User.saveUserSettings.endpoint, parameters: parameters)
     }
-
-    func getReplies(
-        parameters: LemmyModel.User.GetRepliesRequest,
-        completion: @escaping (Result<LemmyModel.User.GetRepliesResponse, LemmyGenericError>) -> Void
-    ) {
-
-        return requestDecodable(
-            path: WSEndpoint.User.getReplies.endpoint,
-            parameters: parameters,
-            parsingFromRootKey: "data",
-            completion: completion
-        )
+    
+    func asyncGetReplies(
+        parameters: LemmyModel.User.GetRepliesRequest
+    ) -> AnyPublisher<LemmyModel.User.GetRepliesResponse, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.User.getReplies.endpoint, parameters: parameters)
     }
-
-    func getUserMentions(
-        parameters: LemmyModel.User.GetUserMentionsRequest,
-        completion: @escaping (Result<LemmyModel.User.GetUserMentionsResponse, LemmyGenericError>) -> Void
-    ) {
-
-        return requestDecodable(
-            path: WSEndpoint.User.getUserMentions.endpoint,
-            parameters: parameters,
-            parsingFromRootKey: "data",
-            completion: completion
-        )
+    
+    func asyncGetUserMentions(
+        parameters: LemmyModel.User.GetUserMentionsRequest
+    ) -> AnyPublisher<LemmyModel.User.GetUserMentionsResponse, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.User.getUserMentions.endpoint, parameters: parameters)
     }
-
-    func markUserMentionAsRead<Req, Res>(
-        parameters: Req,
-        completion: @escaping (Result<Res, LemmyGenericError>) -> Void
-    ) where Req: Codable, Res: Codable {
-
-        return requestDecodable(
-            path: WSEndpoint.User.markUserMentionAsRead.endpoint,
-            parameters: parameters,
-            parsingFromRootKey: "data",
-            completion: completion
-        )
+    
+    func asyncMarkUserMentionAsRead<Req: Codable, Res: Codable>(
+        parameters: Req
+    ) -> AnyPublisher<Res, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.User.markUserMentionAsRead.endpoint, parameters: parameters)
     }
 }

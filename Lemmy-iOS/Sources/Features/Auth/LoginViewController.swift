@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 enum LemmyAuthMethod {
     case login, register
@@ -21,6 +22,8 @@ class LoginViewController: UIViewController {
     let shareData = LemmyShareData.shared
     
     let authMethod: LemmyAuthMethod
+    
+    private var cancellables = Set<AnyCancellable>()
     
     init(authMethod: LemmyAuthMethod) {
         self.authMethod = authMethod
@@ -81,22 +84,20 @@ class LoginViewController: UIViewController {
     }
     
     private func onSignUp() {
-        guard let registerDataParams = checkRegisterData() else { return }
+        guard let params = checkRegisterData() else { return }
         
-        ApiManager.requests.register(
-            parameters: registerDataParams
-        ) { (result: Result<LemmyModel.Authentication.RegisterResponse, LemmyGenericError>) in
-            switch result {
-            case let .success(response):
+        ApiManager.requests.asyncRegister(parameters: params)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { (completion) in
+                if case let .failure(why) = completion {
+                    UIAlertController.createOkAlert(message: why.description)
+                }
+                
+                Logger.logCombineCompletion(completion)
+            }, receiveValue: { (response) in
                 // TODO: add registration flow next
                 print(response)
-            case let .failure(error):
-                Logger.commonLog.info("Failed to login: \(error)")
-                DispatchQueue.main.async {
-                    UIAlertController.createOkAlert(message: error.description)
-                }
-            }
-        }
+            }).store(in: &cancellables)
     }
     
     private func checkRegisterData() -> LemmyModel.Authentication.RegisterRequest? {
@@ -161,42 +162,38 @@ class LoginViewController: UIViewController {
         let parameters = LemmyModel.Authentication
             .LoginRequest(usernameOrEmail: emailOrUsername, password: password)
         
-        ApiManager.shared.requestsManager.login(
-            parameters: parameters
-        ) { (res: Result<LemmyModel.Authentication.LoginResponse, LemmyGenericError>) in
-            switch res {
-            case let .failure(error):
-                DispatchQueue.main.async {
-                    UIAlertController.createOkAlert(message: error.description)
+        ApiManager.requests.asyncLogin(parameters: parameters)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { (completion) in
+                if case let .failure(why) = completion {
+                    UIAlertController.createOkAlert(message: why.description)
                 }
-            case let .success(loginJwt):
-                self.shareData.loginData.login(jwt: loginJwt.jwt)
-                self.loadUserOnSuccessLogin(jwt: loginJwt.jwt) { (myUser) in
+                
+                Logger.logCombineCompletion(completion)
+            }, receiveValue: { (response) in
+                self.shareData.loginData.login(jwt: response.jwt)
+                self.loadUserOnSuccessLogin(jwt: response.jwt) { (myUser) in
                     LemmyShareData.shared.userdata = myUser
                     
                     DispatchQueue.main.async {
                         self.loginSuccessed()
                     }
                 }
-            }
-        }
+            }).store(in: &cancellables)
         
     }
     
     private func loadUserOnSuccessLogin(jwt: String, completion: @escaping ((LemmyModel.MyUser) -> Void)) {
         let params = LemmyModel.Site.GetSiteRequest(auth: jwt)
         
-        ApiManager.shared.requestsManager.getSite(
-            parameters: params
-        ) { (res: Result<LemmyModel.Site.GetSiteResponse, LemmyGenericError>) in
-            switch res {
-            case let .failure(error):
-                Logger.commonLog.error("Failed to get valid response: \(error)")
-            case let .success(data):
-                guard let myUser = data.myUser else { return }
+        ApiManager.requests.asyncGetSite(parameters: params)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { (completion) in
+                Logger.logCombineCompletion(completion)
+            }, receiveValue: { (response) in
+                guard let myUser = response.myUser else { return }
                 completion(myUser)
-            }
-        }
+            }).store(in: &cancellables)
     }
     
     private func loginSuccessed() {

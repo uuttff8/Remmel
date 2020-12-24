@@ -173,7 +173,6 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
         }
     }
         
-    // TODO: add implementation
     func showContext(in comment: LemmyModel.CommentView) { }
     
     func reply(to comment: LemmyModel.CommentView) {

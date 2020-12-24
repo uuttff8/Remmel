@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Combine
 
 class SignUpModel {
 
@@ -15,11 +16,20 @@ class SignUpModel {
     var uuid: String?
 
     var player: AVAudioPlayer?
-
+    
+    private var cancellables = Set<AnyCancellable>()
+    
     func getCaptcha(completion: @escaping ((Result<(UIImage), Error>) -> Void)) {
-        ApiManager.requests.getCaptcha { (result) in
-            switch result {
-            case let .success(response):
+        ApiManager.requests.asyncGetCaptcha()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { (combineCompletion) in
+                if case let .failure(error) = combineCompletion {
+                    completion(.failure(error))
+                }
+                
+                Logger.logCombineCompletion(combineCompletion)
+            }, receiveValue: { (response) in
+                
                 if let wavString = response.ok?.wav {
                     if let wavData = Data(base64Encoded: wavString) {
                         self.wavDataFile = wavData
@@ -31,10 +41,9 @@ class SignUpModel {
                 if let image = response.ok?.png.base64ToImage() {
                     completion(.success(image))
                 }
-            case let .failure(error):
-                completion(.failure(error))
-            }
-        }
+                
+            }).store(in: &cancellables)
+        
     }
 
     func playWavSound() {

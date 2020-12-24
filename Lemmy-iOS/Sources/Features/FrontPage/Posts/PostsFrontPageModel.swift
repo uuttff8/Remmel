@@ -75,17 +75,15 @@ class PostsFrontPageModel: NSObject {
                                                          communityName: nil,
                                                          auth: LemmyShareData.shared.jwtToken)
         
-        ApiManager.shared.requestsManager.getPosts(
-            parameters: parameters,
-            completion: { (dec: Result<LemmyModel.Post.GetPostsResponse, LemmyGenericError>) in
-                switch dec {
-                case let .success(posts):
-                    self.newDataLoaded?(posts.posts)
-                    completion()
-                case .failure(let error):
-                    Logger.commonLog.error("Failed to get response form GetPosts: \(error)")
-                }
-            })
+        ApiManager.requests.asyncGetPosts(parameters: parameters)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
+            } receiveValue: { (response) in
+                self.newDataLoaded?(response.posts)
+                completion()
+
+            }.store(in: &cancellable)
     }
     
     func getPost(by id: LemmyModel.PostView.ID) -> LemmyModel.PostView? {

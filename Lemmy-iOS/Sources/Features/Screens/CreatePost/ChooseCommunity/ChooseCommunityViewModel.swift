@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 protocol ChooseCommunityViewModelProtocol: AnyObject {
     func doCommunitiesLoad(request: ChooseCommunity.CommunitiesLoad.Request)
@@ -16,31 +17,27 @@ protocol ChooseCommunityViewModelProtocol: AnyObject {
 class ChooseCommunityViewModel: ChooseCommunityViewModelProtocol {
     weak var viewController: ChooseCommunityViewControllerProtocol?
     
+    private var cancellables = Set<AnyCancellable>()
+    
     func doCommunitiesLoad(request: ChooseCommunity.CommunitiesLoad.Request) {
         let parameters = LemmyModel.Community.ListCommunitiesRequest(sort: LemmySortType.topAll,
                                                                      limit: 100,
                                                                      page: nil,
                                                                      auth: LemmyShareData.shared.jwtToken)
         
-        ApiManager.requests.listCommunities(
-            parameters: parameters
-        ) { (res: Result<LemmyModel.Community.ListCommunitiesResponse, LemmyGenericError>) in
-            
-            switch res {
-            case let .success(data):
-                DispatchQueue.main.async {
-                    self.viewController?.displayCommunities(
-                        viewModel: .init(
-                            state: .result(data.communities)
-                        )
+        ApiManager.requests.asyncListCommunities(parameters: parameters)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
+            } receiveValue: { (response) in
+                
+                self.viewController?.displayCommunities(
+                    viewModel: .init(
+                        state: .result(response.communities)
                     )
-                }
-            case let .failure(why):
-                Logger.commonLog.error(
-                    "Failed to get valid response from listCommunities request \(why)"
                 )
-            }
-        }
+                
+            }.store(in: &cancellables)
     }
     
     func doSearchCommunities(request: ChooseCommunity.SearchCommunities.Request) {
@@ -53,25 +50,17 @@ class ChooseCommunityViewModel: ChooseCommunityViewModelProtocol {
                                                      communityName: nil,
                                                      auth: LemmyShareData.shared.jwtToken)
         
-        ApiManager.requests.search(
-            parameters: params
-        ) { (res: Result<LemmyModel.Search.SearchResponse, LemmyGenericError>) in
-            
-            switch res {
-            case let .success(data):
-                DispatchQueue.main.async {
-                    self.viewController?.displaySearchResults(
-                        viewModel: .init(
-                            state: .result(data.communities)
-                        )
+        ApiManager.requests.asyncSearch(parameters: params)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
+            } receiveValue: { (response) in
+                self.viewController?.displaySearchResults(
+                    viewModel: .init(
+                        state: .result(response.communities)
                     )
-                }
-            case let .failure(why):
-                Logger.commonLog.error(
-                    "Failed to get valid response from listCommunities request \(why)"
                 )
-            }
-        }
+            }.store(in: &cancellables)
     }
     
 }

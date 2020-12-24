@@ -72,9 +72,7 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         _ tableView: UITableView,
         commentCellForModel commentModel: AbstractComment,
         atIndexPath indexPath: IndexPath
-    ) -> CommentCell {
-        print(indexPath)
-        
+    ) -> CommentCell {        
         let commentCell: CommentContentTableCell = tableView.cell(forRowAt: indexPath)
         let comment = getCommentData(from: indexPath)
         

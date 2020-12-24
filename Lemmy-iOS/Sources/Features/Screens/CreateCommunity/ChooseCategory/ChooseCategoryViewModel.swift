@@ -15,15 +15,17 @@ final class ChooseCategoryViewModel {
 
     let selectedCategory: CurrentValueSubject<LemmyModel.CategoryView?, Never> = CurrentValueSubject(nil)
 
+    private var cancellabes = Set<AnyCancellable>()
+    
     func loadCategories() {
-        ApiManager.requests.listCategoties(parameters: LemmyModel.Site.ListCategoriesRequest()) { (res) in
-            switch res {
-            case let .success(response):
+        ApiManager.requests.asyncListCategories(parameters: LemmyModel.Site.ListCategoriesRequest())
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
+            } receiveValue: { (response) in
                 self.categories.send(response.categories)
-            case let .failure(error):
-                print(error.localizedDescription)
-            }
-        }
+            }.store(in: &cancellabes)
+
     }
 
     func searchCategories(query: String) {
