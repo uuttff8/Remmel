@@ -14,6 +14,7 @@ protocol ProfileScreenCommentsViewControllerProtocol: AnyObject {
 }
 
 class ProfileScreenCommentsViewController: UIViewController {
+    
     private let viewModel: ProfileScreenCommentsViewModel
     
     weak var coordinator: ProfileScreenCoordinator?
@@ -48,13 +49,15 @@ class ProfileScreenCommentsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func loadView() {
+        let view = ProfileScreenCommentsViewController.View(tableViewManager: tableDataSource)
+        view.delegate = self
+        self.view = view
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateState(newState: self.state)
-    }
-
-    override func loadView() {
-        self.view = ProfileScreenCommentsViewController.View(tableViewManager: tableDataSource)
     }
 
     private func updateState(newState: ProfileScreenComments.ViewControllerState) {
@@ -161,5 +164,11 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
     
     func showMoreAction(in comment: LemmyModel.CommentView) {
         self.showMoreHandler.showMoreInComment(on: self, comment: comment)
+    }
+}
+
+extension ProfileScreenCommentsViewController: ProfileScreenCommentsViewDelegate {
+    func profileScreenPostsViewDidPickerTapped(toVc: UIViewController) {
+        self.present(toVc, animated: true)
     }
 }

@@ -11,6 +11,7 @@ import SnapKit
 
 protocol ProfileScreenPostsViewDelegate: AnyObject {
     func profileScreenPostsViewDidPickerTapped(toVc: UIViewController)
+    func profileScreenPosts(_ view: ProfileScreenPostsViewController.View, didPickedNewSort type: LemmySortType)
 }
 
 extension ProfileScreenPostsViewController.View {
@@ -30,7 +31,11 @@ extension ProfileScreenPostsViewController {
         weak var delegate: ProfileScreenPostsViewDelegate?
         
         let appearance: Appearance
-        var contentType: LemmySortType = .active
+        var sortType: LemmySortType = .active {
+            didSet {
+                self.delegate?.profileScreenPosts(self, didPickedNewSort: sortType)
+            }
+        }
                 
         // Proxify delegates
         private weak var pageScrollViewDelegate: UIScrollViewDelegate?
@@ -57,7 +62,7 @@ extension ProfileScreenPostsViewController {
             }
 
             view.contentTypeView.newCasePicked = { newCase in
-                self.contentType = newCase
+                self.sortType = newCase
             }
         }
         

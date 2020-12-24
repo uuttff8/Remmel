@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ProfileScreenCommentsViewDelegate: AnyObject {
+    func profileScreenPostsViewDidPickerTapped(toVc: UIViewController)
+}
+
 extension ProfileScreenCommentsViewController.View {
     struct Appearance {
         
@@ -21,7 +25,10 @@ extension ProfileScreenCommentsViewController {
             let comments: [LemmyModel.CommentView]
         }
         
+        weak var delegate: ProfileScreenCommentsViewDelegate?
+        
         let appearance: Appearance
+        var contentType: LemmySortType = .active
         
         // Proxify delegates
         private weak var pageScrollViewDelegate: UIScrollViewDelegate?
@@ -33,7 +40,17 @@ extension ProfileScreenCommentsViewController {
             $0.backgroundColor = .clear
             $0.showsVerticalScrollIndicator = false
             $0.delegate = self
-            $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 90, right: 0) // tab bar
+        }
+        
+        private lazy var commentsHeaderView = ProfileScreenTableHeaderView().then { view in
+            view.contentTypeView.addTap {
+                let vc = view.contentTypeView.configuredAlert
+                self.delegate?.profileScreenPostsViewDidPickerTapped(toVc: vc)
+            }
+
+            view.contentTypeView.newCasePicked = { newCase in
+                self.contentType = newCase
+            }
         }
         
         private lazy var emptyStateLabel = UILabel().then {
@@ -73,6 +90,7 @@ extension ProfileScreenCommentsViewController {
             _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
 //            self.emptyStateLabel.isHidden = numberOfRows != 0
 
+            self.tableView.tableHeaderView = commentsHeaderView
             self.tableView.dataSource = dataSource
             self.tableView.reloadData()
         }
@@ -89,6 +107,11 @@ extension ProfileScreenCommentsViewController {
                     tableView.insertRows(at: newIndexpaths, with: .none)
                 }
             }
+        }
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            self.tableView.layoutTableHeaderView()
         }
     }
 }
