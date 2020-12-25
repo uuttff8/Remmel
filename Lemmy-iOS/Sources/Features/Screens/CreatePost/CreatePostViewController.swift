@@ -200,14 +200,25 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
             )
         )
         
+//        let urlCell = SettingsTableSectionViewModel.Cell(
+//            uniqueIdentifier: FormField.url.rawValue,
+//            type: .input(
+//                options: .init(
+//                    valueText: self.createPostData.url ?? nil,
+//                    placeholderText: "Enter Url",
+//                    shouldAlwaysShowPlaceholder: false,
+//                    inputGroup: "url"
+//                )
+//            )
+//        )
+        
         let urlCell = SettingsTableSectionViewModel.Cell(
             uniqueIdentifier: FormField.url.rawValue,
-            type: .input(
+            type: .inputWithImage(
                 options: .init(
+                    placeholderText: "Enter url",
                     valueText: self.createPostData.url ?? nil,
-                    placeholderText: "Enter Url",
-                    shouldAlwaysShowPlaceholder: false,
-                    inputGroup: "url"
+                    imageIcon: Config.Image.addImage
                 )
             )
         )

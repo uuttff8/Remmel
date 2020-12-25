@@ -5,7 +5,8 @@ import UIKit
 protocol SettingsTableViewDelegate:
     SettingsInputCellDelegate,
     SettingsLargeInputCellDelegate,
-    SettingsRightDetailSwitchCellDelegate {
+    SettingsRightDetailSwitchCellDelegate,
+    SettingsInputWithImageCellDelegate {
     func settingsTableView(
         _ tableView: SettingsTableView,
         didSelectCell cell: SettingsTableSectionViewModel.Cell,
@@ -33,6 +34,8 @@ extension SettingsTableViewDelegate {
     ) {}
 
     func settingsCell(_ cell: SettingsRightDetailSwitchTableViewCell, switchValueChanged isOn: Bool) {}
+    
+    func settingsCellDidTappedToIcon(_ cell: SettingsInputWithImageTableViewCell) { }
 }
 
 extension SettingsTableView {
@@ -59,6 +62,7 @@ final class SettingsTableView: UIView {
         tableView.registerClass(SettingsLargeInputTableViewCell<TableInputTextView>.self)
         tableView.registerClass(SettingsRightDetailTableViewCell.self)
         tableView.registerClass(SettingsRightDetailSwitchTableViewCell.self)
+        tableView.registerClass(SettingsInputWithImageTableViewCell.self)
 
         tableView.register(headerFooterViewClass: SettingsTableSectionHeaderView.self)
         tableView.register(headerFooterViewClass: SettingsTableSectionFooterView.self)
@@ -159,6 +163,18 @@ final class SettingsTableView: UIView {
             cell.elementView.switchIsOn = switchModel.isOn
         }
     }
+    
+    func updateInputWithImageCell(
+        _ cell: SettingsInputWithImageTableViewCell,
+        viewModel: SettingsTableSectionViewModel.Cell,
+        options: InputWithImageOptions
+    ) {
+        cell.uniqueIdentifier = viewModel.uniqueIdentifier
+        cell.elementView.placeholderText = options.placeholderText
+        cell.elementView.title = options.valueText
+        cell.elementView.imageIcon = options.imageIcon
+        cell.delegate = self.delegate
+    }
 
     // MARK: Private API
 
@@ -256,7 +272,10 @@ extension SettingsTableView: UITableViewDataSource {
                 )
                 return cell
             }
-        case .custom(let cell):
+        case .inputWithImage(let options):
+            let cell: SettingsInputWithImageTableViewCell = tableView.cell(forRowAt: indexPath)
+            self.updateInputWithImageCell(cell, viewModel: cellViewModel, options: options)
+            
             return cell
         }
     }

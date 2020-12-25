@@ -109,6 +109,11 @@ extension Config {
             UIImage(systemName: "checkmark.seal.fill")!
                 .withTintColor(.darkGray, renderingMode: .alwaysOriginal)
         }
+        
+        static var addImage: UIImage {
+            UIImage(named: "add-image")!
+                .withTintColor(.label, renderingMode: .alwaysOriginal)
+        }
     }
 }
 
