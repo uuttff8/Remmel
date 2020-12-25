@@ -116,6 +116,7 @@ final class SettingsTableView: UIView {
         cell.elementView.placeholder = options.placeholderText
         cell.elementView.text = options.valueText
         cell.elementView.maxTextLength = options.maxLength
+        cell.noNewline = options.noNewline
         cell.delegate = self.delegate
         cell.uniqueIdentifier = viewModel.uniqueIdentifier
         cell.onHeightUpdate = { [weak self] in

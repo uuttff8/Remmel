@@ -218,7 +218,8 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
                 options: .init(
                     valueText: self.createPostData.title ?? nil,
                     placeholderText: "Your title",
-                    maxLength: nil
+                    maxLength: nil,
+                    noNewline: true
                 )
             )
         )

@@ -75,15 +75,18 @@ struct LargeInputCellOptions {
     let placeholderText: String?
     let valueText: String?
     let maxLength: Int?
+    let noNewline: Bool
 
     init(
         valueText: String? = nil,
         placeholderText: String? = nil,
-        maxLength: Int? = nil
+        maxLength: Int? = nil,
+        noNewline: Bool = false
     ) {
         self.valueText = valueText
         self.placeholderText = placeholderText
         self.maxLength = maxLength
+        self.noNewline = noNewline
     }
 }
 
