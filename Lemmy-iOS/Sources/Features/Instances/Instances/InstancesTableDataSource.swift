@@ -10,6 +10,7 @@ import UIKit
 
 protocol InstancesTableDataSourceDelegate: AnyObject {
     func tableDidRequestDelete(_ instance: Instance)
+    func tableDidRequestAddAccountsModule(_ instance: Instance)
 }
 
 final class InstancesTableDataSource: NSObject {
@@ -44,7 +45,7 @@ extension InstancesTableDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let instance = viewModels[indexPath.row]
         print(instance)
-        
+        delegate?.tableDidRequestAddAccountsModule(instance)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -75,6 +76,5 @@ extension InstancesTableDataSource: UITableViewDelegate {
                 deleteAction
             ]
         )
-        
     }
 }

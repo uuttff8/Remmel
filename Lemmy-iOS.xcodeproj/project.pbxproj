@@ -275,11 +275,18 @@
 		4EFAB5E72552FA9300B32780 /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5E62552FA9300B32780 /* UITableView+Ext.swift */; };
 		4EFAB5EC2552FC5000B32780 /* UIStackView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5EB2552FC5000B32780 /* UIStackView+Ext.swift */; };
 		4EFAB6112553279700B32780 /* CommunityHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB6102553279700B32780 /* CommunityHeaderCell.swift */; };
+		650B3F402596731B00A3CB17 /* AccountsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650B3F3F2596731B00A3CB17 /* AccountsTableDataSource.swift */; };
 		6569A21A2594E8F2005A4C54 /* AccountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569A2192594E8F2005A4C54 /* AccountsViewModel.swift */; };
 		6569A2222594E8FC005A4C54 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569A2212594E8FC005A4C54 /* AccountsViewController.swift */; };
 		6569A2272594E906005A4C54 /* AccountsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569A2262594E906005A4C54 /* AccountsCoordinator.swift */; };
 		6569A22C2594E90F005A4C54 /* AccountsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569A22B2594E90F005A4C54 /* AccountsAssembly.swift */; };
 		6569A2312594E917005A4C54 /* AccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569A2302594E917005A4C54 /* AccountsView.swift */; };
+		657DF45725968B9900831B0F /* Account+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DF45525968B9900831B0F /* Account+CoreDataClass.swift */; };
+		657DF45825968B9900831B0F /* Account+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DF45625968B9900831B0F /* Account+CoreDataProperties.swift */; };
+		657DF46525968E9F00831B0F /* AddAccountsAssebly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DF46425968E9F00831B0F /* AddAccountsAssebly.swift */; };
+		657DF46A25968EAA00831B0F /* AddAccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DF46925968EAA00831B0F /* AddAccountsViewController.swift */; };
+		657DF46F25968EB500831B0F /* AddAccountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DF46E25968EB500831B0F /* AddAccountsViewModel.swift */; };
+		657DF47425968EC200831B0F /* AddAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DF47325968EC200831B0F /* AddAccountsView.swift */; };
 		921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -568,11 +575,18 @@
 		4EFAB5E62552FA9300B32780 /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		4EFAB5EB2552FC5000B32780 /* UIStackView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Ext.swift"; sourceTree = "<group>"; };
 		4EFAB6102553279700B32780 /* CommunityHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityHeaderCell.swift; sourceTree = "<group>"; };
+		650B3F3F2596731B00A3CB17 /* AccountsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsTableDataSource.swift; sourceTree = "<group>"; };
 		6569A2192594E8F2005A4C54 /* AccountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsViewModel.swift; sourceTree = "<group>"; };
 		6569A2212594E8FC005A4C54 /* AccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		6569A2262594E906005A4C54 /* AccountsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsCoordinator.swift; sourceTree = "<group>"; };
 		6569A22B2594E90F005A4C54 /* AccountsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsAssembly.swift; sourceTree = "<group>"; };
 		6569A2302594E917005A4C54 /* AccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsView.swift; sourceTree = "<group>"; };
+		657DF45525968B9900831B0F /* Account+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Account+CoreDataClass.swift"; sourceTree = "<group>"; };
+		657DF45625968B9900831B0F /* Account+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Account+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		657DF46425968E9F00831B0F /* AddAccountsAssebly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountsAssebly.swift; sourceTree = "<group>"; };
+		657DF46925968EAA00831B0F /* AddAccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountsViewController.swift; sourceTree = "<group>"; };
+		657DF46E25968EB500831B0F /* AddAccountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountsViewModel.swift; sourceTree = "<group>"; };
+		657DF47325968EC200831B0F /* AddAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountsView.swift; sourceTree = "<group>"; };
 		AF9E5291792018DE1B6050FA /* Pods-Lemmy-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.release.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lemmy_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8130B334E7F53B10E26E71F /* Pods-Lemmy-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -801,6 +815,8 @@
 		4E87C6B2258E922C0007FE5E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				657DF45525968B9900831B0F /* Account+CoreDataClass.swift */,
+				657DF45625968B9900831B0F /* Account+CoreDataProperties.swift */,
 				4EBF1D4725920AC1004068CD /* Instance.swift */,
 				4EBF1D4825920AC1004068CD /* Instance+CoreDataProperties.swift */,
 			);
@@ -1700,11 +1716,24 @@
 			children = (
 				6569A22B2594E90F005A4C54 /* AccountsAssembly.swift */,
 				6569A2262594E906005A4C54 /* AccountsCoordinator.swift */,
+				650B3F3F2596731B00A3CB17 /* AccountsTableDataSource.swift */,
 				6569A2302594E917005A4C54 /* AccountsView.swift */,
 				6569A2212594E8FC005A4C54 /* AccountsViewController.swift */,
 				6569A2192594E8F2005A4C54 /* AccountsViewModel.swift */,
+				657DF46325968E8D00831B0F /* AddAccounts */,
 			);
 			path = Accounts;
+			sourceTree = "<group>";
+		};
+		657DF46325968E8D00831B0F /* AddAccounts */ = {
+			isa = PBXGroup;
+			children = (
+				657DF46925968EAA00831B0F /* AddAccountsViewController.swift */,
+				657DF46425968E9F00831B0F /* AddAccountsAssebly.swift */,
+				657DF47325968EC200831B0F /* AddAccountsView.swift */,
+				657DF46E25968EB500831B0F /* AddAccountsViewModel.swift */,
+			);
+			path = AddAccounts;
 			sourceTree = "<group>";
 		};
 		750E6997D470E00BE92AFA4E /* Frameworks */ = {
@@ -1976,6 +2005,7 @@
 				4ECCEEAE250B8B6B0075F921 /* LoginViewController.swift in Sources */,
 				4ECCEEE7250B8FA80075F921 /* AuthCoordinator.swift in Sources */,
 				4E886C69253CD2950076B162 /* CreatePresentTransitionDriver.swift in Sources */,
+				657DF45825968B9900831B0F /* Account+CoreDataProperties.swift in Sources */,
 				4E0A8E8B255DD01500B06AF6 /* FrontPageSearchView.swift in Sources */,
 				4EFA81C325600056008AF535 /* FrontPageViewModel.swift in Sources */,
 				4EFA81CB256165A4008AF535 /* CommunityScreenAssembly.swift in Sources */,
@@ -2048,6 +2078,7 @@
 				4E87C637258BF2AB0007FE5E /* CommunityFollowService.swift in Sources */,
 				4ECCEEED250BE8870075F921 /* FrontPageViewController.swift in Sources */,
 				4EFAB5D82552FA1100B32780 /* UILabel+Ext.swift in Sources */,
+				657DF46A25968EAA00831B0F /* AddAccountsViewController.swift in Sources */,
 				4E9183482566C16C00702F04 /* SettingsTableViewCell.swift in Sources */,
 				4EFAB5E72552FA9300B32780 /* UITableView+Ext.swift in Sources */,
 				4E3E0F722555BCF70086CE0C /* ProfileScreenViewController.swift in Sources */,
@@ -2077,11 +2108,13 @@
 				4EFAB5912551858C00B32780 /* UIAlertController+Ext.swift in Sources */,
 				4E886C26253744AB0076B162 /* LemmyModel+Auth.swift in Sources */,
 				4ECCEF16250D2D9F0075F921 /* Extensions.swift in Sources */,
+				657DF47425968EC200831B0F /* AddAccountsView.swift in Sources */,
 				4ECCEF29250FB8260075F921 /* CommunityRequests.swift in Sources */,
 				4E0A8E3A255C01E800B06AF6 /* ProfileScreenCommentsUI.swift in Sources */,
 				4E9185C5257064CA00702F04 /* CommentContentHeaderView.swift in Sources */,
 				4EB89B3B25220DC6007129BF /* CommentListingSort.swift in Sources */,
 				4E9185C02570649D00702F04 /* CommentContentFooterView.swift in Sources */,
+				657DF46F25968EB500831B0F /* AddAccountsViewModel.swift in Sources */,
 				4EF3136C257A7F910032B58D /* ScaledControl.swift in Sources */,
 				4EF3AC62254A01DA00BEC9F1 /* CreateCommunityViewController.swift in Sources */,
 				4E7CFCD52584215F0082AC3D /* UIImageView+Ext.swift in Sources */,
@@ -2108,6 +2141,7 @@
 				4E106F6525274325009EABDA /* PostScreenViewModel.swift in Sources */,
 				4E918509256E9EAA00702F04 /* CommentsViewDelegate.swift in Sources */,
 				4EB89AF8251F47A7007129BF /* PostScreenViewController.swift in Sources */,
+				657DF46525968E9F00831B0F /* AddAccountsAssebly.swift in Sources */,
 				4E886CAE2540A9820076B162 /* CreatePostContentCell.swift in Sources */,
 				4EF3AC80254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift in Sources */,
 				4E73DF6A258BE964001608F2 /* FollowButton.swift in Sources */,
@@ -2133,6 +2167,7 @@
 				4E87C63C258C04BB0007FE5E /* CommunityScreenCoordinator.swift in Sources */,
 				4EF31453258166680032B58D /* WriteCommentViewController.swift in Sources */,
 				4E87C6A9258E68C20007FE5E /* InstancesView.swift in Sources */,
+				657DF45725968B9900831B0F /* Account+CoreDataClass.swift in Sources */,
 				4ECCEEF4250C04280075F921 /* LemmyTabBarController.swift in Sources */,
 				4EF3AC85254B456400BEC9F1 /* CreateCommunityChooseCategoryCell.swift in Sources */,
 				4EF312ED2576D2EA0032B58D /* PostContentCenterView.swift in Sources */,
@@ -2173,6 +2208,7 @@
 				4EBB22192559EB3600B88079 /* StyledNavigationController.swift in Sources */,
 				4E9183D0256C011200702F04 /* ChooseCategoryViewModel.swift in Sources */,
 				4E918383256726A400702F04 /* CreatePostDataFlow.swift in Sources */,
+				650B3F402596731B00A3CB17 /* AccountsTableDataSource.swift in Sources */,
 				4EF3ACEA25502D5600BEC9F1 /* CommunityHeaderView.swift in Sources */,
 				4EF313AA257BDF6E0032B58D /* ShowMoreHandlerService.swift in Sources */,
 				4E886C8D253F51B90076B162 /* CreatePostViewModel.swift in Sources */,

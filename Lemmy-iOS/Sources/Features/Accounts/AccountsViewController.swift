@@ -13,6 +13,13 @@ final class AccountsViewController: UIViewController {
     var coordinator: AccountsCoordinator?
     let viewModel: AccountsViewModel
     
+    private lazy var createAccountBarButton = UIBarButtonItem(
+        image: UIImage(systemName: "plus.circle"),
+        style: .done,
+        target: self,
+        action: #selector(createAccountButtonTapped)
+    )
+    
     init(viewModel: AccountsViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -22,9 +29,28 @@ final class AccountsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func loadView() {
+        let view = AccountsView()
+        self.view = view
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Accounts"
+        view.backgroundColor = .white
+        
+        setupNavigationItem()
+    }
+    
+    private func setupNavigationItem() {
+        navigationItem.rightBarButtonItem = createAccountBarButton
+    }
+    
+    // MARK: - Actions
+    
+    @objc private func createAccountButtonTapped(sender: UIBarButtonItem) {
+        coordinator?.goToAddAccountsModule()
     }
 }
 
