@@ -11,20 +11,26 @@ import Combine
 
 class WSLemmyClient {
     
-    var instanceUrl: String
+    private var webSocketTask: URLSessionWebSocketTask
+    private let instanceUrl: URL
+    private let urlSession: URLSession
     
     private let requestQueue = DispatchQueue(label: "Lemmy-iOS.RequestQueue")
+    private let encoder = JSONEncoder()
     
-    init(instanceUrl: String) {
-        self.instanceUrl = instanceUrl.encodeUrl
+    init(url: URL) {
+        self.instanceUrl = url
+        self.urlSession = URLSession(configuration: .default)
+        self.webSocketTask = urlSession.webSocketTask(with: url)
+
+        Logger.commonLog.info("URLSession webSocketTask opened to \(url)")
     }
-    
+
+    @available(*, deprecated, message: "Legacy method, use use full-flow connect()")
     func asyncSend<D: Codable>(on endpoint: String, data: D? = nil) -> AnyPublisher<String, LemmyGenericError> {
         asyncWrapper(url: endpoint, data: data)
-    }
-    
-    func send<D: Codable>(on endpoint: String, data: D? = nil, completion: @escaping (String) -> Void) {
-        wrapper(url: endpoint, data: data, completion: completion)
+            .receive(on: requestQueue)
+            .eraseToAnyPublisher()
     }
     
     private func asyncWrapper<D: Codable>(url: String, data: D? = nil) -> AnyPublisher<String, LemmyGenericError> {
@@ -32,80 +38,45 @@ class WSLemmyClient {
             
             guard let reqStr = makeRequestString(url: url, data: data)
             else { return promise(.failure("Can't make request string".toLemmyError)) }
-            
-            Logger.commonLog.info(
-            """
-                Current Instance: \(instanceUrl) \n
-                \(reqStr)
-            """)
+            Logger.commonLog.info(reqStr)
             
             let wsMessage = createWebsocketMessage(request: reqStr)
-            guard let wsTask = createWebsocketTask(instanceUrl: String.cleanUpUrl(url: &instanceUrl)) else {
-                return promise(.failure(.string("Failed to create webscoket task")))
-            }
             
-            wsTask.resume()
+            webSocketTask.resume()
             
-            wsTask.send(wsMessage) { (error) in
+            webSocketTask.send(wsMessage) { (error) in
                 if let error = error {
                     promise(.failure("WebSocket couldn’t send message because: \(error)".toLemmyError))
                 }
             }
             
-            wsTask.receive { (res) in
+            webSocketTask.receive { (res) in
                 switch res {
                 case let .success(messageType):
                     promise(.success(self.handleMessage(type: messageType)))
+                    
+                    webSocketTask.cancel()
                 case let .failure(error):
                     promise(.failure(LemmyGenericError.error(error)))
                 }
             }
+            
         }.eraseToAnyPublisher()
     }
     
-    private func wrapper<D: Codable>(url: String, data: D? = nil, completion: @escaping (String) -> Void) {
-        
-        guard let reqStr = makeRequestString(url: url, data: data) else { return }
-        Logger.commonLog.info(reqStr)
-        
-        let wsMessage = createWebsocketMessage(request: reqStr)
-        guard let wsTask = createWebsocketTask(instanceUrl: String.cleanUpUrl(url: &instanceUrl)) else {
-            Logger.commonLog.error("Failed to create webscoket task")
-            return
-        }
-        
-        wsTask.resume()
-        
-        wsTask.send(wsMessage) { (error) in
-            if let error = error {
-                Logger.commonLog.error("WebSocket couldn’t send message because: \(error)")
-            }
-        }
-        
-        wsTask.receive { (res) in
-            switch res {
-            case let .failure(error):
-                Logger.commonLog.error(error)
-            case let .success(messageType):
-                completion(self.handleMessage(type: messageType))
-            }
-        }
-    }
-    
-    private func makeRequestString<T: Codable>(url: String, data: T?) -> String? {
+    func makeRequestString<T: Codable>(url: String, data: T?) -> String? {
         if let data = data {
             
-            let encoder = JSONEncoder()
             encoder.outputFormatting = .prettyPrinted
             guard let orderJsonData = try? encoder.encode(data)
             else {
                 Logger.commonLog.error("failed to encode data \(#file) \(#line)")
                 return nil
             }
-            let sss = String(data: orderJsonData, encoding: .utf8)!
+            let parameters = String(data: orderJsonData, encoding: .utf8)!
             
             return """
-            {"op": "\(url)","data": \(sss)}
+            {"op": "\(url)","data": \(parameters)}
             """
         } else {
             return """
@@ -114,14 +85,9 @@ class WSLemmyClient {
         }
     }
     
-    private func createWebsocketTask(instanceUrl: String) -> URLSessionWebSocketTask? {
-        let endpoint = "wss://" + instanceUrl + "/api/v1/ws"
+    private func createWebsocketTask(url: URL) -> URLSessionWebSocketTask? {
         let urlSession = URLSession(configuration: .default)
-        if let url = URL(string: endpoint) {
-            return urlSession.webSocketTask(with: url)
-        }
-        
-        return nil
+        return urlSession.webSocketTask(with: url)
     }
     
     private func createWebsocketMessage(request: String) -> URLSessionWebSocketTask.Message {
@@ -142,18 +108,21 @@ class WSLemmyClient {
 }
 
 extension String {
-    static func cleanUpUrl(url: inout String) -> String {
+    static func cleanUpUrl(url: String) -> String {
         if url.hasPrefix("https://") {
+            var url = url
             url.removeFirst(8)
             return url
         }
         
         if url.hasPrefix("www.") {
+            var url = url
             url.removeFirst(4)
             return url
         }
         
         if url.hasSuffix("/") {
+            var url = url
             url.removeLast()
             return url
         }
@@ -163,3 +132,15 @@ extension String {
 }
 
 // wss://dev.lemmy.ml/api/v1/ws
+
+extension String {
+
+    /// convert JsonString to Dictionary
+    var asDictionary: [String: Any]? {
+        if let data = data(using: .utf8) {
+            return (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: Any]
+        }
+
+        return nil
+    }
+}

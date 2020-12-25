@@ -31,8 +31,15 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
     }
     
     func doAddInstanceCheck(request: AddInstanceDataFlow.InstanceCheck.Request) {
-        ApiManager(instanceUrl: request.query)
-            .requestsManager
+        guard let api = ApiManager(instanceUrl: request.query).requestsManager else {
+            Logger.commonLog.info("Not valid instance url")
+            self.viewController?.displayAddInstanceCheck(
+                viewModel: .init(state: .noResult)
+            )
+            return
+        }
+        
+        api
             .asyncGetSite(parameters: .init(auth: userAccountService.jwtToken))
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
@@ -47,8 +54,8 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
             } receiveValue: { (response) in
                 
                 let instance = Instance(entity: Instance.entity(), insertInto: CoreDataHelper.shared.context)
-                var query = request.query
-                instance.label = String.cleanUpUrl(url: &query)
+                let query = request.query
+                instance.label = String.cleanUpUrl(url: query)
                 CoreDataHelper.shared.save()
                 
                 self.viewController?.displayAddInstanceCheck(

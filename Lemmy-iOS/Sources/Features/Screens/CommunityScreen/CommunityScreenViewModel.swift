@@ -61,7 +61,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
                                                          communityName: nil,
                                                          auth: LoginData.shared.jwtToken)
         
-        ApiManager.shared.requestsManager.asyncGetPosts(parameters: parameters)
+        ApiManager.requests.asyncGetPosts(parameters: parameters)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)

@@ -16,12 +16,12 @@ protocol ShowMoreHandlerServiceProtocol {
 
 class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
     
-    private let networkService: ApiManager
+    private let networkService: RequestsManager
     
     private var cancellables = Set<AnyCancellable>()
     
     init(
-        networkService: ApiManager = .shared
+        networkService: RequestsManager = ApiManager.requests
     ) {
         self.networkService = networkService
     }
@@ -41,7 +41,8 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
                                                                      reason: reportReason,
                                                                      auth: jwtToken)
                 
-                self.networkService.requestsManager.asyncCreatePostReport(parameters: params)
+                self.networkService
+                    .asyncCreatePostReport(parameters: params)
                     .receive(on: DispatchQueue.main)
                     .sink { (completion) in
                         Logger.logCombineCompletion(completion)
@@ -79,7 +80,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
                     auth: jwtToken
                 )
                 
-                self.networkService.requestsManager.asyncCreateCommentReport(parameters: params)
+                self.networkService.asyncCreateCommentReport(parameters: params)
                     .receive(on: DispatchQueue.main)
                     .sink { (completion) in
                         Logger.logCombineCompletion(completion)

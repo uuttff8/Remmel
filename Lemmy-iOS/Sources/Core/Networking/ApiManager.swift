@@ -13,22 +13,23 @@ typealias LemmyResult<Output> = Result<Output, LemmyGenericError>
 final class ApiManager {
     
     static let shared = ApiManager(instanceUrl: ApiManager.currentInstance)
-
-    // MARK: - Internal properties
     
-    let instanceUrl: String
-    
-    lazy var requestsManager = RequestsManager(instanceUrl: instanceUrl)
-
     static var requests: RequestsManager {
-        ApiManager.shared.requestsManager
+        RequestsManager(instanceUrl: ApiManager.currentInstance)!
     }
     
+    /// You should change it ONLY when changing current intance url AND ONLY VALID URL
     class var currentInstance: String {
         "lemmy.ml"
     }
     
+    private let instanceUrl: String
+    
+    lazy var requestsManager = RequestsManager(instanceUrl: instanceUrl)
+    
+    /// Use init?(instanceUrl:) if you want to create a new websocket connection with new instance
     init(instanceUrl: String) {
         self.instanceUrl = instanceUrl
+        self.requestsManager = RequestsManager(instanceUrl: instanceUrl)
     }
 }

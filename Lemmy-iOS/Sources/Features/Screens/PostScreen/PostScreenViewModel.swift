@@ -49,7 +49,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
         let parameters = LemmyModel.Post.GetPostRequest(id: postId,
                                                         auth: LemmyShareData.shared.jwtToken)
         
-        ApiManager.shared.requestsManager.asyncGetPost(parameters: parameters)
+        ApiManager.requests.asyncGetPost(parameters: parameters)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)

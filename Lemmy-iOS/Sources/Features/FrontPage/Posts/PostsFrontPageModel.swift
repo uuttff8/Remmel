@@ -22,7 +22,9 @@ class PostsFrontPageModel: NSObject {
     var currentPage = 1
     
     var postsDataSource: [LemmyModel.PostView] = []
-        
+    
+    private lazy var wsClient = ChainedWSClient(url: URL(string: "wss://" + ApiManager.currentInstance + "/api/v1/ws")!)
+    
     var currentSortType: LemmySortType {
         get { contentPreferenceService.contentSortType }
         set {
@@ -48,7 +50,7 @@ class PostsFrontPageModel: NSObject {
                                                          communityName: nil,
                                                          auth: LemmyShareData.shared.jwtToken)
         
-        ApiManager.shared.requestsManager.asyncGetPosts(parameters: parameters)
+        ApiManager.requests.asyncGetPosts(parameters: parameters)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
@@ -74,7 +76,7 @@ class PostsFrontPageModel: NSObject {
             } receiveValue: { (response) in
                 self.newDataLoaded?(response.posts)
                 completion()
-
+                
             }.store(in: &cancellable)
     }
     

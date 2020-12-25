@@ -40,7 +40,6 @@ private protocol LemmyPostRequestManagerProtocol {
 }
 
 extension RequestsManager: LemmyPostRequestManagerProtocol {
-    
     func asyncGetPost(
         parameters: LemmyModel.Post.GetPostRequest
     ) -> AnyPublisher<LemmyModel.Post.GetPostResponse, LemmyGenericError> {
@@ -48,7 +47,7 @@ extension RequestsManager: LemmyPostRequestManagerProtocol {
         asyncRequestDecodable(path: WSEndpoint.Post.getPost.endpoint,
                               parameters: parameters)
     }
-
+    
     func asyncCreatePost(
         parameters: LemmyModel.Post.CreatePostRequest
     ) -> AnyPublisher<LemmyModel.Post.CreatePostResponse, LemmyGenericError> {
