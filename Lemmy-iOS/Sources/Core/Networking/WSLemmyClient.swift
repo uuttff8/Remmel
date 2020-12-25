@@ -9,116 +9,21 @@
 import UIKit
 import Combine
 
-public enum NetworkCloseError: Error {
-    case socketReceiveFailure(Error)
-    case socketPingFailure(Error)
-    case socketSendFailure(Error)
+class WSLemmyClient {
     
-    public var errorCode: String {
-        switch self {
-        case .socketReceiveFailure: return "3000"
-        case .socketPingFailure: return "3001"
-        case .socketSendFailure: return "3002"
-        }
-    }
-    
-    public var errorDescription: String {
-        switch self {
-        case .socketReceiveFailure(let error): return error.localizedDescription
-        case .socketPingFailure(let error): return error.localizedDescription
-        case .socketSendFailure(let error): return error.localizedDescription
-        }
-    }
-}
-
-public protocol WebsocketHandlerProtocol {
-    var subject: PassthroughSubject<URLSessionWebSocketTask.Message, NetworkCloseError> { get }
-    
-    func start()
-    func receiveMessage()
-    func ping()
-    func send(message: URLSessionWebSocketTask.Message)
-    func close()
-}
-
-class WSLemmyClient: WebsocketHandlerProtocol {
-    
-    public private(set) var subject = PassthroughSubject<URLSessionWebSocketTask.Message, NetworkCloseError>()
-    let instanceUrl: String
     private var webSocketTask: URLSessionWebSocketTask
+    private let instanceUrl: URL
+    private let urlSession: URLSession
     
     private let requestQueue = DispatchQueue(label: "Lemmy-iOS.RequestQueue")
     private let encoder = JSONEncoder()
     
-    init(instanceUrl: String) {
-        self.instanceUrl = instanceUrl
-        
-        let instanceUrl = String.cleanUpUrl(url: instanceUrl)
-        let url = URL(string: "wss://" + instanceUrl + "/api/v1/ws")!
-        
-        let urlSession = URLSession(configuration: .default)
+    init(url: URL) {
+        self.instanceUrl = url
+        self.urlSession = URLSession(configuration: .default)
         self.webSocketTask = urlSession.webSocketTask(with: url)
 
-        Logger.commonLog.info("URLSession webSocketTask opened to \(instanceUrl)")
-    }
-    
-    func start() {
-        Logger.commonLog.info("Start WebSocketTask Session")
-        webSocketTask.resume()
-        receiveMessage()
-    }
-        
-    public func ping() {
-        Logger.commonLog.info("PING Websocket")
-        webSocketTask.sendPing { [weak self] error in
-            guard let error = error else { return }
-            self?.subject.send(completion: .failure(.socketPingFailure(error)))
-            Logger.commonLog.error("SocketPingFailure: \(error.localizedDescription)")
-        }
-    }
-    
-    public func receiveMessage() {
-        webSocketTask.receive { [weak self] result in
-            switch result {
-            case .failure(let error):
-                self?.subject.send(completion: .failure(.socketReceiveFailure(error)))
-                Logger.commonLog.error("SocketReceiveFailure: \(error.localizedDescription)")
-            case .success(let message):
-                self?.subject.send(message)
-                
-                guard case .string(let message) = message else { return }
-                let op = message.convertToDictionary()!["op"] as! String
-                let type: LemmyModel.Post.GetPostsResponse.Type = WSResponseMapper(op: op)!
-                
-                let decoder = LemmyJSONDecoder()
-                
-                do {
-                    let response = try decoder.decode(RequestsManager.ApiResponse<LemmyModel.Post.GetPostsResponse
-                    >.self, from: message.data(using: .utf8)!)
-                    print(response)
-                } catch {
-                    print(error)
-                }
-                
-                Logger.commonLog.info("WebSocket task received message")
-                self?.receiveMessage()
-            }
-        }
-    }
-
-    public func send(message: URLSessionWebSocketTask.Message) {
-        Logger.commonLog.info("Send WebSocketTask Message")
-        webSocketTask.send(message) { error in
-            guard let error = error else { return }
-            self.subject.send(completion: .failure(.socketSendFailure(error)))
-            Logger.commonLog.error("SocketSendFailure: \(error.localizedDescription)")
-        }
-    }
-    
-    public func close() {
-        webSocketTask.cancel(with: .normalClosure, reason: nil)
-        self.subject.send(completion: .finished)
-        Logger.commonLog.info("Close webSocketTask")
+        Logger.commonLog.info("URLSession webSocketTask opened to \(url)")
     }
 
     @available(*, deprecated, message: "Legacy method, use use full-flow connect()")
@@ -133,34 +38,29 @@ class WSLemmyClient: WebsocketHandlerProtocol {
             
             guard let reqStr = makeRequestString(url: url, data: data)
             else { return promise(.failure("Can't make request string".toLemmyError)) }
-            
-            Logger.commonLog.info(
-            """
-                Current Instance: \(instanceUrl) \n
-                \(reqStr)
-            """)
+            Logger.commonLog.info(reqStr)
             
             let wsMessage = createWebsocketMessage(request: reqStr)
-            guard let wsTask = createWebsocketTask(instanceUrl: String.cleanUpUrl(url: instanceUrl)) else {
-                return promise(.failure(.string("Failed to create webscoket task")))
-            }
             
-            wsTask.resume()
+            webSocketTask.resume()
             
-            wsTask.send(wsMessage) { (error) in
+            webSocketTask.send(wsMessage) { (error) in
                 if let error = error {
                     promise(.failure("WebSocket couldn’t send message because: \(error)".toLemmyError))
                 }
             }
             
-            wsTask.receive { (res) in
+            webSocketTask.receive { (res) in
                 switch res {
                 case let .success(messageType):
                     promise(.success(self.handleMessage(type: messageType)))
+                    
+                    webSocketTask.cancel()
                 case let .failure(error):
                     promise(.failure(LemmyGenericError.error(error)))
                 }
             }
+            
         }.eraseToAnyPublisher()
     }
     
@@ -185,14 +85,9 @@ class WSLemmyClient: WebsocketHandlerProtocol {
         }
     }
     
-    private func createWebsocketTask(instanceUrl: String) -> URLSessionWebSocketTask? {
-        let endpoint = "wss://" + instanceUrl + "/api/v1/ws"
+    private func createWebsocketTask(url: URL) -> URLSessionWebSocketTask? {
         let urlSession = URLSession(configuration: .default)
-        if let url = URL(string: endpoint) {
-            return urlSession.webSocketTask(with: url)
-        }
-        
-        return nil
+        return urlSession.webSocketTask(with: url)
     }
     
     private func createWebsocketMessage(request: String) -> URLSessionWebSocketTask.Message {
@@ -239,14 +134,13 @@ extension String {
 // wss://dev.lemmy.ml/api/v1/ws
 
 extension String {
-    func convertToDictionary() -> [String: Any]? {
-        if let data = self.data(using: .utf8) {
-            do {
-                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-            } catch {
-                print(error.localizedDescription)
-            }
+
+    /// convert JsonString to Dictionary
+    var asDictionary: [String: Any]? {
+        if let data = data(using: .utf8) {
+            return (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: Any]
         }
+
         return nil
     }
 }

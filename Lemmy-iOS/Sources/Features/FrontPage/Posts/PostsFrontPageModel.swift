@@ -23,6 +23,8 @@ class PostsFrontPageModel: NSObject {
     
     var postsDataSource: [LemmyModel.PostView] = []
     
+    private lazy var wsClient = ChainedWSClient(url: URL(string: "wss://" + ApiManager.currentInstance + "/api/v1/ws")!)
+    
     var currentSortType: LemmySortType {
         get { contentPreferenceService.contentSortType }
         set {
@@ -76,43 +78,6 @@ class PostsFrontPageModel: NSObject {
                 completion()
                 
             }.store(in: &cancellable)
-    }
-    
-    func receiveMessages() {
-        let message = """
-        {"op": "GetPosts","data": {
-      "limit" : 50,
-      "type_" : "All",
-      "sort" : "Active",
-      "auth" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTQxNjUsImlzcyI6ImxlbW15Lm1sIn0.NNTF0FbKEyG-y1fPqvccQ8ut-rBCyYEncU5LbHv-CTE",
-      "page" : 1
-    }}
-"""
-        ApiManager.requests.wsClient.send(message: .string(message))
-        print(ApiManager.requests.wsClient.subject)
-        ApiManager.requests.wsClient.subject
-            .sink { (completion) in
-                print(completion)
-            } receiveValue: { (message) in
-                switch message {
-                case .string(let value):
-                    let op = value.dictionary!["op"] as! String
-                    let type: LemmyModel.Post.GetPostsResponse.Type = WSResponseMapper(op: op)!
-                    
-                    let decoder = LemmyJSONDecoder()
-                    
-                    do {
-                        let response = try? decoder.decode(type, from: value.data(using: .utf8)!)
-                        print(response)
-                    } catch {
-                        print(error)
-                    }
-                case .data: break
-                @unknown default:
-                    break
-                }
-            }.store(in: &cancellable)
-        
     }
     
     func getPost(by id: LemmyModel.PostView.ID) -> LemmyModel.PostView? {

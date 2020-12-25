@@ -15,10 +15,10 @@ final class ApiManager {
     static let shared = ApiManager(instanceUrl: ApiManager.currentInstance)
     
     static var requests: RequestsManager {
-        RequestsManager(instanceUrl: ApiManager.currentInstance)
+        RequestsManager(instanceUrl: ApiManager.currentInstance)!
     }
     
-    /// You should change it ONLY when changing current intance url
+    /// You should change it ONLY when changing current intance url AND ONLY VALID URL
     class var currentInstance: String {
         "lemmy.ml"
     }
@@ -27,7 +27,7 @@ final class ApiManager {
     
     lazy var requestsManager = RequestsManager(instanceUrl: instanceUrl)
     
-    /// Use init(instanceUrl:) if you want to create a new websocket connection with new instance
+    /// Use init?(instanceUrl:) if you want to create a new websocket connection with new instance
     init(instanceUrl: String) {
         self.instanceUrl = instanceUrl
         self.requestsManager = RequestsManager(instanceUrl: instanceUrl)

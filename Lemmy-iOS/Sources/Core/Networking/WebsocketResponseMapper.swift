@@ -10,13 +10,16 @@ import Foundation
 
 private let mapper: [String: Codable.Type] = [
     "GetPosts": LemmyModel.Post.GetPostsResponse.self,
-    "CreatePostLike": LemmyModel.Post.CreatePostLikeResponse.self
+    "CreatePostLike": LemmyModel.Post.CreatePostLikeResponse.self,
+    "Error": ApiErrorResponse.self
 ]
 
 private let decoder = LemmyJSONDecoder()
 
-func WSResponseMapper<T: Codable>(op: String) -> T.Type? {
-    if let mapped = mapper[op] as? T.Type {
+func WSResponseMapper(response: String) -> Codable.Type? {
+    let op = response.asDictionary!["op"] as! String
+    
+    if let mapped = mapper[op] {
         return mapped
     }
     

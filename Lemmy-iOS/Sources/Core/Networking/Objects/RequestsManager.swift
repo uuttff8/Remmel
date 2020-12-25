@@ -21,23 +21,17 @@ class RequestsManager {
         let data: T
     }
     
-    var websocketSubject: AnyPublisher<Data, NetworkCloseError> {
-        self.wsClient.subject
-            .compactMap({ self.parseMessage($0) })
-            .eraseToAnyPublisher()
-    }
-    
     let wsClient: WSLemmyClient
     let httpClient = HttpLemmyClient()
     let decoder = LemmyJSONDecoder()
     
     private let requestQueue = DispatchQueue(label: "Lemmy-iOS.RequestQueue")
         
-    init(instanceUrl: String) {
-        wsClient = WSLemmyClient(instanceUrl: instanceUrl)
-        
-        wsClient.start()
-        pingWebSocket()
+    init?(instanceUrl: String) {
+        guard let url = URL(string: "wss://" + instanceUrl + "/api/v1/ws") else {
+            return nil
+        }
+        wsClient = WSLemmyClient(url: url)
     }
     
     func asyncRequestDecodable<Req: Codable, Res: Codable>(
@@ -71,35 +65,7 @@ class RequestsManager {
             }
         }
     }
-    
-    func sendMessage<T: Codable>(url: String, parameters: T) {
-        guard let requestString = self.wsClient.makeRequestString(url: url, data: parameters)
-        else { return }
         
-        let message = URLSessionWebSocketTask.Message.string(requestString)
-        
-        self.wsClient.send(message: message)
-    }
-    
-    private func parseMessage(_ message: URLSessionWebSocketTask.Message) -> Data? {
-        switch message {
-        case .data(let data):
-            Logger.commonLog.info("received unknown data")
-            print(data)
-            return nil
-        case .string(let value):
-            return value.data(using: .utf8)!
-        @unknown default: return nil
-        }
-    }
-    
-    private func pingWebSocket() {
-        requestQueue.asyncAfter(deadline: .now() + 10) { [weak self] in
-            self?.wsClient.ping()
-            self?.pingWebSocket()
-        }
-    }
-    
     private func asyncDecode<D: Codable>(
         data: Data,
         parsingFromData: Bool = true
@@ -125,7 +91,7 @@ class RequestsManager {
                 }
             }
         }.eraseToAnyPublisher()
-    }
+    }    
 }
 
 extension String: Error {
