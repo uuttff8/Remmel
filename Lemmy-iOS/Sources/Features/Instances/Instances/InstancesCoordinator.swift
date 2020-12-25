@@ -35,4 +35,9 @@ final class InstancesCoordinator: GenericCoordinator<UINavigationController> {
         
         self.rootViewController.present(module, animated: true)
     }
+    
+    func goToAccounts() {
+        let coordinator = AccountsCoordinator()
+        coordinator.start()
+    }
 }

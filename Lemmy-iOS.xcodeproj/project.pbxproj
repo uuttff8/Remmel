@@ -275,6 +275,11 @@
 		4EFAB5E72552FA9300B32780 /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5E62552FA9300B32780 /* UITableView+Ext.swift */; };
 		4EFAB5EC2552FC5000B32780 /* UIStackView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5EB2552FC5000B32780 /* UIStackView+Ext.swift */; };
 		4EFAB6112553279700B32780 /* CommunityHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB6102553279700B32780 /* CommunityHeaderCell.swift */; };
+		6569A21A2594E8F2005A4C54 /* AccountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569A2192594E8F2005A4C54 /* AccountsViewModel.swift */; };
+		6569A2222594E8FC005A4C54 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569A2212594E8FC005A4C54 /* AccountsViewController.swift */; };
+		6569A2272594E906005A4C54 /* AccountsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569A2262594E906005A4C54 /* AccountsCoordinator.swift */; };
+		6569A22C2594E90F005A4C54 /* AccountsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569A22B2594E90F005A4C54 /* AccountsAssembly.swift */; };
+		6569A2312594E917005A4C54 /* AccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569A2302594E917005A4C54 /* AccountsView.swift */; };
 		921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -563,6 +568,11 @@
 		4EFAB5E62552FA9300B32780 /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		4EFAB5EB2552FC5000B32780 /* UIStackView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Ext.swift"; sourceTree = "<group>"; };
 		4EFAB6102553279700B32780 /* CommunityHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityHeaderCell.swift; sourceTree = "<group>"; };
+		6569A2192594E8F2005A4C54 /* AccountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsViewModel.swift; sourceTree = "<group>"; };
+		6569A2212594E8FC005A4C54 /* AccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
+		6569A2262594E906005A4C54 /* AccountsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsCoordinator.swift; sourceTree = "<group>"; };
+		6569A22B2594E90F005A4C54 /* AccountsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsAssembly.swift; sourceTree = "<group>"; };
+		6569A2302594E917005A4C54 /* AccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsView.swift; sourceTree = "<group>"; };
 		AF9E5291792018DE1B6050FA /* Pods-Lemmy-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.release.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lemmy_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8130B334E7F53B10E26E71F /* Pods-Lemmy-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1289,17 +1299,18 @@
 		4ECCEEE2250B8F4A0075F921 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				4E87C698258E67A50007FE5E /* Instances */,
-				4EF31449258166480032B58D /* WriteComment */,
-				4EF3131E25782BA90032B58D /* SearchResults */,
-				4E10706F2534E942009EABDA /* CreatePostOrCommunity */,
-				4EB89AF5251F4783007129BF /* Screens */,
-				4ECCEEF5250C0E230075F921 /* CommunitiesPreview */,
-				4ECCEEEB250BE85B0075F921 /* FrontPage */,
+				6569A2152594E8C7005A4C54 /* Accounts */,
 				4ECCEEE3250B8F690075F921 /* Auth */,
-				4EBB22172559EB0E00B88079 /* StyledNavigationController */,
-				4ECCEEF0250C03910075F921 /* LemmyTabBar */,
+				4ECCEEF5250C0E230075F921 /* CommunitiesPreview */,
+				4E10706F2534E942009EABDA /* CreatePostOrCommunity */,
+				4ECCEEEB250BE85B0075F921 /* FrontPage */,
 				4EF3142A25811F0C0032B58D /* GenericCoordinator */,
+				4E87C698258E67A50007FE5E /* Instances */,
+				4ECCEEF0250C03910075F921 /* LemmyTabBar */,
+				4EB89AF5251F4783007129BF /* Screens */,
+				4EF3131E25782BA90032B58D /* SearchResults */,
+				4EBB22172559EB0E00B88079 /* StyledNavigationController */,
+				4EF31449258166480032B58D /* WriteComment */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -1684,6 +1695,18 @@
 			path = LangExt;
 			sourceTree = "<group>";
 		};
+		6569A2152594E8C7005A4C54 /* Accounts */ = {
+			isa = PBXGroup;
+			children = (
+				6569A22B2594E90F005A4C54 /* AccountsAssembly.swift */,
+				6569A2262594E906005A4C54 /* AccountsCoordinator.swift */,
+				6569A2302594E917005A4C54 /* AccountsView.swift */,
+				6569A2212594E8FC005A4C54 /* AccountsViewController.swift */,
+				6569A2192594E8F2005A4C54 /* AccountsViewModel.swift */,
+			);
+			path = Accounts;
+			sourceTree = "<group>";
+		};
 		750E6997D470E00BE92AFA4E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1919,6 +1942,7 @@
 				4EBF1D4A25920AC1004068CD /* Instance+CoreDataProperties.swift in Sources */,
 				4ECCEF27250FB62F0075F921 /* LemmyModel+Community.swift in Sources */,
 				4ECCEF1A250D62580075F921 /* LemmyModel+Comment.swift in Sources */,
+				6569A2272594E906005A4C54 /* AccountsCoordinator.swift in Sources */,
 				4EB4F689259024C40057BDCC /* InstancesViewModel.swift in Sources */,
 				4E9183C8256AFD8800702F04 /* CreateCommunityAssembly.swift in Sources */,
 				4EF3AC8B254B469F00BEC9F1 /* ChooseCategoryViewController.swift in Sources */,
@@ -1979,6 +2003,7 @@
 				4E0A8E93255DDE4500B06AF6 /* PostScreenAssembly.swift in Sources */,
 				4EF312F72576D3400032B58D /* PostContentView.swift in Sources */,
 				4EB89B0A2521FA73007129BF /* LoginOrRegisterButton.swift in Sources */,
+				6569A2222594E8FC005A4C54 /* AccountsViewController.swift in Sources */,
 				4E87C6AE258E696C0007FE5E /* InstancesTableDataSource.swift in Sources */,
 				4E91850A256E9EAA00702F04 /* CommentCell.swift in Sources */,
 				4E26FEA02573E36C009DE4A7 /* PostScreenCoordinator.swift in Sources */,
@@ -2039,6 +2064,7 @@
 				4EFA81B6255FF6B7008AF535 /* UserAccountService.swift in Sources */,
 				4E87C67E258E1AD90007FE5E /* PostContentPreviewTableCell.swift in Sources */,
 				4E886C88253F4FF40076B162 /* CreatePostUI.swift in Sources */,
+				6569A22C2594E90F005A4C54 /* AccountsAssembly.swift in Sources */,
 				4E886C7E253F4F290076B162 /* CreatePostViewController.swift in Sources */,
 				4E9183512566C16C00702F04 /* SettingsTableSectionHeaderView.swift in Sources */,
 				4E87C683258E1B970007FE5E /* PostContentPreviewView.swift in Sources */,
@@ -2137,6 +2163,7 @@
 				4E9183502566C16C00702F04 /* SettingsRightDetailSwitchTableViewCell.swift in Sources */,
 				4EBB222E2559EEFF00B88079 /* MilticastDelegate.swift in Sources */,
 				4ECCEF1F250DFBC90075F921 /* CommentContentTableCell.swift in Sources */,
+				6569A21A2594E8F2005A4C54 /* AccountsViewModel.swift in Sources */,
 				4E3FBC59258A857600F97671 /* CommunitiesPreviewDataSoucre.swift in Sources */,
 				4E9BBA592555560C004FF2F9 /* LemmyImageTextPickerView.swift in Sources */,
 				4E0A8E3F255C01F400B06AF6 /* ProfileScreenCommentsTableDataSource.swift in Sources */,
@@ -2157,6 +2184,7 @@
 				4E886C4B253C95D20076B162 /* CreatePresentAnimator.swift in Sources */,
 				4ECCEF21250FB3D40075F921 /* CommunitiesCoordinator.swift in Sources */,
 				4E87C688258E23990007FE5E /* String+Ext.swift in Sources */,
+				6569A2312594E917005A4C54 /* AccountsView.swift in Sources */,
 				4E3E0F7A2555F5BC0086CE0C /* LemmyJSONDecoder.swift in Sources */,
 				4EFAB5D32552F98600B32780 /* Codable+Ext.swift in Sources */,
 				4E0A8E47255C0A5500B06AF6 /* ProfileScreenCommentsViewModel.swift in Sources */,
