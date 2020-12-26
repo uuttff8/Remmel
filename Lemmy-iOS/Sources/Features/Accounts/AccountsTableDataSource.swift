@@ -1,33 +1,31 @@
 //
-//  InstancesTableDataSource.swift
+//  AccountsTableDataSource.swift
 //  Lemmy-iOS
 //
-//  Created by uuttff8 on 19.12.2020.
+//  Created by Komolbek Ibragimov on 25/12/2020.
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
 import UIKit
 
-private let log = Logger.commonLog
-
-protocol InstancesTableDataSourceDelegate: AnyObject {
-    func tableDidRequestDelete(_ instance: Instance)
-    func tableDidRequestAddAccountsModule(_ instance: Instance)
+protocol AccountsTableDataSourceDelegate: AnyObject {
+    func tableDidRequestDelete(_ instance: Account)
+    func tableDidRequestAddAccountsModule(_ instance: Account)
 }
 
-final class InstancesTableDataSource: NSObject {
+final class AccountsTableDataSource: NSObject {
     
-    weak var delegate: InstancesTableDataSourceDelegate?
+    weak var delegate: AccountsTableDataSourceDelegate?
     
-    var viewModels: [Instance]
+    var viewModels: [Account]
     
-    init(viewModels: [Instance] = []) {
+    init(viewModels: [Account] = []) {
         self.viewModels = viewModels
         super.init()
     }
 }
 
-extension InstancesTableDataSource: UITableViewDataSource {
+extension AccountsTableDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModels.count
     }
@@ -37,18 +35,17 @@ extension InstancesTableDataSource: UITableViewDataSource {
         cell.accessoryType = .disclosureIndicator
         
         let instance = viewModels[indexPath.row]
-        cell.textLabel?.text = instance.label
+        cell.textLabel?.text = instance.name
         
         return cell
     }
 }
 
-extension InstancesTableDataSource: UITableViewDelegate {
+extension AccountsTableDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let instance = viewModels[indexPath.row]
-        delegate?.tableDidRequestAddAccountsModule(instance)
-        log.info("Instance choosed: \(instance)")
-      
+        let account = viewModels[indexPath.row]
+        print(account)
+        delegate?.tableDidRequestAddAccountsModule(account)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -57,17 +54,17 @@ extension InstancesTableDataSource: UITableViewDelegate {
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
         
-        let instance = viewModels[indexPath.row]
+        let account = viewModels[indexPath.row]
         
         let deleteAction = UIContextualAction(
             style: .destructive,
             title: "Delete",
             handler: { (_, _, completion) in
                 
-                if let index = self.viewModels.firstIndex(where: { $0.label == instance.label }) {
+                if let index = self.viewModels.firstIndex(where: { $0.name == account.name }) {
                     self.viewModels.remove(at: index)
                     
-                    self.delegate?.tableDidRequestDelete(instance)
+                    self.delegate?.tableDidRequestDelete(account)
                     
                     completion(true)
                     tableView.deleteRows(at: [indexPath], with: .automatic)

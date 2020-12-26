@@ -107,4 +107,8 @@ extension InstancesViewController: InstancesTableDataSourceDelegate {
     func tableDidRequestDelete(_ instance: Instance) {
         self.viewModel.doInstanceDelete(request: .init(instance: instance))
     }
+    
+    func tableDidRequestAddAccountsModule(_ instance: Instance) {
+        coordinator?.goToAccounts()
+    }
 }
