@@ -50,6 +50,19 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         }
     }
     
+    func scrollTo(_ comment: LemmyModel.CommentView) {
+        guard let index = commentDataSource.firstIndex(where: { $0.commentContent?.id == comment.id }) else {
+            return
+        }
+        
+        let indexPath = IndexPath(row: index, section: 0)
+        tableView.scrollToRow(at: indexPath, at: .middle, animated: false)
+        
+        if let cell = self.tableView.cellForRow(at: indexPath) as? CommentContentTableCell {
+            cell.focusOnContent()
+        }
+    }
+    
     func setupHeaderView(_ headerView: UIView) {
         self.tableView.tableHeaderView = headerView
         self.tableView.layoutTableHeaderView()
@@ -59,8 +72,7 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         _ tableView: UITableView,
         commentCellForModel commentModel: AbstractComment,
         atIndexPath indexPath: IndexPath
-    ) -> CommentCell {
-        
+    ) -> CommentCell {        
         let commentCell: CommentContentTableCell = tableView.cell(forRowAt: indexPath)
         let comment = getCommentData(from: indexPath)
         
@@ -83,7 +95,7 @@ extension FoldableLemmyCommentsViewController: CommentsViewDelegate {
     func commentCellFolded(atIndex index: Int) {
         updateCellFoldState(true, atIndex: index)
     }
-
+    
     private func updateCellFoldState(_ folded: Bool, atIndex index: Int) {
         let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as! CommentContentTableCell
         cell.animateIsFolded(fold: folded)

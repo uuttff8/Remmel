@@ -14,6 +14,7 @@ final class SettingsLargeInputTableViewCell<T: UITextView>: SettingsTableViewCel
 
     /// Called when cell height should be update
     var onHeightUpdate: (() -> Void)?
+    var noNewline: Bool = false
 
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
@@ -30,6 +31,18 @@ final class SettingsLargeInputTableViewCell<T: UITextView>: SettingsTableViewCel
             didReportTextChange: textView.text,
             identifiedBy: self.uniqueIdentifier
         )
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if noNewline {
+            guard text.rangeOfCharacter(from: CharacterSet.newlines) == nil else {
+                textView.resignFirstResponder()
+                return false
+            }
+        }
+        
+        return true
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {

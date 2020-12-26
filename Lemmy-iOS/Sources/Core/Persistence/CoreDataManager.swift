@@ -41,7 +41,7 @@ final class CoreDataHelper: NSObject {
                 ]
             )
         } catch {
-            print("STORE IS NIL")
+            Logger.commonLog.emergency("Application's NSPersistentStore is nil, abort")
             abort()
         }
 
@@ -57,6 +57,7 @@ final class CoreDataHelper: NSObject {
                 do {
                     try self?.context.save()
                 } catch {
+                    Logger.commonLog.emergency("Saving error in coredata")
                     print("SAVING ERROR")
                 }
             })

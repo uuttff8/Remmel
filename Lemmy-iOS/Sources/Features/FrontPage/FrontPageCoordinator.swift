@@ -15,20 +15,20 @@ class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
         let vc = PostsFrontPageViewController()
         return vc
     }()
-
+    
     lazy var commentsViewController: CommentsFrontPageViewController = {
         let vc = CommentsFrontPageViewController()
         return vc
     }()
     
     lazy var searchViewController = FrontPageSearchViewController()
-
+    
     override init(navigationController: UINavigationController?) {
         super.init(navigationController: navigationController)
         let assembly = FrontPageAssembly()
         self.rootViewController = assembly.makeModule()
     }
-
+    
     override func start() {
         rootViewController.coordinator = self
         postsViewController.coordinator = self
@@ -37,11 +37,11 @@ class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
         
         rootViewController.configureSearchView(searchViewController.view)
     }
-
+    
     func switchViewController() {
         self.commentsViewController.view.isHidden =
             rootViewController.currentViewController != self.commentsViewController
-
+        
         self.postsViewController.view.isHidden =
             rootViewController.currentViewController != self.postsViewController
     }
@@ -51,15 +51,15 @@ class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
                                                 authMethod: authMethod)
         self.store(coordinator: loginCoordinator)
         loginCoordinator.start()
-
+        
         guard let loginNavController = loginCoordinator.navigationController else {
-            print("\(#file) loginCoordinator.navigationController is nil")
+            Logger.commonLog.emergency("FrontPage coordinator is nil")
             return
         }
-
+        
         rootViewController.present(loginNavController, animated: true, completion: nil)
     }
-        
+    
     func goToSearchResults(searchQuery: String, searchType: LemmySearchSortType) {
         let assembly = SearchResultsAssembly(searchQuery: searchQuery, type: searchType)
         let vc = assembly.makeModule()
@@ -77,5 +77,5 @@ class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
         searchViewController.coordinator = nil
         self.searchViewController.hideSearchIfNeeded()
         self.searchViewController.searchQuery = ""
-    }
+    }    
 }

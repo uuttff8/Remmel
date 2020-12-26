@@ -11,7 +11,7 @@ import UIKit
 protocol CommunityScreenViewDelegate: CommunityTableHeaderViewDelegate {
     func communityViewDidReadMoreTapped(
         _ communityView: CommunityScreenViewController.View,
-        toVc: MarkdownParsedViewController
+        toVc: UIViewController
     )
     func communityViewDidPickerTapped(_ communityView: CommunityScreenViewController.View, toVc: UIViewController)
 }
@@ -36,7 +36,7 @@ extension CommunityScreenViewController {
         
         private lazy var tableView = LemmyTableView(style: .plain).then {
             $0.delegate = tableViewDelegate
-            $0.registerClass(PostContentTableCell.self)
+            $0.registerClass(PostContentPreviewTableCell.self)
         }
         
         var communityHeaderViewData: LemmyModel.CommunityView? {
@@ -109,7 +109,8 @@ extension CommunityScreenViewController {
             if let desc = self.communityHeaderViewData.require().description {
                 
                 let vc = MarkdownParsedViewController(mdString: desc)
-                self.delegate?.communityViewDidReadMoreTapped(self, toVc: vc)
+                let nc = StyledNavigationController(rootViewController: vc)
+                self.delegate?.communityViewDidReadMoreTapped(self, toVc: nc)
             }
         }
     }

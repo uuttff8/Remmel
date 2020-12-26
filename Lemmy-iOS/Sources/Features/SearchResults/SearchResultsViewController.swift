@@ -126,20 +126,7 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
         self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }
     
-    func upvote(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        newVote: LemmyVoteType,
-        post: LemmyModel.PostView
-    ) {
-        guard let coordinator = coordinator else { return }
-
-        ContinueIfLogined(on: self, coordinator: coordinator) {
-            self.viewModel.doPostLike(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post)
-        }
-    }
-    
-    func downvote(
+    func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
@@ -180,20 +167,7 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
         self.coordinator?.goToPostScreen(postId: comment.postId)
     }
     
-    func upvote(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView
-    ) {
-        guard let coordinator = coordinator else { return }
-        
-        ContinueIfLogined(on: self, coordinator: coordinator) {
-            self.viewModel.doCommentLike(scoreView: scoreView, voteButton: voteButton, for: newVote, comment: comment)
-        }
-    }
-    
-    func downvote(
+    func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,

@@ -7,60 +7,36 @@
 //
 
 import Foundation
+import Combine
 
 private protocol AuthRequestManagerProtocol {
-    func login(
-        parameters: LemmyModel.Authentication.LoginRequest,
-        completion: @escaping (Result<LemmyModel.Authentication.LoginResponse, LemmyGenericError>) -> Void
-    )
+    func asyncLogin(
+        parameters: LemmyModel.Authentication.LoginRequest
+    ) -> AnyPublisher<LemmyModel.Authentication.LoginResponse, LemmyGenericError>
     
-    func register(
-        parameters: LemmyModel.Authentication.RegisterRequest,
-        completion: @escaping (Result<LemmyModel.Authentication.RegisterResponse, LemmyGenericError>) -> Void
-    )
+    func asyncRegister(
+        parameters: LemmyModel.Authentication.RegisterRequest
+    ) -> AnyPublisher<LemmyModel.Authentication.RegisterResponse, LemmyGenericError>
     
-    func getCaptcha(
-        completion: @escaping (Result<LemmyModel.Authentication.GetCaptchaResponse, LemmyGenericError>) -> Void
-    )
+    func asyncGetCaptcha() -> AnyPublisher<LemmyModel.Authentication.GetCaptchaResponse, LemmyGenericError>
+
 }
 
-extension RequestsManager: AuthRequestManagerProtocol {
-    func login(
-        parameters: LemmyModel.Authentication.LoginRequest,
-        completion: @escaping (Result<LemmyModel.Authentication.LoginResponse, LemmyGenericError>) -> Void
-    ) {
-        
-        return requestDecodable(
-            path: WSEndpoint.Authentication.login.endpoint,
-            parameters: parameters,
-            parsingFromRootKey: "data",
-            completion: completion
-        )
+extension RequestsManager: AuthRequestManagerProtocol {    
+    func asyncLogin(
+        parameters: LemmyModel.Authentication.LoginRequest
+    ) -> AnyPublisher<LemmyModel.Authentication.LoginResponse, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.Authentication.login.endpoint, parameters: parameters)
     }
-
-    func register(
-        parameters: LemmyModel.Authentication.RegisterRequest,
-        completion: @escaping (Result<LemmyModel.Authentication.RegisterResponse, LemmyGenericError>) -> Void
-    ) {
-
-        return requestDecodable(
-            path: WSEndpoint.Authentication.register.endpoint,
-            parameters: parameters,
-            parsingFromRootKey: "data",
-            completion: completion
-        )
+    
+    func asyncRegister(
+        parameters: LemmyModel.Authentication.RegisterRequest
+    ) -> AnyPublisher<LemmyModel.Authentication.RegisterResponse, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.Authentication.register.endpoint, parameters: parameters)
     }
-
-    func getCaptcha(
-        completion: @escaping (Result<LemmyModel.Authentication.GetCaptchaResponse, LemmyGenericError>) -> Void
-    ) {
-
-        // EXTRA: here is "ok" rootKey
-        return requestDecodable(
-            path: WSEndpoint.Authentication.getCaptcha.endpoint,
-            parameters: LemmyModel.Authentication.GetCaptchaRequest?.none,
-            parsingFromRootKey: "data",
-            completion: completion
-        )
+    
+    func asyncGetCaptcha() -> AnyPublisher<LemmyModel.Authentication.GetCaptchaResponse, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.Authentication.getCaptcha.endpoint,
+                              parameters: LemmyModel.Authentication.GetCaptchaRequest?.none)
     }
 }

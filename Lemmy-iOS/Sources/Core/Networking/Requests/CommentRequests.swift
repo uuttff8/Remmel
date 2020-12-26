@@ -10,10 +10,9 @@ import Foundation
 import Combine
 
 private protocol CommentRequestManagerProtocol {
-    func getComments(
-        parameters: LemmyModel.Comment.GetCommentsRequest,
-        completion: @escaping ((Result<LemmyModel.Comment.GetCommentsResponse, LemmyGenericError>) -> Void)
-    )
+    func asyncGetComments(
+        parameters: LemmyModel.Comment.GetCommentsRequest
+    ) -> AnyPublisher<LemmyModel.Comment.GetCommentsResponse, LemmyGenericError>
     
     func asyncCreateComment(
         parameters: LemmyModel.Comment.CreateCommentRequest
@@ -56,17 +55,11 @@ private protocol CommentRequestManagerProtocol {
     ) -> AnyPublisher<LemmyModel.Comment.ListCommentReportsResponse, LemmyGenericError>
 }
 
-extension RequestsManager: CommentRequestManagerProtocol {
-    func getComments(
-        parameters: LemmyModel.Comment.GetCommentsRequest,
-        completion: @escaping ((Result<LemmyModel.Comment.GetCommentsResponse, LemmyGenericError>) -> Void)
-    ) {
-        return requestDecodable(
-            path: WSEndpoint.Comment.getComments.endpoint,
-            parameters: parameters,
-            parsingFromRootKey: "data",
-            completion: completion
-        )
+extension RequestsManager: CommentRequestManagerProtocol {    
+    func asyncGetComments(
+        parameters: LemmyModel.Comment.GetCommentsRequest
+    ) -> AnyPublisher<LemmyModel.Comment.GetCommentsResponse, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.Comment.getComments.endpoint, parameters: parameters)
     }
     
     func asyncCreateComment(

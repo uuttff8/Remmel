@@ -109,3 +109,9 @@ extension CommunitiesPreviewViewController: CommunitiesPreviewViewDelagate {
         }
     }
 }
+
+extension CommunitiesPreviewViewController: TabBarReselectHandling {
+    func handleReselect() {
+        self.previewView.scrollToTop()
+    }
+}

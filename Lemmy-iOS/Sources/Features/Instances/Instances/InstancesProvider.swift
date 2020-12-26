@@ -26,14 +26,7 @@ class InstancesProvider: InstancesProviderProtocol {
     }
     
     func fetchCachedInstances() -> AnyPublisher<[Instance], Never> {
-        
-        Future<[Instance], Never> { promise in
-            
-            let instances = Instance.getAllInstances()
-            promise(.success(instances))
-            
-        }.eraseToAnyPublisher()
-        
+        instancesPersistenceService.getAllInstances()
     }
     
     func delete(_ instance: Instance) -> AnyPublisher<(), Never> {

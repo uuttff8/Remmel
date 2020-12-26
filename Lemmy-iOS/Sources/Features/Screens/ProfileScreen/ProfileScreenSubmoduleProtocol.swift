@@ -10,8 +10,11 @@ import Foundation
 
 protocol ProfileScreenSubmoduleProtocol: AnyObject {
     func handleControllerAppearance()
-    func updateFirstData(posts: [LemmyModel.PostView],
-                         comments: [LemmyModel.CommentView],
-                         subscribers: [LemmyModel.CommunityFollowerView])
+    func updateFirstData(
+        profile: LemmyModel.UserView,
+        posts: [LemmyModel.PostView],
+        comments: [LemmyModel.CommentView],
+        subscribers: [LemmyModel.CommunityFollowerView]
+    )
     func registerSubmodule()
 }

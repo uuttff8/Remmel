@@ -43,17 +43,14 @@ class CommentsFrontPageModel: NSObject {
                                                                limit: 20,
                                                                auth: LemmyShareData.shared.jwtToken)
         
-        ApiManager.shared.requestsManager.getComments(
-            parameters: parameters
-        ) { (res: Result<LemmyModel.Comment.GetCommentsResponse, LemmyGenericError>) in
-            switch res {
-            case .success(let response):
+        ApiManager.requests.asyncGetComments(parameters: parameters)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
+            } receiveValue: { (response) in
                 self.commentsDataSource = response.comments
                 self.dataLoaded?(response.comments)
-            case .failure(let error):
-                print(error)
-            }
-        }
+            }.store(in: &cancellable)
     }
     
     func loadMoreComments(completion: @escaping (() -> Void)) {
@@ -63,22 +60,19 @@ class CommentsFrontPageModel: NSObject {
                                                                limit: 20,
                                                                auth: LemmyShareData.shared.jwtToken)
         
-        ApiManager.shared.requestsManager.getComments(
-            parameters: parameters
-        ) { (res: Result<LemmyModel.Comment.GetCommentsResponse, LemmyGenericError>) in
-            switch res {
-            case .success(let response):
+        ApiManager.requests.asyncGetComments(parameters: parameters)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
+            } receiveValue: { (response) in
                 self.newDataLoaded?(response.comments)
                 completion()
-            case .failure(let error):
-                print(error)
-            }
-        }
+            }.store(in: &cancellable)
     }
     
     func createCommentLike(newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
         self.upvoteDownvoteService.createCommentLike(vote: newVote, comment: comment)
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 print(completion)
             } receiveValue: { (comment) in

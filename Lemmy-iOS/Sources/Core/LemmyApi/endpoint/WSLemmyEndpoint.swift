@@ -140,6 +140,9 @@ enum WSEndpoint {
         case lockPost
         case stickyPost
         case savePost
+        case createPostReport
+        case resolvePostReport
+        case listPostReports
 
         var endpoint: String {
             switch self {
@@ -153,6 +156,9 @@ enum WSEndpoint {
             case .lockPost: return "LockPost"
             case .stickyPost: return "StickyPost"
             case .savePost: return "SavePost"
+            case .createPostReport: return "CreatePostReport"
+            case .resolvePostReport: return "ResolvePostReport"
+            case .listPostReports: return "ListPostReports"
             }
         }
     }
@@ -165,7 +171,7 @@ enum WSEndpoint {
         case markCommentAsRead
         case saveComment
         case getComments
-        case createCommentLike // score can be 0, -1, or 1
+        case createCommentLike
         case createCommentReport
         case resolveCommentReport
         case listCommentReports

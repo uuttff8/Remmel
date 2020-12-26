@@ -29,15 +29,27 @@ class LemmySortListingPickersView: UIView {
         }
     }
     
-    let sortTypeView = LemmyImageTextTypePicker(
+    var sortFirstPick: LemmySortType = .active {
+        didSet {
+            sortTypeView.currentPick = sortFirstPick
+        }
+    }
+    
+    var listingFirstPick: PostListingAdapted = .all {
+        didSet {
+            listingTypeView.currentPick = listingFirstPick
+        }
+    }
+    
+    lazy var sortTypeView = LemmyImageTextTypePicker(
         cases: LemmySortType.reallySort,
-        firstPicked: .active,
+        firstPicked: sortFirstPick,
         image: Config.Image.sortType
     )
     
-    let listingTypeView = LemmyImageTextTypePicker(
+    lazy var listingTypeView = LemmyImageTextTypePicker(
         cases: PostListingAdapted.allCases,
-        firstPicked: .all,
+        firstPicked: listingFirstPick,
         image: Config.Image.postListing
     )
     

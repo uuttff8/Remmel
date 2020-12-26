@@ -121,6 +121,14 @@ enum LemmyPostListingType: String, Codable, CaseIterable {
         case .subscribed: return "Subscribed"
         }
     }
+    
+    var asAdapted: LemmySortListingPickersView.PostListingAdapted {
+        switch self {
+        case .all: return .all
+        case .subscribed: return .subscribed
+        default: fatalError()
+        }
+    }
 }
 
 enum LemmyContentType: String, Codable, CaseIterable {

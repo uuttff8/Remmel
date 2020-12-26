@@ -41,9 +41,9 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
                                                                   auth: LoginData.shared.jwtToken)
         
         ApiManager.requests.asyncGetCommunity(parameters: parameters)
-            .receive(on: RunLoop.main)
-            .sink { (error) in
-                print(error)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
                 
                 self.viewController?.displayCommunityHeader(
@@ -61,10 +61,10 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
                                                          communityName: nil,
                                                          auth: LoginData.shared.jwtToken)
         
-        ApiManager.shared.requestsManager.asyncGetPosts(parameters: parameters)
-            .receive(on: RunLoop.main)
-            .sink { (error) in
-                print(error)
+        ApiManager.requests.asyncGetPosts(parameters: parameters)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
                 
                 self.viewController?.displayPosts(
@@ -87,9 +87,9 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
                                                          auth: LoginData.shared.jwtToken)
         
         ApiManager.requests.asyncGetPosts(parameters: parameters)
-            .receive(on: RunLoop.main)
-            .sink { (error) in
-                print(error)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
                 
                 self.viewController?.displayNextPosts(

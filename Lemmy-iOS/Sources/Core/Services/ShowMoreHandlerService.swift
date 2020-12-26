@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 protocol ShowMoreHandlerServiceProtocol {
     func showMoreInPost(on viewController: UIViewController, post: LemmyModel.PostView)
@@ -14,6 +15,17 @@ protocol ShowMoreHandlerServiceProtocol {
 }
 
 class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
+    
+    private let networkService: RequestsManager
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    init(
+        networkService: RequestsManager = ApiManager.requests
+    ) {
+        self.networkService = networkService
+    }
+    
     func showMoreInPost(on viewController: UIViewController, post: LemmyModel.PostView) {
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -21,14 +33,34 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         let shareAction = self.createShareAction(on: viewController, urlString: post.apId)
         
         let reportAction = UIAlertAction(title: "Report", style: .destructive) { (_) in
-            print("reported")
+            
+            self.showAlertWithTextField(over: viewController) { reportReason in
+                
+                guard let jwtToken = LemmyShareData.shared.jwtToken else { return }
+                let params = LemmyModel.Post.CreatePostReportRequest(postId: post.id,
+                                                                     reason: reportReason,
+                                                                     auth: jwtToken)
+                
+                self.networkService
+                    .asyncCreatePostReport(parameters: params)
+                    .receive(on: DispatchQueue.main)
+                    .sink { (completion) in
+                        Logger.logCombineCompletion(completion)
+                    } receiveValue: { (response) in
+                        
+                        if response.success {
+                            self.showWasReportedAlert(over: viewController)
+                        }
+                        
+                    }.store(in: &self.cancellables)
+            }
         }
         
-        alertController.addActions([
-            shareAction,
-            reportAction,
-            UIAlertAction.cancelAction
-        ])
+        alertController.addAction(shareAction)
+        if LemmyShareData.shared.jwtToken != nil {
+            alertController.addAction(reportAction)
+        }
+        alertController.addAction(UIAlertAction.cancelAction)
         
         viewController.present(alertController, animated: true)
     }
@@ -38,9 +70,30 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         
         let shareAction = self.createShareAction(on: viewController, urlString: comment.getApIdRelatedToPost())
         let reportAction = UIAlertAction(title: "Report", style: .destructive) { (_) in
-            print("reported")
+            
+            self.showAlertWithTextField(over: viewController) { reportReason in
+                
+                guard let jwtToken = LemmyShareData.shared.jwtToken else { return }
+                let params = LemmyModel.Comment.CreateCommentReportRequest(
+                    commentId: comment.id,
+                    reason: reportReason,
+                    auth: jwtToken
+                )
+                
+                self.networkService.asyncCreateCommentReport(parameters: params)
+                    .receive(on: DispatchQueue.main)
+                    .sink { (completion) in
+                        Logger.logCombineCompletion(completion)
+                    } receiveValue: { (response) in
+                        
+                        if response.success {
+                            self.showWasReportedAlert(over: viewController)
+                        }
+                        
+                    }.store(in: &self.cancellables)
+            }
         }
-        
+
         alertController.addActions([
             shareAction,
             reportAction,
@@ -65,5 +118,34 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
                 viewController.present(activityVc, animated: true)
             }
         })
+    }
+    
+    private func showAlertWithTextField(
+        over viewController: UIViewController,
+        reportAction: @escaping (String) -> Void
+    ) {
+        let controller = UIAlertController(title: nil, message: "Reason", preferredStyle: .alert)
+        controller.addTextField(configurationHandler: { tf in
+            tf.placeholder = "Text here"
+        })
+        
+        controller.addActions([
+            UIAlertAction(title: "Cancel", style: .cancel),
+            UIAlertAction(title: "Report", style: .default, handler: { _ in
+                if let textFieldText = controller.textFields!.first!.text, !textFieldText.isEmpty {
+                    reportAction(textFieldText)
+                } else {
+                    self.showAlertWithTextField(over: viewController, reportAction: reportAction)
+                }
+            })
+        ])
+        
+        viewController.present(controller, animated: true)
+    }
+    
+    private func showWasReportedAlert(over viewController: UIViewController) {
+        let action = UIAlertController(title: nil, message: "Thank you", preferredStyle: .alert)
+        action.addAction(UIAlertAction(title: "OK", style: .cancel))
+        viewController.present(action, animated: true)
     }
 }

@@ -76,13 +76,13 @@ class ChooseCategoryUI: UIView {
         tableView.delegate = self
 
         model.categories
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { (_) in
                 self.tableView.reloadData()
             }.store(in: &cancellable)
 
         model.filteredCategories
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { (_) in
                 self.tableView.reloadData()
             }.store(in: &cancellable)

@@ -86,4 +86,15 @@ class GenericCoordinator<T: UIViewController>: NSObject, Coordinator, SFSafariVi
         navigationController.presentationController?.delegate = vc
         rootViewController.present(navigationController, animated: true)
     }
+    
+    func goToPostAndScroll(to comment: LemmyModel.CommentView) {
+        let coordinator = PostScreenCoordinator(
+            navigationController: navigationController,
+            postId: comment.postId,
+            postInfo: nil,
+            scrollToComment: comment
+        )
+        self.store(coordinator: coordinator)
+        coordinator.start()
+    }
 }

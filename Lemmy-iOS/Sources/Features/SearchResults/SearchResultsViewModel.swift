@@ -59,9 +59,9 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
                                                      auth: userAccountService.jwtToken)
 
         ApiManager.requests.asyncSearch(parameters: params)
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { (completion) in
-                print(completion)
+                Logger.logCombineCompletion(completion)
             } receiveValue: { [weak self] (response) in
                 guard let self = self else { return }
                 self.makeViewModelAndPresent(type: self.searchType,

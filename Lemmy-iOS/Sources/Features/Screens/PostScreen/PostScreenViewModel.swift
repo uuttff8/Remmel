@@ -49,10 +49,10 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
         let parameters = LemmyModel.Post.GetPostRequest(id: postId,
                                                         auth: LemmyShareData.shared.jwtToken)
         
-        ApiManager.shared.requestsManager.asyncGetPost(parameters: parameters)
-            .receive(on: RunLoop.main)
-            .sink { (error) in
-                print(error)
+        ApiManager.requests.asyncGetPost(parameters: parameters)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
             } receiveValue: { [weak self] (response) in
                 guard let self = self else { return }
                 self.viewController?.displayPost(

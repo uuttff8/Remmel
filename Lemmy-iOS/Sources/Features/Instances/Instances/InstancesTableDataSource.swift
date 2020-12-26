@@ -8,6 +8,8 @@
 
 import UIKit
 
+private let log = Logger.commonLog
+
 protocol InstancesTableDataSourceDelegate: AnyObject {
     func tableDidRequestDelete(_ instance: Instance)
     func tableDidRequestAddAccountsModule(_ instance: Instance)
@@ -44,8 +46,9 @@ extension InstancesTableDataSource: UITableViewDataSource {
 extension InstancesTableDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let instance = viewModels[indexPath.row]
-        print(instance)
         delegate?.tableDidRequestAddAccountsModule(instance)
+        log.info("Instance choosed: \(instance)")
+      
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

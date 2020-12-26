@@ -9,6 +9,8 @@
 import Foundation
 import CoreData
 
+private let log = Logger.commonLog
+
 @objc(Instance)
 public class Instance: NSManagedObject, Codable, Identifiable {
         
@@ -41,18 +43,5 @@ public class Instance: NSManagedObject, Codable, Identifiable {
         
         try container.encode(label, forKey: .label)
         try container.encode(iconUrl, forKey: .iconUrl)
-    }
-    
-    static func getAllInstances() -> [Instance] {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Instance.self))
-        let predicate = NSPredicate(value: true)
-        request.predicate = predicate
-        do {
-            let results = try CoreDataHelper.shared.context.fetch(request)
-            return results as! [Instance]
-        } catch {
-            print("Error while getting videos")
-            return []
-        }
-    }
+    }    
 }

@@ -27,10 +27,10 @@ class CommunitiesPreviewViewModel: CommunitiesPreviewViewModelProtocol {
             auth: LemmyShareData.shared.jwtToken
         )
         
-        ApiManager.requests.asyncListCommunity(parameters: parameters)
-            .receive(on: RunLoop.main)
+        ApiManager.requests.asyncListCommunities(parameters: parameters)
+            .receive(on: DispatchQueue.main)
             .sink { (completion) in
-                print(completion)
+                Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
                 
                 self.viewContoller?.displayCommunities(

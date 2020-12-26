@@ -17,6 +17,8 @@ protocol ProfileScreenAboutViewModelProtocol {
 class ProfileScreenAboutViewModel: ProfileScreenAboutViewModelProtocol {
     weak var viewController: ProfileScreenAboutViewControllerProtocol?
     
+    private var loadedProfile: LemmyModel.UserView?
+    
     var cancellable = Set<AnyCancellable>()
     
     func doProfileAboutFetch() { }
@@ -24,10 +26,12 @@ class ProfileScreenAboutViewModel: ProfileScreenAboutViewModelProtocol {
 
 extension ProfileScreenAboutViewModel: ProfileScreenAboutInputProtocol {
     func updateFirstData(
+        profile: LemmyModel.UserView,
         posts: [LemmyModel.PostView],
         comments: [LemmyModel.CommentView],
         subscribers: [LemmyModel.CommunityFollowerView]
     ) {
+        self.loadedProfile = profile
         self.viewController?.displayProfileSubscribers(
             viewModel: .init(state: .result(data: .init(subscribers: subscribers)))
         )
@@ -35,9 +39,7 @@ extension ProfileScreenAboutViewModel: ProfileScreenAboutInputProtocol {
     
     func registerSubmodule() { }
     
-    func handleControllerAppearance() {
-        print("asdasd")
-    }
+    func handleControllerAppearance() { }
 }
 
 class ProfileScreenAbout {

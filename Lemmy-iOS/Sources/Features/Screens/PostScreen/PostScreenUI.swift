@@ -87,7 +87,7 @@ extension PostScreenViewController.View: ProgrammaticallyViewProtocol {
     
     func makeConstraints() {
         self.headerView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.edges.equalTo(self.safeAreaLayoutGuide)
         }
     }
 }
@@ -172,6 +172,7 @@ class WriteNewCommentButton: UIButton {
         super.init(frame: .zero)
         
         setTitle("Write Comment", for: .normal)
+        setTitleColor(.label, for: .normal)
         setImage(Config.Image.writeComment, for: .normal)
         
         titleEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)

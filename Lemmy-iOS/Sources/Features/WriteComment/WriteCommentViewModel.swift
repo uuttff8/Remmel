@@ -40,7 +40,7 @@ class WriteCommentViewModel: WriteCommentViewModelProtocol {
     
     func doRemoveCreateComment(request: WriteComment.RemoteCreateComment.Request) {
         guard let jwtToken = userAccountService.jwtToken else {
-            print("No Jwt Token found")
+            Logger.commonLog.error("JWT Token not found: User should not be able to write comment when not authed")
             return
         }
         
@@ -51,16 +51,15 @@ class WriteCommentViewModel: WriteCommentViewModelProtocol {
                                                              auth: jwtToken)
         
         ApiManager.requests.asyncCreateComment(parameters: params)
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { (completion) in
-                switch completion {
-                case .failure(let error):
+                Logger.logCombineCompletion(completion)
+
+                if case .failure(let error) = completion {
                     self.viewController?.displayCreatePostError(
                         viewModel: .init(error: error.description)
                     )
-                case .finished: break
                 }
-                print(completion)
             } receiveValue: { (response) in
                 self.viewController?.displaySuccessCreatingComment(viewModel: .init(comment: response.comment))
             }.store(in: &self.cancellable)

@@ -43,7 +43,7 @@ enum SettingsTableSectionCellType {
     case input(options: InputCellOptions)
     case largeInput(options: LargeInputCellOptions)
     case rightDetail(options: RightDetailCellOptions)
-    case custom(options: UITableViewCell)
+    case inputWithImage(options: InputWithImageOptions)
 }
 
 struct InputCellOptions {
@@ -75,15 +75,18 @@ struct LargeInputCellOptions {
     let placeholderText: String?
     let valueText: String?
     let maxLength: Int?
+    let noNewline: Bool
 
     init(
         valueText: String? = nil,
         placeholderText: String? = nil,
-        maxLength: Int? = nil
+        maxLength: Int? = nil,
+        noNewline: Bool = false
     ) {
         self.valueText = valueText
         self.placeholderText = placeholderText
         self.maxLength = maxLength
+        self.noNewline = noNewline
     }
 }
 
@@ -140,5 +143,21 @@ struct RightDetailCellOptions {
     enum DetailType {
         case label(text: String?)
         case `switch`(Switch)
+    }
+}
+
+struct InputWithImageOptions {
+    let placeholderText: String?
+    let valueText: String?
+    let imageIcon: UIImage
+    
+    init(
+        placeholderText: String? = nil,
+        valueText: String? = nil,
+        imageIcon: UIImage
+    ) {
+        self.placeholderText = placeholderText
+        self.valueText = valueText
+        self.imageIcon = imageIcon
     }
 }

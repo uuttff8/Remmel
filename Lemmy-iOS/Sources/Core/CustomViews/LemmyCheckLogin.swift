@@ -24,7 +24,7 @@ func ContinueIfLogined(
         loginCoordinator.start()
         
         guard let loginNavController = loginCoordinator.navigationController else {
-            print("\(#file) loginCoordinator.navigationController is nil")
+            Logger.commonLog.error("LoginCoordinator.navigationController is nil")
             return
         }
         

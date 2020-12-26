@@ -10,21 +10,6 @@ import Foundation
 import Combine
 
 private protocol LemmyCommunityRequestManagerProtocol {
-    func listCommunities(
-        parameters: LemmyModel.Community.ListCommunitiesRequest,
-        completion: @escaping (Result<LemmyModel.Community.ListCommunitiesResponse, LemmyGenericError>) -> Void
-    )
-    
-    func createCommunity(
-        parameters: LemmyModel.Community.CreateCommunityRequest,
-        completion: @escaping (Result<LemmyModel.Community.CreateCommunityResponse, LemmyGenericError>) -> Void
-    )
-    
-    func getCommunity(
-        parameters: LemmyModel.Community.GetCommunityRequest,
-        completion: @escaping (Result<LemmyModel.Community.GetCommunityResponse, LemmyGenericError>) -> Void
-    )
-    
     func asyncGetCommunity(
         parameters: LemmyModel.Community.GetCommunityRequest
     ) -> AnyPublisher<LemmyModel.Community.GetCommunityResponse, LemmyGenericError>
@@ -33,7 +18,7 @@ private protocol LemmyCommunityRequestManagerProtocol {
         parameters: LemmyModel.Community.FollowCommunityRequest
     ) -> AnyPublisher<LemmyModel.Community.FollowCommunityResponse, LemmyGenericError>
     
-    func asyncListCommunity(
+    func asyncListCommunities(
         parameters: LemmyModel.Community.ListCommunitiesRequest
     ) -> AnyPublisher<LemmyModel.Community.ListCommunitiesResponse, LemmyGenericError>
     
@@ -42,41 +27,7 @@ private protocol LemmyCommunityRequestManagerProtocol {
     ) -> AnyPublisher<LemmyModel.Community.CreateCommunityResponse, LemmyGenericError>
 }
 
-extension RequestsManager: LemmyCommunityRequestManagerProtocol {
-    func listCommunities<Req, Res>(
-        parameters: Req,
-        completion: @escaping (Result<Res, LemmyGenericError>) -> Void
-    ) where Req: Codable, Res: Codable {
-        
-        return requestDecodable(
-            path: WSEndpoint.Community.listCommunities.endpoint,
-            parameters: parameters,
-            parsingFromRootKey: "data",
-            completion: completion)
-    }
-    
-    func createCommunity(
-        parameters: LemmyModel.Community.CreateCommunityRequest,
-        completion: @escaping (Result<LemmyModel.Community.CreateCommunityResponse, LemmyGenericError>) -> Void
-    ) {
-        
-        return requestDecodable(path: WSEndpoint.Community.createCommunity.endpoint,
-                                parameters: parameters,
-                                parsingFromRootKey: "data",
-                                completion: completion)
-    }
-    
-    func getCommunity(
-        parameters: LemmyModel.Community.GetCommunityRequest,
-        completion: @escaping (Result<LemmyModel.Community.GetCommunityResponse, LemmyGenericError>) -> Void
-    ) {
-        
-        return requestDecodable(path: WSEndpoint.Community.getCommunity.endpoint,
-                                parameters: parameters,
-                                parsingFromRootKey: "data",
-                                completion: completion)
-    }
-    
+extension RequestsManager: LemmyCommunityRequestManagerProtocol {    
     func asyncGetCommunity(
         parameters: LemmyModel.Community.GetCommunityRequest
     ) -> AnyPublisher<LemmyModel.Community.GetCommunityResponse, LemmyGenericError> {
@@ -95,7 +46,7 @@ extension RequestsManager: LemmyCommunityRequestManagerProtocol {
         
     }
     
-    func asyncListCommunity(
+    func asyncListCommunities(
         parameters: LemmyModel.Community.ListCommunitiesRequest
     ) -> AnyPublisher<LemmyModel.Community.ListCommunitiesResponse, LemmyGenericError> {
         

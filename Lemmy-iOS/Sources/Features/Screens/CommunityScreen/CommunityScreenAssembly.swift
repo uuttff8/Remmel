@@ -21,14 +21,23 @@ class CommunityScreenAssembly: Assembly {
     }
     
     func makeModule() -> CommunityScreenViewController {
+        let userAccountService = UserAccountService()
+        
         let viewModel = CommunityScreenViewModel(communityId: communityId,
                                                  communityInfo: communityInfo)
         
         let vc = CommunityScreenViewController(
             viewModel: viewModel,
             followService: CommunityFollowService(
-                userAccountService: UserAccountService()
-            )
+                userAccountService: userAccountService
+            ),
+            contentScoreService: ContentScoreService(
+                voteService: UpvoteDownvoteRequestService(
+                    userAccountService: userAccountService
+                )
+            ),
+            showMoreService: ShowMoreHandlerService()
+            
         )
         viewModel.viewController = vc
         

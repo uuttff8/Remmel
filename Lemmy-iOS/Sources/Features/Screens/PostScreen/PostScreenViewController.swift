@@ -24,18 +24,22 @@ class PostScreenViewController: UIViewController, Containered {
         $0.delegate = self
     }
     
-    private lazy var foldableCommentsViewController = FoldableLemmyCommentsViewController().then {
+    private lazy var commentsViewController = FoldableLemmyCommentsViewController().then {
         $0.commentDelegate = self
     }
     
     private var state: PostScreen.ViewControllerState
+    
+    private let scrollToComment: LemmyModel.CommentView?
 
     init(
         viewModel: PostScreenViewModelProtocol,
-        state: PostScreen.ViewControllerState = .loading
+        state: PostScreen.ViewControllerState = .loading,
+        scrollToComment: LemmyModel.CommentView?
     ) {
         self.viewModel = viewModel
         self.state = state
+        self.scrollToComment = scrollToComment
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -47,7 +51,7 @@ class PostScreenViewController: UIViewController, Containered {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.add(asChildViewController: foldableCommentsViewController)
+        self.add(asChildViewController: commentsViewController)
         
         viewModel.doPostFetch()
         self.updateState(newState: state)
@@ -73,23 +77,25 @@ class PostScreenViewController: UIViewController, Containered {
         }
 
         if case .result(let data) = newState {
+            self.state = .result(data: data)
             self.postScreenView.bind(with: data.post)
-            self.foldableCommentsViewController.showComments(with: data.comments)
-            self.foldableCommentsViewController.setupHeaderView(postScreenView)
+            self.commentsViewController.showComments(with: data.comments)
+            self.commentsViewController.setupHeaderView(postScreenView)
+            
+            if let comment = self.scrollToComment {
+                self.commentsViewController.scrollTo(comment)
+            }
         }
     }
 }
 
 extension PostScreenViewController: PostScreenViewControllerProtocol {
     func displayPost(viewModel: PostScreen.PostLoad.ViewModel) {
-//        guard case let .result(data) = response.state else { return }
-                
-//        self.tableDataSource.viewModels = data.comments
         self.updateState(newState: viewModel.state)
     }
         
     func operateSaveNewComment(viewModel: PostScreen.SaveComment.ViewModel) {
-        foldableCommentsViewController.saveNewComment(comment: viewModel.comment)
+        commentsViewController.saveNewComment(comment: viewModel.comment)
     }
 
     func operateSaveNewPost(viewModel: PostScreen.SavePost.ViewModel) {
@@ -107,22 +113,17 @@ extension PostScreenViewController: PostContentTableCellDelegate {
         self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }
     
-    func upvote(
+    func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
         post: LemmyModel.PostView
     ) {
-        vote(scoreView: scoreView, voteButton: voteButton, newVote: newVote, post: post)
-    }
-    
-    func downvote(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        newVote: LemmyVoteType,
-        post: LemmyModel.PostView
-    ) {
-        vote(scoreView: scoreView, voteButton: voteButton, newVote: newVote, post: post)
+        guard let coordinator = coordinator else { return }
+        
+        ContinueIfLogined(on: self, coordinator: coordinator) {
+            viewModel.doPostLike(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post)
+        }
     }
     
     func usernameTapped(in post: LemmyModel.PostView) {
@@ -139,19 +140,6 @@ extension PostScreenViewController: PostContentTableCellDelegate {
     
     func showMore(in post: LemmyModel.PostView) {
         self.showMoreHandlerService.showMoreInPost(on: self, post: post)
-    }
-    
-    private func vote(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        newVote: LemmyVoteType,
-        post: LemmyModel.PostView
-    ) {
-        guard let coordinator = coordinator else { return }
-        
-        ContinueIfLogined(on: self, coordinator: coordinator) {
-            viewModel.doPostLike(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post)
-        }
     }
 }
 
@@ -171,20 +159,8 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
     func communityTapped(in comment: LemmyModel.CommentView) {
         self.coordinator?.goToCommunityScreen(communityId: comment.communityId)
     }
-    
-    func upvote(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView) {
-        guard let coordinator = coordinator else { return }
         
-        ContinueIfLogined(on: self, coordinator: coordinator) {
-            self.viewModel.doCommentLike(scoreView: scoreView, voteButton: voteButton, for: newVote, comment: comment)
-        }
-    }
-    
-    func downvote(
+    func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
@@ -197,9 +173,7 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
         }
     }
         
-    func showContext(in comment: LemmyModel.CommentView) {
-        print("show context in \(comment.id)")
-    }
+    func showContext(in comment: LemmyModel.CommentView) { }
     
     func reply(to comment: LemmyModel.CommentView) {
         coordinator?.goToWriteComment(postId: comment.postId, parrentComment: comment)

@@ -49,9 +49,9 @@ class ContentScoreService: ContentScoreServiceProtocol {
         
         scoreView.setVoted(voteButton: voteButton, to: newVote)
         self.voteService.createPostLike(vote: newVote, post: post)
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { (completion) in
-                print(completion)
+                Logger.logCombineCompletion(completion)
             } receiveValue: { (post) in
                 completion(post)
             }.store(in: &cancellable)
@@ -68,9 +68,9 @@ class ContentScoreService: ContentScoreServiceProtocol {
         
         scoreView.setVoted(voteButton: voteButton, to: newVote)
         self.voteService.createCommentLike(vote: newVote, comment: comment)
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { (completion) in
-                print(completion)
+                Logger.logCombineCompletion(completion)
             } receiveValue: { (comment) in
                 completion(comment)
             }.store(in: &cancellable)

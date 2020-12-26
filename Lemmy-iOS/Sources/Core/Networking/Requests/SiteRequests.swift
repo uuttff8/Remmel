@@ -10,51 +10,26 @@ import Foundation
 import Combine
 
 private protocol SiteRequestManagerProtocol {
-    func getSite(
-        parameters: LemmyModel.Site.GetSiteRequest,
-        completion: @escaping (Result<LemmyModel.Site.GetSiteResponse, LemmyGenericError>) -> Void
-    )
-    func listCategoties(
-        parameters: LemmyModel.Site.ListCategoriesRequest,
-        completion: @escaping (Result<LemmyModel.Site.ListCategoriesResponse, LemmyGenericError>) -> Void
-    )
-    
     func asyncGetSite(
         parameters: LemmyModel.Site.GetSiteRequest
     ) -> AnyPublisher<LemmyModel.Site.GetSiteResponse, LemmyGenericError>
+    
+    func asyncListCategories(
+        parameters: LemmyModel.Site.ListCategoriesRequest
+    ) -> AnyPublisher<LemmyModel.Site.ListCategoriesResponse, LemmyGenericError>
 }
 
-extension RequestsManager: SiteRequestManagerProtocol {
-    func getSite<Req, Res>(
-        parameters: Req,
-        completion: @escaping (Result<Res, LemmyGenericError>) -> Void
-    ) where Req: Codable, Res: Codable {
-
-        return requestDecodable(
-            path: WSEndpoint.Site.getSite.endpoint,
-            parameters: parameters,
-            parsingFromRootKey: "data",
-            completion: completion
-        )
-    }
-
-    func listCategoties(
-        parameters: LemmyModel.Site.ListCategoriesRequest,
-        completion: @escaping (Result<LemmyModel.Site.ListCategoriesResponse, LemmyGenericError>) -> Void
-    ) {
-
-        return requestDecodable(
-            path: WSEndpoint.Site.listCategories.endpoint,
-            parameters: parameters,
-            parsingFromRootKey: "data",
-            completion: completion
-        )
-    }
-    
+extension RequestsManager: SiteRequestManagerProtocol {    
     func asyncGetSite(
         parameters: LemmyModel.Site.GetSiteRequest
     ) -> AnyPublisher<LemmyModel.Site.GetSiteResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Site.getSite.endpoint,
                               parameters: parameters)
+    }
+    
+    func asyncListCategories(
+        parameters: LemmyModel.Site.ListCategoriesRequest
+    ) -> AnyPublisher<LemmyModel.Site.ListCategoriesResponse, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.Site.listCategories.endpoint, parameters: parameters)
     }
 }

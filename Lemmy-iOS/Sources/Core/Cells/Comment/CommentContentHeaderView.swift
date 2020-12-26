@@ -52,13 +52,14 @@ class CommentHeaderView: UIView {
         $0.font = UIFont.systemFont(ofSize: 14, weight: .regular)
     }
 
-    let postNameButton = MultiLineButton().then {
-        $0.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        $0.setTitleColor(UIColor(red: 241/255, green: 100/255, blue: 30/255, alpha: 1), for: .normal)
-        $0.titleLabel?.lineBreakMode = .byTruncatingTail
+    let postNameButton: LabelControl = {
+        $0.titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        $0.titleLabel.textColor = UIColor(red: 241/255, green: 100/255, blue: 30/255, alpha: 1)
+        $0.titleLabel.lineBreakMode = .byTruncatingTail
         $0.contentHorizontalAlignment = .left
-        $0.titleLabel?.numberOfLines = 0
-    }
+        $0.titleLabel.numberOfLines = 0
+        return $0
+    }(LabelControl())
     
     private let dotTitle = UILabel().then {
         $0.text = " · "
@@ -78,6 +79,7 @@ class CommentHeaderView: UIView {
     }
     
     private let lineStackView = UIStackView().then {
+        $0.alignment = .center
         $0.axis = .horizontal
     }
     
@@ -122,7 +124,7 @@ class CommentHeaderView: UIView {
         communityButton.setTitle(comment.community, for: .normal)
         publishedTitle.text = comment.published
         scoreLabel.set(text: String(comment.score), leftIcon: Config.Image.boltFill)
-        postNameButton.setTitle(comment.postName, for: .normal)
+        postNameButton.titleLabel.text = comment.postName
 
         if let avatarUrl = comment.avatarImageUrl {
             bindAvatar(url: avatarUrl)
@@ -137,7 +139,7 @@ class CommentHeaderView: UIView {
         usernameButton.setTitle(nil, for: .normal)
         communityButton.setTitle(nil, for: .normal)
         publishedTitle.text = nil
-        postNameButton.setTitle(nil, for: .normal)
+        postNameButton.titleLabel.text = nil
         avatarView.image = nil
     }
     

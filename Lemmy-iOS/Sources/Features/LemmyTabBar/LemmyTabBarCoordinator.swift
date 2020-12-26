@@ -44,7 +44,7 @@ final class LemmyTabBarCoordinator: Coordinator {
         loginCoordinator.start()
 
         guard let loginNavController = loginCoordinator.navigationController else {
-            print("\(#file) loginCoordinator.navigationController is nil")
+            Logger.commonLog.error("loginCoordinator.navigationController is nil")
             return
         }
 

@@ -19,12 +19,14 @@ final class ProfileScreenCommentsAssembly: Assembly {
     }
 
     func makeModule() -> UIViewController {
-        let viewModel = ProfileScreenCommentsViewModel(
+        let viewModel = ProfileScreenCommentsViewModel()
+        let vc = ProfileScreenCommentsViewController(
+            viewModel: viewModel,
+            showMoreHandler: ShowMoreHandlerService(),
             contentScoreService: ContentScoreService(
                 voteService: UpvoteDownvoteRequestService(userAccountService: UserAccountService())
             )
         )
-        let vc = ProfileScreenCommentsViewController(viewModel: viewModel, showMoreHandler: ShowMoreHandlerService())
         vc.coordinator = coordinator.value
         viewModel.viewController = vc
         self.moduleInput = viewModel

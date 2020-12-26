@@ -12,10 +12,16 @@ class PostScreenAssembly: Assembly {
     
     private let postId: Int
     private let postInfo: LemmyModel.PostView? // show post if have pre-generated
+    private let scrollToComment: LemmyModel.CommentView?
     
-    init(postId: Int, postInfo: LemmyModel.PostView? = nil) {
+    init(
+        postId: Int,
+        postInfo: LemmyModel.PostView? = nil,
+        scrollToComment: LemmyModel.CommentView? = nil
+    ) {
         self.postId = postId
         self.postInfo = postInfo
+        self.scrollToComment = scrollToComment
     }
     
     func makeModule() -> PostScreenViewController {
@@ -29,7 +35,10 @@ class PostScreenAssembly: Assembly {
             )
         )
         
-        let vc = PostScreenViewController(viewModel: viewModel)
+        let vc = PostScreenViewController(
+            viewModel: viewModel,
+            scrollToComment: scrollToComment
+        )
         viewModel.viewController = vc
         
         return vc

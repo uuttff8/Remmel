@@ -13,6 +13,8 @@ import Combine
 protocol InstancePersistenceServiceProtocol: AnyObject {
     func fetch(ids: [Instance.ID]) -> AnyPublisher<[Instance], Never>
     func fetch(id: Instance.ID) -> AnyPublisher<Instance?, Never>
+    
+    func getAllInstances() -> AnyPublisher<[Instance], Never>
 }
 
 final class InstancePersistenceService: InstancePersistenceServiceProtocol {
@@ -20,6 +22,21 @@ final class InstancePersistenceService: InstancePersistenceServiceProtocol {
 
     init(managedObjectContext: NSManagedObjectContext = CoreDataHelper.shared.context) {
         self.managedObjectContext = managedObjectContext
+    }
+    
+    func getAllInstances() ->  AnyPublisher<[Instance], Never> {
+        Future<[Instance], Never> { promise in
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Instance.self))
+            let predicate = NSPredicate(value: true)
+            request.predicate = predicate
+            do {
+                let results = try CoreDataHelper.shared.context.fetch(request) as! [Instance]
+                promise(.success(results))
+            } catch {
+                Logger.commonLog.error("Error while getting all videos from CoreData")
+                return promise(.success([]))
+            }
+        }.eraseToAnyPublisher()
     }
     
     func fetch(id: Instance.ID) -> AnyPublisher<Instance?, Never> {
@@ -50,7 +67,7 @@ final class InstancePersistenceService: InstancePersistenceServiceProtocol {
                     let users = try self.managedObjectContext.fetch(request)
                     promise(.success(users))
                 } catch {
-                    print("Error while fetching users = \(ids)")
+                    Logger.commonLog.info("Error while fetching users = \(ids)")
                     promise(.success([]))
                 }
             }

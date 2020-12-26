@@ -11,6 +11,7 @@ import SnapKit
 
 protocol ProfileScreenPostsViewDelegate: AnyObject {
     func profileScreenPostsViewDidPickerTapped(toVc: UIViewController)
+    func profileScreenPosts(_ view: ProfileScreenPostsViewController.View, didPickedNewSort type: LemmySortType)
 }
 
 extension ProfileScreenPostsViewController.View {
@@ -30,18 +31,23 @@ extension ProfileScreenPostsViewController {
         weak var delegate: ProfileScreenPostsViewDelegate?
         
         let appearance: Appearance
-        var contentType: LemmySortType = .active
+        var sortType: LemmySortType = .active {
+            didSet {
+                self.delegate?.profileScreenPosts(self, didPickedNewSort: sortType)
+            }
+        }
                 
         // Proxify delegates
         private weak var pageScrollViewDelegate: UIScrollViewDelegate?
         
-        weak var tableViewDelegate: PostsTableDataSource?
+        weak var tableManager: PostsTableDataSource?
         
         private lazy var tableView = LemmyTableView(style: .plain, separator: false).then {
             $0.registerClass(PostContentTableCell.self)
             $0.backgroundColor = .clear
             $0.showsVerticalScrollIndicator = false
             $0.delegate = self
+            $0.tableHeaderView = profileScreenHeader
         }
                 
         private lazy var emptyStateLabel = UILabel().then {
@@ -57,7 +63,7 @@ extension ProfileScreenPostsViewController {
             }
 
             view.contentTypeView.newCasePicked = { newCase in
-                self.contentType = newCase
+                self.sortType = newCase
             }
         }
         
@@ -67,7 +73,7 @@ extension ProfileScreenPostsViewController {
             tableViewDelegate: PostsTableDataSource
         ) {
             self.appearance = appearance
-            self.tableViewDelegate = tableViewDelegate
+            self.tableManager = tableViewDelegate
             super.init(frame: frame)
 
             self.setupView()
@@ -89,11 +95,16 @@ extension ProfileScreenPostsViewController {
         }
         
         func updateTableViewData(dataSource: UITableViewDataSource) {
+            self.hideActivityIndicator()
             _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
 //            self.emptyStateLabel.isHidden = numberOfRows != 0
 
-            self.tableView.tableHeaderView = profileScreenHeader
             self.tableView.dataSource = dataSource
+            self.tableView.reloadData()
+        }
+        
+        func deleteAllContent() {
+            self.tableManager?.viewModels = []
             self.tableView.reloadData()
         }
         
@@ -104,7 +115,7 @@ extension ProfileScreenPostsViewController {
         }
         
         func appendNew(data: [LemmyModel.PostView]) {
-            self.tableViewDelegate?.appendNew(posts: data) { (newIndexpaths) in
+            self.tableManager?.appendNew(posts: data) { (newIndexpaths) in
                 tableView.performBatchUpdates {
                     tableView.insertRows(at: newIndexpaths, with: .none)
                 }
@@ -150,11 +161,11 @@ extension ProfileScreenPostsViewController.View: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        self.tableViewDelegate?.tableView(tableView, willDisplay: cell, forRowAt: indexPath)
+        self.tableManager?.tableView(tableView, willDisplay: cell, forRowAt: indexPath)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.tableViewDelegate?.tableView(tableView, didSelectRowAt: indexPath)
+        self.tableManager?.tableView(tableView, didSelectRowAt: indexPath)
     }
 }
 

@@ -45,6 +45,11 @@ class CommentsFrontPageViewController: UIViewController {
         }        
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.showActivityIndicator()
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -64,6 +69,7 @@ class CommentsFrontPageViewController: UIViewController {
     }
 
     func addFirstRows(with list: [LemmyModel.CommentView], animate: Bool = true) {
+        self.tableView.hideActivityIndicator()
         snapshot.appendSections([.main])
         snapshot.appendItems(list)
         DispatchQueue.main.async { [self] in
@@ -104,42 +110,8 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
     func communityTapped(in comment: LemmyModel.CommentView) {
         self.coordinator?.goToCommunityScreen(communityId: comment.communityId)
     }
-    
-    func upvote(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView
-    ) {
-        vote(scoreView: scoreView, voteButton: voteButton, newVote: newVote, comment: comment)
-    }
-    
-    func downvote(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView
-    ) {
-        vote(scoreView: scoreView, voteButton: voteButton, newVote: newVote, comment: comment)
-    }
         
-    func showContext(in comment: LemmyModel.CommentView) {
-        print("show context in \(comment.id)")
-    }
-    
-    func reply(to comment: LemmyModel.CommentView) {
-        coordinator?.goToWriteComment(postId: comment.postId, parrentComment: comment)
-    }
-    
-    func onLinkTap(in comment: LemmyModel.CommentView, url: URL) {
-        self.coordinator?.goToBrowser(with: url)
-    }
-    
-    func showMoreAction(in comment: LemmyModel.CommentView) {
-        showMoreHandler.showMoreInComment(on: self, comment: comment)
-    }
-    
-    private func vote(
+    func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
@@ -152,4 +124,20 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
             model.createCommentLike(newVote: newVote, comment: comment)
         }
     }
+    
+    func showContext(in comment: LemmyModel.CommentView) {
+        self.coordinator?.goToPostAndScroll(to: comment)
+    }
+    
+    func reply(to comment: LemmyModel.CommentView) {
+        coordinator?.goToWriteComment(postId: comment.postId, parrentComment: comment)
+    }
+    
+    func onLinkTap(in comment: LemmyModel.CommentView, url: URL) {
+        self.coordinator?.goToBrowser(with: url)
+    }
+    
+    func showMoreAction(in comment: LemmyModel.CommentView) {
+        showMoreHandler.showMoreInComment(on: self, comment: comment)
+    }    
 }

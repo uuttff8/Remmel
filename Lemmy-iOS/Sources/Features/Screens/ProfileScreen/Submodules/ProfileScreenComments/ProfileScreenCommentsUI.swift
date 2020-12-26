@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol ProfileScreenCommentsViewDelegate: AnyObject {
+    func profileScreenPostsViewDidPickerTapped(toVc: UIViewController)
+    func profileScreenComments(_ view: ProfileScreenCommentsViewController.View, didPickedNewSort type: LemmySortType)
+}
+
 extension ProfileScreenCommentsViewController.View {
     struct Appearance {
         
@@ -21,17 +26,37 @@ extension ProfileScreenCommentsViewController {
             let comments: [LemmyModel.CommentView]
         }
         
+        weak var delegate: ProfileScreenCommentsViewDelegate?
+        
         let appearance: Appearance
+        var sortType: LemmySortType = .active {
+            didSet {
+                self.delegate?.profileScreenComments(self, didPickedNewSort: sortType)
+            }
+        }
         
         // Proxify delegates
         private weak var pageScrollViewDelegate: UIScrollViewDelegate?
+        
+        weak var tableManager: ProfileScreenCommentsTableDataSource?
         
         private lazy var tableView = LemmyTableView(style: .plain, separator: false).then {
             $0.registerClass(CommentContentTableCell.self)
             $0.backgroundColor = .clear
             $0.showsVerticalScrollIndicator = false
             $0.delegate = self
-            $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 90, right: 0) // tab bar
+            $0.tableHeaderView = commentsHeaderView
+        }
+        
+        private lazy var commentsHeaderView = ProfileScreenTableHeaderView().then { view in
+            view.contentTypeView.addTap {
+                let vc = view.contentTypeView.configuredAlert
+                self.delegate?.profileScreenPostsViewDidPickerTapped(toVc: vc)
+            }
+
+            view.contentTypeView.newCasePicked = { newCase in
+                self.sortType = newCase
+            }
         }
         
         private lazy var emptyStateLabel = UILabel().then {
@@ -40,8 +65,13 @@ extension ProfileScreenCommentsViewController {
             $0.textColor = .tertiaryLabel
         }
         
-        init(frame: CGRect = .zero, appearance: Appearance = Appearance()) {
+        init(
+            frame: CGRect = .zero,
+            tableViewManager: ProfileScreenCommentsTableDataSource,
+            appearance: Appearance = Appearance()
+        ) {
             self.appearance = appearance
+            self.tableManager = tableViewManager
             super.init(frame: frame)
 
             self.setupView()
@@ -62,7 +92,8 @@ extension ProfileScreenCommentsViewController {
             tableView.hideActivityIndicator()
         }
         
-        func updateTableViewData(dataSource: UITableViewDataSource) {
+        func updateTableViewData(dataSource: UITableViewDataSource & UITableViewDelegate) {
+            self.hideLoadingIndicator()
             _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
 //            self.emptyStateLabel.isHidden = numberOfRows != 0
 
@@ -74,6 +105,24 @@ extension ProfileScreenCommentsViewController {
             self.emptyStateLabel.isHidden = false
             self.tableView.isHidden = true
             makeConstraints()
+        }
+        
+        func appendNew(data: [LemmyModel.CommentView]) {
+            self.tableManager?.appendNew(comments: data) { (newIndexpaths) in
+                tableView.performBatchUpdates {
+                    tableView.insertRows(at: newIndexpaths, with: .none)
+                }
+            }
+        }
+        
+        func deleteAllContent() {
+            self.tableManager?.viewModels = []
+            self.tableView.reloadData()
+        }
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            self.tableView.layoutTableHeaderView()
         }
     }
 }
@@ -106,8 +155,8 @@ extension ProfileScreenCommentsViewController.View: UITableViewDelegate {
         self.pageScrollViewDelegate?.scrollViewDidScroll?(scrollView)
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        self.tableManager?.tableView(tableView, willDisplay: cell, forRowAt: indexPath)
     }
 }
 

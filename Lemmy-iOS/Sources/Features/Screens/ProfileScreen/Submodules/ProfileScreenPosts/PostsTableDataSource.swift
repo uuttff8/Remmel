@@ -43,6 +43,11 @@ final class PostsTableDataSource: NSObject {
         
         completion(newIndexpaths)
     }
+    
+    func deleteAll() {
+        viewModels = []
+        
+    }
 }
 
 // MARK: - UITableViewDataSource -

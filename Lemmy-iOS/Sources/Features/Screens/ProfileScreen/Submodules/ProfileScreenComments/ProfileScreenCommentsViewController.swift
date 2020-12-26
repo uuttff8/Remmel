@@ -10,9 +10,11 @@ import UIKit
 
 protocol ProfileScreenCommentsViewControllerProtocol: AnyObject {
     func displayProfileComments(viewModel: ProfileScreenComments.CommentsLoad.ViewModel)
+    func displayNextComments(viewModel: ProfileScreenComments.NextProfileCommentsLoad.ViewModel)
 }
 
 class ProfileScreenCommentsViewController: UIViewController {
+    
     private let viewModel: ProfileScreenCommentsViewModel
     
     weak var coordinator: ProfileScreenCoordinator?
@@ -21,8 +23,9 @@ class ProfileScreenCommentsViewController: UIViewController {
         $0.delegate = self
     }
     private let showMoreHandler: ShowMoreHandlerServiceProtocol
+    private let contentScoreService: ContentScoreServiceProtocol
 
-    lazy var commentsPostsView = self.view as? ProfileScreenCommentsViewController.View
+    lazy var commentsPostsView = self.view as! ProfileScreenCommentsViewController.View
 
     private var tablePage = 1
     private var state: ProfileScreenComments.ViewControllerState
@@ -31,11 +34,13 @@ class ProfileScreenCommentsViewController: UIViewController {
     init(
         viewModel: ProfileScreenCommentsViewModel,
         initialState: ProfileScreenComments.ViewControllerState = .loading,
-        showMoreHandler: ShowMoreHandlerServiceProtocol
+        showMoreHandler: ShowMoreHandlerServiceProtocol,
+        contentScoreService: ContentScoreServiceProtocol
     ) {
         self.viewModel = viewModel
         self.state = initialState
         self.showMoreHandler = showMoreHandler
+        self.contentScoreService = contentScoreService
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -44,13 +49,15 @@ class ProfileScreenCommentsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func loadView() {
+        let view = ProfileScreenCommentsViewController.View(tableViewManager: tableDataSource)
+        view.delegate = self
+        self.view = view
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateState(newState: self.state)
-    }
-
-    override func loadView() {
-        self.view = ProfileScreenCommentsViewController.View()
     }
 
     private func updateState(newState: ProfileScreenComments.ViewControllerState) {
@@ -59,19 +66,19 @@ class ProfileScreenCommentsViewController: UIViewController {
         }
 
         if case .loading = newState {
-            self.commentsPostsView?.showLoadingIndicator()
+            self.commentsPostsView.showLoadingIndicator()
             return
         }
 
         if case .loading = self.state {
-            self.commentsPostsView?.hideLoadingIndicator()
+            self.commentsPostsView.hideLoadingIndicator()
         }
 
         if case .result(let data) = newState {
             if data.comments.isEmpty {
-                self.commentsPostsView?.displayNoData()
+                self.commentsPostsView.displayNoData()
             } else {
-                self.commentsPostsView?.updateTableViewData(dataSource: self.tableDataSource)
+                self.commentsPostsView.updateTableViewData(dataSource: self.tableDataSource)
             }
         }
     }
@@ -83,9 +90,29 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsViewControll
         self.tableDataSource.viewModels = data.comments
         self.updateState(newState: viewModel.state)
     }
+    
+    func displayNextComments(viewModel: ProfileScreenComments.NextProfileCommentsLoad.ViewModel) {
+        guard case let .result(comments) = viewModel.state else { return }
+        
+        self.tableDataSource.viewModels.append(contentsOf: comments)
+        self.commentsPostsView.appendNew(data: comments)
+        
+        if comments.isEmpty {
+            self.canTriggerPagination = false
+        } else {
+            self.canTriggerPagination = true
+        }
+    }
 }
 
 extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSourceDelegate {
+    func tableDidRequestPagination(_ tableDataSource: ProfileScreenCommentsTableDataSource) {
+        guard self.canTriggerPagination else { return }
+        
+        self.canTriggerPagination = false
+        self.viewModel.doNextCommentsFetch(request: .init(sortType: commentsPostsView.sortType))
+    }
+    
     func onMentionTap(in post: LemmyModel.CommentView, mention: LemmyMention) {
         self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }
@@ -101,8 +128,8 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
     func postNameTapped(in comment: LemmyModel.CommentView) {
         self.coordinator?.goToPostScreen(postId: comment.postId)
     }
-    
-    func upvote(
+        
+    func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
@@ -111,25 +138,19 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            self.viewModel.doCommentLike(scoreView: scoreView, voteButton: voteButton, for: newVote, comment: comment)
-        }
-    }
-    
-    func downvote(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView
-    ) {
-        guard let coordinator = coordinator else { return }
-        
-        ContinueIfLogined(on: self, coordinator: coordinator) {
-            self.viewModel.doCommentLike(scoreView: scoreView, voteButton: voteButton, for: newVote, comment: comment)
+            self.contentScoreService.voteComment(
+                scoreView: scoreView,
+                voteButton: voteButton,
+                for: newVote,
+                comment: comment
+            ) { (comment) in
+                self.tableDataSource.viewModels.updateElementById(comment)
+            }
         }
     }
     
     func showContext(in comment: LemmyModel.CommentView) {
-        // no more yet
+        self.coordinator?.goToPostAndScroll(to: comment)
     }
     
     func reply(to comment: LemmyModel.CommentView) {
@@ -142,5 +163,17 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
     
     func showMoreAction(in comment: LemmyModel.CommentView) {
         self.showMoreHandler.showMoreInComment(on: self, comment: comment)
+    }
+}
+
+extension ProfileScreenCommentsViewController: ProfileScreenCommentsViewDelegate {
+    func profileScreenComments(_ view: View, didPickedNewSort type: LemmySortType) {
+        self.commentsPostsView.showLoadingIndicator()
+        self.commentsPostsView.deleteAllContent()
+        self.viewModel.doProfileCommentsFetch(request: .init(sortType: type))
+    }
+    
+    func profileScreenPostsViewDidPickerTapped(toVc: UIViewController) {
+        self.present(toVc, animated: true)
     }
 }

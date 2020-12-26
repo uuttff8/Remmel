@@ -6,7 +6,7 @@
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 enum CreatePost {
     // Present CreatePost
@@ -45,6 +45,17 @@ enum CreatePost {
 
         struct ViewModel {
             let shouldDismiss: Bool
+        }
+    }
+    
+    enum RemoteLoadImage {
+        struct Request {
+            let image: UIImage
+            let filename: String
+        }
+        
+        struct ViewModel {
+            let url: String
         }
     }
     

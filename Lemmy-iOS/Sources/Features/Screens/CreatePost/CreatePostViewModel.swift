@@ -12,6 +12,7 @@ import Combine
 protocol CreatePostViewModelProtocol: AnyObject {
     func doCreatePostLoad(request: CreatePost.CreatePostLoad.Request)
     func doRemoteCreatePost(request: CreatePost.RemoteCreatePost.Request)
+    func doRemoteLoadImage(request: CreatePost.RemoteLoadImage.Request)
 }
 
 class CreatePostViewModel: CreatePostViewModelProtocol {
@@ -35,16 +36,15 @@ class CreatePostViewModel: CreatePostViewModelProtocol {
                                                        auth: jwtToken)
         
         ApiManager.requests.asyncCreatePost(parameters: params)
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { (completion) in
-                switch completion {
-                case .failure(let error):
+                Logger.logCombineCompletion(completion)
+
+                if case .failure(let error) = completion {
                     self.viewController?.displayCreatePostError(
                         viewModel: .init(error: error.description)
                     )
-                case .finished: break
                 }
-                print(completion)
             } receiveValue: { (response) in
                 
                 self.viewController?.displaySuccessCreatingPost(
@@ -52,5 +52,22 @@ class CreatePostViewModel: CreatePostViewModelProtocol {
                 )
                 
             }.store(in: &cancellable)
+    }
+    
+    func doRemoteLoadImage(request: CreatePost.RemoteLoadImage.Request) {
+        
+        ApiManager.requests.uploadPictrs(
+            image: request.image,
+            filename: request.filename
+        ) { (result) in
+            switch result {
+            case .success(let response):
+                self.viewController?.displayUrlLoadImage(
+                    viewModel: .init(url: response.msg!)
+                )
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }

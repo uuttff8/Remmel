@@ -63,7 +63,8 @@ class CommentCenterView: UIView {
     }
     
     private func createAttributesForDeletedComment() -> NSAttributedString {
-        NSAttributedString(string: "Deleted by creator", attributes: [.font: UIFont.italicSystemFont(ofSize: 17)])
+        NSAttributedString(string: "Deleted by creator", attributes: [.font: UIFont.italicSystemFont(ofSize: 17),
+                                                                      .foregroundColor: UIColor.label])
     }
     
     private func createAttributesForNormalComment(data: CommentCenterView.ViewData) -> NSAttributedString {

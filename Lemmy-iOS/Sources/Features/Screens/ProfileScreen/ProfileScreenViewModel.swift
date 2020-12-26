@@ -56,9 +56,9 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
                                                                auth: LemmyShareData.shared.jwtToken)
         
         ApiManager.requests.asyncGetUserDetails(parameters: parameters)
-            .receive(on: RunLoop.main)
-            .sink { (error) in
-                print(error)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
             } receiveValue: { [weak self] response in
                 guard let self = self else { return }
                 
@@ -97,9 +97,16 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     }
     
     func doSubmodulesDataFilling(request: ProfileScreenDataFlow.SubmoduleDataFilling.Request) {
+        guard let profile = loadedProfile else { return }
+        
         self.submodules = request.submodules
         request.submodules.forEach {
-            $0.updateFirstData(posts: request.posts, comments: request.comments, subscribers: request.subscribers)
+            $0.updateFirstData(
+                profile: profile,
+                posts: request.posts,
+                comments: request.comments,
+                subscribers: request.subscribers
+            )
         }
     }
     
