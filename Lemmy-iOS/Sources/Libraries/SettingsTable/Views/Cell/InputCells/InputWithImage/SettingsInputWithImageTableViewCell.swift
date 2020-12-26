@@ -17,6 +17,11 @@ protocol SettingsInputWithImageCellDelegate: AnyObject {
 final class SettingsInputWithImageTableViewCell: SettingsTableViewCell<SettingsInputWithImageCellView> {
     weak var delegate: SettingsInputWithImageCellDelegate?
     var uniqueIdentifier: UniqueIdentifierType?
+    
+    var urlState: SettingsInputWithImageCellView.UrlState {
+        get { elementView.urlState }
+        set { elementView.urlState = newValue }
+    }
 
     override func didMoveToSuperview() {
         super.didMoveToSuperview()

@@ -66,17 +66,17 @@ class CreatePostUrlCell: UITableViewCell {
         onPickImage?()
         onPickedImage = { [self] image in
             isImagePicked = true
-            ApiManager.requests.uploadPictrs(image: image) { (res) in
-                switch res {
-                case .success(let response):
-                    if let filename = response.files.first?.file {
-                        self.urlTextField.text = "" + filename
-                    }
-                case .failure(let error):
-                    Logger.commonLog.error(error)
-                }
-            }
-
+//            ApiManager.requests.uploadPictrs(image: image) { (res) in
+//                switch res {
+//                case .success(let response):
+//                    if let filename = response.files.first?.file {
+//                        self.urlTextField.text = "" + filename
+//                    }
+//                case .failure(let error):
+//                    Logger.commonLog.error(error)
+//                }
+//            }
+//
         }
     }
 

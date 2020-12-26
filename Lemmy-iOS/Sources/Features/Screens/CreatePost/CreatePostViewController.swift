@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 // MARK: CreatePostScreenViewControllerProtocol: AnyObject -
 
@@ -15,6 +16,7 @@ protocol CreatePostScreenViewControllerProtocol: AnyObject {
     func displaySuccessCreatingPost(viewModel: CreatePost.RemoteCreatePost.ViewModel)
     func displayBlockingActivityIndicator(viewModel: CreatePost.BlockingWaitingIndicatorUpdate.ViewModel)
     func displayCreatePostError(viewModel: CreatePost.CreatePostError.ViewModel)
+    func displayUrlLoadImage(viewModel: CreatePost.RemoteLoadImage.ViewModel)
 }
 
 // MARK: - Appearance -
@@ -28,7 +30,6 @@ extension CreatePostScreenViewController {
 // MARK: - CreatePostScreenViewController: UIViewController -
 
 class CreatePostScreenViewController: UIViewController {
-    
     // MARK: - Properties
     
     let appearance: Appearance
@@ -39,6 +40,8 @@ class CreatePostScreenViewController: UIViewController {
     lazy var createPostView = self.view as! CreatePostScreenUI
     lazy var styledNavController = self.navigationController as! StyledNavigationController
     
+    private var inputWithImageCell: SettingsInputWithImageTableViewCell?
+        
     private var createPostData: FormData = {
         .init(
             community: nil,
@@ -48,7 +51,7 @@ class CreatePostScreenViewController: UIViewController {
             nsfwOption: false
         )
     }()
-    
+        
     private lazy var postBarButton = UIBarButtonItem(
         title: "CREATE",
         style: .done,
@@ -56,11 +59,12 @@ class CreatePostScreenViewController: UIViewController {
         action: #selector(postBarButtonTapped(_:))
     )
     
-    private lazy var imagePicker = UIImagePickerController().then {
+    private lazy var imagePickerController: UIImagePickerController = {
         $0.delegate = self
         $0.allowsEditing = false
         $0.sourceType = .photoLibrary
-    }
+        return $0
+    }(UIImagePickerController())
     
     init(
         viewModel: CreatePostViewModelProtocol,
@@ -183,9 +187,31 @@ class CreatePostScreenViewController: UIViewController {
         default: break
         }
     }
+    
+    private func updateUrlState(for cell: SettingsInputWithImageTableViewCell) {
+        self.inputWithImageCell = cell
+        
+        switch cell.urlState {
+        case .loading:
+            cell.elementView.hideLoading()
+        case .notAdded:
+            self.present(imagePickerController, animated: true)
+            cell.elementView.showLoading()
+        case .addedWithImage(let text):
+            cell.elementView.hideLoading()
+            cell.elementView.title = text
+            cell.elementView.imageIcon = Config.Image.close
+        }
+    }
 }
 
 extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol {
+    func displayUrlLoadImage(viewModel: CreatePost.RemoteLoadImage.ViewModel) {
+        guard let inputWithImageCell = inputWithImageCell else { return }
+        inputWithImageCell.urlState = .addedWithImage(text: viewModel.url)
+        updateUrlState(for: inputWithImageCell)
+    }
+    
     func displayCreatingPost(viewModel: CreatePost.CreatePostLoad.ViewModel) {
         
         // Community choosing
@@ -306,8 +332,9 @@ extension CreatePostScreenViewController: UIImagePickerControllerDelegate, UINav
         _ picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
     ) {
-        if (info[UIImagePickerController.InfoKey.originalImage] as? UIImage) != nil {
-            //            customView.onPickedImage?(image)
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
+           let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL {
+            self.viewModel.doRemoteLoadImage(request: .init(image: image, filename: imageUrl.lastPathComponent))
         }
         
         dismiss(animated: true, completion: nil)
@@ -379,6 +406,10 @@ extension CreatePostScreenViewController: CreatePostViewDelegate {
         switchValueChanged isOn: Bool
     ) {
         self.createPostData.nsfwOption = isOn
+    }
+    
+    func settingsCellDidTappedToIcon(_ cell: SettingsInputWithImageTableViewCell) {
+        updateUrlState(for: cell)
     }
 }
 

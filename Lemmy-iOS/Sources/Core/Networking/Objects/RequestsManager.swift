@@ -41,27 +41,30 @@ class RequestsManager {
     ) -> AnyPublisher<Res, LemmyGenericError> {
         
         wsClient.asyncSend(on: path, data: parameters)
+            .receive(on: requestQueue)
             .flatMap { (outString: String) in
                 self.asyncDecode(data: outString.data(using: .utf8)!)
             }.eraseToAnyPublisher()
     }
         
-    func uploadImage<Res: Codable>(
+    func _uploadImage<Res: Codable>(
         path: String,
         image: UIImage,
+        filename: String,
         completion: @escaping ((Result<Res, LemmyGenericError>) -> Void)
     ) {
-        httpClient.uploadImage(url: path, image: image) { (result) in
+        httpClient.uploadImage(url: path, image: image, filename: filename) { (result) in
             switch result {
             case .failure(let why):
                 completion(.failure(why))
             case .success(let outData):
                 
-                guard let decoded = try? self.decoder.decode(Res.self, from: outData) else {
-                    completion(.failure(.string("Failed to decode from \(Res.self)")))
-                    return
+                do {
+                    let decoded = try self.decoder.decode(Res.self, from: outData)
+                    completion(.success(decoded))
+                } catch {
+                    completion(.failure(.string("Failed to decode from \(error)")))
                 }
-                completion(.success(decoded))
             }
         }
     }

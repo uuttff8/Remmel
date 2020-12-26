@@ -12,6 +12,7 @@ import Combine
 protocol CreatePostViewModelProtocol: AnyObject {
     func doCreatePostLoad(request: CreatePost.CreatePostLoad.Request)
     func doRemoteCreatePost(request: CreatePost.RemoteCreatePost.Request)
+    func doRemoteLoadImage(request: CreatePost.RemoteLoadImage.Request)
 }
 
 class CreatePostViewModel: CreatePostViewModelProtocol {
@@ -51,5 +52,22 @@ class CreatePostViewModel: CreatePostViewModelProtocol {
                 )
                 
             }.store(in: &cancellable)
+    }
+    
+    func doRemoteLoadImage(request: CreatePost.RemoteLoadImage.Request) {
+        
+        ApiManager.requests.uploadPictrs(
+            image: request.image,
+            filename: request.filename
+        ) { (result) in
+            switch result {
+            case .success(let response):
+                self.viewController?.displayUrlLoadImage(
+                    viewModel: .init(url: response.msg!)
+                )
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }

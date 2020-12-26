@@ -11,10 +11,16 @@ import UIKit
 private protocol HTTPClientProvider {
     func getAuth(url: URL, completion: @escaping ((Result<Data, Error>) -> Void))
     func postAuth(url: String, bodyObject: Codable?, completion: @escaping (Result<Data, Error>) -> Void)
-    func genericRequest(url: URL,
-                        method: String,
-                        bodyObject: [String: Any]?,
-                        completion: @escaping (Result<Data, Error>) -> Void)
+    func uploadImage(
+        url: String,
+        image: UIImage,
+        filename: String,
+        completion: @escaping (Result<Data, LemmyGenericError>) -> Void
+    )
+//    func genericRequest(url: URL,
+//                        method: String,
+//                        bodyObject: [String: Any]?,
+//                        completion: @escaping (Result<Data, Error>) -> Void)
 }
 
 final class HttpLemmyClient: HTTPClientProvider {
@@ -82,24 +88,21 @@ final class HttpLemmyClient: HTTPClientProvider {
     func uploadImage(
         url: String,
         image: UIImage,
+        filename: String,
         completion: @escaping (Result<Data, LemmyGenericError>) -> Void
     ) {
-
         guard let url = URL(string: url) else { return }
         guard let jwt = LoginData.shared.jwtToken else {
-            print("JWT token is not provided")
+            Logger.commonLog.error("JWT token is not provided")
             return
         }
+        
         let boundary = generateBoundary()
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-
-        guard let httpBody = try? createBody(imageToUpload: image, boundary: boundary) else {
-            completion(.failure(.string("Failed to create request body")))
-            return
-        }
+        let httpBody = createBody(imageToUpload: image, filename: filename, boundary: boundary)
 
         request.httpBody = httpBody
 
@@ -112,22 +115,24 @@ final class HttpLemmyClient: HTTPClientProvider {
                    delegateQueue: OperationQueue.current)
             .dataTask(with: request) { (data: Data?, _: URLResponse?, error: Error?) in
                 if let data = data {
+                    Logger.commonLog.info(String(data: data, encoding: .utf8))
                     completion(.success(data))
                 } else if let error = error {
                     completion(.failure(.string(error as! String)))
                 }
             }.resume()
-
     }
 
     private func createBody(
         imageToUpload: UIImage,
+        filename: String,
         boundary: String
-    ) throws -> Data {
+    ) -> Data {
         var body = Data()
-
-        let filename = "file"
-        let mimetype = "image/png"
+        
+        let filenameExt = filename.fileExtension
+        
+        let mimetype = "image/\(filenameExt)"
         let filePathKey = "images[]"
         guard let imageData = imageToUpload.jpegData(compressionQuality: 1) else { return Data() }
 
@@ -136,7 +141,6 @@ final class HttpLemmyClient: HTTPClientProvider {
         body.append("Content-Type: \(mimetype)\r\n\r\n")
         body.append(imageData)
         body.append("\r\n")
-
         body.append("--\(boundary)--\r\n")
         return body
     }
@@ -144,46 +148,22 @@ final class HttpLemmyClient: HTTPClientProvider {
     private func generateBoundary() -> String {
         "Boundary-\(UUID().uuidString)"
     }
-
-    func genericRequest(
-        url: URL,
-        method: String,
-        bodyObject: [String: Any]?,
-        completion: @escaping (Result<Data, Error>) -> Void
-    ) {
-        guard let jwt = LoginData.shared.jwtToken else {
-            print("JWT token is not provided")
-            return
-        }
-
-        let config = URLSessionConfiguration.ephemeral
-        config.waitsForConnectivity = true
-        config.httpAdditionalHeaders = [ "Cookie": "\(jwt)",
-                                         "Accept": "application/json",
-                                         "Content-Type": "application/json"]
-
-        var request = URLRequest(url: url)
-        request.httpMethod = method
-
-        if let bodyObject = bodyObject {
-            guard let jsonBody = try? JSONSerialization.data(withJSONObject: bodyObject, options: []) else { return }
-            request.httpBody = jsonBody
-        }
-
-        URLSession(configuration: config,
-                   delegate: INetworkDelegate(),
-                   delegateQueue: OperationQueue.current)
-            .dataTask(with: request) { (data: Data?, _: URLResponse?, _: Error?) in
-                if let data = data {
-                    completion(.success(data))
-                }
-            }.resume()
-    }
 }
 
 private class INetworkDelegate: NSObject, URLSessionTaskDelegate {
     func urlSession(_ session: URLSession, taskIsWaitingForConnectivity task: URLSessionTask) {
         print("\(session) \(task) waiting")
+    }
+}
+
+private extension String {
+
+    var fileName: String {
+        return URL(fileURLWithPath: self).deletingPathExtension().lastPathComponent
+    }
+
+    var fileExtension: String {
+        return URL(fileURLWithPath: self).pathExtension
     }
 }
 

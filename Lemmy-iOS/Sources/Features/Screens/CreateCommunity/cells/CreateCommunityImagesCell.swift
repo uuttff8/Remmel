@@ -78,14 +78,14 @@ class CreateCommunityImagesCell: UITableViewCell {
     }
 
     private func loadImage(image: UIImage, completion: @escaping ((String) -> Void)) {
-        ApiManager.requests.uploadPictrs(image: image) { (res) in
-            switch res {
-            case .success(let response):
-                completion(response.files.first!.file)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+//        ApiManager.requests.uploadPictrs(image: image) { (res) in
+//            switch res {
+//            case .success(let response):
+//                completion(response.files.first!.file)
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
     }
 }
 

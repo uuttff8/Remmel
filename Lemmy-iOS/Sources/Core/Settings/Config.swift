@@ -114,6 +114,11 @@ extension Config {
             UIImage(named: "add-image")!
                 .withTintColor(.label, renderingMode: .alwaysOriginal)
         }
+        
+        static var close: UIImage {
+            UIImage(named: "xmark.circle")!
+                .withTintColor(.label, renderingMode: .alwaysOriginal)
+        }
     }
 }
 

@@ -13,23 +13,29 @@ extension SettingsInputWithImageCellView {
     struct Appearance {
         let iconSize = CGSize(width: 30, height: 30)
         
-        let trailingOffsetWithAccessoryItem: CGFloat = 8
-        let trailingOffsetWithoutAccessoryItem: CGFloat = 16
+        let trailingOffset: CGFloat = 8
 
         let containerMinHeight: CGFloat = 44
     }
 }
 
 final class SettingsInputWithImageCellView: UIView {
+    
+    enum UrlState: Equatable {
+        case notAdded
+        case loading
+        case addedWithImage(text: String)
+    }
+    
     let appearance: Appearance
-
+    
     private lazy var textField = TableInputTextField()
     
-    private lazy var imageIconView: UIImageView = {
-        return $0
-    }(UIImageView())
+    private lazy var imageIconView = ImageControl()
 
     private lazy var containerView = UIView()
+    
+    var urlState = UrlState.notAdded
     
     var onIconImageTap: (() -> Void)?
 
@@ -59,7 +65,7 @@ final class SettingsInputWithImageCellView: UIView {
     
     var imageIcon: UIImage? {
         didSet {
-            self.imageIconView.image = imageIcon
+            self.imageIconView.innerImageView.image = imageIcon
         }
     }
 
@@ -70,11 +76,25 @@ final class SettingsInputWithImageCellView: UIView {
         self.setupView()
         self.addSubviews()
         self.makeConstraints()
+        
+        self.imageIconView.addTarget(self, action: #selector(imageTapped), for: .touchUpInside)
     }
 
     @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func imageTapped() {
+        self.onIconImageTap?()
+    }
+    
+    func showLoading() {
+        self.containerView.showActivityIndicatorView()
+    }
+    
+    func hideLoading() {
+        self.containerView.hideActivityIndicatorView()
     }
 }
 
@@ -100,7 +120,7 @@ extension SettingsInputWithImageCellView: ProgrammaticallyViewProtocol {
         self.textField.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.top.bottom.equalToSuperview()
-            $0.trailing.equalTo(imageIconView)
+            $0.trailing.equalTo(imageIconView.snp.leading)
         }
         
         self.imageIconView.setContentHuggingPriority(.defaultLow, for: .horizontal)
@@ -110,7 +130,7 @@ extension SettingsInputWithImageCellView: ProgrammaticallyViewProtocol {
         self.imageIconView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.size.equalTo(self.appearance.iconSize)
-            $0.trailing.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(self.appearance.trailingOffset)
         }
     }
 }
