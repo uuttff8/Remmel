@@ -55,7 +55,7 @@ extension InstancesView: ProgrammaticallyViewProtocol {
     
     func makeConstraints() {
         self.tableView.snp.makeConstraints {
-            $0.edges.equalTo(self.safeAreaLayoutGuide)
+            $0.edges.equalToSuperview()
         }
     }
 }

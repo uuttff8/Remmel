@@ -13,10 +13,24 @@ final class AddAccountsView: UIView {
     init() {
         super.init(frame: .zero)
         
-        backgroundColor = .white
+        setupView()
+        addSubviews()
+        makeConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension AddAccountsView: ProgrammaticallyViewProtocol {
+    func setupView() {
+        self.backgroundColor = .white
+    }
+    
+    func addSubviews() {
+    }
+    
+    func makeConstraints() {
     }
 }
