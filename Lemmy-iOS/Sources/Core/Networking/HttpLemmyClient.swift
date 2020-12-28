@@ -109,11 +109,15 @@ final class HttpLemmyClient: HTTPClientProvider {
         let config = URLSessionConfiguration.default
         config.waitsForConnectivity = true
         config.httpAdditionalHeaders = [ "Cookie": "jwt=\(jwt)" ]
-
+        
+        Logger.log(request: request)
+        
         URLSession(configuration: config,
                    delegate: INetworkDelegate(),
                    delegateQueue: OperationQueue.current)
-            .dataTask(with: request) { (data: Data?, _: URLResponse?, error: Error?) in
+            .dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+                Logger.log(data: data, response: (response as? HTTPURLResponse), error: error)
+                
                 if let data = data {
                     Logger.commonLog.info(String(data: data, encoding: .utf8))
                     completion(.success(data))

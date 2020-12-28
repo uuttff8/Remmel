@@ -214,6 +214,7 @@ class CreatePostScreenViewController: UIViewController {
             cell.elementView.textFieldIsEnabled = true
             cell.elementView.title = nil
             cell.elementView.imageIcon = Config.Image.addImage
+            cell.urlState = .notAdded // for future presenting 
         case .error:
             cell.urlState = .notAdded
             cell.elementView.hideLoading()
