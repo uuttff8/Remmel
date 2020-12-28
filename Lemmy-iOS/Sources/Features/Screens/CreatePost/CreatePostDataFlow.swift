@@ -59,6 +59,12 @@ enum CreatePost {
         }
     }
     
+    enum ErrorRemoteLoadImage {
+        struct Request { }
+        
+        struct ViewModel { }
+    }
+    
     struct FormFieldDescription {
         let fields: [FormField]
         let currentField: FormField?

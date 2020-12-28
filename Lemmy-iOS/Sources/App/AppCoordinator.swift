@@ -23,33 +23,33 @@ class AppCoordinator: Coordinator {
     
     func start() {
         
-//                            let myCoordinator = LemmyTabBarCoordinator()
-//
-//                            // store child coordinator
-//                            self.store(coordinator: myCoordinator)
-//                            myCoordinator.start()
-//
-//                            window.rootViewController = myCoordinator.rootViewController
+                            let myCoordinator = LemmyTabBarCoordinator()
+
+                            // store child coordinator
+                            self.store(coordinator: myCoordinator)
+                            myCoordinator.start()
+
+                            window.rootViewController = myCoordinator.rootViewController
         
-        if userAccountService.isAuthorized {
-            let myCoordinator = LemmyTabBarCoordinator()
-
-            // store child coordinator
-            self.store(coordinator: myCoordinator)
-            myCoordinator.start()
-
-            window.rootViewController = myCoordinator.rootViewController
-
-        } else {
-            let myCoordinator = InstancesCoordinator()
-
-            // store child coordinator
-            self.store(coordinator: myCoordinator)
-            myCoordinator.start()
-
-            window.rootViewController = myCoordinator.rootViewController
-
-        }
+//        if userAccountService.isAuthorized {
+//            let myCoordinator = LemmyTabBarCoordinator()
+//
+//            // store child coordinator
+//            self.store(coordinator: myCoordinator)
+//            myCoordinator.start()
+//
+//            window.rootViewController = myCoordinator.rootViewController
+//
+//        } else {
+//            let myCoordinator = InstancesCoordinator()
+//
+//            // store child coordinator
+//            self.store(coordinator: myCoordinator)
+//            myCoordinator.start()
+//
+//            window.rootViewController = myCoordinator.rootViewController
+//
+//        }
         
         window.makeKeyAndVisible()
     }

@@ -108,7 +108,7 @@ final class HttpLemmyClient: HTTPClientProvider {
 
         let config = URLSessionConfiguration.default
         config.waitsForConnectivity = true
-        config.httpAdditionalHeaders = [ "Cookie": "\(jwt)" ]
+        config.httpAdditionalHeaders = [ "Cookie": "jwt=\(jwt)" ]
 
         URLSession(configuration: config,
                    delegate: INetworkDelegate(),

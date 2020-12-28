@@ -63,10 +63,11 @@ class CreatePostViewModel: CreatePostViewModelProtocol {
             switch result {
             case .success(let response):
                 self.viewController?.displayUrlLoadImage(
-                    viewModel: .init(url: response.msg!)
+                    viewModel: .init(url: response.files.first!.file)
                 )
             case .failure(let error):
-                print(error)
+                Logger.commonLog.error(error)
+                self.viewController?.displayErrorUrlLoadImage(viewModel: .init())
             }
         }
     }

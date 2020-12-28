@@ -17,6 +17,7 @@ protocol CreatePostScreenViewControllerProtocol: AnyObject {
     func displayBlockingActivityIndicator(viewModel: CreatePost.BlockingWaitingIndicatorUpdate.ViewModel)
     func displayCreatePostError(viewModel: CreatePost.CreatePostError.ViewModel)
     func displayUrlLoadImage(viewModel: CreatePost.RemoteLoadImage.ViewModel)
+    func displayErrorUrlLoadImage(viewModel: CreatePost.ErrorRemoteLoadImage.ViewModel)
 }
 
 // MARK: - Appearance -
@@ -188,19 +189,37 @@ class CreatePostScreenViewController: UIViewController {
         }
     }
     
-    private func updateUrlState(for cell: SettingsInputWithImageTableViewCell) {
+    private func updateUrlState(for cell: SettingsInputWithImageTableViewCell, state: SettingsInputWithImageCellView.UrlState) {
+        print("update for state: \(state)")
+        cell.urlState = state
+        
         self.inputWithImageCell = cell
         
-        switch cell.urlState {
-        case .loading:
-            cell.elementView.hideLoading()
+        switch state {
         case .notAdded:
-            self.present(imagePickerController, animated: true)
-            cell.elementView.showLoading()
-        case .addedWithImage(let text):
             cell.elementView.hideLoading()
+            self.present(imagePickerController, animated: true)
+        case .loading:
+            cell.elementView.showLoading()
+            cell.elementView.textFieldIsEnabled = false
+            cell.elementView.title = nil
+            cell.elementView.imageIcon = Config.Image.close
+        case .addWithImage(let text):
+            cell.elementView.hideLoading()
+            cell.elementView.textFieldIsEnabled = false
             cell.elementView.title = text
             cell.elementView.imageIcon = Config.Image.close
+            cell.urlState = .urlAdded
+        case .urlAdded:
+            cell.elementView.textFieldIsEnabled = true
+            cell.elementView.title = nil
+            cell.elementView.imageIcon = Config.Image.addImage
+        case .error:
+            cell.urlState = .notAdded
+            cell.elementView.hideLoading()
+            cell.elementView.textFieldIsEnabled = false
+            cell.elementView.title = nil
+            cell.elementView.imageIcon = Config.Image.addImage
         }
     }
 }
@@ -208,8 +227,15 @@ class CreatePostScreenViewController: UIViewController {
 extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol {
     func displayUrlLoadImage(viewModel: CreatePost.RemoteLoadImage.ViewModel) {
         guard let inputWithImageCell = inputWithImageCell else { return }
-        inputWithImageCell.urlState = .addedWithImage(text: viewModel.url)
-        updateUrlState(for: inputWithImageCell)
+        let state: SettingsInputWithImageCellView.UrlState = .addWithImage(text: viewModel.url)
+        updateUrlState(for: inputWithImageCell, state: state)
+    }
+    
+    func displayErrorUrlLoadImage(viewModel: CreatePost.ErrorRemoteLoadImage.ViewModel) {
+        guard let inputWithImageCell = inputWithImageCell else { return }
+        
+        UIAlertController.createOkAlert(message: "Some error happened when uploading a picture")
+        updateUrlState(for: inputWithImageCell, state: .error)
     }
     
     func displayCreatingPost(viewModel: CreatePost.CreatePostLoad.ViewModel) {
@@ -334,6 +360,8 @@ extension CreatePostScreenViewController: UIImagePickerControllerDelegate, UINav
     ) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
            let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL {
+            guard let inputWithImageCell = inputWithImageCell else { return }
+            self.updateUrlState(for: inputWithImageCell, state: .loading)
             self.viewModel.doRemoteLoadImage(request: .init(image: image, filename: imageUrl.lastPathComponent))
         }
         
@@ -409,7 +437,7 @@ extension CreatePostScreenViewController: CreatePostViewDelegate {
     }
     
     func settingsCellDidTappedToIcon(_ cell: SettingsInputWithImageTableViewCell) {
-        updateUrlState(for: cell)
+        updateUrlState(for: cell, state: cell.urlState)
     }
 }
 

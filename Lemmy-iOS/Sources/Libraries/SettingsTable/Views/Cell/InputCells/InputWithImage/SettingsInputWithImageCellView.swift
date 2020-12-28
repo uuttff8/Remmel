@@ -24,7 +24,9 @@ final class SettingsInputWithImageCellView: UIView {
     enum UrlState: Equatable {
         case notAdded
         case loading
-        case addedWithImage(text: String)
+        case addWithImage(text: String)
+        case urlAdded
+        case error
     }
     
     let appearance: Appearance
@@ -39,6 +41,12 @@ final class SettingsInputWithImageCellView: UIView {
     
     var onIconImageTap: (() -> Void)?
 
+    var textFieldIsEnabled: Bool = true {
+        didSet {
+            self.textField.isEnabled = textFieldIsEnabled
+        }
+    }
+    
     var title: String? {
         didSet {
             self.textField.text = self.title

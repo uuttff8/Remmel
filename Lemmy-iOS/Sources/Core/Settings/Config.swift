@@ -116,7 +116,7 @@ extension Config {
         }
         
         static var close: UIImage {
-            UIImage(named: "xmark.circle")!
+            UIImage(systemName: "xmark.circle")!
                 .withTintColor(.label, renderingMode: .alwaysOriginal)
         }
     }

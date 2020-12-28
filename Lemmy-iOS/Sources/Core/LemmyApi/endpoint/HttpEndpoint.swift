@@ -17,7 +17,7 @@ enum HttpEndpoint {
 
         var endpoint: String {
             switch self {
-            case .image: return "https://dev.lemmy.ml\(Self.pictrs)/image"
+            case .image: return "https://lemmy.ml\(Self.pictrs)/image"
             }
         }
     }
