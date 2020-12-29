@@ -45,6 +45,7 @@
 		4E26FEA02573E36C009DE4A7 /* PostScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E26FE9F2573E36C009DE4A7 /* PostScreenCoordinator.swift */; };
 		4E2A0F9F259B854300BF0841 /* CodingUserInfoKey+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A0F9E259B854300BF0841 /* CodingUserInfoKey+Ext.swift */; };
 		4E2A0FC3259BA49400BF0841 /* AccountsPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A0FC2259BA49400BF0841 /* AccountsPersistenceService.swift */; };
+		4E2A0FD0259BC1CB00BF0841 /* UIWindow+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A0FCF259BC1CB00BF0841 /* UIWindow+Ext.swift */; };
 		4E3D44D62595D3B300108DA3 /* ChainedWSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3D44D52595D3B300108DA3 /* ChainedWSClient.swift */; };
 		4E3D44E42596143A00108DA3 /* SettingsInputWithImageCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3D44E32596143A00108DA3 /* SettingsInputWithImageCellView.swift */; };
 		4E3D44E92596203A00108DA3 /* SettingsInputWithImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3D44E82596203A00108DA3 /* SettingsInputWithImageTableViewCell.swift */; };
@@ -356,6 +357,7 @@
 		4E26FE9F2573E36C009DE4A7 /* PostScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenCoordinator.swift; sourceTree = "<group>"; };
 		4E2A0F9E259B854300BF0841 /* CodingUserInfoKey+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodingUserInfoKey+Ext.swift"; sourceTree = "<group>"; };
 		4E2A0FC2259BA49400BF0841 /* AccountsPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsPersistenceService.swift; sourceTree = "<group>"; };
+		4E2A0FCF259BC1CB00BF0841 /* UIWindow+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Ext.swift"; sourceTree = "<group>"; };
 		4E3D44D52595D3B300108DA3 /* ChainedWSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainedWSClient.swift; sourceTree = "<group>"; };
 		4E3D44E32596143A00108DA3 /* SettingsInputWithImageCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInputWithImageCellView.swift; sourceTree = "<group>"; };
 		4E3D44E82596203A00108DA3 /* SettingsInputWithImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInputWithImageTableViewCell.swift; sourceTree = "<group>"; };
@@ -1742,6 +1744,7 @@
 				4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */,
 				4E7CFCD42584215F0082AC3D /* UIImageView+Ext.swift */,
 				4E87C66D258E09D00007FE5E /* UIFont+Ext.swift */,
+				4E2A0FCF259BC1CB00BF0841 /* UIWindow+Ext.swift */,
 			);
 			path = UIExt;
 			sourceTree = "<group>";
@@ -2089,6 +2092,7 @@
 				4E87C6AE258E696C0007FE5E /* InstancesTableDataSource.swift in Sources */,
 				4E91850A256E9EAA00702F04 /* CommentCell.swift in Sources */,
 				4E26FEA02573E36C009DE4A7 /* PostScreenCoordinator.swift in Sources */,
+				4E2A0FD0259BC1CB00BF0841 /* UIWindow+Ext.swift in Sources */,
 				4E91837B2566F60600702F04 /* TableInputTextView.swift in Sources */,
 				4E3FBC51258A82B100F97671 /* CommunitiesPreviewView.swift in Sources */,
 				4EF3AC90254B46BD00BEC9F1 /* ChooseCategoryUI.swift in Sources */,

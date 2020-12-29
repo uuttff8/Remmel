@@ -19,7 +19,6 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
     weak var viewController: AddAccountViewControllerProtocol?
     
     private let currentInstance: Instance
-    private let shareData: LemmyShareData
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -27,10 +26,8 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
     private var authPassword: String?
     
     init(
-        shareData: LemmyShareData,
         instance: Instance
     ) {
-        self.shareData = shareData
         self.currentInstance = instance
     }
     

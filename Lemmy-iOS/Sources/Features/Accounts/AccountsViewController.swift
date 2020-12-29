@@ -10,6 +10,8 @@ import UIKit
 
 protocol AccountsViewControllerProtocol: AnyObject {
     func displayAccounts(viewModel: AccountsDataFlow.AccountsRefresh.ViewModel)
+    func displayAccountSelected(viewModel: AccountsDataFlow.AccountSelected.ViewModel)
+    func displayUnexpectedError(viewModel: AccountsDataFlow.UnexpectedError.ViewModel)
 }
 
 final class AccountsViewController: UIViewController {
@@ -118,6 +120,14 @@ extension AccountsViewController: AccountsViewControllerProtocol {
         self.tableManager.viewModels = instances
         self.updateState(newState: viewModel.state)
     }
+    
+    func displayAccountSelected(viewModel: AccountsDataFlow.AccountSelected.ViewModel) {
+        self.coordinator?.goToFrontPage()
+    }
+    
+    func displayUnexpectedError(viewModel: AccountsDataFlow.UnexpectedError.ViewModel) {
+        UIAlertController.createOkAlert(message: viewModel.error)
+    }
 }
 
 extension AccountsViewController: AccountsTableDataSourceDelegate {
@@ -126,6 +136,6 @@ extension AccountsViewController: AccountsTableDataSourceDelegate {
     }
     
     func tableDidSelect(_ account: Account) {
-        // TODO:
+        self.viewModel.doAccountFetch(request: .init(account: account))
     }
 }

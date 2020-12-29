@@ -122,6 +122,14 @@ extension UIView {
         return screenshot(size, offset: offset, quality: quality)
     }
     
+    /// another version of screenshot function
+    func snapshot() -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.main.scale)
+        drawHierarchy(in: bounds, afterScreenUpdates: true)
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return result!
+    }
 }
 
 extension UIView {

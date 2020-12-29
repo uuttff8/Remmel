@@ -40,13 +40,10 @@ final class AccountsView: UIView {
     func hideLoadingView() {
         self.hideActivityIndicatorView()
     }
-
 }
 
 extension AccountsView: ProgrammaticallyViewProtocol {
-    func setupView() {
-        
-    }
+    func setupView() { }
     
     func addSubviews() {
         self.addSubview(tableView)

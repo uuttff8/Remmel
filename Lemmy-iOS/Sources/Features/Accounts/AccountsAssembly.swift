@@ -21,6 +21,7 @@ final class AccountsAssembly: Assembly {
     func makeModule() -> AccountsViewController {
         let viewModel = AccountsViewModel(
             instance: self.instance,
+            shareData: LemmyShareData.shared,
             accountsPersistenceService: AccountsPersistenceService()
         )
         let vc = AccountsViewController(viewModel: viewModel)

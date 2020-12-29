@@ -30,7 +30,6 @@ final class AddAccountsAssembly: Assembly {
     
     func makeModule() -> AddAccountViewController {
         let viewModel = AddAccountViewModel(
-            shareData: LemmyShareData.shared,
             instance: self.currentInstance
         )
         let vc = AddAccountViewController(
