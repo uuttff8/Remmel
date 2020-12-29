@@ -158,7 +158,7 @@ extension UIAlertController {
     ) {
         let alertController = UIAlertController(
             title: nil,
-            message: "Log in or Register to continue",
+            message: "Log in or Register to continue in current instance",
             preferredStyle: .alert
         )
         

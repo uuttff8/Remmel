@@ -23,15 +23,7 @@ class AppCoordinator: Coordinator {
     
     func start() {
         
-//                            let myCoordinator = LemmyTabBarCoordinator()
-//
-//                            // store child coordinator
-//                            self.store(coordinator: myCoordinator)
-//                            myCoordinator.start()
-//
-//                            window.rootViewController = myCoordinator.rootViewController
-        
-        if userAccountService.isAuthorized {
+        if LemmyShareData.shared.isLoggedIn {
             let myCoordinator = LemmyTabBarCoordinator()
 
             // store child coordinator
@@ -39,7 +31,6 @@ class AppCoordinator: Coordinator {
             myCoordinator.start()
 
             window.rootViewController = myCoordinator.rootViewController
-
         } else {
             let myCoordinator = InstancesCoordinator()
 
@@ -48,7 +39,6 @@ class AppCoordinator: Coordinator {
             myCoordinator.start()
 
             window.rootViewController = myCoordinator.rootViewController
-
         }
         
         window.makeKeyAndVisible()

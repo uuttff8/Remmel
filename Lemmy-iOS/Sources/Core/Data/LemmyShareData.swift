@@ -46,6 +46,6 @@ class LemmyShareData {
     }
     
     var isLoggedIn: Bool {
-        self.userdata != nil && jwtToken != nil
+        self.userdata != nil && self.jwtToken != nil
     }
 }

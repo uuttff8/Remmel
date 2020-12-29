@@ -42,6 +42,8 @@ final class AccountsCoordinator: Coordinator {
     }
     
     func goToFrontPage() {
+        
+        // FIXME(uuttff8): We should know, if memory is not cleared
         if LemmyShareData.shared.isLoggedIn {
             NotificationCenter.default.post(name: .didLogin, object: nil)
             

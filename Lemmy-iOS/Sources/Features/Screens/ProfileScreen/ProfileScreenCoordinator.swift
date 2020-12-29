@@ -23,4 +23,25 @@ final class ProfileScreenCoordinator: GenericCoordinator<ProfileScreenViewContro
         navigationController?.pushViewController(rootViewController, animated: true)
     }
     
+    func goToInstances() {
+        LemmyShareData.shared.loginData.logout()
+        
+        // FIXME(uuttff8): We should know, if memory is not cleared
+        if !LemmyShareData.shared.isLoggedIn {
+            NotificationCenter.default.post(name: .didLogin, object: nil)
+            
+            let myCoordinator = InstancesCoordinator()
+
+            // store child coordinator
+            self.store(coordinator: myCoordinator)
+            myCoordinator.start()
+
+            UIApplication.shared.windows.first!.replaceRootViewControllerWith(
+                myCoordinator.rootViewController,
+                animated: true
+            )
+        } else {
+            fatalError("Unexpexted error, must not be happen")
+        }
+    }
 }

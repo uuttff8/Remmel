@@ -352,6 +352,11 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
             alert.addAction(sendMessageAction)
         }
         
+        let chooseInstanceAction = UIAlertAction(title: "Choose another instance", style: .default) { (_) in
+            self.coordinator?.goToInstances()
+        }
+        
+        alert.addAction(chooseInstanceAction)
         alert.addAction(UIAlertAction.cancelAction)
         
         self.present(alert, animated: true)
