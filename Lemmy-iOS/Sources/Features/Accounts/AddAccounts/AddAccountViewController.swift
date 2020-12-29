@@ -141,16 +141,11 @@ final class AddAccountViewController: UIViewController {
 
 extension AddAccountViewController: AddAccountViewControllerProtocol {
     func displaySuccessAuth(viewModel: AddAccountDataFlow.Authentication.ViewModel) {
-        // save account to database
-        let account = Account(entity: Account.entity(), insertInto: CoreDataHelper.shared.context)
-        account.login = viewModel.login
-        account.password = viewModel.password
-        CoreDataHelper.shared.save()
-        
-        onUserReceive?(account)
+//        onUserReceive?(account)
+        self.coordinator?.dismissSelf(viewController: self)
     }
     
     func displayErrorAuth(viewModel: AddAccountDataFlow.AuthError.ViewModel) {
-        
+        UIAlertController.createOkAlert(message: viewModel.error)
     }
 }

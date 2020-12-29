@@ -12,16 +12,17 @@ import CoreData
 
 extension Account {
 
+    static var fetchRequest: NSFetchRequest<Account> {
+        NSFetchRequest<Account>(entityName: String(describing: Account.self))
+    }
+    
     static var defaultSortDescriptors: [NSSortDescriptor] {
         [NSSortDescriptor(key: #keyPath(managedLogin), ascending: false)]
     }
     
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Account> {
-        return NSFetchRequest<Account>(entityName: String(describing: Account.self))
-    }
-
     @NSManaged public var managedLogin: String?
     @NSManaged public var managedPassword: String?
+    @NSManaged public var managedInstance: Instance?
 }
 
 extension Account {
@@ -34,5 +35,10 @@ extension Account {
     var password: String {
         get { self.managedPassword ?? "No password" }
         set { self.managedPassword = newValue }
+    }
+    
+    var instance: Instance? {
+        get { self.managedInstance }
+        set { self.managedInstance = newValue }
     }
 }

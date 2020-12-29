@@ -26,14 +26,14 @@ final class InstancePersistenceService: InstancePersistenceServiceProtocol {
     
     func getAllInstances() ->  AnyPublisher<[Instance], Never> {
         Future<[Instance], Never> { promise in
-            let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Instance.self))
+            let request = Instance.fetchRequest()
             let predicate = NSPredicate(value: true)
             request.predicate = predicate
             do {
-                let results = try CoreDataHelper.shared.context.fetch(request) as! [Instance]
+                let results = try self.managedObjectContext.fetch(request) as! [Instance]
                 promise(.success(results))
             } catch {
-                Logger.commonLog.error("Error while getting all videos from CoreData")
+                Logger.commonLog.error("Error while getting all instances from CoreData")
                 return promise(.success([]))
             }
         }.eraseToAnyPublisher()

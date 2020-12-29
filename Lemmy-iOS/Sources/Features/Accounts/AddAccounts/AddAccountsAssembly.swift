@@ -18,9 +18,14 @@ final class AddAccountsAssembly: Assembly {
     var onUserReceive: ((_ account: Account) -> Void)?
     
     private let authMethod: LemmyAuthMethod
+    private let currentInstance: Instance
     
-    init(authMethod: LemmyAuthMethod) {
+    init(
+        authMethod: LemmyAuthMethod,
+        currentInstance: Instance
+    ) {
         self.authMethod = authMethod
+        self.currentInstance = currentInstance
     }
     
     func makeModule() -> AddAccountViewController {

@@ -41,7 +41,6 @@ final class InstancesView: UIView {
     func hideLoadingView() {
         self.hideActivityIndicatorView()
     }
-
 }
 
 extension InstancesView: ProgrammaticallyViewProtocol {

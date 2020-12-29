@@ -15,8 +15,8 @@ final class AccountsCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController?
     
-    init(navController: UINavigationController) {
-        let assembly = AccountsAssembly()
+    init(navController: UINavigationController, instance: Instance) {
+        let assembly = AccountsAssembly(instance: instance)
         self.rootViewController = assembly.makeModule()
         
         self.navigationController = navController
@@ -27,8 +27,8 @@ final class AccountsCoordinator: Coordinator {
         navigationController?.pushViewController(rootViewController, animated: true)
     }
     
-    func goToAddAccountModule(authMethod: LemmyAuthMethod) {
-        let assembly = AddAccountsAssembly(authMethod: authMethod)
+    func goToAddAccountModule(authMethod: LemmyAuthMethod, with instance: Instance) {
+        let assembly = AddAccountsAssembly(authMethod: authMethod, currentInstance: instance)
         let module = assembly.makeModule()
         
         navigationController?.present(module, animated: true, completion: nil)

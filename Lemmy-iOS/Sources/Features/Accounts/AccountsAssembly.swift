@@ -10,8 +10,19 @@ import UIKit
 
 final class AccountsAssembly: Assembly {
     
+    private let instance: Instance
+    
+    init(
+        instance: Instance
+    ) {
+        self.instance = instance
+    }
+    
     func makeModule() -> AccountsViewController {
-        let viewModel = AccountsViewModel()
+        let viewModel = AccountsViewModel(
+            instance: self.instance,
+            accountsPersistenceService: AccountsPersistenceService()
+        )
         let vc = AccountsViewController(viewModel: viewModel)
         return vc
     }

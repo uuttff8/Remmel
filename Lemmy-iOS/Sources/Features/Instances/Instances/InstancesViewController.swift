@@ -109,6 +109,6 @@ extension InstancesViewController: InstancesTableDataSourceDelegate {
     }
     
     func tableDidRequestAddAccountsModule(_ instance: Instance) {
-        coordinator?.goToAccounts()
+        coordinator?.goToAccounts(from: instance)
     }
 }

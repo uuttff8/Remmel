@@ -91,14 +91,13 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
             }
             
             self.viewController?.displaySuccessAuth(
-                viewModel: .init(currentUser: currentUser, login: login, password: password)
+                viewModel: .init(currentUser: currentUser)
             )
-            
         }
     }
     
     private func loadUserOnSuccessResponse(jwt: String, completion: @escaping ((LemmyModel.MyUser) -> Void)) {
-        self.shareData.loginData.login(jwt: jwt)
+//        self.shareData.loginData.login(jwt: jwt)
         
         let params = LemmyModel.Site.GetSiteRequest(auth: jwt)
         
@@ -107,7 +106,7 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
             .sink(receiveCompletion: { (completion) in
                 Logger.logCombineCompletion(completion)
             }, receiveValue: { (response) in
-                self.shareData.userdata = response.myUser
+//                self.shareData.userdata = response.myUser
                 
                 guard let myUser = response.myUser else { return }
                 completion(myUser)
@@ -141,8 +140,6 @@ enum AddAccountDataFlow {
         
         struct ViewModel {
             let currentUser: LemmyModel.MyUser
-            let login: String
-            let password: String
         }
     }
     
