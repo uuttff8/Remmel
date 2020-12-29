@@ -43,6 +43,7 @@
 		4E1A7E6625573EA400E193B7 /* ProfileScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A7E6525573EA400E193B7 /* ProfileScreenUI.swift */; };
 		4E1A7E6B25573F1800E193B7 /* ProfileScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A7E6A25573F1800E193B7 /* ProfileScreenViewModel.swift */; };
 		4E26FEA02573E36C009DE4A7 /* PostScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E26FE9F2573E36C009DE4A7 /* PostScreenCoordinator.swift */; };
+		4E2A0F9F259B854300BF0841 /* CodingUserInfoKey+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A0F9E259B854300BF0841 /* CodingUserInfoKey+Ext.swift */; };
 		4E3D44D62595D3B300108DA3 /* ChainedWSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3D44D52595D3B300108DA3 /* ChainedWSClient.swift */; };
 		4E3D44E42596143A00108DA3 /* SettingsInputWithImageCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3D44E32596143A00108DA3 /* SettingsInputWithImageCellView.swift */; };
 		4E3D44E92596203A00108DA3 /* SettingsInputWithImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3D44E82596203A00108DA3 /* SettingsInputWithImageTableViewCell.swift */; };
@@ -352,6 +353,7 @@
 		4E1A7E6525573EA400E193B7 /* ProfileScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenUI.swift; sourceTree = "<group>"; };
 		4E1A7E6A25573F1800E193B7 /* ProfileScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewModel.swift; sourceTree = "<group>"; };
 		4E26FE9F2573E36C009DE4A7 /* PostScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenCoordinator.swift; sourceTree = "<group>"; };
+		4E2A0F9E259B854300BF0841 /* CodingUserInfoKey+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodingUserInfoKey+Ext.swift"; sourceTree = "<group>"; };
 		4E3D44D52595D3B300108DA3 /* ChainedWSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainedWSClient.swift; sourceTree = "<group>"; };
 		4E3D44E32596143A00108DA3 /* SettingsInputWithImageCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInputWithImageCellView.swift; sourceTree = "<group>"; };
 		4E3D44E82596203A00108DA3 /* SettingsInputWithImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInputWithImageTableViewCell.swift; sourceTree = "<group>"; };
@@ -1750,6 +1752,7 @@
 				4E05D636255EBA63002307E0 /* Optional+Ext.swift */,
 				4E73DF4E258BDBF2001608F2 /* Array+Ext.swift */,
 				4E87C687258E23990007FE5E /* String+Ext.swift */,
+				4E2A0F9E259B854300BF0841 /* CodingUserInfoKey+Ext.swift */,
 			);
 			path = LangExt;
 			sourceTree = "<group>";
@@ -2262,6 +2265,7 @@
 				4E918383256726A400702F04 /* CreatePostDataFlow.swift in Sources */,
 				650B3F402596731B00A3CB17 /* AccountsTableDataSource.swift in Sources */,
 				4EF3ACEA25502D5600BEC9F1 /* CommunityHeaderView.swift in Sources */,
+				4E2A0F9F259B854300BF0841 /* CodingUserInfoKey+Ext.swift in Sources */,
 				4EF313AA257BDF6E0032B58D /* ShowMoreHandlerService.swift in Sources */,
 				4E886C8D253F51B90076B162 /* CreatePostViewModel.swift in Sources */,
 				4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */,

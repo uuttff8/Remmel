@@ -67,7 +67,8 @@ class Logger {
             requestLog += "\(key): \(value)\n"
         }
         if let body = request.httpBody {
-            let bodyString = NSString(data: body, encoding: String.Encoding.utf8.rawValue) ?? "Can't render body; not utf8 encoded";
+            let bodyString = String(data: body, encoding: .utf8)
+                ?? "Can't render body; not utf8 encoded"
             requestLog += "\n\(bodyString)\n"
         }
         
@@ -99,7 +100,8 @@ class Logger {
             responseLog += "\(key): \(value)\n"
         }
         if let body = data {
-            let bodyString = NSString(data: body, encoding: String.Encoding.utf8.rawValue) ?? "Can't render body; not utf8 encoded";
+            let bodyString = String(data: body, encoding: .utf8)
+                ?? "Can't render body; not utf8 encoded"
             responseLog += "\n\(bodyString)\n"
         }
         if let error = error {
