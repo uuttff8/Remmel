@@ -34,8 +34,8 @@ extension AccountsTableDataSource: UITableViewDataSource {
         let cell = UITableViewCell()
         cell.accessoryType = .disclosureIndicator
         
-        let instance = viewModels[indexPath.row]
-        cell.textLabel?.text = instance.name
+        let account = viewModels[indexPath.row]
+        cell.textLabel?.text = account.login
         
         return cell
     }
@@ -61,13 +61,15 @@ extension AccountsTableDataSource: UITableViewDelegate {
             title: "Delete",
             handler: { (_, _, completion) in
                 
-                if let index = self.viewModels.firstIndex(where: { $0.name == account.name }) {
+                if let index = self.viewModels.firstIndex(where: { $0.login == account.login }) {
                     self.viewModels.remove(at: index)
                     
                     self.delegate?.tableDidRequestDelete(account)
                     
                     completion(true)
-                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                    tableView.performBatchUpdates {
+                        tableView.deleteRows(at: [indexPath], with: .automatic)
+                    }
                 }
             })
         

@@ -70,7 +70,9 @@ extension InstancesTableDataSource: UITableViewDelegate {
                     self.delegate?.tableDidRequestDelete(instance)
                     
                     completion(true)
-                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                    tableView.performBatchUpdates {
+                        tableView.deleteRows(at: [indexPath], with: .automatic)
+                    }
                 }
             })
         

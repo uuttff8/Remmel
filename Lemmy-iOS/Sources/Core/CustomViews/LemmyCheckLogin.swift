@@ -38,7 +38,7 @@ func ContinueIfLogined(
         UIAlertController.showLoginOrRegisterAlert(
             on: viewController,
             onLogin: {
-                auth(authMethod: .login)
+                auth(authMethod: .auth)
             }, onRegister: {
                 auth(authMethod: .register)
             })

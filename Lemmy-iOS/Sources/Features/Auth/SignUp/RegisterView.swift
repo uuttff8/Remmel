@@ -1,5 +1,5 @@
 //
-//  SignUpView.swift
+//  RegisterView.swift
 //  Lemmy-iOS
 //
 //  Created by uuttff8 on 10/13/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignUpView: UIView {
+class RegisterView: UIView {
     struct ViewData {
         let username: String
         let email: String
@@ -19,7 +19,7 @@ class SignUpView: UIView {
 
     var onSignUp: ((ViewData) -> Void)?
 
-    let model = SignUpModel()
+    let model = RegisterViewModel()
 
     lazy var signUpLabel = UILabel().then {
         $0.text = "Sign up"

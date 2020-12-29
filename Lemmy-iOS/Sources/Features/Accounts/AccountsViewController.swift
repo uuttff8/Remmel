@@ -13,11 +13,18 @@ final class AccountsViewController: UIViewController {
     var coordinator: AccountsCoordinator?
     let viewModel: AccountsViewModel
     
-    private lazy var createAccountBarButton = UIBarButtonItem(
+    private lazy var addAccountBarButton = UIBarButtonItem(
         image: UIImage(systemName: "plus.circle"),
         style: .done,
         target: self,
-        action: #selector(createAccountButtonTapped)
+        action: #selector(addAccountButtonTapped(_:))
+    )
+    
+    private lazy var createAccountBarButton = UIBarButtonItem(
+        title: "Register",
+        style: .done,
+        target: self,
+        action: #selector(createAccountBarButtonTapped(_:))
     )
     
     init(viewModel: AccountsViewModel) {
@@ -49,8 +56,11 @@ final class AccountsViewController: UIViewController {
     
     // MARK: - Actions
     
-    @objc private func createAccountButtonTapped(sender: UIBarButtonItem) {
-        coordinator?.goToAddAccountsModule()
+    @objc private func addAccountButtonTapped(_ sender: UIBarButtonItem) {
+        coordinator?.goToAddAccountModule(authMethod: .auth)
+    }
+    
+    @objc private func createAccountBarButtonTapped(_ sender: UIBarButtonItem) {
+        coordinator?.goToAddAccountModule(authMethod: .register)
     }
 }
-

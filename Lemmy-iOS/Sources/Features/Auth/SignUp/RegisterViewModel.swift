@@ -1,5 +1,5 @@
 //
-//  SignUpModel.swift
+//  RegisterViewModel.swift
 //  Lemmy-iOS
 //
 //  Created by uuttff8 on 10/15/20.
@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Combine
 
-class SignUpModel {
+class RegisterViewModel {
 
     var wavDataFile: Data?
     var uuid: String?

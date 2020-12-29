@@ -131,7 +131,7 @@ extension FrontPageViewController: FrontPageViewControllerProtocol {
         UIAlertController.showLoginOrRegisterAlert(
             on: self,
             onLogin: {
-                self.coordinator?.goToLoginScreen(authMethod: .login)
+                self.coordinator?.goToLoginScreen(authMethod: .auth)
             }, onRegister: {
                 self.coordinator?.goToLoginScreen(authMethod: .register)
             })

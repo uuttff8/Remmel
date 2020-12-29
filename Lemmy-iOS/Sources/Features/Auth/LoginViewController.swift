@@ -9,16 +9,12 @@
 import UIKit
 import Combine
 
-enum LemmyAuthMethod {
-    case login, register
-}
-
 class LoginViewController: UIViewController {
     
     weak var coordinator: LoginCoordinator?
     
-    var signInView: SignInView?
-    var signUpView: SignUpView?
+    var signInView: AuthenticationView?
+    var signUpView: RegisterView?
     let shareData = LemmyShareData.shared
     
     let authMethod: LemmyAuthMethod
@@ -36,12 +32,12 @@ class LoginViewController: UIViewController {
     
     override func loadView() {
         switch authMethod {
-        case .login:
-            let signIn = SignInView()
+        case .auth:
+            let signIn = AuthenticationView()
             self.signInView = signIn
             self.view = signIn
         case .register:
-            let signUp = SignUpView()
+            let signUp = RegisterView()
             self.signUpView = signUp
             self.view = signUp
         }
@@ -54,7 +50,7 @@ class LoginViewController: UIViewController {
         let barItemTitle: String
         
         switch authMethod {
-        case .login:
+        case .auth:
             barItemTitle = "Login"
         case .register:
             barItemTitle = "Register"
@@ -76,7 +72,7 @@ class LoginViewController: UIViewController {
     
     @objc func onLoginOrRegisterSelector(sender: UIBarButtonItem!) {
         switch authMethod {
-        case .login:
+        case .auth:
             onSignIn()
         case .register:
             onSignUp()

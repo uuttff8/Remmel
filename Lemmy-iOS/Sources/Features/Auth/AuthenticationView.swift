@@ -1,5 +1,5 @@
 //
-//  LoginScreenUI.swift
+//  AuthenticationView.swift
 //  Lemmy-iOS
 //
 //  Created by uuttff8 on 10/13/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignInView: UIView {
+class AuthenticationView: UIView {
     var onSignIn: ((_ emailOrUsername: String, _ password: String) -> Void)?
 
     lazy var signInLabel = UILabel().then {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20C69" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Account" representedClassName="Account" syncable="YES">
-        <attribute name="managedName" optional="YES" attributeType="String"/>
-        <attribute name="managedPass" optional="YES" attributeType="String"/>
+        <attribute name="managedLogin" optional="YES" attributeType="String"/>
+        <attribute name="managedPassword" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Instance" representedClassName="Instance" syncable="YES">
         <attribute name="managedIconUrl" optional="YES" attributeType="String"/>
