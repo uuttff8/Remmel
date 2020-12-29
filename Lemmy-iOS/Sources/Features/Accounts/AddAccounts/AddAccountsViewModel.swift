@@ -18,15 +18,20 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
     
     weak var viewController: AddAccountViewControllerProtocol?
     
-    private var cancellables = Set<AnyCancellable>()
+    private let currentInstance: Instance
+    private let shareData: LemmyShareData
     
-    let shareData: LemmyShareData
+    private var cancellables = Set<AnyCancellable>()
     
     private var authLogin: String?
     private var authPassword: String?
     
-    init(shareData: LemmyShareData) {
+    init(
+        shareData: LemmyShareData,
+        instance: Instance
+    ) {
         self.shareData = shareData
+        self.currentInstance = instance
     }
     
     func doRemoteAuthentication(request: AddAccountDataFlow.Authentication.AuthRequest) {
@@ -89,6 +94,14 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
                 self.viewController?.displayErrorAuth(viewModel: .init(error: "WHY THISS HAPPPENNN????"))
                 return
             }
+            
+            let account = Account(entity: Account.entity(), insertInto: CoreDataHelper.shared.context)
+            account.login = login
+            account.password = password
+            account.instance = self.currentInstance
+            CoreDataHelper.shared.save()
+            
+            self.currentInstance.addAccount(account)
             
             self.viewController?.displaySuccessAuth(
                 viewModel: .init(currentUser: currentUser)

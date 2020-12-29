@@ -38,6 +38,7 @@ final class InstancesCoordinator: GenericCoordinator<UINavigationController> {
     
     func goToAccounts(from instance: Instance) {
         let coordinator = AccountsCoordinator(navController: rootViewController, instance: instance)
+        self.store(coordinator: coordinator) // забыл
         coordinator.start()
     }
 }

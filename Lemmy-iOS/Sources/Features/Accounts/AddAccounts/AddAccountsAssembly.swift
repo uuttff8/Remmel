@@ -15,8 +15,8 @@ enum LemmyAuthMethod {
 
 final class AddAccountsAssembly: Assembly {
     
-    var onUserReceive: ((_ account: Account) -> Void)?
-    
+    var completionHandler: (() -> Void)?
+
     private let authMethod: LemmyAuthMethod
     private let currentInstance: Instance
     
@@ -30,14 +30,16 @@ final class AddAccountsAssembly: Assembly {
     
     func makeModule() -> AddAccountViewController {
         let viewModel = AddAccountViewModel(
-            shareData: LemmyShareData.shared
+            shareData: LemmyShareData.shared,
+            instance: self.currentInstance
         )
         let vc = AddAccountViewController(
             viewModel: viewModel,
             authMethod: authMethod
         )
+        viewModel.viewController = vc
         
-        onUserReceive = vc.onUserReceive
+        completionHandler = vc.completionHandler
         
         return vc
     }

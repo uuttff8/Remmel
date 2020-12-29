@@ -14,7 +14,7 @@ protocol AccountsViewControllerProtocol: AnyObject {
 
 final class AccountsViewController: UIViewController {
     
-    var coordinator: AccountsCoordinator?
+    weak var coordinator: AccountsCoordinator?
     let viewModel: AccountsViewModel
     
     private lazy var accountsView = self.view as! AccountsView
@@ -74,7 +74,7 @@ final class AccountsViewController: UIViewController {
     }
     
     private func setupNavigationItem() {
-        navigationItem.rightBarButtonItem = createAccountBarButton
+        navigationItem.rightBarButtonItem = addAccountBarButton
     }
     
     private func updateState(newState: AccountsDataFlow.ViewControllerState) {
@@ -99,11 +99,15 @@ final class AccountsViewController: UIViewController {
     // MARK: - Actions
     
     @objc private func addAccountButtonTapped(_ sender: UIBarButtonItem) {
-        coordinator?.goToAddAccountModule(authMethod: .auth, with: self.viewModel.currentInstance)
+        coordinator?.goToAddAccountModule(authMethod: .auth, with: self.viewModel.currentInstance) {
+            self.viewModel.doAccountsRefresh(request: .init())
+        }
     }
     
     @objc private func createAccountBarButtonTapped(_ sender: UIBarButtonItem) {
-        coordinator?.goToAddAccountModule(authMethod: .register, with: self.viewModel.currentInstance)
+        coordinator?.goToAddAccountModule(authMethod: .register, with: self.viewModel.currentInstance) {
+            self.viewModel.doAccountsRefresh(request: .init())
+        }
     }
 }
 

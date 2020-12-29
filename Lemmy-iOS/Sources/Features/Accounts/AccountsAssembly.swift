@@ -24,6 +24,9 @@ final class AccountsAssembly: Assembly {
             accountsPersistenceService: AccountsPersistenceService()
         )
         let vc = AccountsViewController(viewModel: viewModel)
+        
+        viewModel.viewController = vc
+        
         return vc
     }
 }

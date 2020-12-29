@@ -56,6 +56,8 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
                 let instance = Instance(entity: Instance.entity(), insertInto: CoreDataHelper.shared.context)
                 let query = request.query
                 instance.label = String.cleanUpUrl(url: query)
+                
+                // FIXME(uuttff8): we should save it only when `Add` button tapped in viewController
                 CoreDataHelper.shared.save()
                 
                 self.viewController?.displayAddInstanceCheck(

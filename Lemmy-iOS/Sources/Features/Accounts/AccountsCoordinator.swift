@@ -27,11 +27,14 @@ final class AccountsCoordinator: Coordinator {
         navigationController?.pushViewController(rootViewController, animated: true)
     }
     
-    func goToAddAccountModule(authMethod: LemmyAuthMethod, with instance: Instance) {
+    func goToAddAccountModule(authMethod: LemmyAuthMethod, with instance: Instance, completion: @escaping () -> Void) {
         let assembly = AddAccountsAssembly(authMethod: authMethod, currentInstance: instance)
         let module = assembly.makeModule()
+        module.coordinator = self
+        module.completionHandler = completion
+        let navController = UINavigationController(rootViewController: module)
         
-        navigationController?.present(module, animated: true, completion: nil)
+        navigationController?.present(navController, animated: true, completion: nil)
     }
     
     func dismissSelf(viewController: UIViewController) {

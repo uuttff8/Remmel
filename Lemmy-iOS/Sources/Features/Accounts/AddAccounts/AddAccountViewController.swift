@@ -16,9 +16,9 @@ protocol AddAccountViewControllerProtocol: AnyObject {
 
 final class AddAccountViewController: UIViewController {
     
-    var onUserReceive: ((_ account: Account) -> Void)?
-    
-    var coordinator: AccountsCoordinator?
+    var completionHandler: (() -> Void)?
+
+    weak var coordinator: AccountsCoordinator?
     let viewModel: AddAccountViewModel
     
     private lazy var addAccountView = self.view as! AddAccountView
@@ -143,6 +143,7 @@ extension AddAccountViewController: AddAccountViewControllerProtocol {
     func displaySuccessAuth(viewModel: AddAccountDataFlow.Authentication.ViewModel) {
 //        onUserReceive?(account)
         self.coordinator?.dismissSelf(viewController: self)
+        completionHandler?()
     }
     
     func displayErrorAuth(viewModel: AddAccountDataFlow.AuthError.ViewModel) {

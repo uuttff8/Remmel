@@ -81,7 +81,14 @@ class RequestsManager {
                     let normalResponse = apiResponse.data
                     promise(.success(normalResponse))
                 } catch {
-                    promise(.failure("Can't decode api response: \n \(error)".toLemmyError))
+                    
+                    // idk how to extract this and line 96 to function
+                    do {
+                        let errorResponse = try self.decoder.decode(ApiErrorResponse.self, from: data)
+                        promise(.failure(.string(errorResponse.error)))
+                    } catch {
+                        promise(.failure("Can't decode api response: \n \(error)".toLemmyError))
+                    }
                 }
                 
             } else {
@@ -90,11 +97,16 @@ class RequestsManager {
                     let apiResponse = try self.decoder.decode(D.self, from: data)
                     promise(.success(apiResponse))
                 } catch {
-                    promise(.failure("Can't decode api response: \n \(error)".toLemmyError))
+                    do {
+                        let errorResponse = try self.decoder.decode(ApiErrorResponse.self, from: data)
+                        promise(.failure(.string(errorResponse.error)))
+                    } catch {
+                        promise(.failure("Can't decode api response: \n \(error)".toLemmyError))
+                    }
                 }
             }
         }.eraseToAnyPublisher()
-    }    
+    }
 }
 
 extension String: Error {
