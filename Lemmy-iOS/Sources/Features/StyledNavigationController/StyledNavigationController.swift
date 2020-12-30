@@ -120,16 +120,19 @@ class StyledNavigationController: UINavigationController {
         )
     }
 
+    @discardableResult
     override func popViewController(animated: Bool) -> UIViewController? {
         self.lastAction = .pop
         return super.popViewController(animated: animated)
     }
 
+    @discardableResult
     override func popToRootViewController(animated: Bool) -> [UIViewController]? {
         self.lastAction = .pop
         return super.popToRootViewController(animated: animated)
     }
 
+    @discardableResult
     override func popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
         self.lastAction = .pop
         return super.popToViewController(viewController, animated: animated)

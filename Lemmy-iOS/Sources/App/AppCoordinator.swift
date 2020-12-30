@@ -28,13 +28,14 @@ class AppCoordinator: BaseCoordinator {
 
             window.rootViewController = myCoordinator.rootViewController
         } else {
-            let myCoordinator = InstancesCoordinator(navigationController: StyledNavigationController())
+            let myCoordinator = InstancesCoordinator(router: Router(navigationController: StyledNavigationController()))
 
             // store child coordinator
             self.store(coordinator: myCoordinator)
             myCoordinator.start()
-
-            window.rootViewController = myCoordinator.rootViewController
+            myCoordinator.router.setRoot(myCoordinator, isAnimated: true)
+            
+            window.rootViewController = myCoordinator.router.navigationController
         }
         
         window.makeKeyAndVisible()

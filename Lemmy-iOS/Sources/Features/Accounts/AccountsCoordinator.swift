@@ -11,19 +11,17 @@ import UIKit
 final class AccountsCoordinator: BaseCoordinator {
     
     var rootViewController: AccountsViewController
+    let router: RouterProtocol
     
-    init(navigationController: UINavigationController?, instance: Instance) {
+    init(router: RouterProtocol, instance: Instance) {
         let assembly = AccountsAssembly(instance: instance)
         self.rootViewController = assembly.makeModule()
-
+        self.router = router
         super.init()
-        
-        self.navigationController = navigationController
     }
     
     override func start() {
         rootViewController.coordinator = self
-        navigationController?.pushViewController(rootViewController, animated: true)
     }
     
     func goToAddAccountModule(authMethod: LemmyAuthMethod, with instance: Instance, completion: @escaping () -> Void) {
@@ -33,7 +31,7 @@ final class AccountsCoordinator: BaseCoordinator {
         module.completionHandler = completion
         let navController = UINavigationController(rootViewController: module)
         
-        navigationController?.present(navController, animated: true, completion: nil)
+        router.present(navController, animated: true)
     }
     
     func dismissSelf(viewController: UIViewController) {
@@ -58,5 +56,11 @@ final class AccountsCoordinator: BaseCoordinator {
         } else {
             fatalError("Unexpexted error, must not be happen")
         }
+    }
+}
+
+extension AccountsCoordinator: Drawable {
+    var viewController: UIViewController? {
+        self.rootViewController
     }
 }

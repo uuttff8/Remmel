@@ -120,3 +120,9 @@ extension AddInstanceViewController: AddInstanceViewDelegate {
         }
     }
 }
+
+extension AddInstanceViewController: StyledNavigationControllerPresentable {
+    var navigationBarAppearanceOnFirstPresentation: StyledNavigationController.NavigationBarAppearanceState {
+        .pageSheetAppearance()
+    }
+}

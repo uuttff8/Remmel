@@ -37,7 +37,7 @@ extension Instance {
     }
     
     var accounts: [Account] {
-        self.managedAccounts?.allObjects as! [Account]
+        self.managedAccounts?.allObjects as! [Account] 
     }
     
     func addAccount(_ account: Account) {

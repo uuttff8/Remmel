@@ -29,10 +29,10 @@ final class ProfileScreenCoordinator: GenericCoordinator<ProfileScreenViewContro
         if !LemmyShareData.shared.isLoggedIn {
             NotificationCenter.default.post(name: .didLogin, object: nil)
             
-            let myCoordinator = InstancesCoordinator(navigationController: StyledNavigationController())
+            let myCoordinator = InstancesCoordinator(router: Router(navigationController: StyledNavigationController()))
 
             // store child coordinator
-            self.store(coordinator: myCoordinator)
+//            self.store(coordinator: myCoordinator)
             myCoordinator.start()
 
             UIApplication.shared.windows.first!.replaceRootViewControllerWith(

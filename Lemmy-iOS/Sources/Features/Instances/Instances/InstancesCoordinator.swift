@@ -8,17 +8,22 @@
 
 import UIKit
 
-final class InstancesCoordinator: GenericCoordinator<InstancesViewController> {
+final class InstancesCoordinator: BaseCoordinator {
     
-    init(navigationController: UINavigationController) {
-        super.init(navigationController: navigationController)
+    let rootViewController: InstancesViewController
+    let router: RouterProtocol
+    
+    init(router: RouterProtocol) {
         let assembly = InstancesAssembly()
         self.rootViewController = assembly.makeModule()
+        self.router = router
+        self.router.viewController = self.rootViewController
+        super.init()
     }
     
     override func start() {
         rootViewController.coordinator = self
-        navigationController?.pushViewController(rootViewController, animated: false)
+//        router.setRoot(self.rootViewController, isAnimated: false)
     }
     
     func goToAddInstance(completion: @escaping () -> Void) {
@@ -29,12 +34,23 @@ final class InstancesCoordinator: GenericCoordinator<InstancesViewController> {
         
         let navController = StyledNavigationController(rootViewController: module)
         
-        self.rootViewController.present(navController, animated: true)
+        self.router.present(navController, animated: true)
     }
     
     func goToAccounts(from instance: Instance) {
-        let coordinator = AccountsCoordinator(navigationController: self.navigationController, instance: instance)
-        self.store(coordinator: coordinator) 
-        coordinator.start()
+        let accCoordinator = AccountsCoordinator(router: Router(navigationController: router.navigationController),
+                                              instance: instance)
+        self.store(coordinator: accCoordinator)
+        accCoordinator.start()
+        
+        accCoordinator.router.push(accCoordinator.rootViewController, isAnimated: true) {
+            self.free(coordinator: accCoordinator)
+        }
+    }
+}
+
+extension InstancesCoordinator: Drawable {
+    var viewController: UIViewController? {
+        self.rootViewController
     }
 }

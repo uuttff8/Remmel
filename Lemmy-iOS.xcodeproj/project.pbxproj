@@ -45,6 +45,8 @@
 		4E2A0F9F259B854300BF0841 /* CodingUserInfoKey+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A0F9E259B854300BF0841 /* CodingUserInfoKey+Ext.swift */; };
 		4E2A0FC3259BA49400BF0841 /* AccountsPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A0FC2259BA49400BF0841 /* AccountsPersistenceService.swift */; };
 		4E2A0FD0259BC1CB00BF0841 /* UIWindow+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A0FCF259BC1CB00BF0841 /* UIWindow+Ext.swift */; };
+		4E2A0FD9259C877700BF0841 /* Drawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A0FD8259C877700BF0841 /* Drawable.swift */; };
+		4E2A0FDE259C879B00BF0841 /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A0FDD259C879B00BF0841 /* RouterProtocol.swift */; };
 		4E3D44D62595D3B300108DA3 /* ChainedWSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3D44D52595D3B300108DA3 /* ChainedWSClient.swift */; };
 		4E3D44E42596143A00108DA3 /* SettingsInputWithImageCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3D44E32596143A00108DA3 /* SettingsInputWithImageCellView.swift */; };
 		4E3D44E92596203A00108DA3 /* SettingsInputWithImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3D44E82596203A00108DA3 /* SettingsInputWithImageTableViewCell.swift */; };
@@ -356,6 +358,8 @@
 		4E2A0F9E259B854300BF0841 /* CodingUserInfoKey+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodingUserInfoKey+Ext.swift"; sourceTree = "<group>"; };
 		4E2A0FC2259BA49400BF0841 /* AccountsPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsPersistenceService.swift; sourceTree = "<group>"; };
 		4E2A0FCF259BC1CB00BF0841 /* UIWindow+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Ext.swift"; sourceTree = "<group>"; };
+		4E2A0FD8259C877700BF0841 /* Drawable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawable.swift; sourceTree = "<group>"; };
+		4E2A0FDD259C879B00BF0841 /* RouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
 		4E3D44D52595D3B300108DA3 /* ChainedWSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainedWSClient.swift; sourceTree = "<group>"; };
 		4E3D44E32596143A00108DA3 /* SettingsInputWithImageCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInputWithImageCellView.swift; sourceTree = "<group>"; };
 		4E3D44E82596203A00108DA3 /* SettingsInputWithImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInputWithImageTableViewCell.swift; sourceTree = "<group>"; };
@@ -755,6 +759,16 @@
 				4E1070972535DF4F009EABDA /* LemmyShareData.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		4E2A0FD7259C875400BF0841 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				4ECCEEDF250B8DEE0075F921 /* Coordinator.swift */,
+				4E2A0FD8259C877700BF0841 /* Drawable.swift */,
+				4E2A0FDD259C879B00BF0841 /* RouterProtocol.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		4E3D44E22596142100108DA3 /* InputWithImage */ = {
@@ -1337,8 +1351,8 @@
 		4ECCEEDE250B8DDF0075F921 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				4E2A0FD7259C875400BF0841 /* Coordinator */,
 				4EBB220725598A9500B88079 /* Protocols */,
-				4ECCEEDF250B8DEE0075F921 /* Coordinator.swift */,
 				4ECCEF15250D2D9F0075F921 /* Extensions.swift */,
 			);
 			path = Base;
@@ -2041,6 +2055,7 @@
 				4ECCEEB4250B8B6B0075F921 /* LemmyCoreData.xcdatamodeld in Sources */,
 				4ECCEEEF250BE89B0075F921 /* FrontPageCoordinator.swift in Sources */,
 				4EBB226D255AF4F900B88079 /* ProfileScreenPostsAssembly.swift in Sources */,
+				4E2A0FD9259C877700BF0841 /* Drawable.swift in Sources */,
 				4E886C6E253CD40F0076B162 /* CreateDismissAnimator.swift in Sources */,
 				4EF313BC257BEDC20032B58D /* UserPreviewCell.swift in Sources */,
 				4E81655B2562A38400907D31 /* UpvoteDownvoteRequestService.swift in Sources */,
@@ -2077,6 +2092,7 @@
 				4E9183762566F5B900702F04 /* TableInputTextField.swift in Sources */,
 				4E3D44E92596203A00108DA3 /* SettingsInputWithImageTableViewCell.swift in Sources */,
 				4E9185CA2570650400702F04 /* CommentContentCenterView.swift in Sources */,
+				4E2A0FDE259C879B00BF0841 /* RouterProtocol.swift in Sources */,
 				4ECCEF2F251253B00075F921 /* LemmySearchBarController.swift in Sources */,
 				4E9183882567284E00702F04 /* CreatePostAssembly.swift in Sources */,
 				4E1070712534E970009EABDA /* CreatePostOrCommunityViewController.swift in Sources */,
