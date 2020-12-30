@@ -13,16 +13,13 @@ final class AddInstanceAssembly: Assembly {
     
     var completionHandler: (() -> Void)?
     
-    func makeModule() -> UINavigationController {
+    func makeModule() -> AddInstanceViewController {
         let viewModel = AddInstanceViewModel(userAccountService: UserAccountService())
         let vc = AddInstanceViewController(viewModel: viewModel)
-        let navController = UINavigationController(
-            rootViewController: vc
-        )
         completionHandler = vc.completionHandler
 
         viewModel.viewController = vc
         
-        return navController
+        return vc
     }
 }

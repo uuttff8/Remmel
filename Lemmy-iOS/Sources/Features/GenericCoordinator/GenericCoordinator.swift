@@ -9,17 +9,15 @@
 import UIKit
 import SafariServices
 
-class GenericCoordinator<T: UIViewController>: NSObject, Coordinator, SFSafariViewControllerDelegate {
-    var rootViewController: T! // implement it 
-    var childCoordinators: [Coordinator] = []
-
-    var navigationController: UINavigationController?
+class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewControllerDelegate {
+    var rootViewController: T! // implement it
     
     init(navigationController: UINavigationController?) {
+        super.init()
         self.navigationController = navigationController
     }
     
-    func start() {
+    override func start() {
         fatalError("Override this")
     }
     
@@ -74,11 +72,7 @@ class GenericCoordinator<T: UIViewController>: NSObject, Coordinator, SFSafariVi
         self.store(coordinator: coordinator)
         coordinator.start()
     }
-    
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        self.rootViewController.dismiss(animated: true)
-    }
-    
+        
     func goToWriteComment(postId: Int, parrentComment: LemmyModel.CommentView?) {
         let assembly = WriteCommentAssembly(parentComment: parrentComment, postId: postId)
         let vc = assembly.makeModule()
@@ -96,5 +90,10 @@ class GenericCoordinator<T: UIViewController>: NSObject, Coordinator, SFSafariVi
         )
         self.store(coordinator: coordinator)
         coordinator.start()
+    }
+    
+    // MARK: - SFSafariViewControllerDelegate -
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        self.rootViewController.dismiss(animated: true)
     }
 }

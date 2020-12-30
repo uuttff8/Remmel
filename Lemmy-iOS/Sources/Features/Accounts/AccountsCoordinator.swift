@@ -8,21 +8,20 @@
 
 import UIKit
 
-final class AccountsCoordinator: Coordinator {
+final class AccountsCoordinator: BaseCoordinator {
     
     var rootViewController: AccountsViewController
     
-    var childCoordinators: [Coordinator] = []
-    var navigationController: UINavigationController?
-    
-    init(navController: UINavigationController, instance: Instance) {
+    init(navigationController: UINavigationController?, instance: Instance) {
         let assembly = AccountsAssembly(instance: instance)
         self.rootViewController = assembly.makeModule()
+
+        super.init()
         
-        self.navigationController = navController
+        self.navigationController = navigationController
     }
     
-    func start() {
+    override func start() {
         rootViewController.coordinator = self
         navigationController?.pushViewController(rootViewController, animated: true)
     }
@@ -43,7 +42,6 @@ final class AccountsCoordinator: Coordinator {
     
     func goToFrontPage() {
         
-        // FIXME(uuttff8): We should know, if memory is not cleared
         if LemmyShareData.shared.isLoggedIn {
             NotificationCenter.default.post(name: .didLogin, object: nil)
             

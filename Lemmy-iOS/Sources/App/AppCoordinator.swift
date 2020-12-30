@@ -8,11 +8,7 @@
 
 import UIKit
 
-class AppCoordinator: Coordinator {
-    var childCoordinators: [Coordinator] = []
-    
-    var navigationController: UINavigationController?
-    
+class AppCoordinator: BaseCoordinator {
     let window: UIWindow
     
     private let userAccountService = UserAccountService()
@@ -21,7 +17,7 @@ class AppCoordinator: Coordinator {
         self.window = window
     }
     
-    func start() {
+    override func start() {
         
         if LemmyShareData.shared.isLoggedIn {
             let myCoordinator = LemmyTabBarCoordinator()
@@ -32,7 +28,7 @@ class AppCoordinator: Coordinator {
 
             window.rootViewController = myCoordinator.rootViewController
         } else {
-            let myCoordinator = InstancesCoordinator()
+            let myCoordinator = InstancesCoordinator(navigationController: StyledNavigationController())
 
             // store child coordinator
             self.store(coordinator: myCoordinator)

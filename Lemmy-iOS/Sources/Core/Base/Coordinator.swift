@@ -13,26 +13,25 @@ protocol Coordinator: AnyObject {
     var navigationController: UINavigationController? { get set }
     
     func start()
-    
-    // extension implemented
-    func removeDependency(_ coordinator: Coordinator?)
-    func store(coordinator: Coordinator)
 }
 
 extension Coordinator {
-    func removeDependency(_ coordinator: Coordinator?) {
-        guard
-            childCoordinators.isEmpty == false,
-            let coordinator = coordinator
-        else { return }
-        
-        for (index, element) in childCoordinators.enumerated() where element === coordinator {
-            childCoordinators.remove(at: index)
-            break
-        }
-    }
-    
     func store(coordinator: Coordinator) {
         childCoordinators.append(coordinator)
+    }
+    
+    func free(coordinator: Coordinator) {
+        childCoordinators = childCoordinators.filter { $0 !== coordinator }
+    }
+}
+
+class BaseCoordinator: NSObject, Coordinator {    
+    var childCoordinators: [Coordinator] = []
+    var navigationController: UINavigationController?
+    
+    var isCompleted: (() -> Void)?
+
+    func start() {
+        fatalError("Children should implement `start`.")
     }
 }

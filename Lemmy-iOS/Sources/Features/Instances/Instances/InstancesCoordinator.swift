@@ -8,37 +8,33 @@
 
 import UIKit
 
-final class InstancesCoordinator: GenericCoordinator<UINavigationController> {
+final class InstancesCoordinator: GenericCoordinator<InstancesViewController> {
     
-    init() {
+    init(navigationController: UINavigationController) {
+        super.init(navigationController: navigationController)
         let assembly = InstancesAssembly()
-        let navController = StyledNavigationController(rootViewController: assembly.makeModule())
-        
-        super.init(navigationController: navController)
-        self.rootViewController = navigationController
+        self.rootViewController = assembly.makeModule()
     }
     
-    // TODO: rewrite
     override func start() {
-        if let vc =  rootViewController.topViewController as? InstancesViewController {
-            vc.coordinator = self
-        }
+        rootViewController.coordinator = self
+        navigationController?.pushViewController(rootViewController, animated: false)
     }
     
     func goToAddInstance(completion: @escaping () -> Void) {
         let assembly = AddInstanceAssembly()
         let module = assembly.makeModule()
-        if let vc = module.topViewController as? AddInstanceViewController {
-            vc.coordinator = self
-            vc.completionHandler = completion
-        }
+        module.coordinator = self
+        module.completionHandler = completion
         
-        self.rootViewController.present(module, animated: true)
+        let navController = StyledNavigationController(rootViewController: module)
+        
+        self.rootViewController.present(navController, animated: true)
     }
     
     func goToAccounts(from instance: Instance) {
-        let coordinator = AccountsCoordinator(navController: rootViewController, instance: instance)
-        self.store(coordinator: coordinator) // забыл
+        let coordinator = AccountsCoordinator(navigationController: self.navigationController, instance: instance)
+        self.store(coordinator: coordinator) 
         coordinator.start()
     }
 }

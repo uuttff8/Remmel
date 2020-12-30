@@ -110,7 +110,7 @@ class CreateCommunityViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        self.coordinator?.removeDependency(coordinator)
+//        self.coordinator?.removeDependency(coordinator)
     }
     
     override func viewWillAppear(_ animated: Bool) {

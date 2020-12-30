@@ -26,11 +26,10 @@ final class ProfileScreenCoordinator: GenericCoordinator<ProfileScreenViewContro
     func goToInstances() {
         LemmyShareData.shared.loginData.logout()
         
-        // FIXME(uuttff8): We should know, if memory is not cleared
         if !LemmyShareData.shared.isLoggedIn {
             NotificationCenter.default.post(name: .didLogin, object: nil)
             
-            let myCoordinator = InstancesCoordinator()
+            let myCoordinator = InstancesCoordinator(navigationController: StyledNavigationController())
 
             // store child coordinator
             self.store(coordinator: myCoordinator)

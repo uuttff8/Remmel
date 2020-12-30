@@ -9,11 +9,15 @@
 import UIKit
 
 extension UIWindow {
+    
+    // FIXME(uuttff8): We should know, if memory is not cleared
     func replaceRootViewControllerWith(
         _ replacementController: UIViewController,
         animated: Bool,
         completion: (() -> Void)? = nil
     ) {
+        let previousViewController = self.rootViewController
+        
         let snapshotImageView = UIImageView(image: self.snapshot())
         self.addSubview(snapshotImageView)
 
@@ -39,6 +43,14 @@ extension UIWindow {
             self.rootViewController!.dismiss(animated: false, completion: dismissCompletion)
         } else {
             dismissCompletion()
+        }
+        
+        if let previousViewController = previousViewController {
+            // Allow the view controller to be deallocated
+            previousViewController.dismiss(animated: false) {
+                // Remove the root view in case its still showing
+                previousViewController.view.removeFromSuperview()
+            }
         }
     }
 }

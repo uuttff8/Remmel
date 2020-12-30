@@ -75,6 +75,11 @@ final class AccountsViewController: UIViewController {
         setupNavigationItem()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+//        self.coordinator?.removeDependency(coordinator)
+    }
+    
     private func setupNavigationItem() {
         navigationItem.rightBarButtonItem = addAccountBarButton
     }

@@ -64,7 +64,7 @@ class SearchResultsViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        self.coordinator?.removeDependency(coordinator)
+//        self.coordinator?.free(coordinator)
     }
     
     private func updateState(newState: SearchResults.ViewControllerState) {
