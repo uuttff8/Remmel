@@ -27,23 +27,31 @@ class LemmyTabBarController: UITabBarController {
     
     func createTabs() {
         
-        frontPageCoordinator = FrontPageCoordinator(navigationController: nil)
+        frontPageCoordinator = FrontPageCoordinator(router: nil)
         self.coordinator?.store(coordinator: frontPageCoordinator)
         frontPageCoordinator.start()
-        let frontPageNc = StyledNavigationController(rootViewController: frontPageCoordinator.rootViewController)
+        let frontPageRouter = Router(
+            navigationController: StyledNavigationController(
+                rootViewController: frontPageCoordinator.rootViewController
+            )
+        )
         frontPageCoordinator.rootViewController.tabBarItem = UITabBarItem(title: "",
                                                                           image: UIImage(systemName: "bolt.circle"),
                                                                           tag: 0)
-        frontPageCoordinator.navigationController = frontPageNc
+        frontPageCoordinator.router = frontPageRouter
         
-        self.communitiesCoordinator = CommunitiesCoordinator(navigationController: nil)
+        self.communitiesCoordinator = CommunitiesCoordinator(router: nil)
         self.coordinator?.store(coordinator: communitiesCoordinator)
         communitiesCoordinator.start()
-        let communitiesNc = StyledNavigationController(rootViewController: communitiesCoordinator.rootViewController)
+        let communitiesRouter = Router(
+            navigationController: StyledNavigationController(
+                rootViewController: communitiesCoordinator.rootViewController
+            )
+        )
         communitiesCoordinator.rootViewController.tabBarItem = UITabBarItem(title: "",
                                                                             image: UIImage(systemName: "person.2.fill"),
                                                                             tag: 1)
-        communitiesCoordinator.navigationController = communitiesNc
+        communitiesCoordinator.router = communitiesRouter
         // its wrapper, real controller created in this method
         // func tabBarController(
         // _ tabBarController: UITabBarController,
@@ -56,9 +64,9 @@ class LemmyTabBarController: UITabBarController {
                                                                 image: UIImage(systemName: "plus.circle"),
                                                                 tag: 2)
         
-        self.viewControllers = [ frontPageNc,
+        self.viewControllers = [ frontPageRouter.navigationController!,
                                  createPostOrCommentController,
-                                 communitiesNc ]
+                                 communitiesRouter.navigationController! ]
         
         self.selectedIndex = 0
         

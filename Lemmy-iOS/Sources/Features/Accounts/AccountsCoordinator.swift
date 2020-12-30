@@ -17,6 +17,7 @@ final class AccountsCoordinator: BaseCoordinator {
         let assembly = AccountsAssembly(instance: instance)
         self.rootViewController = assembly.makeModule()
         self.router = router
+        self.router.viewController = self.rootViewController
         super.init()
     }
     
@@ -41,14 +42,13 @@ final class AccountsCoordinator: BaseCoordinator {
     func goToFrontPage() {
         
         if LemmyShareData.shared.isLoggedIn {
+            self.free(coordinator: self)
+            
             NotificationCenter.default.post(name: .didLogin, object: nil)
             
             let myCoordinator = LemmyTabBarCoordinator()
-
-            // store child coordinator
-            self.store(coordinator: myCoordinator)
             myCoordinator.start()
-
+            
             UIApplication.shared.windows.first!.replaceRootViewControllerWith(
                 myCoordinator.rootViewController,
                 animated: true

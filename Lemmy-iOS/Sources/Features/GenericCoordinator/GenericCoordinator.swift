@@ -12,9 +12,13 @@ import SafariServices
 class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewControllerDelegate {
     var rootViewController: T! // implement it
     
-    init(navigationController: UINavigationController?) {
+    var router: RouterProtocol?
+    
+    init(router: RouterProtocol?) {
+        self.router = router
         super.init()
         self.navigationController = navigationController
+        self.router?.viewController = self.rootViewController
     }
     
     override func start() {
@@ -23,32 +27,41 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
     
     func goToCommunityScreen(communityId: Int) {
         let coordinator = CommunityScreenCoordinator(
-            navigationController: navigationController,
+            router: Router(navigationController: navigationController),
             communityId: communityId,
             communityInfo: nil
         )
         self.store(coordinator: coordinator)
         coordinator.start()
+        self.router?.push(coordinator.rootViewController, isAnimated: true, onNavigateBack: {
+            self.free(coordinator: coordinator)
+        })
     }
     
     func goToProfileScreen(by userId: Int) {
         let coordinator = ProfileScreenCoordinator(
-            navigationController: navigationController,
+            router: Router(navigationController: navigationController),
             profileId: userId,
             profileUsername: nil
         )
         self.store(coordinator: coordinator)
         coordinator.start()
+        self.router?.push(coordinator.rootViewController, isAnimated: true, onNavigateBack: {
+            self.free(coordinator: coordinator)
+        })
     }
     
     func goToProfileScreen(by username: String) {
         let coordinator = ProfileScreenCoordinator(
-            navigationController: navigationController,
+            router: Router(navigationController: navigationController),
             profileId: nil,
             profileUsername: username
         )
         self.store(coordinator: coordinator)
         coordinator.start()
+        self.router?.push(coordinator.rootViewController, isAnimated: true, onNavigateBack: {
+            self.free(coordinator: coordinator)
+        })
     }
     
     func goToBrowser(with url: URL) {
@@ -66,11 +79,16 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
     }
     
     private func goToPostScreenWrapper(post: LemmyModel.PostView?, postId: Int) {
-        let coordinator = PostScreenCoordinator(navigationController: navigationController,
-                                             postId: postId,
-                                             postInfo: post)
+        let coordinator = PostScreenCoordinator(
+            router: Router(navigationController: navigationController),
+            postId: postId,
+            postInfo: post
+        )
         self.store(coordinator: coordinator)
         coordinator.start()
+        router?.push(coordinator.rootViewController, isAnimated: true, onNavigateBack: {
+            self.free(coordinator: coordinator)
+        })
     }
         
     func goToWriteComment(postId: Int, parrentComment: LemmyModel.CommentView?) {
@@ -83,13 +101,16 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
     
     func goToPostAndScroll(to comment: LemmyModel.CommentView) {
         let coordinator = PostScreenCoordinator(
-            navigationController: navigationController,
+            router: Router(navigationController: navigationController),
             postId: comment.postId,
             postInfo: nil,
             scrollToComment: comment
         )
         self.store(coordinator: coordinator)
         coordinator.start()
+        coordinator.router?.push(coordinator.rootViewController, isAnimated: true, onNavigateBack: {
+            self.free(coordinator: coordinator)
+        })
     }
     
     // MARK: - SFSafariViewControllerDelegate -

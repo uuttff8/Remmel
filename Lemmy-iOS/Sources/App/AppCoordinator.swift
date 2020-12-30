@@ -21,16 +21,12 @@ class AppCoordinator: BaseCoordinator {
         
         if LemmyShareData.shared.isLoggedIn {
             let myCoordinator = LemmyTabBarCoordinator()
-
-            // store child coordinator
             self.store(coordinator: myCoordinator)
             myCoordinator.start()
 
             window.rootViewController = myCoordinator.rootViewController
         } else {
             let myCoordinator = InstancesCoordinator(router: Router(navigationController: StyledNavigationController()))
-
-            // store child coordinator
             self.store(coordinator: myCoordinator)
             myCoordinator.start()
             myCoordinator.router.setRoot(myCoordinator, isAnimated: true)

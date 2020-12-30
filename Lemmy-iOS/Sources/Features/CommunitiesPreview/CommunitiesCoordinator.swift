@@ -8,26 +8,25 @@
 
 import UIKit
 
-class CommunitiesCoordinator: Coordinator {
+class CommunitiesCoordinator: BaseCoordinator {
     var rootViewController: CommunitiesPreviewViewController
-    var childCoordinators: [Coordinator] = []
+    var router: RouterProtocol?
 
-    var navigationController: UINavigationController?
-
-    init(navigationController: UINavigationController?) {
+    init(router: RouterProtocol?) {
         let assembly = CommunitiesPreviewAssembly()
         self.rootViewController = assembly.makeModule()
-        self.navigationController = navigationController
+        super.init()
+        self.router = router
+        self.router?.viewController = self.rootViewController
     }
 
-    func start() {
+    override func start() {
         rootViewController.coordinator = self
-        navigationController?.pushViewController(self.rootViewController, animated: true)
     }
     
     func goToCommunityScreen(communityId: Int) {
         let coordniator = CommunityScreenCoordinator(
-            navigationController: navigationController,
+            router: Router(navigationController: navigationController),
             communityId: communityId,
             communityInfo: nil
         )

@@ -23,7 +23,6 @@ final class InstancesCoordinator: BaseCoordinator {
     
     override func start() {
         rootViewController.coordinator = self
-//        router.setRoot(self.rootViewController, isAnimated: false)
     }
     
     func goToAddInstance(completion: @escaping () -> Void) {
@@ -32,14 +31,14 @@ final class InstancesCoordinator: BaseCoordinator {
         module.coordinator = self
         module.completionHandler = completion
         
-        let navController = StyledNavigationController(rootViewController: module)
+        let navController = UINavigationController(rootViewController: module)
         
         self.router.present(navController, animated: true)
     }
     
     func goToAccounts(from instance: Instance) {
         let accCoordinator = AccountsCoordinator(router: Router(navigationController: router.navigationController),
-                                              instance: instance)
+                                                 instance: instance)
         self.store(coordinator: accCoordinator)
         accCoordinator.start()
         

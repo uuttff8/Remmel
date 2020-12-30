@@ -11,7 +11,7 @@ import UIKit
 final class LemmyTabBarCoordinator: Coordinator {
     var rootViewController: LemmyTabBarController
     var childCoordinators: [Coordinator] = []
-
+    
     var navigationController: UINavigationController? = {
        return nil
     }()
@@ -38,17 +38,12 @@ final class LemmyTabBarCoordinator: Coordinator {
     }
 
     func goToLoginScreen(authMethod: LemmyAuthMethod) {
-        let loginCoordinator = LoginCoordinator(navigationController: UINavigationController(),
+        let loginCoordinator = LoginCoordinator(router: Router(navigationController: StyledNavigationController()),
                                                 authMethod: authMethod)
         self.store(coordinator: loginCoordinator)
         loginCoordinator.start()
-
-        guard let loginNavController = loginCoordinator.navigationController else {
-            Logger.commonLog.error("loginCoordinator.navigationController is nil")
-            return
-        }
-
-        rootViewController.present(loginNavController, animated: true, completion: nil)
+        
+        self.rootViewController.present(loginCoordinator.router.navigationController!, animated: true, completion: nil)
     }
 
     func goToCreatePost() {

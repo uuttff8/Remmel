@@ -23,17 +23,17 @@ class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
     
     lazy var searchViewController = FrontPageSearchViewController()
     
-    override init(navigationController: UINavigationController?) {
-        super.init(navigationController: navigationController)
+    init(router: Router?) {
+        super.init(router: router)
         let assembly = FrontPageAssembly()
         self.rootViewController = assembly.makeModule()
+        self.router?.viewController = self.rootViewController
     }
     
     override func start() {
         rootViewController.coordinator = self
         postsViewController.coordinator = self
         commentsViewController.coordinator = self
-        navigationController?.pushViewController(self.rootViewController, animated: true)
         
         rootViewController.configureSearchView(searchViewController.view)
     }
@@ -47,7 +47,7 @@ class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
     }
     
     func goToLoginScreen(authMethod: LemmyAuthMethod) {
-        let loginCoordinator = LoginCoordinator(navigationController: UINavigationController(),
+        let loginCoordinator = LoginCoordinator(router: Router(navigationController: StyledNavigationController()),
                                                 authMethod: authMethod)
         self.store(coordinator: loginCoordinator)
         loginCoordinator.start()
@@ -69,13 +69,15 @@ class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
     
     func showSearchIfNeeded(with query: String) {
         searchViewController.coordinator = self
-        self.searchViewController.showSearchIfNeeded()
-        self.searchViewController.searchQuery = query
+//        searchViewController.loadView()
+        searchViewController.showSearchIfNeeded()
+        searchViewController.searchQuery = query
     }
     
     func hideSearchIfNeeded() {
         searchViewController.coordinator = nil
-        self.searchViewController.hideSearchIfNeeded()
-        self.searchViewController.searchQuery = ""
+//        searchViewController.view.removeFromSuperview()
+        searchViewController.hideSearchIfNeeded()
+        searchViewController.searchQuery = ""
     }    
 }

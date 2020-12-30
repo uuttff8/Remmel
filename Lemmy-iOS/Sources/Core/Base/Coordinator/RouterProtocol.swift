@@ -12,7 +12,7 @@ typealias NavigationBackClosure = (() -> Void)
 
 protocol RouterProtocol: AnyObject {
     
-    var navigationController: StyledNavigationController { get set }
+    var navigationController: UINavigationController? { get set }
     var viewController: UIViewController? { get set }
     
     func push(_ drawable: Drawable, isAnimated: Bool, onNavigateBack: NavigationBackClosure?)
@@ -24,14 +24,19 @@ protocol RouterProtocol: AnyObject {
 
 class Router: NSObject, RouterProtocol {
 
-    var navigationController: StyledNavigationController
+    var navigationController: UINavigationController?
     weak var viewController: UIViewController?
     private var closures: [String: NavigationBackClosure] = [:]
 
-    init(navigationController: StyledNavigationController) {
+    init(navigationController: UINavigationController?) {
         self.navigationController = navigationController
         super.init()
-        self.navigationController.addDelegate(self)
+        
+        if let navControl = navigationController as? StyledNavigationController {
+            navControl.addDelegate(self)
+        } else {
+            self.navigationController?.delegate = self
+        }
     }
 
     func push(_ drawable: Drawable, isAnimated: Bool, onNavigateBack closure: NavigationBackClosure?) {
@@ -42,7 +47,7 @@ class Router: NSObject, RouterProtocol {
         if let closure = closure {
             closures.updateValue(closure, forKey: viewController.description)
         }
-        navigationController.pushViewController(viewController, animated: isAnimated)
+        navigationController?.pushViewController(viewController, animated: isAnimated)
     }
     
     func setRoot(_ drawable: Drawable, isAnimated: Bool) {
@@ -50,15 +55,15 @@ class Router: NSObject, RouterProtocol {
             return
         }
         
-        navigationController.setViewControllers([viewController], animated: isAnimated)
+        navigationController?.setViewControllers([viewController], animated: isAnimated)
     }
     
     func pop(_ isAnimated: Bool) {
-        navigationController.popViewController(animated: isAnimated)
+        navigationController?.popViewController(animated: isAnimated)
     }
     
     func popToRoot(_ isAnimated: Bool) {
-        navigationController.popToRootViewController(animated: isAnimated)
+        navigationController?.popToRootViewController(animated: isAnimated)
     }
     
     func present(_ module: Drawable, animated: Bool) {

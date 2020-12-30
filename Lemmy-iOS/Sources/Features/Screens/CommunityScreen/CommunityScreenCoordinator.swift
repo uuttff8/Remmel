@@ -10,14 +10,14 @@ import UIKit
 
 class CommunityScreenCoordinator: GenericCoordinator<CommunityScreenViewController> {
     
-    init(navigationController: UINavigationController?, communityId: Int, communityInfo: LemmyModel.CommunityView?) {
-        super.init(navigationController: navigationController)
+    init(router: RouterProtocol?, communityId: Int, communityInfo: LemmyModel.CommunityView?) {
+        super.init(router: router)
         let assembly = CommunityScreenAssembly(communityId: communityId, communityInfo: communityInfo)
         self.rootViewController = assembly.makeModule()
+        self.router?.viewController = self.rootViewController
     }
 
     override func start() {
         rootViewController.coordinator = self
-        navigationController?.pushViewController(self.rootViewController, animated: true)
     }
 }

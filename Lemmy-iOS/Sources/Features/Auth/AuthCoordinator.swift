@@ -8,19 +8,18 @@
 
 import UIKit
 
-class LoginCoordinator: Coordinator {
+class LoginCoordinator: BaseCoordinator {
     var rootViewController: LoginViewController
-    var childCoordinators: [Coordinator] = []
 
-    var navigationController: UINavigationController?
-
-    init(navigationController: UINavigationController, authMethod: LemmyAuthMethod) {
+    let router: RouterProtocol
+    
+    init(router: RouterProtocol, authMethod: LemmyAuthMethod) {
         self.rootViewController = LoginViewController(authMethod: authMethod)
-        self.navigationController = navigationController
+        self.router = router
+        self.router.viewController = self.rootViewController
     }
 
-    func start() {
+    override func start() {
         self.rootViewController.coordinator = self
-        navigationController?.pushViewController(rootViewController, animated: true)
     }
 }
