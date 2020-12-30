@@ -10,7 +10,10 @@ import UIKit
 
 final class AccountsView: UIView {
     
-    private let tableView = LemmyTableView(style: .insetGrouped, separator: true)
+    private let tableView: LemmyTableView = {
+        $0.registerClass(UITableViewCell.self)
+        return $0
+    }(LemmyTableView(style: .insetGrouped, separator: true))
     
     init() {
         super.init(frame: .zero)

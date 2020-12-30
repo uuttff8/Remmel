@@ -134,6 +134,8 @@ extension FrontPageViewController: FrontPageViewControllerProtocol {
                 self.coordinator?.goToLoginScreen(authMethod: .auth)
             }, onRegister: {
                 self.coordinator?.goToLoginScreen(authMethod: .register)
+            }, onInstances: {
+                self.coordinator?.goToInstances()
             })
     }
     

@@ -8,19 +8,15 @@
 
 import UIKit
 
-final class LemmyTabBarCoordinator: Coordinator {
+final class LemmyTabBarCoordinator: BaseCoordinator {
     var rootViewController: LemmyTabBarController
-    var childCoordinators: [Coordinator] = []
-    
-    var navigationController: UINavigationController? = {
-       return nil
-    }()
 
-    init() {
+    override init() {
         self.rootViewController = LemmyTabBarController()
+        super.init()
     }
 
-    func start() {
+    override func start() {
         rootViewController.coordinator = self
         rootViewController.createTabs()
     }

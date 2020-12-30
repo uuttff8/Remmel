@@ -143,4 +143,8 @@ extension AccountsViewController: AccountsTableDataSourceDelegate {
     func tableDidSelect(_ account: Account) {
         self.viewModel.doAccountFetch(request: .init(account: account))
     }
+    
+    func tableDidSelectGuestPreview() {
+        self.coordinator?.goToFrontPage()
+    }
 }

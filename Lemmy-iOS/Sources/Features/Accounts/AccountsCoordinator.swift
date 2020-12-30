@@ -42,21 +42,30 @@ final class AccountsCoordinator: BaseCoordinator {
     func goToFrontPage() {
         
         if LemmyShareData.shared.isLoggedIn {
-            self.childCoordinators.removeAll()
+            Logger.commonLog.info("Enter to instance with account")
             
-            NotificationCenter.default.post(name: .didLogin, object: nil)
-            
-            let myCoordinator = LemmyTabBarCoordinator()
-            self.childCoordinators.append(myCoordinator)
-            myCoordinator.start()
-            
-            UIApplication.shared.windows.first!.replaceRootViewControllerWith(
-                myCoordinator.rootViewController,
-                animated: true
-            )
+            transitionToFrontPage()
         } else {
-            fatalError("Unexpected error, must not be happen")
+            Logger.commonLog.info("Enter to instance as guest")
+            
+            transitionToFrontPage()
         }
+    }
+    
+    private func transitionToFrontPage() {
+        self.childCoordinators.removeAll()
+        
+        NotificationCenter.default.post(name: .didLogin, object: nil)
+
+        let myCoordinator = LemmyTabBarCoordinator()
+        self.childCoordinators.append(myCoordinator)
+        myCoordinator.start()
+        
+        UIApplication.shared.windows.first!.replaceRootViewControllerWith(
+            myCoordinator.rootViewController,
+            animated: true
+        )
+
     }
 }
 

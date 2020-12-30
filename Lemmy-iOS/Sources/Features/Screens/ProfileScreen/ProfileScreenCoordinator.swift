@@ -22,26 +22,4 @@ final class ProfileScreenCoordinator: GenericCoordinator<ProfileScreenViewContro
     override func start() {
         rootViewController.coordinator = self
     }
-    
-    func goToInstances() {
-        LemmyShareData.shared.loginData.logout()
-        
-        if !LemmyShareData.shared.isLoggedIn {
-            self.childCoordinators.removeAll()
-            
-            NotificationCenter.default.post(name: .didLogin, object: nil)
-            
-            let myCoordinator = InstancesCoordinator(router: Router(navigationController: StyledNavigationController()))
-            myCoordinator.start()
-            self.childCoordinators.append(myCoordinator)
-            myCoordinator.router.setRoot(myCoordinator, isAnimated: true)
-
-            UIApplication.shared.windows.first!.replaceRootViewControllerWith(
-                myCoordinator.router.navigationController!,
-                animated: true
-            )
-        } else {
-            fatalError("Unexpexted error, must not be happen")
-        }
-    }
 }

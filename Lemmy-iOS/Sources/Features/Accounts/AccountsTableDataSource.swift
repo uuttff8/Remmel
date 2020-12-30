@@ -11,9 +11,15 @@ import UIKit
 protocol AccountsTableDataSourceDelegate: AnyObject {
     func tableDidRequestDelete(_ account: Account)
     func tableDidSelect(_ account: Account)
+    func tableDidSelectGuestPreview()
 }
 
 final class AccountsTableDataSource: NSObject {
+    
+    enum AccountType: Int {
+        case guest = 0
+        case users = 1
+    }
     
     weak var delegate: AccountsTableDataSourceDelegate?
     
@@ -23,18 +29,29 @@ final class AccountsTableDataSource: NSObject {
         self.viewModels = viewModels
         super.init()
     }
+    
+    private func getAccount(for indexPath: IndexPath) -> Account {
+        viewModels[indexPath.row - 1]
+    }
 }
 
 extension AccountsTableDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModels.count
+        return viewModels.count + 1 // 1 is a guest
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
+            let cell: UITableViewCell = tableView.cell(forRowAt: indexPath)
+            cell.accessoryType = .disclosureIndicator
+            cell.textLabel?.text = "Enter as guest"
+            return cell
+        }
+        
         let cell = UITableViewCell()
         cell.accessoryType = .disclosureIndicator
         
-        let account = viewModels[indexPath.row]
+        let account = getAccount(for: indexPath)
         cell.textLabel?.text = account.login
         
         return cell
@@ -43,7 +60,13 @@ extension AccountsTableDataSource: UITableViewDataSource {
 
 extension AccountsTableDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let account = viewModels[indexPath.row]
+        if indexPath.row == 0 {
+            tableView.deselectRow(at: indexPath, animated: true)
+            delegate?.tableDidSelectGuestPreview()
+            return
+        }
+        
+        let account = getAccount(for: indexPath)
         print(account)
         delegate?.tableDidSelect(account)
         tableView.deselectRow(at: indexPath, animated: true)
@@ -54,7 +77,11 @@ extension AccountsTableDataSource: UITableViewDelegate {
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
         
-        let account = viewModels[indexPath.row]
+        if indexPath.row == 0 {
+            return nil
+        }
+        
+        let account = getAccount(for: indexPath)
         
         let deleteAction = UIContextualAction(
             style: .destructive,

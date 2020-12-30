@@ -154,7 +154,8 @@ extension UIAlertController {
     static func showLoginOrRegisterAlert(
         on vc: UIViewController,
         onLogin: @escaping (() -> Void),
-        onRegister: @escaping (() -> Void)
+        onRegister: @escaping (() -> Void),
+        onInstances: @escaping (() -> Void)
     ) {
         let alertController = UIAlertController(
             title: nil,
@@ -170,9 +171,13 @@ extension UIAlertController {
             onRegister()
         }
         
+        let anotherInstanceAction = UIAlertAction(title: "Choose another instance", style: .default) { (_) in
+            onInstances()
+        }
+        
         let cancelAction = UIAlertAction.cancelAction
         
-        [loginAction, signUpAction, cancelAction].forEach { (action) in
+        [loginAction, signUpAction, anotherInstanceAction, cancelAction].forEach { (action) in
             alertController.addAction(action)
         }
         vc.present(alertController, animated: true, completion: nil)

@@ -8,9 +8,10 @@
 
 import UIKit
 
+// TODO refactor this class and remove boilerplate
 func ContinueIfLogined(
     on viewController: UIViewController,
-    coordinator: Coordinator,
+    coordinator: BaseCoordinator,
     doAction: () -> Void,
     elseAction: (() -> Void)? = nil
 ) {
@@ -31,6 +32,28 @@ func ContinueIfLogined(
         viewController.present(loginNavController, animated: true, completion: nil)
     }
     
+    func goToInstances() {
+        LemmyShareData.shared.loginData.logout()
+        
+        if !LemmyShareData.shared.isLoggedIn {
+            coordinator.childCoordinators.removeAll()
+            
+            NotificationCenter.default.post(name: .didLogin, object: nil)
+            
+            let myCoordinator = InstancesCoordinator(router: Router(navigationController: StyledNavigationController()))
+            myCoordinator.start()
+            coordinator.childCoordinators.append(myCoordinator)
+            myCoordinator.router.setRoot(myCoordinator, isAnimated: true)
+
+            UIApplication.shared.windows.first!.replaceRootViewControllerWith(
+                myCoordinator.router.navigationController!,
+                animated: true
+            )
+        } else {
+            fatalError("Unexpexted error, must not be happen")
+        }
+    }
+    
     if LemmyShareData.shared.isLoggedIn {
         doAction()
     } else {
@@ -41,7 +64,8 @@ func ContinueIfLogined(
                 auth(authMethod: .auth)
             }, onRegister: {
                 auth(authMethod: .register)
+            }, onInstances: {
+                goToInstances()
             })
-        
     }
 }
