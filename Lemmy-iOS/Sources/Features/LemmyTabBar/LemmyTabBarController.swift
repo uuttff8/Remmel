@@ -69,7 +69,6 @@ class LemmyTabBarController: UITabBarController {
                                  communitiesRouter.navigationController! ]
         
         self.selectedIndex = 0
-        
     }
 }
 

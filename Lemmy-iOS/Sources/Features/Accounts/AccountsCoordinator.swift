@@ -42,11 +42,12 @@ final class AccountsCoordinator: BaseCoordinator {
     func goToFrontPage() {
         
         if LemmyShareData.shared.isLoggedIn {
-            self.free(coordinator: self)
+            self.childCoordinators.removeAll()
             
             NotificationCenter.default.post(name: .didLogin, object: nil)
             
             let myCoordinator = LemmyTabBarCoordinator()
+            self.childCoordinators.append(myCoordinator)
             myCoordinator.start()
             
             UIApplication.shared.windows.first!.replaceRootViewControllerWith(
@@ -54,7 +55,7 @@ final class AccountsCoordinator: BaseCoordinator {
                 animated: true
             )
         } else {
-            fatalError("Unexpexted error, must not be happen")
+            fatalError("Unexpected error, must not be happen")
         }
     }
 }

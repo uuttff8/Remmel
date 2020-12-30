@@ -27,15 +27,17 @@ final class ProfileScreenCoordinator: GenericCoordinator<ProfileScreenViewContro
         LemmyShareData.shared.loginData.logout()
         
         if !LemmyShareData.shared.isLoggedIn {
-            self.free(coordinator: self)
+            self.childCoordinators.removeAll()
             
             NotificationCenter.default.post(name: .didLogin, object: nil)
             
             let myCoordinator = InstancesCoordinator(router: Router(navigationController: StyledNavigationController()))
             myCoordinator.start()
+            self.childCoordinators.append(myCoordinator)
+            myCoordinator.router.setRoot(myCoordinator, isAnimated: true)
 
             UIApplication.shared.windows.first!.replaceRootViewControllerWith(
-                myCoordinator.rootViewController,
+                myCoordinator.router.navigationController!,
                 animated: true
             )
         } else {
