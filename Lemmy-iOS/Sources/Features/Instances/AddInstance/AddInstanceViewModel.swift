@@ -53,15 +53,10 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
                 }
             } receiveValue: { (response) in
                 
-                let instance = Instance(entity: Instance.entity(), insertInto: CoreDataHelper.shared.context)
-                let query = request.query
-                instance.label = String.cleanUpUrl(url: query)
-                
-                // FIXME(uuttff8): we should save it only when `Add` button tapped in viewController
-                CoreDataHelper.shared.save()
+                let instanceUrl = String.cleanUpUrl(url: request.query)
                 
                 self.viewController?.displayAddInstanceCheck(
-                    viewModel: .init(state: .result(iconUrl: response.site?.icon))
+                    viewModel: .init(state: .result(iconUrl: response.site?.icon, instanceUrl: instanceUrl))
                 )
             }.store(in: &self.cancellable)
         
@@ -87,7 +82,7 @@ enum AddInstanceDataFlow {
     }
     
     enum ViewControllerState {
-        case result(iconUrl: String?)
+        case result(iconUrl: String?, instanceUrl: String)
         case noResult
     }
 }

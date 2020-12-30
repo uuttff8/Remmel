@@ -27,9 +27,10 @@ class LabeledTextView: UITextView {
         commonInit()
     }
     
+    // swiftlint:disable unused_setter_value
     override var selectedTextRange: UITextRange? {
         get { return nil }
-        set { /* do nothing to prevent compiler error */ }
+        set { /* no-op to prevent compiler error */ }
     }
 
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {

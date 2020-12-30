@@ -47,7 +47,6 @@ class InstancesViewModel: InstancesViewModelProtocol {
         self.provider.delete(request.instance)
             .sink(receiveValue: {})
             .store(in: &cancellable)
-        
     }
 }
 

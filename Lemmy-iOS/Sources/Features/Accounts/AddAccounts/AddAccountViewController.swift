@@ -141,7 +141,6 @@ final class AddAccountViewController: UIViewController {
 
 extension AddAccountViewController: AddAccountViewControllerProtocol {
     func displaySuccessAuth(viewModel: AddAccountDataFlow.Authentication.ViewModel) {
-//        onUserReceive?(account)
         self.coordinator?.dismissSelf(viewController: self)
         completionHandler?()
     }

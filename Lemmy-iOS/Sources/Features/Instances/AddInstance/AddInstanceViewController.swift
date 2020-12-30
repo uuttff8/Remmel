@@ -36,6 +36,8 @@ final class AddInstanceViewController: UIViewController {
     }
     private lazy var loadingBarButton = UIBarButtonItem(customView: _activityIndicator)
     
+    private var enteredInstanceUrl: String?
+    
     init(
         viewModel: AddInstanceViewModelProtocol
     ) {
@@ -62,6 +64,14 @@ final class AddInstanceViewController: UIViewController {
     
     @objc
     func addBarButtonTapped(_ sender: UIBarButtonItem) {
+        guard let instanceUrl = enteredInstanceUrl else {
+            Logger.commonLog.error("Entered instance url is nil, cannot save to CoreData")
+            return
+        }
+        let instance = Instance(entity: Instance.entity(), insertInto: CoreDataHelper.shared.context)
+        instance.label = instanceUrl
+        CoreDataHelper.shared.save()
+        
         completionHandler?()
         self.dismiss(animated: true)
     }
@@ -92,7 +102,8 @@ extension AddInstanceViewController: AddInstanceViewControllerProtocol {
     
     func displayAddInstanceCheck(viewModel: AddInstanceDataFlow.InstanceCheck.ViewModel) {
         switch viewModel.state {
-        case .result(let iconUrl):
+        case let .result(iconUrl, instanceUrl):
+            self.enteredInstanceUrl = instanceUrl
             self.setNewBarButton(loading: false, isEnabled: true)
             self.addView.bindImage(with: iconUrl)
         case .noResult:
