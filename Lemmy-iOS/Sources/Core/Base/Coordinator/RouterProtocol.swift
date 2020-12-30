@@ -29,8 +29,8 @@ class Router: NSObject, RouterProtocol {
     private var closures: [String: NavigationBackClosure] = [:]
 
     init(navigationController: UINavigationController?) {
-        self.navigationController = navigationController
         super.init()
+        self.navigationController = navigationController
         
         if let navControl = navigationController as? StyledNavigationController {
             navControl.addDelegate(self)

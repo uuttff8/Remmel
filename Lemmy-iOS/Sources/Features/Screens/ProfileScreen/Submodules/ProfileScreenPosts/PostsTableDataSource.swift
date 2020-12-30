@@ -8,9 +8,8 @@
 
 import UIKit
 
-protocol PostsTableDataSourceDelegate: PostContentTableCellDelegate {
+protocol PostsTableDataSourceDelegate: PostContentPreviewTableCellDelegate {
     func tableDidRequestPagination(_ tableDataSource: PostsTableDataSource)
-    func tableDidSelect(post: LemmyModel.PostView)
 }
 
 final class PostsTableDataSource: NSObject {
@@ -57,26 +56,19 @@ extension PostsTableDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: PostContentTableCell = tableView.cell(forRowAt: indexPath)
+        let cell: PostContentPreviewTableCell = tableView.cell(forRowAt: indexPath)
         cell.updateConstraintsIfNeeded()
         
         cell.postContentView.delegate = delegate
         
         let viewModel = self.viewModels[indexPath.row]
-        cell.bind(with: viewModel, config: .insideComminity)
+        cell.bind(with: viewModel, isInsideCommunity: true)
         
         return cell
     }
 }
 
-extension PostsTableDataSource: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let post = viewModels[indexPath.row]
-        
-        self.delegate?.tableDidSelect(post: post)
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
+extension PostsTableDataSource: UITableViewDelegate {    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 5,
            tableView.numberOfSections == 1 {

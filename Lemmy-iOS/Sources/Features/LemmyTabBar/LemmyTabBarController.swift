@@ -39,6 +39,7 @@ class LemmyTabBarController: UITabBarController {
                                                                           image: UIImage(systemName: "bolt.circle"),
                                                                           tag: 0)
         frontPageCoordinator.router = frontPageRouter
+        frontPageCoordinator.navigationController = frontPageCoordinator.router?.navigationController
         
         self.communitiesCoordinator = CommunitiesCoordinator(router: nil)
         self.coordinator?.store(coordinator: communitiesCoordinator)
@@ -52,6 +53,8 @@ class LemmyTabBarController: UITabBarController {
                                                                             image: UIImage(systemName: "person.2.fill"),
                                                                             tag: 1)
         communitiesCoordinator.router = communitiesRouter
+        communitiesCoordinator.navigationController = communitiesCoordinator.router?.navigationController
+        
         // its wrapper, real controller created in this method
         // func tabBarController(
         // _ tabBarController: UITabBarController,

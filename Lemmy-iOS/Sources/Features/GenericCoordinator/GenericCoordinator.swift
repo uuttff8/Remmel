@@ -17,7 +17,7 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
     init(router: RouterProtocol?) {
         self.router = router
         super.init()
-        self.navigationController = navigationController
+        self.navigationController = router?.navigationController
         self.router?.viewController = self.rootViewController
     }
     

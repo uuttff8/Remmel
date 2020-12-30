@@ -43,7 +43,7 @@ extension ProfileScreenPostsViewController {
         weak var tableManager: PostsTableDataSource?
         
         private lazy var tableView = LemmyTableView(style: .plain, separator: false).then {
-            $0.registerClass(PostContentTableCell.self)
+            $0.registerClass(PostContentPreviewTableCell.self)
             $0.backgroundColor = .clear
             $0.showsVerticalScrollIndicator = false
             $0.delegate = self
@@ -162,10 +162,6 @@ extension ProfileScreenPostsViewController.View: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         self.tableManager?.tableView(tableView, willDisplay: cell, forRowAt: indexPath)
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.tableManager?.tableView(tableView, didSelectRowAt: indexPath)
     }
 }
 
