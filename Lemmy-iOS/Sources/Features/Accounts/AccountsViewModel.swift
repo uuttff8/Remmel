@@ -12,7 +12,8 @@ import Foundation
 protocol AccountsViewModelProtocol: AnyObject {
     func doAccountsRefresh(request: AccountsDataFlow.AccountsRefresh.Request)
     func doAccountDelete(request: AccountsDataFlow.AccountDelete.Request)
-    func doAccountFetch(request: AccountsDataFlow.AccountSelected.Request)
+    func doAccountUserSelect(request: AccountsDataFlow.AccountSelected.Request)
+    func doAccountGuestSelect(request: AccountsDataFlow.GuestSelected.Request)
 }
 
 final class AccountsViewModel: AccountsViewModelProtocol {
@@ -48,7 +49,7 @@ final class AccountsViewModel: AccountsViewModelProtocol {
             .store(in: &cancellables)
     }
     
-    func doAccountFetch(request: AccountsDataFlow.AccountSelected.Request) {
+    func doAccountUserSelect(request: AccountsDataFlow.AccountSelected.Request) {
         let parameters = LemmyModel.Authentication.LoginRequest(
             usernameOrEmail: request.account.login,
             password: request.account.password
@@ -65,6 +66,10 @@ final class AccountsViewModel: AccountsViewModelProtocol {
             }, receiveValue: { (response) in
                 self.fetchUser(with: response.jwt)
             }).store(in: &cancellables)
+    }
+    
+    func doAccountGuestSelect(request: AccountsDataFlow.GuestSelected.Request) {
+        self.viewController?.displayGuestSelected(viewModel: .init())
     }
         
     private func fetchUser(with jwtToken: String) {
@@ -89,7 +94,6 @@ final class AccountsViewModel: AccountsViewModelProtocol {
                 completion(myUser)
             }).store(in: &cancellables)
     }
-
 }
 
 enum AccountsDataFlow {
@@ -117,6 +121,11 @@ enum AccountsDataFlow {
         struct ViewModel {
             let myUser: LemmyModel.MyUser
         }
+    }
+    
+    enum GuestSelected {
+        struct Request { }
+        struct ViewModel { }
     }
     
     enum UnexpectedError {

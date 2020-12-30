@@ -15,17 +15,18 @@ class LemmyShareData {
     
     let loginData = LoginData.shared
 
-    enum Constants {
+    enum Key {
         static let jwt = "jwt"
         static let userId = "userId"
         static let userdata = "userdata"
+        static let currentInstanceUrl = "currentInstanceUrl"
     }
 
     let userDefaults = UserDefaults.appShared
 
     var userdata: LemmyModel.MyUser? {
         get {
-            guard let data = userDefaults.data(forKey: Constants.userdata)
+            guard let data = userDefaults.data(forKey: Key.userdata)
                 else { return nil }
             return try? LemmyJSONDecoder().decode(LemmyModel.MyUser.self, from: data)
         } set {
@@ -37,7 +38,7 @@ class LemmyShareData {
             encoder.dateEncodingStrategy = .formatted(dateFormatter)
             
             let data = try? encoder.encode(newValue)
-            userDefaults.set(data, forKey: Constants.userdata)
+            userDefaults.set(data, forKey: Key.userdata)
         }
     }
 
@@ -47,5 +48,10 @@ class LemmyShareData {
     
     var isLoggedIn: Bool {
         self.userdata != nil && self.jwtToken != nil
+    }
+    
+    var currentInstanceUrl: String {
+        get { self.userDefaults.string(forKey: Key.currentInstanceUrl) ?? "" }
+        set { self.userDefaults.setValue(newValue, forKey: Key.currentInstanceUrl) }
     }
 }

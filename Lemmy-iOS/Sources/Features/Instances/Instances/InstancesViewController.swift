@@ -110,5 +110,6 @@ extension InstancesViewController: InstancesTableDataSourceDelegate {
     
     func tableDidRequestAddAccountsModule(_ instance: Instance) {
         coordinator?.goToAccounts(from: instance)
+        LemmyShareData.shared.currentInstanceUrl = instance.label
     }
 }

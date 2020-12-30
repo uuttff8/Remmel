@@ -45,7 +45,7 @@ final class CoreDataHelper: NSObject {
             abort()
         }
 
-        self.context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        self.context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         self.context.persistentStoreCoordinator = self.coordinator
 
         super.init()

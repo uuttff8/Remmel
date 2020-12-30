@@ -11,8 +11,9 @@ import Combine
 
 class WSLemmyClient {
     
-    private var webSocketTask: URLSessionWebSocketTask
-    private let instanceUrl: URL
+    public var instanceUrl: URL
+    
+    private var webSocketTask: URLSessionWebSocketTask?
     private let urlSession: URLSession
     
     private let requestQueue = DispatchQueue(label: "Lemmy-iOS.RequestQueue")
@@ -42,20 +43,22 @@ class WSLemmyClient {
             
             let wsMessage = createWebsocketMessage(request: reqStr)
             
-            webSocketTask.resume()
+            self.webSocketTask = urlSession.webSocketTask(with: instanceUrl)
+            webSocketTask?.resume()
             
-            webSocketTask.send(wsMessage) { (error) in
+            webSocketTask?.send(wsMessage) { (error) in
                 if let error = error {
                     promise(.failure("WebSocket couldn’t send message because: \(error)".toLemmyError))
                 }
             }
             
-            webSocketTask.receive { (res) in
+            webSocketTask?.receive { (res) in
                 switch res {
                 case let .success(messageType):
                     promise(.success(self.handleMessage(type: messageType)))
                     
-                    webSocketTask.cancel()
+                    self.webSocketTask?.cancel()
+                    self.webSocketTask = nil
                 case let .failure(error):
                     promise(.failure(LemmyGenericError.error(error)))
                 }

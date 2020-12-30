@@ -14,6 +14,14 @@ struct ApiErrorResponse: Codable, Equatable {
     let error: String
 }
 
+private func createInstanceFullUrl(instanceUrl: String) -> URL? {
+    guard let url = URL(string: "wss://" + instanceUrl + "/api/v1/ws") else {
+        return nil
+    }
+    
+    return url
+}
+
 class RequestsManager {
     
     struct ApiResponse<T: Codable>: Codable {
@@ -28,10 +36,14 @@ class RequestsManager {
     private let requestQueue = DispatchQueue(label: "Lemmy-iOS.RequestQueue")
         
     init?(instanceUrl: String) {
-        guard let url = URL(string: "wss://" + instanceUrl + "/api/v1/ws") else {
+        guard let url = createInstanceFullUrl(instanceUrl: instanceUrl) else {
             return nil
         }
         wsClient = WSLemmyClient(url: url)
+    }
+    
+    convenience init() {
+        self.init(instanceUrl: LemmyShareData.shared.currentInstanceUrl)!
     }
     
     func asyncRequestDecodable<Req: Codable, Res: Codable>(
@@ -40,7 +52,10 @@ class RequestsManager {
         parsingFromDataKey rootKey: Bool = true
     ) -> AnyPublisher<Res, LemmyGenericError> {
         
-        wsClient.asyncSend(on: path, data: parameters)
+        self.wsClient.instanceUrl = createInstanceFullUrl(instanceUrl: LemmyShareData.shared.currentInstanceUrl)!
+        Logger.commonLog.info("Trying to connect to \(self.wsClient.instanceUrl) instace")
+        
+        return wsClient.asyncSend(on: path, data: parameters)
             .receive(on: requestQueue)
             .flatMap { (outString: String) in
                 self.asyncDecode(data: outString.data(using: .utf8)!)

@@ -12,16 +12,7 @@ typealias LemmyResult<Output> = Result<Output, LemmyGenericError>
 
 final class ApiManager {
     
-    static let shared = ApiManager(instanceUrl: ApiManager.currentInstance)
-    
-    static var requests: RequestsManager {
-        RequestsManager(instanceUrl: ApiManager.currentInstance)!
-    }
-    
-    /// You should change it ONLY when changing current intance url AND ONLY VALID URL
-    class var currentInstance: String {
-        "lemmy.ml"
-    }
+    static var requests = RequestsManager(instanceUrl: LemmyShareData.shared.currentInstanceUrl)!
     
     private let instanceUrl: String
     

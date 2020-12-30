@@ -38,13 +38,13 @@ class LoginData {
     }
 
     var jwtToken: String? {
-        get { keychain.get(LemmyShareData.Constants.jwt) }
-        set { keychain.set(newValue!, forKey: LemmyShareData.Constants.jwt) }
+        get { keychain.get(LemmyShareData.Key.jwt) }
+        set { keychain.set(newValue!, forKey: LemmyShareData.Key.jwt) }
     }
 
     var userId: LemmyModel.MyUser.UserId? {
-        get { userDefaults.integer(forKey: LemmyShareData.Constants.userId) }
-        set { userDefaults.set(newValue, forKey: LemmyShareData.Constants.userId) }
+        get { userDefaults.integer(forKey: LemmyShareData.Key.userId) }
+        set { userDefaults.set(newValue, forKey: LemmyShareData.Key.userId) }
     }
 
     func clear() {

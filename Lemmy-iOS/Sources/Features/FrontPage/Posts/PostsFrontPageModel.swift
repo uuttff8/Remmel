@@ -23,8 +23,6 @@ class PostsFrontPageModel: NSObject {
     
     var postsDataSource: [LemmyModel.PostView] = []
     
-    private lazy var wsClient = ChainedWSClient(url: URL(string: "wss://" + ApiManager.currentInstance + "/api/v1/ws")!)
-    
     var currentSortType: LemmySortType {
         get { contentPreferenceService.contentSortType }
         set {

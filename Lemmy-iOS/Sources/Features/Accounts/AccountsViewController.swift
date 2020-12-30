@@ -11,6 +11,7 @@ import UIKit
 protocol AccountsViewControllerProtocol: AnyObject {
     func displayAccounts(viewModel: AccountsDataFlow.AccountsRefresh.ViewModel)
     func displayAccountSelected(viewModel: AccountsDataFlow.AccountSelected.ViewModel)
+    func displayGuestSelected(viewModel: AccountsDataFlow.GuestSelected.ViewModel)
     func displayUnexpectedError(viewModel: AccountsDataFlow.UnexpectedError.ViewModel)
 }
 
@@ -133,6 +134,10 @@ extension AccountsViewController: AccountsViewControllerProtocol {
     func displayUnexpectedError(viewModel: AccountsDataFlow.UnexpectedError.ViewModel) {
         UIAlertController.createOkAlert(message: viewModel.error)
     }
+    
+    func displayGuestSelected(viewModel: AccountsDataFlow.GuestSelected.ViewModel) {
+        self.coordinator?.goToFrontPage()
+    }
 }
 
 extension AccountsViewController: AccountsTableDataSourceDelegate {
@@ -141,10 +146,10 @@ extension AccountsViewController: AccountsTableDataSourceDelegate {
     }
     
     func tableDidSelect(_ account: Account) {
-        self.viewModel.doAccountFetch(request: .init(account: account))
+        self.viewModel.doAccountUserSelect(request: .init(account: account))
     }
     
     func tableDidSelectGuestPreview() {
-        self.coordinator?.goToFrontPage()
+        self.viewModel.doAccountGuestSelect(request: .init())
     }
 }
