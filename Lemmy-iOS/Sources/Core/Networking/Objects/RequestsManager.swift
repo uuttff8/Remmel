@@ -29,21 +29,25 @@ class RequestsManager {
         let data: T
     }
     
+    open var isNewInstanceConnection: Bool
+    
     let wsClient: WSLemmyClient
     let httpClient = HttpLemmyClient()
     let decoder = LemmyJSONDecoder()
     
     private let requestQueue = DispatchQueue(label: "Lemmy-iOS.RequestQueue")
         
-    init?(instanceUrl: String) {
+    init?(instanceUrl: String, isNewInstance: Bool) {
+        self.isNewInstanceConnection = isNewInstance
         guard let url = createInstanceFullUrl(instanceUrl: instanceUrl) else {
             return nil
         }
-        wsClient = WSLemmyClient(url: url)
+        self.wsClient = WSLemmyClient(url: url)
     }
     
     convenience init() {
-        self.init(instanceUrl: LemmyShareData.shared.currentInstanceUrl)!
+        self.init(instanceUrl: LemmyShareData.shared.currentInstanceUrl
+                  , isNewInstance: false)!
     }
     
     func asyncRequestDecodable<Req: Codable, Res: Codable>(
@@ -52,7 +56,9 @@ class RequestsManager {
         parsingFromDataKey rootKey: Bool = true
     ) -> AnyPublisher<Res, LemmyGenericError> {
         
-        self.wsClient.instanceUrl = createInstanceFullUrl(instanceUrl: LemmyShareData.shared.currentInstanceUrl)!
+        if isNewInstanceConnection {
+            self.wsClient.instanceUrl = createInstanceFullUrl(instanceUrl: LemmyShareData.shared.currentInstanceUrl)!
+        }
         Logger.commonLog.info("Trying to connect to \(self.wsClient.instanceUrl) instace")
         
         return wsClient.asyncSend(on: path, data: parameters)

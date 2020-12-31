@@ -98,7 +98,8 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
             account.instance = self.currentInstance
             CoreDataHelper.shared.save()
             
-            self.currentInstance.addAccount(account)
+            
+            self.currentInstance.addAccountItemsObject(value: account)
             
             self.viewController?.displaySuccessAuth(
                 viewModel: .init(currentUser: currentUser)
