@@ -41,6 +41,7 @@
 		4E1A7E6125573CC900E193B7 /* LoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A7E6025573CC900E193B7 /* LoadingTableViewCell.swift */; };
 		4E1A7E6625573EA400E193B7 /* ProfileScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A7E6525573EA400E193B7 /* ProfileScreenUI.swift */; };
 		4E1A7E6B25573F1800E193B7 /* ProfileScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A7E6A25573F1800E193B7 /* ProfileScreenViewModel.swift */; };
+		4E24395D259DE2200006C742 /* IncreasedTapAreaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24395C259DE2200006C742 /* IncreasedTapAreaButton.swift */; };
 		4E26FEA02573E36C009DE4A7 /* PostScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E26FE9F2573E36C009DE4A7 /* PostScreenCoordinator.swift */; };
 		4E2A0F9F259B854300BF0841 /* CodingUserInfoKey+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A0F9E259B854300BF0841 /* CodingUserInfoKey+Ext.swift */; };
 		4E2A0FC3259BA49400BF0841 /* AccountsPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A0FC2259BA49400BF0841 /* AccountsPersistenceService.swift */; };
@@ -354,6 +355,7 @@
 		4E1A7E6025573CC900E193B7 /* LoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTableViewCell.swift; sourceTree = "<group>"; };
 		4E1A7E6525573EA400E193B7 /* ProfileScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenUI.swift; sourceTree = "<group>"; };
 		4E1A7E6A25573F1800E193B7 /* ProfileScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewModel.swift; sourceTree = "<group>"; };
+		4E24395C259DE2200006C742 /* IncreasedTapAreaButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncreasedTapAreaButton.swift; sourceTree = "<group>"; };
 		4E26FE9F2573E36C009DE4A7 /* PostScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenCoordinator.swift; sourceTree = "<group>"; };
 		4E2A0F9E259B854300BF0841 /* CodingUserInfoKey+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodingUserInfoKey+Ext.swift"; sourceTree = "<group>"; };
 		4E2A0FC2259BA49400BF0841 /* AccountsPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsPersistenceService.swift; sourceTree = "<group>"; };
@@ -1579,6 +1581,7 @@
 				4EBB224B255ADE4C00B88079 /* TabSegmentedControlView.swift */,
 				4E73DF69258BE964001608F2 /* FollowButton.swift */,
 				4E3D450125964EA800108DA3 /* ImageControl.swift */,
+				4E24395C259DE2200006C742 /* IncreasedTapAreaButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -2140,6 +2143,7 @@
 				4E0A8E4D255C0AF900B06AF6 /* ProfileScreenCommentsInputOutput.swift in Sources */,
 				4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */,
 				4E0A8E5C255D586F00B06AF6 /* ProfileScreenAboutInputProtocol.swift in Sources */,
+				4E24395D259DE2200006C742 /* IncreasedTapAreaButton.swift in Sources */,
 				4EF3AC5D254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift in Sources */,
 				4E3D450225964EA800108DA3 /* ImageControl.swift in Sources */,
 				4EF312F22576D3230032B58D /* PostContentHeaderView.swift in Sources */,

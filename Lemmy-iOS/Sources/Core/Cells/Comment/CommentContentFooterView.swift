@@ -43,6 +43,8 @@ class CommentFooterView: UIView {
         $0.axis = .horizontal
         $0.spacing = 20
     }
+    
+    private let hapticGenerator = UIImpactFeedbackGenerator(style: .heavy)
 
     // MARK: - Init
     override init(frame: CGRect) {
@@ -89,9 +91,13 @@ class CommentFooterView: UIView {
     private func setupTargets() {
         showContextButton.addTarget(self, action: #selector(showContextButtonTapped(sender:)), for: .touchUpInside)
         upvoteDownvoteButtons.upvoteButtonTap = {
+            self.hapticGenerator.prepare()
+            self.hapticGenerator.impactOccurred()
             self.upvoteTap?($0, $1, $2)
         }
         upvoteDownvoteButtons.downvoteButtonTap = {
+            self.hapticGenerator.prepare()
+            self.hapticGenerator.impactOccurred()
             self.downvoteTap?($0, $1, $2)
         }
         replyButton.addTarget(self, action: #selector(replyButtonTapped(sender:)), for: .touchUpInside)

@@ -48,7 +48,7 @@ class PostContentHeaderView: UIView {
         $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
     }
     
-    private let showMoreButton = UIButton().then {
+    private let showMoreButton = IncreasedTapAreaButton().then {
         let image = Config.Image.ellipsis
         $0.setImage(image, for: .normal)
     }
@@ -85,7 +85,7 @@ class PostContentHeaderView: UIView {
         $0.spacing = 8
     }
     
-    private let hapticGenerator = UIImpactFeedbackGenerator(style: .medium)
+    private let hapticGenerator = UIImpactFeedbackGenerator(style: .light)
     
     override init(frame: CGRect) {
         super.init(frame: .zero)

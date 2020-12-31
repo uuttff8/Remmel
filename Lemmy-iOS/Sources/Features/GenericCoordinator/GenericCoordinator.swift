@@ -92,6 +92,11 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
     }
         
     func goToWriteComment(postId: Int, parrentComment: LemmyModel.CommentView?) {
+        // TODO(uuttff8): Move this code to another component
+        let haptic = UIImpactFeedbackGenerator(style: .light)
+        haptic.prepare()
+        haptic.impactOccurred()
+        
         let assembly = WriteCommentAssembly(parentComment: parrentComment, postId: postId)
         let vc = assembly.makeModule()
         let navigationController = StyledNavigationController(rootViewController: vc)

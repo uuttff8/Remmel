@@ -67,7 +67,7 @@ class CommentHeaderView: UIView {
         $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
     }
     
-    private let showMoreButton = UIButton().then {
+    private let showMoreButton = IncreasedTapAreaButton().then {
         let image = Config.Image.ellipsis
         $0.setImage(image, for: .normal)
     }
@@ -99,6 +99,8 @@ class CommentHeaderView: UIView {
         $0.alignment = .leading
         $0.spacing = 8
     }
+
+    private let hapticGenerator = UIImpactFeedbackGenerator(style: .light)
 
     // MARK: - Init
     override init(frame: CGRect) {
@@ -181,6 +183,8 @@ class CommentHeaderView: UIView {
     }
     
     @objc private func showMoreButtonTapped(sender: UIButton!) {
+        self.hapticGenerator.prepare()
+        self.hapticGenerator.impactOccurred()
         showMoreTap?()
     }
 }
