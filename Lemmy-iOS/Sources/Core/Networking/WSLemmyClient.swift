@@ -16,7 +16,6 @@ class WSLemmyClient {
     private var webSocketTask: URLSessionWebSocketTask?
     private let urlSession: URLSession
     
-    private let requestQueue = DispatchQueue(label: "Lemmy-iOS.RequestQueue")
     private let encoder = JSONEncoder()
     
     init(url: URL) {
@@ -30,7 +29,6 @@ class WSLemmyClient {
     @available(*, deprecated, message: "Legacy method, use use full-flow connect()")
     func asyncSend<D: Codable>(on endpoint: String, data: D? = nil) -> AnyPublisher<String, LemmyGenericError> {
         asyncWrapper(url: endpoint, data: data)
-            .receive(on: requestQueue)
             .eraseToAnyPublisher()
     }
     

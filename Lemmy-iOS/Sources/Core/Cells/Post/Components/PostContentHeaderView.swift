@@ -85,6 +85,8 @@ class PostContentHeaderView: UIView {
         $0.spacing = 8
     }
     
+    private let hapticGenerator = UIImpactFeedbackGenerator(style: .medium)
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
                 
@@ -138,6 +140,8 @@ class PostContentHeaderView: UIView {
     }
     
     @objc private func showMoreButtonTapped(sender: UIButton!) {
+        self.hapticGenerator.prepare()
+        self.hapticGenerator.impactOccurred()
         showMoreButtonTap?()
     }
     

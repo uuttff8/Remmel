@@ -66,7 +66,6 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
-                
                 self.viewController?.displayPosts(
                     viewModel: .init(
                         state: .result(data: response.posts)

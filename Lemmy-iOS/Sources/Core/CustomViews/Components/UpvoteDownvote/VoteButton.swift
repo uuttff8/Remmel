@@ -58,6 +58,11 @@ final class VoteButton: ScaledButton {
         super.init(frame: .zero)
     }
     
+    // increase tap area
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        return bounds.insetBy(dx: -10, dy: -10).contains(point)
+    }
+    
     // MARK: - Public API
     func setVoted(to type: LemmyVoteType) {
         self.scoreValue = type

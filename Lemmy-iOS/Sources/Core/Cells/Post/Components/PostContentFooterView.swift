@@ -20,7 +20,7 @@ class PostContentFooterView: UIView {
     // MARK: - Properties
     var upvoteButtonTap: ((VoteButtonsWithScoreView, VoteButton, LemmyVoteType) -> Void)?
     var downvoteButtonTap: ((VoteButtonsWithScoreView, VoteButton, LemmyVoteType) -> Void)?
-        
+            
     private let upvoteDownvoteButtons = VoteButtonsWithScoreView()
     
     private let commentBtn = UIButton().then {
@@ -35,6 +35,8 @@ class PostContentFooterView: UIView {
         $0.spacing = 8
         $0.alignment = .leading
     }
+    
+    private let hapticGenerator = UIImpactFeedbackGenerator(style: .heavy)
     
     private var viewData: ViewData?
     
@@ -80,9 +82,13 @@ class PostContentFooterView: UIView {
     // MARK: - Private
     private func setupTargets() {
         upvoteDownvoteButtons.upvoteButtonTap = {
+            self.hapticGenerator.prepare()
+            self.hapticGenerator.impactOccurred()
             self.upvoteButtonTap?($0, $1, $2)
         }
         upvoteDownvoteButtons.downvoteButtonTap = {
+            self.hapticGenerator.prepare()
+            self.hapticGenerator.impactOccurred()
             self.downvoteButtonTap?($0, $1, $2)
         }
     }    

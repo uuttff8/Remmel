@@ -126,8 +126,8 @@ extension CommunityScreenViewController.View: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
-        tableView.snp.makeConstraints { (make) in
-            make.edges.equalTo(self.safeAreaLayoutGuide)
+        tableView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
     }
 }
