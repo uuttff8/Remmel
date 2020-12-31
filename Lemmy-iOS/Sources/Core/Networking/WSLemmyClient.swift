@@ -35,12 +35,14 @@ class WSLemmyClient {
     private func asyncWrapper<D: Codable>(url: String, data: D? = nil) -> AnyPublisher<String, LemmyGenericError> {
         Future { [self] promise in
             
-            guard let reqStr = makeRequestString(url: url, data: data)
-            else { return promise(.failure("Can't make request string".toLemmyError)) }
+            guard let reqStr = makeRequestString(url: url, data: data) else {
+                return promise(.failure("Can't make request string".toLemmyError))
+            }
             Logger.commonLog.info(reqStr)
             
             let wsMessage = createWebsocketMessage(request: reqStr)
             
+            // Creating new websocket task to use API as Rest API, it is faster than HTTP
             self.webSocketTask = urlSession.webSocketTask(with: instanceUrl)
             webSocketTask?.resume()
             
@@ -55,13 +57,15 @@ class WSLemmyClient {
                 case let .success(messageType):
                     promise(.success(self.handleMessage(type: messageType)))
                     
-                    self.webSocketTask?.cancel()
+                    // if we call websocketTask?.cancel() then new connection will not be performed
                     self.webSocketTask = nil
                 case let .failure(error):
                     promise(.failure(LemmyGenericError.error(error)))
+                    
+                    // see above
+                    self.webSocketTask = nil
                 }
             }
-            
         }.eraseToAnyPublisher()
     }
     
