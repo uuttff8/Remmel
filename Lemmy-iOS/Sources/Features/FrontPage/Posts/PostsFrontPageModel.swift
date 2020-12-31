@@ -31,7 +31,7 @@ class PostsFrontPageModel: NSObject {
         }
     }
     
-    var currentListingType: LemmyPostListingType {
+    var currentListingType: LemmyListingType {
         get { contentPreferenceService.listingType }
         set {
             self.currentPage = 1

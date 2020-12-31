@@ -30,7 +30,7 @@ class CommentsFrontPageModel: NSObject {
     }
     
     // at init always all
-    var currentFeedType: LemmyPostListingType = LemmyPostListingType.all {
+    var currentFeedType: LemmyListingType = LemmyListingType.all {
         didSet {
             print(currentFeedType)
         }
@@ -122,7 +122,7 @@ extension CommentsFrontPageModel: FrontPageHeaderCellDelegate {
         self.loadComments()
     }
     
-    func feedTypeChanged(to feed: LemmyPostListingType) {
+    func feedTypeChanged(to feed: LemmyListingType) {
         self.currentFeedType = feed
         self.loadComments()
     }

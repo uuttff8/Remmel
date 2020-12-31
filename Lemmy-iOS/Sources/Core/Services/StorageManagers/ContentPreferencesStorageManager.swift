@@ -10,7 +10,7 @@ import Foundation
 
 protocol ContentPreferencesStorageManagerProtocol: AnyObject {
     var contentSortType: LemmySortType { get set }
-    var listingType: LemmyPostListingType { get set }
+    var listingType: LemmyListingType { get set }
 }
 
 final class ContentPreferencesStorageManager: ContentPreferencesStorageManagerProtocol {
@@ -33,10 +33,10 @@ final class ContentPreferencesStorageManager: ContentPreferencesStorageManagerPr
         }
     }
     
-    var listingType: LemmyPostListingType {
+    var listingType: LemmyListingType {
         get {
             if let stringValue = UserDefaults.appShared.string(forKey: Key.listingType.rawValue),
-               let listingType = LemmyPostListingType(rawValue: stringValue) {
+               let listingType = LemmyListingType(rawValue: stringValue) {
                 return listingType
             }
             

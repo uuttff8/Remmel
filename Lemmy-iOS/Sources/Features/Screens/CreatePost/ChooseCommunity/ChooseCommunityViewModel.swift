@@ -43,7 +43,7 @@ class ChooseCommunityViewModel: ChooseCommunityViewModelProtocol {
     func doSearchCommunities(request: ChooseCommunity.SearchCommunities.Request) {
         let params = LemmyModel.Search.SearchRequest(query: request.query,
                                                      type: .communities,
-                                                     sort: .all,
+                                                     sort: .topAll,
                                                      page: 1,
                                                      limit: 100,
                                                      communityId: nil,

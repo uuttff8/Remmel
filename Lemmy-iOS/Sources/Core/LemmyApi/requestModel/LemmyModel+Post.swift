@@ -13,7 +13,7 @@ extension LemmyModel {
                 
         // MARK: - GetPosts -
         struct GetPostsRequest: Codable, Equatable {
-            let type: LemmyPostListingType
+            let type: LemmyListingType
             let sort: LemmySortType
             let page: Int?
             let limit: Int?

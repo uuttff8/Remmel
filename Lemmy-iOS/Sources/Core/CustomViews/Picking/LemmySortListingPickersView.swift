@@ -10,45 +10,26 @@ import UIKit
 
 class LemmySortListingPickersView: UIView {
     
-    enum PostListingAdapted: String, Codable, CaseIterable, LemmyTypePickable {
-        case all = "All"
-        case subscribed = "Subscribed"
-        
-        var toInitiallyListing: LemmyPostListingType {
-            switch self {
-            case .all: return LemmyPostListingType.all
-            case .subscribed: return LemmyPostListingType.subscribed
-            }
-        }
-        
-        var label: String {
-            switch self {
-            case .all: return "All"
-            case .subscribed: return "Subscribed"
-            }
-        }
-    }
-    
     var sortFirstPick: LemmySortType = .active {
         didSet {
             sortTypeView.currentPick = sortFirstPick
         }
     }
     
-    var listingFirstPick: PostListingAdapted = .all {
+    var listingFirstPick: LemmyListingType = .all {
         didSet {
             listingTypeView.currentPick = listingFirstPick
         }
     }
     
     lazy var sortTypeView = LemmyImageTextTypePicker(
-        cases: LemmySortType.reallySort,
+        cases: LemmySortType.allCases,
         firstPicked: sortFirstPick,
         image: Config.Image.sortType
     )
     
     lazy var listingTypeView = LemmyImageTextTypePicker(
-        cases: PostListingAdapted.allCases,
+        cases: LemmyListingType.postListing,
         firstPicked: listingFirstPick,
         image: Config.Image.postListing
     )

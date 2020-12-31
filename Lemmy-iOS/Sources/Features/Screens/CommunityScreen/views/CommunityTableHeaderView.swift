@@ -25,7 +25,7 @@ final class CommunityTableHeaderView: UIView {
     }
         
     let communityHeaderView = CommunityHeaderView()
-    let contentTypeView = LemmyImageTextTypePicker(cases: LemmySortType.reallySort,
+    let contentTypeView = LemmyImageTextTypePicker(cases: LemmySortType.allCases,
                                                    firstPicked: LemmySortType.active,
                                                    image: Config.Image.sortType)
     

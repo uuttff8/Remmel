@@ -51,16 +51,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FB2B83CB-A414-42C3-88A3-E59700E575F9"
+            uuid = "51AB95BF-97F8-42F3-81B8-1BEA84A40E61"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Lemmy-iOS/Sources/Features/Screens/ProfileScreen/Submodules/ProfileScreenPosts/ProfileScreenPostsViewController.swift"
+            filePath = "Lemmy-iOS/Sources/Core/Networking/Objects/RequestsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "postCellDidSelected(postId:)"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "asyncDecode(data:parsingFromData:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DC1EAA43-BC8B-4209-AFF4-39EDC1FB372D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Lemmy-iOS/Sources/Core/Networking/Objects/RequestsManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "asyncDecode(data:parsingFromData:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
