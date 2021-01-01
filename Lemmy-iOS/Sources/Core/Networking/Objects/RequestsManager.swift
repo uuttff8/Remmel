@@ -46,8 +46,8 @@ class RequestsManager {
     }
     
     convenience init() {
-        self.init(instanceUrl: LemmyShareData.shared.currentInstanceUrl
-                  , isNewInstance: false)!
+        self.init(instanceUrl: LemmyShareData.shared.currentInstanceUrl,
+                  isNewInstance: false)!
     }
     
     func asyncRequestDecodable<Req: Codable, Res: Codable>(
@@ -56,7 +56,7 @@ class RequestsManager {
         parsingFromDataKey rootKey: Bool = true
     ) -> AnyPublisher<Res, LemmyGenericError> {
         
-        if isNewInstanceConnection {
+        if !isNewInstanceConnection {
             self.wsClient.instanceUrl = createInstanceFullUrl(instanceUrl: LemmyShareData.shared.currentInstanceUrl)!
         }
         Logger.commonLog.info("Trying to connect to \(self.wsClient.instanceUrl) instace")
