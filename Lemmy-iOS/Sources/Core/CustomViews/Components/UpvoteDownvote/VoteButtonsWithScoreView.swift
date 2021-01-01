@@ -28,13 +28,8 @@ class VoteButtonsWithScoreView: UIView {
         $0.spacing = 8
     }
     
-    let upvoteBtn = VoteButton(voteType: .top).then {
-        $0.setImage(Config.Image.arrowUp, for: .normal)
-    }
-    
-    let downvoteBtn = VoteButton(voteType: .down).then {
-        $0.setImage(Config.Image.arrowDown, for: .normal)
-    }
+    let upvoteBtn = VoteButton(voteType: .top)
+    let downvoteBtn = VoteButton(voteType: .down)
     
     private let scoreLabel = UILabel().then {
         $0.textAlignment = .center
@@ -165,7 +160,7 @@ extension VoteButtonsWithScoreView: ProgrammaticallyViewProtocol {
         )
     }
     
-    func makeConstraints() {
+    func makeConstraints() {        
         stackView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }

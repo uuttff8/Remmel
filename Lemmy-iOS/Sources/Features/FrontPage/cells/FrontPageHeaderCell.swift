@@ -56,7 +56,7 @@ class FrontPageHeaderCell: UITableViewCell {
 
     let customView: FrontPageHeaderView
 
-    init(contentSelected: LemmyContentType, postListing: LemmyPostListingType) {
+    init(contentSelected: LemmyContentType, postListing: LemmyListingType) {
         self.customView = FrontPageHeaderView(contentSelected: contentSelected)
 
         super.init(style: .default, reuseIdentifier: nil)

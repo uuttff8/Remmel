@@ -21,7 +21,7 @@ extension Instance {
     
     @NSManaged public var managedLabel: String?
     @NSManaged public var managedIconUrl: String?
-    @NSManaged public var managedAccounts: NSSet?
+    @NSManaged public var managedAccounts: Set<Account>?
 }
 
 // Swift wrapper
@@ -37,12 +37,11 @@ extension Instance {
     }
     
     var accounts: [Account] {
-        self.managedAccounts?.allObjects as! [Account] 
+        Array(self.managedAccounts!)
     }
     
-    func addAccount(_ account: Account) {
-        var mutableItems = self.managedAccounts?.allObjects as! [Account]
-        mutableItems += [account]
-        self.managedAccounts = NSSet(array: mutableItems)
-    }
+    @NSManaged public func addAccountItemsObject(value: Account)
+    @NSManaged public func removeAccountItemsObject(value: Account)
+    @NSManaged public func addAccountItems(values: Set<Account>)
+    @NSManaged public func removeAccountItems(values: Set<Account>)
 }

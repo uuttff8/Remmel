@@ -43,14 +43,10 @@ class PostsFrontPageViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.showActivityIndicator()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.showActivityIndicator()
         viewModel.loadPosts()
         setupTableHeaderView()
         
@@ -89,7 +85,7 @@ class PostsFrontPageViewController: UIViewController {
     }
     
     fileprivate func setupTableHeaderView() {
-        pickerView.listingFirstPick = viewModel.currentListingType.asAdapted
+        pickerView.listingFirstPick = viewModel.currentListingType
         pickerView.sortFirstPick = viewModel.currentSortType
         
         pickerView.sortTypeView.addTap {
@@ -101,7 +97,7 @@ class PostsFrontPageViewController: UIViewController {
         }
         
         pickerView.listingTypeView.newCasePicked = { [self] pickedValue in
-            self.viewModel.currentListingType = pickedValue.toInitiallyListing
+            self.viewModel.currentListingType = pickedValue
             
             snapshot.deleteAllItems()
             DispatchQueue.main.async {

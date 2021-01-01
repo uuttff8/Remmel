@@ -49,16 +49,8 @@ enum LemmySortType: String, Codable, CaseIterable, LemmyTypePickable {
     case topWeek = "TopWeek"
     case topMonth = "TopMonth"
     case topYear = "TopYear"
-
     case topAll = "TopAll"
     
-    case all = "All"
-    
-    // all is not included in sorting FronPage
-    static var reallySort: [LemmySortType] {
-        [.active, .hot, .new, topDay, topWeek, topMonth, .topYear, .topAll]
-    }
-
     var label: String {
         switch self {
         case .active: return "Active"
@@ -69,7 +61,6 @@ enum LemmySortType: String, Codable, CaseIterable, LemmyTypePickable {
         case .topMonth: return "Top Month"
         case .topAll: return "Top All"
         case .topYear: return "Top Year"
-        case .all: return "All"
         }
     }
 
@@ -83,7 +74,6 @@ enum LemmySortType: String, Codable, CaseIterable, LemmyTypePickable {
         case .topMonth: return 5
         case .topYear: return 6
         case .topAll: return 7
-        case .all: return 8
         }
     }
 }
@@ -101,33 +91,32 @@ enum LemmySearchSortType: String, Codable {
     }
 }
 
-enum LemmyPostListingType: String, Codable, CaseIterable {
+enum LemmyListingType: String, Codable, CaseIterable, LemmyTypePickable {
     case all = "All"
+    case local = "Local"
     case subscribed = "Subscribed"
     case community = "Community"
     
     var index: Int {
         switch self {
         case .all: return 0
-        case .subscribed: return 1
-        case .community: return 2
+        case .local: return 1
+        case .subscribed: return 2
+        case .community: return 3
         }
     }
     
     var label: String {
         switch self {
-        case .community: return "Community"
         case .all: return "All"
+        case .local: return "Local"
         case .subscribed: return "Subscribed"
+        case .community: return "Community"
         }
     }
     
-    var asAdapted: LemmySortListingPickersView.PostListingAdapted {
-        switch self {
-        case .all: return .all
-        case .subscribed: return .subscribed
-        default: fatalError()
-        }
+    static var postListing: [LemmyListingType] {
+        return [.all, .subscribed, .local]
     }
 }
 

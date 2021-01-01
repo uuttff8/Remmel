@@ -76,7 +76,8 @@ extension CommunitiesPreviewView: ProgrammaticallyViewProtocol {
     
     func makeConstraints() {
         self.tableView.snp.makeConstraints {
-            $0.edges.equalTo(self.safeAreaLayoutGuide)
+            $0.top.bottom.equalToSuperview()
+            $0.leading.trailing.equalTo(self.safeAreaLayoutGuide)
         }
     }
 }
