@@ -44,7 +44,7 @@ class CommentFooterView: UIView {
         $0.spacing = 20
     }
     
-    private let hapticGenerator = UIImpactFeedbackGenerator(style: .heavy)
+    private let hapticGenerator = UIImpactFeedbackGenerator(style: .light)
 
     // MARK: - Init
     override init(frame: CGRect) {

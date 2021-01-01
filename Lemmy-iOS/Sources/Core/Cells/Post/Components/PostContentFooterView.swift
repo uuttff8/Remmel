@@ -36,7 +36,7 @@ class PostContentFooterView: UIView {
         $0.alignment = .leading
     }
     
-    private let hapticGenerator = UIImpactFeedbackGenerator(style: .heavy)
+    private let hapticGenerator = UIImpactFeedbackGenerator(style: .light)
     
     private var viewData: ViewData?
     
@@ -59,6 +59,7 @@ class PostContentFooterView: UIView {
         setupTargets()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

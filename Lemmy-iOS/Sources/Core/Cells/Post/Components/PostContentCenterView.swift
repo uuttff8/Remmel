@@ -45,7 +45,7 @@ class PostContentCenterView: UIView {
     
     private let mainStackView = UIStackView().then {
         $0.axis = .vertical
-        $0.spacing = 10
+        $0.spacing = 0
     }
     
     private let titleImageStackView = UIStackView().then {

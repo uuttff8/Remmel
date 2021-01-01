@@ -60,7 +60,7 @@ final class VoteButton: ScaledButton {
     
     // increase tap area
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        return bounds.insetBy(dx: -10, dy: -10).contains(point)
+        return bounds.insetBy(dx: -20, dy: -20).contains(point)
     }
     
     // MARK: - Public API
