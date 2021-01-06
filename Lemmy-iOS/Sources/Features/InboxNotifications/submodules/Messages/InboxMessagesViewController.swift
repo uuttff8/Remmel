@@ -10,13 +10,14 @@ import UIKit
 
 protocol InboxMessagesViewControllerProtocol: AnyObject {
     func displayMessages(viewModel: InboxMessages.LoadMessages.ViewModel)
+    func displayNextMessages(viewModel: InboxMessages.LoadMessages.ViewModel)
 }
 
 final class InboxMessagesViewController: UIViewController {
     
     private let viewModel: InboxMessagesViewModel
     
-    private lazy var mentionsView = self.view as! InboxMentionsView
+    private lazy var messagesView = self.view as! InboxMessagesView
     private lazy var tableManager = InboxMessagesTableManager().then {
         $0.delegate = self
     }
@@ -49,19 +50,19 @@ final class InboxMessagesViewController: UIViewController {
         }
 
         if case .loading = newState {
-            self.mentionsView.showActivityIndicatorView()
+            self.messagesView.showActivityIndicatorView()
             return
         }
 
         if case .loading = self.state {
-            self.mentionsView.hideActivityIndicatorView()
+            self.messagesView.hideActivityIndicatorView()
         }
 
         if case .result(let data) = newState {
             if data.isEmpty {
-                self.mentionsView.displayNoData()
+                self.messagesView.displayNoData()
             } else {
-                self.mentionsView.updateTableViewData(dataSource: self.tableManager)
+                self.messagesView.updateTableViewData(dataSource: self.tableManager)
             }
         }
     }
@@ -72,6 +73,19 @@ extension InboxMessagesViewController: InboxMessagesViewControllerProtocol {
         guard case .result(let data) = viewModel.state else { return }
         self.tableManager.viewModels = data
         updateState(newState: viewModel.state)
+    }
+    
+    func displayNextMessages(viewModel: InboxMessages.LoadMessages.ViewModel) {
+        guard case let .result(data) = viewModel.state else { return }
+        
+        self.tableManager.viewModels.append(contentsOf: data)
+        self.messagesView.appendNew(data: data)
+        
+        if data.isEmpty {
+            self.canTriggerPagination = false
+        } else {
+            self.canTriggerPagination = true
+        }
     }
 }
 

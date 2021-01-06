@@ -135,5 +135,17 @@ extension LemmyModel {
         struct CreatePrivateMessageResponse: Codable, Equatable {
             let message: PrivateMessageView
         }
+        
+        // MARK: - GetPrivateMessages -
+        struct GetPrivateMessagesRequest: Codable, Equatable {
+            let unread_only: Bool
+            let page: Int?
+            let limit: Int?
+            let auth: String
+        }
+        
+        struct GetPrivateMessagesResponse: Codable, Equatable {
+            let messages: [PrivateMessageView]
+        }
     }
 }

@@ -10,10 +10,10 @@ import UIKit
 
 final class InboxMessagesView: UIView {
     
-    weak var tableManager: PostsTableDataSource?
+    weak var tableManager: InboxMessagesTableManager?
     
     private lazy var tableView = LemmyTableView(style: .plain, separator: false).then {
-        $0.registerClass(PostContentPreviewTableCell.self)
+        $0.registerClass(MessageTableCell.self)
         $0.backgroundColor = .clear
         $0.showsVerticalScrollIndicator = false
     }
@@ -66,7 +66,7 @@ final class InboxMessagesView: UIView {
         makeConstraints()
     }
     
-    func appendNew(data: [LemmyModel.PostView]) {
+    func appendNew(data: [LemmyModel.PrivateMessageView]) {
         self.tableManager?.appendNew(posts: data) { (newIndexpaths) in
             tableView.performBatchUpdates {
                 tableView.insertRows(at: newIndexpaths, with: .none)
@@ -77,7 +77,7 @@ final class InboxMessagesView: UIView {
 
 extension InboxMessagesView: ProgrammaticallyViewProtocol {
     func setupView() {
-        self.backgroundColor = .green
+        self.emptyStateLabel.isHidden = true
     }
     
     func addSubviews() {

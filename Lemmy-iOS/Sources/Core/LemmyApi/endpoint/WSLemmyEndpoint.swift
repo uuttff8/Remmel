@@ -32,7 +32,7 @@ enum WSEndpoint {
         case getUserMentions
         case markUserMentionAsRead
 
-        case getPrivateMessage
+        case getPrivateMessages
         case createPrivateMessage
         case editPrivateMessage
         case deletePrivateMessage
@@ -48,7 +48,7 @@ enum WSEndpoint {
             case .getReplies: return "SaveUserSettings"
             case .getUserMentions: return "GetUserMentions"
             case .markUserMentionAsRead: return "MarkUserMentionAsRead"
-            case .getPrivateMessage: return "GetPrivateMessages"
+            case .getPrivateMessages: return "GetPrivateMessages"
             case .createPrivateMessage: return "CreatePrivateMessage"
             case .editPrivateMessage: return "EditPrivateMessage"
             case .deletePrivateMessage: return "DeletePrivateMessage"

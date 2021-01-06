@@ -70,4 +70,3 @@ extension InboxMessagesTableManager: UITableViewDelegate {
         }
     }
 }
-

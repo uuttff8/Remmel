@@ -33,6 +33,10 @@ private protocol UserRequestManagerProtocol {
     func asyncCreatePrivateMessage(
         parameters: LemmyModel.User.CreatePrivateMessageRequest
     ) -> AnyPublisher<LemmyModel.User.CreatePrivateMessageResponse, LemmyGenericError>
+    
+    func asyncGetPrivateMessages(
+        parameters: LemmyModel.User.GetPrivateMessagesRequest
+    ) -> AnyPublisher<LemmyModel.User.GetPrivateMessagesResponse, LemmyGenericError>
 }
 
 extension RequestsManager: UserRequestManagerProtocol {
@@ -73,5 +77,11 @@ extension RequestsManager: UserRequestManagerProtocol {
         parameters: LemmyModel.User.CreatePrivateMessageRequest
     ) -> AnyPublisher<LemmyModel.User.CreatePrivateMessageResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.User.createPrivateMessage.endpoint, parameters: parameters)
+    }
+    
+    func asyncGetPrivateMessages(
+        parameters: LemmyModel.User.GetPrivateMessagesRequest
+    ) -> AnyPublisher<LemmyModel.User.GetPrivateMessagesResponse, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.User.getPrivateMessages.endpoint, parameters: parameters)
     }
 }
