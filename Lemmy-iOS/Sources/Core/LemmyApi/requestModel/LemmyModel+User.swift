@@ -118,5 +118,22 @@ extension LemmyModel {
         struct GetUserMentionsResponse: Codable, Equatable {
             let mentions: [UserMentionView]
         }
+        
+        // MARK: - CreatePrivateMessage
+        struct CreatePrivateMessageRequest: Codable, Equatable {
+            let content: String
+            let recipientId: Int
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case content
+                case recipientId = "recipient_id"
+                case auth
+            }
+        }
+        
+        struct CreatePrivateMessageResponse: Codable, Equatable {
+            let message: PrivateMessageView
+        }
     }
 }

@@ -230,6 +230,10 @@
 		4ECCEF2F251253B00075F921 /* LemmySearchBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF2E251253B00075F921 /* LemmySearchBarController.swift */; };
 		4ECCEF31251F24AD0075F921 /* LemmyFrontPageNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF30251F24AD0075F921 /* LemmyFrontPageNavBar.swift */; };
 		4ECCEF33251F27170075F921 /* LemmyProfileIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEF32251F27170075F921 /* LemmyProfileIconView.swift */; };
+		4EDDFFEA25A5CFAC006FCB9F /* WriteMessageAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFE925A5CFAC006FCB9F /* WriteMessageAssembly.swift */; };
+		4EDDFFEF25A5CFB8006FCB9F /* WriteMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFEE25A5CFB8006FCB9F /* WriteMessageViewController.swift */; };
+		4EDDFFF425A5CFC1006FCB9F /* WriteMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFF325A5CFC0006FCB9F /* WriteMessageView.swift */; };
+		4EDDFFF925A5CFC8006FCB9F /* WriteMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFF825A5CFC8006FCB9F /* WriteMessageViewModel.swift */; };
 		4EE26859255972590009D2BC /* ProfileScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE26858255972590009D2BC /* ProfileScreenAssembly.swift */; };
 		4EF312E52576D2D10032B58D /* PostContentFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312E42576D2D10032B58D /* PostContentFooterView.swift */; };
 		4EF312ED2576D2EA0032B58D /* PostContentCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312EC2576D2EA0032B58D /* PostContentCenterView.swift */; };
@@ -545,6 +549,10 @@
 		4ECCEF2E251253B00075F921 /* LemmySearchBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmySearchBarController.swift; sourceTree = "<group>"; };
 		4ECCEF30251F24AD0075F921 /* LemmyFrontPageNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyFrontPageNavBar.swift; sourceTree = "<group>"; };
 		4ECCEF32251F27170075F921 /* LemmyProfileIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyProfileIconView.swift; sourceTree = "<group>"; };
+		4EDDFFE925A5CFAC006FCB9F /* WriteMessageAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMessageAssembly.swift; sourceTree = "<group>"; };
+		4EDDFFEE25A5CFB8006FCB9F /* WriteMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMessageViewController.swift; sourceTree = "<group>"; };
+		4EDDFFF325A5CFC0006FCB9F /* WriteMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMessageView.swift; sourceTree = "<group>"; };
+		4EDDFFF825A5CFC8006FCB9F /* WriteMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMessageViewModel.swift; sourceTree = "<group>"; };
 		4EE26858255972590009D2BC /* ProfileScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenAssembly.swift; sourceTree = "<group>"; };
 		4EF312E42576D2D10032B58D /* PostContentFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentFooterView.swift; sourceTree = "<group>"; };
 		4EF312EC2576D2EA0032B58D /* PostContentCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentCenterView.swift; sourceTree = "<group>"; };
@@ -1385,6 +1393,7 @@
 				4EF3131E25782BA90032B58D /* SearchResults */,
 				4EBB22172559EB0E00B88079 /* StyledNavigationController */,
 				4EF31449258166480032B58D /* WriteComment */,
+				4EDDFFE825A5CF90006FCB9F /* WriteMessage */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -1524,6 +1533,17 @@
 				4ECCEF32251F27170075F921 /* LemmyProfileIconView.swift */,
 			);
 			path = NavBar;
+			sourceTree = "<group>";
+		};
+		4EDDFFE825A5CF90006FCB9F /* WriteMessage */ = {
+			isa = PBXGroup;
+			children = (
+				4EDDFFE925A5CFAC006FCB9F /* WriteMessageAssembly.swift */,
+				4EDDFFEE25A5CFB8006FCB9F /* WriteMessageViewController.swift */,
+				4EDDFFF325A5CFC0006FCB9F /* WriteMessageView.swift */,
+				4EDDFFF825A5CFC8006FCB9F /* WriteMessageViewModel.swift */,
+			);
+			path = WriteMessage;
 			sourceTree = "<group>";
 		};
 		4EF312E32576D2B90032B58D /* Post */ = {
@@ -2137,6 +2157,7 @@
 				4E10708E2534F7A7009EABDA /* LoginData.swift in Sources */,
 				4E1A7E6B25573F1800E193B7 /* ProfileScreenViewModel.swift in Sources */,
 				4E87C69A258E67B60007FE5E /* InstancesViewController.swift in Sources */,
+				4EDDFFF925A5CFC8006FCB9F /* WriteMessageViewModel.swift in Sources */,
 				4EF3ACFF2550757200BEC9F1 /* MarkdownParsedViewController.swift in Sources */,
 				4E1070602534770B009EABDA /* CommentsFrontPageViewController.swift in Sources */,
 				4EF3AC95254B60F000BEC9F1 /* CreateCommunityImagesCell.swift in Sources */,
@@ -2236,6 +2257,7 @@
 				4EFA81E82561EFBD008AF535 /* CommunityTableHeaderView.swift in Sources */,
 				4E0A8E71255D58E400B06AF6 /* ProfileScreenAboutUI.swift in Sources */,
 				4EBF1D582592365A004068CD /* Logger.swift in Sources */,
+				4EDDFFEF25A5CFB8006FCB9F /* WriteMessageViewController.swift in Sources */,
 				4EFA81BB255FFD14008AF535 /* FrontPageAssembly.swift in Sources */,
 				4E886C36253872D10076B162 /* RegisterViewModel.swift in Sources */,
 				4E10709D25361846009EABDA /* AuthenticationView.swift in Sources */,
@@ -2262,6 +2284,7 @@
 				4E8165722562D08B00907D31 /* ProfileScreenTableHeaderView.swift in Sources */,
 				4ECCEF2B250FF56A0075F921 /* CommunityPreviewTableCell.swift in Sources */,
 				4E886C2125364EC30076B162 /* UserRequests.swift in Sources */,
+				4EDDFFEA25A5CFAC006FCB9F /* WriteMessageAssembly.swift in Sources */,
 				4EBB2258255AE6E600B88079 /* ProfileScreenPostsViewController.swift in Sources */,
 				4E91850C256E9EAA00702F04 /* AbstractComment.swift in Sources */,
 				4E87C6A4258E68560007FE5E /* InstancesAssembly.swift in Sources */,
@@ -2291,6 +2314,7 @@
 				4EF3ACEA25502D5600BEC9F1 /* CommunityHeaderView.swift in Sources */,
 				4E2A0F9F259B854300BF0841 /* CodingUserInfoKey+Ext.swift in Sources */,
 				4EF313AA257BDF6E0032B58D /* ShowMoreHandlerService.swift in Sources */,
+				4EDDFFF425A5CFC1006FCB9F /* WriteMessageView.swift in Sources */,
 				4E886C8D253F51B90076B162 /* CreatePostViewModel.swift in Sources */,
 				4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */,
 				4E886C17253626950076B162 /* RegisterView.swift in Sources */,

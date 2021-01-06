@@ -29,6 +29,10 @@ private protocol UserRequestManagerProtocol {
     func asyncMarkUserMentionAsRead<Req: Codable, Res: Codable>(
         parameters: Req
     ) -> AnyPublisher<Res, LemmyGenericError>
+    
+    func asyncCreatePrivateMessage(
+        parameters: LemmyModel.User.CreatePrivateMessageRequest
+    ) -> AnyPublisher<LemmyModel.User.CreatePrivateMessageResponse, LemmyGenericError>
 }
 
 extension RequestsManager: UserRequestManagerProtocol {
@@ -63,5 +67,11 @@ extension RequestsManager: UserRequestManagerProtocol {
         parameters: Req
     ) -> AnyPublisher<Res, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.User.markUserMentionAsRead.endpoint, parameters: parameters)
+    }
+    
+    func asyncCreatePrivateMessage(
+        parameters: LemmyModel.User.CreatePrivateMessageRequest
+    ) -> AnyPublisher<LemmyModel.User.CreatePrivateMessageResponse, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.User.createPrivateMessage.endpoint, parameters: parameters)
     }
 }

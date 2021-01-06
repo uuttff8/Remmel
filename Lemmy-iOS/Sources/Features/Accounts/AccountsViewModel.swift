@@ -74,6 +74,7 @@ final class AccountsViewModel: AccountsViewModelProtocol {
         
     private func fetchUser(with jwtToken: String) {
         self.loadUserOnSuccessResponse(jwt: jwtToken) { (currentUser: LemmyModel.MyUser) in
+            self.shareData.userdata = currentUser
             self.viewController?.displayAccountSelected(viewModel: .init(myUser: currentUser))
         }
     }
@@ -88,9 +89,12 @@ final class AccountsViewModel: AccountsViewModelProtocol {
             .sink(receiveCompletion: { (completion) in
                 Logger.logCombineCompletion(completion)
             }, receiveValue: { (response) in
-                self.shareData.userdata = response.myUser
+                guard let myUser = response.myUser
+                else {
+                    Logger.commonLog.error("There is no current user in response")
+                    return
+                }
                 
-                guard let myUser = response.myUser else { return }
                 completion(myUser)
             }).store(in: &cancellables)
     }
