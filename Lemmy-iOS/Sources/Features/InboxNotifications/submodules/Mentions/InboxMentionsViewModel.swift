@@ -11,12 +11,15 @@ import Combine
 
 protocol InboxMentionsViewModelProtocol {
     func doLoadMentions(request: InboxMentions.LoadMentions.Request)
+    func doNextLoadMentions(request: InboxMentions.LoadMentions.Request)
 }
 
 final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
     weak var viewController: InboxMentionsViewControllerProtocol?
     
     private let userAccountService: UserAccountService
+    
+    private var paginationState = 1
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -27,13 +30,38 @@ final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
     }
     
     func doLoadMentions(request: InboxMentions.LoadMentions.Request) {
+        self.paginationState = 1
+        
         guard let jwt = userAccountService.jwtToken else {
             Logger.commonLog.error("No jwt token found")
             return
         }
         
         let params = LemmyModel.User.GetUserMentionsRequest(sort: .active,
-                                                            page: 1,
+                                                            page: paginationState,
+                                                            limit: 50,
+                                                            unreadOnly: false,
+                                                            auth: jwt)
+        
+        ApiManager.requests.asyncGetUserMentions(parameters: params)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
+            } receiveValue: { (response) in
+                self.viewController?.displayMentions(viewModel: .init(state: .result(response.mentions)))
+            }.store(in: &cancellables)
+    }
+    
+    func doNextLoadMentions(request: InboxMentions.LoadMentions.Request) {
+        self.paginationState += 1
+        
+        guard let jwt = userAccountService.jwtToken else {
+            Logger.commonLog.error("No jwt token found")
+            return
+        }
+        
+        let params = LemmyModel.User.GetUserMentionsRequest(sort: .active,
+                                                            page: paginationState,
                                                             limit: 50,
                                                             unreadOnly: false,
                                                             auth: jwt)

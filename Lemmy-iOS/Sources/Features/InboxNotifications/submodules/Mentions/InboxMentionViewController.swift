@@ -10,6 +10,7 @@ import UIKit
 
 protocol InboxMentionsViewControllerProtocol: AnyObject {
     func displayMentions(viewModel: InboxMentions.LoadMentions.ViewModel)
+    func displayNextMentions(viewModel: InboxMentions.LoadMentions.ViewModel)
 }
 
 final class InboxMentionsViewController: UIViewController {
@@ -73,10 +74,26 @@ extension InboxMentionsViewController: InboxMentionsViewControllerProtocol {
         self.tableManager.viewModels = data
         updateState(newState: viewModel.state)
     }
+    
+    func displayNextMentions(viewModel: InboxMentions.LoadMentions.ViewModel) {
+        guard case let .result(data) = viewModel.state else { return }
+        
+        self.tableManager.viewModels.append(contentsOf: data)
+        self.mentionsView.appendNew(data: data)
+        
+        if data.isEmpty {
+            self.canTriggerPagination = false
+        } else {
+            self.canTriggerPagination = true
+        }
+    }
 }
 
 extension InboxMentionsViewController: InboxMentionsTableManagerDelegate {
     func tableDidRequestPagination(_ tableManager: InboxMentionsTableManager) {
+        guard self.canTriggerPagination else { return }
         
+        self.canTriggerPagination = false
+        self.viewModel.doNextLoadMentions(request: .init())
     }
 }

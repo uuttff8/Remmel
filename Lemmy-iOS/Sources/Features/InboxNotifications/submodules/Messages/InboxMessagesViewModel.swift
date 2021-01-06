@@ -15,8 +15,23 @@ protocol InboxMessagesViewModelProtocol {
 final class InboxMessagesViewModel: InboxMessagesViewModelProtocol {
     weak var viewController: InboxMessagesViewControllerProtocol?
     
+    private let userAccountService: UserAccountService
+    
+    private var paginationState = 1
+    
+    init(
+        userAccountService: UserAccountService
+    ) {
+        self.userAccountService = userAccountService
+    }
+    
     func doLoadMessages(request: InboxMessages.LoadMessages.Request) {
-
+        guard let jwt = userAccountService.jwtToken else {
+            Logger.commonLog.error("No jwt token is found")
+            return
+        }
+        
+//        let params = LemmyModel.User.
     }
 }
 
@@ -37,7 +52,7 @@ enum InboxMessages {
     }
     
     enum ViewControllerState {
-        case result([LemmyModel.UserMentionView])
+        case result([LemmyModel.PrivateMessageView])
         case loading
     }
 }

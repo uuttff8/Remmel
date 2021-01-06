@@ -16,10 +16,20 @@ final class InboxMessagesViewController: UIViewController {
     
     private let viewModel: InboxMessagesViewModel
     
+    private lazy var mentionsView = self.view as! InboxMentionsView
+    private lazy var tableManager = InboxMessagesTableManager().then {
+        $0.delegate = self
+    }
+    
+    private var state: InboxMessages.ViewControllerState
+    private var canTriggerPagination = true
+
     init(
-        viewModel: InboxMessagesViewModel
+        viewModel: InboxMessagesViewModel,
+        initialState: InboxMessages.ViewControllerState = .loading
     ) {
         self.viewModel = viewModel
+        self.state = initialState
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -32,11 +42,41 @@ final class InboxMessagesViewController: UIViewController {
         let view = InboxMessagesView()
         self.view = view
     }
+    
+    private func updateState(newState: InboxMessages.ViewControllerState) {
+        defer {
+            self.state = newState
+        }
+
+        if case .loading = newState {
+            self.mentionsView.showActivityIndicatorView()
+            return
+        }
+
+        if case .loading = self.state {
+            self.mentionsView.hideActivityIndicatorView()
+        }
+
+        if case .result(let data) = newState {
+            if data.isEmpty {
+                self.mentionsView.displayNoData()
+            } else {
+                self.mentionsView.updateTableViewData(dataSource: self.tableManager)
+            }
+        }
+    }
 }
 
 extension InboxMessagesViewController: InboxMessagesViewControllerProtocol {
     func displayMessages(viewModel: InboxMessages.LoadMessages.ViewModel) {
-        
+        guard case .result(let data) = viewModel.state else { return }
+        self.tableManager.viewModels = data
+        updateState(newState: viewModel.state)
     }
 }
 
+extension InboxMessagesViewController: InboxMessagesTableManagerDelegate {
+    func tableDidRequestPagination(_ tableManager: InboxMessagesTableManager) {
+        
+    }
+}

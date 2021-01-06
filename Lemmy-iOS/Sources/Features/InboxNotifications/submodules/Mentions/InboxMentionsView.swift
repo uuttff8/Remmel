@@ -10,7 +10,7 @@ import UIKit
 
 final class InboxMentionsView: UIView {
     
-    weak var tableManager: PostsTableDataSource?
+    weak var tableManager: InboxMentionsTableManager?
     
     private lazy var tableView = LemmyTableView(style: .plain, separator: false).then {
         $0.registerClass(PostContentPreviewTableCell.self)
@@ -45,6 +45,8 @@ final class InboxMentionsView: UIView {
     }
     
     func updateTableViewData(dataSource: UITableViewDataSource) {
+        self.tableView.isHidden = false
+        self.emptyStateLabel.isHidden = true
         self.hideActivityIndicator()
         _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
 //            self.emptyStateLabel.isHidden = numberOfRows != 0
@@ -64,7 +66,7 @@ final class InboxMentionsView: UIView {
         makeConstraints()
     }
     
-    func appendNew(data: [LemmyModel.PostView]) {
+    func appendNew(data: [LemmyModel.UserMentionView]) {
         self.tableManager?.appendNew(posts: data) { (newIndexpaths) in
             tableView.performBatchUpdates {
                 tableView.insertRows(at: newIndexpaths, with: .none)

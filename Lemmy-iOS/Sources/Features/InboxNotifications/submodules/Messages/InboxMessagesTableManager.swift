@@ -1,5 +1,5 @@
 //
-//  InboxMentionsTableManager.swift
+//  InboxMessagesTableManager.swift
 //  Lemmy-iOS
 //
 //  Created by uuttff8 on 06.01.2021.
@@ -8,29 +8,29 @@
 
 import UIKit
 
-protocol InboxMentionsTableManagerDelegate: AnyObject {
-    func tableDidRequestPagination(_ tableManager: InboxMentionsTableManager)
+protocol InboxMessagesTableManagerDelegate: AnyObject {
+    func tableDidRequestPagination(_ tableManager: InboxMessagesTableManager)
 }
 
-final class InboxMentionsTableManager: NSObject {
-    weak var delegate: InboxMentionsTableManagerDelegate?
+final class InboxMessagesTableManager: NSObject {
+    weak var delegate: InboxMessagesTableManagerDelegate?
     
-    var viewModels: [LemmyModel.UserMentionView]
+    var viewModels: [LemmyModel.PrivateMessageView]
     
-    init(viewModels: [LemmyModel.UserMentionView] = []) {
+    init(viewModels: [LemmyModel.PrivateMessageView] = []) {
         self.viewModels = viewModels
         super.init()
     }
     
     // MARK: - Public API
     
-    func update(viewModel: LemmyModel.UserMentionView) {
+    func update(viewModel: LemmyModel.PrivateMessageView) {
         if let index = self.viewModels.firstIndex(where: { $0.id == viewModel.id }) {
             self.viewModels[index] = viewModel
         }
     }
     
-    func appendNew(posts: [LemmyModel.UserMentionView], completion: (_ indexPaths: [IndexPath]) -> Void) {
+    func appendNew(posts: [LemmyModel.PrivateMessageView], completion: (_ indexPaths: [IndexPath]) -> Void) {
         let startIndex = viewModels.count - posts.count
         let endIndex = startIndex + posts.count
         
@@ -46,7 +46,7 @@ final class InboxMentionsTableManager: NSObject {
 }
 
 // MARK: - UITableViewDataSource -
-extension InboxMentionsTableManager: UITableViewDataSource {
+extension InboxMessagesTableManager: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModels.count
     }
@@ -56,13 +56,13 @@ extension InboxMentionsTableManager: UITableViewDataSource {
         cell.updateConstraintsIfNeeded()
         
         let viewModel = self.viewModels[indexPath.row]
-//        cell.configure(viewModel: viewModel)
+        cell.configure(viewModel: viewModel)
         
         return cell
     }
 }
 
-extension InboxMentionsTableManager: UITableViewDelegate {
+extension InboxMessagesTableManager: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 5,
            tableView.numberOfSections == 1 {
@@ -70,3 +70,4 @@ extension InboxMentionsTableManager: UITableViewDelegate {
         }
     }
 }
+

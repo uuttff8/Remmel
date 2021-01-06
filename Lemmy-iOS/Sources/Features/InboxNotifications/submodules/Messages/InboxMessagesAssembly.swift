@@ -13,7 +13,7 @@ final class InboxMessagesAssembly: Assembly {
     var moduleInput: InboxMessagesInputProtocol?
     
     func makeModule() -> InboxMessagesViewController {
-        let viewModel = InboxMessagesViewModel()
+        let viewModel = InboxMessagesViewModel(userAccountService: UserAccountService())
         let vc = InboxMessagesViewController(viewModel: viewModel)
         
         viewModel.viewController = vc
@@ -21,4 +21,3 @@ final class InboxMessagesAssembly: Assembly {
         return vc
     }
 }
-

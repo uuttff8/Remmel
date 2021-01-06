@@ -248,7 +248,9 @@
 		4EDD007625A5F4A6006FCB9F /* InboxMessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD007525A5F4A6006FCB9F /* InboxMessagesViewModel.swift */; };
 		4EDD007B25A5F4AF006FCB9F /* InboxMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD007A25A5F4AF006FCB9F /* InboxMessagesView.swift */; };
 		4EDD008625A60F1D006FCB9F /* InboxMentionsTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD008525A60F1D006FCB9F /* InboxMentionsTableManager.swift */; };
-		4EDD008C25A60FCB006FCB9F /* MentionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD008B25A60FCB006FCB9F /* MentionTableCell.swift */; };
+		4EDD008C25A60FCB006FCB9F /* MessageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD008B25A60FCB006FCB9F /* MessageTableCell.swift */; };
+		4EDD009125A61A1D006FCB9F /* MentionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD009025A61A1D006FCB9F /* MentionCellView.swift */; };
+		4EDD009C25A61AB4006FCB9F /* InboxMessagesTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD009B25A61AB4006FCB9F /* InboxMessagesTableManager.swift */; };
 		4EDDFFEA25A5CFAC006FCB9F /* WriteMessageAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFE925A5CFAC006FCB9F /* WriteMessageAssembly.swift */; };
 		4EDDFFEF25A5CFB8006FCB9F /* WriteMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFEE25A5CFB8006FCB9F /* WriteMessageViewController.swift */; };
 		4EDDFFF425A5CFC1006FCB9F /* WriteMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFF325A5CFC0006FCB9F /* WriteMessageView.swift */; };
@@ -587,7 +589,9 @@
 		4EDD007525A5F4A6006FCB9F /* InboxMessagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesViewModel.swift; sourceTree = "<group>"; };
 		4EDD007A25A5F4AF006FCB9F /* InboxMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesView.swift; sourceTree = "<group>"; };
 		4EDD008525A60F1D006FCB9F /* InboxMentionsTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMentionsTableManager.swift; sourceTree = "<group>"; };
-		4EDD008B25A60FCB006FCB9F /* MentionTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionTableCell.swift; sourceTree = "<group>"; };
+		4EDD008B25A60FCB006FCB9F /* MessageTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableCell.swift; sourceTree = "<group>"; };
+		4EDD009025A61A1D006FCB9F /* MentionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionCellView.swift; sourceTree = "<group>"; };
+		4EDD009B25A61AB4006FCB9F /* InboxMessagesTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesTableManager.swift; sourceTree = "<group>"; };
 		4EDDFFE925A5CFAC006FCB9F /* WriteMessageAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMessageAssembly.swift; sourceTree = "<group>"; };
 		4EDDFFEE25A5CFB8006FCB9F /* WriteMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMessageViewController.swift; sourceTree = "<group>"; };
 		4EDDFFF325A5CFC0006FCB9F /* WriteMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMessageView.swift; sourceTree = "<group>"; };
@@ -1536,7 +1540,7 @@
 		4ECCEF0F250CEFF80075F921 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				4EDD008A25A60FBE006FCB9F /* Mention */,
+				4EDD008A25A60FBE006FCB9F /* Message */,
 				4E7CFCBF25841AE80082AC3D /* WriteCommentParentPreviewCell */,
 				4EF312E32576D2B90032B58D /* Post */,
 				4E9185B52570644900702F04 /* Comment */,
@@ -1617,16 +1621,18 @@
 				4EDD007025A5F4A0006FCB9F /* InboxMessagesViewController.swift */,
 				4EDD007525A5F4A6006FCB9F /* InboxMessagesViewModel.swift */,
 				4EDD007A25A5F4AF006FCB9F /* InboxMessagesView.swift */,
+				4EDD009B25A61AB4006FCB9F /* InboxMessagesTableManager.swift */,
 			);
 			path = Messages;
 			sourceTree = "<group>";
 		};
-		4EDD008A25A60FBE006FCB9F /* Mention */ = {
+		4EDD008A25A60FBE006FCB9F /* Message */ = {
 			isa = PBXGroup;
 			children = (
-				4EDD008B25A60FCB006FCB9F /* MentionTableCell.swift */,
+				4EDD008B25A60FCB006FCB9F /* MessageTableCell.swift */,
+				4EDD009025A61A1D006FCB9F /* MentionCellView.swift */,
 			);
-			path = Mention;
+			path = Message;
 			sourceTree = "<group>";
 		};
 		4EDDFFE825A5CF90006FCB9F /* WriteMessage */ = {
@@ -2174,6 +2180,7 @@
 				4E9182D32564151800702F04 /* VoteButton.swift in Sources */,
 				4E9185B82570646500702F04 /* CommentContentView.swift in Sources */,
 				4E886CCE2541E1670076B162 /* ChooseCommunityViewController.swift in Sources */,
+				4EDD009125A61A1D006FCB9F /* MentionCellView.swift in Sources */,
 				4EBB220925598AA700B88079 /* Containered.swift in Sources */,
 				4E91850B256E9EAA00702F04 /* CommentsViewController.swift in Sources */,
 				4ECCEF06250CC3330075F921 /* ApiManager.swift in Sources */,
@@ -2419,7 +2426,7 @@
 				4E0A8E35255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift in Sources */,
 				4EF3AC7B254AE12800BEC9F1 /* CreateCommunityNamesCell.swift in Sources */,
 				4EF312E52576D2D10032B58D /* PostContentFooterView.swift in Sources */,
-				4EDD008C25A60FCB006FCB9F /* MentionTableCell.swift in Sources */,
+				4EDD008C25A60FCB006FCB9F /* MessageTableCell.swift in Sources */,
 				4E9183502566C16C00702F04 /* SettingsRightDetailSwitchTableViewCell.swift in Sources */,
 				4EBB222E2559EEFF00B88079 /* MilticastDelegate.swift in Sources */,
 				4ECCEF1F250DFBC90075F921 /* CommentContentTableCell.swift in Sources */,
@@ -2437,6 +2444,7 @@
 				650B3F402596731B00A3CB17 /* AccountsTableDataSource.swift in Sources */,
 				4EF3ACEA25502D5600BEC9F1 /* CommunityHeaderView.swift in Sources */,
 				4E2A0F9F259B854300BF0841 /* CodingUserInfoKey+Ext.swift in Sources */,
+				4EDD009C25A61AB4006FCB9F /* InboxMessagesTableManager.swift in Sources */,
 				4EF313AA257BDF6E0032B58D /* ShowMoreHandlerService.swift in Sources */,
 				4EDDFFF425A5CFC1006FCB9F /* WriteMessageView.swift in Sources */,
 				4EDDFFFF25A5DC06006FCB9F /* InboxNotificationsAssembly.swift in Sources */,
