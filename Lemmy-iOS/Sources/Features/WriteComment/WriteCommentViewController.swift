@@ -19,6 +19,14 @@ class WriteCommentViewController: UIViewController {
     enum TableForm: String {
         case headerCell
         case textFieldComment
+        
+        init?(uniqueIdentifier: UniqueIdentifierType) {
+            if let value = TableForm(rawValue: uniqueIdentifier) {
+                self = value
+            } else {
+                return nil
+            }
+        }
     }
     
     struct FormData {
@@ -50,6 +58,7 @@ class WriteCommentViewController: UIViewController {
     
     override func loadView() {
         let view = WriteCommentView()
+        view.delegate = self
         self.view = view
     }
     
@@ -151,5 +160,23 @@ extension WriteCommentViewController: UIAdaptivePresentationControllerDelegate {
 extension WriteCommentViewController: StyledNavigationControllerPresentable {
     var navigationBarAppearanceOnFirstPresentation: StyledNavigationController.NavigationBarAppearanceState {
         .pageSheetAppearance()
+    }
+}
+
+extension WriteCommentViewController: WriteCommentViewDelegate {
+    func settingsCell(
+        elementView: UITextField,
+        didReportTextChange text: String?,
+        identifiedBy uniqueIdentifier: UniqueIdentifierType?
+    ) {
+        guard let id = uniqueIdentifier, let field = TableForm(uniqueIdentifier: id) else {
+            return
+        }
+        
+        switch field {
+        case .textFieldComment:
+            self.formData.text = text
+        default: return
+        }
     }
 }

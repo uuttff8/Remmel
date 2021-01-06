@@ -9,8 +9,16 @@
 import UIKit
 import Combine
 
+protocol WriteCommentViewDelegate: SettingsTableViewDelegate { }
+
 // MARK: - WriteCommentView: UIView -
 class WriteCommentView: UIView {
+    
+    weak var delegate: WriteCommentViewDelegate? {
+        didSet {
+            self.tableView.delegate = self.delegate
+        }
+    }
     
     // MARK: - Properties
     private lazy var tableView = SettingsTableView(appearance: .init(style: .insetGrouped))
