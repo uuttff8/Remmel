@@ -243,6 +243,10 @@
 		4EDD004825A5F30E006FCB9F /* InboxRepliesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD004725A5F30E006FCB9F /* InboxRepliesViewController.swift */; };
 		4EDD004D25A5F318006FCB9F /* InboxRepliesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD004C25A5F318006FCB9F /* InboxRepliesViewModel.swift */; };
 		4EDD005225A5F31E006FCB9F /* InboxRepliesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD005125A5F31E006FCB9F /* InboxRepliesView.swift */; };
+		4EDD006C25A5F496006FCB9F /* InboxMessagesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD006B25A5F496006FCB9F /* InboxMessagesAssembly.swift */; };
+		4EDD007125A5F4A0006FCB9F /* InboxMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD007025A5F4A0006FCB9F /* InboxMessagesViewController.swift */; };
+		4EDD007625A5F4A6006FCB9F /* InboxMessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD007525A5F4A6006FCB9F /* InboxMessagesViewModel.swift */; };
+		4EDD007B25A5F4AF006FCB9F /* InboxMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD007A25A5F4AF006FCB9F /* InboxMessagesView.swift */; };
 		4EDDFFEA25A5CFAC006FCB9F /* WriteMessageAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFE925A5CFAC006FCB9F /* WriteMessageAssembly.swift */; };
 		4EDDFFEF25A5CFB8006FCB9F /* WriteMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFEE25A5CFB8006FCB9F /* WriteMessageViewController.swift */; };
 		4EDDFFF425A5CFC1006FCB9F /* WriteMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFF325A5CFC0006FCB9F /* WriteMessageView.swift */; };
@@ -576,6 +580,10 @@
 		4EDD004725A5F30E006FCB9F /* InboxRepliesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxRepliesViewController.swift; sourceTree = "<group>"; };
 		4EDD004C25A5F318006FCB9F /* InboxRepliesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxRepliesViewModel.swift; sourceTree = "<group>"; };
 		4EDD005125A5F31E006FCB9F /* InboxRepliesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxRepliesView.swift; sourceTree = "<group>"; };
+		4EDD006B25A5F496006FCB9F /* InboxMessagesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesAssembly.swift; sourceTree = "<group>"; };
+		4EDD007025A5F4A0006FCB9F /* InboxMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesViewController.swift; sourceTree = "<group>"; };
+		4EDD007525A5F4A6006FCB9F /* InboxMessagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesViewModel.swift; sourceTree = "<group>"; };
+		4EDD007A25A5F4AF006FCB9F /* InboxMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesView.swift; sourceTree = "<group>"; };
 		4EDDFFE925A5CFAC006FCB9F /* WriteMessageAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMessageAssembly.swift; sourceTree = "<group>"; };
 		4EDDFFEE25A5CFB8006FCB9F /* WriteMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMessageViewController.swift; sourceTree = "<group>"; };
 		4EDDFFF325A5CFC0006FCB9F /* WriteMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMessageView.swift; sourceTree = "<group>"; };
@@ -1599,6 +1607,10 @@
 		4EDD006A25A5F477006FCB9F /* Messages */ = {
 			isa = PBXGroup;
 			children = (
+				4EDD006B25A5F496006FCB9F /* InboxMessagesAssembly.swift */,
+				4EDD007025A5F4A0006FCB9F /* InboxMessagesViewController.swift */,
+				4EDD007525A5F4A6006FCB9F /* InboxMessagesViewModel.swift */,
+				4EDD007A25A5F4AF006FCB9F /* InboxMessagesView.swift */,
 			);
 			path = Messages;
 			sourceTree = "<group>";
@@ -2254,6 +2266,7 @@
 				4E3D450225964EA800108DA3 /* ImageControl.swift in Sources */,
 				4EF312F22576D3230032B58D /* PostContentHeaderView.swift in Sources */,
 				4EF313B3257BE8670032B58D /* SafariActivity.swift in Sources */,
+				4EDD007125A5F4A0006FCB9F /* InboxMessagesViewController.swift in Sources */,
 				4E9BBA2C25553516004FF2F9 /* Error.swift in Sources */,
 				4EFA8157255F3215008AF535 /* FrontPageSearchViewController.swift in Sources */,
 				4E87C637258BF2AB0007FE5E /* CommunityFollowService.swift in Sources */,
@@ -2264,6 +2277,7 @@
 				4EFAB5E72552FA9300B32780 /* UITableView+Ext.swift in Sources */,
 				4E3E0F722555BCF70086CE0C /* ProfileScreenViewController.swift in Sources */,
 				4E1A7E6125573CC900E193B7 /* LoadingTableViewCell.swift in Sources */,
+				4EDD007625A5F4A6006FCB9F /* InboxMessagesViewModel.swift in Sources */,
 				4E886CEC25442B3B0076B162 /* HttpEndpoint.swift in Sources */,
 				4E886C61253CAF650076B162 /* CreateTransitionDelegateImpl.swift in Sources */,
 				4E9BBA1925553176004FF2F9 /* Enums.swift in Sources */,
@@ -2317,6 +2331,7 @@
 				4EBF1D4325913117004068CD /* UnderlineTextField.swift in Sources */,
 				4EBB22212559EB8B00B88079 /* UIColor+Ext.swift in Sources */,
 				4E886CE7254429280076B162 /* WSLemmyEndpoint.swift in Sources */,
+				4EDD007B25A5F4AF006FCB9F /* InboxMessagesView.swift in Sources */,
 				4E9183712566F51600702F04 /* UniqueIdentifierType.swift in Sources */,
 				4E2A0FC3259BA49400BF0841 /* AccountsPersistenceService.swift in Sources */,
 				4E1070792534E97E009EABDA /* CreatePostOrCommunityCoordinator.swift in Sources */,
@@ -2409,6 +2424,7 @@
 				4EF313AA257BDF6E0032B58D /* ShowMoreHandlerService.swift in Sources */,
 				4EDDFFF425A5CFC1006FCB9F /* WriteMessageView.swift in Sources */,
 				4EDDFFFF25A5DC06006FCB9F /* InboxNotificationsAssembly.swift in Sources */,
+				4EDD006C25A5F496006FCB9F /* InboxMessagesAssembly.swift in Sources */,
 				4E886C8D253F51B90076B162 /* CreatePostViewModel.swift in Sources */,
 				4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */,
 				4E886C17253626950076B162 /* RegisterView.swift in Sources */,

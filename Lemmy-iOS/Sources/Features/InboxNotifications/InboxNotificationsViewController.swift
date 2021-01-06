@@ -79,17 +79,13 @@ final class InboxNotificationsViewController: UIViewController {
             controller = assembly.makeModule()
             moduleInput = assembly.moduleInput
         case .messages:
-//            let assembly = UIViewController()
-//                output: self.interactor as? CourseInfoTabSyllabusOutputProtocol
-//            )
-            controller = UIViewController()
-            controller.view.backgroundColor = .blue
-//            moduleInput = assembly.moduleInput
+            let assembly = InboxMessagesAssembly()
+            controller = assembly.makeModule()
+            moduleInput = assembly.moduleInput
         case .replies:
-//            let assembly = UIViewController()
-            controller = UIViewController()
-            controller.view.backgroundColor = .red
-//            moduleInput = assembly.moduleInput
+            let assembly = InboxRepliesAssembly()
+            controller = assembly.makeModule()
+            moduleInput = assembly.moduleInput
         }
 
         self.submodulesControllers[index] = controller

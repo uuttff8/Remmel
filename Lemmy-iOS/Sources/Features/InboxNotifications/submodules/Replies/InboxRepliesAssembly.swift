@@ -23,4 +23,3 @@ final class InboxRepliesAssembly: Assembly {
         return vc
     }
 }
-
