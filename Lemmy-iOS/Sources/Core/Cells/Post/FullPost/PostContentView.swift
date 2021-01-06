@@ -143,7 +143,7 @@ extension PostContentView: ProgrammaticallyViewProtocol {
         }
                 
         centerView.snp.makeConstraints { (make) in
-            make.top.equalTo(headerView.snp.bottom).offset(5)
+            make.top.equalTo(headerView.snp.bottom)
             make.leading.trailing.equalToSuperview()
         }
                 

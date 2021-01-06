@@ -25,12 +25,15 @@ class CommunitiesCoordinator: BaseCoordinator {
     }
     
     func goToCommunityScreen(communityId: Int) {
-        let coordniator = CommunityScreenCoordinator(
+        let coordinator = CommunityScreenCoordinator(
             router: Router(navigationController: navigationController),
             communityId: communityId,
             communityInfo: nil
         )
-        self.store(coordinator: coordniator)
-        coordniator.start()
+        self.store(coordinator: coordinator)
+        coordinator.start()
+        self.router?.push(coordinator.rootViewController, isAnimated: true, onNavigateBack: {
+            self.free(coordinator: coordinator)
+        })
     }
 }
