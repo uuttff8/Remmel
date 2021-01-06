@@ -8,8 +8,16 @@
 
 import UIKit
 
-// MARK: - CreateCommunityUI: UIView -
+protocol WriteMessageViewDelegate: SettingsTableViewDelegate { }
+
+// MARK: - WriteMessageView: UIView -
 class WriteMessageView: UIView {
+    
+    weak var delegate: WriteMessageViewDelegate? {
+        didSet {
+            self.tableView.delegate = self.delegate
+        }
+    }
     
     // MARK: - Properties
     private lazy var tableView = SettingsTableView(appearance: .init(style: .insetGrouped))

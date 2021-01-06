@@ -10,15 +10,23 @@ import UIKit
 
 protocol WriteMessageViewControllerProtocol: AnyObject {
     func displayWriteMessageForm(viewModel: WriteMessage.FormLoad.ViewModel)
-    func displaySuccessCreatingMessage(viewModel: WriteMessage.RemoteCreateComment.ViewModel)
-    func displayCreateMessageError(viewModel: WriteMessage.CreateCommentError.ViewModel)
+    func displaySuccessCreatingMessage(viewModel: WriteMessage.RemoteCreateMessage.ViewModel)
+    func displayCreateMessageError(viewModel: WriteMessage.CreateMessageError.ViewModel)
 }
 
 class WriteMessageViewController: UIViewController {
     
     enum TableForm: String {
         case headerCell
-        case textFieldComment
+        case textFieldMessage
+        
+        init?(uniqueIdentifier: UniqueIdentifierType) {
+            if let value = TableForm(rawValue: uniqueIdentifier) {
+                self = value
+            } else {
+                return nil
+            }
+        }
     }
     
     struct FormData {
@@ -50,6 +58,7 @@ class WriteMessageViewController: UIViewController {
     
     override func loadView() {
         let view = WriteMessageView()
+        view.delegate = self
         self.view = view
     }
     
@@ -58,7 +67,7 @@ class WriteMessageViewController: UIViewController {
         title = "Create Message"
         self.setupNavigationItems()
         
-        self.viewModel.doWriteCommentFormLoad(request: .init())
+        self.viewModel.doWriteMessageFormLoad(request: .init())
     }
     
     // MARK: - Objective-c Actions
@@ -68,7 +77,7 @@ class WriteMessageViewController: UIViewController {
             return
         }
         
-        self.viewModel.doRemoveCreateComment(request: .init(text: text))
+        self.viewModel.doRemoteCreateMessage(request: .init(text: text))
     }
     
     private func setupNavigationItems() {
@@ -80,7 +89,7 @@ extension WriteMessageViewController: WriteMessageViewControllerProtocol {
     func displayWriteMessageForm(viewModel: WriteMessage.FormLoad.ViewModel) {
         
         let textFieldCell = SettingsTableSectionViewModel.Cell(
-            uniqueIdentifier: TableForm.textFieldComment.rawValue,
+            uniqueIdentifier: TableForm.textFieldMessage.rawValue,
             type: .largeInput(
                 options: .init(
                     valueText: nil,
@@ -102,11 +111,11 @@ extension WriteMessageViewController: WriteMessageViewControllerProtocol {
         self.writeMessageView.configure(viewModel: viewModel)
     }
     
-    func displaySuccessCreatingMessage(viewModel: WriteMessage.RemoteCreateComment.ViewModel) {
+    func displaySuccessCreatingMessage(viewModel: WriteMessage.RemoteCreateMessage.ViewModel) {
         self.dismiss(animated: true)
     }
     
-    func displayCreateMessageError(viewModel: WriteMessage.CreateCommentError.ViewModel) {
+    func displayCreateMessageError(viewModel: WriteMessage.CreateMessageError.ViewModel) {
         UIAlertController.createOkAlert(message: viewModel.error)
     }
 }
@@ -135,3 +144,20 @@ extension WriteMessageViewController: StyledNavigationControllerPresentable {
     }
 }
 
+extension WriteMessageViewController: WriteMessageViewDelegate {
+    func settingsCell(
+        elementView: UITextView,
+        didReportTextChange text: String,
+        identifiedBy uniqueIdentifier: UniqueIdentifierType?
+    ) {
+        guard let id = uniqueIdentifier, let field = TableForm(uniqueIdentifier: id) else {
+            return
+        }
+        
+        switch field {
+        case .textFieldMessage:
+            self.formData.text = text
+        default: return
+        }
+    }
+}

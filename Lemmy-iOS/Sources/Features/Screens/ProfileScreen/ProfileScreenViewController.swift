@@ -346,7 +346,12 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
         } else {
             
             let sendMessageAction = UIAlertAction(title: "Send Message", style: .default) { _ in
-                print("Send message")
+                guard let recipientId = self.viewModel.loadedProfile?.id else {
+                    Logger.commonLog.error("Can't get id form loaded profile")
+                    return
+                }
+                
+                self.coordinator?.goToWriteMessage(recipientId: recipientId)
             }
             
             alert.addAction(sendMessageAction)

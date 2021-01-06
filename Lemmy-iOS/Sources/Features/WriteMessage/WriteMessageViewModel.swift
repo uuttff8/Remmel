@@ -10,8 +10,8 @@ import UIKit
 import Combine
 
 protocol WriteMessageViewModelProtocol: AnyObject {
-    func doWriteCommentFormLoad(request: WriteComment.FormLoad.Request)
-    func doRemoveCreateComment(request: WriteComment.RemoteCreateComment.Request)
+    func doWriteMessageFormLoad(request: WriteMessage.FormLoad.Request)
+    func doRemoteCreateMessage(request: WriteMessage.RemoteCreateMessage.Request)
 }
 
 class WriteMessageViewModel: WriteMessageViewModelProtocol {
@@ -31,13 +31,13 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
         self.userAccountService = userAccountService
     }
 
-    func doWriteCommentFormLoad(request: WriteComment.FormLoad.Request) {
+    func doWriteMessageFormLoad(request: WriteMessage.FormLoad.Request) {
         self.viewController?.displayWriteMessageForm(viewModel: .init())
     }
     
-    func doRemoveCreateComment(request: WriteComment.RemoteCreateComment.Request) {
+    func doRemoteCreateMessage(request: WriteMessage.RemoteCreateMessage.Request) {
         guard let jwtToken = userAccountService.jwtToken else {
-            Logger.commonLog.error("JWT Token not found: User should not be able to write comment when not authed")
+            Logger.commonLog.error("JWT Token not found: User should not be able to write message when not authed")
             return
         }
         
@@ -58,7 +58,7 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
                     )
                 }
             } receiveValue: { (response) in
-                self.viewController?.displaySuccessCreatingMessage(viewModel: .init(comment: response.message))
+                self.viewController?.displaySuccessCreatingMessage(viewModel: .init(message: response.message))
             }.store(in: &self.cancellable)
     }
 }
@@ -70,17 +70,17 @@ enum WriteMessage {
         struct ViewModel { }
     }
     
-    enum RemoteCreateComment {
+    enum RemoteCreateMessage {
         struct Request {
             let text: String
         }
         
         struct ViewModel {
-            let comment: LemmyModel.PrivateMessageView
+            let message: LemmyModel.PrivateMessageView
         }
     }
     
-    enum CreateCommentError {
+    enum CreateMessageError {
         struct Request { }
         
         struct ViewModel {

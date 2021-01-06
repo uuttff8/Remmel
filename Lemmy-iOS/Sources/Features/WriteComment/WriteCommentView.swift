@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 
-// MARK: - CreateCommunityUI: UIView -
+// MARK: - WriteCommentView: UIView -
 class WriteCommentView: UIView {
     
     // MARK: - Properties

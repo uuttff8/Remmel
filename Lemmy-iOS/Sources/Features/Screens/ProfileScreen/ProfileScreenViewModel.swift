@@ -10,6 +10,8 @@ import UIKit
 import Combine
 
 protocol ProfileScreenViewModelProtocol: AnyObject {
+    var loadedProfile: LemmyModel.UserView? { get }
+    
     func doProfileFetch()
     func doIdentifyProfile()
     func doProfileLogout()
@@ -28,7 +30,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     
     private var cancellable = Set<AnyCancellable>()
     
-    private var loadedProfile: LemmyModel.UserView?
+    private(set) var loadedProfile: LemmyModel.UserView?
 
     // Tab index -> Submodule
     private var submodules: [ProfileScreenSubmoduleProtocol] = []

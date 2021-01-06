@@ -56,12 +56,7 @@ class PostScreenViewController: UIViewController, Containered {
         viewModel.doPostFetch()
         self.updateState(newState: state)
     }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-//        self.coordinator?.removeDependency(coordinator)
-    }
-        
+            
     private func updateState(newState: PostScreen.ViewControllerState) {
         defer {
             self.state = newState
