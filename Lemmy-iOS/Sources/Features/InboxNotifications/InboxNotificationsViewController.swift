@@ -24,14 +24,13 @@ final class InboxNotificationsViewController: UIViewController {
     lazy var styledNavigationController = self.navigationController as? StyledNavigationController
     
     // Element is nil when view controller was not initialized yet
-    private var submodulesControllers: [UIViewController?] = []
+    private var submodulesControllers: [UIViewController?] = [nil, nil, nil]
     
     init(
         viewModel: InboxNotificationsViewModel
     ) {
         self.viewModel = viewModel
-        self.submodulesControllers = Array(repeating: nil, count: self.viewModel.submodules.count)
-
+        self.submodulesControllers = Array(repeating: nil, count: self.viewModel.availableTabs.count)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -50,6 +49,18 @@ final class InboxNotificationsViewController: UIViewController {
         self.view = view
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.addChild(self.pageViewController)
+        self.pageViewController.dataSource = self
+        self.pageViewController.delegate = self
+
+        self.inboxView?.updateCurrentPageIndex(self.viewModel.initialTabIndex)
+
+        self.navigationItem.title = "Notifications"
+    }
+    
     // MARK: - Private API
     private func loadSubmoduleIfNeeded(at index: Int) {
         guard self.submodulesControllers[index] == nil else {
@@ -60,14 +71,13 @@ final class InboxNotificationsViewController: UIViewController {
             return
         }
 
-//        let moduleInput: CourseInfoSubmoduleProtocol?
+        var moduleInput: InboxNotificationSubmoduleProtocol?
         let controller: UIViewController
         switch tab {
         case .mentions:
-//            let assembly = UIViewController()
-            controller = UIViewController()
-            controller.view.backgroundColor = .yellow
-//            moduleInput = assembly.moduleInput
+            let assembly = InboxMentionsAssembly()
+            controller = assembly.makeModule()
+            moduleInput = assembly.moduleInput
         case .messages:
 //            let assembly = UIViewController()
 //                output: self.interactor as? CourseInfoTabSyllabusOutputProtocol
@@ -84,16 +94,16 @@ final class InboxNotificationsViewController: UIViewController {
 
         self.submodulesControllers[index] = controller
 
-//        if let submodule = moduleInput {
-//            self.interactor.doSubmodulesRegistration(request: .init(submodules: [index: submodule]))
-//        }
+        if let submodule = moduleInput {
+            self.viewModel.doSubmodulesRegistration(request: .init(submodules: [index: submodule]))
+        }
     }
 }
 
 // MARK: - InboxNotificationsViewController: PageboyViewControllerDataSource, PageboyViewControllerDelegate -
 extension InboxNotificationsViewController: PageboyViewControllerDataSource, PageboyViewControllerDelegate {
     func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
-        self.viewModel.submodules.count
+        self.viewModel.availableTabs.count
     }
 
     func viewController(

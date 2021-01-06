@@ -235,6 +235,10 @@
 		4EDD001225A5DC88006FCB9F /* InboxNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD001125A5DC88006FCB9F /* InboxNotificationsViewModel.swift */; };
 		4EDD001725A5E20B006FCB9F /* InboxNotificationSubmoduleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD001625A5E20B006FCB9F /* InboxNotificationSubmoduleProtocol.swift */; };
 		4EDD001F25A5E669006FCB9F /* InboxNotificationsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD001E25A5E669006FCB9F /* InboxNotificationsCoordinator.swift */; };
+		4EDD002825A5EC02006FCB9F /* InboxMentionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD002725A5EC02006FCB9F /* InboxMentionViewController.swift */; };
+		4EDD002D25A5EC37006FCB9F /* InboxMentionsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD002C25A5EC37006FCB9F /* InboxMentionsAssembly.swift */; };
+		4EDD003225A5EC52006FCB9F /* InboxMentionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD003125A5EC52006FCB9F /* InboxMentionsViewModel.swift */; };
+		4EDD003725A5EC59006FCB9F /* InboxMentionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD003625A5EC59006FCB9F /* InboxMentionsView.swift */; };
 		4EDDFFEA25A5CFAC006FCB9F /* WriteMessageAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFE925A5CFAC006FCB9F /* WriteMessageAssembly.swift */; };
 		4EDDFFEF25A5CFB8006FCB9F /* WriteMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFEE25A5CFB8006FCB9F /* WriteMessageViewController.swift */; };
 		4EDDFFF425A5CFC1006FCB9F /* WriteMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFF325A5CFC0006FCB9F /* WriteMessageView.swift */; };
@@ -560,6 +564,10 @@
 		4EDD001125A5DC88006FCB9F /* InboxNotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxNotificationsViewModel.swift; sourceTree = "<group>"; };
 		4EDD001625A5E20B006FCB9F /* InboxNotificationSubmoduleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxNotificationSubmoduleProtocol.swift; sourceTree = "<group>"; };
 		4EDD001E25A5E669006FCB9F /* InboxNotificationsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxNotificationsCoordinator.swift; sourceTree = "<group>"; };
+		4EDD002725A5EC02006FCB9F /* InboxMentionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMentionViewController.swift; sourceTree = "<group>"; };
+		4EDD002C25A5EC37006FCB9F /* InboxMentionsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMentionsAssembly.swift; sourceTree = "<group>"; };
+		4EDD003125A5EC52006FCB9F /* InboxMentionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMentionsViewModel.swift; sourceTree = "<group>"; };
+		4EDD003625A5EC59006FCB9F /* InboxMentionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMentionsView.swift; sourceTree = "<group>"; };
 		4EDDFFE925A5CFAC006FCB9F /* WriteMessageAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMessageAssembly.swift; sourceTree = "<group>"; };
 		4EDDFFEE25A5CFB8006FCB9F /* WriteMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMessageViewController.swift; sourceTree = "<group>"; };
 		4EDDFFF325A5CFC0006FCB9F /* WriteMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMessageView.swift; sourceTree = "<group>"; };
@@ -1551,8 +1559,20 @@
 		4EDD000D25A5DC29006FCB9F /* submodules */ = {
 			isa = PBXGroup;
 			children = (
+				4EDD002625A5EBDE006FCB9F /* Mentions */,
 			);
 			path = submodules;
+			sourceTree = "<group>";
+		};
+		4EDD002625A5EBDE006FCB9F /* Mentions */ = {
+			isa = PBXGroup;
+			children = (
+				4EDD002C25A5EC37006FCB9F /* InboxMentionsAssembly.swift */,
+				4EDD002725A5EC02006FCB9F /* InboxMentionViewController.swift */,
+				4EDD003125A5EC52006FCB9F /* InboxMentionsViewModel.swift */,
+				4EDD003625A5EC59006FCB9F /* InboxMentionsView.swift */,
+			);
+			path = Mentions;
 			sourceTree = "<group>";
 		};
 		4EDDFFE825A5CF90006FCB9F /* WriteMessage */ = {
@@ -2129,6 +2149,7 @@
 				4E886C69253CD2950076B162 /* CreatePresentTransitionDriver.swift in Sources */,
 				657DF45825968B9900831B0F /* Account+CoreDataProperties.swift in Sources */,
 				4E0A8E8B255DD01500B06AF6 /* FrontPageSearchView.swift in Sources */,
+				4EDD002825A5EC02006FCB9F /* InboxMentionViewController.swift in Sources */,
 				4EFA81C325600056008AF535 /* FrontPageViewModel.swift in Sources */,
 				4EFA81CB256165A4008AF535 /* CommunityScreenAssembly.swift in Sources */,
 				4E886D4B2545B81A0076B162 /* PictrsRequests.swift in Sources */,
@@ -2154,6 +2175,7 @@
 				4E9183882567284E00702F04 /* CreatePostAssembly.swift in Sources */,
 				4E1070712534E970009EABDA /* CreatePostOrCommunityViewController.swift in Sources */,
 				4ECCEF1D250D63BE0075F921 /* CommentRequests.swift in Sources */,
+				4EDD003725A5EC59006FCB9F /* InboxMentionsView.swift in Sources */,
 				4EB4F69F2590C35C0057BDCC /* AddInstanceViewController.swift in Sources */,
 				4E0A8E93255DDE4500B06AF6 /* PostScreenAssembly.swift in Sources */,
 				4EF312F72576D3400032B58D /* PostContentView.swift in Sources */,
@@ -2290,6 +2312,7 @@
 				4E3D44D62595D3B300108DA3 /* ChainedWSClient.swift in Sources */,
 				4E87C66E258E09D00007FE5E /* UIFont+Ext.swift in Sources */,
 				4E9BBA5425555571004FF2F9 /* LemmySortListingPickersView.swift in Sources */,
+				4EDD003225A5EC52006FCB9F /* InboxMentionsViewModel.swift in Sources */,
 				4EFA81E82561EFBD008AF535 /* CommunityTableHeaderView.swift in Sources */,
 				4E0A8E71255D58E400B06AF6 /* ProfileScreenAboutUI.swift in Sources */,
 				4EBF1D582592365A004068CD /* Logger.swift in Sources */,
@@ -2299,6 +2322,7 @@
 				4E886C36253872D10076B162 /* RegisterViewModel.swift in Sources */,
 				4E10709D25361846009EABDA /* AuthenticationView.swift in Sources */,
 				4E886C2B253758A30076B162 /* LemmyModel+Site.swift in Sources */,
+				4EDD002D25A5EC37006FCB9F /* InboxMentionsAssembly.swift in Sources */,
 				4EFA81D0256165B1008AF535 /* CommunityScreenViewModel.swift in Sources */,
 				4E886C73253CD4270076B162 /* CreateDismissTransitionDriver.swift in Sources */,
 				4E87C63C258C04BB0007FE5E /* CommunityScreenCoordinator.swift in Sources */,
