@@ -9,11 +9,11 @@
 import UIKit
 
 protocol InboxMentionsTableManagerDelegate: AnyObject {
-//    func tableDidRequestPagination(_ tableDataSource: PostsTableDataSource)
+    func tableDidRequestPagination(_ tableManager: InboxMentionsTableManager)
 }
 
 final class InboxMentionsTableManager: NSObject {
-    weak var delegate: PostsTableDataSourceDelegate?
+    weak var delegate: InboxMentionsTableManagerDelegate?
     
     var viewModels: [LemmyModel.UserMentionView]
     
@@ -52,13 +52,11 @@ extension InboxMentionsTableManager: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: PostContentPreviewTableCell = tableView.cell(forRowAt: indexPath)
+        let cell: MentionTableCell = tableView.cell(forRowAt: indexPath)
         cell.updateConstraintsIfNeeded()
         
-        cell.postContentView.delegate = delegate
-        
         let viewModel = self.viewModels[indexPath.row]
-//        cell.bind(with: viewModel, isInsideCommunity: true)
+        cell.configure(viewModel: viewModel)
         
         return cell
     }
@@ -68,7 +66,7 @@ extension InboxMentionsTableManager: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 5,
            tableView.numberOfSections == 1 {
-//            self.delegate?.tableDidRequestPagination(self)
+            self.delegate?.tableDidRequestPagination(self)
         }
     }
 }

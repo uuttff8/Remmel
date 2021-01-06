@@ -76,7 +76,6 @@ final class InboxMentionsView: UIView {
 extension InboxMentionsView: ProgrammaticallyViewProtocol {
     func setupView() {
         self.emptyStateLabel.isHidden = true
-        self.backgroundColor = .yellow
     }
     
     func addSubviews() {

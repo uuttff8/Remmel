@@ -15,7 +15,7 @@ final class InboxMentionsAssembly: Assembly {
     var moduleInput: InboxMentionsInputProtocol?
     
     func makeModule() -> InboxMentionsViewController {
-        let viewModel = InboxMentionsViewModel()
+        let viewModel = InboxMentionsViewModel(userAccountService: UserAccountService())
         let vc = InboxMentionsViewController(viewModel: viewModel)
         
         viewModel.viewController = vc

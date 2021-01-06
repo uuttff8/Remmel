@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 protocol InboxMentionsViewModelProtocol {
     func doLoadMentions(request: InboxMentions.LoadMentions.Request)
@@ -15,8 +16,35 @@ protocol InboxMentionsViewModelProtocol {
 final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
     weak var viewController: InboxMentionsViewControllerProtocol?
     
+    private let userAccountService: UserAccountService
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    init(
+        userAccountService: UserAccountService
+    ) {
+        self.userAccountService = userAccountService
+    }
+    
     func doLoadMentions(request: InboxMentions.LoadMentions.Request) {
+        guard let jwt = userAccountService.jwtToken else {
+            Logger.commonLog.error("No jwt token found")
+            return
+        }
         
+        let params = LemmyModel.User.GetUserMentionsRequest(sort: .active,
+                                                            page: 1,
+                                                            limit: 50,
+                                                            unreadOnly: false,
+                                                            auth: jwt)
+        
+        ApiManager.requests.asyncGetUserMentions(parameters: params)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
+            } receiveValue: { (response) in
+                self.viewController?.displayMentions(viewModel: .init(state: .result(response.mentions)))
+            }.store(in: &cancellables)
     }
 }
 
