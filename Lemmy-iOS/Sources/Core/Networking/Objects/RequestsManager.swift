@@ -103,6 +103,8 @@ class RequestsManager {
                     promise(.success(normalResponse))
                 } catch {
                     
+                    debugPrint(error)
+                    
                     // idk how to extract this and line 96 to function
                     do {
                         let errorResponse = try self.decoder.decode(ApiErrorResponse.self, from: data)

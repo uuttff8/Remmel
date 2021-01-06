@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 protocol InboxRepliesViewModelProtocol {
     func doLoadReplies(request: InboxReplies.LoadReplies.Request)
@@ -19,6 +20,8 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
     private let userAccountService: UserAccountSerivceProtocol
     
     private var paginationState = 1
+    
+    private var cancellables = Set<AnyCancellable>()
     
     init(
         userAccountService: UserAccountSerivceProtocol
@@ -33,6 +36,20 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
             Logger.commonLog.error("No jwt token found")
             return
         }
+        
+        let params = LemmyModel.User.GetRepliesRequest(sort: .active,
+                                                       page: paginationState,
+                                                       limit: 50,
+                                                       unreadOnly: false,
+                                                       auth: jwt)
+        
+        ApiManager.requests.asyncGetReplies(parameters: params)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
+            } receiveValue: { (response) in
+                self.viewController?.displayReplies(viewModel: .init(state: .result(response.replies)))
+            }.store(in: &cancellables)
     }
     
     func doNextLoadReplies(request: InboxReplies.LoadReplies.Request) {
@@ -42,6 +59,20 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
             Logger.commonLog.error("No jwt token found")
             return
         }
+        
+        let params = LemmyModel.User.GetRepliesRequest(sort: .active,
+                                                       page: paginationState,
+                                                       limit: 50,
+                                                       unreadOnly: false,
+                                                       auth: jwt)
+        
+        ApiManager.requests.asyncGetReplies(parameters: params)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
+            } receiveValue: { (response) in
+                self.viewController?.displayNextReplies(viewModel: .init(state: .result(response.replies)))
+            }.store(in: &cancellables)
     }
 }
 

@@ -45,7 +45,7 @@ enum WSEndpoint {
             switch self {
             case .getUserDetails: return "GetUserDetails"
             case .saveUserSettings: return "SaveUserSettings"
-            case .getReplies: return "SaveUserSettings"
+            case .getReplies: return "GetReplies"
             case .getUserMentions: return "GetUserMentions"
             case .markUserMentionAsRead: return "MarkUserMentionAsRead"
             case .getPrivateMessages: return "GetPrivateMessages"
