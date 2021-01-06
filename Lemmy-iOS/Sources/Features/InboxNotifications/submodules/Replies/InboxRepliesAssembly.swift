@@ -15,7 +15,7 @@ final class InboxRepliesAssembly: Assembly {
     var moduleInput: InboxRepliesInputProtocol?
     
     func makeModule() -> InboxRepliesViewController {
-        let viewModel = InboxRepliesViewModel()
+        let viewModel = InboxRepliesViewModel(userAccountService: UserAccountService())
         let vc = InboxRepliesViewController(viewModel: viewModel)
         
         viewModel.viewController = vc

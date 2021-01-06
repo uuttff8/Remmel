@@ -10,13 +10,38 @@ import UIKit
 
 protocol InboxRepliesViewModelProtocol {
     func doLoadReplies(request: InboxReplies.LoadReplies.Request)
+    func doNextLoadReplies(request: InboxReplies.LoadReplies.Request)
 }
 
 final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
     weak var viewController: InboxRepliesViewControllerProtocol?
     
+    private let userAccountService: UserAccountSerivceProtocol
+    
+    private var paginationState = 1
+    
+    init(
+        userAccountService: UserAccountSerivceProtocol
+    ) {
+        self.userAccountService = userAccountService
+    }
+    
     func doLoadReplies(request: InboxReplies.LoadReplies.Request) {
-
+        self.paginationState = 1
+        
+        guard let jwt = userAccountService.jwtToken else {
+            Logger.commonLog.error("No jwt token found")
+            return
+        }
+    }
+    
+    func doNextLoadReplies(request: InboxReplies.LoadReplies.Request) {
+        self.paginationState += 1
+        
+        guard let jwt = userAccountService.jwtToken else {
+            Logger.commonLog.error("No jwt token found")
+            return
+        }
     }
 }
 
@@ -37,7 +62,7 @@ enum InboxReplies {
     }
     
     enum ViewControllerState {
-        case result([LemmyModel.UserMentionView])
+        case result([LemmyModel.ReplyView])
         case loading
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 
 final class InboxMentionsView: UIView {
     
-    weak var tableManager: InboxMentionsTableManager?
+    private var tableManager: InboxMentionsTableManager?
     
     private lazy var tableView = LemmyTableView(style: .plain, separator: false).then {
         $0.registerClass(PostContentPreviewTableCell.self)
@@ -19,7 +19,7 @@ final class InboxMentionsView: UIView {
     }
             
     private lazy var emptyStateLabel = UILabel().then {
-        $0.text = "No Mentionts here yet..."
+        $0.text = "No Mentions here yet..."
         $0.textAlignment = .center
         $0.textColor = .tertiaryLabel
     }
@@ -44,13 +44,15 @@ final class InboxMentionsView: UIView {
         tableView.hideActivityIndicator()
     }
     
-    func updateTableViewData(dataSource: UITableViewDataSource) {
+    func updateTableViewData(dataSource: InboxMentionsTableManager) {
         self.tableView.isHidden = false
         self.emptyStateLabel.isHidden = true
         self.hideActivityIndicator()
         _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
 //            self.emptyStateLabel.isHidden = numberOfRows != 0
 
+        self.tableManager = dataSource
+        self.tableView.delegate = dataSource
         self.tableView.dataSource = dataSource
         self.tableView.reloadData()
     }
