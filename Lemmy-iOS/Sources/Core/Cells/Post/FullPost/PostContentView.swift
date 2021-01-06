@@ -152,6 +152,5 @@ extension PostContentView: ProgrammaticallyViewProtocol {
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview() // SELF SIZE BOTTOM HERE
         }
-
     }
 }
