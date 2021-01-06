@@ -18,6 +18,7 @@ class LemmyTabBarController: UITabBarController {
     private(set) var communitiesCoordinator: CommunitiesCoordinator!
     private(set) var createPostOrCommunityCoordinator: CreatePostOrCommunityCoordinator!
     private(set) var frontPageCoordinator: FrontPageCoordinator!
+    private(set) var inboxNotificationsCoordinator: InboxNotificationsCoordinator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,9 +68,26 @@ class LemmyTabBarController: UITabBarController {
                                                                 image: UIImage(systemName: "plus.circle"),
                                                                 tag: 2)
         
+        inboxNotificationsCoordinator = InboxNotificationsCoordinator(router: nil)
+        self.coordinator?.store(coordinator: inboxNotificationsCoordinator)
+        inboxNotificationsCoordinator.start()
+        let inboxRouter = Router(
+            navigationController: StyledNavigationController(
+                rootViewController: inboxNotificationsCoordinator.rootViewController
+            )
+        )
+        inboxNotificationsCoordinator.rootViewController.tabBarItem = UITabBarItem(
+            title: "",
+            image: UIImage(systemName: "tray.and.arrow.down"),
+            tag: 0
+        )
+        inboxNotificationsCoordinator.router = inboxRouter
+        inboxNotificationsCoordinator.navigationController = inboxNotificationsCoordinator.router?.navigationController
+        
         self.viewControllers = [ frontPageRouter.navigationController!,
                                  createPostOrCommentController,
-                                 communitiesRouter.navigationController! ]
+                                 communitiesRouter.navigationController!,
+                                 inboxRouter.navigationController! ]
         
         self.selectedIndex = 0
     }

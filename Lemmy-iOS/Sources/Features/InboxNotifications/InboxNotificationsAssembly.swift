@@ -6,4 +6,16 @@
 //  Copyright © 2021 Anton Kuzmin. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+final class InboxNotificationsAssembly: Assembly {
+    
+    func makeModule() -> InboxNotificationsViewController {
+        let viewModel = InboxNotificationsViewModel()
+        let vc = InboxNotificationsViewController(viewModel: viewModel)
+        
+        viewModel.viewController = vc
+        
+        return vc
+    }
+}

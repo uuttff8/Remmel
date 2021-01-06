@@ -72,19 +72,20 @@ extension InboxNotificationsView: ProgrammaticallyViewProtocol {
 
     func addSubviews() {
         self.addSubview(self.segmentedControl)
-        self.insertSubview(self.pageControllerView, aboveSubview: self.segmentedControl)
+        self.addSubview(self.pageControllerView)
     }
 
     func makeConstraints() {
-        self.pageControllerView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
-            make.leading.trailing.equalTo(self.safeAreaLayoutGuide)
-        }
-
         self.segmentedControl.snp.makeConstraints { make in
-            make.top.equalTo(self.pageControllerView.snp.bottom)
+            make.top.equalTo(self.safeAreaLayoutGuide)
             make.leading.trailing.equalTo(self.safeAreaLayoutGuide)
             make.height.equalTo(self.appearance.segmentedControlHeight)
+        }
+        
+        self.pageControllerView.snp.makeConstraints { make in
+            make.top.equalTo(segmentedControl.snp.bottom)
+            make.leading.trailing.equalTo(self.safeAreaLayoutGuide)
+            make.bottom.equalToSuperview()
         }
     }
 }
