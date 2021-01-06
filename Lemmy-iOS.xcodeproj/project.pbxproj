@@ -247,6 +247,7 @@
 		4EDD007125A5F4A0006FCB9F /* InboxMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD007025A5F4A0006FCB9F /* InboxMessagesViewController.swift */; };
 		4EDD007625A5F4A6006FCB9F /* InboxMessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD007525A5F4A6006FCB9F /* InboxMessagesViewModel.swift */; };
 		4EDD007B25A5F4AF006FCB9F /* InboxMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD007A25A5F4AF006FCB9F /* InboxMessagesView.swift */; };
+		4EDD008625A60F1D006FCB9F /* InboxMentionsTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD008525A60F1D006FCB9F /* InboxMentionsTableManager.swift */; };
 		4EDDFFEA25A5CFAC006FCB9F /* WriteMessageAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFE925A5CFAC006FCB9F /* WriteMessageAssembly.swift */; };
 		4EDDFFEF25A5CFB8006FCB9F /* WriteMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFEE25A5CFB8006FCB9F /* WriteMessageViewController.swift */; };
 		4EDDFFF425A5CFC1006FCB9F /* WriteMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFF325A5CFC0006FCB9F /* WriteMessageView.swift */; };
@@ -584,6 +585,7 @@
 		4EDD007025A5F4A0006FCB9F /* InboxMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesViewController.swift; sourceTree = "<group>"; };
 		4EDD007525A5F4A6006FCB9F /* InboxMessagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesViewModel.swift; sourceTree = "<group>"; };
 		4EDD007A25A5F4AF006FCB9F /* InboxMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesView.swift; sourceTree = "<group>"; };
+		4EDD008525A60F1D006FCB9F /* InboxMentionsTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMentionsTableManager.swift; sourceTree = "<group>"; };
 		4EDDFFE925A5CFAC006FCB9F /* WriteMessageAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMessageAssembly.swift; sourceTree = "<group>"; };
 		4EDDFFEE25A5CFB8006FCB9F /* WriteMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMessageViewController.swift; sourceTree = "<group>"; };
 		4EDDFFF325A5CFC0006FCB9F /* WriteMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMessageView.swift; sourceTree = "<group>"; };
@@ -1589,6 +1591,7 @@
 				4EDD002725A5EC02006FCB9F /* InboxMentionViewController.swift */,
 				4EDD003125A5EC52006FCB9F /* InboxMentionsViewModel.swift */,
 				4EDD003625A5EC59006FCB9F /* InboxMentionsView.swift */,
+				4EDD008525A60F1D006FCB9F /* InboxMentionsTableManager.swift */,
 			);
 			path = Mentions;
 			sourceTree = "<group>";
@@ -2203,6 +2206,7 @@
 				4ECCEEE0250B8DEE0075F921 /* Coordinator.swift in Sources */,
 				4E10705B253476FC009EABDA /* PostsFrontPageModel.swift in Sources */,
 				4EB4F67F258FF0EF0057BDCC /* InstancePersistenceService.swift in Sources */,
+				4EDD008625A60F1D006FCB9F /* InboxMentionsTableManager.swift in Sources */,
 				4ECCEEFE250CA30E0075F921 /* FrontPageHeaderCell.swift in Sources */,
 				4E87C69F258E680F0007FE5E /* InstancesCoordinator.swift in Sources */,
 				4E91834F2566C16C00702F04 /* SettingsRightDetailSwitchCellView.swift in Sources */,
