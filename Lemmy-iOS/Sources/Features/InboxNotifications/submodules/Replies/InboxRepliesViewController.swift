@@ -107,48 +107,48 @@ extension InboxRepliesViewController: InboxRepliesTableManagerDelegate {
 }
 
 extension InboxRepliesViewController: ReplyCellViewDelegate {
-    func usernameTapped(in comment: LemmyModel.ReplyView) {
-        self.coordinator?.goToProfileScreen(by: comment.creatorId)
+    func usernameTapped(in reply: LemmyModel.ReplyView) {
+        self.coordinator?.goToProfileScreen(by: reply.creatorId)
     }
     
-    func communityTapped(in comment: LemmyModel.ReplyView) {
-        self.coordinator?.goToCommunityScreen(communityId: comment.communityId)
+    func communityTapped(in reply: LemmyModel.ReplyView) {
+        self.coordinator?.goToCommunityScreen(communityId: reply.communityId)
     }
     
-    func postNameTapped(in comment: LemmyModel.ReplyView) {
-        self.coordinator?.goToPostScreen(postId: comment.postId)
+    func postNameTapped(in reply: LemmyModel.ReplyView) {
+        self.coordinator?.goToPostScreen(postId: reply.postId)
     }
     
     func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        comment: LemmyModel.ReplyView
+        reply: LemmyModel.ReplyView
     ) {
         self.contentScoreService.voteReply(
             scoreView: scoreView,
             voteButton: voteButton,
             for: newVote,
-            reply: comment,
+            reply: reply,
             completion: { _ in }
         )
     }
     
-    func showContext(in comment: LemmyModel.ReplyView) { }
+    func showContext(in reply: LemmyModel.ReplyView) { }
     
-    func reply(to comment: LemmyModel.ReplyView) {
-        self.coordinator?.goToWriteComment(postId: comment.postId, parrentComment: nil)
+    func reply(to reply: LemmyModel.ReplyView) {
+        self.coordinator?.goToWriteComment(postId: reply.postId, parrentComment: nil)
     }
     
-    func onLinkTap(in comment: LemmyModel.ReplyView, url: URL) {
+    func onLinkTap(in reply: LemmyModel.ReplyView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }
     
-    func onMentionTap(in post: LemmyModel.ReplyView, mention: LemmyMention) {
+    func onMentionTap(in reply: LemmyModel.ReplyView, mention: LemmyMention) {
         self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }
     
-    func showMoreAction(in comment: LemmyModel.ReplyView) {
+    func showMoreAction(in reply: LemmyModel.ReplyView) {
         
     }
 }

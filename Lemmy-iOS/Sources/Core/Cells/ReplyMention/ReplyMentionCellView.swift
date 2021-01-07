@@ -144,11 +144,11 @@ class ReplyMentionCellView: UIView {
         }
 
         footerView.downvoteTap = { [weak self] (scoreView, button, voteType) in
-            self?.replyDelegate?.voteContent(scoreView: scoreView, voteButton: button, newVote: voteType, comment: reply)
+            self?.replyDelegate?.voteContent(scoreView: scoreView, voteButton: button, newVote: voteType, reply: reply)
         }
         
         footerView.upvoteTap = { [weak self] (scoreView, button, voteType) in
-            self?.replyDelegate?.voteContent(scoreView: scoreView, voteButton: button, newVote: voteType, comment: reply)
+            self?.replyDelegate?.voteContent(scoreView: scoreView, voteButton: button, newVote: voteType, reply: reply)
         }
 
         footerView.replyTap = { [weak self] in
@@ -190,11 +190,11 @@ class ReplyMentionCellView: UIView {
         }
 
         footerView.downvoteTap = { [weak self] (scoreView, button, voteType) in
-            self?.mentionDelegate?.voteContent(scoreView: scoreView, voteButton: button, newVote: voteType, comment: mention)
+            self?.mentionDelegate?.voteContent(scoreView: scoreView, voteButton: button, newVote: voteType,         userMention: mention)
         }
         
         footerView.upvoteTap = { [weak self] (scoreView, button, voteType) in
-            self?.mentionDelegate?.voteContent(scoreView: scoreView, voteButton: button, newVote: voteType, comment: mention)
+            self?.mentionDelegate?.voteContent(scoreView: scoreView, voteButton: button, newVote: voteType,         userMention: mention)
         }
 
         footerView.replyTap = { [weak self] in

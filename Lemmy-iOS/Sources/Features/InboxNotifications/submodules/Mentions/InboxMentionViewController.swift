@@ -107,15 +107,15 @@ extension InboxMentionsViewController: InboxMentionsTableManagerDelegate {
 }
 
 extension InboxMentionsViewController: UserMentionCellViewDelegate {
-    func usernameTapped(in comment: LemmyModel.UserMentionView) {
-        self.coordinator?.goToProfileScreen(by: comment.creatorId)
+    func usernameTapped(in userMention: LemmyModel.UserMentionView) {
+        self.coordinator?.goToProfileScreen(by: userMention.creatorId)
     }
     
-    func communityTapped(in comment: LemmyModel.UserMentionView) {
-        self.coordinator?.goToCommunityScreen(communityId: comment.communityId)
+    func communityTapped(in userMention: LemmyModel.UserMentionView) {
+        self.coordinator?.goToCommunityScreen(communityId: userMention.communityId)
     }
     
-    func postNameTapped(in comment: LemmyModel.UserMentionView) {
+    func postNameTapped(in userMention: LemmyModel.UserMentionView) {
         
     }
     
@@ -123,13 +123,13 @@ extension InboxMentionsViewController: UserMentionCellViewDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        comment: LemmyModel.UserMentionView
+        userMention: LemmyModel.UserMentionView
     ) {
         self.contentScoreService.voteUserMention(
             scoreView: scoreView,
             voteButton: voteButton,
             for: newVote,
-            userMention: comment,
+            userMention: userMention,
             completion: { _ in }
         )
     }
@@ -138,19 +138,19 @@ extension InboxMentionsViewController: UserMentionCellViewDelegate {
         
     }
     
-    func reply(to comment: LemmyModel.UserMentionView) {
-        self.coordinator?.goToWriteComment(postId: comment.postId, parrentComment: nil)
+    func reply(to userMention: LemmyModel.UserMentionView) {
+        self.coordinator?.goToWriteComment(postId: userMention.postId, parrentComment: nil)
     }
     
-    func onLinkTap(in comment: LemmyModel.UserMentionView, url: URL) {
+    func onLinkTap(in userMention: LemmyModel.UserMentionView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }
     
-    func onMentionTap(in post: LemmyModel.UserMentionView, mention: LemmyMention) {
+    func onMentionTap(in userMention: LemmyModel.UserMentionView, mention: LemmyMention) {
         self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }
     
-    func showMoreAction(in comment: LemmyModel.UserMentionView) {
+    func showMoreAction(in userMention: LemmyModel.UserMentionView) {
 //        self.showMoreService.showMoreInComment(on: self, comment: <#T##LemmyModel.CommentView#>)
     }
 }
