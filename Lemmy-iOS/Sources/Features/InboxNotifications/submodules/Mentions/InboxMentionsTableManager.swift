@@ -52,11 +52,11 @@ extension InboxMentionsTableManager: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: MessageTableCell = tableView.cell(forRowAt: indexPath)
+        let cell: ReplyMentionTableCell = tableView.cell(forRowAt: indexPath)
         cell.updateConstraintsIfNeeded()
         
         let viewModel = self.viewModels[indexPath.row]
-//        cell.configure(viewModel: viewModel)
+        cell.configure(with: viewModel, level: 0)
         
         return cell
     }

@@ -13,7 +13,7 @@ final class InboxMentionsView: UIView {
     private var tableManager: InboxMentionsTableManager?
     
     private lazy var tableView = LemmyTableView(style: .plain, separator: false).then {
-        $0.registerClass(PostContentPreviewTableCell.self)
+        $0.registerClass(ReplyMentionTableCell.self)
         $0.backgroundColor = .clear
         $0.showsVerticalScrollIndicator = false
     }

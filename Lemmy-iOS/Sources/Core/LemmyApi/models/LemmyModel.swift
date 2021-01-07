@@ -824,6 +824,15 @@ enum LemmyModel {
             case subscribed, saved
             case recipientId = "recipient_id"
         }
+        
+        func getVoteType() -> LemmyVoteType {
+            guard let myVote = self.myVote, myVote != 0 else { return LemmyVoteType.none }
+            return myVote == 1 ? .up : .down
+        }
+        
+        func getApIdRelatedToPost() -> String {
+            return "https://lemmy.ml/post/\(self.postId)/comment/\(self.id)"
+        }
     }
 
     // MARK: - UserMentionView -
@@ -850,7 +859,7 @@ enum LemmyModel {
         let banned: Bool
         let bannedFromCommunity: Bool
         let creatorName: String
-        let creatorPreferredUsername: String
+        let creatorPreferredUsername: String?
         let creatorAvatar: String?
         let score: Int
         let upvotes: Int
@@ -894,6 +903,15 @@ enum LemmyModel {
             case recipientId = "recipient_id"
             case recipientActorId = "recipient_actor_id"
             case recipientLocal = "recipient_local"
+        }
+        
+        func getVoteType() -> LemmyVoteType {
+            guard let myVote = self.myVote, myVote != 0 else { return LemmyVoteType.none }
+            return myVote == 1 ? .up : .down
+        }
+        
+        func getApIdRelatedToPost() -> String {
+            return "https://lemmy.ml/post/\(self.postId)/comment/\(self.id)"
         }
     }
 

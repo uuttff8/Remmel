@@ -12,7 +12,7 @@ final class InboxRepliesView: UIView {
     private var tableManager: InboxRepliesTableManager?
     
     private lazy var tableView = LemmyTableView(style: .plain, separator: false).then {
-        $0.registerClass(MessageTableCell.self)
+        $0.registerClass(ReplyMentionTableCell.self)
         $0.backgroundColor = .clear
         $0.showsVerticalScrollIndicator = false
     }
