@@ -25,6 +25,22 @@ protocol ContentScoreServiceProtocol {
         comment: LemmyModel.CommentView,
         completion: @escaping (LemmyModel.CommentView) -> Void
     )
+    
+    func voteReply(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        for newVote: LemmyVoteType,
+        reply: LemmyModel.ReplyView,
+        completion: @escaping (LemmyModel.CommentView) -> Void
+    )
+    
+    func voteUserMention(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        for newVote: LemmyVoteType,
+        userMention: LemmyModel.UserMentionView,
+        completion: @escaping (LemmyModel.CommentView) -> Void
+    )
 }
 
 class ContentScoreService: ContentScoreServiceProtocol {
@@ -68,6 +84,42 @@ class ContentScoreService: ContentScoreServiceProtocol {
         
         scoreView.setVoted(voteButton: voteButton, to: newVote)
         self.voteService.createCommentLike(vote: newVote, comment: comment)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
+            } receiveValue: { (comment) in
+                completion(comment)
+            }.store(in: &cancellable)
+    }
+    
+    func voteReply(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        for newVote: LemmyVoteType,
+        reply: LemmyModel.ReplyView,
+        completion: @escaping (LemmyModel.CommentView) -> Void
+    ) {
+        
+        scoreView.setVoted(voteButton: voteButton, to: newVote)
+        self.voteService.createReplyLike(vote: newVote, reply: reply)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
+            } receiveValue: { (comment) in
+                completion(comment)
+            }.store(in: &cancellable)
+    }
+    
+    func voteUserMention(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        for newVote: LemmyVoteType,
+        userMention: LemmyModel.UserMentionView,
+        completion: @escaping (LemmyModel.CommentView) -> Void
+    ) {
+        
+        scoreView.setVoted(voteButton: voteButton, to: newVote)
+        self.voteService.createUserMentionLike(vote: newVote, userMention: userMention)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)

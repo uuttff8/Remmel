@@ -15,6 +15,7 @@ protocol InboxRepliesViewControllerProtocol: AnyObject {
 
 final class InboxRepliesViewController: UIViewController {
     
+    weak var coordinator: InboxNotificationsCoordinator?
     private let viewModel: InboxRepliesViewModel
     
     private lazy var repliesView = self.view as! InboxRepliesView

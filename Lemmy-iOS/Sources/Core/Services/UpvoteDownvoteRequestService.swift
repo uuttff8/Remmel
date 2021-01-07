@@ -24,6 +24,16 @@ protocol UpvoteDownvoteRequestServiceProtocol: AnyObject {
         vote: LemmyVoteType,
         comment: LemmyModel.CommentView
     ) -> AnyPublisher<LemmyModel.CommentView, LemmyGenericError>
+    
+    func createReplyLike(
+        vote: LemmyVoteType,
+        reply: LemmyModel.ReplyView
+    ) -> AnyPublisher<LemmyModel.CommentView, LemmyGenericError>
+    
+    func createUserMentionLike(
+        vote: LemmyVoteType,
+        userMention: LemmyModel.UserMentionView
+    ) -> AnyPublisher<LemmyModel.CommentView, LemmyGenericError>
 }
 
 final class UpvoteDownvoteRequestService: UpvoteDownvoteRequestServiceProtocol {
@@ -119,6 +129,45 @@ final class UpvoteDownvoteRequestService: UpvoteDownvoteRequestServiceProtocol {
         }
         
         let params = LemmyModel.Comment.CreateCommentLikeRequest(commentId: comment.id,
+                                                                 score: vote.rawValue,
+                                                                 auth: jwtToken)
+        
+        return ApiManager.requests.asyncCreateCommentLike(parameters: params)
+            .map({ $0.comment })
+            .eraseToAnyPublisher()
+    }
+    
+    func createReplyLike(
+        vote: LemmyVoteType,
+        reply: LemmyModel.ReplyView
+    ) -> AnyPublisher<LemmyModel.CommentView, LemmyGenericError> {
+        guard let jwtToken = self.userAccountService.jwtToken
+        else {
+            return Fail(error: LemmyGenericError.string("failed to fetch jwt token"))
+                .eraseToAnyPublisher()
+        }
+        
+        let params = LemmyModel.Comment.CreateCommentLikeRequest(commentId: reply.id,
+                                                                 score: vote.rawValue,
+                                                                 auth: jwtToken)
+        
+        return ApiManager.requests.asyncCreateCommentLike(parameters: params)
+            .map({ $0.comment })
+            .eraseToAnyPublisher()
+    }
+    
+    func createUserMentionLike(
+        vote: LemmyVoteType,
+        userMention: LemmyModel.UserMentionView
+    ) -> AnyPublisher<LemmyModel.CommentView, LemmyGenericError> {
+        
+        guard let jwtToken = self.userAccountService.jwtToken
+        else {
+            return Fail(error: LemmyGenericError.string("failed to fetch jwt token"))
+                .eraseToAnyPublisher()
+        }
+        
+        let params = LemmyModel.Comment.CreateCommentLikeRequest(commentId: userMention.id,
                                                                  score: vote.rawValue,
                                                                  auth: jwtToken)
         

@@ -70,20 +70,25 @@ final class InboxNotificationsViewController: UIViewController {
         guard let tab = self.viewModel.availableTabs[safe: index] else {
             return
         }
+        
+        guard let coordinator = coordinator else {
+            Logger.commonLog.error("Coordinator not found")
+            return
+        }
 
         var moduleInput: InboxNotificationSubmoduleProtocol?
         let controller: UIViewController
         switch tab {
         case .mentions:
-            let assembly = InboxMentionsAssembly()
+            let assembly = InboxMentionsAssembly(coordinator: WeakBox(coordinator))
             controller = assembly.makeModule()
             moduleInput = assembly.moduleInput
         case .messages:
-            let assembly = InboxMessagesAssembly()
+            let assembly = InboxMessagesAssembly(coordinator: WeakBox(coordinator))
             controller = assembly.makeModule()
             moduleInput = assembly.moduleInput
         case .replies:
-            let assembly = InboxRepliesAssembly()
+            let assembly = InboxRepliesAssembly(coordinator: WeakBox(coordinator))
             controller = assembly.makeModule()
             moduleInput = assembly.moduleInput
         }

@@ -15,6 +15,7 @@ protocol InboxMentionsViewControllerProtocol: AnyObject {
 
 final class InboxMentionsViewController: UIViewController {
     
+    weak var coordinator: InboxNotificationsCoordinator?
     private let viewModel: InboxMentionsViewModel
     
     private lazy var mentionsView = self.view as! InboxMentionsView
@@ -22,14 +23,21 @@ final class InboxMentionsViewController: UIViewController {
         $0.delegate = self
     }
     
+    private let contentScoreService: ContentScoreServiceProtocol
+    private let showMoreService: ShowMoreHandlerServiceProtocol
+    
     private var state: InboxMentions.ViewControllerState
     private var canTriggerPagination = true
     
     init(
         viewModel: InboxMentionsViewModel,
+        contentScoreService: ContentScoreServiceProtocol,
+        showMoreService: ShowMoreHandlerServiceProtocol,
         initialState: InboxMentions.ViewControllerState = .loading
     ) {
         self.viewModel = viewModel
+        self.contentScoreService = contentScoreService
+        self.showMoreService = showMoreService
         self.state = initialState
         super.init(nibName: nil, bundle: nil)
     }
@@ -95,5 +103,54 @@ extension InboxMentionsViewController: InboxMentionsTableManagerDelegate {
         
         self.canTriggerPagination = false
         self.viewModel.doNextLoadMentions(request: .init())
+    }
+}
+
+extension InboxMentionsViewController: UserMentionCellViewDelegate {
+    func usernameTapped(in comment: LemmyModel.UserMentionView) {
+        self.coordinator?.goToProfileScreen(by: comment.creatorId)
+    }
+    
+    func communityTapped(in comment: LemmyModel.UserMentionView) {
+        self.coordinator?.goToCommunityScreen(communityId: comment.communityId)
+    }
+    
+    func postNameTapped(in comment: LemmyModel.UserMentionView) {
+        
+    }
+    
+    func voteContent(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        comment: LemmyModel.UserMentionView
+    ) {
+        self.contentScoreService.voteUserMention(
+            scoreView: scoreView,
+            voteButton: voteButton,
+            for: newVote,
+            userMention: comment,
+            completion: { _ in }
+        )
+    }
+    
+    func showContext(in comment: LemmyModel.UserMentionView) {
+        
+    }
+    
+    func reply(to comment: LemmyModel.UserMentionView) {
+        self.coordinator?.goToWriteComment(postId: comment.postId, parrentComment: nil)
+    }
+    
+    func onLinkTap(in comment: LemmyModel.UserMentionView, url: URL) {
+        self.coordinator?.goToBrowser(with: url)
+    }
+    
+    func onMentionTap(in post: LemmyModel.UserMentionView, mention: LemmyMention) {
+        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
+    }
+    
+    func showMoreAction(in comment: LemmyModel.UserMentionView) {
+//        self.showMoreService.showMoreInComment(on: self, comment: <#T##LemmyModel.CommentView#>)
     }
 }

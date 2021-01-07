@@ -13,11 +13,17 @@ protocol InboxRepliesInputProtocol: InboxNotificationSubmoduleProtocol { }
 final class InboxRepliesAssembly: Assembly {
     
     var moduleInput: InboxRepliesInputProtocol?
+    private let coordinator: WeakBox<InboxNotificationsCoordinator>
+    
+    init(coordinator: WeakBox<InboxNotificationsCoordinator>) {
+        self.coordinator = coordinator
+    }
     
     func makeModule() -> InboxRepliesViewController {
         let viewModel = InboxRepliesViewModel(userAccountService: UserAccountService())
         let vc = InboxRepliesViewController(viewModel: viewModel)
         
+        vc.coordinator = coordinator.value
         viewModel.viewController = vc
         self.moduleInput = viewModel
         return vc

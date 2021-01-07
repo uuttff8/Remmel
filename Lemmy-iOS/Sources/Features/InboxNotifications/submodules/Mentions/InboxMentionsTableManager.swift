@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol InboxMentionsTableManagerDelegate: AnyObject {
+protocol InboxMentionsTableManagerDelegate: UserMentionCellViewDelegate {
     func tableDidRequestPagination(_ tableManager: InboxMentionsTableManager)
 }
 
@@ -57,6 +57,7 @@ extension InboxMentionsTableManager: UITableViewDataSource {
         
         let viewModel = self.viewModels[indexPath.row]
         cell.configure(with: viewModel, level: 0)
+        cell.commentContentView.mentionDelegate = delegate
         
         return cell
     }

@@ -13,11 +13,25 @@ protocol InboxMentionsInputProtocol: InboxNotificationSubmoduleProtocol { }
 final class InboxMentionsAssembly: Assembly {
     
     var moduleInput: InboxMentionsInputProtocol?
+    private let coordinator: WeakBox<InboxNotificationsCoordinator>
+    
+    init(coordinator: WeakBox<InboxNotificationsCoordinator>) {
+        self.coordinator = coordinator
+    }
     
     func makeModule() -> InboxMentionsViewController {
-        let viewModel = InboxMentionsViewModel(userAccountService: UserAccountService())
-        let vc = InboxMentionsViewController(viewModel: viewModel)
+        let userAccService = UserAccountService()
         
+        let viewModel = InboxMentionsViewModel(userAccountService: userAccService)
+        let vc = InboxMentionsViewController(
+            viewModel: viewModel,
+            contentScoreService: ContentScoreService(
+                voteService: UpvoteDownvoteRequestService(userAccountService: userAccService)
+            ),
+            showMoreService: ShowMoreHandlerService()
+        )
+        
+        vc.coordinator = coordinator.value
         viewModel.viewController = vc
         self.moduleInput = viewModel
         return vc

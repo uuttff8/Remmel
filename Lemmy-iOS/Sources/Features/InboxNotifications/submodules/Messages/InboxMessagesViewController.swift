@@ -15,6 +15,7 @@ protocol InboxMessagesViewControllerProtocol: AnyObject {
 
 final class InboxMessagesViewController: UIViewController {
     
+    weak var coordinator: InboxNotificationsCoordinator?
     private let viewModel: InboxMessagesViewModel
     
     private lazy var messagesView = self.view as! InboxMessagesView
