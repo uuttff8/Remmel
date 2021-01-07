@@ -20,8 +20,16 @@ final class InboxRepliesAssembly: Assembly {
     }
     
     func makeModule() -> InboxRepliesViewController {
-        let viewModel = InboxRepliesViewModel(userAccountService: UserAccountService())
-        let vc = InboxRepliesViewController(viewModel: viewModel)
+        let userAccService = UserAccountService()
+        
+        let viewModel = InboxRepliesViewModel(userAccountService: userAccService)
+        let vc = InboxRepliesViewController(
+            viewModel: viewModel,
+            contentScoreService: ContentScoreService(
+                voteService: UpvoteDownvoteRequestService(userAccountService: userAccService)
+            ),
+            showMoreService: ShowMoreHandlerService()
+        )
         
         vc.coordinator = coordinator.value
         viewModel.viewController = vc

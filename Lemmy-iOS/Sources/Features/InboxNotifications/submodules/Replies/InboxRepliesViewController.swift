@@ -23,14 +23,21 @@ final class InboxRepliesViewController: UIViewController {
         $0.delegate = self
     }
     
+    private let contentScoreService: ContentScoreServiceProtocol
+    private let showMoreService: ShowMoreHandlerServiceProtocol
+    
     private var state: InboxReplies.ViewControllerState
     private var canTriggerPagination = true
 
     init(
         viewModel: InboxRepliesViewModel,
+        contentScoreService: ContentScoreServiceProtocol,
+        showMoreService: ShowMoreHandlerServiceProtocol,
         initialState: InboxReplies.ViewControllerState = .loading
     ) {
         self.viewModel = viewModel
+        self.contentScoreService = contentScoreService
+        self.showMoreService = showMoreService
         self.state = initialState
         super.init(nibName: nil, bundle: nil)
     }
@@ -96,5 +103,52 @@ extension InboxRepliesViewController: InboxRepliesTableManagerDelegate {
         
         self.canTriggerPagination = false
         self.viewModel.doNextLoadReplies(request: .init())
+    }
+}
+
+extension InboxRepliesViewController: ReplyCellViewDelegate {
+    func usernameTapped(in comment: LemmyModel.ReplyView) {
+        self.coordinator?.goToProfileScreen(by: comment.creatorId)
+    }
+    
+    func communityTapped(in comment: LemmyModel.ReplyView) {
+        self.coordinator?.goToCommunityScreen(communityId: comment.communityId)
+    }
+    
+    func postNameTapped(in comment: LemmyModel.ReplyView) {
+        self.coordinator?.goToPostScreen(postId: comment.postId)
+    }
+    
+    func voteContent(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        newVote: LemmyVoteType,
+        comment: LemmyModel.ReplyView
+    ) {
+        self.contentScoreService.voteReply(
+            scoreView: scoreView,
+            voteButton: voteButton,
+            for: newVote,
+            reply: comment,
+            completion: { _ in }
+        )
+    }
+    
+    func showContext(in comment: LemmyModel.ReplyView) { }
+    
+    func reply(to comment: LemmyModel.ReplyView) {
+        self.coordinator?.goToWriteComment(postId: comment.postId, parrentComment: nil)
+    }
+    
+    func onLinkTap(in comment: LemmyModel.ReplyView, url: URL) {
+        self.coordinator?.goToBrowser(with: url)
+    }
+    
+    func onMentionTap(in post: LemmyModel.ReplyView, mention: LemmyMention) {
+        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
+    }
+    
+    func showMoreAction(in comment: LemmyModel.ReplyView) {
+        
     }
 }

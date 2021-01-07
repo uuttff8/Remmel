@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol InboxRepliesTableManagerDelegate: AnyObject {
+protocol InboxRepliesTableManagerDelegate: ReplyCellViewDelegate {
     func tableDidRequestPagination(_ tableManager: InboxRepliesTableManager)
 }
 
@@ -57,6 +57,7 @@ extension InboxRepliesTableManager: UITableViewDataSource {
         
         let viewModel = self.viewModels[indexPath.row]
         cell.configure(with: viewModel, level: 0)
+        cell.commentContentView.replyDelegate = delegate
         
         return cell
     }
