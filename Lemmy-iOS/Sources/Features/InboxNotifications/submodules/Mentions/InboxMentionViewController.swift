@@ -49,6 +49,7 @@ final class InboxMentionsViewController: UIViewController {
     
     override func loadView() {
         let view = InboxMentionsView()
+        view.delegate = self
         self.view = view
     }
     
@@ -152,5 +153,15 @@ extension InboxMentionsViewController: UserMentionCellViewDelegate {
     
     func showMoreAction(in userMention: LemmyModel.UserMentionView) {
 //        self.showMoreService.showMoreInComment(on: self, comment: <#T##LemmyModel.CommentView#>)
+    }
+}
+
+
+extension InboxMentionsViewController: InboxMentionsViewDelegate {
+    func inboxMentionsViewDidRequestRefresh() {
+        // Small delay for pretty refresh
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            self?.viewModel.doLoadMentions(request: .init())
+        }
     }
 }

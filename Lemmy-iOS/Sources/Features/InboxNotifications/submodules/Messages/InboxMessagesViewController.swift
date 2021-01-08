@@ -42,6 +42,7 @@ final class InboxMessagesViewController: UIViewController {
     
     override func loadView() {
         let view = InboxMessagesView()
+        view.delegate = self
         self.view = view
     }
     
@@ -93,5 +94,14 @@ extension InboxMessagesViewController: InboxMessagesViewControllerProtocol {
 extension InboxMessagesViewController: InboxMessagesTableManagerDelegate {
     func tableDidRequestPagination(_ tableManager: InboxMessagesTableManager) {
         
+    }
+}
+
+extension InboxMessagesViewController: InboxMessagesViewDelegate {
+    func inboxMessagesViewDidRequestRefresh() {
+        // Small delay for pretty refresh
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            self?.viewModel.doLoadMessages(request: .init())
+        }
     }
 }

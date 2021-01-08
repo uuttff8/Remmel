@@ -8,14 +8,24 @@
 
 import UIKit
 
+protocol InboxMentionsViewDelegate: AnyObject {
+    func inboxMentionsViewDidRequestRefresh()
+}
+
 final class InboxMentionsView: UIView {
     
+    weak var delegate: InboxMentionsViewDelegate?
+    
     private var tableManager: InboxMentionsTableManager?
+    
+    private let refreshControl = UIRefreshControl()
     
     private lazy var tableView = LemmyTableView(style: .plain, separator: false).then {
         $0.registerClass(ReplyMentionTableCell.self)
         $0.backgroundColor = .clear
         $0.showsVerticalScrollIndicator = false
+        $0.refreshControl = self.refreshControl
+        self.refreshControl.addTarget(self, action: #selector(refreshControlValueChanged), for: .valueChanged)
     }
             
     private lazy var emptyStateLabel = UILabel().then {
@@ -45,6 +55,9 @@ final class InboxMentionsView: UIView {
     }
     
     func updateTableViewData(dataSource: InboxMentionsTableManager) {
+        if refreshControl.isRefreshing {
+            self.refreshControl.endRefreshing()
+        }
         self.tableView.isHidden = false
         self.emptyStateLabel.isHidden = true
         self.hideActivityIndicator()
@@ -74,6 +87,10 @@ final class InboxMentionsView: UIView {
                 tableView.insertRows(at: newIndexpaths, with: .none)
             }
         }
+    }
+    
+    @objc func refreshControlValueChanged() {
+        self.delegate?.inboxMentionsViewDidRequestRefresh()
     }
 }
 

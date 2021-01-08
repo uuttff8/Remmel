@@ -49,6 +49,7 @@ final class InboxRepliesViewController: UIViewController {
     
     override func loadView() {
         let view = InboxRepliesView()
+        view.delegate = self
         self.view = view
     }
     
@@ -150,5 +151,14 @@ extension InboxRepliesViewController: ReplyCellViewDelegate {
     
     func showMoreAction(in reply: LemmyModel.ReplyView) {
         
+    }
+}
+
+extension InboxRepliesViewController: InboxRepliesViewDelegate {
+    func inboxRepliesViewDidRequestRefresh() {
+        // Small delay for pretty refresh
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            self?.viewModel.doLoadReplies(request: .init())
+        }
     }
 }
