@@ -26,7 +26,9 @@ final class MessageCellView: UIView {
     
     private lazy var contentLabel = UILabel()
     
-    private lazy var replyButton = ImageControl()
+    private lazy var replyButton = ImageControl().then {
+        $0.innerImageView.image = Config.Image.arrowshapeTurnUp
+    }
     
     private lazy var footerStackView = UIStackView()
     
@@ -91,6 +93,10 @@ extension MessageCellView: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
+        self.avatarImageView.snp.makeConstraints { (make) in
+            make.size.equalTo(35)
+        }
+
         self.mainStackView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
