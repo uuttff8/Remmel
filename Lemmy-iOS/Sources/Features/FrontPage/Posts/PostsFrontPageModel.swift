@@ -13,7 +13,7 @@ class PostsFrontPageModel: NSObject {
     var newDataLoaded: (([LemmyModel.PostView]) -> Void)?
     var dataLoaded: (([LemmyModel.PostView]) -> Void)?
     
-    private let upvoteDownvoteService = UpvoteDownvoteRequestService(userAccountService: UserAccountService())
+    private let contentScoreService = ContentScoreService(userAccountService: UserAccountService())
     private let contentPreferenceService = ContentPreferencesStorageManager()
     
     private var cancellable = Set<AnyCancellable>()
@@ -91,7 +91,7 @@ class PostsFrontPageModel: NSObject {
     }
     
     func createPostLike(newVote: LemmyVoteType, post: LemmyModel.PostView) {
-        self.upvoteDownvoteService.createPostLike(vote: newVote, post: post)
+        self.contentScoreService.createPostLike(vote: newVote, postId: post.id)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)

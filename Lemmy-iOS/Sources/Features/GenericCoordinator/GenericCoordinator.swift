@@ -140,6 +140,14 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
         }
     }
     
+    func goToWriteMessage(recipientId: Int) {
+        let assembly = WriteMessageAssembly(recipientId: recipientId)
+        let vc = assembly.makeModule()
+        let navigationController = StyledNavigationController(rootViewController: vc)
+        navigationController.presentationController?.delegate = vc
+        rootViewController.present(navigationController, animated: true)
+    }
+    
     // MARK: - SFSafariViewControllerDelegate -
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         self.rootViewController.dismiss(animated: true)

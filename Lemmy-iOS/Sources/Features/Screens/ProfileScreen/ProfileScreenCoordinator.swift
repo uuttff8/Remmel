@@ -22,12 +22,4 @@ final class ProfileScreenCoordinator: GenericCoordinator<ProfileScreenViewContro
     override func start() {
         rootViewController.coordinator = self
     }
-    
-    func goToWriteMessage(recipientId: Int) {
-        let assembly = WriteMessageAssembly(recipientId: recipientId)
-        let vc = assembly.makeModule()
-        let navigationController = StyledNavigationController(rootViewController: vc)
-        navigationController.presentationController?.delegate = vc
-        rootViewController.present(navigationController, animated: true)
-    }
 }

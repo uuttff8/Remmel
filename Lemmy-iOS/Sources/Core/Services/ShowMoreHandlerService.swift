@@ -29,6 +29,8 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
     func showMoreInPost(on viewController: UIViewController, post: LemmyModel.PostView) {
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.popoverPresentationController?.sourceView = viewController.view
+        alertController.popoverPresentationController?.sourceRect = viewController.view.bounds
         
         let shareAction = self.createShareAction(on: viewController, urlString: post.apId)
         
@@ -67,6 +69,8 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
     
     func showMoreInComment(on viewController: UIViewController, comment: LemmyModel.CommentView) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.popoverPresentationController?.sourceView = viewController.view
+        alertController.popoverPresentationController?.sourceRect = viewController.view.bounds
         
         let shareAction = self.createShareAction(on: viewController, urlString: comment.getApIdRelatedToPost())
         let reportAction = UIAlertAction(title: "Report", style: .destructive) { (_) in
@@ -101,6 +105,19 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         ])
         
         viewController.present(alertController, animated: true)
+    }
+    
+    func showMoreInReply(on viewController: InboxNotificationsViewController, comment: LemmyModel.ReplyView) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.popoverPresentationController?.sourceView = viewController.view
+        alertController.popoverPresentationController?.sourceRect = viewController.view.bounds
+        
+        let sendMessageAction = UIAlertAction(title: "Send Message", style: .default) { _ in
+            let recipientId = comment.creatorId
+            viewController.coordinator?.goToWriteMessage(recipientId: recipientId)
+        }
+        
+        alertController.addAction(sendMessageAction)
     }
     
     private func createShareAction(on viewController: UIViewController, urlString: String) -> UIAlertAction {

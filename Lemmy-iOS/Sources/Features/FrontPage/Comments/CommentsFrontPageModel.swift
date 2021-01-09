@@ -18,8 +18,8 @@ class CommentsFrontPageModel: NSObject {
     
     var commentsDataSource: [LemmyModel.CommentView] = []
     
-    private let upvoteDownvoteService = UpvoteDownvoteRequestService(userAccountService: UserAccountService())
-    
+    private let contentScoreService = ContentScoreService(userAccountService: UserAccountService())
+
     private var cancellable = Set<AnyCancellable>()
     
     // at init always posts
@@ -71,7 +71,7 @@ class CommentsFrontPageModel: NSObject {
     }
     
     func createCommentLike(newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
-        self.upvoteDownvoteService.createCommentLike(vote: newVote, comment: comment)
+        self.contentScoreService.createCommentLike(vote: newVote, contentId: comment.id)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 print(completion)

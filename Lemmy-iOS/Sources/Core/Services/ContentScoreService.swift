@@ -129,7 +129,7 @@ class ContentScoreService: ContentScoreServiceProtocol {
     }
     
     
-    private func createPostLike(
+    func createPostLike(
         vote: LemmyVoteType,
         postId: Int
     ) -> AnyPublisher<LemmyModel.PostView, LemmyGenericError> {
