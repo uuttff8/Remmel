@@ -32,9 +32,7 @@ class CommunityScreenAssembly: Assembly {
                 userAccountService: userAccountService
             ),
             contentScoreService: ContentScoreService(
-                voteService: UpvoteDownvoteRequestService(
-                    userAccountService: userAccountService
-                )
+                userAccountService: userAccountService
             ),
             showMoreService: ShowMoreHandlerService()
             

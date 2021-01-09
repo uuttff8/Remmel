@@ -26,7 +26,7 @@ final class InboxRepliesAssembly: Assembly {
         let vc = InboxRepliesViewController(
             viewModel: viewModel,
             contentScoreService: ContentScoreService(
-                voteService: UpvoteDownvoteRequestService(userAccountService: userAccService)
+                userAccountService: userAccService
             ),
             showMoreService: ShowMoreHandlerService()
         )

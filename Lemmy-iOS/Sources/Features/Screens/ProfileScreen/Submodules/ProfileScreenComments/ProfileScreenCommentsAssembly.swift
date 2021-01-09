@@ -24,7 +24,7 @@ final class ProfileScreenCommentsAssembly: Assembly {
             viewModel: viewModel,
             showMoreHandler: ShowMoreHandlerService(),
             contentScoreService: ContentScoreService(
-                voteService: UpvoteDownvoteRequestService(userAccountService: UserAccountService())
+                userAccountService: UserAccountService()
             )
         )
         vc.coordinator = coordinator.value

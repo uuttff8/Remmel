@@ -29,9 +29,7 @@ class PostScreenAssembly: Assembly {
             postId: self.postId,
             postInfo: self.postInfo,
             contentScoreService: ContentScoreService(
-                voteService: UpvoteDownvoteRequestService(
-                    userAccountService: UserAccountService()
-                )
+                userAccountService: UserAccountService()
             )
         )
         

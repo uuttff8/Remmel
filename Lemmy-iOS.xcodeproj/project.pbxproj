@@ -63,7 +63,6 @@
 		4E73DF6A258BE964001608F2 /* FollowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E73DF69258BE964001608F2 /* FollowButton.swift */; };
 		4E7CFCC125841B140082AC3D /* WriteCommentParrentPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7CFCC025841B140082AC3D /* WriteCommentParrentPreviewCell.swift */; };
 		4E7CFCD52584215F0082AC3D /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7CFCD42584215F0082AC3D /* UIImageView+Ext.swift */; };
-		4E81655B2562A38400907D31 /* UpvoteDownvoteRequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E81655A2562A38400907D31 /* UpvoteDownvoteRequestService.swift */; };
 		4E8165632562B6FC00907D31 /* PostsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8165622562B6FC00907D31 /* PostsTableDataSource.swift */; };
 		4E8165722562D08B00907D31 /* ProfileScreenTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8165712562D08B00907D31 /* ProfileScreenTableHeaderView.swift */; };
 		4E8165992563346100907D31 /* Nantes in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8165982563346100907D31 /* Nantes */; };
@@ -407,7 +406,6 @@
 		4E73DF69258BE964001608F2 /* FollowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowButton.swift; sourceTree = "<group>"; };
 		4E7CFCC025841B140082AC3D /* WriteCommentParrentPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteCommentParrentPreviewCell.swift; sourceTree = "<group>"; };
 		4E7CFCD42584215F0082AC3D /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
-		4E81655A2562A38400907D31 /* UpvoteDownvoteRequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpvoteDownvoteRequestService.swift; sourceTree = "<group>"; };
 		4E8165622562B6FC00907D31 /* PostsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsTableDataSource.swift; sourceTree = "<group>"; };
 		4E8165712562D08B00907D31 /* ProfileScreenTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenTableHeaderView.swift; sourceTree = "<group>"; };
 		4E87C636258BF2AB0007FE5E /* CommunityFollowService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityFollowService.swift; sourceTree = "<group>"; };
@@ -1881,7 +1879,6 @@
 				4EBF1DC02594A700004068CD /* StorageManagers */,
 				4EF3135F257A7B530032B58D /* ContentScoreService.swift */,
 				4EFA81B5255FF6B7008AF535 /* UserAccountService.swift */,
-				4E81655A2562A38400907D31 /* UpvoteDownvoteRequestService.swift */,
 				4EF313A9257BDF6E0032B58D /* ShowMoreHandlerService.swift */,
 				4E87C636258BF2AB0007FE5E /* CommunityFollowService.swift */,
 				4EBF1D652593A691004068CD /* ShowContextCommentService.swift */,
@@ -2217,7 +2214,6 @@
 				4E2A0FD9259C877700BF0841 /* Drawable.swift in Sources */,
 				4E886C6E253CD40F0076B162 /* CreateDismissAnimator.swift in Sources */,
 				4EF313BC257BEDC20032B58D /* UserPreviewCell.swift in Sources */,
-				4E81655B2562A38400907D31 /* UpvoteDownvoteRequestService.swift in Sources */,
 				4E9183462566C16C00702F04 /* SettingsTableView.swift in Sources */,
 				4E886C1C25364DD70076B162 /* AuthRequests.swift in Sources */,
 				4EB89B302521FDBE007129BF /* LemmyLinkedClickableUILabel.swift in Sources */,
@@ -2664,6 +2660,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2684,6 +2681,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

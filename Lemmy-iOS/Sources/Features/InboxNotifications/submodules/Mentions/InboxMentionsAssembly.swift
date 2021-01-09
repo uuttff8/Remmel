@@ -26,7 +26,7 @@ final class InboxMentionsAssembly: Assembly {
         let vc = InboxMentionsViewController(
             viewModel: viewModel,
             contentScoreService: ContentScoreService(
-                voteService: UpvoteDownvoteRequestService(userAccountService: userAccService)
+                userAccountService: userAccService
             ),
             showMoreService: ShowMoreHandlerService()
         )

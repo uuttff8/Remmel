@@ -44,15 +44,15 @@ protocol ContentScoreServiceProtocol {
 }
 
 class ContentScoreService: ContentScoreServiceProtocol {
-    
-    private let voteService: UpvoteDownvoteRequestServiceProtocol
+        
+    private let userAccountService: UserAccountSerivceProtocol
     
     private var cancellable = Set<AnyCancellable>()
     
     init(
-        voteService: UpvoteDownvoteRequestServiceProtocol
+        userAccountService: UserAccountSerivceProtocol
     ) {
-        self.voteService = voteService
+        self.userAccountService = userAccountService
     }
     
     func votePost(
@@ -64,7 +64,7 @@ class ContentScoreService: ContentScoreServiceProtocol {
     ) {
         
         scoreView.setVoted(voteButton: voteButton, to: newVote)
-        self.voteService.createPostLike(vote: newVote, post: post)
+        self.createPostLike(vote: newVote, postId: post.id)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
@@ -83,7 +83,7 @@ class ContentScoreService: ContentScoreServiceProtocol {
     ) {
         
         scoreView.setVoted(voteButton: voteButton, to: newVote)
-        self.voteService.createCommentLike(vote: newVote, comment: comment)
+        self.createCommentLike(vote: newVote, contentId: comment.id)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
@@ -101,7 +101,7 @@ class ContentScoreService: ContentScoreServiceProtocol {
     ) {
         
         scoreView.setVoted(voteButton: voteButton, to: newVote)
-        self.voteService.createReplyLike(vote: newVote, reply: reply)
+        self.createCommentLike(vote: newVote, contentId: reply.id)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
@@ -119,12 +119,52 @@ class ContentScoreService: ContentScoreServiceProtocol {
     ) {
         
         scoreView.setVoted(voteButton: voteButton, to: newVote)
-        self.voteService.createUserMentionLike(vote: newVote, userMention: userMention)
+        self.createCommentLike(vote: newVote, contentId: userMention.id)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
             } receiveValue: { (comment) in
                 completion(comment)
             }.store(in: &cancellable)
+    }
+    
+    
+    private func createPostLike(
+        vote: LemmyVoteType,
+        postId: Int
+    ) -> AnyPublisher<LemmyModel.PostView, LemmyGenericError> {
+        guard let jwtToken = self.userAccountService.jwtToken
+        else {
+            return Fail(error: LemmyGenericError.string("failed to fetch jwt token"))
+                .eraseToAnyPublisher()
+        }
+        
+        let params = LemmyModel.Post.CreatePostLikeRequest(postId: postId,
+                                                           score: vote.rawValue,
+                                                           auth: jwtToken)
+        
+        return ApiManager.requests.asyncCreatePostLike(parameters: params)
+            .map({ $0.post })
+            .eraseToAnyPublisher()
+    }
+    
+    func createCommentLike(
+        vote: LemmyVoteType,
+        contentId: Int
+    ) -> AnyPublisher<LemmyModel.CommentView, LemmyGenericError> {
+        
+        guard let jwtToken = self.userAccountService.jwtToken
+        else {
+            return Fail(error: LemmyGenericError.string("failed to fetch jwt token"))
+                .eraseToAnyPublisher()
+        }
+        
+        let params = LemmyModel.Comment.CreateCommentLikeRequest(commentId: contentId,
+                                                                 score: vote.rawValue,
+                                                                 auth: jwtToken)
+        
+        return ApiManager.requests.asyncCreateCommentLike(parameters: params)
+            .map({ $0.comment })
+            .eraseToAnyPublisher()
     }
 }

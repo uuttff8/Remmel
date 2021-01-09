@@ -19,16 +19,10 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
     
     weak var viewController: ProfileScreenPostViewControllerProtocol?
     
-    private let contentScoreService: ContentScoreServiceProtocol
-    
     private var loadedProfile: LemmyModel.UserView?
     
     private var paginationState = PaginationState(page: 1, hasNext: true)
     private var cancellable = Set<AnyCancellable>()
-    
-    init(contentScoreService: ContentScoreServiceProtocol) {
-        self.contentScoreService = contentScoreService
-    }
     
     func doPostFetch(request: ProfileScreenPosts.NextProfilePostsLoad.Request) {
         self.paginationState.page = 1

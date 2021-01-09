@@ -25,7 +25,7 @@ class SearchResultsAssembly: Assembly {
             searchType: searchType,
             userAccountService: userAccountService,
             contentScoreService: ContentScoreService(
-                voteService: UpvoteDownvoteRequestService(userAccountService: userAccountService)
+                userAccountService: UserAccountService()
             )
         )
         let vc = SearchResultsViewController(
