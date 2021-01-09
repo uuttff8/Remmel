@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol MessageCellViewDelegate: AnyObject {
+    func messageCell(_ cell: MessageCellView, didTapUsername username: String)
+}
+
 final class MessageCellView: UIView {
     struct MentionViewData {
         let avatar: String?
@@ -16,8 +20,13 @@ final class MessageCellView: UIView {
         let content: String
     }
     
+    weak var delegate: MessageCellViewDelegate?
+    
     private lazy var avatarImageView = UIImageView()
-    private lazy var nicknameLabel = UILabel()
+    private let usernameButton = ResizableButton().then {
+        $0.setTitleColor(UIColor(red: 0/255, green: 123/255, blue: 255/255, alpha: 1), for: .normal)
+        $0.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+    }
     private lazy var publishedLabel = UILabel()
     
     private lazy var headerStackView = UIStackView().then {
@@ -36,6 +45,8 @@ final class MessageCellView: UIView {
         $0.axis = .vertical
     }
     
+    var data: MentionViewData?
+    
     init() {
         super.init(frame: .zero)
         
@@ -52,16 +63,26 @@ final class MessageCellView: UIView {
     func configure(with data: MentionViewData?) {
         guard let data = data else {
             self.avatarImageView.image = nil
-            self.nicknameLabel.text = nil
+            self.usernameButton.setTitle(nil, for: .normal)
             self.publishedLabel.text = nil
             self.contentLabel.text = nil
             return
         }
         
+        self.data = data
         self.avatarImageView.loadImage(urlString: data.avatar)
-        self.nicknameLabel.text = data.nickname
+        self.usernameButton.setTitle(data.nickname, for: .normal)
         self.publishedLabel.text = data.published.shortTimeAgoSinceNow
         self.contentLabel.text = data.content
+    }
+    
+    func setupTargets(with data: MentionViewData) {
+        usernameButton.addTarget(self, action: #selector(usernameButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func usernameButtonTapped() {
+        guard let data = data else { return }
+        self.delegate?.messageCell(self, didTapUsername: data.nickname)
     }
 }
 
@@ -76,7 +97,7 @@ extension MessageCellView: ProgrammaticallyViewProtocol {
         
         self.headerStackView.addStackViewItems(
             .view(avatarImageView),
-            .view(nicknameLabel),
+            .view(usernameButton),
             .view(publishedLabel)
         )
         
@@ -93,12 +114,14 @@ extension MessageCellView: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
-        self.avatarImageView.snp.makeConstraints { (make) in
-            make.size.equalTo(35)
+        self.avatarImageView.snp.makeConstraints {
+            $0.size.equalTo(35)
         }
 
         self.mainStackView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(10)
         }
     }
 }

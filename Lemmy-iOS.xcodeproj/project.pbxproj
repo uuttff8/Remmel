@@ -248,7 +248,7 @@
 		4EDD007B25A5F4AF006FCB9F /* InboxMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD007A25A5F4AF006FCB9F /* InboxMessagesView.swift */; };
 		4EDD008625A60F1D006FCB9F /* InboxMentionsTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD008525A60F1D006FCB9F /* InboxMentionsTableManager.swift */; };
 		4EDD008C25A60FCB006FCB9F /* MessageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD008B25A60FCB006FCB9F /* MessageTableCell.swift */; };
-		4EDD009125A61A1D006FCB9F /* MentionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD009025A61A1D006FCB9F /* MentionCellView.swift */; };
+		4EDD009125A61A1D006FCB9F /* MessageCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD009025A61A1D006FCB9F /* MessageCellView.swift */; };
 		4EDD009C25A61AB4006FCB9F /* InboxMessagesTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD009B25A61AB4006FCB9F /* InboxMessagesTableManager.swift */; };
 		4EDD00A125A64C71006FCB9F /* InboxRepliesTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD00A025A64C71006FCB9F /* InboxRepliesTableManager.swift */; };
 		4EDD00BB25A739CB006FCB9F /* ReplyMentionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDD00BA25A739CB006FCB9F /* ReplyMentionTableCell.swift */; };
@@ -592,7 +592,7 @@
 		4EDD007A25A5F4AF006FCB9F /* InboxMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesView.swift; sourceTree = "<group>"; };
 		4EDD008525A60F1D006FCB9F /* InboxMentionsTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMentionsTableManager.swift; sourceTree = "<group>"; };
 		4EDD008B25A60FCB006FCB9F /* MessageTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableCell.swift; sourceTree = "<group>"; };
-		4EDD009025A61A1D006FCB9F /* MentionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionCellView.swift; sourceTree = "<group>"; };
+		4EDD009025A61A1D006FCB9F /* MessageCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellView.swift; sourceTree = "<group>"; };
 		4EDD009B25A61AB4006FCB9F /* InboxMessagesTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesTableManager.swift; sourceTree = "<group>"; };
 		4EDD00A025A64C71006FCB9F /* InboxRepliesTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxRepliesTableManager.swift; sourceTree = "<group>"; };
 		4EDD00BA25A739CB006FCB9F /* ReplyMentionTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyMentionTableCell.swift; sourceTree = "<group>"; };
@@ -1638,7 +1638,7 @@
 			isa = PBXGroup;
 			children = (
 				4EDD008B25A60FCB006FCB9F /* MessageTableCell.swift */,
-				4EDD009025A61A1D006FCB9F /* MentionCellView.swift */,
+				4EDD009025A61A1D006FCB9F /* MessageCellView.swift */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -2198,7 +2198,7 @@
 				4E9182D32564151800702F04 /* VoteButton.swift in Sources */,
 				4E9185B82570646500702F04 /* CommentContentView.swift in Sources */,
 				4E886CCE2541E1670076B162 /* ChooseCommunityViewController.swift in Sources */,
-				4EDD009125A61A1D006FCB9F /* MentionCellView.swift in Sources */,
+				4EDD009125A61A1D006FCB9F /* MessageCellView.swift in Sources */,
 				4EBB220925598AA700B88079 /* Containered.swift in Sources */,
 				4E91850B256E9EAA00702F04 /* CommentsViewController.swift in Sources */,
 				4ECCEF06250CC3330075F921 /* ApiManager.swift in Sources */,
