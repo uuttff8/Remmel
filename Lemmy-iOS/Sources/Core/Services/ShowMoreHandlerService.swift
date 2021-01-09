@@ -12,6 +12,8 @@ import Combine
 protocol ShowMoreHandlerServiceProtocol {
     func showMoreInPost(on viewController: UIViewController, post: LemmyModel.PostView)
     func showMoreInComment(on viewController: UIViewController, comment: LemmyModel.CommentView)
+    func showMoreInReply(on viewController: InboxRepliesViewController, reply: LemmyModel.ReplyView)
+    func showMoreInUserMention(on viewController: InboxMentionsViewController, mention: LemmyModel.UserMentionView)
 }
 
 class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
@@ -107,17 +109,34 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         viewController.present(alertController, animated: true)
     }
     
-    func showMoreInReply(on viewController: InboxNotificationsViewController, comment: LemmyModel.ReplyView) {
+    func showMoreInReply(on viewController: InboxRepliesViewController, reply: LemmyModel.ReplyView) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.popoverPresentationController?.sourceView = viewController.view
         alertController.popoverPresentationController?.sourceRect = viewController.view.bounds
         
         let sendMessageAction = UIAlertAction(title: "Send Message", style: .default) { _ in
-            let recipientId = comment.creatorId
+            let recipientId = reply.creatorId
             viewController.coordinator?.goToWriteMessage(recipientId: recipientId)
         }
         
         alertController.addAction(sendMessageAction)
+        alertController.addAction(UIAlertAction.cancelAction)
+        viewController.present(alertController, animated: true)
+    }
+    
+    func showMoreInUserMention(on viewController: InboxMentionsViewController, mention: LemmyModel.UserMentionView) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.popoverPresentationController?.sourceView = viewController.view
+        alertController.popoverPresentationController?.sourceRect = viewController.view.bounds
+        
+        let sendMessageAction = UIAlertAction(title: "Send Message", style: .default) { _ in
+            let recipientId = mention.creatorId
+            viewController.coordinator?.goToWriteMessage(recipientId: recipientId)
+        }
+        
+        alertController.addAction(sendMessageAction)
+        alertController.addAction(UIAlertAction.cancelAction)
+        viewController.present(alertController, animated: true)
     }
     
     private func createShareAction(on viewController: UIViewController, urlString: String) -> UIAlertAction {

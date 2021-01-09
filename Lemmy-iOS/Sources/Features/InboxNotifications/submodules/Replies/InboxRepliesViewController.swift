@@ -150,7 +150,7 @@ extension InboxRepliesViewController: ReplyCellViewDelegate {
     }
     
     func showMoreAction(in reply: LemmyModel.ReplyView) {
-        
+        self.showMoreService.showMoreInReply(on: self, reply: reply)
     }
 }
 
