@@ -40,7 +40,10 @@ extension Instance {
         Array(self.managedAccounts!)
     }
     
-    @NSManaged public func addAccountItemsObject(value: Account)
+    func addAccountItemsObject(value: Account) {
+        self.managedAccounts?.insert(value)
+    }
+    
     @NSManaged public func removeAccountItemsObject(value: Account)
     @NSManaged public func addAccountItems(values: Set<Account>)
     @NSManaged public func removeAccountItems(values: Set<Account>)

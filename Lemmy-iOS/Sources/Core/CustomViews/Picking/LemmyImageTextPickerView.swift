@@ -41,6 +41,8 @@ class LemmyImageTextTypePicker<T: LemmyTypePickable>: UIView {
             control.addAction(action)
         }
         control.addAction(UIAlertAction.cancelAction)
+        control.popoverPresentationController?.sourceView = self
+        control.popoverPresentationController?.sourceRect = self.bounds
         
         return control
     }()

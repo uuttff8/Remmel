@@ -95,7 +95,7 @@ class PostsFrontPageViewController: UIViewController {
         pickerView.listingTypeView.addTap {
             self.present(self.pickerView.listingTypeView.configuredAlert, animated: true)
         }
-        
+                
         pickerView.listingTypeView.newCasePicked = { [self] pickedValue in
             self.viewModel.currentListingType = pickedValue
             
