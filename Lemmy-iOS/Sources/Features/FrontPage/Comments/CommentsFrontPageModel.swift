@@ -13,6 +13,8 @@ class CommentsFrontPageModel: NSObject {
     var dataLoaded: (([LemmyModel.CommentView]) -> Void)?
     var newDataLoaded: (([LemmyModel.CommentView]) -> Void)?
     
+    private let contentPreferenceService = ContentPreferencesStorageManager()
+    
     private var isFetchingNewContent = false
     private var currentPage = 1
     
@@ -22,23 +24,25 @@ class CommentsFrontPageModel: NSObject {
 
     private var cancellable = Set<AnyCancellable>()
     
-    // at init always posts
-    var currentContentType: LemmyContentType = LemmyContentType.posts {
-        didSet {
-            print(currentContentType)
+    var currentSortType: LemmySortType {
+        get { contentPreferenceService.contentSortType }
+        set {
+            self.currentPage = 1
+            contentPreferenceService.contentSortType = newValue
         }
     }
     
-    // at init always all
-    var currentFeedType: LemmyListingType = LemmyListingType.all {
-        didSet {
-            print(currentFeedType)
+    var currentListingType: LemmyListingType {
+        get { contentPreferenceService.listingType }
+        set {
+            self.currentPage = 1
+            contentPreferenceService.listingType = newValue
         }
     }
-    
+
     func loadComments() {
-        let parameters = LemmyModel.Comment.GetCommentsRequest(type: self.currentFeedType,
-                                                               sort: LemmySortType.hot,
+        let parameters = LemmyModel.Comment.GetCommentsRequest(type: self.currentListingType,
+                                                               sort: self.currentSortType,
                                                                page: 1,
                                                                limit: 20,
                                                                auth: LemmyShareData.shared.jwtToken)
@@ -54,8 +58,8 @@ class CommentsFrontPageModel: NSObject {
     }
     
     func loadMoreComments(completion: @escaping (() -> Void)) {
-        let parameters = LemmyModel.Comment.GetCommentsRequest(type: self.currentFeedType,
-                                                               sort: LemmySortType.hot,
+        let parameters = LemmyModel.Comment.GetCommentsRequest(type: self.currentListingType,
+                                                               sort: self.currentSortType,
                                                                page: currentPage,
                                                                limit: 20,
                                                                auth: LemmyShareData.shared.jwtToken)
@@ -118,12 +122,6 @@ extension CommentsFrontPageModel: UITableViewDelegate {
 
 extension CommentsFrontPageModel: FrontPageHeaderCellDelegate {
     func contentTypeChanged(to content: LemmyContentType) {
-        self.currentContentType = content
-        self.loadComments()
-    }
-    
-    func feedTypeChanged(to feed: LemmyListingType) {
-        self.currentFeedType = feed
-        self.loadComments()
+        
     }
 }

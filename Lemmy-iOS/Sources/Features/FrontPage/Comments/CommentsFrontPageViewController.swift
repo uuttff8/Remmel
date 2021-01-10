@@ -16,31 +16,53 @@ class CommentsFrontPageViewController: UIViewController {
 
     weak var coordinator: FrontPageCoordinator?
 
-    let model = CommentsFrontPageModel()
+    let viewModel = CommentsFrontPageModel()
+    
+    let refreshControl = UIRefreshControl()
 
     lazy var tableView = LemmyTableView(style: .plain).then {
         $0.registerClass(CommentContentTableCell.self)
-        $0.delegate = model
+        $0.delegate = viewModel
         $0.keyboardDismissMode = .onDrag
+        $0.refreshControl = self.refreshControl
+        self.refreshControl.addTarget(self, action: #selector(refreshControlValueChanged), for: .valueChanged)
     }
     
     private let showMoreHandler = ShowMoreHandlerService()
     
     private lazy var dataSource = makeDataSource()
     private var snapshot = NSDiffableDataSourceSnapshot<Section, LemmyModel.CommentView>()
+    
+    let pickerView = LemmySortListingPickersView()
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        
+        setupView()
+        addSubviews()
+        makeConstraints()
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.showActivityIndicator()
+        viewModel.loadComments()
+        setupTableHeaderView()
 
-        self.view.addSubview(tableView)
-
-        model.loadComments()
-
-        model.dataLoaded = { [self] newComments in
+        viewModel.dataLoaded = { [self] newComments in
             addFirstRows(with: newComments)
+            tableView.hideActivityIndicator()
+            if self.refreshControl.isRefreshing {
+                self.refreshControl.endRefreshing()
+            }
         }
 
-        model.newDataLoaded = { [self] newComments in
+        viewModel.newDataLoaded = { [self] newComments in
             addRows(with: newComments)
         }        
     }
@@ -61,8 +83,8 @@ class CommentsFrontPageViewController: UIViewController {
     }
 
     func addRows(with list: [LemmyModel.CommentView], animate: Bool = true) {
-        snapshot.insertItems(list, afterItem: model.commentsDataSource.last!)
-        self.model.commentsDataSource.append(contentsOf: list)
+        snapshot.insertItems(list, afterItem: viewModel.commentsDataSource.last!)
+        self.viewModel.commentsDataSource.append(contentsOf: list)
         DispatchQueue.main.async { [self] in
             dataSource.apply(snapshot, animatingDifferences: true)
         }
@@ -70,10 +92,40 @@ class CommentsFrontPageViewController: UIViewController {
 
     func addFirstRows(with list: [LemmyModel.CommentView], animate: Bool = true) {
         self.tableView.hideActivityIndicator()
+        self.snapshot.deleteAllItems()
         snapshot.appendSections([.main])
         snapshot.appendItems(list)
         DispatchQueue.main.async { [self] in
             dataSource.apply(snapshot, animatingDifferences: false)
+        }
+    }
+    
+    @objc func refreshControlValueChanged() {
+        updateTableData(immediately: false)
+    }
+    
+    fileprivate func setupTableHeaderView() {
+        pickerView.listingFirstPick = viewModel.currentListingType
+        pickerView.sortFirstPick = viewModel.currentSortType
+        
+        pickerView.sortTypeView.addTap {
+            self.present(self.pickerView.sortTypeView.configuredAlert, animated: true)
+        }
+        
+        pickerView.listingTypeView.addTap {
+            self.present(self.pickerView.listingTypeView.configuredAlert, animated: true)
+        }
+                
+        pickerView.listingTypeView.newCasePicked = { [self] pickedValue in
+            self.viewModel.currentListingType = pickedValue
+            
+            updateTableData(immediately: true)
+        }
+        
+        pickerView.sortTypeView.newCasePicked = { [self] pickedValue in
+            self.viewModel.currentSortType = pickedValue
+            
+            updateTableData(immediately: true)
         }
     }
 
@@ -83,10 +135,19 @@ class CommentsFrontPageViewController: UIViewController {
             cellProvider: { (tableView, indexPath, _) -> UITableViewCell? in
                 let cell = tableView.cell(forClass: CommentContentTableCell.self)
                 cell.commentContentView.delegate = self
-                cell.bind(with: self.model.commentsDataSource[indexPath.row], level: 0)
+                cell.bind(with: self.viewModel.commentsDataSource[indexPath.row], level: 0)
 
                 return cell
         })
+    }
+    
+    private func updateTableData(immediately: Bool) {
+        if immediately { snapshot.deleteAllItems() }
+        DispatchQueue.main.async {
+            self.dataSource.apply(self.snapshot)
+        }
+
+        viewModel.loadComments()
     }
 }
 
@@ -121,7 +182,7 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
             scoreView.setVoted(voteButton: voteButton, to: newVote)
-            model.createCommentLike(newVote: newVote, comment: comment)
+            viewModel.createCommentLike(newVote: newVote, comment: comment)
         }
     }
     
@@ -140,4 +201,20 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
     func showMoreAction(in comment: LemmyModel.CommentView) {
         showMoreHandler.showMoreInComment(on: self, comment: comment)
     }    
+}
+
+extension CommentsFrontPageViewController: ProgrammaticallyViewProtocol {
+    func setupView() {
+        tableView.tableHeaderView = pickerView
+    }
+    
+    func addSubviews() {
+        self.view.addSubview(tableView)
+    }
+    
+    func makeConstraints() {
+        tableView.snp.makeConstraints { (make) in
+            make.edges.equalTo(self.view.safeAreaLayoutGuide)
+        }
+    }
 }

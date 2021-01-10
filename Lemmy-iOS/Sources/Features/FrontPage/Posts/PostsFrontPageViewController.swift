@@ -20,10 +20,14 @@ class PostsFrontPageViewController: UIViewController {
     let viewModel = PostsFrontPageModel()
     let showMoreHandler = ShowMoreHandlerService()
     
+    let refreshControl = UIRefreshControl()
+    
     lazy var tableView = LemmyTableView(style: .plain).then {
         $0.delegate = self
         $0.registerClass(PostContentPreviewTableCell.self)
         $0.keyboardDismissMode = .onDrag
+        $0.refreshControl = self.refreshControl
+        self.refreshControl.addTarget(self, action: #selector(self.refreshControlValueChanged), for: .valueChanged)
     }
     
     private lazy var dataSource = makeDataSource()
@@ -53,6 +57,9 @@ class PostsFrontPageViewController: UIViewController {
         viewModel.dataLoaded = { [self] newPosts in
             addFirstRows(with: newPosts)
             tableView.hideActivityIndicator()
+            if self.refreshControl.isRefreshing {
+                self.refreshControl.endRefreshing()
+            }
         }
         
         viewModel.newDataLoaded = { [self] newPosts in
@@ -63,6 +70,10 @@ class PostsFrontPageViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.layoutTableHeaderView()
+    }
+    
+    @objc func refreshControlValueChanged() {
+        updateTableData(immediately: false)
     }
     
     func addRows(with list: [LemmyModel.PostView], animate: Bool = true) {
@@ -77,6 +88,7 @@ class PostsFrontPageViewController: UIViewController {
     
     func addFirstRows(with list: [LemmyModel.PostView], animate: Bool = true) {
         self.tableView.hideActivityIndicator()
+        self.snapshot.deleteAllItems()
         self.snapshot.appendSections(Section.allCases)
         self.snapshot.appendItems(list, toSection: .posts)
         DispatchQueue.main.async { [self] in
@@ -99,23 +111,13 @@ class PostsFrontPageViewController: UIViewController {
         pickerView.listingTypeView.newCasePicked = { [self] pickedValue in
             self.viewModel.currentListingType = pickedValue
             
-            snapshot.deleteAllItems()
-            DispatchQueue.main.async {
-                dataSource.apply(snapshot)
-            }
-            
-            viewModel.loadPosts()
+            updateTableData(immediately: true)
         }
         
         pickerView.sortTypeView.newCasePicked = { [self] pickedValue in
             self.viewModel.currentSortType = pickedValue
             
-            snapshot.deleteAllItems()
-            DispatchQueue.main.async {
-                dataSource.apply(snapshot)
-            }
-
-            viewModel.loadPosts()
+            updateTableData(immediately: true)
         }
     }
     
@@ -128,6 +130,15 @@ class PostsFrontPageViewController: UIViewController {
                 cell.bind(with: self.viewModel.postsDataSource[indexPath.row], isInsideCommunity: false)
                 return cell
             })
+    }
+    
+    private func updateTableData(immediately: Bool) {
+        if immediately { snapshot.deleteAllItems() }
+        DispatchQueue.main.async {
+            self.dataSource.apply(self.snapshot)
+        }
+
+        viewModel.loadPosts()
     }
 }
 
