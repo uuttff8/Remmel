@@ -7,10 +7,14 @@
 //
 
 import UIKit
-import DateToolsSwift
 
 final class MessageTableCell: UITableViewCell {
     private lazy var cellView = MessageCellView()
+    
+    weak var delegate: MessageCellViewDelegate? {
+        get { self.cellView.delegate }
+        set { self.cellView.delegate = newValue }
+    }
     
     override func updateConstraintsIfNeeded() {
         super.updateConstraintsIfNeeded()

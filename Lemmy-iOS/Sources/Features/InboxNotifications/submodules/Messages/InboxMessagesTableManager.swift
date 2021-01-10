@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol InboxMessagesTableManagerDelegate: AnyObject {
+protocol InboxMessagesTableManagerDelegate: MessageCellViewDelegate {
     func tableDidRequestPagination(_ tableManager: InboxMessagesTableManager)
 }
 
@@ -57,6 +57,7 @@ extension InboxMessagesTableManager: UITableViewDataSource {
         
         let viewModel = self.viewModels[indexPath.row]
         cell.configure(viewModel: viewModel)
+        cell.delegate = delegate
         
         return cell
     }

@@ -69,7 +69,7 @@ final class MessageCellView: UIView {
             return
         }
         
-        self.data = data
+        setupTargets(with: data)
         self.avatarImageView.loadImage(urlString: data.avatar)
         self.usernameButton.setTitle(data.nickname, for: .normal)
         self.publishedLabel.text = data.published.shortTimeAgoSinceNow
@@ -77,6 +77,7 @@ final class MessageCellView: UIView {
     }
     
     func setupTargets(with data: MentionViewData) {
+        self.data = data
         usernameButton.addTarget(self, action: #selector(usernameButtonTapped), for: .touchUpInside)
     }
     
@@ -92,12 +93,12 @@ extension MessageCellView: ProgrammaticallyViewProtocol {
     }
     
     func addSubviews() {
-        self.addSubview(headerStackView)
         self.addSubview(mainStackView)
         
         self.headerStackView.addStackViewItems(
             .view(avatarImageView),
             .view(usernameButton),
+            .view(UIView()),
             .view(publishedLabel)
         )
         
