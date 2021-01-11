@@ -107,6 +107,10 @@ extension InboxMessagesViewController: InboxMessagesViewDelegate {
 }
 
 extension InboxMessagesViewController: MessageCellViewDelegate {
+    func messageCell(_ cell: MessageCellView, didTapReplyButtonWith id: Int) {
+        self.coordinator?.goToWriteMessage(recipientId: id)
+    }
+    
     func messageCell(_ cell: MessageCellView, didTapUsername username: String) {
         self.coordinator?.goToProfileScreen(by: username)
     }

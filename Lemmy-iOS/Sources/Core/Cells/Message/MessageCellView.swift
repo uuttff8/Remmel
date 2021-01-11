@@ -10,10 +10,12 @@ import UIKit
 
 protocol MessageCellViewDelegate: AnyObject {
     func messageCell(_ cell: MessageCellView, didTapUsername username: String)
+    func messageCell(_ cell: MessageCellView, didTapReplyButtonWith id: Int)
 }
 
 final class MessageCellView: UIView {
     struct MentionViewData {
+        let id: Int
         let avatar: String?
         let nickname: String
         let published: Date
@@ -22,7 +24,13 @@ final class MessageCellView: UIView {
     
     weak var delegate: MessageCellViewDelegate?
     
-    private lazy var avatarImageView = UIImageView()
+    private let iconSize = CGSize(width: 32, height: 32)
+    
+    private lazy var avatarImageView = UIImageView().then {
+        $0.layer.cornerRadius = iconSize.width / 2
+        $0.layer.masksToBounds = false
+        $0.clipsToBounds = true
+    }
     private let usernameButton = ResizableButton().then {
         $0.setTitleColor(UIColor(red: 0/255, green: 123/255, blue: 255/255, alpha: 1), for: .normal)
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .regular)
@@ -79,11 +87,17 @@ final class MessageCellView: UIView {
     func setupTargets(with data: MentionViewData) {
         self.data = data
         usernameButton.addTarget(self, action: #selector(usernameButtonTapped), for: .touchUpInside)
+        replyButton.addTarget(self, action: #selector(replyButtonTapped), for: .touchUpInside)
     }
     
     @objc func usernameButtonTapped() {
         guard let data = data else { return }
         self.delegate?.messageCell(self, didTapUsername: data.nickname)
+    }
+    
+    @objc func replyButtonTapped() {
+        guard let data = data else { return }
+        self.delegate?.messageCell(self, didTapReplyButtonWith: data.id)
     }
 }
 
@@ -97,6 +111,7 @@ extension MessageCellView: ProgrammaticallyViewProtocol {
         
         self.headerStackView.addStackViewItems(
             .view(avatarImageView),
+            .customSpace(5),
             .view(usernameButton),
             .view(UIView()),
             .view(publishedLabel)
@@ -116,7 +131,7 @@ extension MessageCellView: ProgrammaticallyViewProtocol {
     
     func makeConstraints() {
         self.avatarImageView.snp.makeConstraints {
-            $0.size.equalTo(35)
+            $0.size.equalTo(iconSize)
         }
 
         self.mainStackView.snp.makeConstraints {

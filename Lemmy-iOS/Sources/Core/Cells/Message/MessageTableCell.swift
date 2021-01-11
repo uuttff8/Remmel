@@ -32,6 +32,7 @@ final class MessageTableCell: UITableViewCell {
     func configure(viewModel: LemmyModel.PrivateMessageView) {
         self.cellView.configure(
             with: .init(
+                id: viewModel.recipientId,
                 avatar: viewModel.recipientAvatar,
                 nickname: viewModel.recipientName,
                 published: viewModel.published,
