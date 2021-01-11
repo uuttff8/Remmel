@@ -34,12 +34,10 @@ final class LemmyTabBarCoordinator: BaseCoordinator {
     }
 
     func goToLoginScreen(authMethod: LemmyAuthMethod) {
-        let loginCoordinator = LoginCoordinator(router: Router(navigationController: StyledNavigationController()),
-                                                authMethod: authMethod)
-        self.store(coordinator: loginCoordinator)
-        loginCoordinator.start()
+        let loginvc = LoginViewController(authMethod: authMethod)
+        let navController = StyledNavigationController(rootViewController: loginvc)
         
-        self.rootViewController.present(loginCoordinator.router.navigationController!, animated: true, completion: nil)
+        rootViewController.present(navController, animated: true)
     }
 
     func goToCreatePost() {

@@ -11,7 +11,7 @@
         <relationship name="managedAccounts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Account" inverseName="managedInstance" inverseEntity="Account"/>
     </entity>
     <elements>
-        <element name="Account" positionX="-63" positionY="-9" width="128" height="74"/>
-        <element name="Instance" positionX="-63" positionY="-18" width="128" height="74"/>
+        <element name="Account" positionX="-63" positionY="-9" width="128" height="88"/>
+        <element name="Instance" positionX="-327.9730834960938" positionY="-9.69281005859375" width="128" height="88"/>
     </elements>
 </model>

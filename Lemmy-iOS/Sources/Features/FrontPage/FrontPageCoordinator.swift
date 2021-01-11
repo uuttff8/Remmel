@@ -47,17 +47,10 @@ class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
     }
     
     func goToLoginScreen(authMethod: LemmyAuthMethod) {
-        let loginCoordinator = LoginCoordinator(router: Router(navigationController: StyledNavigationController()),
-                                                authMethod: authMethod)
-        self.store(coordinator: loginCoordinator)
-        loginCoordinator.start()
+        let loginvc = LoginViewController(authMethod: authMethod)
+        let navController = StyledNavigationController(rootViewController: loginvc)
         
-        guard let loginNavController = loginCoordinator.navigationController else {
-            Logger.commonLog.emergency("FrontPage coordinator is nil")
-            return
-        }
-        
-        rootViewController.present(loginNavController, animated: true, completion: nil)
+        self.rootViewController.present(navController, animated: true)
     }
     
     func goToSearchResults(searchQuery: String, searchType: LemmySearchSortType) {

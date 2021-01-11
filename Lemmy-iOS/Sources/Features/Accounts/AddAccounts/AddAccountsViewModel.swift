@@ -98,7 +98,6 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
             account.instance = self.currentInstance
             CoreDataHelper.shared.save()
             
-            
             self.currentInstance.addAccountItemsObject(value: account)
             
             self.viewController?.displaySuccessAuth(
@@ -108,7 +107,6 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
     }
     
     private func loadUserOnSuccessResponse(jwt: String, completion: @escaping ((LemmyModel.MyUser) -> Void)) {
-//        self.shareData.loginData.login(jwt: jwt)
         
         let params = LemmyModel.Site.GetSiteRequest(auth: jwt)
         
@@ -117,8 +115,6 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
             .sink(receiveCompletion: { (completion) in
                 Logger.logCombineCompletion(completion)
             }, receiveValue: { (response) in
-//                self.shareData.userdata = response.myUser
-                
                 guard let myUser = response.myUser else { return }
                 completion(myUser)
             }).store(in: &cancellables)

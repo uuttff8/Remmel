@@ -10,9 +10,7 @@ import UIKit
 import Combine
 
 class LoginViewController: UIViewController {
-    
-    weak var coordinator: LoginCoordinator?
-    
+        
     var signInView: AuthenticationView?
     var signUpView: RegisterView?
     let shareData = LemmyShareData.shared
@@ -63,12 +61,7 @@ class LoginViewController: UIViewController {
             action: #selector(onLoginOrRegisterSelector(sender:))
         )
         navigationItem.rightBarButtonItem = barItem
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-//        self.coordinator?.removeDependency(coordinator)
-    }
+    }    
     
     @objc func onLoginOrRegisterSelector(sender: UIBarButtonItem!) {
         switch authMethod {
@@ -85,14 +78,13 @@ class LoginViewController: UIViewController {
         ApiManager.requests.asyncRegister(parameters: params)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { (completion) in
+                Logger.logCombineCompletion(completion)
+
                 if case let .failure(why) = completion {
                     UIAlertController.createOkAlert(message: why.description)
                 }
-                
-                Logger.logCombineCompletion(completion)
             }, receiveValue: { (response) in
-                // TODO: add registration flow next
-                print(response)
+                self.fetchUser(with: response.jwt)
             }).store(in: &cancellables)
     }
     
@@ -141,7 +133,6 @@ class LoginViewController: UIViewController {
                                                          showNsfw: showNsfw,
                                                          captchaUuid: uuid,
                                                          captchaAnswer: captchaCode)
-        
     }
     
     private func onSignIn() {
@@ -161,14 +152,14 @@ class LoginViewController: UIViewController {
         ApiManager.requests.asyncLogin(parameters: parameters)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { (completion) in
+                Logger.logCombineCompletion(completion)
+                
                 if case let .failure(why) = completion {
                     UIAlertController.createOkAlert(message: why.description)
                 }
-                
-                Logger.logCombineCompletion(completion)
             }, receiveValue: { (response) in
                 self.shareData.loginData.login(jwt: response.jwt)
-                self.loadUserOnSuccessLogin(jwt: response.jwt) { (myUser) in
+                self.loadUserOnSuccessResponse(jwt: response.jwt) { (myUser) in
                     LemmyShareData.shared.userdata = myUser
                     
                     DispatchQueue.main.async {
@@ -179,7 +170,14 @@ class LoginViewController: UIViewController {
         
     }
     
-    private func loadUserOnSuccessLogin(jwt: String, completion: @escaping ((LemmyModel.MyUser) -> Void)) {
+    private func fetchUser(with jwtToken: String) {
+        self.loadUserOnSuccessResponse(jwt: jwtToken) { _ in
+            self.loginSuccessed()
+        }
+    }
+    
+    private func loadUserOnSuccessResponse(jwt: String, completion: @escaping ((LemmyModel.MyUser) -> Void)) {
+        
         let params = LemmyModel.Site.GetSiteRequest(auth: jwt)
         
         ApiManager.requests.asyncGetSite(parameters: params)
@@ -195,5 +193,11 @@ class LoginViewController: UIViewController {
     private func loginSuccessed() {
         NotificationCenter.default.post(name: .didLogin, object: nil)
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension LoginViewController: StyledNavigationControllerPresentable {
+    var navigationBarAppearanceOnFirstPresentation: StyledNavigationController.NavigationBarAppearanceState {
+        .pageSheetAppearance()
     }
 }

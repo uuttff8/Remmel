@@ -19,17 +19,10 @@ func ContinueIfLogined(
     func auth(authMethod: LemmyAuthMethod) {
         
         // I know, it's bad to access Feature/ classes from Core/
-        let loginCoordinator = LoginCoordinator(router: Router(navigationController: StyledNavigationController()),
-                                                authMethod: authMethod)
-        coordinator.store(coordinator: loginCoordinator)
-        loginCoordinator.start()
+        let loginvc = LoginViewController(authMethod: authMethod)
+        let navController = StyledNavigationController(rootViewController: loginvc)
         
-        guard let loginNavController = loginCoordinator.navigationController else {
-            Logger.commonLog.error("LoginCoordinator.navigationController is nil")
-            return
-        }
-        
-        viewController.present(loginNavController, animated: true, completion: nil)
+        viewController.present(navController, animated: true)
     }
     
     func goToInstances() {

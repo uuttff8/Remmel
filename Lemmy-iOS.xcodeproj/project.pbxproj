@@ -204,7 +204,6 @@
 		4ECCEECF250B8B6F0075F921 /* Lemmy_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEECE250B8B6F0075F921 /* Lemmy_iOSUITests.swift */; };
 		4ECCEEDD250B8D930075F921 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEDC250B8D930075F921 /* AppCoordinator.swift */; };
 		4ECCEEE0250B8DEE0075F921 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEDF250B8DEE0075F921 /* Coordinator.swift */; };
-		4ECCEEE7250B8FA80075F921 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEE6250B8FA80075F921 /* AuthCoordinator.swift */; };
 		4ECCEEEA250BA6230075F921 /* WSLemmyClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEE9250BA6230075F921 /* WSLemmyClient.swift */; };
 		4ECCEEED250BE8870075F921 /* FrontPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEEC250BE8870075F921 /* FrontPageViewController.swift */; };
 		4ECCEEEF250BE89B0075F921 /* FrontPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEEE250BE89B0075F921 /* FrontPageCoordinator.swift */; };
@@ -549,7 +548,6 @@
 		4ECCEED0250B8B6F0075F921 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4ECCEEDC250B8D930075F921 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		4ECCEEDF250B8DEE0075F921 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		4ECCEEE6250B8FA80075F921 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		4ECCEEE9250BA6230075F921 /* WSLemmyClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSLemmyClient.swift; sourceTree = "<group>"; };
 		4ECCEEEC250BE8870075F921 /* FrontPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageViewController.swift; sourceTree = "<group>"; };
 		4ECCEEEE250BE89B0075F921 /* FrontPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageCoordinator.swift; sourceTree = "<group>"; };
@@ -1455,7 +1453,6 @@
 				4E886C34253872B90076B162 /* SignUp */,
 				4E10709C25361846009EABDA /* AuthenticationView.swift */,
 				4ECCEEAD250B8B6B0075F921 /* LoginViewController.swift */,
-				4ECCEEE6250B8FA80075F921 /* AuthCoordinator.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -2223,7 +2220,6 @@
 				4E886CD32541E1A20076B162 /* ChooseCommunityUI.swift in Sources */,
 				4EE26859255972590009D2BC /* ProfileScreenAssembly.swift in Sources */,
 				4ECCEEAE250B8B6B0075F921 /* LoginViewController.swift in Sources */,
-				4ECCEEE7250B8FA80075F921 /* AuthCoordinator.swift in Sources */,
 				4E886C69253CD2950076B162 /* CreatePresentTransitionDriver.swift in Sources */,
 				657DF45825968B9900831B0F /* Account+CoreDataProperties.swift in Sources */,
 				4E0A8E8B255DD01500B06AF6 /* FrontPageSearchView.swift in Sources */,
@@ -2660,7 +2656,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2681,7 +2677,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
