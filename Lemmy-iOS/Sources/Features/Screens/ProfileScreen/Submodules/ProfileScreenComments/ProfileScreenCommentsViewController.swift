@@ -162,7 +162,8 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
     }
     
     func showMoreAction(in comment: LemmyModel.CommentView) {
-        self.showMoreHandler.showMoreInComment(on: self, comment: comment)
+        guard let coordinator = coordinator else { return }
+        self.showMoreHandler.showMoreInComment(on: self, coordinator: coordinator, comment: comment)
     }
 }
 

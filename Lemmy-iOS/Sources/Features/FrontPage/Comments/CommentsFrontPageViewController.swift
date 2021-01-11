@@ -199,7 +199,8 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
     }
     
     func showMoreAction(in comment: LemmyModel.CommentView) {
-        showMoreHandler.showMoreInComment(on: self, comment: comment)
+        guard let coordinator = coordinator else { return }
+        showMoreHandler.showMoreInComment(on: self, coordinator: coordinator, comment: comment)
     }    
 }
 

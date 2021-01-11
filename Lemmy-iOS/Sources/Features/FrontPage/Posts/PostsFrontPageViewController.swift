@@ -215,6 +215,7 @@ extension PostsFrontPageViewController: PostContentPreviewTableCellDelegate {
     }
     
     func showMore(in post: LemmyModel.PostView) {
-        showMoreHandler.showMoreInPost(on: self, post: post)
+        guard let coordinator = coordinator else { return }
+        showMoreHandler.showMoreInPost(on: self, coordinator: coordinator, post: post)
     }    
 }

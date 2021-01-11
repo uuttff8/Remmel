@@ -152,7 +152,8 @@ extension InboxMentionsViewController: UserMentionCellViewDelegate {
     }
     
     func showMoreAction(in userMention: LemmyModel.UserMentionView) {
-        self.showMoreService.showMoreInUserMention(on: self, mention: userMention)
+        guard let coordinator = coordinator else { return }
+        self.showMoreService.showMoreInUserMention(on: self, coordinator: coordinator, mention: userMention)
     }
 }
 

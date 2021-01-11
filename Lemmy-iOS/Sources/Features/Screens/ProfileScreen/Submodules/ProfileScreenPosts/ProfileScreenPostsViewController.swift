@@ -141,14 +141,14 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
                                               for: newVote,
                                               post: post) { (post) in
                 
-                self.tableDataSource.viewModels.updateElementById(post)
-                
+                self.tableDataSource.viewModels.updateElementById(post)   
             }
         }
     }
     
     func showMore(in post: LemmyModel.PostView) {
-        self.showMoreHandlerService.showMoreInPost(on: self, post: post)
+        guard let coordinator = coordinator else { return }
+        self.showMoreHandlerService.showMoreInPost(on: self, coordinator: coordinator, post: post)
     }
     
     func usernameTapped(in post: LemmyModel.PostView) {

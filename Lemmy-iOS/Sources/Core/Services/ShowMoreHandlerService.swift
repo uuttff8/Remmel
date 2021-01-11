@@ -10,10 +10,18 @@ import UIKit
 import Combine
 
 protocol ShowMoreHandlerServiceProtocol {
-    func showMoreInPost(on viewController: UIViewController, post: LemmyModel.PostView)
-    func showMoreInComment(on viewController: UIViewController, comment: LemmyModel.CommentView)
-    func showMoreInReply(on viewController: InboxRepliesViewController, reply: LemmyModel.ReplyView)
-    func showMoreInUserMention(on viewController: InboxMentionsViewController, mention: LemmyModel.UserMentionView)
+    func showMoreInPost(on viewController: UIViewController,
+                        coordinator: BaseCoordinator,
+                        post: LemmyModel.PostView)
+    func showMoreInComment(on viewController: UIViewController,
+                           coordinator: BaseCoordinator,
+                           comment: LemmyModel.CommentView)
+    func showMoreInReply(on viewController: InboxRepliesViewController,
+                         coordinator: BaseCoordinator,
+                         reply: LemmyModel.ReplyView)
+    func showMoreInUserMention(on viewController: InboxMentionsViewController,
+                               coordinator: BaseCoordinator,
+                               mention: LemmyModel.UserMentionView)
 }
 
 class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
@@ -28,7 +36,11 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         self.networkService = networkService
     }
         
-    func showMoreInPost(on viewController: UIViewController, post: LemmyModel.PostView) {
+    func showMoreInPost(
+        on viewController: UIViewController,
+        coordinator: BaseCoordinator,
+        post: LemmyModel.PostView
+    ) {
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.popoverPresentationController?.sourceView = viewController.view
@@ -38,26 +50,35 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         
         let reportAction = UIAlertAction(title: "Report", style: .destructive) { (_) in
             
-            self.reportPost(over: viewController, post: post)
+            ContinueIfLogined(on: viewController, coordinator: coordinator) {
+                self.reportPost(over: viewController, post: post)
+            }
         }
         
-        alertController.addAction(shareAction)
-        if LemmyShareData.shared.jwtToken != nil {
-            alertController.addAction(reportAction)
-        }
-        alertController.addAction(UIAlertAction.cancelAction)
+        alertController.addActions([
+            shareAction,
+            reportAction,
+            UIAlertAction.cancelAction
+        ])
         
         viewController.present(alertController, animated: true)
     }
         
-    func showMoreInComment(on viewController: UIViewController, comment: LemmyModel.CommentView) {
+    func showMoreInComment(
+        on viewController: UIViewController,
+        coordinator: BaseCoordinator,
+        comment: LemmyModel.CommentView
+    ) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.popoverPresentationController?.sourceView = viewController.view
         alertController.popoverPresentationController?.sourceRect = viewController.view.bounds
         
         let shareAction = self.createShareAction(on: viewController, urlString: comment.getApIdRelatedToPost())
         let reportAction = UIAlertAction(title: "Report", style: .destructive) { (_) in
-            self.reportComment(over: viewController, comment: comment)
+            
+            ContinueIfLogined(on: viewController, coordinator: coordinator) {
+                self.reportComment(over: viewController, contentId: comment.id)
+            }
         }
 
         alertController.addActions([
@@ -69,7 +90,11 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         viewController.present(alertController, animated: true)
     }
     
-    func showMoreInReply(on viewController: InboxRepliesViewController, reply: LemmyModel.ReplyView) {
+    func showMoreInReply(
+        on viewController: InboxRepliesViewController,
+        coordinator: BaseCoordinator,
+        reply: LemmyModel.ReplyView
+    ) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.popoverPresentationController?.sourceView = viewController.view
         alertController.popoverPresentationController?.sourceRect = viewController.view.bounds
@@ -79,12 +104,26 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
             viewController.coordinator?.goToWriteMessage(recipientId: recipientId)
         }
         
-        alertController.addAction(sendMessageAction)
-        alertController.addAction(UIAlertAction.cancelAction)
+        let reportAction = UIAlertAction(title: "Report", style: .destructive) { (_) in
+            
+            ContinueIfLogined(on: viewController, coordinator: coordinator) {
+                self.reportComment(over: viewController, contentId: reply.id)
+            }
+        }
+        
+        alertController.addActions([
+            sendMessageAction,
+            reportAction,
+            UIAlertAction.cancelAction
+        ])
         viewController.present(alertController, animated: true)
     }
     
-    func showMoreInUserMention(on viewController: InboxMentionsViewController, mention: LemmyModel.UserMentionView) {
+    func showMoreInUserMention(
+        on viewController: InboxMentionsViewController,
+        coordinator: BaseCoordinator,
+        mention: LemmyModel.UserMentionView
+    ) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.popoverPresentationController?.sourceView = viewController.view
         alertController.popoverPresentationController?.sourceRect = viewController.view.bounds
@@ -168,12 +207,12 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         }
     }
     
-    fileprivate func reportComment(over viewController: UIViewController, comment: LemmyModel.CommentView) {
+    fileprivate func reportComment(over viewController: UIViewController, contentId: Int) {
         self.showAlertWithTextField(over: viewController) { reportReason in
             
             guard let jwtToken = LemmyShareData.shared.jwtToken else { return }
             let params = LemmyModel.Comment.CreateCommentReportRequest(
-                commentId: comment.id,
+                commentId: contentId,
                 reason: reportReason,
                 auth: jwtToken
             )

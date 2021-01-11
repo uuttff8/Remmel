@@ -152,7 +152,8 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
     }
     
     func showMore(in post: LemmyModel.PostView) {
-        self.showMoreHandler.showMoreInPost(on: self, post: post)
+        guard let coordinator = coordinator else { return }
+        self.showMoreHandler.showMoreInPost(on: self, coordinator: coordinator, post: post)
     }
     
     func usernameTapped(in comment: LemmyModel.CommentView) {
@@ -193,7 +194,8 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
     }
     
     func showMoreAction(in comment: LemmyModel.CommentView) {
-        self.showMoreHandler.showMoreInComment(on: self, comment: comment)
+        guard let coordinator = coordinator else { return }
+        self.showMoreHandler.showMoreInComment(on: self, coordinator: coordinator, comment: comment)
     }
     
     func tableDidRequestPagination(_ tableDataSource: SearchResultsTableDataSource) {

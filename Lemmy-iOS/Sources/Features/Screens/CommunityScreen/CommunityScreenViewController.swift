@@ -182,7 +182,8 @@ extension CommunityScreenViewController: PostContentPreviewTableCellDelegate {
     }
     
     func showMore(in post: LemmyModel.PostView) {
-        self.showMoreService.showMoreInPost(on: self, post: post)
+        guard let coordinator = coordinator else { return }
+        self.showMoreService.showMoreInPost(on: self, coordinator: coordinator, post: post)
     }
     
     func postCellDidSelected(postId: LemmyModel.PostView.ID) {

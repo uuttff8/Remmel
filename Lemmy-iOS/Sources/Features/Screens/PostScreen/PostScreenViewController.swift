@@ -134,7 +134,8 @@ extension PostScreenViewController: PostContentTableCellDelegate {
     }
     
     func showMore(in post: LemmyModel.PostView) {
-        self.showMoreHandlerService.showMoreInPost(on: self, post: post)
+        guard let coordinator = coordinator else { return }
+        self.showMoreHandlerService.showMoreInPost(on: self, coordinator: coordinator, post: post)
     }
 }
 
@@ -179,7 +180,8 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
     }
     
     func showMoreAction(in comment: LemmyModel.CommentView) {
-        showMoreHandlerService.showMoreInComment(on: self, comment: comment)
+        guard let coordinator = coordinator else { return }
+        showMoreHandlerService.showMoreInComment(on: self, coordinator: coordinator, comment: comment)
     }
 }
 
