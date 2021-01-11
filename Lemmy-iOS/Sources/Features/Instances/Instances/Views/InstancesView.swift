@@ -10,6 +10,8 @@ import UIKit
 
 final class InstancesView: UIView {
     
+    private let termsView = TermsOfUseView()
+    
     private let tableView = LemmyTableView(style: .insetGrouped, separator: true)
     
     init() {
@@ -41,11 +43,16 @@ final class InstancesView: UIView {
     func hideLoadingView() {
         self.hideActivityIndicatorView()
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        tableView.layoutTableHeaderView()
+    }
 }
 
 extension InstancesView: ProgrammaticallyViewProtocol {
     func setupView() {
-        
+        tableView.tableHeaderView = termsView
     }
     
     func addSubviews() {

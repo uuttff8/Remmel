@@ -153,6 +153,7 @@
 		4E9BBA2C25553516004FF2F9 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA2B25553516004FF2F9 /* Error.swift */; };
 		4E9BBA5425555571004FF2F9 /* LemmySortListingPickersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA5325555571004FF2F9 /* LemmySortListingPickersView.swift */; };
 		4E9BBA592555560C004FF2F9 /* LemmyImageTextPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA582555560C004FF2F9 /* LemmyImageTextPickerView.swift */; };
+		4EB2641325AC8A03003D5183 /* TermsOfUseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB2641225AC8A03003D5183 /* TermsOfUseView.swift */; };
 		4EB4F67F258FF0EF0057BDCC /* InstancePersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4F67E258FF0EF0057BDCC /* InstancePersistenceService.swift */; };
 		4EB4F684259024B40057BDCC /* InstancesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4F683259024B40057BDCC /* InstancesProvider.swift */; };
 		4EB4F689259024C40057BDCC /* InstancesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4F688259024C40057BDCC /* InstancesViewModel.swift */; };
@@ -492,6 +493,7 @@
 		4E9BBA2B25553516004FF2F9 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		4E9BBA5325555571004FF2F9 /* LemmySortListingPickersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmySortListingPickersView.swift; sourceTree = "<group>"; };
 		4E9BBA582555560C004FF2F9 /* LemmyImageTextPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyImageTextPickerView.swift; sourceTree = "<group>"; };
+		4EB2641225AC8A03003D5183 /* TermsOfUseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseView.swift; sourceTree = "<group>"; };
 		4EB4F67E258FF0EF0057BDCC /* InstancePersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancePersistenceService.swift; sourceTree = "<group>"; };
 		4EB4F683259024B40057BDCC /* InstancesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancesProvider.swift; sourceTree = "<group>"; };
 		4EB4F688259024C40057BDCC /* InstancesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancesViewModel.swift; sourceTree = "<group>"; };
@@ -1731,6 +1733,7 @@
 				4E73DF69258BE964001608F2 /* FollowButton.swift */,
 				4E3D450125964EA800108DA3 /* ImageControl.swift */,
 				4E24395C259DE2200006C742 /* IncreasedTapAreaButton.swift */,
+				4EB2641225AC8A03003D5183 /* TermsOfUseView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -2336,6 +2339,7 @@
 				4EDD001225A5DC88006FCB9F /* InboxNotificationsViewModel.swift in Sources */,
 				4EBB2276255AF77400B88079 /* ProfileScreenPostsInputOutput.swift in Sources */,
 				4EF3AD0A25510D1900BEC9F1 /* CommunityContentTypePickerCell.swift in Sources */,
+				4EB2641325AC8A03003D5183 /* TermsOfUseView.swift in Sources */,
 				4EBB2244255AD50C00B88079 /* ProfileScreenHeaderView.swift in Sources */,
 				4EFAB5912551858C00B32780 /* UIAlertController+Ext.swift in Sources */,
 				4E886C26253744AB0076B162 /* LemmyModel+Auth.swift in Sources */,
