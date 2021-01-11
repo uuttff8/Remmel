@@ -27,7 +27,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
     ) {
         self.networkService = networkService
     }
-    
+        
     func showMoreInPost(on viewController: UIViewController, post: LemmyModel.PostView) {
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -38,26 +38,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         
         let reportAction = UIAlertAction(title: "Report", style: .destructive) { (_) in
             
-            self.showAlertWithTextField(over: viewController) { reportReason in
-                
-                guard let jwtToken = LemmyShareData.shared.jwtToken else { return }
-                let params = LemmyModel.Post.CreatePostReportRequest(postId: post.id,
-                                                                     reason: reportReason,
-                                                                     auth: jwtToken)
-                
-                self.networkService
-                    .asyncCreatePostReport(parameters: params)
-                    .receive(on: DispatchQueue.main)
-                    .sink { (completion) in
-                        Logger.logCombineCompletion(completion)
-                    } receiveValue: { (response) in
-                        
-                        if response.success {
-                            self.showWasReportedAlert(over: viewController)
-                        }
-                        
-                    }.store(in: &self.cancellables)
-            }
+            self.reportPost(over: viewController, post: post)
         }
         
         alertController.addAction(shareAction)
@@ -68,7 +49,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         
         viewController.present(alertController, animated: true)
     }
-    
+        
     func showMoreInComment(on viewController: UIViewController, comment: LemmyModel.CommentView) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.popoverPresentationController?.sourceView = viewController.view
@@ -76,28 +57,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         
         let shareAction = self.createShareAction(on: viewController, urlString: comment.getApIdRelatedToPost())
         let reportAction = UIAlertAction(title: "Report", style: .destructive) { (_) in
-            
-            self.showAlertWithTextField(over: viewController) { reportReason in
-                
-                guard let jwtToken = LemmyShareData.shared.jwtToken else { return }
-                let params = LemmyModel.Comment.CreateCommentReportRequest(
-                    commentId: comment.id,
-                    reason: reportReason,
-                    auth: jwtToken
-                )
-                
-                self.networkService.asyncCreateCommentReport(parameters: params)
-                    .receive(on: DispatchQueue.main)
-                    .sink { (completion) in
-                        Logger.logCombineCompletion(completion)
-                    } receiveValue: { (response) in
-                        
-                        if response.success {
-                            self.showWasReportedAlert(over: viewController)
-                        }
-                        
-                    }.store(in: &self.cancellables)
-            }
+            self.reportComment(over: viewController, comment: comment)
         }
 
         alertController.addActions([
@@ -183,5 +143,52 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         let action = UIAlertController(title: nil, message: "Thank you", preferredStyle: .alert)
         action.addAction(UIAlertAction(title: "OK", style: .cancel))
         viewController.present(action, animated: true)
+    }
+    
+    fileprivate func reportPost(over viewController: UIViewController, post: LemmyModel.PostView) {
+        self.showAlertWithTextField(over: viewController) { reportReason in
+            
+            guard let jwtToken = LemmyShareData.shared.jwtToken else { return }
+            let params = LemmyModel.Post.CreatePostReportRequest(postId: post.id,
+                                                                 reason: reportReason,
+                                                                 auth: jwtToken)
+            
+            self.networkService
+                .asyncCreatePostReport(parameters: params)
+                .receive(on: DispatchQueue.main)
+                .sink { (completion) in
+                    Logger.logCombineCompletion(completion)
+                } receiveValue: { (response) in
+                    
+                    if response.success {
+                        self.showWasReportedAlert(over: viewController)
+                    }
+                    
+                }.store(in: &self.cancellables)
+        }
+    }
+    
+    fileprivate func reportComment(over viewController: UIViewController, comment: LemmyModel.CommentView) {
+        self.showAlertWithTextField(over: viewController) { reportReason in
+            
+            guard let jwtToken = LemmyShareData.shared.jwtToken else { return }
+            let params = LemmyModel.Comment.CreateCommentReportRequest(
+                commentId: comment.id,
+                reason: reportReason,
+                auth: jwtToken
+            )
+            
+            self.networkService.asyncCreateCommentReport(parameters: params)
+                .receive(on: DispatchQueue.main)
+                .sink { (completion) in
+                    Logger.logCombineCompletion(completion)
+                } receiveValue: { (response) in
+                    
+                    if response.success {
+                        self.showWasReportedAlert(over: viewController)
+                    }
+                    
+                }.store(in: &self.cancellables)
+        }
     }
 }
