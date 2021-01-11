@@ -61,6 +61,13 @@ final class InboxNotificationsViewController: UIViewController {
         self.navigationItem.title = "Notifications"
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let coord = coordinator else { return }
+        ContinueIfLogined(on: self, coordinator: coord) { }
+    }
+    
     // MARK: - Private API
     private func loadSubmoduleIfNeeded(at index: Int) {
         guard self.submodulesControllers[index] == nil else {
