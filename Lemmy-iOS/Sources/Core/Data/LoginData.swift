@@ -33,6 +33,15 @@ class LoginData {
         URLCache.shared.removeAllCachedResponses()
     }
     
+    // delete all except currentInstance URL
+    func userLogout() {
+        let currInstance = LemmyShareData.shared.currentInstanceUrl
+        self.clear()
+        userDefaults.resetDefaults()
+        URLCache.shared.removeAllCachedResponses()
+        LemmyShareData.shared.currentInstanceUrl = currInstance
+    }
+    
     var isLoggedIn: Bool {
         jwtToken != nil && userId != nil
     }

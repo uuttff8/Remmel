@@ -20,7 +20,9 @@ final class TermsOfUseView: UIView {
         $0.isUserInteractionEnabled = true
         $0.isEditable = false
         $0.attributedText = acceptAttributedString
+        $0.textColor = .label
         $0.textAlignment = .center
+        $0.backgroundColor = .clear
         return $0
     }(NoSelectTextView())
     
@@ -78,7 +80,7 @@ final class TermsOfUseView: UIView {
 
 extension TermsOfUseView: ProgrammaticallyViewProtocol {
     func setupView() {
-        
+        self.backgroundColor = .clear
     }
     
     func addSubviews() {

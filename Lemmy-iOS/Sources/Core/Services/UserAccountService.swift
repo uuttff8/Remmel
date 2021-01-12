@@ -15,6 +15,7 @@ protocol UserAccountSerivceProtocol {
     var jwtToken: String? { get }
 
     func logOut()
+    func userLogout()
 }
 
 // wrapper 
@@ -28,4 +29,6 @@ final class UserAccountService: UserAccountSerivceProtocol {
     var isAuthorized: Bool { LemmyShareData.shared.isLoggedIn }
     
     func logOut() { LemmyShareData.shared.loginData.logout() }
+    
+    func userLogout() { LemmyShareData.shared.loginData.userLogout() }
 }

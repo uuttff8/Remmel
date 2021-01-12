@@ -334,6 +334,7 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
     
     func displayMoreButtonAlert(viewModel: ProfileScreenDataFlow.IdentifyProfile.ViewModel) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.popoverPresentationController?.barButtonItem = showMoreBarButton
         
         if viewModel.isCurrentProfile {
             let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { _ in

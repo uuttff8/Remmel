@@ -53,6 +53,7 @@ final class InstancesView: UIView {
 extension InstancesView: ProgrammaticallyViewProtocol {
     func setupView() {
         tableView.tableHeaderView = termsView
+        tableView.tableHeaderView?.backgroundColor = .clear
     }
     
     func addSubviews() {

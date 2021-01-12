@@ -42,10 +42,8 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         post: LemmyModel.PostView
     ) {
         
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertController.popoverPresentationController?.sourceView = viewController.view
-        alertController.popoverPresentationController?.sourceRect = viewController.view.bounds
-        
+        let alertController = createActionSheetController(vc: viewController)
+
         let shareAction = self.createShareAction(on: viewController, urlString: post.apId)
         
         let reportAction = UIAlertAction(title: "Report", style: .destructive) { (_) in
@@ -69,9 +67,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         coordinator: BaseCoordinator,
         comment: LemmyModel.CommentView
     ) {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertController.popoverPresentationController?.sourceView = viewController.view
-        alertController.popoverPresentationController?.sourceRect = viewController.view.bounds
+        let alertController = createActionSheetController(vc: viewController)
         
         let shareAction = self.createShareAction(on: viewController, urlString: comment.getApIdRelatedToPost())
         let reportAction = UIAlertAction(title: "Report", style: .destructive) { (_) in
@@ -95,10 +91,8 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         coordinator: BaseCoordinator,
         reply: LemmyModel.ReplyView
     ) {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertController.popoverPresentationController?.sourceView = viewController.view
-        alertController.popoverPresentationController?.sourceRect = viewController.view.bounds
-        
+        let alertController = createActionSheetController(vc: viewController)
+
         let sendMessageAction = UIAlertAction(title: "Send Message", style: .default) { _ in
             let recipientId = reply.creatorId
             viewController.coordinator?.goToWriteMessage(recipientId: recipientId)
@@ -124,10 +118,8 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         coordinator: BaseCoordinator,
         mention: LemmyModel.UserMentionView
     ) {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertController.popoverPresentationController?.sourceView = viewController.view
-        alertController.popoverPresentationController?.sourceRect = viewController.view.bounds
-        
+        let alertController = createActionSheetController(vc: viewController)
+
         let sendMessageAction = UIAlertAction(title: "Send Message", style: .default) { _ in
             let recipientId = mention.creatorId
             viewController.coordinator?.goToWriteMessage(recipientId: recipientId)
@@ -136,6 +128,19 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         alertController.addAction(sendMessageAction)
         alertController.addAction(UIAlertAction.cancelAction)
         viewController.present(alertController, animated: true)
+    }
+    
+    private func createActionSheetController(vc: UIViewController) -> UIAlertController {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.popoverPresentationController?.permittedArrowDirections = []
+        alertController.popoverPresentationController?.sourceRect = CGRect(
+            x: (vc.view.bounds.midX),
+            y: (vc.view.bounds.midY),
+            width: 0,
+            height: 0
+        )
+        alertController.popoverPresentationController?.sourceView = vc.view
+        return alertController
     }
     
     private func createShareAction(on viewController: UIViewController, urlString: String) -> UIAlertAction {
@@ -149,6 +154,15 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
                     activityItems: [url],
                     applicationActivities: [safariActiv]
                 )
+                
+                if let popoverController = activityVc.popoverPresentationController {
+                    popoverController.sourceRect = CGRect(x: UIScreen.main.bounds.width / 2,
+                                                          y: UIScreen.main.bounds.height / 2,
+                                                          width: 0,
+                                                          height: 0)
+                    popoverController.sourceView = viewController.view
+                    popoverController.permittedArrowDirections = []
+                }
                 
                 viewController.present(activityVc, animated: true)
             }

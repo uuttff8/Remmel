@@ -21,7 +21,7 @@ final class InboxMessagesView: UIView {
     private let refreshControl = UIRefreshControl()
     
     private lazy var tableView = LemmyTableView(style: .plain, separator: false).then {
-        $0.contentInset = .init(top: 10, left: 0, bottom: 0, right: 0ma)
+        $0.contentInset = .init(top: 10, left: 0, bottom: 0, right: 0)
         $0.registerClass(MessageTableCell.self)
         $0.backgroundColor = .clear
         $0.refreshControl = self.refreshControl

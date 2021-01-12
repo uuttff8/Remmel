@@ -86,7 +86,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     }
     
     func doProfileLogout() {
-        userAccountService.logOut()
+        userAccountService.userLogout()
         NotificationCenter.default.post(name: .didLogin, object: nil)
     }
     
