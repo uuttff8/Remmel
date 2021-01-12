@@ -36,7 +36,9 @@ extension ProfileScreenViewController {
 
         private var currentPageIndex = 0
         
-        private lazy var headerView = ProfileScreenHeaderView()
+        private lazy var headerView = ProfileScreenHeaderView(
+            appearance: .init(headerTopOffset: appearance.headerTopOffset)
+        )
         
         private lazy var segmentedControl: TabSegmentedControlView = {
             let control = TabSegmentedControlView(frame: .zero, items: self.tabsTitles)

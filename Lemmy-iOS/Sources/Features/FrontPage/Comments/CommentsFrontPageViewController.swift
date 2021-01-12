@@ -83,6 +83,8 @@ class CommentsFrontPageViewController: UIViewController {
     }
 
     func addRows(with list: [LemmyModel.CommentView], animate: Bool = true) {
+        guard !list.isEmpty else { return }
+
         snapshot.insertItems(list, afterItem: viewModel.commentsDataSource.last!)
         self.viewModel.commentsDataSource.append(contentsOf: list)
         DispatchQueue.main.async { [self] in

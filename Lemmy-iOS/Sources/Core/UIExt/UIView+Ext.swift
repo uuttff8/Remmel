@@ -157,5 +157,5 @@ extension UIView {
         let loading = viewWithTag(UIView.loadingViewTag) as? UIActivityIndicatorView
         loading?.stopAnimating()
         loading?.removeFromSuperview()
-    }
+    }    
 }

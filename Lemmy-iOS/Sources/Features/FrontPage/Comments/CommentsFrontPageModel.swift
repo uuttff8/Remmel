@@ -44,7 +44,7 @@ class CommentsFrontPageModel: NSObject {
         let parameters = LemmyModel.Comment.GetCommentsRequest(type: self.currentListingType,
                                                                sort: self.currentSortType,
                                                                page: 1,
-                                                               limit: 20,
+                                                               limit: 50,
                                                                auth: LemmyShareData.shared.jwtToken)
         
         ApiManager.requests.asyncGetComments(parameters: parameters)
@@ -60,8 +60,8 @@ class CommentsFrontPageModel: NSObject {
     func loadMoreComments(completion: @escaping (() -> Void)) {
         let parameters = LemmyModel.Comment.GetCommentsRequest(type: self.currentListingType,
                                                                sort: self.currentSortType,
-                                                               page: currentPage,
-                                                               limit: 20,
+                                                               page: self.currentPage,
+                                                               limit: 50,
                                                                auth: LemmyShareData.shared.jwtToken)
         
         ApiManager.requests.asyncGetComments(parameters: parameters)

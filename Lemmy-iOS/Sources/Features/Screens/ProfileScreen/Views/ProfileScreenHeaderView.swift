@@ -11,6 +11,7 @@ import Nuke
 
 extension ProfileScreenHeaderView {
     struct Appearance {
+        var headerTopOffset: CGFloat = 0.0
         let imageFadeInDuration: TimeInterval = 0.15
         let overlayAlpha: CGFloat = 0.75
         let additionalStackViewSpacing: CGFloat = 8.0
@@ -47,7 +48,7 @@ class ProfileScreenHeaderView: UIView {
         $0.axis = .horizontal
         $0.spacing = self.appearance.defaultSpacing
     }
-
+    
     private lazy var iconImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.layer.cornerRadius = appearance.iconSize.width / 2
@@ -77,11 +78,11 @@ class ProfileScreenHeaderView: UIView {
         $0.font = .systemFont(ofSize: 14)
         $0.textColor = .systemBlue
     }
-
+    
     init(
         frame: CGRect = .zero,
         scrollDelegate: UIScrollViewDelegate? = nil,
-        appearance: Appearance = Appearance()
+        appearance: Appearance
     ) {
         self.appearance = appearance
         super.init(frame: frame)
@@ -109,7 +110,7 @@ class ProfileScreenHeaderView: UIView {
     func configure(viewData: ViewData) {
         usernameLabel.text = viewData.name
         iconImageView.loadImage(urlString: viewData.avatarUrl)
-        bannerImageView.loadImage(urlString: viewData.bannerUrl)
+        bannerImageView.loadImage(urlString: viewData.bannerUrl, blur: true)
         numberOfCommentsLabel.text = String(viewData.numberOfComments) + " Comments"
         numberOfPostsLabel.text = String(viewData.numberOfPosts) + " Posts"
         pubslihedLabel.text = "Joined " + String(viewData.published.shortTimeAgoSinceNow) + " ago"
@@ -121,7 +122,7 @@ extension ProfileScreenHeaderView: ProgrammaticallyViewProtocol {
         self.clipsToBounds = true
         self.backgroundColor = .systemBackground
     }
-
+    
     func addSubviews() {
         self.addSubview(bannerImageView)
         self.addSubview(mainStackView)
@@ -142,7 +143,7 @@ extension ProfileScreenHeaderView: ProgrammaticallyViewProtocol {
             .view(usernameLabel)
         )
     }
-
+    
     func makeConstraints() {
         self.bannerImageView.snp.makeConstraints {
             $0.size.equalTo(appearance.bannerSize)
@@ -154,7 +155,7 @@ extension ProfileScreenHeaderView: ProgrammaticallyViewProtocol {
         }
         
         self.mainStackView.snp.makeConstraints {
-            $0.top.equalTo(bannerImageView.snp.bottom)
+            $0.top.equalTo(bannerImageView.snp.top).inset(appearance.headerTopOffset)
             $0.leading.trailing.equalTo(self.safeAreaLayoutGuide).inset(16)
         }
     }
