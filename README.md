@@ -9,9 +9,9 @@ How to compile and generate .xcworkspace file
 
 1. Clone repo and cd
 
-	 `git clone https://github.com/uuttff8/Niceter.git`
+	 `git clone https://github.com/uuttff8/Lemmy-iOS.git`
     
-   `cd Niceter`
+   `cd Lemmy-iOS`
 2. Run Pod Install
  
  	`pod install`
