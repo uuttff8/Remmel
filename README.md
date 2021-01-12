@@ -29,7 +29,7 @@ We use [Lemmy](https://github.com/LemmyNet/lemmy/) as backend.
 - [Mastodon](https://mastodon.social/@LemmyDev)
 - [Matrix](https://matrix.to/#/#lemmy:matrix.org)
 
-or email uuttff8@gmail.com to get an invite.
+or email uuttff8@gmail.com me.
 
 ### Contributing 
 We welcome any contributions. See the CONTRIBUTING file for how to get involved.
