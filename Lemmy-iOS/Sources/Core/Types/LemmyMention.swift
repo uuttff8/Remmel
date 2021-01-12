@@ -33,6 +33,18 @@ class LemmyMention {
             return
         }
         
+        if url.absoluteString.hasPrefix("mailto:") {
+            var retString = url.absoluteString
+            retString.removeFirst(7)
+            
+            if let index = retString.firstIndex(of: "@") {
+                retString.removeSubrange(index...)
+            }
+            
+            self.absoluteUsername = retString
+            return
+        }
+        
         return nil
     }
 }
