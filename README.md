@@ -36,5 +36,5 @@ We welcome any contributions. See the CONTRIBUTING file for how to get involved.
 
 
 ### License 
-The Niceter project is available for free use, as described by the LICENSE (MIT).
+The Lemmer project is available for free use, as described by the LICENSE (MIT).
 
