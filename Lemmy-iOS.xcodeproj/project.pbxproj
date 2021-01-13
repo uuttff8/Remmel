@@ -259,6 +259,7 @@
 		4EDDFFF425A5CFC1006FCB9F /* WriteMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFF325A5CFC0006FCB9F /* WriteMessageView.swift */; };
 		4EDDFFF925A5CFC8006FCB9F /* WriteMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFF825A5CFC8006FCB9F /* WriteMessageViewModel.swift */; };
 		4EDDFFFF25A5DC06006FCB9F /* InboxNotificationsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFFE25A5DC06006FCB9F /* InboxNotificationsAssembly.swift */; };
+		4EE0279025AF82D800D2952D /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0278F25AF82D800D2952D /* Date+Ext.swift */; };
 		4EE26859255972590009D2BC /* ProfileScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE26858255972590009D2BC /* ProfileScreenAssembly.swift */; };
 		4EF312E52576D2D10032B58D /* PostContentFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312E42576D2D10032B58D /* PostContentFooterView.swift */; };
 		4EF312ED2576D2EA0032B58D /* PostContentCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312EC2576D2EA0032B58D /* PostContentCenterView.swift */; };
@@ -603,6 +604,7 @@
 		4EDDFFF325A5CFC0006FCB9F /* WriteMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMessageView.swift; sourceTree = "<group>"; };
 		4EDDFFF825A5CFC8006FCB9F /* WriteMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMessageViewModel.swift; sourceTree = "<group>"; };
 		4EDDFFFE25A5DC06006FCB9F /* InboxNotificationsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxNotificationsAssembly.swift; sourceTree = "<group>"; };
+		4EE0278F25AF82D800D2952D /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		4EE26858255972590009D2BC /* ProfileScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenAssembly.swift; sourceTree = "<group>"; };
 		4EF312E42576D2D10032B58D /* PostContentFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentFooterView.swift; sourceTree = "<group>"; };
 		4EF312EC2576D2EA0032B58D /* PostContentCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentCenterView.swift; sourceTree = "<group>"; };
@@ -1924,6 +1926,7 @@
 				4E73DF4E258BDBF2001608F2 /* Array+Ext.swift */,
 				4E87C687258E23990007FE5E /* String+Ext.swift */,
 				4E2A0F9E259B854300BF0841 /* CodingUserInfoKey+Ext.swift */,
+				4EE0278F25AF82D800D2952D /* Date+Ext.swift */,
 			);
 			path = LangExt;
 			sourceTree = "<group>";
@@ -2375,6 +2378,7 @@
 				4E9183712566F51600702F04 /* UniqueIdentifierType.swift in Sources */,
 				4E2A0FC3259BA49400BF0841 /* AccountsPersistenceService.swift in Sources */,
 				4E1070792534E97E009EABDA /* CreatePostOrCommunityCoordinator.swift in Sources */,
+				4EE0279025AF82D800D2952D /* Date+Ext.swift in Sources */,
 				4EDD00C025A73A55006FCB9F /* ReplyMentionCellView.swift in Sources */,
 				4EBF1D662593A692004068CD /* ShowContextCommentService.swift in Sources */,
 				4EB4F69A2590C33F0057BDCC /* AddInstanceAssembly.swift in Sources */,

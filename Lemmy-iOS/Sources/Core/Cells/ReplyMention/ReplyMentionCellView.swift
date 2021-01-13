@@ -53,7 +53,7 @@ class ReplyMentionCellView: UIView {
                 avatarImageUrl: reply.creatorAvatar,
                 username: reply.creatorName,
                 community: reply.communityName,
-                published: reply.published.shortTimeAgoSinceNow,
+                published: reply.published.toLocalTime().shortTimeAgoSinceNow,
                 score: reply.score,
                 postName: reply.postName
             ),
@@ -79,7 +79,7 @@ class ReplyMentionCellView: UIView {
                 avatarImageUrl: mention.creatorAvatar,
                 username: mention.creatorName,
                 community: mention.communityName,
-                published: mention.published.shortTimeAgoSinceNow,
+                published: mention.published.toLocalTime().shortTimeAgoSinceNow,
                 score: mention.score,
                 postName: mention.postName
             ),

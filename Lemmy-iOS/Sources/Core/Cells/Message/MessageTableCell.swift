@@ -35,7 +35,7 @@ final class MessageTableCell: UITableViewCell {
                 id: viewModel.recipientId,
                 avatar: viewModel.recipientAvatar,
                 nickname: viewModel.recipientName,
-                published: viewModel.published,
+                published: viewModel.published.toLocalTime(),
                 content: viewModel.content
             )
         )

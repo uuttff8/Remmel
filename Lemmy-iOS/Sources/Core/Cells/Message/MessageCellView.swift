@@ -80,7 +80,7 @@ final class MessageCellView: UIView {
         setupTargets(with: data)
         self.avatarImageView.loadImage(urlString: data.avatar)
         self.usernameButton.setTitle(data.nickname, for: .normal)
-        self.publishedLabel.text = data.published.shortTimeAgoSinceNow
+        self.publishedLabel.text = data.published.toLocalTime().shortTimeAgoSinceNow
         self.contentLabel.text = data.content
     }
     

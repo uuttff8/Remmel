@@ -121,7 +121,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
             bannerUrl: profile.banner,
             numberOfComments: profile.numberOfComments,
             numberOfPosts: profile.numberOfPosts,
-            published: profile.published
+            published: profile.published.toLocalTime()
         )
     }
 }
