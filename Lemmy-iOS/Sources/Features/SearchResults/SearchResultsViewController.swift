@@ -185,7 +185,7 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
     }
     
     func showContext(in comment: LemmyModel.CommentView) {
-        // no more yet
+        self.coordinator?.goToPostAndScroll(to: comment)
     }
     
     func reply(to comment: LemmyModel.CommentView) {
