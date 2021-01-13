@@ -89,11 +89,14 @@ extension CommunitiesPreviewViewController: CommunitiesPreviewViewControllerProt
 
 extension CommunitiesPreviewViewController: CommunitiesPreviewTableDataSourceDelegate {
     func tableDidTapped(followButton: FollowButton, in community: LemmyModel.CommunityView) {
-        self.followService.followUi(followButton: followButton, to: community)
-            .sink { (community) in
-                self.tableManager.viewModels.updateElementById(community)
-            }.store(in: &self.cancellable)
-
+        
+        guard let coord = coordinator else { return }
+        ContinueIfLogined(on: self, coordinator: coord) {
+            self.followService.followUi(followButton: followButton, to: community)
+                .sink { (community) in
+                    self.tableManager.viewModels.updateElementById(community)
+                }.store(in: &self.cancellable)
+        }
     }
     
     func tableDidSelect(community: LemmyModel.CommunityView) {

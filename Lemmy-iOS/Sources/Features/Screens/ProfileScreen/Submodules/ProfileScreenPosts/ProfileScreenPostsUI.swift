@@ -87,15 +87,17 @@ extension ProfileScreenPostsViewController {
         }
         
         func showLoadingIndicator() {
+            self.emptyStateLabel.isHidden = true
             tableView.showActivityIndicator()
         }
         
-        func hideActivityIndicator() {
+        func hideLoadingIndicator() {
             tableView.hideActivityIndicator()
         }
         
         func updateTableViewData(dataSource: UITableViewDataSource) {
-            self.hideActivityIndicator()
+            self.hideLoadingIndicator()
+            self.emptyStateLabel.isHidden = true
             _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
 //            self.emptyStateLabel.isHidden = numberOfRows != 0
 
@@ -110,8 +112,7 @@ extension ProfileScreenPostsViewController {
         
         func displayNoData() {
             self.emptyStateLabel.isHidden = false
-            self.tableView.isHidden = true
-            makeConstraints()
+            self.hideLoadingIndicator()
         }
         
         func appendNew(data: [LemmyModel.PostView]) {

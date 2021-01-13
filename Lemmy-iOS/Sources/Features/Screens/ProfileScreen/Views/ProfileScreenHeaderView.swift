@@ -66,17 +66,17 @@ class ProfileScreenHeaderView: UIView {
     
     private let numberOfPostsLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 14)
-        $0.textColor = .systemBlue
+        $0.textColor = .lemmyBlue
     }
     
     private let numberOfCommentsLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 14)
-        $0.textColor = .systemBlue
+        $0.textColor = .lemmyBlue
     }
     
     private let pubslihedLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 14)
-        $0.textColor = .systemBlue
+        $0.textColor = .lemmyBlue
     }
     
     init(

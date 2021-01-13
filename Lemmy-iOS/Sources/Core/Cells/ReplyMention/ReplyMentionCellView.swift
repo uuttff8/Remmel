@@ -251,4 +251,3 @@ extension ReplyMentionCellView: ProgrammaticallyViewProtocol {
         }
     }
 }
-

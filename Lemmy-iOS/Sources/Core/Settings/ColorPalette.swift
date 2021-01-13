@@ -17,4 +17,31 @@ extension UIColor {
         )
     }
     
+    static var lemmyCommunity: UIColor {
+        .dynamic(
+            light: .init(rgb: 0xFFE95420, alphaVal: 1),
+            dark: .init(rgb: 0xFF00bc8c, alphaVal: 1)
+        )
+    }
+    
+    static var lemmyLabel: UIColor {
+        .dynamic(
+            light: .init(rgb: 0xFF303030, alphaVal: 1),
+            dark: .init(rgb: 0xFFdee2e6, alphaVal: 1)
+        )
+    }
+    
+    static var lemmySecondLabel: UIColor {
+        .dynamic(
+            light: UIColor.init(red: 134/255, green: 142/255, blue: 150/255, alpha: 1),
+            dark: UIColor.init(red: 136/255, green: 136/255, blue: 136/255, alpha: 1)
+        )
+    }
+    
+    static var lemmyBlue: UIColor {
+        .dynamic(
+            light: .init(rgb: 0xFF3498db, alphaVal: 1),
+            dark: .init(rgb: 0xFF3498db, alphaVal: 1)
+        )
+    }
 }

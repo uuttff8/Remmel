@@ -40,6 +40,10 @@ class ProfileScreenCommentsTableDataSource: NSObject {
         
         completion(newIndexpaths)
     }
+    
+    func deleteAll() {
+        viewModels = []
+    }
 }
 
 extension ProfileScreenCommentsTableDataSource: UITableViewDataSource {

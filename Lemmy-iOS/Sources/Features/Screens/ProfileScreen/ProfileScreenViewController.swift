@@ -316,7 +316,7 @@ extension ProfileScreenViewController: UIScrollViewDelegate {
 extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
     func displayProfile(viewModel: ProfileScreenDataFlow.ProfileLoad.ViewModel) {
         guard case let .result(headerData, posts, comments, subscribers) = viewModel.state else { return }
-        self.title = headerData.name
+        self.title = "@" + headerData.name
         self.storedViewModel = headerData
         profileScreenView.configure(viewData: headerData)
         

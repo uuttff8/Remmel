@@ -28,11 +28,13 @@ class PostContentCenterView: UIView {
     
     private let titleLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        $0.textColor = UIColor.lemmyLabel
         $0.numberOfLines = 3
     }
     
     private lazy var subtitleLabel = NantesLabel().then {
         $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        $0.textColor = UIColor.lemmyLabel
         $0.delegate = self
     }
     

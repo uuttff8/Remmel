@@ -14,6 +14,7 @@ protocol CommunityScreenViewDelegate: CommunityTableHeaderViewDelegate {
         toVc: UIViewController
     )
     func communityViewDidPickerTapped(_ communityView: CommunityScreenViewController.View, toVc: UIViewController)
+    func communityView(_ view: CommunityScreenViewController.View, didPickedNewSort type: LemmySortType)
 }
 
 extension CommunityScreenViewController {
@@ -32,11 +33,17 @@ extension CommunityScreenViewController {
         
         open var contentType: LemmySortType = .active
         
-        weak var tableViewDelegate: CommunityScreenTableDataSource?
-        
+        weak var tableManager: CommunityScreenTableDataSource?
+                
         private lazy var tableView = LemmyTableView(style: .plain).then {
-            $0.delegate = tableViewDelegate
+            $0.delegate = tableManager
             $0.registerClass(PostContentPreviewTableCell.self)
+        }
+        
+        private lazy var emptyStateLabel = UILabel().then {
+            $0.text = "No Posts here yet..."
+            $0.textAlignment = .center
+            $0.textColor = .tertiaryLabel
         }
         
         var communityHeaderViewData: LemmyModel.CommunityView? {
@@ -54,6 +61,7 @@ extension CommunityScreenViewController {
 
                 view.contentTypeView.newCasePicked = { newCase in
                     self.contentType = newCase
+                    self.delegate?.communityView(self, didPickedNewSort: newCase)
                 }
                 
                 view.bindData(community: communityHeaderViewData.require())
@@ -62,8 +70,8 @@ extension CommunityScreenViewController {
             }
         }
         
-        init(tableViewDelegate: CommunityScreenTableDataSource) {
-            self.tableViewDelegate = tableViewDelegate
+        init(tableManager: CommunityScreenTableDataSource) {
+            self.tableManager = tableManager
             super.init(frame: .zero)
             
             self.setupView()
@@ -76,15 +84,17 @@ extension CommunityScreenViewController {
             fatalError("init(coder:) has not been implemented")
         }
         
-        func showLoadingView() {
+        func showLoadingIndicator() {
             tableView.showActivityIndicator()
         }
         
-        func hideLoadingView() {
+        func hideLoadingIndicator() {
             tableView.hideActivityIndicator()
         }
         
         func updateTableViewData(dataSource: UITableViewDataSource) {
+            self.hideLoadingIndicator()
+            self.emptyStateLabel.isHidden = true
             _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
             //            self.emptyStateLabel.isHidden = numberOfRows != 0
             
@@ -93,11 +103,21 @@ extension CommunityScreenViewController {
         }
         
         func appendNew(data: [LemmyModel.PostView]) {
-            self.tableViewDelegate?.appendNew(posts: data) { (newIndexpaths) in
+            self.tableManager?.appendNew(posts: data) { (newIndexpaths) in
                 tableView.performBatchUpdates {
                     tableView.insertRows(at: newIndexpaths, with: .none)
                 }
             }
+        }
+        
+        func deleteAllContent() {
+            self.tableManager?.viewModels = []
+            self.tableView.reloadData()
+        }
+        
+        func displayNoData() {
+            self.emptyStateLabel.isHidden = false
+            self.hideLoadingIndicator()
         }
         
         override func layoutSubviews() {
@@ -118,16 +138,22 @@ extension CommunityScreenViewController {
 
 extension CommunityScreenViewController.View: ProgrammaticallyViewProtocol {
     func setupView() {
-        
+        self.emptyStateLabel.isHidden = true
     }
     
     func addSubviews() {
         self.addSubview(tableView)
+        self.addSubview(emptyStateLabel)
     }
     
     func makeConstraints() {
         tableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
+        }
+        
+        self.emptyStateLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(350)
+            $0.leading.trailing.equalToSuperview()
         }
     }
 }

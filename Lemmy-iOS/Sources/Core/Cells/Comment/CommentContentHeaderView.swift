@@ -37,12 +37,12 @@ class CommentHeaderView: UIView {
     }
 
     let usernameButton = ResizableButton().then {
-        $0.setTitleColor(UIColor(red: 0/255, green: 123/255, blue: 255/255, alpha: 1), for: .normal)
+        $0.setTitleColor(UIColor.lemmyBlue, for: .normal)
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
     }
     
     let communityButton = ResizableButton().then {
-        $0.setTitleColor(UIColor(red: 241/255, green: 100/255, blue: 30/255, alpha: 1), for: .normal)
+        $0.setTitleColor(UIColor.lemmyCommunity, for: .normal)
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
     }
 
@@ -50,11 +50,12 @@ class CommentHeaderView: UIView {
 
     let publishedTitle = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        $0.textColor = UIColor.lemmySecondLabel
     }
 
     let postNameButton: LabelControl = {
         $0.titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        $0.titleLabel.textColor = UIColor(red: 241/255, green: 100/255, blue: 30/255, alpha: 1)
+        $0.titleLabel.textColor = UIColor.lemmyBlue
         $0.titleLabel.lineBreakMode = .byTruncatingTail
         $0.contentHorizontalAlignment = .left
         $0.titleLabel.numberOfLines = 0
@@ -63,7 +64,7 @@ class CommentHeaderView: UIView {
     
     private let dotTitle = UILabel().then {
         $0.text = " · "
-        $0.textColor = UIColor(red: 108/255, green: 117/255, blue: 125/255, alpha: 1)
+        $0.textColor = UIColor.lemmySecondLabel
         $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
     }
     

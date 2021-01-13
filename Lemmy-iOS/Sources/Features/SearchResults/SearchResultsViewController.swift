@@ -112,10 +112,13 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
     }
     
     func tableDidTapped(followButton: FollowButton, in community: LemmyModel.CommunityView) {
-        self.followService.followUi(followButton: followButton, to: community)
-            .sink { (community) in
-                self.tableManager.saveNewCommunity(community: community)
-            }.store(in: &cancellable)
+        guard let coord = coordinator else { return }
+        ContinueIfLogined(on: self, coordinator: coord) {
+            self.followService.followUi(followButton: followButton, to: community)
+                .sink { (community) in
+                    self.tableManager.saveNewCommunity(community: community)
+                }.store(in: &self.cancellable)
+        }
     }
         
     func onMentionTap(in post: LemmyModel.CommentView, mention: LemmyMention) {

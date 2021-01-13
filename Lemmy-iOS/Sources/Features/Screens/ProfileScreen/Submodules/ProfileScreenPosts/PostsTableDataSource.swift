@@ -42,7 +42,6 @@ final class PostsTableDataSource: NSObject {
     
     func deleteAll() {
         viewModels = []
-        
     }
 }
 

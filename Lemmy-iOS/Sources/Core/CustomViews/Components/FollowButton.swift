@@ -55,11 +55,11 @@ final class FollowButton: LoadingButton {
         case .follow:
             hideLoading()
             setTitle("Follow", for: .normal)
-            setTitleColor(.red, for: .normal)
+            setTitleColor(.systemRed, for: .normal)
         case .followed:
             hideLoading()
             setTitle("Followed", for: .normal)
-            setTitleColor(.blue, for: .normal)
+            setTitleColor(.lemmyBlue, for: .normal)
         case .pending:
             showLoading()
         }

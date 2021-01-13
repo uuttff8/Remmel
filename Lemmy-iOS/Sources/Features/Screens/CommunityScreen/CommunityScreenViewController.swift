@@ -55,7 +55,7 @@ class CommunityScreenViewController: UIViewController {
     }
     
     override func loadView() {
-        let view = CommunityScreenViewController.View(tableViewDelegate: tableDataSource)
+        let view = CommunityScreenViewController.View(tableManager: tableDataSource)
         view.delegate = self
         self.view = view
     }
@@ -79,16 +79,20 @@ class CommunityScreenViewController: UIViewController {
         }
 
         if case .loading = newState {
-            self.communityView.showLoadingView()
+            self.communityView.showLoadingIndicator()
             return
         }
 
         if case .loading = self.state {
-            self.communityView.hideLoadingView()
+            self.communityView.hideLoadingIndicator()
         }
 
-        if case .result = newState {
-            self.communityView.updateTableViewData(dataSource: self.tableDataSource)
+        if case let .result(data) = newState {
+            if data.isEmpty {
+                self.communityView.displayNoData()
+            } else {
+                self.communityView.updateTableViewData(dataSource: self.tableDataSource)
+            }
         }
     }
     
@@ -100,7 +104,7 @@ class CommunityScreenViewController: UIViewController {
 extension CommunityScreenViewController: CommunityScreenViewControllerProtocol {
     func displayCommunityHeader(viewModel: CommunityScreen.CommunityHeaderLoad.ViewModel) {
         self.communityView.communityHeaderViewData = viewModel.data.community
-        self.title = viewModel.data.community.name
+        self.title = "!" + viewModel.data.community.name
     }
     
     func displayPosts(viewModel: CommunityScreen.CommunityPostsLoad.ViewModel) {
@@ -127,11 +131,21 @@ extension CommunityScreenViewController: CommunityScreenViewControllerProtocol {
 }
 
 extension CommunityScreenViewController: CommunityScreenViewDelegate {
+    func communityView(_ view: View, didPickedNewSort type: LemmySortType) {
+        self.communityView.deleteAllContent()
+        self.communityView.showLoadingIndicator()
+        self.viewModel.doPostsFetch(request: .init(contentType: type))
+    }
+    
     func headerViewDidTapped(followButton: FollowButton, in community: LemmyModel.CommunityView) {
-        self.followService.followUi(followButton: followButton, to: community)
-            .sink { (community) in
-                self.communityView.communityHeaderViewData = community
-            }.store(in: &self.cancellable)
+        guard let coord = coordinator else { return }
+        
+        ContinueIfLogined(on: self, coordinator: coord) {
+            self.followService.followUi(followButton: followButton, to: community)
+                .sink { (community) in
+                    self.communityView.communityHeaderViewData = community
+                }.store(in: &self.cancellable)
+        }
     }
     
     func communityViewDidPickerTapped(_ communityView: View, toVc: UIViewController) {

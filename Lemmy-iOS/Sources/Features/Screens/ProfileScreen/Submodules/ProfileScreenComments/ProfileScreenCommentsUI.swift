@@ -94,6 +94,7 @@ extension ProfileScreenCommentsViewController {
         
         func updateTableViewData(dataSource: UITableViewDataSource & UITableViewDelegate) {
             self.hideLoadingIndicator()
+            self.emptyStateLabel.isHidden = true
             _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
 //            self.emptyStateLabel.isHidden = numberOfRows != 0
 
@@ -103,8 +104,7 @@ extension ProfileScreenCommentsViewController {
         
         func displayNoData() {
             self.emptyStateLabel.isHidden = false
-            self.tableView.isHidden = true
-            makeConstraints()
+            self.hideLoadingIndicator()
         }
         
         func appendNew(data: [LemmyModel.CommentView]) {

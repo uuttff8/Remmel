@@ -25,6 +25,7 @@ class CommentCenterView: UIView {
     
     private lazy var commentLabel = NantesLabel().then {
         $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        $0.textColor = .lemmyLabel
         $0.delegate = self
         $0.numberOfLines = 6
     }

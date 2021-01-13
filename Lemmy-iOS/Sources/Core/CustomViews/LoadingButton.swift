@@ -21,7 +21,7 @@ class LoadingButton: UIButton {
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.color = self.titleColor(for: .normal)
+        activityIndicator.style = .medium
         self.addSubview(activityIndicator)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         let xCenterConstraint = NSLayoutConstraint(

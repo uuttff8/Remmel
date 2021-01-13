@@ -35,17 +35,18 @@ class PostContentHeaderView: UIView {
     }
     
     private let usernameButton = ResizableButton().then {
-        $0.setTitleColor(UIColor(red: 0/255, green: 123/255, blue: 255/255, alpha: 1), for: .normal)
+        $0.setTitleColor(UIColor.lemmyBlue, for: .normal)
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .regular)
     }
     
     private let communityButton = ResizableButton().then {
-        $0.setTitleColor(UIColor(red: 241/255, green: 100/255, blue: 30/255, alpha: 1), for: .normal)
+        $0.setTitleColor(UIColor.lemmyCommunity, for: .normal)
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
     }
     
     private let publishedTitle = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        $0.textColor = .lemmySecondLabel
     }
     
     private let showMoreButton = IncreasedTapAreaButton().then {
@@ -55,13 +56,13 @@ class PostContentHeaderView: UIView {
     
     private let byTitle = UILabel().then {
         $0.text = "by"
-        $0.textColor = UIColor(red: 108/255, green: 117/255, blue: 125/255, alpha: 1)
+        $0.textColor = .lemmySecondLabel
         $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
     }
     
     private let dotTitle = UILabel().then {
         $0.text = " · "
-        $0.textColor = UIColor(red: 108/255, green: 117/255, blue: 125/255, alpha: 1)
+        $0.textColor = UIColor.lemmySecondLabel
         $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
     }
     
