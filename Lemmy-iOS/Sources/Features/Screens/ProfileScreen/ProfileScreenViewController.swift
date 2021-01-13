@@ -354,7 +354,13 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
                 
                 self.coordinator?.goToWriteMessage(recipientId: recipientId)
             }
+                        
+            let blockAction = UIAlertAction(title: "Block", style: .destructive) { _ in
+                // Ha-ha
+                UIAlertController.createOkAlert(title: "Block (Testing)", message: "You've blocked user!")
+            }
             
+            alert.addAction(blockAction)
             alert.addAction(sendMessageAction)
         }
         

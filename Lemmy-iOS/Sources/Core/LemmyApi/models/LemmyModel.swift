@@ -634,7 +634,7 @@ enum LemmyModel {
         let name: String
         let preferredUsername: String?
         let passwordEncrypted: String
-        let email: String
+        let email: String?
         let avatar: String?
         let admin: Bool
         let banned: Bool

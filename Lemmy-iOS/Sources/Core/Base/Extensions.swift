@@ -143,8 +143,8 @@ extension UIViewController {
 }
 
 extension UIAlertController {
-    static func createOkAlert(message: String) {
-        let controller = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+    static func createOkAlert(title: String? = nil, message: String) {
+        let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
         controller.addAction(okAction)
         guard let vc = UIApplication.getTopMostViewController() else { return }
