@@ -106,8 +106,12 @@ class CommentContentView: UIView {
             self?.delegate?.onLinkTap(in: comment, url: url)
         }
         
-        centerView.onMentionTap = { [weak self] mention in
+        centerView.onUserMentionTap = { [weak self] mention in
             self?.delegate?.onMentionTap(in: comment, mention: mention)
+        }
+        
+        centerView.onCommunityMentionTap = { [weak self] mention in
+            
         }
 
         // footer view

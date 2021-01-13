@@ -21,11 +21,13 @@ class CommentCenterView: UIView {
 
     // MARK: - Properties
     var onLinkTap: ((URL) -> Void)?
-    var onMentionTap: ((LemmyMention) -> Void)?
+    var onUserMentionTap: ((LemmyUserMention) -> Void)?
+    var onCommunityMentionTap: ((LemmyCommunityMention) -> Void)?
     
     private lazy var commentLabel = NantesLabel().then {
         $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         $0.textColor = .lemmyLabel
+        $0.enabledTextCheckingTypes = [.link]
         $0.delegate = self
         $0.numberOfLines = 6
     }
@@ -91,8 +93,13 @@ extension CommentCenterView: ProgrammaticallyViewProtocol {
 
 extension CommentCenterView: NantesLabelDelegate {
     func attributedLabel(_ label: NantesLabel, didSelectLink link: URL) {
-        if let mention = LemmyMention(url: link) {
-            onMentionTap?(mention)
+        if let mention = LemmyUserMention(url: link) {
+            onUserMentionTap?(mention)
+            return
+        }
+        
+        if let mention = LemmyCommunityMention(url: link) {
+            onCommunityMentionTap?(mention)
             return
         }
         

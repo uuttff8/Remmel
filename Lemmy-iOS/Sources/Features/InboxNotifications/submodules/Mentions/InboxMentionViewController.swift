@@ -147,7 +147,7 @@ extension InboxMentionsViewController: UserMentionCellViewDelegate {
         self.coordinator?.goToBrowser(with: url)
     }
     
-    func onMentionTap(in userMention: LemmyModel.UserMentionView, mention: LemmyMention) {
+    func onMentionTap(in userMention: LemmyModel.UserMentionView, mention: LemmyUserMention) {
         self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }
     

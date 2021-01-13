@@ -123,7 +123,7 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
         self.coordinator?.goToPostScreen(post: post)
     }
     
-    func onMentionTap(in post: LemmyModel.PostView, mention: LemmyMention) {
+    func onMentionTap(in post: LemmyModel.PostView, mention: LemmyUserMention) {
         self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }
         

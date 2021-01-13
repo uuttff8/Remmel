@@ -21,11 +21,11 @@
       },
       {
         "package": "Nantes",
-        "repositoryURL": "https://github.com/instacart/Nantes.git",
+        "repositoryURL": "https://github.com/uuttff8/Nantes/",
         "state": {
           "branch": null,
-          "revision": "a82b861bc7863b22c798601e28ff2e8ec86ce4ee",
-          "version": "0.1.2"
+          "revision": "8469a32e0a06b101be82fc6bab883aa6eb4de20a",
+          "version": "0.1.3"
         }
       },
       {

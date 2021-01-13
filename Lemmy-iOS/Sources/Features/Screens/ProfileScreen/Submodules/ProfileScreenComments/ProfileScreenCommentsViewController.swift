@@ -113,7 +113,7 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
         self.viewModel.doNextCommentsFetch(request: .init(sortType: commentsPostsView.sortType))
     }
     
-    func onMentionTap(in post: LemmyModel.CommentView, mention: LemmyMention) {
+    func onMentionTap(in post: LemmyModel.CommentView, mention: LemmyUserMention) {
         self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }
     

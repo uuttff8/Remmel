@@ -145,7 +145,7 @@ extension InboxRepliesViewController: ReplyCellViewDelegate {
         self.coordinator?.goToBrowser(with: url)
     }
     
-    func onMentionTap(in reply: LemmyModel.ReplyView, mention: LemmyMention) {
+    func onMentionTap(in reply: LemmyModel.ReplyView, mention: LemmyUserMention) {
         self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }
     

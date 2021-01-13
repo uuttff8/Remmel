@@ -9,22 +9,22 @@
 import UIKit
 
 class CommunityScreenAssembly: Assembly {
-    private let communityId: LemmyModel.CommunityView.Id
-    private let communityInfo: LemmyModel.CommunityView?
+    private let communityId: LemmyModel.CommunityView.Id?
+    private let communityName: String?
     
     init(
-        communityId: LemmyModel.CommunityView.Id,
-        communityInfo: LemmyModel.CommunityView?
+        communityId: LemmyModel.CommunityView.Id?,
+        communityName: String?
     ) {
         self.communityId = communityId
-        self.communityInfo = communityInfo
+        self.communityName = communityName
     }
     
     func makeModule() -> CommunityScreenViewController {
         let userAccountService = UserAccountService()
         
         let viewModel = CommunityScreenViewModel(communityId: communityId,
-                                                 communityInfo: communityInfo)
+                                                 communityName: communityName)
         
         let vc = CommunityScreenViewController(
             viewModel: viewModel,

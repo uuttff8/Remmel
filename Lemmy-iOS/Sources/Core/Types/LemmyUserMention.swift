@@ -8,7 +8,7 @@
 
 import Foundation
 
-class LemmyMention {
+class LemmyUserMention {
     
     let absoluteUsername: String
     
@@ -28,18 +28,6 @@ class LemmyMention {
         if url.absoluteString.hasPrefix("/u/") {
             var retString = url.absoluteString
             retString.removeFirst(3)
-            
-            self.absoluteUsername = retString
-            return
-        }
-        
-        if url.absoluteString.hasPrefix("mailto:") {
-            var retString = url.absoluteString
-            retString.removeFirst(7)
-            
-            if let index = retString.firstIndex(of: "@") {
-                retString.removeSubrange(index...)
-            }
             
             self.absoluteUsername = retString
             return

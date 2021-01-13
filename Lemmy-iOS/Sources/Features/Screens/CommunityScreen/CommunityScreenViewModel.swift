@@ -22,22 +22,22 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
     
     private var paginationState = PaginationState(page: 1, hasNext: true)
     
-    private let communityId: LemmyModel.CommunityView.Id
-    private let communityInfo: LemmyModel.CommunityView?
+    private let communityId: LemmyModel.CommunityView.Id?
+    private let communityName: String?
     
     private var cancellable = Set<AnyCancellable>()
     
     init(
-        communityId: LemmyModel.CommunityView.Id,
-        communityInfo: LemmyModel.CommunityView?
+        communityId: LemmyModel.CommunityView.Id?,
+        communityName: String?
     ) {
         self.communityId = communityId
-        self.communityInfo = communityInfo
+        self.communityName = communityName
     }
     
     func doCommunityFetch() {
         let parameters = LemmyModel.Community.GetCommunityRequest(id: communityId,
-                                                                  name: nil,
+                                                                  name: communityName,
                                                                   auth: LoginData.shared.jwtToken)
         
         ApiManager.requests.asyncGetCommunity(parameters: parameters)

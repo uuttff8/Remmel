@@ -20,7 +20,7 @@ protocol PostContentTableCellDelegate: AnyObject {
     func usernameTapped(in post: LemmyModel.PostView)
     func communityTapped(in post: LemmyModel.PostView)
     func onLinkTap(in post: LemmyModel.PostView, url: URL)
-    func onMentionTap(in post: LemmyModel.PostView, mention: LemmyMention)
+    func onMentionTap(in post: LemmyModel.PostView, mention: LemmyUserMention)
     func showMore(in post: LemmyModel.PostView)
 }
 

@@ -21,7 +21,7 @@ protocol ReplyCellViewDelegate: AnyObject {
     func showContext(in reply: LemmyModel.ReplyView)
     func reply(to reply: LemmyModel.ReplyView)
     func onLinkTap(in reply: LemmyModel.ReplyView, url: URL)
-    func onMentionTap(in reply: LemmyModel.ReplyView, mention: LemmyMention)
+    func onMentionTap(in reply: LemmyModel.ReplyView, mention: LemmyUserMention)
     func showMoreAction(in reply: LemmyModel.ReplyView)
 }
 
@@ -38,6 +38,6 @@ protocol UserMentionCellViewDelegate: AnyObject {
     func showContext(in userMention: LemmyModel.UserMentionView)
     func reply(to userMention: LemmyModel.UserMentionView)
     func onLinkTap(in userMention: LemmyModel.UserMentionView, url: URL)
-    func onMentionTap(in userMention: LemmyModel.UserMentionView, mention: LemmyMention)
+    func onMentionTap(in userMention: LemmyModel.UserMentionView, mention: LemmyUserMention)
     func showMoreAction(in userMention: LemmyModel.UserMentionView)
 }

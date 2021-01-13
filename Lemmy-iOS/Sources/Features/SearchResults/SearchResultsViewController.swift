@@ -121,11 +121,11 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
         }
     }
         
-    func onMentionTap(in post: LemmyModel.CommentView, mention: LemmyMention) {
+    func onMentionTap(in post: LemmyModel.CommentView, mention: LemmyUserMention) {
         self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }
     
-    func onMentionTap(in post: LemmyModel.PostView, mention: LemmyMention) {
+    func onMentionTap(in post: LemmyModel.PostView, mention: LemmyUserMention) {
         self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }
     

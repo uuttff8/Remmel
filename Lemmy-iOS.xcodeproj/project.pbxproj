@@ -65,10 +65,9 @@
 		4E7CFCD52584215F0082AC3D /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7CFCD42584215F0082AC3D /* UIImageView+Ext.swift */; };
 		4E8165632562B6FC00907D31 /* PostsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8165622562B6FC00907D31 /* PostsTableDataSource.swift */; };
 		4E8165722562D08B00907D31 /* ProfileScreenTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8165712562D08B00907D31 /* ProfileScreenTableHeaderView.swift */; };
-		4E8165992563346100907D31 /* Nantes in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8165982563346100907D31 /* Nantes */; };
 		4E87C637258BF2AB0007FE5E /* CommunityFollowService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C636258BF2AB0007FE5E /* CommunityFollowService.swift */; };
 		4E87C63C258C04BB0007FE5E /* CommunityScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C63B258C04BB0007FE5E /* CommunityScreenCoordinator.swift */; };
-		4E87C648258D33810007FE5E /* LemmyMention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C647258D33810007FE5E /* LemmyMention.swift */; };
+		4E87C648258D33810007FE5E /* LemmyUserMention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C647258D33810007FE5E /* LemmyUserMention.swift */; };
 		4E87C66E258E09D00007FE5E /* UIFont+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C66D258E09D00007FE5E /* UIFont+Ext.swift */; };
 		4E87C67E258E1AD90007FE5E /* PostContentPreviewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C67D258E1AD90007FE5E /* PostContentPreviewTableCell.swift */; };
 		4E87C683258E1B970007FE5E /* PostContentPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87C682258E1B970007FE5E /* PostContentPreviewView.swift */; };
@@ -260,6 +259,8 @@
 		4EDDFFF925A5CFC8006FCB9F /* WriteMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFF825A5CFC8006FCB9F /* WriteMessageViewModel.swift */; };
 		4EDDFFFF25A5DC06006FCB9F /* InboxNotificationsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFFE25A5DC06006FCB9F /* InboxNotificationsAssembly.swift */; };
 		4EE0279025AF82D800D2952D /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0278F25AF82D800D2952D /* Date+Ext.swift */; };
+		4EE0279E25AF93EE00D2952D /* LemmyCommunityMention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0279D25AF93EE00D2952D /* LemmyCommunityMention.swift */; };
+		4EE027B425AFA02B00D2952D /* Nantes in Frameworks */ = {isa = PBXBuildFile; productRef = 4EE027B325AFA02B00D2952D /* Nantes */; };
 		4EE26859255972590009D2BC /* ProfileScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE26858255972590009D2BC /* ProfileScreenAssembly.swift */; };
 		4EF312E52576D2D10032B58D /* PostContentFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312E42576D2D10032B58D /* PostContentFooterView.swift */; };
 		4EF312ED2576D2EA0032B58D /* PostContentCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312EC2576D2EA0032B58D /* PostContentCenterView.swift */; };
@@ -411,7 +412,7 @@
 		4E8165712562D08B00907D31 /* ProfileScreenTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenTableHeaderView.swift; sourceTree = "<group>"; };
 		4E87C636258BF2AB0007FE5E /* CommunityFollowService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityFollowService.swift; sourceTree = "<group>"; };
 		4E87C63B258C04BB0007FE5E /* CommunityScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityScreenCoordinator.swift; sourceTree = "<group>"; };
-		4E87C647258D33810007FE5E /* LemmyMention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyMention.swift; sourceTree = "<group>"; };
+		4E87C647258D33810007FE5E /* LemmyUserMention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyUserMention.swift; sourceTree = "<group>"; };
 		4E87C66D258E09D00007FE5E /* UIFont+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Ext.swift"; sourceTree = "<group>"; };
 		4E87C67D258E1AD90007FE5E /* PostContentPreviewTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentPreviewTableCell.swift; sourceTree = "<group>"; };
 		4E87C682258E1B970007FE5E /* PostContentPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentPreviewView.swift; sourceTree = "<group>"; };
@@ -605,6 +606,7 @@
 		4EDDFFF825A5CFC8006FCB9F /* WriteMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMessageViewModel.swift; sourceTree = "<group>"; };
 		4EDDFFFE25A5DC06006FCB9F /* InboxNotificationsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxNotificationsAssembly.swift; sourceTree = "<group>"; };
 		4EE0278F25AF82D800D2952D /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
+		4EE0279D25AF93EE00D2952D /* LemmyCommunityMention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyCommunityMention.swift; sourceTree = "<group>"; };
 		4EE26858255972590009D2BC /* ProfileScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenAssembly.swift; sourceTree = "<group>"; };
 		4EF312E42576D2D10032B58D /* PostContentFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentFooterView.swift; sourceTree = "<group>"; };
 		4EF312EC2576D2EA0032B58D /* PostContentCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentCenterView.swift; sourceTree = "<group>"; };
@@ -685,7 +687,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E8165992563346100907D31 /* Nantes in Frameworks */,
 				4E1070842534F742009EABDA /* KeychainSwift in Frameworks */,
 				921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */,
 				4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */,
@@ -693,6 +694,7 @@
 				4EBF1D5E25923723004068CD /* XCGLogger in Frameworks */,
 				4E9183B8256AF77700702F04 /* IQKeyboardManagerSwift in Frameworks */,
 				4E9184FC256E9E4E00702F04 /* SwipeCellKit in Frameworks */,
+				4EE027B425AFA02B00D2952D /* Nantes in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -876,7 +878,8 @@
 		4E87C646258D33790007FE5E /* Types */ = {
 			isa = PBXGroup;
 			children = (
-				4E87C647258D33810007FE5E /* LemmyMention.swift */,
+				4E87C647258D33810007FE5E /* LemmyUserMention.swift */,
+				4EE0279D25AF93EE00D2952D /* LemmyCommunityMention.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -1996,10 +1999,10 @@
 				4ECCEEFA250C13240075F921 /* SnapKit */,
 				4E1070832534F742009EABDA /* KeychainSwift */,
 				4EF3ACF525506EC900BEC9F1 /* SwiftyMarkdown */,
-				4E8165982563346100907D31 /* Nantes */,
 				4E9183B7256AF77700702F04 /* IQKeyboardManagerSwift */,
 				4E9184FB256E9E4E00702F04 /* SwipeCellKit */,
 				4EBF1D5D25923723004068CD /* XCGLogger */,
+				4EE027B325AFA02B00D2952D /* Nantes */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */;
@@ -2077,10 +2080,10 @@
 				4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				4EF3ACF425506EC900BEC9F1 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */,
-				4E8165972563346100907D31 /* XCRemoteSwiftPackageReference "Nantes" */,
 				4E9183B6256AF77700702F04 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
 				4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger" */,
+				4EE027B225AFA02B00D2952D /* XCRemoteSwiftPackageReference "Nantes" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
@@ -2324,7 +2327,7 @@
 				4E886C61253CAF650076B162 /* CreateTransitionDelegateImpl.swift in Sources */,
 				4E9BBA1925553176004FF2F9 /* Enums.swift in Sources */,
 				4EFA81B0255F3FEB008AF535 /* FrontPageSearchSubjectTableCell.swift in Sources */,
-				4E87C648258D33810007FE5E /* LemmyMention.swift in Sources */,
+				4E87C648258D33810007FE5E /* LemmyUserMention.swift in Sources */,
 				4EBB22262559EBAA00B88079 /* ColorPalette.swift in Sources */,
 				4ECCEEEA250BA6230075F921 /* WSLemmyClient.swift in Sources */,
 				4EBB224C255ADE4C00B88079 /* TabSegmentedControlView.swift in Sources */,
@@ -2416,6 +2419,7 @@
 				4EFA81D0256165B1008AF535 /* CommunityScreenViewModel.swift in Sources */,
 				4E886C73253CD4270076B162 /* CreateDismissTransitionDriver.swift in Sources */,
 				4E87C63C258C04BB0007FE5E /* CommunityScreenCoordinator.swift in Sources */,
+				4EE0279E25AF93EE00D2952D /* LemmyCommunityMention.swift in Sources */,
 				4EF31453258166680032B58D /* WriteCommentViewController.swift in Sources */,
 				4E87C6A9258E68C20007FE5E /* InstancesView.swift in Sources */,
 				657DF45725968B9900831B0F /* Account.swift in Sources */,
@@ -2664,7 +2668,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2685,7 +2689,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2834,14 +2838,6 @@
 				minimumVersion = 19.0.0;
 			};
 		};
-		4E8165972563346100907D31 /* XCRemoteSwiftPackageReference "Nantes" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/instacart/Nantes.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.2;
-			};
-		};
 		4E9183B6256AF77700702F04 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
@@ -2874,6 +2870,14 @@
 				minimumVersion = 5.0.1;
 			};
 		};
+		4EE027B225AFA02B00D2952D /* XCRemoteSwiftPackageReference "Nantes" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/uuttff8/Nantes/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.3;
+			};
+		};
 		4EF3ACF425506EC900BEC9F1 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SimonFairbairn/SwiftyMarkdown";
@@ -2889,11 +2893,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
-		};
-		4E8165982563346100907D31 /* Nantes */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E8165972563346100907D31 /* XCRemoteSwiftPackageReference "Nantes" */;
-			productName = Nantes;
 		};
 		4E9183B7256AF77700702F04 /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -2914,6 +2913,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		4EE027B325AFA02B00D2952D /* Nantes */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EE027B225AFA02B00D2952D /* XCRemoteSwiftPackageReference "Nantes" */;
+			productName = Nantes;
 		};
 		4EF3ACF525506EC900BEC9F1 /* SwiftyMarkdown */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -134,7 +134,7 @@ class ReplyMentionCellView: UIView {
             self?.replyDelegate?.onLinkTap(in: reply, url: url)
         }
         
-        centerView.onMentionTap = { [weak self] mention in
+        centerView.onUserMentionTap = { [weak self] mention in
             self?.replyDelegate?.onMentionTap(in: reply, mention: mention)
         }
 
@@ -180,7 +180,7 @@ class ReplyMentionCellView: UIView {
             self?.mentionDelegate?.onLinkTap(in: mention, url: url)
         }
         
-        centerView.onMentionTap = { [weak self] lemmyMention in
+        centerView.onUserMentionTap = { [weak self] lemmyMention in
             self?.mentionDelegate?.onMentionTap(in: mention, mention: lemmyMention)
         }
 

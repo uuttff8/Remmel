@@ -10,9 +10,11 @@ import UIKit
 
 class CommunityScreenCoordinator: GenericCoordinator<CommunityScreenViewController> {
     
-    init(router: RouterProtocol?, communityId: Int, communityInfo: LemmyModel.CommunityView?) {
+    init(router: RouterProtocol?, communityId: Int?, communityName: String?) {
+        assert(communityId != nil || communityName != nil, "One of these arguments should not be nil")
+        
         super.init(router: router)
-        let assembly = CommunityScreenAssembly(communityId: communityId, communityInfo: communityInfo)
+        let assembly = CommunityScreenAssembly(communityId: communityId, communityName: communityName)
         self.rootViewController = assembly.makeModule()
         self.router?.viewController = self.rootViewController
     }

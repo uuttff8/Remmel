@@ -25,11 +25,11 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
         fatalError("Override this")
     }
     
-    func goToCommunityScreen(communityId: Int) {
+    func goToCommunityScreen(communityId: Int? = nil, communityName: String? = nil) {
         let coordinator = CommunityScreenCoordinator(
             router: Router(navigationController: navigationController),
             communityId: communityId,
-            communityInfo: nil
+            communityName: communityName
         )
         self.store(coordinator: coordinator)
         coordinator.start()
