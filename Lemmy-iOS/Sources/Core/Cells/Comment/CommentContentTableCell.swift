@@ -10,8 +10,8 @@ import UIKit
 import Nuke
 
 protocol CommentContentTableCellDelegate: AnyObject {
-    func usernameTapped(in comment: LemmyModel.CommentView)
-    func communityTapped(in comment: LemmyModel.CommentView)
+    func usernameTapped(with mention: LemmyUserMention)
+    func communityTapped(with mention: LemmyCommunityMention)
     func postNameTapped(in comment: LemmyModel.CommentView)
     func voteContent(
         scoreView: VoteButtonsWithScoreView,
@@ -22,7 +22,6 @@ protocol CommentContentTableCellDelegate: AnyObject {
     func showContext(in comment: LemmyModel.CommentView)
     func reply(to comment: LemmyModel.CommentView)
     func onLinkTap(in comment: LemmyModel.CommentView, url: URL)
-    func onMentionTap(in post: LemmyModel.CommentView, mention: LemmyUserMention)
     func showMoreAction(in comment: LemmyModel.CommentView)
 }
 

@@ -86,11 +86,13 @@ class CommentContentView: UIView {
         
         // header view
         headerView.communityButtonTap = { [weak self] in
-            self?.delegate?.communityTapped(in: comment)
+            let mention = LemmyCommunityMention(name: comment.communityName)
+            self?.delegate?.communityTapped(with: mention)
         }
 
         headerView.usernameButtonTap = { [weak self] in
-            self?.delegate?.usernameTapped(in: comment)
+            let mention = LemmyUserMention(string: comment.creatorName)
+            self?.delegate?.usernameTapped(with: mention)
         }
 
         headerView.postNameButtonTap = { [weak self] in
@@ -107,11 +109,11 @@ class CommentContentView: UIView {
         }
         
         centerView.onUserMentionTap = { [weak self] mention in
-            self?.delegate?.onMentionTap(in: comment, mention: mention)
+            self?.delegate?.usernameTapped(with: mention)
         }
         
         centerView.onCommunityMentionTap = { [weak self] mention in
-            
+            self?.delegate?.communityTapped(with: mention)
         }
 
         // footer view

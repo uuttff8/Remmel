@@ -10,9 +10,9 @@ import Foundation
 
 class LemmyUserMention {
     
-    let absoluteUsername: String
+    var absoluteUsername: String
     
-    init?(string: String) {
+    init(string: String) {
         if string.hasPrefix("@") {
             var retString = string
             retString.removeFirst()
@@ -21,7 +21,15 @@ class LemmyUserMention {
             return
         }
         
-        return nil
+        if string.hasPrefix("/u/") {
+            var retString = string
+            retString.removeFirst(3)
+            
+            self.absoluteUsername = retString
+            return
+        }
+        
+        self.absoluteUsername = string
     }
     
     init?(url: URL) {

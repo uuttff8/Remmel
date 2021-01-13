@@ -15,8 +15,8 @@ protocol PostContentPreviewTableCellDelegate: AnyObject {
         newVote: LemmyVoteType,
         post: LemmyModel.PostView
     )
-    func usernameTapped(in post: LemmyModel.PostView)
-    func communityTapped(in post: LemmyModel.PostView)
+    func usernameTapped(with mention: LemmyUserMention)
+    func communityTapped(with mention: LemmyCommunityMention)
     func showMore(in post: LemmyModel.PostView)
     func postCellDidSelected(postId: LemmyModel.PostView.ID)
 }

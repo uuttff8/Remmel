@@ -72,11 +72,13 @@ class PostContentView: UIView {
     
     private func setupTargets(with post: LemmyModel.PostView) {
         headerView.communityButtonTap = { [weak self] in
-            self?.delegate?.communityTapped(in: post)
+            let mention = LemmyCommunityMention(name: post.communityName)
+            self?.delegate?.communityTapped(with: mention)
         }
         
         headerView.usernameButtonTap = { [weak self] in
-            self?.delegate?.usernameTapped(in: post)
+            let mention = LemmyUserMention(string: post.creatorName)            
+            self?.delegate?.usernameTapped(with: mention)
         }
         
         headerView.showMoreButtonTap = { [weak self] in

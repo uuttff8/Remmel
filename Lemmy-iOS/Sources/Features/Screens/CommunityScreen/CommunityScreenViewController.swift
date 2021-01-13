@@ -187,14 +187,14 @@ extension CommunityScreenViewController: PostContentPreviewTableCellDelegate {
         }
     }
     
-    func usernameTapped(in post: LemmyModel.PostView) {
-        self.coordinator?.goToProfileScreen(by: post.creatorId)
+    func usernameTapped(with mention: LemmyUserMention) {
+        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }
     
-    func communityTapped(in post: LemmyModel.PostView) {
-        // not used
+    func communityTapped(with mention: LemmyCommunityMention) {
+//        self.coordinator?.goToCommunityScreen(communityId: nil, communityName: mention.absoluteName)
     }
-    
+
     func showMore(in post: LemmyModel.PostView) {
         guard let coordinator = coordinator else { return }
         self.showMoreService.showMoreInPost(on: self, coordinator: coordinator, post: post)

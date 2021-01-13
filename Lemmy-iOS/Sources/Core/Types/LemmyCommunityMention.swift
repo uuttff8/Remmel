@@ -12,7 +12,7 @@ class LemmyCommunityMention {
     
     let absoluteName: String
     
-    init?(name: String) {
+    init(name: String) {
         if name.hasPrefix("/c/") {
             var retString = name
             retString.removeFirst(3)
@@ -21,7 +21,7 @@ class LemmyCommunityMention {
             return
         }
         
-        return nil
+        self.absoluteName = name
     }
     
     init?(url: URL) {

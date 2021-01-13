@@ -151,14 +151,14 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
         self.showMoreHandlerService.showMoreInPost(on: self, coordinator: coordinator, post: post)
     }
     
-    func usernameTapped(in post: LemmyModel.PostView) {
-        self.coordinator?.goToProfileScreen(by: post.creatorId)
+    func usernameTapped(with mention: LemmyUserMention) {
+        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }
     
-    func communityTapped(in post: LemmyModel.PostView) {
-        self.coordinator?.goToCommunityScreen(communityId: post.communityId)
+    func communityTapped(with mention: LemmyCommunityMention) {
+        self.coordinator?.goToCommunityScreen(communityId: nil, communityName: mention.absoluteName)
     }
-    
+        
     func onLinkTap(in post: LemmyModel.PostView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }

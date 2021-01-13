@@ -206,14 +206,14 @@ extension PostsFrontPageViewController: PostContentPreviewTableCellDelegate {
         }
     }
     
-    func usernameTapped(in post: LemmyModel.PostView) {
-        coordinator?.goToProfileScreen(by: post.creatorId)
+    func usernameTapped(with mention: LemmyUserMention) {
+        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }
     
-    func communityTapped(in post: LemmyModel.PostView) {
-        coordinator?.goToCommunityScreen(communityId: post.communityId)
+    func communityTapped(with mention: LemmyCommunityMention) {
+        self.coordinator?.goToCommunityScreen(communityName: mention.absoluteName)
     }
-    
+
     func showMore(in post: LemmyModel.PostView) {
         guard let coordinator = coordinator else { return }
         showMoreHandler.showMoreInPost(on: self, coordinator: coordinator, post: post)

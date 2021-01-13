@@ -148,14 +148,14 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
         // not using
     }
     
-    func usernameTapped(in comment: LemmyModel.CommentView) {
-        self.coordinator?.goToProfileScreen(by: comment.creatorId)
+    func usernameTapped(with mention: LemmyUserMention) {
+        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
     }
     
-    func communityTapped(in comment: LemmyModel.CommentView) {
-        self.coordinator?.goToCommunityScreen(communityId: comment.communityId)
+    func communityTapped(with mention: LemmyCommunityMention) {
+        self.coordinator?.goToCommunityScreen(communityName: mention.absoluteName)
     }
-        
+
     func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
