@@ -47,13 +47,11 @@ class RegisterView: UIView {
     lazy var passwordTextField = UITextField().then {
         $0.isSecureTextEntry = true
         $0.placeholder = "Password"
-        $0.textContentType = .password
     }
 
     lazy var passwordVerifyTextField = UITextField().then {
         $0.isSecureTextEntry = true
         $0.placeholder = "Verify Password"
-        $0.textContentType = .password
     }
 
     lazy var captchaImageView = UIImageView()

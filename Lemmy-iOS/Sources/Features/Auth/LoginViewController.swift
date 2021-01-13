@@ -84,7 +84,14 @@ class LoginViewController: UIViewController {
                     UIAlertController.createOkAlert(message: why.description)
                 }
             }, receiveValue: { (response) in
-                self.fetchUser(with: response.jwt)
+                self.shareData.loginData.login(jwt: response.jwt)
+                self.loadUserOnSuccessResponse(jwt: response.jwt) { (myUser) in
+                    LemmyShareData.shared.userdata = myUser
+                    
+                    DispatchQueue.main.async {
+                        self.loginSuccessed()
+                    }
+                }
             }).store(in: &cancellables)
     }
     
@@ -167,15 +174,8 @@ class LoginViewController: UIViewController {
                     }
                 }
             }).store(in: &cancellables)
+    }
         
-    }
-    
-    private func fetchUser(with jwtToken: String) {
-        self.loadUserOnSuccessResponse(jwt: jwtToken) { _ in
-            self.loginSuccessed()
-        }
-    }
-    
     private func loadUserOnSuccessResponse(jwt: String, completion: @escaping ((LemmyModel.MyUser) -> Void)) {
         
         let params = LemmyModel.Site.GetSiteRequest(auth: jwt)
