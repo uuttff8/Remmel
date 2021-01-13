@@ -107,7 +107,7 @@ class PostContentCenterView: UIView {
             }
         }
         
-        thumbailImageView.loadImage(urlString: data.imageUrl)
+        thumbailImageView.loadImage(urlString: data.imageUrl, imageSize: imageSize)
     }
     
     func prepareForReuse() {

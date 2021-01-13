@@ -14,9 +14,17 @@ protocol CommunityHeaderViewDelegate: AnyObject {
     func headerViewDidTapped(followButton: FollowButton, in community: LemmyModel.CommunityView)
 }
 
+extension CommunityHeaderView {
+    struct Appearance {
+        let iconSize = CGSize(width: 50, height: 50)
+    }
+}
+
 class CommunityHeaderView: UIView {    
     
     weak var delegate: CommunityHeaderViewDelegate?
+    
+    let appearance = Appearance()
     
     var communityData: LemmyModel.CommunityView?
     
@@ -82,7 +90,7 @@ class CommunityHeaderView: UIView {
         }
         
         commImageView.snp.makeConstraints { (make) in
-            make.size.equalTo(50)
+            make.size.equalTo(appearance.iconSize)
         }
         
         horizontalStackView.snp.makeConstraints { (make) in
@@ -108,7 +116,7 @@ class CommunityHeaderView: UIView {
     
     func bind(with data: LemmyModel.CommunityView) {
         self.communityData = data
-        commImageView.loadImage(urlString: data.icon)
+        commImageView.loadImage(urlString: data.icon, imageSize: appearance.iconSize)
         
         commNameLabel.text = data.name
         subscribersLabel.text = String(data.numberOfSubscribers) + " Subscribers"

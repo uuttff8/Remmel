@@ -46,6 +46,27 @@
 			<key>orderHint</key>
 			<integer>34</integer>
 		</dict>
+		<key>SnapKitPlayground (Playground) 15.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>35</integer>
+		</dict>
+		<key>SnapKitPlayground (Playground) 16.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>36</integer>
+		</dict>
+		<key>SnapKitPlayground (Playground) 17.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>37</integer>
+		</dict>
 		<key>SnapKitPlayground (Playground) 2.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -150,6 +171,27 @@
 			<false/>
 			<key>orderHint</key>
 			<integer>31</integer>
+		</dict>
+		<key>SwiftyMarkdown (Playground) 15.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>38</integer>
+		</dict>
+		<key>SwiftyMarkdown (Playground) 16.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>39</integer>
+		</dict>
+		<key>SwiftyMarkdown (Playground) 17.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>40</integer>
 		</dict>
 		<key>SwiftyMarkdown (Playground) 2.xcscheme</key>
 		<dict>

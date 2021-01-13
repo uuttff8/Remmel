@@ -13,9 +13,17 @@ protocol AddInstanceViewDelegate: AnyObject {
     func addInstanceView(_ view: AddInstanceView, didTyped text: String?)
 }
 
+extension AddInstanceView {
+    struct Appearance {
+        let iconSize = CGSize(width: 50, height: 50)
+    }
+}
+
 final class AddInstanceView: UIView {
     
     weak var delegate: AddInstanceViewDelegate?
+    
+    let appearance: Appearance
     
     private lazy var scrollableStackView = ScrollableStackView(orientation: .vertical).then {
         $0.spacing = 5
@@ -27,10 +35,11 @@ final class AddInstanceView: UIView {
     }
     
     private lazy var instanceImageView = UIImageView().then {
-        $0.frame.size = .init(width: 50, height: 50)
+        $0.frame.size = appearance.iconSize
     }
     
-    init() {
+    init(appearance: Appearance = Appearance()) {
+        self.appearance = appearance
         super.init(frame: .zero)
         
         setupView()
@@ -44,7 +53,7 @@ final class AddInstanceView: UIView {
     }
     
     func bindImage(with url: String?) {
-        self.instanceImageView.loadImage(urlString: url)
+        self.instanceImageView.loadImage(urlString: url, imageSize: appearance.iconSize)
     }
     
     func unbindImage() {

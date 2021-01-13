@@ -7,7 +7,12 @@
 //
 
 import UIKit
-import Nuke
+ 
+extension UserPreviewCell {
+    struct Appearance {
+        let iconSize = CGSize(width: 40, height: 40)
+    }
+}
 
 class UserPreviewCell: UITableViewCell {
     
@@ -16,6 +21,8 @@ class UserPreviewCell: UITableViewCell {
         let numberOfComments: Int
         let thumbailUrl: String?
     }
+    
+    let appearance = Appearance()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
@@ -30,7 +37,7 @@ class UserPreviewCell: UITableViewCell {
         self.textLabel?.text = viewData.name
         self.detailTextLabel?.text = String(viewData.numberOfComments) + " Comments"
         
-        imageView?.loadImage(urlString: viewData.thumbailUrl)
+        imageView?.loadImage(urlString: viewData.thumbailUrl, imageSize: appearance.iconSize)
     }
     
     override func prepareForReuse() {

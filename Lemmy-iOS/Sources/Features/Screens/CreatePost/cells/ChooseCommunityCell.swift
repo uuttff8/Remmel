@@ -48,7 +48,7 @@ class ChooseCommunityCell: UITableViewCell {
     func bind(with data: ViewData) {
         self.viewData = data
 
-        commImageView.loadImage(urlString: data.icon)
+        commImageView.loadImage(urlString: data.icon, imageSize: imageSize)
         commTitle.text = data.title
     }
     
