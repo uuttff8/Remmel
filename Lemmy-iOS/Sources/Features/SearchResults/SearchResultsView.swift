@@ -37,7 +37,7 @@ class SearchResultsView: UIView {
         }
         
         self.tableView = LemmyTableView(style: type, separator: false).then {
-            $0.registerClass(PostContentTableCell.self)
+            $0.registerClass(PostContentPreviewTableCell.self)
             $0.registerClass(CommentContentTableCell.self)
             $0.registerClass(CommunityPreviewTableCell.self)
             $0.registerClass(UserPreviewCell.self)

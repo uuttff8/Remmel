@@ -2879,7 +2879,7 @@
 			repositoryURL = "https://github.com/uuttff8/Nantes/";
 			requirement = {
 				kind = revision;
-				revision = 7e186c3af8146741f7e4a32301dfc8affccea891;
+				revision = 01b01cad870d356541604f2bf007790ca55ccb71;
 			};
 		};
 		4EE027E425B07EF600D2952D /* XCRemoteSwiftPackageReference "GSImageViewerController" */ = {

@@ -89,9 +89,8 @@ class PostContentCenterView: UIView {
             if let subtitle = data.subtitle {
                 let md = SwiftyMarkdown(string: subtitle)
                 md.setFontSizeForAllStyles(with: 13)
-                subtitleLabel.attributedText = md.attributedString()
-                
                 subtitleLabel.linkAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lemmyBlue]
+                subtitleLabel.attributedText = md.attributedString()
             }
             
             self.relayoutForFullPost()

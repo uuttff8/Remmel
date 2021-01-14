@@ -52,9 +52,16 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
     }
     
     func goToBrowser(with url: URL) {
-        let safariVc = SFSafariViewController(url: url)
-        safariVc.delegate = self
-        rootViewController.present(safariVc, animated: true)
+        // https://stackoverflow.com/a/35458932
+        if ["http", "https"].contains(url.scheme?.lowercased() ?? "") {
+            // Can open with SFSafariViewController
+            let safariVc = SFSafariViewController(url: url)
+            safariVc.delegate = self
+            rootViewController.present(safariVc, animated: true, completion: nil)
+        } else {
+            // Scheme is not supported or no scheme is given, use openURL
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
     
     func goToPostScreen(postId: Int) {

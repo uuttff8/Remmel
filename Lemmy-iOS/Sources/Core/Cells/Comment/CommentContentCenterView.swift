@@ -53,7 +53,7 @@ class CommentCenterView: UIView {
             : createAttributesForNormalComment(data: data)
         
         commentLabel.attributedText = commentText
-        commentLabel.linkAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
+        commentLabel.linkAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lemmyBlue]
     }
     
     func prepareForReuse() {
