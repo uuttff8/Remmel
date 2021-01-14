@@ -137,6 +137,10 @@ extension PostScreenViewController: PostContentTableCellDelegate {
         guard let coordinator = coordinator else { return }
         self.showMoreHandlerService.showMoreInPost(on: self, coordinator: coordinator, post: post)
     }
+    
+    func presentVc(viewController: UIViewController) {
+        self.navigationController?.present(viewController, animated: true)
+    }
 }
 
 extension PostScreenViewController: CommentsViewControllerDelegate {

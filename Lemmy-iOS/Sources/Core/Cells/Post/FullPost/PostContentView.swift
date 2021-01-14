@@ -97,6 +97,10 @@ class PostContentView: UIView {
             self?.delegate?.communityTapped(with: mention)
         }
         
+        centerView.onImagePresent = { [weak self] imageVc in
+            self?.delegate?.presentVc(viewController: imageVc)
+        }
+        
         footerView.downvoteButtonTap = { [weak self] (scoreView, button, voteType) in
             self?.delegate?.voteContent(scoreView: scoreView, voteButton: button, newVote: voteType, post: post)
         }

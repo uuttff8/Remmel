@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SearchResultsTableDataSourceDelegate: PostContentTableCellDelegate, CommentContentTableCellDelegate {
+protocol SearchResultsTableDataSourceDelegate: PostContentPreviewTableCellDelegate, CommentContentTableCellDelegate {
     func tableDidRequestPagination(_ tableDataSource: SearchResultsTableDataSource)
     func tableDidSelect(viewModel: SearchResults.Results, indexPath: IndexPath)
     func tableDidTapped(followButton: FollowButton, in community: LemmyModel.CommunityView)
@@ -75,8 +75,8 @@ final class SearchResultsTableDataSource: NSObject {
         tableView: UITableView,
         indexPath: IndexPath
     ) -> UITableViewCell {
-        let cell: PostContentTableCell = tableView.cell(forRowAt: indexPath)
-        cell.bind(with: post, config: .preview)
+        let cell: PostContentPreviewTableCell = tableView.cell(forRowAt: indexPath)
+        cell.bind(with: post, isInsideCommunity: false)
         cell.postContentView.delegate = delegate
         return cell
     }
