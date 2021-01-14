@@ -42,14 +42,14 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
         let coordinator = ProfileScreenCoordinator(
             router: Router(navigationController: navigationController),
             profileId: userId,
-            profileUsername: nil
+            profileUsername: username
         )
         self.store(coordinator: coordinator)
         coordinator.start()
         self.router?.push(coordinator.rootViewController, isAnimated: true, onNavigateBack: {
             self.free(coordinator: coordinator)
         })
-    }    
+    }
     
     func goToBrowser(with url: URL) {
         let safariVc = SFSafariViewController(url: url)
