@@ -11,8 +11,9 @@ import Foundation
 class LemmyUserMention {
     
     var absoluteUsername: String
+    var absoluteId: Int?
     
-    init(string: String) {
+    init(string: String, id: Int? = nil) {
         if string.hasPrefix("@") {
             var retString = string
             retString.removeFirst()
@@ -29,6 +30,7 @@ class LemmyUserMention {
             return
         }
         
+        self.absoluteId = id
         self.absoluteUsername = string
     }
     

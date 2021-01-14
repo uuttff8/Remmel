@@ -20,6 +20,7 @@ class LemmyShareData {
         static let userId = "userId"
         static let userdata = "userdata"
         static let currentInstanceUrl = "currentInstanceUrl"
+        static let blockedUsersId = "blockedUsersId"
     }
     
     let userDefaults = UserDefaults.appShared
@@ -36,7 +37,7 @@ class LemmyShareData {
             let encoder = JSONEncoder()
             let dateFormatter = DateFormatter().then {
                 $0.dateFormat = Date.lemmyDateFormat
-                $0.locale = Locale(identifier: "en_US_POSIX")
+                $0.timeZone = TimeZone.autoupdatingCurrent
             }
             encoder.dateEncodingStrategy = .formatted(dateFormatter)
             
@@ -56,5 +57,10 @@ class LemmyShareData {
     var currentInstanceUrl: String {
         get { self.userDefaults.string(forKey: Key.currentInstanceUrl) ?? "" }
         set { self.userDefaults.setValue(newValue, forKey: Key.currentInstanceUrl) }
+    }
+    
+    var blockedUsersId: [Int] {
+        get { self.userDefaults.array(forKey: Key.blockedUsersId) as! [Int] }
+        set { self.userDefaults.setValue(newValue, forKey: Key.blockedUsersId) }
     }
 }

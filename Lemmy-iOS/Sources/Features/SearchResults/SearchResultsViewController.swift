@@ -122,11 +122,7 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
     }
         
     func onMentionTap(in post: LemmyModel.CommentView, mention: LemmyUserMention) {
-        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
-    }
-    
-    func onMentionTap(in post: LemmyModel.PostView, mention: LemmyUserMention) {
-        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
+        self.coordinator?.goToProfileScreen(userId: mention.absoluteId, username: mention.absoluteUsername)
     }
     
     func voteContent(
@@ -141,15 +137,7 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
             self.viewModel.doPostLike(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post)
         }
     }
-    
-    func usernameTapped(in post: LemmyModel.PostView) {
-        self.coordinator?.goToProfileScreen(by: post.creatorId)
-    }
-    
-    func communityTapped(in post: LemmyModel.PostView) {
-        self.coordinator?.goToCommunityScreen(communityId: post.communityId)
-    }
-    
+        
     func onLinkTap(in post: LemmyModel.PostView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }
@@ -160,11 +148,11 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
     }
     
     func usernameTapped(with mention: LemmyUserMention) {
-        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
+        self.coordinator?.goToProfileScreen(userId: mention.absoluteId, username: mention.absoluteUsername)
     }
     
     func communityTapped(with mention: LemmyCommunityMention) {
-        self.coordinator?.goToCommunityScreen(communityName: mention.absoluteName)
+        self.coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
     func postNameTapped(in comment: LemmyModel.CommentView) {
@@ -214,10 +202,10 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
             self.coordinator?.goToPostScreen(post: post)
         case .communities(let data):
             let community = data[indexPath.row]
-            self.coordinator?.goToCommunityScreen(communityId: community.id)
+            self.coordinator?.goToCommunityScreen(communityId: community.id, communityName: community.name)
         case .users(let data):
             let user = data[indexPath.row]
-            self.coordinator?.goToProfileScreen(by: user.id)
+            self.coordinator?.goToProfileScreen(userId: user.id, username: user.name)
         }
     }
 }

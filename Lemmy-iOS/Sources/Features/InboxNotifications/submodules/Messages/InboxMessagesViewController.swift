@@ -112,6 +112,6 @@ extension InboxMessagesViewController: MessageCellViewDelegate {
     }
     
     func messageCell(_ cell: MessageCellView, didTapUsername username: String) {
-        self.coordinator?.goToProfileScreen(by: username)
+        self.coordinator?.goToProfileScreen(userId: nil, username: username)
     }
 }

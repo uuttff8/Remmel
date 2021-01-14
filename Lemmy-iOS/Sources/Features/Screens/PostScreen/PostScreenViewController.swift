@@ -103,11 +103,7 @@ extension PostScreenViewController: PostContentTableCellDelegate {
         let post = postScreenView.postData.require()
         self.coordinator?.goToPostScreen(post: post)
     }
-    
-    func onMentionTap(in post: LemmyModel.PostView, mention: LemmyUserMention) {
-        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
-    }
-    
+        
     func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
@@ -120,15 +116,7 @@ extension PostScreenViewController: PostContentTableCellDelegate {
             viewModel.doPostLike(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post)
         }
     }
-    
-    func usernameTapped(in post: LemmyModel.PostView) {
-        coordinator?.goToProfileScreen(by: post.creatorId)
-    }
-    
-    func communityTapped(in post: LemmyModel.PostView) {
-        coordinator?.goToCommunityScreen(communityId: post.communityId)
-    }
-    
+        
     func onLinkTap(in post: LemmyModel.PostView, url: URL) {
         coordinator?.goToBrowser(with: url)
     }
@@ -143,21 +131,17 @@ extension PostScreenViewController: PostContentTableCellDelegate {
     }
 }
 
-extension PostScreenViewController: CommentsViewControllerDelegate {
-    func onMentionTap(in post: LemmyModel.CommentView, mention: LemmyUserMention) {
-        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
-    }
-    
+extension PostScreenViewController: CommentsViewControllerDelegate {    
     func postNameTapped(in comment: LemmyModel.CommentView) {
         // not using
     }
     
     func usernameTapped(with mention: LemmyUserMention) {
-        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
+        self.coordinator?.goToProfileScreen(userId: mention.absoluteId, username: mention.absoluteUsername)
     }
     
     func communityTapped(with mention: LemmyCommunityMention) {
-        self.coordinator?.goToCommunityScreen(communityName: mention.absoluteName)
+        self.coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
     func voteContent(

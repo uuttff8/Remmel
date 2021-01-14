@@ -11,8 +11,9 @@ import Foundation
 class LemmyCommunityMention {
     
     let absoluteName: String
+    var absoluteId: Int?
     
-    init(name: String) {
+    init(name: String, id: Int? = nil) {
         if name.hasPrefix("/c/") {
             var retString = name
             retString.removeFirst(3)
@@ -21,6 +22,7 @@ class LemmyCommunityMention {
             return
         }
         
+        self.absoluteId = id
         self.absoluteName = name
     }
     

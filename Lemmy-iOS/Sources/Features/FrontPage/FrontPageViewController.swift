@@ -140,7 +140,7 @@ extension FrontPageViewController: FrontPageViewControllerProtocol {
     }
     
     func displayProfileScreen(viewModel: FrontPage.ProfileAction.ViewModel) {
-        self.coordinator?.goToProfileScreen(by: viewModel.user.id)
+        self.coordinator?.goToProfileScreen(userId: viewModel.user.id, username: viewModel.user.name)
     }
 }
 

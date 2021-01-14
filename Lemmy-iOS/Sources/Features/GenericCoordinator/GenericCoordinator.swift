@@ -38,7 +38,7 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
         })
     }
     
-    func goToProfileScreen(by userId: Int) {
+    func goToProfileScreen(userId: Int? = nil, username: String? = nil) {
         let coordinator = ProfileScreenCoordinator(
             router: Router(navigationController: navigationController),
             profileId: userId,
@@ -49,20 +49,7 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
         self.router?.push(coordinator.rootViewController, isAnimated: true, onNavigateBack: {
             self.free(coordinator: coordinator)
         })
-    }
-    
-    func goToProfileScreen(by username: String) {
-        let coordinator = ProfileScreenCoordinator(
-            router: Router(navigationController: navigationController),
-            profileId: nil,
-            profileUsername: username
-        )
-        self.store(coordinator: coordinator)
-        coordinator.start()
-        self.router?.push(coordinator.rootViewController, isAnimated: true, onNavigateBack: {
-            self.free(coordinator: coordinator)
-        })
-    }
+    }    
     
     func goToBrowser(with url: URL) {
         let safariVc = SFSafariViewController(url: url)

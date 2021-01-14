@@ -114,12 +114,12 @@ class ReplyMentionCellView: UIView {
         
         // header view
         headerView.communityButtonTap = { [weak self] in
-            let mention = LemmyCommunityMention(name: reply.communityName)
+            let mention = LemmyCommunityMention(name: reply.communityName, id: reply.communityId)
             self?.mentionDelegate?.communityTapped(with: mention)
         }
 
         headerView.usernameButtonTap = { [weak self] in
-            let mention = LemmyUserMention(string: reply.creatorName)
+            let mention = LemmyUserMention(string: reply.creatorName, id: reply.creatorId)
             self?.mentionDelegate?.usernameTapped(with: mention)
         }
 

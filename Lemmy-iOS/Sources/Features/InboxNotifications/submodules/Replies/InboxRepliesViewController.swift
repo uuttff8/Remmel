@@ -108,12 +108,12 @@ extension InboxRepliesViewController: InboxRepliesTableManagerDelegate {
 }
 
 extension InboxRepliesViewController: ReplyCellViewDelegate {
-    func usernameTapped(with userMention: LemmyUserMention) {
-        self.coordinator?.goToProfileScreen(by: userMention.absoluteUsername)
+    func usernameTapped(with mention: LemmyUserMention) {
+        self.coordinator?.goToProfileScreen(userId: mention.absoluteId, username: mention.absoluteUsername)
     }
     
-    func communityTapped(with userMention: LemmyCommunityMention) {
-        self.coordinator?.goToCommunityScreen(communityId: nil, communityName: userMention.absoluteName)
+    func communityTapped(with mention: LemmyCommunityMention) {
+        self.coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
     func postNameTapped(in reply: LemmyModel.ReplyView) {

@@ -122,11 +122,7 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
         let post = tableDataSource.viewModels.getElement(by: postId).require()
         self.coordinator?.goToPostScreen(post: post)
     }
-    
-    func onMentionTap(in post: LemmyModel.PostView, mention: LemmyUserMention) {
-        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
-    }
-        
+            
     func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
@@ -152,13 +148,13 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
     }
     
     func usernameTapped(with mention: LemmyUserMention) {
-        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
+        self.coordinator?.goToProfileScreen(userId: mention.absoluteId, username: mention.absoluteUsername)
     }
     
     func communityTapped(with mention: LemmyCommunityMention) {
-        self.coordinator?.goToCommunityScreen(communityId: nil, communityName: mention.absoluteName)
+        self.coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
-        
+
     func onLinkTap(in post: LemmyModel.PostView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }

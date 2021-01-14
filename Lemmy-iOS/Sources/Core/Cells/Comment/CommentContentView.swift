@@ -86,12 +86,12 @@ class CommentContentView: UIView {
         
         // header view
         headerView.communityButtonTap = { [weak self] in
-            let mention = LemmyCommunityMention(name: comment.communityName)
+            let mention = LemmyCommunityMention(name: comment.communityName, id: comment.communityId)
             self?.delegate?.communityTapped(with: mention)
         }
 
         headerView.usernameButtonTap = { [weak self] in
-            let mention = LemmyUserMention(string: comment.creatorName)
+            let mention = LemmyUserMention(string: comment.creatorName, id: comment.creatorId)
             self?.delegate?.usernameTapped(with: mention)
         }
 
