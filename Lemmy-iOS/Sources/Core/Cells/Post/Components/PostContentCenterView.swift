@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyMarkdown
 import Nantes
-import SimpleImageViewer
+import GSImageViewerController
 
 // MARK: - PostContentCenterView: UIView
 class PostContentCenterView: UIView {
@@ -25,7 +25,7 @@ class PostContentCenterView: UIView {
     var onLinkTap: ((URL) -> Void)?
     var onUserMentionTap: ((LemmyUserMention) -> Void)?
     var onCommunityMentionTap: ((LemmyCommunityMention) -> Void)?
-    var onImagePresent: ((ImageViewerController) -> Void)?
+    var onImagePresent: ((UIViewController) -> Void)?
     
     private lazy var previewImageSize = CGSize(width: 110, height: 60)
     private lazy var fullPostImageHeight = UIScreen.main.bounds.height / 2.5
@@ -81,7 +81,10 @@ class PostContentCenterView: UIView {
         switch config {
         case .fullPost:
             subtitleLabel.numberOfLines = 0
-            thumbailImageView.loadImage(urlString: data.imageUrl)
+            thumbailImageView.loadImage(urlString: data.imageUrl) { [self] (res) in
+                guard case let .success(response) = res else { return }
+                self.setupImageViewForFullPostViewer(image: response.image)
+            }
             
             if let subtitle = data.subtitle {
                 let md = SwiftyMarkdown(string: subtitle)
@@ -92,17 +95,6 @@ class PostContentCenterView: UIView {
             }
             
             self.relayoutForFullPost()
-            
-            self.thumbailImageView.addTap {
-                let configuration = ImageViewerConfiguration { [weak self] config in
-                    guard let self = self else { return }
-                    config.imageView = self.thumbailImageView
-                }
-
-                let imageViewerController = ImageViewerController(configuration: configuration)
-                
-                self.onImagePresent?(imageViewerController)
-            }
         case .insideComminity, .preview:
             
             subtitleLabel.numberOfLines = 6
@@ -115,6 +107,15 @@ class PostContentCenterView: UIView {
             }
         }
         
+    }
+    
+    func setupImageViewForFullPostViewer(image: UIImage) {
+        self.thumbailImageView.addTap {
+            let imageInfo   = GSImageInfo(image: image, imageMode: .aspectFit)
+            let imageViewerController = GSImageViewerController(imageInfo: imageInfo)
+
+            self.onImagePresent?(imageViewerController)
+        }
     }
     
     func relayoutForFullPost() {

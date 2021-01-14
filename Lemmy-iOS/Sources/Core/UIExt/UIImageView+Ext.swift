@@ -44,7 +44,7 @@ extension UIImageView {
     }
     
     // load image or hide the view if it is not
-    func loadImage(urlString: String?) {
+    func loadImage(urlString: String?, completion: ImageTask.Completion? = nil) {
         
         if let url = URL(string: urlString ?? "") {
             
@@ -59,7 +59,8 @@ extension UIImageView {
             Nuke.loadImage(
                 with: request,
                 options: options,
-                into: self
+                into: self,
+                completion: completion
             )
         } else {
             self.isHidden = true
