@@ -261,6 +261,7 @@
 		4EE0279025AF82D800D2952D /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0278F25AF82D800D2952D /* Date+Ext.swift */; };
 		4EE0279E25AF93EE00D2952D /* LemmyCommunityMention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0279D25AF93EE00D2952D /* LemmyCommunityMention.swift */; };
 		4EE027B425AFA02B00D2952D /* Nantes in Frameworks */ = {isa = PBXBuildFile; productRef = 4EE027B325AFA02B00D2952D /* Nantes */; };
+		4EE027E625B07EF600D2952D /* GSImageViewerController in Frameworks */ = {isa = PBXBuildFile; productRef = 4EE027E525B07EF600D2952D /* GSImageViewerController */; };
 		4EE26859255972590009D2BC /* ProfileScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE26858255972590009D2BC /* ProfileScreenAssembly.swift */; };
 		4EF312E52576D2D10032B58D /* PostContentFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312E42576D2D10032B58D /* PostContentFooterView.swift */; };
 		4EF312ED2576D2EA0032B58D /* PostContentCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312EC2576D2EA0032B58D /* PostContentCenterView.swift */; };
@@ -693,6 +694,7 @@
 				4EF3ACF625506EC900BEC9F1 /* SwiftyMarkdown in Frameworks */,
 				4EBF1D5E25923723004068CD /* XCGLogger in Frameworks */,
 				4E9183B8256AF77700702F04 /* IQKeyboardManagerSwift in Frameworks */,
+				4EE027E625B07EF600D2952D /* GSImageViewerController in Frameworks */,
 				4E9184FC256E9E4E00702F04 /* SwipeCellKit in Frameworks */,
 				4EE027B425AFA02B00D2952D /* Nantes in Frameworks */,
 			);
@@ -2003,6 +2005,7 @@
 				4E9184FB256E9E4E00702F04 /* SwipeCellKit */,
 				4EBF1D5D25923723004068CD /* XCGLogger */,
 				4EE027B325AFA02B00D2952D /* Nantes */,
+				4EE027E525B07EF600D2952D /* GSImageViewerController */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */;
@@ -2084,6 +2087,7 @@
 				4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
 				4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger" */,
 				4EE027B225AFA02B00D2952D /* XCRemoteSwiftPackageReference "Nantes" */,
+				4EE027E425B07EF600D2952D /* XCRemoteSwiftPackageReference "GSImageViewerController" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
@@ -2668,7 +2672,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2689,7 +2693,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2878,6 +2882,14 @@
 				revision = 7e186c3af8146741f7e4a32301dfc8affccea891;
 			};
 		};
+		4EE027E425B07EF600D2952D /* XCRemoteSwiftPackageReference "GSImageViewerController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/wxxsw/GSImageViewerController.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.6.3;
+			};
+		};
 		4EF3ACF425506EC900BEC9F1 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SimonFairbairn/SwiftyMarkdown";
@@ -2918,6 +2930,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4EE027B225AFA02B00D2952D /* XCRemoteSwiftPackageReference "Nantes" */;
 			productName = Nantes;
+		};
+		4EE027E525B07EF600D2952D /* GSImageViewerController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EE027E425B07EF600D2952D /* XCRemoteSwiftPackageReference "GSImageViewerController" */;
+			productName = GSImageViewerController;
 		};
 		4EF3ACF525506EC900BEC9F1 /* SwiftyMarkdown */ = {
 			isa = XCSwiftPackageProductDependency;

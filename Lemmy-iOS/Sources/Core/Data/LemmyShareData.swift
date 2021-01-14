@@ -37,7 +37,7 @@ class LemmyShareData {
             let encoder = JSONEncoder()
             let dateFormatter = DateFormatter().then {
                 $0.dateFormat = Date.lemmyDateFormat
-                $0.timeZone = TimeZone.autoupdatingCurrent
+                $0.locale = Locale(identifier: "en_US_POSIX")
             }
             encoder.dateEncodingStrategy = .formatted(dateFormatter)
             

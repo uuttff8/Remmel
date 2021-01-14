@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "GSImageViewerController",
+        "repositoryURL": "https://github.com/wxxsw/GSImageViewerController.git",
+        "state": {
+          "branch": null,
+          "revision": "2e32b3aec1e4bf0c87b096ae9a9ca41df026028a",
+          "version": "1.6.3"
+        }
+      },
+      {
         "package": "IQKeyboardManagerSwift",
         "repositoryURL": "https://github.com/hackiftekhar/IQKeyboardManager.git",
         "state": {
