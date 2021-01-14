@@ -72,7 +72,7 @@ class CommentCenterView: UIView {
     
     private func createAttributesForNormalComment(data: CommentCenterView.ViewData) -> NSAttributedString {
         let md = SwiftyMarkdown(string: data.comment)
-        md.link.color = .systemBlue
+        md.link.color = .lemmyBlue
         return md.attributedString()
     }
 }

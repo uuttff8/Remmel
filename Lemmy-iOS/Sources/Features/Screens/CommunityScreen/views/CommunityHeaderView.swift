@@ -30,7 +30,7 @@ class CommunityHeaderView: UIView {
     
     let descriptionReadMoreButton = ResizableButton().then {
         $0.setTitle("Read more", for: .normal)
-        $0.setTitleColor(.systemBlue, for: .normal)
+        $0.setTitleColor(.lemmyBlue, for: .normal)
         $0.backgroundColor = .systemBackground
     }
     
@@ -55,17 +55,17 @@ class CommunityHeaderView: UIView {
     
     let subscribersLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 14)
-        $0.textColor = .systemBlue
+        $0.textColor = .lemmyBlue
     }
     
     let categoryLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 14)
-        $0.textColor = .systemBlue
+        $0.textColor = .lemmyBlue
     }
     
     let postsCountLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 14)
-        $0.textColor = .systemBlue
+        $0.textColor = .lemmyBlue
     }
     
     let verticalStackView = UIStackView().then {

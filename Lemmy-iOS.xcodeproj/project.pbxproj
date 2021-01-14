@@ -2874,8 +2874,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/uuttff8/Nantes/";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.3;
+				kind = revision;
+				revision = 7e186c3af8146741f7e4a32301dfc8affccea891;
 			};
 		};
 		4EF3ACF425506EC900BEC9F1 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */ = {

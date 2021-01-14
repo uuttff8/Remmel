@@ -42,4 +42,28 @@ extension UIImageView {
             self.isHidden = true
         }
     }
+    
+    // load image or hide the view if it is not
+    func loadImage(urlString: String?) {
+        
+        if let url = URL(string: urlString ?? "") {
+            
+            let request = ImageRequest(url: url)
+            
+            let options = ImageLoadingOptions(
+                transition: ImageLoadingOptions.Transition.fadeIn(
+                    duration: 0.15
+                )
+            )
+            
+            Nuke.loadImage(
+                with: request,
+                options: options,
+                into: self
+            )
+        } else {
+            self.isHidden = true
+        }
+    }
+
 }

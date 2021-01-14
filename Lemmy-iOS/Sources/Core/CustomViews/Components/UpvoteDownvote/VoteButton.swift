@@ -14,7 +14,7 @@ extension VoteButton {
         let scaleValue: CGFloat = 0.8
         let transitionDistance: CGFloat = 10
         
-        let upvotedColor: UIColor = .systemBlue
+        let upvotedColor: UIColor = .lemmyBlue
         let downvotedColor: UIColor = .systemRed
         
         lazy var upvotedImage = Config.Image.arrowUp.withTintColor(upvotedColor,

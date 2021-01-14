@@ -24,7 +24,8 @@ class PostContentCenterView: UIView {
     var onLinkTap: ((URL) -> Void)?
     var onMentionTap: ((LemmyUserMention) -> Void)?
     
-    private let imageSize = CGSize(width: 110, height: 60)
+    private lazy var previewImageSize = CGSize(width: 110, height: 60)
+    private lazy var fullPostImageHeight = UIScreen.main.bounds.height / 2.5
     
     private let titleLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
@@ -51,6 +52,7 @@ class PostContentCenterView: UIView {
     }
     
     private let titleImageStackView = UIStackView().then {
+        $0.axis = .horizontal
         $0.alignment = .top
         $0.spacing = 8
     }
@@ -73,32 +75,24 @@ class PostContentCenterView: UIView {
     func bind(config: PostContentType, with data: PostContentCenterView.ViewData) {
         titleLabel.text = data.title
         
-        if let subtitle = data.subtitle {
-            let md = SwiftyMarkdown(string: subtitle)
-            
-            // if not case .preview
-            if case .preview = config {
-                
-            } else {
-                md.link.color = .systemBlue
-            }
-            
-            subtitleLabel.attributedText = md.attributedString()
-        }
-        
         switch config {
         case .fullPost:
             subtitleLabel.numberOfLines = 0
+            thumbailImageView.loadImage(urlString: data.imageUrl)
             
             if let subtitle = data.subtitle {
                 let md = SwiftyMarkdown(string: subtitle)
-                md.link.color = .systemBlue
                 md.setFontSizeForAllStyles(with: 13)
                 subtitleLabel.attributedText = md.attributedString()
+                
+                subtitleLabel.linkAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lemmyBlue]
             }
+            
+            self.relayoutForFullPost()
         case .insideComminity, .preview:
             
             subtitleLabel.numberOfLines = 6
+            thumbailImageView.loadImage(urlString: data.imageUrl, imageSize: previewImageSize)
             
             if let subtitle = data.subtitle?.removeNewLines() {
                 let md = SwiftyMarkdown(string: subtitle)
@@ -107,7 +101,16 @@ class PostContentCenterView: UIView {
             }
         }
         
-        thumbailImageView.loadImage(urlString: data.imageUrl, imageSize: imageSize)
+    }
+    
+    func relayoutForFullPost() {
+        self.titleImageStackView.axis = .vertical
+        self.titleImageStackView.setNeedsLayout()
+        
+        thumbailImageView.snp.remakeConstraints { (make) in
+            make.height.equalTo(fullPostImageHeight)
+            make.leading.trailing.equalToSuperview()
+        }
     }
     
     func prepareForReuse() {
@@ -151,7 +154,7 @@ extension PostContentCenterView: ProgrammaticallyViewProtocol {
     
     func makeConstraints() {
         thumbailImageView.snp.makeConstraints { (make) in
-            make.size.equalTo(imageSize)
+            make.size.equalTo(previewImageSize)
         }
         
         mainStackView.snp.makeConstraints { (make) in
