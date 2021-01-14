@@ -315,15 +315,27 @@ extension ProfileScreenViewController: UIScrollViewDelegate {
 
 extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
     func displayProfile(viewModel: ProfileScreenDataFlow.ProfileLoad.ViewModel) {
-        guard case let .result(headerData, posts, comments, subscribers) = viewModel.state else { return }
-        self.title = "@" + headerData.name
-        self.storedViewModel = headerData
-        profileScreenView.configure(viewData: headerData)
-        
-        self.viewModel.doSubmodulesDataFilling(request: .init(submodules: submoduleInputs,
-                                                              posts: posts,
-                                                              comments: comments,
-                                                              subscribers: subscribers))
+        switch viewModel.state {
+        case let .result(headerData, posts, comments, subscribers):
+            self.title = "@" + headerData.name
+            self.storedViewModel = headerData
+            profileScreenView.configure(viewData: headerData)
+            
+            self.viewModel.doSubmodulesDataFilling(request: .init(submodules: submoduleInputs,
+                                                                  posts: posts,
+                                                                  comments: comments,
+                                                                  subscribers: subscribers))
+        case .blockedUser:
+            UIAlertController.createOkAlert(message: "It's a blocked user!")
+            
+            self.viewModel.doSubmodulesDataFilling(request: .init(submodules: submoduleInputs,
+                                                                  posts: [],
+                                                                  comments: [],
+                                                                  subscribers: []))
+        case .loading:
+            fatalError()
+        }
+
     }
     
     func displayNotBlockingActivityIndicator( viewModel: ProfileScreenDataFlow.ShowingActivityIndicator.ViewModel) {
@@ -354,10 +366,26 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
                 
                 self.coordinator?.goToWriteMessage(recipientId: recipientId)
             }
-                        
-            let blockAction = UIAlertAction(title: "Block", style: .destructive) { _ in
-                // Ha-ha
-                UIAlertController.createOkAlert(message: "You've blocked user!")
+            
+            let blockAction: UIAlertAction
+            if viewModel.isBlocked {
+                blockAction = UIAlertAction(title: "Unblock", style: .destructive) { _ in
+                    let userId = viewModel.userId
+                    if let index = LemmyShareData.shared.blockedUsersId.firstIndex(where: { $0 == userId }) {
+                        LemmyShareData.shared.blockedUsersId.remove(at: index)
+                    }
+                    
+                    UIAlertController.createOkAlert(message: "You've unblocked this user!")
+                }
+
+            } else {
+                blockAction = UIAlertAction(title: "Block", style: .destructive) { _ in
+                    let userId = viewModel.userId
+                    LemmyShareData.shared.blockedUsersId.append(userId)
+                    
+                    UIAlertController.createOkAlert(message: "You've blocked this user!")
+                }
+
             }
             
             alert.addAction(blockAction)

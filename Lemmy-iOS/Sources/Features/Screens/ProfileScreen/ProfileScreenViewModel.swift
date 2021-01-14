@@ -65,6 +65,15 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
                 guard let self = self else { return }
                 
                 self.viewController?.displayNotBlockingActivityIndicator(viewModel: .init(shouldDismiss: true))
+                
+                // if blocked user then show nothing
+                self.loadedProfile = response.user
+                
+                if self.userIsBlocked(userId: response.user.id) {
+                    self.viewController?.displayProfile(viewModel: .init(state: .blockedUser))
+                    return
+                }
+                
                 self.loadedProfile = response.user
                 self.viewController?.displayProfile(
                     viewModel: .init(state: .result(profile: self.makeHeaderViewData(profile: response.user),
@@ -80,8 +89,12 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
         ? true
         : false
         
+        let userId = loadedProfile.require().id
+        
+        let isBlocked = self.userIsBlocked(userId: userId)
+        
         self.viewController?.displayMoreButtonAlert(
-            viewModel: .init(isCurrentProfile: isCurrent)
+            viewModel: .init(isCurrentProfile: isCurrent, isBlocked: isBlocked, userId: userId)
         )
     }
     
@@ -91,7 +104,11 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     }
     
     func doSubmoduleControllerAppearanceUpdate(request: ProfileScreenDataFlow.SubmoduleAppearanceUpdate.Request) {
-        self.submodules[request.submoduleIndex].handleControllerAppearance()
+        guard let submodules = self.submodules[safe: request.submoduleIndex] else {
+            Logger.commonLog.error("Submodule is not found")
+            return
+        }
+        submodules.handleControllerAppearance()
     }
     
     func doSubmodulesRegistration(request: ProfileScreenDataFlow.SubmoduleRegistration.Request) {
@@ -110,6 +127,14 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
                 subscribers: request.subscribers
             )
         }
+    }
+    
+    private func userIsBlocked(userId: Int) -> Bool {
+        if LemmyShareData.shared.blockedUsersId.contains(userId) {
+            return true
+        }
+        
+        return false
     }
     
     private func makeHeaderViewData(
@@ -154,7 +179,13 @@ enum ProfileScreenDataFlow {
         
         struct ViewModel {
             let isCurrentProfile: Bool
+            let isBlocked: Bool
+            let userId: Int
         }
+    }
+    
+    enum BlockedUser {
+        struct ViewModel { }
     }
     
     enum SubmoduleDataFilling {
@@ -192,5 +223,6 @@ enum ProfileScreenDataFlow {
                     posts: [LemmyModel.PostView],
                     comments: [LemmyModel.CommentView],
                     subscribers: [LemmyModel.CommunityFollowerView])
+        case blockedUser
     }
 }

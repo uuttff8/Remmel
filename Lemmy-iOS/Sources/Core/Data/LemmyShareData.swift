@@ -60,7 +60,7 @@ class LemmyShareData {
     }
     
     var blockedUsersId: [Int] {
-        get { self.userDefaults.array(forKey: Key.blockedUsersId) as! [Int] }
+        get { self.userDefaults.array(forKey: Key.blockedUsersId) as? [Int] ?? [] }
         set { self.userDefaults.setValue(newValue, forKey: Key.blockedUsersId) }
     }
 }
