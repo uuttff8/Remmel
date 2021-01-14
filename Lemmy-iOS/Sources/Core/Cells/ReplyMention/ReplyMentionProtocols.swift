@@ -9,8 +9,8 @@
 import UIKit
 
 protocol ReplyCellViewDelegate: AnyObject {
-    func usernameTapped(in reply: LemmyModel.ReplyView)
-    func communityTapped(in reply: LemmyModel.ReplyView)
+    func usernameTapped(with userMention: LemmyUserMention)
+    func communityTapped(with userMention: LemmyCommunityMention)
     func postNameTapped(in reply: LemmyModel.ReplyView)
     func voteContent(
         scoreView: VoteButtonsWithScoreView,
@@ -20,14 +20,13 @@ protocol ReplyCellViewDelegate: AnyObject {
     )
     func showContext(in reply: LemmyModel.ReplyView)
     func reply(to reply: LemmyModel.ReplyView)
-    func onLinkTap(in reply: LemmyModel.ReplyView, url: URL)
-    func onMentionTap(in reply: LemmyModel.ReplyView, mention: LemmyUserMention)
+    func onLinkTap(in userMention: LemmyModel.ReplyView, url: URL)
     func showMoreAction(in reply: LemmyModel.ReplyView)
 }
 
 protocol UserMentionCellViewDelegate: AnyObject {
-    func usernameTapped(in userMention: LemmyModel.UserMentionView)
-    func communityTapped(in userMention: LemmyModel.UserMentionView)
+    func usernameTapped(with userMention: LemmyUserMention)
+    func communityTapped(with userMention: LemmyCommunityMention)
     func postNameTapped(in userMention: LemmyModel.UserMentionView)
     func voteContent(
         scoreView: VoteButtonsWithScoreView,
@@ -38,6 +37,5 @@ protocol UserMentionCellViewDelegate: AnyObject {
     func showContext(in userMention: LemmyModel.UserMentionView)
     func reply(to userMention: LemmyModel.UserMentionView)
     func onLinkTap(in userMention: LemmyModel.UserMentionView, url: URL)
-    func onMentionTap(in userMention: LemmyModel.UserMentionView, mention: LemmyUserMention)
     func showMoreAction(in userMention: LemmyModel.UserMentionView)
 }

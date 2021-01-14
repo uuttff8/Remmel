@@ -22,7 +22,8 @@ class PostContentCenterView: UIView {
     
     // MARK: - Properties
     var onLinkTap: ((URL) -> Void)?
-    var onMentionTap: ((LemmyUserMention) -> Void)?
+    var onUserMentionTap: ((LemmyUserMention) -> Void)?
+    var onCommunityMentionTap: ((LemmyCommunityMention) -> Void)?
     
     private lazy var previewImageSize = CGSize(width: 110, height: 60)
     private lazy var fullPostImageHeight = UIScreen.main.bounds.height / 2.5
@@ -129,7 +130,12 @@ class PostContentCenterView: UIView {
 extension PostContentCenterView: NantesLabelDelegate {
     func attributedLabel(_ label: NantesLabel, didSelectLink link: URL) {
         if let mention = LemmyUserMention(url: link) {
-            onMentionTap?(mention)
+            onUserMentionTap?(mention)
+            return
+        }
+        
+        if let mention = LemmyCommunityMention(url: link) {
+            onCommunityMentionTap?(mention)
             return
         }
         

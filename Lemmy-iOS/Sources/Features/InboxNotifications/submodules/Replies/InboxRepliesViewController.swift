@@ -108,14 +108,14 @@ extension InboxRepliesViewController: InboxRepliesTableManagerDelegate {
 }
 
 extension InboxRepliesViewController: ReplyCellViewDelegate {
-    func usernameTapped(in reply: LemmyModel.ReplyView) {
-        self.coordinator?.goToProfileScreen(by: reply.creatorId)
+    func usernameTapped(with userMention: LemmyUserMention) {
+        self.coordinator?.goToProfileScreen(by: userMention.absoluteUsername)
     }
     
-    func communityTapped(in reply: LemmyModel.ReplyView) {
-        self.coordinator?.goToCommunityScreen(communityId: reply.communityId)
+    func communityTapped(with userMention: LemmyCommunityMention) {
+        self.coordinator?.goToCommunityScreen(communityId: nil, communityName: userMention.absoluteName)
     }
-    
+
     func postNameTapped(in reply: LemmyModel.ReplyView) {
         self.coordinator?.goToPostScreen(postId: reply.postId)
     }
@@ -144,11 +144,7 @@ extension InboxRepliesViewController: ReplyCellViewDelegate {
     func onLinkTap(in reply: LemmyModel.ReplyView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }
-    
-    func onMentionTap(in reply: LemmyModel.ReplyView, mention: LemmyUserMention) {
-        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
-    }
-    
+        
     func showMoreAction(in reply: LemmyModel.ReplyView) {
         guard let coordinator = coordinator else { return }
         self.showMoreService.showMoreInReply(on: self, coordinator: coordinator, reply: reply)

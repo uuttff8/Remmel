@@ -84,6 +84,14 @@ class PostContentPreviewView: UIView {
             self.delegate?.postCellDidSelected(postId: post.id)
         }
         
+        centerView.onUserMentionTap = { [weak self] mention in
+            self?.delegate?.usernameTapped(with: mention)
+        }
+        
+        centerView.onCommunityMentionTap = { [weak self] mention in
+            self?.delegate?.communityTapped(with: mention)
+        }
+        
         footerView.downvoteButtonTap = { [weak self] (scoreView, button, voteType) in
             self?.delegate?.voteContent(scoreView: scoreView, voteButton: button, newVote: voteType, post: post)
         }

@@ -1,11 +1,11 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
 CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/DateToolsSwift" "${PODS_CONFIGURATION_BUILD_DIR}/Nuke" "${PODS_CONFIGURATION_BUILD_DIR}/Pageboy"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/DateToolsSwift" "${PODS_CONFIGURATION_BUILD_DIR}/Nuke" "${PODS_CONFIGURATION_BUILD_DIR}/Pageboy" "${PODS_CONFIGURATION_BUILD_DIR}/SimpleImageViewer"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/DateToolsSwift/DateToolsSwift.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Nuke/Nuke.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Pageboy/Pageboy.framework/Headers"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/DateToolsSwift/DateToolsSwift.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Nuke/Nuke.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Pageboy/Pageboy.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SimpleImageViewer/SimpleImageViewer.framework/Headers"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_CONFIGURATION_BUILD_DIR}/DateToolsSwift/DateToolsSwift.framework/Headers" -isystem "${PODS_CONFIGURATION_BUILD_DIR}/Nuke/Nuke.framework/Headers" -isystem "${PODS_CONFIGURATION_BUILD_DIR}/Pageboy/Pageboy.framework/Headers" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/DateToolsSwift" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/Nuke" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/Pageboy"
-OTHER_LDFLAGS = $(inherited) -framework "DateToolsSwift" -framework "Nuke" -framework "Pageboy"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_CONFIGURATION_BUILD_DIR}/DateToolsSwift/DateToolsSwift.framework/Headers" -isystem "${PODS_CONFIGURATION_BUILD_DIR}/Nuke/Nuke.framework/Headers" -isystem "${PODS_CONFIGURATION_BUILD_DIR}/Pageboy/Pageboy.framework/Headers" -isystem "${PODS_CONFIGURATION_BUILD_DIR}/SimpleImageViewer/SimpleImageViewer.framework/Headers" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/DateToolsSwift" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/Nuke" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/Pageboy" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/SimpleImageViewer"
+OTHER_LDFLAGS = $(inherited) -framework "DateToolsSwift" -framework "Nuke" -framework "Pageboy" -framework "SimpleImageViewer"
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)

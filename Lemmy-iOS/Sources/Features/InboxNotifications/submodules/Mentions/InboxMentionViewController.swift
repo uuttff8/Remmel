@@ -108,14 +108,14 @@ extension InboxMentionsViewController: InboxMentionsTableManagerDelegate {
 }
 
 extension InboxMentionsViewController: UserMentionCellViewDelegate {
-    func usernameTapped(in userMention: LemmyModel.UserMentionView) {
-        self.coordinator?.goToProfileScreen(by: userMention.creatorId)
+    func usernameTapped(with userMention: LemmyUserMention) {
+        self.coordinator?.goToProfileScreen(by: userMention.absoluteUsername)
     }
     
-    func communityTapped(in userMention: LemmyModel.UserMentionView) {
-        self.coordinator?.goToCommunityScreen(communityId: userMention.communityId)
+    func communityTapped(with userMention: LemmyCommunityMention) {
+        self.coordinator?.goToCommunityScreen(communityId: nil, communityName: userMention.absoluteName)
     }
-    
+
     func postNameTapped(in userMention: LemmyModel.UserMentionView) {
         
     }
@@ -146,11 +146,7 @@ extension InboxMentionsViewController: UserMentionCellViewDelegate {
     func onLinkTap(in userMention: LemmyModel.UserMentionView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }
-    
-    func onMentionTap(in userMention: LemmyModel.UserMentionView, mention: LemmyUserMention) {
-        self.coordinator?.goToProfileScreen(by: mention.absoluteUsername)
-    }
-    
+        
     func showMoreAction(in userMention: LemmyModel.UserMentionView) {
         guard let coordinator = coordinator else { return }
         self.showMoreService.showMoreInUserMention(on: self, coordinator: coordinator, mention: userMention)

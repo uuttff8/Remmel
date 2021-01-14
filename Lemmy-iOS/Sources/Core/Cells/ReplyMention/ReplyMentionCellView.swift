@@ -114,11 +114,13 @@ class ReplyMentionCellView: UIView {
         
         // header view
         headerView.communityButtonTap = { [weak self] in
-            self?.replyDelegate?.communityTapped(in: reply)
+            let mention = LemmyCommunityMention(name: reply.communityName)
+            self?.mentionDelegate?.communityTapped(with: mention)
         }
 
         headerView.usernameButtonTap = { [weak self] in
-            self?.replyDelegate?.usernameTapped(in: reply)
+            let mention = LemmyUserMention(string: reply.creatorName)
+            self?.mentionDelegate?.usernameTapped(with: mention)
         }
 
         headerView.postNameButtonTap = { [weak self] in
@@ -135,7 +137,11 @@ class ReplyMentionCellView: UIView {
         }
         
         centerView.onUserMentionTap = { [weak self] mention in
-            self?.replyDelegate?.onMentionTap(in: reply, mention: mention)
+            self?.replyDelegate?.usernameTapped(with: mention)
+        }
+        
+        centerView.onCommunityMentionTap = { [weak self] mention in
+            self?.replyDelegate?.communityTapped(with: mention)
         }
 
         // footer view
@@ -160,11 +166,13 @@ class ReplyMentionCellView: UIView {
         
         // header view
         headerView.communityButtonTap = { [weak self] in
-            self?.mentionDelegate?.communityTapped(in: mention)
+            let mention = LemmyCommunityMention(name: mention.communityName)
+            self?.mentionDelegate?.communityTapped(with: mention)
         }
 
         headerView.usernameButtonTap = { [weak self] in
-            self?.mentionDelegate?.usernameTapped(in: mention)
+            let mention = LemmyUserMention(string: mention.creatorName)
+            self?.mentionDelegate?.usernameTapped(with: mention)
         }
 
         headerView.postNameButtonTap = { [weak self] in
@@ -180,8 +188,12 @@ class ReplyMentionCellView: UIView {
             self?.mentionDelegate?.onLinkTap(in: mention, url: url)
         }
         
-        centerView.onUserMentionTap = { [weak self] lemmyMention in
-            self?.mentionDelegate?.onMentionTap(in: mention, mention: lemmyMention)
+        centerView.onUserMentionTap = { [weak self] mention in
+            self?.mentionDelegate?.usernameTapped(with: mention)
+        }
+        
+        centerView.onCommunityMentionTap = { [weak self] mention in
+            self?.mentionDelegate?.communityTapped(with: mention)
         }
 
         // footer view

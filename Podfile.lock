@@ -2,23 +2,27 @@ PODS:
   - DateToolsSwift (5.0.0)
   - Nuke (9.2.0)
   - Pageboy (3.6.2)
+  - SimpleImageViewer (1.1.1)
 
 DEPENDENCIES:
   - DateToolsSwift (~> 5.0.0)
   - Nuke (~> 9.0)
   - Pageboy (~> 3.6)
+  - SimpleImageViewer (~> 1.1.1)
 
 SPEC REPOS:
   trunk:
     - DateToolsSwift
     - Nuke
     - Pageboy
+    - SimpleImageViewer
 
 SPEC CHECKSUMS:
   DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
   Nuke: 1394e48b0940e01dd20f52ac56b121ab154e370d
   Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
+  SimpleImageViewer: 34c3a2cde2d9ac022146772cefc27fca14b0c8b1
 
-PODFILE CHECKSUM: eb95ba81c8c8444f2dadcf98e732d9977f0d8b0e
+PODFILE CHECKSUM: b20ff680eb8c9b8b3eaf8c0d3aaa8d2e1a9aca58
 
 COCOAPODS: 1.10.0
