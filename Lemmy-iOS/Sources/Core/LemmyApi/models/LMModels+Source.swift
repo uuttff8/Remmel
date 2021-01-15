@@ -93,41 +93,73 @@ extension LMModels {
             let id: Int
             let name: String
             let description: String
-            let creator_id: Int
+            let creatorId: Int
             let published: Date
             let updated: Date
-            let enable_downvotes: Bool
-            let open_registration: Bool
-            let enable_nsfw: Bool
+            let enableDownvotes: Bool
+            let openRegistration: Bool
+            let enableNsfw: Bool
             let icon: String?
             let banner: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case name, description
+                case creatorId = "creator_id"
+                case published, updated
+                case enableDownvotes = "enable_downvotes"
+                case openRegistration = "open_registration"
+                case enableNsfw = "enable_nsfw"
+                case icon, banner
+            }
         }
         
         struct PrivateMessage: Identifiable, Codable {
             let id: Int
-            let creator_id: Int
-            let recipient_id: Int
+            let creatorId: Int
+            let recipientId: Int
             let content: String
             let deleted: Bool
             let read: Bool
             let published: Date
             let updated: Date?
-            let ap_id: String
+            let apId: String
             let local: Bool
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case creatorId = "creator_id"
+                case recipientId = "recipient_id"
+                case content, deleted, read, published, updated
+                case apId = "ap_id"
+                case local
+            }
         }
         
         struct PostReport: Identifiable, Codable {
             let id: Int
-            let creator_id: Int
-            let post_id: Int
-            let original_post_name: String
-            let original_post_url: String
-            let original_post_body: String
+            let creatorId: Int
+            let postId: Int
+            let originalPostName: String
+            let originalPostUrl: String
+            let originalPostBody: String
             let reason: String
             let resolved: Bool
-            let resolver_id: Int?
+            let resolverId: Int?
             let published: Date
             let updated: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case creatorId = "creator_id"
+                case postId = "post_id"
+                case originalPostName = "original_post_name"
+                case originalPostUrl = "original_post_url"
+                case originalPostBody = "original_post_body"
+                case reason, resolved
+                case resolverId = "resolver_id"
+                case published, updated
+            }
         }
         
         struct Post: Identifiable, Codable {
@@ -135,8 +167,8 @@ extension LMModels {
             let name: String
             let url: String?
             let body: String?
-            let creator_id: Int
-            let community_id: Int
+            let creatorId: Int
+            let communityId: Int
             let removed: Bool
             let locked: Bool
             let published: Date
@@ -144,101 +176,197 @@ extension LMModels {
             let deleted: Bool
             let nsfw: Bool
             let stickied: Bool
-            let embed_title: String
-            let embed_description: String?
-            let embed_html: String?
-            let thumbnail_url: String?
-            let ap_id: String
+            let embedTitle: String
+            let embedDescription: String?
+            let embedHtml: String?
+            let thumbnailUrl: String?
+            let apId: String
             let local: Bool
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case name, url, body, removed
+                case locked, published, updated, deleted
+                case nsfw, stickied
+                case creatorId = "creator_id"
+                case communityId = "community_id"
+                case embedTitle = "embed_title"
+                case embedDescription = "embed_description"
+                case embedHtml = "embed_html"
+                case thumbnailUrl = "thumbnail_url"
+                case apId = "ap_id"
+                case local
+            }
         }
         
         struct PasswordResetRequest: Identifiable, Codable {
             let id: Int
-            let user_id: Int
-            let token_encrypted: String
+            let userId: Int
+            let tokenEncrypted: String
             let published: Date
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case userId = "user_id"
+                case tokenEncrypted = "token_encrypted"
+                case published
+            }
         }
         
         struct ModRemovePost: Identifiable, Codable {
             let id: Int
-            let mod_user_id: Int
-            let post_id: Int
+            let modUserId: Int
+            let postId: Int
             let reason: String?
             let removed: Bool
-            let when_: String
+            let when: String
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case modUserId = "mod_user_id"
+                case postId = "post_id"
+                case reason, removed
+                case when = "when_"
+            }
         }
         
         struct ModLockPost: Identifiable, Codable {
             let id: Int
-            let mod_user_id: Int
-            let post_id: Int
+            let modUserId: Int
+            let postId: Int
             let locked: Bool?
-            let when_: String
+            let when: String
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case modUserId = "mod_user_id"
+                case postId = "post_id"
+                case locked
+                case when = "when_"
+            }
         }
         
         struct ModStickyPost: Identifiable, Codable {
             let id: Int
-            let mod_user_id: Int
-            let post_id: Int
+            let modUserId: Int
+            let postId: Int
             let stickied: Bool
-            let when_: String
+            let when: String
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case modUserId = "mod_user_id"
+                case postId = "post_id"
+                case stickied
+                case when = "when_"
+            }
         }
         
         struct ModRemoveComment: Identifiable, Codable {
             let id: Int
-            let mod_user_id: Int
-            let comment_id: Int
+            let modUserId: Int
+            let commentId: Int
             let reason: String?
             let removed: Bool?
-            let when_: String
+            let when: String
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case modUserId = "mod_user_id"
+                case commentId = "comment_id"
+                case removed, reason
+                case when = "when_"
+            }
         }
         
         struct ModRemoveCommunity: Identifiable, Codable {
             let id: Int
-            let mod_user_id: Int
-            let community_id: Int
+            let modUserId: Int
+            let communityId: Int
             let reason: String?
             let removed: Bool?
             let expires: Bool?
-            let when_: String
+            let when: String
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case modUserId = "mod_user_id"
+                case communityId = "community_id"
+                case expires, removed, reason
+                case when = "when_"
+            }
         }
         
         struct ModBanFromCommunity: Identifiable, Codable {
             let id: Int
-            let mod_user_id: Int
-            let other_user_id: Int
-            let community_id: Int
+            let modUserId: Int
+            let otherUserId: Int
+            let communityId: Int
             let reason: String?
             let banned: Bool?
             let expires: String?
-            let when_: String
+            let when: String
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case modUserId = "mod_user_id"
+                case otherUserId = "other_user_id"
+                case communityId = "community_id"
+                case expires, banned, reason
+                case when = "when_"
+            }
         }
         
         struct ModBan: Identifiable, Codable {
             let id: Int
-            let mod_user_id: Int
-            let other_user_id: Int
+            let modUserId: Int
+            let otherUserId: Int
             let reason: String?
             let banned: Bool?
             let expires: String?
-            let when_: String
+            let when: String
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case modUserId = "mod_user_id"
+                case otherUserId = "other_user_id"
+                case expires, banned, reason
+                case when = "when_"
+            }
         }
         
         struct ModAddCommunity: Identifiable, Codable {
             let id: Int
-            let mod_user_id: Int
-            let other_user_id: Int
-            let community_id: Int
+            let modUserId: Int
+            let otherUserId: Int
+            let communityId: Int
             let removed: Bool?
-            let when_: String
+            let when: String
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case modUserId = "mod_user_id"
+                case otherUserId = "other_user_id"
+                case communityId = "community_id"
+                case removed
+                case when = "when_"
+            }
         }
         
         struct ModAdd: Identifiable, Codable {
             let id: Int
-            let mod_user_id: Int
-            let other_user_id: Int
+            let modUserId: Int
+            let otherUserId: Int
             let removed: Bool?
-            let when_: String
+            let when: String
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case modUserId = "mod_user_id"
+                case otherUserId = "other_user_id"
+                case removed
+                case when = "when_"
+            }
         }
         
         struct CommunitySafe: Identifiable, Codable {
@@ -246,29 +374,50 @@ extension LMModels {
             let name: String
             let title: String
             let description: String?
-            let category_id: Int
-            let creator_id: Int
+            let categoryId: Int
+            let creatorId: Int
             let removed: Bool
             let published: Date
             let updated: Date?
             let deleted: Bool
             let nsfw: Bool
-            let actor_id: String
+            let actorId: String
             let local: Bool
             let icon: String?
             let banner: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case name, title, description
+                case categoryId = "category_id"
+                case creatorId = "creator_id"
+                case removed, published, updated, deleted
+                case nsfw
+                case actorId = "actor_id"
+                case local, icon, banner
+            }
         }
         
         struct CommentReport: Identifiable, Codable {
             let id: Int
-            let creator_id: Int
-            let comment_id: Int
-            let original_comment_text: String
+            let creatorId: Int
+            let commentId: Int
+            let originalCommentText: String
             let reason: String
             let resolved: Bool
-            let resolver_id: Int?
+            let resolverId: Int?
             let published: Date
             let updated: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case creatorId = "creator_id"
+                case commentId = "comment_id"
+                case originalCommentText = "original_comment_text"
+                case reason, resolved
+                case resolverId = "resolver_id"
+                case published, updated
+            }
         }
         
         struct Comment: Identifiable, Codable {
@@ -305,10 +454,17 @@ extension LMModels {
         
         struct UserMention: Identifiable, Codable {
             let id: Int
-            let recipient_id: Int
-            let comment_id: Int
+            let recipientId: Int
+            let commentId: Int
             let read: Bool
             let published: Date
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case recipientId = "recipient_id"
+                case commentId = "comment_id"
+                case read, published
+            }
         }
     }
     

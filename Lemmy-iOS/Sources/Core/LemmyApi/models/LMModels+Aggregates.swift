@@ -10,49 +10,85 @@ import Foundation
 
 extension LMModels {
     enum Aggregates {
-        struct UserAggregates: Codable {
-          let id: Int
-          let user_id: Int
-          let post_count: Int
-          let post_score: Int
-          let comment_count: Int
-          let comment_score: Int
+        struct UserAggregates: Identifiable, Codable {
+            let id: Int
+            let userId: Int
+            let postCount: Int
+            let postScore: Int
+            let commentCount: Int
+            let commentScore: Int
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case userId = "user_id"
+                case postCount = "post_count"
+                case postScore = "post_score"
+                case commentCount = "comment_count"
+                case commentScore = "comment_score"
+            }
         }
-
-        struct SiteAggregates: Codable {
-          let id: Int
-          let site_id: Int
-          let users: Int
-          let posts: Int
-          let comments: Int
-          let communities: Int
+        
+        struct SiteAggregates: Identifiable, Codable {
+            let id: Int
+            let siteId: Int
+            let users: Int
+            let posts: Int
+            let comments: Int
+            let communities: Int
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case siteId = "site_id"
+                case users, posts, comments, communities
+            }
         }
-
-        struct PostAggregates: Codable {
-          let id: Int
-          let post_id: Int
-          let comments: Int
-          let score: Int
-          let upvotes: Int
-          let downvotes: Int
-          let newest_comment_time: Int
+        
+        struct PostAggregates: Identifiable, Codable {
+            let id: Int
+            let postId: Int
+            let comments: Int
+            let score: Int
+            let upvotes: Int
+            let downvotes: Int
+            let newestCommentTime: Int
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case postId = "post_id"
+                case newestCommentTime = "newest_comment_time"
+                case comments, score, upvotes, downvotes
+                
+            }
         }
-
-        struct CommunityAggregates: Codable {
-          let id: Int
-          let community_id: Int
-          let subscribers: Int
-          let posts: Int
-          let comments: Int
+        
+        struct CommunityAggregates: Identifiable, Codable {
+            let id: Int
+            let communityId: Int
+            let subscribers: Int
+            let posts: Int
+            let comments: Int
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case communityId = "community_id"
+                case subscribers
+                case posts, comments
+            }
         }
-
-        struct CommentAggregates: Codable {
-          let id: Int
-          let comment_id: Int
-          let score: Int
-          let upvotes: Int
-          let downvotes: Int
+        
+        struct CommentAggregates: Identifiable, Codable {
+            let id: Int
+            let commentId: Int
+            let score: Int
+            let upvotes: Int
+            let downvotes: Int
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case commentId = "comment_id"
+                case score, upvotes, downvotes
+            }
         }
-
+        
     }
 }
