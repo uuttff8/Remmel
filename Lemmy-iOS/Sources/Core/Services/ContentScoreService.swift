@@ -30,7 +30,7 @@ protocol ContentScoreServiceProtocol {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        reply: LMModels.Views.UserMentionView,
+        reply: LMModels.Views.CommentView,
         completion: @escaping (LMModels.Views.CommentView) -> Void
     )
     
@@ -78,8 +78,8 @@ class ContentScoreService: ContentScoreServiceProtocol {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView,
-        completion: @escaping (LemmyModel.CommentView) -> Void
+        comment: LMModels.Views.CommentView,
+        completion: @escaping (LMModels.Views.CommentView) -> Void
     ) {
         
         scoreView.setVoted(voteButton: voteButton, to: newVote)
@@ -96,8 +96,8 @@ class ContentScoreService: ContentScoreServiceProtocol {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        reply: LemmyModel.ReplyView,
-        completion: @escaping (LemmyModel.CommentView) -> Void
+        reply: LMModels.Views.CommentView,
+        completion: @escaping (LMModels.Views.CommentView) -> Void
     ) {
         
         scoreView.setVoted(voteButton: voteButton, to: newVote)
@@ -114,12 +114,12 @@ class ContentScoreService: ContentScoreServiceProtocol {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        userMention: LemmyModel.UserMentionView,
-        completion: @escaping (LemmyModel.CommentView) -> Void
+        userMention: LMModels.Views.UserMentionView,
+        completion: @escaping (LMModels.Views.CommentView) -> Void
     ) {
         
         scoreView.setVoted(voteButton: voteButton, to: newVote)
-        self.createCommentLike(vote: newVote, contentId: userMention.id)
+        self.createCommentLike(vote: newVote, contentId: userMention.creator.id)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
