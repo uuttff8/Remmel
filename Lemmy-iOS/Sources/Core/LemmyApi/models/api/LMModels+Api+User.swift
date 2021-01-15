@@ -57,8 +57,8 @@ extension LMModels.Api {
         struct SaveUserSettings: Codable {
             let showNsfw: Bool
             let theme: String
-            let defaultSortType: LemmySortType
-            let defaultListingType: LemmyListingType
+            let defaultSortType: LMModels.Others.SortType
+            let defaultListingType: LMModels.Others.ListingType
             let lang: String
             let avatar: String?
             let banner: String?
@@ -186,7 +186,7 @@ extension LMModels.Api {
         }
         
         struct GetReplies: Codable {
-            let sort: LemmySortType
+            let sort: LMModels.Others.SortType
             let page: Int?
             let limit: Int?
             let unreadOnly: Bool
@@ -202,7 +202,7 @@ extension LMModels.Api {
         }
         
         struct GetUserMentions: Codable {
-            let sort: LemmySortType
+            let sort: LMModels.Others.SortType
             let page: Int?
             let limit: Int?
             let unreadOnly: Bool

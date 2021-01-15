@@ -54,7 +54,7 @@ extension LMModels.Api {
         }
         
         struct ListCommunities: Codable {
-            let sort: LemmySortType
+            let sort: LMModels.Others.SortType
             let page: Int?
             let limit: Int?
             let auth: String?

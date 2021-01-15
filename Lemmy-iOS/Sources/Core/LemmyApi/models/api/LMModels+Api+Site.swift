@@ -22,7 +22,7 @@ extension LMModels.Api {
             let type: String
             let communityId: Int?
             let communityName: String?
-            let sort: LemmySortType
+            let sort: LMModels.Others.SortType
             let page: Int?
             let limit: Int?
             let auth: String
@@ -37,7 +37,7 @@ extension LMModels.Api {
         }
         
         struct SearchResponse: Codable {
-            let type: LemmySortType
+            let type: LMModels.Others.SortType
             let comments: [LMModels.Views.CommentView]
             let posts: [LMModels.Views.PostView]
             let communities: [LMModels.Views.CommunityView]
