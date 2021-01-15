@@ -66,6 +66,7 @@
 		4E6E665425B2035900AF2F48 /* LMModels+Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E665325B2035900AF2F48 /* LMModels+Api.swift */; };
 		4E6E665C25B203C700AF2F48 /* LMModels+Api+Site.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E665B25B203C700AF2F48 /* LMModels+Api+Site.swift */; };
 		4E6E666125B208E100AF2F48 /* LMModels+Api+Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E666025B208E100AF2F48 /* LMModels+Api+Post.swift */; };
+		4E6E666625B20D4A00AF2F48 /* LMModels+Api+Community.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E666525B20D4A00AF2F48 /* LMModels+Api+Community.swift */; };
 		4E73DF4F258BDBF2001608F2 /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E73DF4E258BDBF2001608F2 /* Array+Ext.swift */; };
 		4E73DF65258BE78D001608F2 /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E73DF64258BE78D001608F2 /* LoadingButton.swift */; };
 		4E73DF6A258BE964001608F2 /* FollowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E73DF69258BE964001608F2 /* FollowButton.swift */; };
@@ -420,6 +421,7 @@
 		4E6E665325B2035900AF2F48 /* LMModels+Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Api.swift"; sourceTree = "<group>"; };
 		4E6E665B25B203C700AF2F48 /* LMModels+Api+Site.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Api+Site.swift"; sourceTree = "<group>"; };
 		4E6E666025B208E100AF2F48 /* LMModels+Api+Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Api+Post.swift"; sourceTree = "<group>"; };
+		4E6E666525B20D4A00AF2F48 /* LMModels+Api+Community.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Api+Community.swift"; sourceTree = "<group>"; };
 		4E73DF4E258BDBF2001608F2 /* Array+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Ext.swift"; sourceTree = "<group>"; };
 		4E73DF64258BE78D001608F2 /* LoadingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
 		4E73DF69258BE964001608F2 /* FollowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowButton.swift; sourceTree = "<group>"; };
@@ -884,6 +886,7 @@
 				4E6E664725B1FD3C00AF2F48 /* LMModels+Api+User.swift */,
 				4E6E665B25B203C700AF2F48 /* LMModels+Api+Site.swift */,
 				4E6E666025B208E100AF2F48 /* LMModels+Api+Post.swift */,
+				4E6E666525B20D4A00AF2F48 /* LMModels+Api+Community.swift */,
 			);
 			path = api;
 			sourceTree = "<group>";
@@ -2436,6 +2439,7 @@
 				4EF3AC80254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift in Sources */,
 				4E73DF6A258BE964001608F2 /* FollowButton.swift in Sources */,
 				4E87C6C9258EA92B0007FE5E /* CoreDataManager.swift in Sources */,
+				4E6E666625B20D4A00AF2F48 /* LMModels+Api+Community.swift in Sources */,
 				4E3FBC49258A812B00F97671 /* CommunitiesViewModel.swift in Sources */,
 				4EDD001F25A5E669006FCB9F /* InboxNotificationsCoordinator.swift in Sources */,
 				4ECCEF31251F24AD0075F921 /* LemmyFrontPageNavBar.swift in Sources */,
