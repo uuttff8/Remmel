@@ -154,7 +154,7 @@ class CommentsFrontPageViewController: UIViewController {
 }
 
 extension CommentsFrontPageViewController: CommentContentTableCellDelegate {    
-    func postNameTapped(in comment: LemmyModel.CommentView) {
+    func postNameTapped(in comment: LMModels.Views.CommentView) {
         self.coordinator?.goToPostScreen(postId: comment.postId)
     }
     
@@ -180,19 +180,19 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
         }
     }
     
-    func showContext(in comment: LemmyModel.CommentView) {
+    func showContext(in comment: LMModels.Views.CommentView) {
         self.coordinator?.goToPostAndScroll(to: comment)
     }
     
-    func reply(to comment: LemmyModel.CommentView) {
+    func reply(to comment: LMModels.Views.CommentView) {
         coordinator?.goToWriteComment(postId: comment.postId, parrentComment: comment)
     }
     
-    func onLinkTap(in comment: LemmyModel.CommentView, url: URL) {
+    func onLinkTap(in comment: LMModels.Views.CommentView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }
     
-    func showMoreAction(in comment: LemmyModel.CommentView) {
+    func showMoreAction(in comment: LMModels.Views.CommentView) {
         guard let coordinator = coordinator else { return }
         showMoreHandler.showMoreInComment(on: self, coordinator: coordinator, comment: comment)
     }    

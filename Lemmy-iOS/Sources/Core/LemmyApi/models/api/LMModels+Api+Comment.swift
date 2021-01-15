@@ -41,7 +41,7 @@ extension LMModels.Api {
             }
         }
         
-        struct DeleteComment {
+        struct DeleteComment: Codable {
             let editId: Int
             let deleted: Bool
             let auth: String
@@ -52,7 +52,7 @@ extension LMModels.Api {
             }
         }
         
-        struct RemoveComment {
+        struct RemoveComment: Codable {
             let editId: Int
             let removed: Bool
             let reason: String?
@@ -64,7 +64,7 @@ extension LMModels.Api {
             }
         }
         
-        struct MarkCommentAsRead {
+        struct MarkCommentAsRead: Codable {
             let commentId: Int
             let read: Bool
             let auth: String
@@ -75,8 +75,8 @@ extension LMModels.Api {
             }
         }
         
-        struct SaveComment {
-            let comment_id: Int
+        struct SaveComment: Codable {
+            let commentId: Int
             let save: Bool
             let auth: String
             
@@ -86,7 +86,7 @@ extension LMModels.Api {
             }
         }
         
-        struct CommentResponse {
+        struct CommentResponse: Codable {
             let commentView: LMModels.Views.CommentView
             let recipientIds: [Int]  // TODO another way to do this? Maybe a UserMention belongs to Comment
             let formId: Int  // An optional front end ID, to tell which is coming ba,
@@ -98,7 +98,7 @@ extension LMModels.Api {
             }
         }
         
-        struct CreateCommentLike {
+        struct CreateCommentLike: Codable {
             let commentId: Int
             let score: Int
             let auth: String
@@ -110,7 +110,7 @@ extension LMModels.Api {
             }
         }
         
-        struct GetComments {
+        struct GetComments: Codable {
             let type: LMModels.Others.ListingType
             let sort: LMModels.Others.SortType
             let page: Int?
@@ -127,12 +127,12 @@ extension LMModels.Api {
             }
         }
         
-        struct GetCommentsResponse {
+        struct GetCommentsResponse: Codable {
             let comments: [LMModels.Views.CommentView]
         }
         
-        struct CreateCommentReport {
-            let comment_id: Int
+        struct CreateCommentReport: Codable {
+            let commentId: Int
             let reason: String
             let auth: String
             
@@ -142,11 +142,11 @@ extension LMModels.Api {
             }
         }
         
-        struct CreateCommentReportResponse {
+        struct CreateCommentReportResponse: Codable {
             let success: Bool
         }
         
-        struct ResolveCommentReport {
+        struct ResolveCommentReport: Codable {
             let reportId: Int
             let resolved: Bool
             let auth: String
@@ -157,7 +157,7 @@ extension LMModels.Api {
             }
         }
         
-        struct ResolveCommentReportResponse {
+        struct ResolveCommentReportResponse: Codable {
             // TODO this should probably return the view
             let reportId: Int
             let resolved: Bool
@@ -168,7 +168,7 @@ extension LMModels.Api {
             }
         }
         
-        struct ListCommentReports {
+        struct ListCommentReports: Codable {
             let page: Int?
             let limit: Int?
             /// if no community is given, it returns reports for all communities moderated by the auth user
@@ -176,7 +176,7 @@ extension LMModels.Api {
             let auth: String
         }
         
-        struct ListCommentReportsResponse {
+        struct ListCommentReportsResponse: Codable {
             let comments: [LMModels.Views.CommentReportView]
         }
         

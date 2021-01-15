@@ -95,7 +95,7 @@ extension LMModels {
             }
         }
         
-        struct CommentView: Codable {
+        struct CommentView: VoteGettable, Codable {
             let comment: LMModels.Source.Comment
             let creator: LMModels.Source.UserSafe
             let recipient: LMModels.Source.UserSafe? // Left joins to comment and us,

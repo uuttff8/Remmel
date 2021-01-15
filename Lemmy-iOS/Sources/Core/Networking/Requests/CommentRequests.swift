@@ -9,53 +9,7 @@
 import Foundation
 import Combine
 
-private protocol CommentRequestManagerProtocol {
-    func asyncGetComments(
-        parameters: LemmyModel.Comment.GetCommentsRequest
-    ) -> AnyPublisher<LemmyModel.Comment.GetCommentsResponse, LemmyGenericError>
-    
-    func asyncCreateComment(
-        parameters: LemmyModel.Comment.CreateCommentRequest
-    ) -> AnyPublisher<LemmyModel.Comment.CreateCommentResponse, LemmyGenericError>
-    
-    func asyncEditComment(
-        parameters: LemmyModel.Comment.EditCommentRequest
-    ) -> AnyPublisher<LemmyModel.Comment.EditCommentResponse, LemmyGenericError>
-    
-    func asyncEditComment(
-        parameters: LemmyModel.Comment.DeleteCommentRequest
-    ) -> AnyPublisher<LemmyModel.Comment.DeleteCommentResponse, LemmyGenericError>
-    
-    func asyncRemoveComment(
-        parameters: LemmyModel.Comment.RemoveCommentRequest
-    ) -> AnyPublisher<LemmyModel.Comment.RemoveCommentResponse, LemmyGenericError>
-    
-    func asyncMarkCommentAsReadRequest(
-        parameters: LemmyModel.Comment.MarkCommentAsReadRequest
-    ) -> AnyPublisher<LemmyModel.Comment.MarkCommentAsReadResponse, LemmyGenericError>
-    
-    func asyncSaveComment(
-        parameters: LemmyModel.Comment.SaveCommentRequest
-    ) -> AnyPublisher<LemmyModel.Comment.SaveCommentResponse, LemmyGenericError>
-    
-    func asyncCreateCommentLike(
-        parameters: LemmyModel.Comment.CreateCommentLikeRequest
-    ) -> AnyPublisher<LemmyModel.Comment.CreateCommentLikeResponse, LemmyGenericError>
-    
-    func asyncCreateCommentReport(
-        parameters: LemmyModel.Comment.CreateCommentReportRequest
-    ) -> AnyPublisher<LemmyModel.Comment.CreateCommentReportResponse, LemmyGenericError>
-    
-    func asyncResolveCommentReport(
-        parameters: LemmyModel.Comment.ResolveCommentReportRequest
-    ) -> AnyPublisher<LemmyModel.Comment.ResolveCommentReportResponse, LemmyGenericError>
-    
-    func asyncListCommentReports(
-        parameters: LemmyModel.Comment.ListCommentReportsRequest
-    ) -> AnyPublisher<LemmyModel.Comment.ListCommentReportsResponse, LemmyGenericError>
-}
-
-extension RequestsManager: CommentRequestManagerProtocol {    
+extension RequestsManager {
     func asyncGetComments(
         parameters: LemmyModel.Comment.GetCommentsRequest
     ) -> AnyPublisher<LemmyModel.Comment.GetCommentsResponse, LemmyGenericError> {
@@ -99,8 +53,8 @@ extension RequestsManager: CommentRequestManagerProtocol {
     }
     
     func asyncCreateCommentLike(
-        parameters: LemmyModel.Comment.CreateCommentLikeRequest
-    ) -> AnyPublisher<LemmyModel.Comment.CreateCommentLikeResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Comment.CreateCommentLike
+    ) -> AnyPublisher<LMModels.Api.Comment.CommentResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Comment.createCommentLike.endpoint, parameters: parameters)
     }
     

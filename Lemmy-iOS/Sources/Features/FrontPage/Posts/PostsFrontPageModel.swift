@@ -86,11 +86,11 @@ class PostsFrontPageModel: NSObject {
         return nil
     }
     
-    private func saveNewPost(_ post: LemmyModel.PostView) {
+    private func saveNewPost(_ post: LMModels.Views.PostView) {
         postsDataSource.updateElementById(post)
     }
     
-    func createPostLike(newVote: LemmyVoteType, post: LemmyModel.PostView) {
+    func createPostLike(newVote: LemmyVoteType, post: LMModels.Views.PostView) {
         self.contentScoreService.createPostLike(vote: newVote, postId: post.id)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
