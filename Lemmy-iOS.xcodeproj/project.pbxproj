@@ -64,6 +64,7 @@
 		4E6E664025B1F9A100AF2F48 /* LMModels+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E663F25B1F9A100AF2F48 /* LMModels+Views.swift */; };
 		4E6E664825B1FD3C00AF2F48 /* LMModels+Api+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E664725B1FD3C00AF2F48 /* LMModels+Api+User.swift */; };
 		4E6E665425B2035900AF2F48 /* LMModels+Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E665325B2035900AF2F48 /* LMModels+Api.swift */; };
+		4E6E665C25B203C700AF2F48 /* LMModels+Api+Site.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E665B25B203C700AF2F48 /* LMModels+Api+Site.swift */; };
 		4E73DF4F258BDBF2001608F2 /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E73DF4E258BDBF2001608F2 /* Array+Ext.swift */; };
 		4E73DF65258BE78D001608F2 /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E73DF64258BE78D001608F2 /* LoadingButton.swift */; };
 		4E73DF6A258BE964001608F2 /* FollowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E73DF69258BE964001608F2 /* FollowButton.swift */; };
@@ -416,6 +417,7 @@
 		4E6E663F25B1F9A100AF2F48 /* LMModels+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Views.swift"; sourceTree = "<group>"; };
 		4E6E664725B1FD3C00AF2F48 /* LMModels+Api+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Api+User.swift"; sourceTree = "<group>"; };
 		4E6E665325B2035900AF2F48 /* LMModels+Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Api.swift"; sourceTree = "<group>"; };
+		4E6E665B25B203C700AF2F48 /* LMModels+Api+Site.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Api+Site.swift"; sourceTree = "<group>"; };
 		4E73DF4E258BDBF2001608F2 /* Array+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Ext.swift"; sourceTree = "<group>"; };
 		4E73DF64258BE78D001608F2 /* LoadingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
 		4E73DF69258BE964001608F2 /* FollowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowButton.swift; sourceTree = "<group>"; };
@@ -878,6 +880,7 @@
 			children = (
 				4E6E665325B2035900AF2F48 /* LMModels+Api.swift */,
 				4E6E664725B1FD3C00AF2F48 /* LMModels+Api+User.swift */,
+				4E6E665B25B203C700AF2F48 /* LMModels+Api+Site.swift */,
 			);
 			path = api;
 			sourceTree = "<group>";
@@ -2448,6 +2451,7 @@
 				4EFA81BB255FFD14008AF535 /* FrontPageAssembly.swift in Sources */,
 				4EDD000425A5DC11006FCB9F /* InboxNotificationsViewController.swift in Sources */,
 				4E886C36253872D10076B162 /* RegisterViewModel.swift in Sources */,
+				4E6E665C25B203C700AF2F48 /* LMModels+Api+Site.swift in Sources */,
 				4E10709D25361846009EABDA /* AuthenticationView.swift in Sources */,
 				4E886C2B253758A30076B162 /* LemmyModel+Site.swift in Sources */,
 				4EDD004325A5F2FB006FCB9F /* InboxRepliesAssembly.swift in Sources */,
