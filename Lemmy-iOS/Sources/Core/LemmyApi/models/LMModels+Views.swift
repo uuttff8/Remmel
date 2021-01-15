@@ -75,10 +75,18 @@ extension LMModels {
             let post: LMModels.Source.Post
             let community: LMModels.Source.CommunitySafe
             let counts: LMModels.Aggregates.CommentAggregates
-            let creator_banned_from_community: Bool // Left Join to CommunityUserBan
+            let creatorBannedFromCommunity: Bool // Left Join to CommunityUserBan
             let subscribed: Bool // Left join to CommunityFollower
             let saved: Bool // Left join to CommentSaved
-            let my_vote: Int? // Left join to CommentLi,
+            let myVote: Int? // Left join to CommentLi,
+            
+            enum CodingKeys: String, CodingKey {
+                case comment, creator, recipient, post
+                case community, counts
+                case creatorBannedFromCommunity = "creator_banned_from_community"
+                case subscribed, saved
+                case myVote = "my_vote"
+            }
         }
         
         struct CommentReportView: Codable {
@@ -176,5 +184,12 @@ extension LMModels {
             let counts: LMModels.Aggregates.CommunityAggregates
         }
         
+    }
+}
+
+extension LMModels.Views.CommentView {
+    func getVoteType() -> LemmyVoteType {
+        guard let myVote = self.myVote, myVote != 0 else { return LemmyVoteType.none }
+        return myVote == 1 ? .up : .down
     }
 }

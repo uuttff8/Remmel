@@ -42,16 +42,16 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         self.tableView.reloadData()
     }
     
-    func saveNewComment(comment: LemmyModel.CommentView) {
+    func saveNewComment(comment: LMModels.Views.CommentView) {
         if let index = commentDataSource.firstIndex(where: { comment in
-            comment.commentContent?.id == comment.id
+            comment.commentContent?.comment.id == comment.id
         }) {
             commentDataSource[index].commentContent = comment
         }
     }
     
     func scrollTo(_ comment: LemmyModel.CommentView) {
-        guard let index = commentDataSource.firstIndex(where: { $0.commentContent?.id == comment.id }) else {
+        guard let index = commentDataSource.firstIndex(where: { $0.commentContent?.comment.id == comment.id }) else {
             return
         }
         

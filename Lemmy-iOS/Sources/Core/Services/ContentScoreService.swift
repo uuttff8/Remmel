@@ -23,23 +23,23 @@ protocol ContentScoreServiceProtocol {
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
         comment: LemmyModel.CommentView,
-        completion: @escaping (LemmyModel.CommentView) -> Void
+        completion: @escaping (LMModels.Views.CommentView) -> Void
     )
     
     func voteReply(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        reply: LemmyModel.ReplyView,
-        completion: @escaping (LemmyModel.CommentView) -> Void
+        reply: LMModels.Views.UserMentionView,
+        completion: @escaping (LMModels.Views.CommentView) -> Void
     )
     
     func voteUserMention(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        userMention: LemmyModel.UserMentionView,
-        completion: @escaping (LemmyModel.CommentView) -> Void
+        userMention: LMModels.Views.UserMentionView,
+        completion: @escaping (LMModels.Views.CommentView) -> Void
     )
 }
 

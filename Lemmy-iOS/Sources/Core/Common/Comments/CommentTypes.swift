@@ -10,9 +10,9 @@ import Foundation
 
 class LemmyComment: BaseComment, Identifiable {
     var id: Int? {
-        commentContent?.id
+        commentContent?.comment.id
     }
-    var commentContent: LemmyModel.CommentView?
+    var commentContent: LMModels.Views.CommentView?
     var isFolded: Bool = true
 }
 
@@ -37,6 +37,6 @@ class BaseComment: AbstractComment {
 
 struct CommentNode {
     let id: Int
-    let comment: LemmyModel.CommentView
+    let comment: LMModels.Views.CommentView
     var replies: [CommentNode]
 }

@@ -9,40 +9,10 @@
 import Foundation
 import Combine
 
-private protocol LemmyPostRequestManagerProtocol {
-    func asyncGetPosts(
-        parameters: LemmyModel.Post.GetPostsRequest
-    ) -> AnyPublisher<LemmyModel.Post.GetPostsResponse, LemmyGenericError>
-    
+extension RequestsManager {
     func asyncGetPost(
-        parameters: LemmyModel.Post.GetPostRequest
-    ) -> AnyPublisher<LemmyModel.Post.GetPostResponse, LemmyGenericError>
-    
-    func asyncCreatePost(
-        parameters: LemmyModel.Post.CreatePostRequest
-    ) -> AnyPublisher<LemmyModel.Post.CreatePostResponse, LemmyGenericError>
-    
-    func asyncCreatePostLike(
-        parameters: LemmyModel.Post.CreatePostLikeRequest
-    ) -> AnyPublisher<LemmyModel.Post.CreatePostLikeResponse, LemmyGenericError>
-    
-    func asyncCreatePostReport(
-        parameters: LemmyModel.Post.CreatePostReportRequest
-    ) -> AnyPublisher<LemmyModel.Post.CreatePostReportResponse, LemmyGenericError>
-    
-    func asyncResolvePostReport(
-        parameters: LemmyModel.Post.ResolvePostReportRequest
-    ) -> AnyPublisher<LemmyModel.Post.ResolvePostReportResponse, LemmyGenericError>
-    
-    func asyncListPostReportsRequest(
-        parameters: LemmyModel.Post.ListPostReportsRequest
-    ) -> AnyPublisher<LemmyModel.Post.ListPostReportsResponse, LemmyGenericError>
-}
-
-extension RequestsManager: LemmyPostRequestManagerProtocol {
-    func asyncGetPost(
-        parameters: LemmyModel.Post.GetPostRequest
-    ) -> AnyPublisher<LemmyModel.Post.GetPostResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Post.GetPost
+    ) -> AnyPublisher<LMModels.Api.Post.GetPostResponse, LemmyGenericError> {
         
         asyncRequestDecodable(path: WSEndpoint.Post.getPost.endpoint,
                               parameters: parameters)
