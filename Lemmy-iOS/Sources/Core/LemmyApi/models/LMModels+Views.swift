@@ -11,169 +11,169 @@ import Foundation
 extension LMModels {
     enum Views {
         
-        export interface UserViewSafe {
-          user: UserSafe;
-          counts: UserAggregates;
+        struct UserViewSafe: Codable {
+            let user: LMModels.Source.UserSafe
+            let counts: LMModels.Aggregates.UserAggregates
         }
-
-        export interface UserViewDangerous {
-          user: User_;
-          counts: UserAggregates;
+        
+        struct UserViewDangerous: Codable {
+            let user: LMModels.Source.User_
+            let counts: LMModels.Aggregates.UserAggregates
         }
-
-        export interface UserMentionView {
-          user_mention: UserMention;
-          comment: Comment;
-          creator: UserSafe;
-          post: Post;
-          community: CommunitySafe;
-          recipient: UserSafe;
-          counts: CommentAggregates;
-          creator_banned_from_community: boolean; // Left Join to CommunityUserBan
-          subscribed: boolean; // Left join to CommunityFollower
-          saved: boolean; // Left join to CommentSaved
-          my_vote?: number; // Left join to CommentLi,
+        
+        struct UserMentionView: Codable {
+            let user_mention: LMModels.Source.UserMention
+            let comment: LMModels.Source.Comment
+            let creator: LMModels.Source.UserSafe
+            let post: LMModels.Source.Post
+            let community: LMModels.Source.CommunitySafe
+            let recipient: LMModels.Source.UserSafe
+            let counts: LMModels.Aggregates.CommentAggregates
+            let creator_banned_from_community: Bool // Left Join to CommunityUserBan
+            let subscribed: Bool // Left join to CommunityFollower
+            let saved: Bool // Left join to CommentSaved
+            let my_vote: Int? // Left join to CommentLi,
         }
-
-        export interface SiteView {
-          site: Site;
-          creator: UserSafe;
-          counts: SiteAggregates;
+        
+        struct SiteView: Codable {
+            let site: LMModels.Source.Site
+            let creator: LMModels.Source.UserSafe
+            let counts: LMModels.Aggregates.SiteAggregates
         }
-
-        export interface PrivateMessageView {
-          private_message: PrivateMessage;
-          creator: UserSafe;
-          recipient: UserSafe;
+        
+        struct PrivateMessageView: Codable {
+            let private_message: LMModels.Source.PrivateMessage
+            let creator: LMModels.Source.UserSafe
+            let recipient: LMModels.Source.UserSafe
         }
-
-        export interface PostView {
-          post: Post;
-          creator: UserSafe;
-          community: CommunitySafe;
-          creator_banned_from_community: boolean; // Left Join to CommunityUserBan
-          counts: PostAggregates;
-          subscribed: boolean; // Left join to CommunityFollower
-          saved: boolean; // Left join to PostSaved
-          read: boolean; // Left join to PostRead
-          my_vote?: number; // Left join to PostLi,
+        
+        struct PostView: Codable {
+            let post: LMModels.Source.Post
+            let creator: LMModels.Source.UserSafe
+            let community: LMModels.Source.CommunitySafe
+            let creator_banned_from_community: Bool // Left Join to CommunityUserBan
+            let counts: LMModels.Aggregates.PostAggregates
+            let subscribed: Bool // Left join to CommunityFollower
+            let saved: Bool // Left join to PostSaved
+            let read: Bool // Left join to PostRead
+            let my_vote: Int? // Left join to PostLi,
         }
-
-        export interface PostReportView {
-          post_report: PostReport;
-          post: Post;
-          community: CommunitySafe;
-          creator: UserSafe;
-          post_creator: UserSafe;
-          resolver?: UserSafe;
+        
+        struct PostReportView: Codable {
+            let post_report: LMModels.Source.PostReport
+            let post: LMModels.Source.Post
+            let community: LMModels.Source.CommunitySafe
+            let creator: LMModels.Source.UserSafe
+            let post_creator: LMModels.Source.UserSafe
+            let resolver: LMModels.Source.UserSafe?
         }
-
-        export interface CommentView {
-          comment: Comment;
-          creator: UserSafe;
-          recipient?: UserSafe; // Left joins to comment and us,
-          post: Post;
-          community: CommunitySafe;
-          counts: CommentAggregates;
-          creator_banned_from_community: boolean; // Left Join to CommunityUserBan
-          subscribed: boolean; // Left join to CommunityFollower
-          saved: boolean; // Left join to CommentSaved
-          my_vote?: number; // Left join to CommentLi,
+        
+        struct CommentView: Codable {
+            let comment: LMModels.Source.Comment
+            let creator: LMModels.Source.UserSafe
+            let recipient: LMModels.Source.UserSafe? // Left joins to comment and us,
+            let post: LMModels.Source.Post
+            let community: LMModels.Source.CommunitySafe
+            let counts: LMModels.Aggregates.CommentAggregates
+            let creator_banned_from_community: Bool // Left Join to CommunityUserBan
+            let subscribed: Bool // Left join to CommunityFollower
+            let saved: Bool // Left join to CommentSaved
+            let my_vote: Int? // Left join to CommentLi,
         }
-
-        export interface CommentReportView {
-          comment_report: CommentReport;
-          comment: Comment;
-          post: Post;
-          community: CommunitySafe;
-          creator: UserSafe;
-          comment_creator: UserSafe;
-          resolver?: UserSafe;
+        
+        struct CommentReportView: Codable {
+            let comment_report: LMModels.Source.CommentReport
+            let comment: LMModels.Source.Comment
+            let post: LMModels.Source.Post
+            let community: LMModels.Source.CommunitySafe
+            let creator: LMModels.Source.UserSafe
+            let comment_creator: LMModels.Source.UserSafe
+            let resolver: LMModels.Source.UserSafe?
         }
-
-        export interface ModAddCommunityView {
-          mod_add_community: ModAddCommunity;
-          moderator: UserSafe;
-          community: CommunitySafe;
-          modded_user: UserSafe;
+        
+        struct ModAddCommunityView: Codable {
+            let mod_add_community: LMModels.Source.ModAddCommunity
+            let moderator: LMModels.Source.UserSafe
+            let community: LMModels.Source.CommunitySafe
+            let modded_user: LMModels.Source.UserSafe
         }
-
-        export interface ModAddView {
-          mod_add: ModAdd;
-          moderator: UserSafe;
-          modded_user: UserSafe;
+        
+        struct ModAddView: Codable {
+            let mod_add: LMModels.Source.ModAdd
+            let moderator: LMModels.Source.UserSafe
+            let modded_user: LMModels.Source.UserSafe
         }
-
-        export interface ModBanFromCommunityView {
-          mod_ban_from_community: ModBanFromCommunity;
-          moderator: UserSafe;
-          community: CommunitySafe;
-          banned_user: UserSafe;
+        
+        struct ModBanFromCommunityView: Codable {
+            let mod_ban_from_community: LMModels.Source.ModBanFromCommunity
+            let moderator: LMModels.Source.UserSafe
+            let community: LMModels.Source.CommunitySafe
+            let banned_user: LMModels.Source.UserSafe
         }
-
-        export interface ModBanView {
-          mod_ban: ModBan;
-          moderator: UserSafe;
-          banned_user: UserSafe;
+        
+        struct ModBanView: Codable {
+            let mod_ban: LMModels.Source.ModBan
+            let moderator: LMModels.Source.UserSafe
+            let banned_user: LMModels.Source.UserSafe
         }
-
-        export interface ModLockPostView {
-          mod_lock_post: ModLockPost;
-          moderator: UserSafe;
-          post: Post;
-          community: CommunitySafe;
+        
+        struct ModLockPostView: Codable {
+            let mod_lock_post: LMModels.Source.ModLockPost
+            let moderator: LMModels.Source.UserSafe
+            let post: LMModels.Source.Post
+            let community: LMModels.Source.CommunitySafe
         }
-
-        export interface ModRemoveCommentView {
-          mod_remove_comment: ModRemoveComment;
-          moderator: UserSafe;
-          comment: Comment;
-          commenter: UserSafe;
-          post: Post;
-          community: CommunitySafe;
+        
+        struct ModRemoveCommentView: Codable {
+            let mod_remove_comment: LMModels.Source.ModRemoveComment
+            let moderator: LMModels.Source.UserSafe
+            let comment: LMModels.Source.Comment
+            let commenter: LMModels.Source.UserSafe
+            let post: LMModels.Source.Post
+            let community: LMModels.Source.CommunitySafe
         }
-
-        export interface ModRemoveCommunityView {
-          mod_remove_community: ModRemoveCommunity;
-          moderator: UserSafe;
-          community: CommunitySafe;
+        
+        struct ModRemoveCommunityView: Codable {
+            let mod_remove_community: LMModels.Source.ModRemoveCommunity
+            let moderator: LMModels.Source.UserSafe
+            let community: LMModels.Source.CommunitySafe
         }
-
-        export interface ModRemovePostView {
-          mod_remove_post: ModRemovePost;
-          moderator: UserSafe;
-          post: Post;
-          community: CommunitySafe;
+        
+        struct ModRemovePostView: Codable {
+            let mod_remove_post: LMModels.Source.ModRemovePost
+            let moderator: LMModels.Source.UserSafe
+            let post: LMModels.Source.Post
+            let community: LMModels.Source.CommunitySafe
         }
-
-        export interface ModStickyPostView {
-          mod_sticky_post: ModStickyPost;
-          moderator: UserSafe;
-          post: Post;
-          community: CommunitySafe;
+        
+        struct ModStickyPostView: Codable {
+            let mod_sticky_post: LMModels.Source.ModStickyPost
+            let moderator: LMModels.Source.UserSafe
+            let post: LMModels.Source.Post
+            let community: LMModels.Source.CommunitySafe
         }
-
-        export interface CommunityFollowerView {
-          community: CommunitySafe;
-          follower: UserSafe;
+        
+        struct CommunityFollowerView: Codable {
+            let community: LMModels.Source.CommunitySafe
+            let follower: LMModels.Source.UserSafe
         }
-
-        export interface CommunityModeratorView {
-          community: CommunitySafe;
-          moderator: UserSafe;
+        
+        struct CommunityModeratorView: Codable {
+            let community: LMModels.Source.CommunitySafe
+            let moderator: LMModels.Source.UserSafe
         }
-
-        export interface CommunityUserBanView {
-          community: CommunitySafe;
-          user: UserSafe;
+        
+        struct CommunityUserBanView: Codable {
+            let community: LMModels.Source.CommunitySafe
+            let user: LMModels.Source.UserSafe
         }
-
-        export interface CommunityView {
-          community: CommunitySafe;
-          creator: UserSafe;
-          category: Category;
-          subscribed: boolean;
-          counts: CommunityAggregates;
+        
+        struct CommunityView: Codable {
+            let community: LMModels.Source.CommunitySafe
+            let creator: LMModels.Source.UserSafe
+            let category: LMModels.Source.Category
+            let subscribed: Bool
+            let counts: LMModels.Aggregates.CommunityAggregates
         }
         
     }
