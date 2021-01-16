@@ -68,6 +68,12 @@ class CommentHeaderView: UIView {
         $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
     }
     
+    private let byTitle = UILabel().then {
+        $0.text = "by"
+        $0.textColor = .lemmySecondLabel
+        $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+    }
+    
     private let showMoreButton = IncreasedTapAreaButton().then {
         let image = Config.Image.ellipsis
         $0.setImage(image, for: .normal)
@@ -122,9 +128,10 @@ class CommentHeaderView: UIView {
     // MARK: - Public API
     func bind(with comment: CommentHeaderView.ViewData, config: CommentContentView.Setting) {
         let usernameButtonText = "@" + comment.username
+        let communityButtonText = "!" + comment.community
         
         usernameButton.setTitle(usernameButtonText, for: .normal)
-        communityButton.setTitle(comment.community, for: .normal)
+        communityButton.setTitle(communityButtonText, for: .normal)
         publishedTitle.text = comment.published
         scoreLabel.set(text: String(comment.score), leftIcon: Config.Image.boltFill)
         postNameButton.titleLabel.text = comment.postName
@@ -195,13 +202,14 @@ extension CommentHeaderView: ProgrammaticallyViewProtocol {
     
     func addSubviews() {
         bottomInnerStackView.addStackViewItems(
-            .view(communityButton),
+            .view(byTitle),
+            .view(usernameButton),
             .view(dotTitle),
             .view(publishedTitle)
         )
         
         lineInnerStackView.addStackViewItems(
-            .view(usernameButton),
+            .view(communityButton),
             .view(bottomInnerStackView)
         )
         
