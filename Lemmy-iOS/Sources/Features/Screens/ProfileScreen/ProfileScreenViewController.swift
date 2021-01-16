@@ -95,7 +95,6 @@ class ProfileScreenViewController: UIViewController {
         self.profileScreenView.updateCurrentPageIndex(ProfileScreenDataFlow.Tab.posts.rawValue)
         
         styledNavigationController?.removeBackButtonTitleForTopController()
-        navigationItem.rightBarButtonItem = showMoreBarButton
         
         viewModel.doProfileFetch()
     }
@@ -315,6 +314,8 @@ extension ProfileScreenViewController: UIScrollViewDelegate {
 
 extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
     func displayProfile(viewModel: ProfileScreenDataFlow.ProfileLoad.ViewModel) {
+        navigationItem.rightBarButtonItem = showMoreBarButton
+        
         switch viewModel.state {
         case let .result(headerData, posts, comments, subscribers):
             self.title = "@" + headerData.name
