@@ -165,8 +165,8 @@ extension WriteCommentViewController: StyledNavigationControllerPresentable {
 
 extension WriteCommentViewController: WriteCommentViewDelegate {
     func settingsCell(
-        elementView: UITextField,
-        didReportTextChange text: String?,
+        elementView: UITextView,
+        didReportTextChange text: String,
         identifiedBy uniqueIdentifier: UniqueIdentifierType?
     ) {
         guard let id = uniqueIdentifier, let field = TableForm(uniqueIdentifier: id) else {
