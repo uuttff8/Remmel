@@ -128,7 +128,6 @@ class ContentScoreService: ContentScoreServiceProtocol {
             }.store(in: &cancellable)
     }
     
-    
     func createPostLike(
         vote: LemmyVoteType,
         postId: Int

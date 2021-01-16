@@ -16,6 +16,7 @@ class VoteButtonsWithScoreView: UIView {
     }
     
     var viewData: ViewData?
+    var initialViewData: ViewData?
     
     private var lastKnownVoteType: LemmyVoteType = .none
     private var lastKnownVoteScore: Int = 0
@@ -54,6 +55,7 @@ class VoteButtonsWithScoreView: UIView {
     
     func bind(with viewData: ViewData) {
         self.viewData = viewData
+        self.initialViewData = viewData
         
         upvoteBtn.scoreValue = viewData.voteType
         downvoteBtn.scoreValue = viewData.voteType
@@ -73,7 +75,7 @@ class VoteButtonsWithScoreView: UIView {
         
         switch newVote {
         case .none:
-            resetScoreToDefaults()
+            resetScoreToNewVote(voteType: newVote)
         case .up:
             updateScoreUp()
         case .down:
@@ -142,6 +144,30 @@ class VoteButtonsWithScoreView: UIView {
         
         self.scoreLabel.text = String(initialViewData.score)
         self.lastKnownVoteScore = initialViewData.score
+        self.lastKnownVoteType = .none
+    }
+    
+    private func resetScoreToNewVote(voteType: LemmyVoteType) {
+        guard let initialViewData = self.initialViewData else { return }
+        
+        switch initialViewData.voteType {
+        case .down:
+            self.scoreLabel.text = String(initialViewData.score + 1)
+            self.lastKnownVoteScore = initialViewData.score + 1
+        case .up:
+            self.scoreLabel.text = String(initialViewData.score - 1)
+            self.lastKnownVoteScore = initialViewData.score - 1
+        case .none:
+            switch lastKnownVoteType {
+            case .down:
+                updateScoreDown()
+            case .up:
+                updateScoreUp()
+            case .none:
+                fatalError()
+            }
+        }
+        
         self.lastKnownVoteType = .none
     }
 
