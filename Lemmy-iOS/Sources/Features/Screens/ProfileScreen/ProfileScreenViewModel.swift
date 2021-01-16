@@ -18,6 +18,7 @@ protocol ProfileScreenViewModelProtocol: AnyObject {
     func doSubmoduleControllerAppearanceUpdate(request: ProfileScreenDataFlow.SubmoduleAppearanceUpdate.Request)
     func doSubmodulesRegistration(request: ProfileScreenDataFlow.SubmoduleRegistration.Request)
     func doSubmodulesDataFilling(request: ProfileScreenDataFlow.SubmoduleDataFilling.Request)
+//    func doSubmoduleDataFilling(request: ProfileScreenDataFlow.SubmoduleDataFilling.Request)
 }
  
 extension ProfileScreenViewModel {
@@ -44,7 +45,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     private(set) var loadedProfile: ProfileData?
     
     // Tab index -> Submodule
-    private var submodules: [ProfileScreenSubmoduleProtocol] = [] {
+    private(set) var submodules: [Int: ProfileScreenSubmoduleProtocol] = [:] {
         didSet {
             print("Submodules is changed")
         }
@@ -122,15 +123,23 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     }
     
     func doSubmoduleControllerAppearanceUpdate(request: ProfileScreenDataFlow.SubmoduleAppearanceUpdate.Request) {
-        guard let submodules = self.submodules[safe: request.submoduleIndex] else {
-            Logger.commonLog.error("Submodule is not found")
-            return
-        }
-        submodules.handleControllerAppearance()
+        self.submodules[request.submoduleIndex]?.handleControllerAppearance()
     }
     
     func doSubmodulesRegistration(request: ProfileScreenDataFlow.SubmoduleRegistration.Request) {
-        request.submodules.forEach { $0.registerSubmodule() }
+        for (key, value) in request.submodules {
+            self.submodules[key] = value
+        }
+        self.pushCurrentCourseToSubmodules(submodules: Array(self.submodules.values))
+    }
+    
+    private func pushCurrentCourseToSubmodules(submodules: [ProfileScreenSubmoduleProtocol]) {
+        guard let profileData = loadedProfile else { return }
+        
+        self.submodules.forEach({ $1.updateFirstData(profile: profileData,
+                                                     posts: profileData.posts,
+                                                     comments: profileData.comments,
+                                                     subscribers: profileData.follows) })
     }
     
     func doSubmodulesDataFilling(request: ProfileScreenDataFlow.SubmoduleDataFilling.Request) {
@@ -141,7 +150,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
         
         self.submodules = request.submodules
         request.submodules.forEach {
-            $0.updateFirstData(
+            $1.updateFirstData(
                 profile: profile,
                 posts: request.posts,
                 comments: request.comments,
@@ -232,7 +241,7 @@ enum ProfileScreenDataFlow {
     
     enum SubmoduleDataFilling {
         struct Request {
-            let submodules: [ProfileScreenSubmoduleProtocol]
+            let submodules: [Int: ProfileScreenSubmoduleProtocol]
             let posts: [LMModels.Views.PostView]
             let comments: [LMModels.Views.CommentView]
             let subscribers: [LMModels.Views.CommunityFollowerView]
@@ -249,7 +258,7 @@ enum ProfileScreenDataFlow {
     /// Register submodules
     enum SubmoduleRegistration {
         struct Request {
-            var submodules: [ProfileScreenSubmoduleProtocol]
+            var submodules: [Int: ProfileScreenSubmoduleProtocol]
         }
     }
     
