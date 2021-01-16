@@ -31,7 +31,7 @@ class CommentsFrontPageViewController: UIViewController {
     private let showMoreHandler = ShowMoreHandlerService()
     
     private lazy var dataSource = makeDataSource()
-    private var snapshot = NSDiffableDataSourceSnapshot<Section, LemmyModel.CommentView>()
+    private var snapshot = NSDiffableDataSourceSnapshot<Section, LMModels.Views.CommentView>()
     
     let pickerView = LemmySortListingPickersView()
     
@@ -82,7 +82,7 @@ class CommentsFrontPageViewController: UIViewController {
         tableView.layoutTableHeaderView()
     }
 
-    func addRows(with list: [LemmyModel.CommentView], animate: Bool = true) {
+    func addRows(with list: [LMModels.Views.CommentView], animate: Bool = true) {
         guard !list.isEmpty else { return }
 
         snapshot.insertItems(list, afterItem: viewModel.commentsDataSource.last!)
@@ -92,7 +92,7 @@ class CommentsFrontPageViewController: UIViewController {
         }
     }
 
-    func addFirstRows(with list: [LemmyModel.CommentView], animate: Bool = true) {
+    func addFirstRows(with list: [LMModels.Views.CommentView], animate: Bool = true) {
         self.tableView.hideActivityIndicator()
         self.snapshot.deleteAllItems()
         snapshot.appendSections([.main])
@@ -131,8 +131,8 @@ class CommentsFrontPageViewController: UIViewController {
         }
     }
 
-    private func makeDataSource() -> UITableViewDiffableDataSource<Section, LemmyModel.CommentView> {
-        return UITableViewDiffableDataSource<Section, LemmyModel.CommentView>(
+    private func makeDataSource() -> UITableViewDiffableDataSource<Section, LMModels.Views.CommentView> {
+        return UITableViewDiffableDataSource<Section, LMModels.Views.CommentView>(
             tableView: tableView,
             cellProvider: { (tableView, indexPath, _) -> UITableViewCell? in
                 let cell = tableView.cell(forClass: CommentContentTableCell.self)
@@ -155,7 +155,7 @@ class CommentsFrontPageViewController: UIViewController {
 
 extension CommentsFrontPageViewController: CommentContentTableCellDelegate {    
     func postNameTapped(in comment: LMModels.Views.CommentView) {
-        self.coordinator?.goToPostScreen(postId: comment.postId)
+        self.coordinator?.goToPostScreen(postId: comment.post.id)
     }
     
     func usernameTapped(with mention: LemmyUserMention) {
@@ -170,7 +170,7 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView
+        comment: LMModels.Views.CommentView
     ) {
         guard let coordinator = coordinator else { return }
         
@@ -185,7 +185,7 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
     }
     
     func reply(to comment: LMModels.Views.CommentView) {
-        coordinator?.goToWriteComment(postId: comment.postId, parrentComment: comment)
+        coordinator?.goToWriteComment(postId: comment.post.id, parrentComment: comment)
     }
     
     func onLinkTap(in comment: LMModels.Views.CommentView, url: URL) {

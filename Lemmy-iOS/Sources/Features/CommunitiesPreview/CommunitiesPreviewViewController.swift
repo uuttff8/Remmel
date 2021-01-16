@@ -88,7 +88,7 @@ extension CommunitiesPreviewViewController: CommunitiesPreviewViewControllerProt
 }
 
 extension CommunitiesPreviewViewController: CommunitiesPreviewTableDataSourceDelegate {
-    func tableDidTapped(followButton: FollowButton, in community: LemmyModel.CommunityView) {
+    func tableDidTapped(followButton: FollowButton, in community: LMModels.Views.CommunityView) {
         
         guard let coord = coordinator else { return }
         ContinueIfLogined(on: self, coordinator: coord) {
@@ -99,7 +99,7 @@ extension CommunitiesPreviewViewController: CommunitiesPreviewTableDataSourceDel
         }
     }
     
-    func tableDidSelect(community: LemmyModel.CommunityView) {
+    func tableDidSelect(community: LMModels.Views.CommunityView) {
         self.coordinator?.goToCommunityScreen(communityId: community.id)
     }
 }

@@ -27,13 +27,13 @@ class CreateCommunityCoordinator: Coordinator {
         navigationController?.presentationController?.delegate = rootViewController
     }
 
-    func goToChoosingCommunity(choosed: @escaping ((LemmyModel.CategoryView) -> Void)) {
+    func goToChoosingCommunity(choosed: @escaping ((LMModels.Source.Category) -> Void)) {
         let choosingVc = ChooseCategoryViewController()
         choosingVc.selectedCategory = choosed
         navigationController?.pushViewController(choosingVc, animated: true)
     }
 
-    func goToCommunity(comm: LemmyModel.CommunityView) {
+    func goToCommunity(comm: LMModels.Views.CommunityView) {
         self.rootViewController.dismiss(animated: true)
         
         if let presentingVc = rootViewController.presentingViewController as? LemmyTabBarController {

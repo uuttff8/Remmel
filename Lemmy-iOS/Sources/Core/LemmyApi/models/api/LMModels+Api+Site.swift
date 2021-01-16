@@ -19,13 +19,13 @@ extension LMModels.Api {
         
         struct Search: Codable {
             let query: String
-            let type: String
+            let type: LMModels.Others.SearchType
             let communityId: Int?
             let communityName: String?
             let sort: LMModels.Others.SortType
             let page: Int?
             let limit: Int?
-            let auth: String
+            let auth: String?
             
             enum CodingKeys: String, CodingKey {
                 case query = "q"
@@ -125,7 +125,7 @@ extension LMModels.Api {
         }
         
         struct GetSite: Codable {
-            let auth: String
+            let auth: String?
         }
         
         struct SiteResponse: Codable {

@@ -15,12 +15,12 @@ protocol PostContentTableCellDelegate: AnyObject {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        post: LemmyModel.PostView
+        post: LMModels.Views.PostView
     )
     func usernameTapped(with mention: LemmyUserMention)
     func communityTapped(with mention: LemmyCommunityMention)
-    func onLinkTap(in post: LemmyModel.PostView, url: URL)
-    func showMore(in post: LemmyModel.PostView)
+    func onLinkTap(in post: LMModels.Views.PostView, url: URL)
+    func showMore(in post: LMModels.Views.PostView)
     func presentVc(viewController: UIViewController)
 }
 
@@ -44,7 +44,7 @@ class PostContentTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind(with post: LemmyModel.PostView, config: PostContentType) {
+    func bind(with post: LMModels.Views.PostView, config: PostContentType) {
         postContentView.bind(with: post, config: config)
     }
     

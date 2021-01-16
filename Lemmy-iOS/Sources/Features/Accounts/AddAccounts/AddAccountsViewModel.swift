@@ -32,7 +32,7 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
     }
     
     func doRemoteAuthentication(request: AddAccountDataFlow.Authentication.AuthRequest) {
-        let parameters = LemmyModel.Authentication.LoginRequest(
+        let parameters = LMModels.Api.User.Login(
             usernameOrEmail: request.emailOrUsername,
             password: request.password
         )
@@ -55,7 +55,7 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
     }
     
     func doRemoteRegister(request: AddAccountDataFlow.Authentication.RegisterRequest) {
-        let parameters = LemmyModel.Authentication.RegisterRequest(
+        let parameters = LMModels.Api.User.Register(
             username: request.username,
             email: request.email,
             password: request.password,
@@ -83,7 +83,7 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
     }
     
     private func fetchUser(with jwtToken: String) {
-        self.loadUserOnSuccessResponse(jwt: jwtToken) { (currentUser: LemmyModel.MyUser) in
+        self.loadUserOnSuccessResponse(jwt: jwtToken) { (currentUser: LMModels.Source.User_) in
             
             guard let password = self.authPassword,
                   let login = self.authLogin
@@ -106,9 +106,9 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
         }
     }
     
-    private func loadUserOnSuccessResponse(jwt: String, completion: @escaping ((LemmyModel.MyUser) -> Void)) {
+    private func loadUserOnSuccessResponse(jwt: String, completion: @escaping ((LMModels.Source.User_) -> Void)) {
         
-        let params = LemmyModel.Site.GetSiteRequest(auth: jwt)
+        let params = LMModels.Api.Site.GetSite(auth: jwt)
         
         ApiManager.requests.asyncGetSite(parameters: params)
             .receive(on: DispatchQueue.main)
@@ -146,7 +146,7 @@ enum AddAccountDataFlow {
         }
         
         struct ViewModel {
-            let currentUser: LemmyModel.MyUser
+            let currentUser: LMModels.Source.User_
         }
     }
     

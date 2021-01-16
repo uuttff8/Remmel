@@ -22,15 +22,15 @@ class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
     
     private var paginationState = PaginationState(page: 1, hasNext: true)
     
-    private var loadedProfile: LemmyModel.UserView?
+    private var loadedProfile: LMModels.Views.UserViewSafe?
 
     var cancellable = Set<AnyCancellable>()
     
     func doProfileCommentsFetch(request: ProfileScreenComments.CommentsLoad.Request) {
         self.paginationState.page = 1
         
-        let params = LemmyModel.User.GetUserDetailsRequest(userId: loadedProfile?.id,
-                                                           username: loadedProfile?.name,
+        let params = LMModels.Api.User.GetUserDetails(userId: loadedProfile?.user.id,
+                                                           username: loadedProfile?.user.name,
                                                            sort: request.sortType,
                                                            page: paginationState.page,
                                                            limit: 50,
@@ -56,8 +56,8 @@ class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
     func doNextCommentsFetch(request: ProfileScreenComments.NextProfileCommentsLoad.Request) {
         self.paginationState.page += 1
         
-        let params = LemmyModel.User.GetUserDetailsRequest(userId: loadedProfile?.id,
-                                                           username: loadedProfile?.name,
+        let params = LMModels.Api.User.GetUserDetails(userId: loadedProfile?.user.id,
+                                                      username: loadedProfile?.user.name,
                                                            sort: request.sortType,
                                                            page: paginationState.page,
                                                            limit: 50,
@@ -83,10 +83,10 @@ class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
 
 extension ProfileScreenCommentsViewModel: ProfileScreenCommentsInputProtocol {
     func updateFirstData(
-        profile: LemmyModel.UserView,
-        posts: [LemmyModel.PostView],
-        comments: [LemmyModel.CommentView],
-        subscribers: [LemmyModel.CommunityFollowerView]
+        profile: LMModels.Views.UserViewSafe,
+        posts: [LMModels.Views.PostView],
+        comments: [LMModels.Views.CommentView],
+        subscribers: [LMModels.Views.CommunityFollowerView]
     ) {
         self.loadedProfile = profile
         self.viewController?.displayProfileComments(
@@ -102,7 +102,7 @@ extension ProfileScreenCommentsViewModel: ProfileScreenCommentsInputProtocol {
 enum ProfileScreenComments {
     enum CommentsLoad {
         struct Request {
-            let sortType: LemmySortType
+            let sortType: LMModels.Others.SortType
         }
         
         struct ViewModel {
@@ -112,7 +112,7 @@ enum ProfileScreenComments {
     
     enum NextProfileCommentsLoad {
         struct Request {
-            let sortType: LemmySortType
+            let sortType: LMModels.Others.SortType
         }
         
         struct ViewModel {
@@ -127,7 +127,7 @@ enum ProfileScreenComments {
     }
     
     enum PaginationState {
-        case result(data: [LemmyModel.CommentView])
+        case result(data: [LMModels.Views.CommentView])
         case error(message: String)
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 import Combine
 
 protocol ProfileScreenViewModelProtocol: AnyObject {
-    var loadedProfile: LemmyModel.UserView? { get }
+    var loadedProfile: LMModels.Views.UserViewSafe? { get }
     
     func doProfileFetch()
     func doIdentifyProfile()
@@ -30,8 +30,8 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     
     private var cancellable = Set<AnyCancellable>()
     
-    private(set) var loadedProfile: LemmyModel.UserView?
-
+    private(set) var loadedProfile: LMModels.Views.UserViewSafe?
+    
     // Tab index -> Submodule
     private var submodules: [ProfileScreenSubmoduleProtocol] = []
     
@@ -48,14 +48,14 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     func doProfileFetch() {
         self.viewController?.displayNotBlockingActivityIndicator(viewModel: .init(shouldDismiss: false))
         
-        let parameters = LemmyModel.User.GetUserDetailsRequest(userId: profileId,
-                                                               username: profileUsername,
-                                                               sort: .active,
-                                                               page: 1,
-                                                               limit: 50,
-                                                               communityId: nil,
-                                                               savedOnly: false,
-                                                               auth: LemmyShareData.shared.jwtToken)
+        let parameters = LMModels.Api.User.GetUserDetails(userId: profileId,
+                                                          username: profileUsername,
+                                                          sort: .active,
+                                                          page: 1,
+                                                          limit: 50,
+                                                          communityId: nil,
+                                                          savedOnly: false,
+                                                          auth: LemmyShareData.shared.jwtToken)
         
         ApiManager.requests.asyncGetUserDetails(parameters: parameters)
             .receive(on: DispatchQueue.main)
@@ -66,30 +66,38 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
                 
                 self.viewController?.displayNotBlockingActivityIndicator(viewModel: .init(shouldDismiss: true))
                 
-                // if blocked user then show nothing
-                self.loadedProfile = response.user
+                assert(response.userView != nil || response.userViewDangerous != nil,
+                             "it should be either userView or userViewDangerous")
                 
-                if self.userIsBlocked(userId: response.user.id) {
+                if let userView = response.userView {
+                    self.loadedProfile = userView
+                } else if let userView = response.userViewDangerous {
+                    self.loadedProfile = userView
+                }
+                
+                guard let loadedProfile = self.loadedProfile else { return }
+                          
+                // if blocked user then show nothing
+                if self.userIsBlocked(userId: loadedProfile.user.id) {
                     self.viewController?.displayProfile(viewModel: .init(state: .blockedUser))
                     return
                 }
                 
-                self.loadedProfile = response.user
                 self.viewController?.displayProfile(
-                    viewModel: .init(state: .result(profile: self.makeHeaderViewData(profile: response.user),
-                                                   posts: response.posts,
-                                                   comments: response.comments,
-                                                   subscribers: response.follows))
+                    viewModel: .init(state: .result(profile: self.makeHeaderViewData(profile: loadedProfile),
+                                                    posts: response.posts,
+                                                    comments: response.comments,
+                                                    subscribers: response.follows))
                 )
             }.store(in: &cancellable)
     }
     
     func doIdentifyProfile() {
-        let isCurrent = loadedProfile?.id == userAccountService.currentUser?.id
-        ? true
-        : false
+        let isCurrent = loadedProfile?.user.id == userAccountService.currentUser?.id
+            ? true
+            : false
         
-        let userId = loadedProfile.require().id
+        let userId = loadedProfile.require().user.id
         
         let isBlocked = self.userIsBlocked(userId: userId)
         
@@ -138,15 +146,15 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     }
     
     private func makeHeaderViewData(
-        profile: LemmyModel.UserView
+        profile: LMModels.Views.UserViewSafe
     ) -> ProfileScreenHeaderView.ViewData {
         return .init(
-            name: profile.name,
-            avatarUrl: profile.avatar,
-            bannerUrl: profile.banner,
-            numberOfComments: profile.numberOfComments,
-            numberOfPosts: profile.numberOfPosts,
-            published: profile.published.toLocalTime()
+            name: profile.user.name,
+            avatarUrl: profile.user.avatar,
+            bannerUrl: profile.user.banner,
+            numberOfComments: profile.counts.commentCount,
+            numberOfPosts: profile.counts.postCount,
+            published: profile.user.published.toLocalTime()
         )
     }
 }
@@ -168,7 +176,7 @@ enum ProfileScreenDataFlow {
     
     enum ProfileLoad {
         struct Request { }
-                
+        
         struct ViewModel {
             var state: ViewControllerState
         }
@@ -191,9 +199,9 @@ enum ProfileScreenDataFlow {
     enum SubmoduleDataFilling {
         struct Request {
             let submodules: [ProfileScreenSubmoduleProtocol]
-            let posts: [LemmyModel.PostView]
-            let comments: [LemmyModel.CommentView]
-            let subscribers: [LemmyModel.CommunityFollowerView]
+            let posts: [LMModels.Views.PostView]
+            let comments: [LMModels.Views.CommentView]
+            let subscribers: [LMModels.Views.CommunityFollowerView]
         }
     }
     
@@ -220,9 +228,9 @@ enum ProfileScreenDataFlow {
     enum ViewControllerState {
         case loading
         case result(profile: ProfileScreenHeaderView.ViewData,
-                    posts: [LemmyModel.PostView],
-                    comments: [LemmyModel.CommentView],
-                    subscribers: [LemmyModel.CommunityFollowerView])
+                    posts: [LMModels.Views.PostView],
+                    comments: [LMModels.Views.CommentView],
+                    subscribers: [LMModels.Views.CommunityFollowerView])
         case blockedUser
     }
 }

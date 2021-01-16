@@ -50,7 +50,7 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         }
     }
     
-    func scrollTo(_ comment: LemmyModel.CommentView) {
+    func scrollTo(_ comment: LMModels.Views.CommentView) {
         guard let index = commentDataSource.firstIndex(where: { $0.commentContent?.comment.id == comment.id }) else {
             return
         }

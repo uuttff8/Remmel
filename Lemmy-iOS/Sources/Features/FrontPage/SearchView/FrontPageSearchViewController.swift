@@ -45,7 +45,7 @@ class FrontPageSearchViewController: UIViewController {
 }
 
 extension FrontPageSearchViewController: FrontPageSearchViewDelegate {
-    func searchView(_ searchView: FrontPageSearchView, searchWith query: String, type: LemmySearchSortType) {
+    func searchView(_ searchView: FrontPageSearchView, searchWith query: String, type: LMModels.Others.SearchType) {
         self.coordinator?.goToSearchResults(searchQuery: query, searchType: type)
     }
 }

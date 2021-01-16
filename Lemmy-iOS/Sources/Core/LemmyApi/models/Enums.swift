@@ -14,8 +14,8 @@ enum PostType {
     case `default`
     case none
     
-    static func getPostType(from post: LemmyModel.PostView) -> PostType {
-        guard let url = post.url,
+    static func getPostType(from postView: LMModels.Views.PostView) -> PostType {
+        guard let url = postView.post.url,
               !url.isEmpty
         else { return PostType.none }
         
@@ -115,7 +115,7 @@ enum LemmyListingType: String, Codable, CaseIterable, LemmyTypePickable {
         }
     }
     
-    static var postListing: [LemmyListingType] {
+    static var postListing: [LMModels.Others.ListingType] {
         return [.all, .subscribed, .local]
     }
 }

@@ -11,7 +11,7 @@ import SnapKit
 
 protocol ProfileScreenPostsViewDelegate: AnyObject {
     func profileScreenPostsViewDidPickerTapped(toVc: UIViewController)
-    func profileScreenPosts(_ view: ProfileScreenPostsViewController.View, didPickedNewSort type: LemmySortType)
+    func profileScreenPosts(_ view: ProfileScreenPostsViewController.View, didPickedNewSort type: LMModels.Others.SortType)
 }
 
 extension ProfileScreenPostsViewController.View {
@@ -25,13 +25,13 @@ extension ProfileScreenPostsViewController {
     class View: UIView {
         
         struct ViewData {
-            let posts: [LemmyModel.PostView]
+            let posts: [LMModels.Views.PostView]
         }
         
         weak var delegate: ProfileScreenPostsViewDelegate?
         
         let appearance: Appearance
-        var sortType: LemmySortType = .active {
+        var sortType: LMModels.Others.SortType = .active {
             didSet {
                 self.delegate?.profileScreenPosts(self, didPickedNewSort: sortType)
             }
@@ -116,7 +116,7 @@ extension ProfileScreenPostsViewController {
             self.hideLoadingIndicator()
         }
         
-        func appendNew(data: [LemmyModel.PostView]) {
+        func appendNew(data: [LMModels.Views.PostView]) {
             self.tableManager?.appendNew(posts: data) { (newIndexpaths) in
                 tableView.performBatchUpdates {
                     tableView.insertRows(at: newIndexpaths, with: .none)

@@ -10,15 +10,15 @@ import UIKit
 import Combine
 
 final class ChooseCategoryViewModel {
-    let categories: CurrentValueSubject<[LemmyModel.CategoryView], Never> = CurrentValueSubject([])
-    let filteredCategories: CurrentValueSubject<[LemmyModel.CategoryView], Never> = CurrentValueSubject([])
+    let categories: CurrentValueSubject<[LMModels.Source.Category], Never> = CurrentValueSubject([])
+    let filteredCategories: CurrentValueSubject<[LMModels.Source.Category], Never> = CurrentValueSubject([])
 
-    let selectedCategory: CurrentValueSubject<LemmyModel.CategoryView?, Never> = CurrentValueSubject(nil)
+    let selectedCategory: CurrentValueSubject<LMModels.Source.Category?, Never> = CurrentValueSubject(nil)
 
     private var cancellabes = Set<AnyCancellable>()
     
     func loadCategories() {
-        ApiManager.requests.asyncListCategories(parameters: LemmyModel.Site.ListCategoriesRequest())
+        ApiManager.requests.asyncListCategories(parameters: LMModels.Api.Site.ListCategories())
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)

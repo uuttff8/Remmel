@@ -60,11 +60,11 @@ final class LemmyTabBarCoordinator: BaseCoordinator {
         rootViewController.present(navController, animated: true)
     }
 
-    func goToPost(post: LemmyModel.PostView) {
+    func goToPost(post: LMModels.Views.PostView) {
         rootViewController.frontPageCoordinator.goToPostScreen(post: post)
     }
     
-    func goToCommunity(community: LemmyModel.CommunityView) {
+    func goToCommunity(community: LMModels.Views.CommunityView) {
         rootViewController.frontPageCoordinator.goToCommunityScreen(communityId: community.id)
     }
 }

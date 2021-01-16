@@ -23,7 +23,7 @@ enum CreateCommunity {
             let sidebar: String?
             let icon: String?
             let banner: String?
-            let category: LemmyModel.CategoryView?
+            let category: LMModels.Source.Category?
             let nsfwOption: Bool
         }
         
@@ -34,7 +34,7 @@ enum CreateCommunity {
         struct Request { }
         
         struct ViewModel {
-            let community: LemmyModel.CommunityView
+            let community: LMModels.Views.CommunityView
         }
     }
     

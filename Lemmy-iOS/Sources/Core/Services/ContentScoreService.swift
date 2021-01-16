@@ -51,7 +51,7 @@ class ContentScoreService: ContentScoreServiceProtocol {
     
     init(
         userAccountService: UserAccountSerivceProtocol
-    ) {
+    ) {        
         self.userAccountService = userAccountService
     }
     
@@ -139,12 +139,12 @@ class ContentScoreService: ContentScoreServiceProtocol {
                 .eraseToAnyPublisher()
         }
         
-        let params = LemmyModel.Post.CreatePostLikeRequest(postId: postId,
+        let params = LMModels.Api.Post.CreatePostLike(postId: postId,
                                                            score: vote.rawValue,
                                                            auth: jwtToken)
         
         return ApiManager.requests.asyncCreatePostLike(parameters: params)
-            .map({ $0.post })
+            .map({ $0.postView })
             .eraseToAnyPublisher()
     }
     
@@ -164,7 +164,7 @@ class ContentScoreService: ContentScoreServiceProtocol {
                                                             auth: jwtToken)
         
         return ApiManager.requests.asyncCreateCommentLike(parameters: params)
-            .map({ $0.comment })
+            .map({ $0.commentView })
             .eraseToAnyPublisher()
     }
 }

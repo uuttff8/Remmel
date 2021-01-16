@@ -11,11 +11,11 @@ import Foundation
 extension LMModels {
     
     enum Source {
-        struct UserSafe: Identifiable, Codable {
+        struct UserSafe: Identifiable, Codable, Hashable, Equatable {
             let id: Int
             let name: String
-            let preferredUsername: String
-            let avatar: String
+            let preferredUsername: String?
+            let avatar: String?
             let admin: Bool
             let banned: Bool
             let published: Date
@@ -162,7 +162,7 @@ extension LMModels {
             }
         }
         
-        struct Post: Identifiable, Codable {
+        struct Post: Identifiable, Codable, Hashable, Equatable {
             let id: Int
             let name: String
             let url: String?
@@ -176,7 +176,7 @@ extension LMModels {
             let deleted: Bool
             let nsfw: Bool
             let stickied: Bool
-            let embedTitle: String
+            let embedTitle: String?
             let embedDescription: String?
             let embedHtml: String?
             let thumbnailUrl: String?
@@ -369,7 +369,7 @@ extension LMModels {
             }
         }
         
-        struct CommunitySafe: Identifiable, Codable {
+        struct CommunitySafe: Identifiable, Codable, Hashable, Equatable {
             let id: Int
             let name: String
             let title: String
@@ -420,7 +420,7 @@ extension LMModels {
             }
         }
         
-        struct Comment: Identifiable, Codable {
+        struct Comment: Identifiable, Codable, Hashable, Equatable {
             let id: Int
             let creatorId: Int
             let postId: Int
@@ -447,7 +447,7 @@ extension LMModels {
             }
         }
         
-        struct Category: Identifiable, Codable {
+        struct Category: Identifiable, Codable, Equatable, Hashable {
             let id: Int
             let name: String
         }

@@ -92,16 +92,16 @@ enum LemmyModel {
             case myVote = "my_vote", subscribed, read, saved
         }
         
-        func getUrlDomain() -> String? {
-            let type = PostType.getPostType(from: self)
-            
-            guard !(.none == type) else { return nil }
-            guard let urlStr = self.url,
-                  let urlDomain = URL(string: urlStr)
-                  else { return nil }
-            
-            return urlDomain.host
-        }
+//        func getUrlDomain() -> String? {
+//            let type = PostType.getPostType(from: self)
+//            
+//            guard !(.none == type) else { return nil }
+//            guard let urlStr = self.url,
+//                  let urlDomain = URL(string: urlStr)
+//                  else { return nil }
+//            
+//            return urlDomain.host
+//        }
         
         func getVoteType() -> LemmyVoteType {
             guard let myVote = self.myVote, myVote != 0 else { return LemmyVoteType.none }

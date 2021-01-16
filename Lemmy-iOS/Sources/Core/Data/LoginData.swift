@@ -51,7 +51,7 @@ class LoginData {
         set { keychain.set(newValue!, forKey: LemmyShareData.Key.jwt) }
     }
 
-    var userId: LemmyModel.MyUser.UserId? {
+    var userId: LMModels.Source.User_.ID? {
         get { userDefaults.integer(forKey: LemmyShareData.Key.userId) }
         set { userDefaults.set(newValue, forKey: LemmyShareData.Key.userId) }
     }

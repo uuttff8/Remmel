@@ -9,27 +9,17 @@
 import Foundation
 import Combine
 
-private protocol SiteRequestManagerProtocol {
+extension RequestsManager {
     func asyncGetSite(
-        parameters: LemmyModel.Site.GetSiteRequest
-    ) -> AnyPublisher<LemmyModel.Site.GetSiteResponse, LemmyGenericError>
-    
-    func asyncListCategories(
-        parameters: LemmyModel.Site.ListCategoriesRequest
-    ) -> AnyPublisher<LemmyModel.Site.ListCategoriesResponse, LemmyGenericError>
-}
-
-extension RequestsManager: SiteRequestManagerProtocol {    
-    func asyncGetSite(
-        parameters: LemmyModel.Site.GetSiteRequest
-    ) -> AnyPublisher<LemmyModel.Site.GetSiteResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Site.GetSite
+    ) -> AnyPublisher<LMModels.Api.Site.GetSiteResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Site.getSite.endpoint,
                               parameters: parameters)
     }
     
     func asyncListCategories(
-        parameters: LemmyModel.Site.ListCategoriesRequest
-    ) -> AnyPublisher<LemmyModel.Site.ListCategoriesResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Site.ListCategories
+    ) -> AnyPublisher<LMModels.Api.Site.ListCategoriesResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Site.listCategories.endpoint, parameters: parameters)
     }
 }

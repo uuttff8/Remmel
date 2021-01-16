@@ -14,7 +14,7 @@ protocol CommunityScreenViewDelegate: CommunityTableHeaderViewDelegate {
         toVc: UIViewController
     )
     func communityViewDidPickerTapped(_ communityView: CommunityScreenViewController.View, toVc: UIViewController)
-    func communityView(_ view: CommunityScreenViewController.View, didPickedNewSort type: LemmySortType)
+    func communityView(_ view: CommunityScreenViewController.View, didPickedNewSort type: LMModels.Others.SortType)
 }
 
 extension CommunityScreenViewController {
@@ -22,16 +22,16 @@ extension CommunityScreenViewController {
     class View: UIView {
         
         struct HeaderViewData {
-            let community: LemmyModel.CommunityView
+            let communityView: LMModels.Views.CommunityView
         }
         
         struct TableViewData {
-            let posts: [LemmyModel.PostView]
+            let posts: [LMModels.Views.PostView]
         }
         
         weak var delegate: CommunityScreenViewDelegate?
         
-        open var contentType: LemmySortType = .active
+        open var contentType: LMModels.Others.SortType = .active
         
         weak var tableManager: CommunityScreenTableDataSource?
                 
@@ -46,7 +46,7 @@ extension CommunityScreenViewController {
             $0.textColor = .tertiaryLabel
         }
         
-        var communityHeaderViewData: LemmyModel.CommunityView? {
+        var communityHeaderViewData: LMModels.Views.CommunityView? {
             didSet {
                 let view = CommunityTableHeaderView()
                 view.delegate = delegate
@@ -102,7 +102,7 @@ extension CommunityScreenViewController {
             self.tableView.reloadData()
         }
         
-        func appendNew(data: [LemmyModel.PostView]) {
+        func appendNew(data: [LMModels.Views.PostView]) {
             self.tableManager?.appendNew(posts: data) { (newIndexpaths) in
                 tableView.performBatchUpdates {
                     tableView.insertRows(at: newIndexpaths, with: .none)
@@ -126,7 +126,7 @@ extension CommunityScreenViewController {
         }
         
         @objc func descriptionMoreButtonTapped(_ sender: UIButton) {
-            if let desc = self.communityHeaderViewData.require().description {
+            if let desc = self.communityHeaderViewData.require().community.description {
                 
                 let vc = MarkdownParsedViewController(mdString: desc)
                 let nc = StyledNavigationController(rootViewController: vc)

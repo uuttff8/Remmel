@@ -11,44 +11,44 @@ import Combine
 
 extension RequestsManager {
     func asyncGetComments(
-        parameters: LemmyModel.Comment.GetCommentsRequest
-    ) -> AnyPublisher<LemmyModel.Comment.GetCommentsResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Comment.GetComments
+    ) -> AnyPublisher<LMModels.Api.Comment.GetCommentsResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Comment.getComments.endpoint, parameters: parameters)
     }
     
     func asyncCreateComment(
-        parameters: LemmyModel.Comment.CreateCommentRequest
-    ) -> AnyPublisher<LemmyModel.Comment.CreateCommentResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Comment.CreateComment
+    ) -> AnyPublisher<LMModels.Api.Comment.CommentResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Comment.createComment.endpoint, parameters: parameters)
     }
     
     func asyncEditComment(
-        parameters: LemmyModel.Comment.EditCommentRequest
-    ) -> AnyPublisher<LemmyModel.Comment.EditCommentResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Comment.EditComment
+    ) -> AnyPublisher<LMModels.Api.Comment.CommentResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Comment.editComment.endpoint, parameters: parameters)
     }
     
-    func asyncEditComment(
-        parameters: LemmyModel.Comment.DeleteCommentRequest
-    ) -> AnyPublisher<LemmyModel.Comment.DeleteCommentResponse, LemmyGenericError> {
+    func asyncDeleteComment(
+        parameters: LMModels.Api.Comment.DeleteComment
+    ) -> AnyPublisher<LMModels.Api.Comment.CommentResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Comment.deleteComment.endpoint, parameters: parameters)
     }
     
     func asyncRemoveComment(
-        parameters: LemmyModel.Comment.RemoveCommentRequest
-    ) -> AnyPublisher<LemmyModel.Comment.RemoveCommentResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Comment.RemoveComment
+    ) -> AnyPublisher<LMModels.Api.Comment.CommentResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Comment.removeComment.endpoint, parameters: parameters)
     }
     
     func asyncMarkCommentAsReadRequest(
-        parameters: LemmyModel.Comment.MarkCommentAsReadRequest
-    ) -> AnyPublisher<LemmyModel.Comment.MarkCommentAsReadResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Comment.MarkCommentAsRead
+    ) -> AnyPublisher<LMModels.Api.Comment.CommentResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Comment.markCommentAsRead.endpoint, parameters: parameters)
     }
     
     func asyncSaveComment(
-        parameters: LemmyModel.Comment.SaveCommentRequest
-    ) -> AnyPublisher<LemmyModel.Comment.SaveCommentResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Comment.SaveComment
+    ) -> AnyPublisher<LMModels.Api.Comment.CommentResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Comment.saveComment.endpoint, parameters: parameters)
     }
     
@@ -59,20 +59,20 @@ extension RequestsManager {
     }
     
     func asyncCreateCommentReport(
-        parameters: LemmyModel.Comment.CreateCommentReportRequest
-    ) -> AnyPublisher<LemmyModel.Comment.CreateCommentReportResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Comment.CreateCommentReport
+    ) -> AnyPublisher<LMModels.Api.Comment.CreateCommentReportResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Comment.createCommentReport.endpoint, parameters: parameters)
     }
     
     func asyncResolveCommentReport(
-        parameters: LemmyModel.Comment.ResolveCommentReportRequest
-    ) -> AnyPublisher<LemmyModel.Comment.ResolveCommentReportResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Comment.ResolveCommentReport
+    ) -> AnyPublisher<LMModels.Api.Comment.ResolveCommentReport, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Comment.resolveCommentReport.endpoint, parameters: parameters)
     }
     
     func asyncListCommentReports(
-        parameters: LemmyModel.Comment.ListCommentReportsRequest
-    ) -> AnyPublisher<LemmyModel.Comment.ListCommentReportsResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Comment.ListCommentReports
+    ) -> AnyPublisher<LMModels.Api.Comment.ListCommentReportsResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Comment.listCommentReports.endpoint, parameters: parameters)
     }
 }

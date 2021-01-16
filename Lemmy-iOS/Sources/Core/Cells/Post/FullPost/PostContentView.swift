@@ -36,16 +36,16 @@ class PostContentView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind(with post: LemmyModel.PostView, config: PostContentType) {
+    func bind(with post: LMModels.Views.PostView, config: PostContentType) {
         setupTargets(with: post)
         
         headerView.bind(
             config: config,
             with: .init(
-                avatarImageUrl: post.creatorAvatar,
-                username: post.creatorName,
-                community: post.communityName,
-                published: post.published.require().toLocalTime().shortTimeAgoSinceNow,
+                avatarImageUrl: post.creator.avatar,
+                username: post.creator.name,
+                community: post.community.name,
+                published: post.post.published.toLocalTime().shortTimeAgoSinceNow,
                 urlDomain: post.getUrlDomain()
             )
         )
@@ -53,31 +53,31 @@ class PostContentView: UIView {
         centerView.bind(
             config: config,
             with: .init(
-                imageUrl: post.thumbnailUrl,
-                title: post.name,
-                subtitle: post.body
+                imageUrl: post.post.thumbnailUrl,
+                title: post.post.name,
+                subtitle: post.post.body
             )
         )
         
         footerView.bind(
             with: .init(
-                score: post.score,
+                score: post.counts.score,
                 myVote: post.myVote,
-                numberOfComments: post.numberOfComments,
+                numberOfComments: post.counts.comments,
                 voteType: post.getVoteType()
             )
         )
         
     }
     
-    private func setupTargets(with post: LemmyModel.PostView) {
+    private func setupTargets(with post: LMModels.Views.PostView) {
         headerView.communityButtonTap = { [weak self] in
-            let mention = LemmyCommunityMention(name: post.communityName, id: post.communityId)
+            let mention = LemmyCommunityMention(name: post.community.name, id: post.community.id)
             self?.delegate?.communityTapped(with: mention)
         }
         
         headerView.usernameButtonTap = { [weak self] in
-            let mention = LemmyUserMention(string: post.creatorName, id: post.creatorId)
+            let mention = LemmyUserMention(string: post.creator.name, id: post.creator.id)
             self?.delegate?.usernameTapped(with: mention)
         }
         

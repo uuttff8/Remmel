@@ -13,8 +13,8 @@ extension LemmyModel {
 
         // MARK: - GetComments -
         struct GetCommentsRequest: Codable, Equatable {
-            let type: LemmyListingType
-            let sort: LemmySortType
+            let type: LMModels.Others.ListingType
+            let sort: LMModels.Others.SortType
             let page: Int
             let limit: Int
             let auth: String?

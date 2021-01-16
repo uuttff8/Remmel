@@ -14,8 +14,8 @@ class PostScreenCoordinator: GenericCoordinator<PostScreenViewController> {
     init(
         router: RouterProtocol?,
         postId: Int,
-        postInfo: LemmyModel.PostView? = nil,
-        scrollToComment: LemmyModel.CommentView? = nil
+        postInfo: LMModels.Views.PostView? = nil,
+        scrollToComment: LMModels.Views.CommentView? = nil
     ) {
         super.init(router: router)
         let assembly = PostScreenAssembly(postId: postId, postInfo: postInfo, scrollToComment: scrollToComment)

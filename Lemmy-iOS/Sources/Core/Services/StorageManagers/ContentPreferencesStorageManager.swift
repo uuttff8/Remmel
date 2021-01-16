@@ -9,8 +9,8 @@
 import Foundation
 
 protocol ContentPreferencesStorageManagerProtocol: AnyObject {
-    var contentSortType: LemmySortType { get set }
-    var listingType: LemmyListingType { get set }
+    var contentSortType: LMModels.Others.SortType { get set }
+    var listingType: LMModels.Others.ListingType { get set }
 }
 
 final class ContentPreferencesStorageManager: ContentPreferencesStorageManagerProtocol {
@@ -19,10 +19,10 @@ final class ContentPreferencesStorageManager: ContentPreferencesStorageManagerPr
         case listingType = "listingTypeKey"
     }
     
-    var contentSortType: LemmySortType {
+    var contentSortType: LMModels.Others.SortType {
         get {
             if let stringValue = UserDefaults.appShared.string(forKey: Key.contentSortType.rawValue),
-               let sortType = LemmySortType(rawValue: stringValue) {
+               let sortType = LMModels.Others.SortType(rawValue: stringValue) {
                 return sortType
             } else {
                 return .active
@@ -33,10 +33,10 @@ final class ContentPreferencesStorageManager: ContentPreferencesStorageManagerPr
         }
     }
     
-    var listingType: LemmyListingType {
+    var listingType: LMModels.Others.ListingType {
         get {
             if let stringValue = UserDefaults.appShared.string(forKey: Key.listingType.rawValue),
-               let listingType = LemmyListingType(rawValue: stringValue) {
+               let listingType = LMModels.Others.ListingType(rawValue: stringValue) {
                 return listingType
             }
             

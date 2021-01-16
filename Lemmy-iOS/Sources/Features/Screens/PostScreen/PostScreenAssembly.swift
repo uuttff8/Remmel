@@ -11,13 +11,13 @@ import UIKit
 class PostScreenAssembly: Assembly {
     
     private let postId: Int
-    private let postInfo: LemmyModel.PostView? // show post if have pre-generated
-    private let scrollToComment: LemmyModel.CommentView?
+    private let postInfo: LMModels.Views.PostView? // show post if have pre-generated
+    private let scrollToComment: LMModels.Views.CommentView?
     
     init(
         postId: Int,
-        postInfo: LemmyModel.PostView? = nil,
-        scrollToComment: LemmyModel.CommentView? = nil
+        postInfo: LMModels.Views.PostView? = nil,
+        scrollToComment: LMModels.Views.CommentView? = nil
     ) {
         self.postId = postId
         self.postInfo = postInfo

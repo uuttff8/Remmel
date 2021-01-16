@@ -11,22 +11,30 @@ import Foundation
 extension LMModels {
     enum Others {
         
-        enum SortType: String, Codable {
+        enum SortType: String, Codable, LemmyTypePickable, CaseIterable {
             case active = "Active"
             case hot = "Hot"
             case new = "New"
             case topDay = "TopDay"
             case topWeek = "TopWeek"
             case topMonth = "TopMonth"
-            case TopYear = "TopYear"
-            case TopAll = "TopAll"
+            case topYear = "TopYear"
+            case topAll = "TopAll"
+            
+            var label: String {
+                return self.rawValue
+            }
         }
         
-        enum ListingType: String, Codable {
+        enum ListingType: String, Codable, LemmyTypePickable {
             case all = "All"
             case local = "Local"
             case subscribed = "Subscribed"
             case community = "Community"
+            
+            var label: String {
+                return self.rawValue
+            }
         }
         
         enum SearchType: String, Codable {

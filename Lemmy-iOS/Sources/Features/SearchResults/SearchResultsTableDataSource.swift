@@ -11,7 +11,7 @@ import UIKit
 protocol SearchResultsTableDataSourceDelegate: PostContentPreviewTableCellDelegate, CommentContentTableCellDelegate {
     func tableDidRequestPagination(_ tableDataSource: SearchResultsTableDataSource)
     func tableDidSelect(viewModel: SearchResults.Results, indexPath: IndexPath)
-    func tableDidTapped(followButton: FollowButton, in community: LemmyModel.CommunityView)
+    func tableDidTapped(followButton: FollowButton, in community: LMModels.Views.CommunityView)
 }
 
 final class SearchResultsTableDataSource: NSObject {
@@ -43,7 +43,7 @@ final class SearchResultsTableDataSource: NSObject {
         }
     }
         
-    func saveNewPost(post: LemmyModel.PostView) {
+    func saveNewPost(post: LMModels.Views.PostView) {
         guard case .posts(var data) = viewModels else { return }
         
         if let index = data.firstIndex(where: { $0.id == post.id }) {
@@ -52,16 +52,16 @@ final class SearchResultsTableDataSource: NSObject {
         }
     }
     
-    func saveNewComment(comment: LemmyModel.CommentView) {
+    func saveNewComment(comment: LMModels.Views.CommentView) {
         guard case .comments(var data) = viewModels else { return }
         
-        if let index = data.firstIndex(where: { $0.id == comment.id }) {
+        if let index = data.firstIndex(where: { $0.comment.id == comment.comment.id }) {
             data[index] = comment
             viewModels = .comments(data)
         }
     }
     
-    func saveNewCommunity(community: LemmyModel.CommunityView) {
+    func saveNewCommunity(community: LMModels.Views.CommunityView) {
         guard case .communities(var data) = viewModels else { return }
         
         if let index = data.firstIndex(where: { $0.id == community.id }) {
@@ -71,7 +71,7 @@ final class SearchResultsTableDataSource: NSObject {
     }
     
     private func createPostCell(
-        post: LemmyModel.PostView,
+        post: LMModels.Views.PostView,
         tableView: UITableView,
         indexPath: IndexPath
     ) -> UITableViewCell {
@@ -82,7 +82,7 @@ final class SearchResultsTableDataSource: NSObject {
     }
     
     private func createCommentCell(
-        comment: LemmyModel.CommentView,
+        comment: LMModels.Views.CommentView,
         tableView: UITableView,
         indexPath: IndexPath
     ) -> UITableViewCell {
@@ -93,7 +93,7 @@ final class SearchResultsTableDataSource: NSObject {
     }
     
     private func createCommunityCell(
-        community: LemmyModel.CommunityView,
+        community: LMModels.Views.CommunityView,
         tableView: UITableView,
         indexPath: IndexPath
     ) -> UITableViewCell {
@@ -104,14 +104,14 @@ final class SearchResultsTableDataSource: NSObject {
     }
     
     private func createUserPreviewCell(
-        user: LemmyModel.UserView,
+        user: LMModels.Views.UserViewSafe,
         tableView: UITableView,
         indexPath: IndexPath
     ) -> UITableViewCell {
         let cell: UserPreviewCell = tableView.cell(forRowAt: indexPath)
-        cell.configure(with: .init(name: user.name,
-                                   numberOfComments: user.numberOfComments,
-                                   thumbailUrl: user.avatar))
+        cell.configure(with: .init(name: user.user.name,
+                                   numberOfComments: user.counts.commentCount,
+                                   thumbailUrl: user.user.avatar))
         return cell
     }
 }

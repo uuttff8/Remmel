@@ -17,7 +17,7 @@ protocol CommentContentTableCellDelegate: AnyObject {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView
+        comment: LMModels.Views.CommentView
     )
     func showContext(in comment: LMModels.Views.CommentView)
     func reply(to comment: LMModels.Views.CommentView)

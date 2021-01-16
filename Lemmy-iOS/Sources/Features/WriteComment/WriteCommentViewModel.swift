@@ -17,7 +17,7 @@ protocol WriteCommentViewModelProtocol: AnyObject {
 class WriteCommentViewModel: WriteCommentViewModelProtocol {
     weak var viewController: WriteCommentViewControllerProtocol?
     
-    private let parentComment: LemmyModel.CommentView?
+    private let parentComment: LMModels.Views.CommentView?
     private let postId: Int
     
     private let userAccountService: UserAccountSerivceProtocol
@@ -25,7 +25,7 @@ class WriteCommentViewModel: WriteCommentViewModelProtocol {
     private var cancellable = Set<AnyCancellable>()
     
     init(
-        parentComment: LemmyModel.CommentView?,
+        parentComment: LMModels.Views.CommentView?,
         postId: Int,
         userAccountService: UserAccountSerivceProtocol
     ) {
@@ -35,7 +35,9 @@ class WriteCommentViewModel: WriteCommentViewModelProtocol {
     }
 
     func doWriteCommentFormLoad(request: WriteComment.FormLoad.Request) {
-        self.viewController?.displayWriteCommentForm(viewModel: .init(parrentCommentText: self.parentComment?.content))
+        self.viewController?.displayWriteCommentForm(
+            viewModel: .init(parrentCommentText: self.parentComment?.comment.content)
+        )
     }
     
     func doRemoveCreateComment(request: WriteComment.RemoteCreateComment.Request) {
@@ -44,7 +46,7 @@ class WriteCommentViewModel: WriteCommentViewModelProtocol {
             return
         }
         
-        let params = LemmyModel.Comment.CreateCommentRequest(content: request.text,
+        let params = LMModels.Api.Comment.CreateComment(content: request.text,
                                                              parentId: parentComment?.id,
                                                              postId: postId,
                                                              formId: nil,
@@ -61,7 +63,9 @@ class WriteCommentViewModel: WriteCommentViewModelProtocol {
                     )
                 }
             } receiveValue: { (response) in
-                self.viewController?.displaySuccessCreatingComment(viewModel: .init(comment: response.comment))
+                self.viewController?.displaySuccessCreatingComment(
+                    viewModel: .init(comment: response.commentView)
+                )
             }.store(in: &self.cancellable)
     }
 }
@@ -81,7 +85,7 @@ enum WriteComment {
         }
         
         struct ViewModel {
-            let comment: LemmyModel.CommentView
+            let comment: LMModels.Views.CommentView
         }
     }
     

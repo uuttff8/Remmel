@@ -26,7 +26,7 @@ enum CreatePost {
         }
         
         struct ViewModel {
-            let post: LemmyModel.PostView
+            let post: LMModels.Views.PostView
         }
     }
     

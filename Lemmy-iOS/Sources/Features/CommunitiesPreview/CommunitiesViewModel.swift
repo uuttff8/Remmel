@@ -20,10 +20,10 @@ class CommunitiesPreviewViewModel: CommunitiesPreviewViewModelProtocol {
     private var cancellable = Set<AnyCancellable>()
     
     func doLoadCommunities(request: CommunitiesPreview.CommunitiesLoad.Request) {
-        let parameters = LemmyModel.Community.ListCommunitiesRequest(
-            sort: LemmySortType.topAll,
-            limit: 100,
+        let parameters = LMModels.Api.Community.ListCommunities(
+            sort: LMModels.Others.SortType.topAll,
             page: 1,
+            limit: 100,
             auth: LemmyShareData.shared.jwtToken
         )
         
@@ -54,6 +54,6 @@ class CommunitiesPreview {
     
     enum ViewControllerState {
         case loading
-        case result([LemmyModel.CommunityView])
+        case result([LMModels.Views.CommunityView])
     }
 }

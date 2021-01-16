@@ -56,7 +56,9 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
                 let instanceUrl = String.cleanUpUrl(url: request.query)
                 
                 self.viewController?.displayAddInstanceCheck(
-                    viewModel: .init(state: .result(iconUrl: response.site?.icon, instanceUrl: instanceUrl))
+                    viewModel: .init(
+                        state: .result(iconUrl: response.siteView?.site.icon, instanceUrl: instanceUrl)
+                    )
                 )
             }.store(in: &self.cancellable)
         

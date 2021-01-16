@@ -9,16 +9,16 @@
 import UIKit
 
 protocol CommunitiesPreviewTableDataSourceDelegate: AnyObject {
-    func tableDidSelect(community: LemmyModel.CommunityView)
-    func tableDidTapped(followButton: FollowButton, in community: LemmyModel.CommunityView)
+    func tableDidSelect(community: LMModels.Views.CommunityView)
+    func tableDidTapped(followButton: FollowButton, in community: LMModels.Views.CommunityView)
 }
 
 class CommunitiesPreviewDataSource: NSObject {
     weak var delegate: CommunitiesPreviewTableDataSourceDelegate?
     
-    var viewModels: [LemmyModel.CommunityView]
+    var viewModels: [LMModels.Views.CommunityView]
     
-    init(viewModels: [LemmyModel.CommunityView] = []) {
+    init(viewModels: [LMModels.Views.CommunityView] = []) {
         self.viewModels = viewModels
         super.init()
     }

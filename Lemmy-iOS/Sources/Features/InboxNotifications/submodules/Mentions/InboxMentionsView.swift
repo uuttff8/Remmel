@@ -81,7 +81,7 @@ final class InboxMentionsView: UIView {
         makeConstraints()
     }
     
-    func appendNew(data: [LemmyModel.UserMentionView]) {
+    func appendNew(data: [LMModels.Views.UserMentionView]) {
         self.tableManager?.appendNew(posts: data) { (newIndexpaths) in
             tableView.performBatchUpdates {
                 tableView.insertRows(at: newIndexpaths, with: .none)

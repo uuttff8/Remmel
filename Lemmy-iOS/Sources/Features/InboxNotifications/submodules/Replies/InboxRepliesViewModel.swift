@@ -37,11 +37,11 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
             return
         }
         
-        let params = LemmyModel.User.GetRepliesRequest(sort: .active,
-                                                       page: paginationState,
-                                                       limit: 50,
-                                                       unreadOnly: false,
-                                                       auth: jwt)
+        let params = LMModels.Api.User.GetReplies(sort: .active,
+                                                  page: paginationState,
+                                                  limit: 50,
+                                                  unreadOnly: false,
+                                                  auth: jwt)
         
         ApiManager.requests.asyncGetReplies(parameters: params)
             .receive(on: DispatchQueue.main)
@@ -60,7 +60,7 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
             return
         }
         
-        let params = LemmyModel.User.GetRepliesRequest(sort: .active,
+        let params = LMModels.Api.User.GetReplies(sort: .active,
                                                        page: paginationState,
                                                        limit: 50,
                                                        unreadOnly: false,
@@ -93,7 +93,7 @@ enum InboxReplies {
     }
     
     enum ViewControllerState {
-        case result([LemmyModel.ReplyView])
+        case result([LMModels.Views.CommentView])
         case loading
     }
 }

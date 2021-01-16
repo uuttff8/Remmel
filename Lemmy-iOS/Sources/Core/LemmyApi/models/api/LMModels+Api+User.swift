@@ -97,11 +97,11 @@ extension LMModels.Api {
         
         struct GetUserDetails: Codable {
             let userId: Int?
-            let username: String
-            let sort: String
+            let username: String?
+            let sort: LMModels.Others.SortType
             let page: Int?
             let limit: Int?
-            let communityId: Int
+            let communityId: Int?
             let savedOnly: Bool
             let auth: String?
             
@@ -119,7 +119,7 @@ extension LMModels.Api {
         
         struct GetUserDetailsResponse: Codable {
             let userView: LMModels.Views.UserViewSafe?
-            let userViewDangerous: LMModels.Views.UserViewDangerous?
+            let userViewDangerous: LMModels.Views.UserViewSafe? // haha 
             let follows: [LMModels.Views.CommunityFollowerView]
             let moderates: [LMModels.Views.CommunityModeratorView]
             let comments: [LMModels.Views.CommentView]

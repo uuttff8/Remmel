@@ -15,7 +15,7 @@ extension LemmyModel {
         struct GetUserDetailsRequest: Codable, Equatable {
             let userId: Int?
             let username: String?
-            let sort: LemmySortType
+            let sort: LMModels.Others.SortType
             let page: Int?
             let limit: Int?
             let communityId: Int?
@@ -83,7 +83,7 @@ extension LemmyModel {
 
         // MARK: - Get Replies / Inbox
         struct GetRepliesRequest: Codable, Equatable {
-            let sort: LemmySortType
+            let sort: LMModels.Others.SortType
             let page: Int?
             let limit: Int?
             let unreadOnly: Bool
@@ -102,7 +102,7 @@ extension LemmyModel {
 
         // MARK: - GetUserMentions
         struct GetUserMentionsRequest: Codable, Equatable {
-            let sort: LemmySortType
+            let sort: LMModels.Others.SortType
             let page: Int
             let limit: Int?
             let unreadOnly: Bool

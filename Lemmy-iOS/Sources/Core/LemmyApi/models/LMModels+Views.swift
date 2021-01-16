@@ -17,11 +17,16 @@ extension LMModels {
         }
         
         struct UserViewDangerous: Codable {
-            let user: LMModels.Source.User_
+            let user: LMModels.Source.UserSafe
             let counts: LMModels.Aggregates.UserAggregates
         }
         
-        struct UserMentionView: Codable, VoteGettable {
+        struct UserMentionView: Identifiable, Codable, VoteGettable {
+            
+            var id: Int {
+                comment.id
+            }
+            
             let userMention: LMModels.Source.UserMention
             let comment: LMModels.Source.Comment
             let creator: LMModels.Source.UserSafe
@@ -61,7 +66,12 @@ extension LMModels {
             }
         }
         
-        struct PostView: Codable, VoteGettable {
+        struct PostView: Identifiable, Codable, VoteGettable, Hashable, Equatable {
+            
+            var id: Int {
+                self.post.id
+            }
+            
             let post: LMModels.Source.Post
             let creator: LMModels.Source.UserSafe
             let community: LMModels.Source.CommunitySafe
@@ -95,7 +105,12 @@ extension LMModels {
             }
         }
         
-        struct CommentView: VoteGettable, Codable {
+        struct CommentView: Hashable, Equatable, Identifiable, VoteGettable, Codable {
+            
+            var id: Int {
+                comment.id
+            }
+            
             let comment: LMModels.Source.Comment
             let creator: LMModels.Source.UserSafe
             let recipient: LMModels.Source.UserSafe? // Left joins to comment and us,
@@ -258,7 +273,12 @@ extension LMModels {
             let user: LMModels.Source.UserSafe
         }
         
-        struct CommunityView: Codable {
+        struct CommunityView: Identifiable, Codable {
+            
+            var id: Int {
+                community.id
+            }
+            
             let community: LMModels.Source.CommunitySafe
             let creator: LMModels.Source.UserSafe
             let category: LMModels.Source.Category
@@ -266,5 +286,20 @@ extension LMModels {
             let counts: LMModels.Aggregates.CommunityAggregates
         }
         
+    }
+}
+
+// legacy:
+
+extension LMModels.Views.PostView {
+    func getUrlDomain() -> String? {
+        let type = PostType.getPostType(from: self)
+        
+        guard !(.none == type) else { return nil }
+        guard let urlStr = self.post.url,
+              let urlDomain = URL(string: urlStr)
+              else { return nil }
+        
+        return urlDomain.host
     }
 }

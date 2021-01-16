@@ -89,7 +89,7 @@ extension LMModels.Api {
         struct CommentResponse: Codable {
             let commentView: LMModels.Views.CommentView
             let recipientIds: [Int]  // TODO another way to do this? Maybe a UserMention belongs to Comment
-            let formId: Int  // An optional front end ID, to tell which is coming ba,
+            let formId: Int?  // An optional front end ID, to tell which is coming ba,
             
             enum CodingKeys: String, CodingKey {
                 case commentView = "comment_view"

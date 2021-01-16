@@ -106,7 +106,7 @@ extension ProfileScreenPostsViewController: ProfileScreenPostViewControllerProto
 }
 
 extension ProfileScreenPostsViewController: ProfileScreenPostsViewDelegate {
-    func profileScreenPosts(_ view: View, didPickedNewSort type: LemmySortType) {
+    func profileScreenPosts(_ view: View, didPickedNewSort type: LMModels.Others.SortType) {
         self.profilePostsView.deleteAllContent()
         self.profilePostsView.showLoadingIndicator()
         self.viewModel.doPostFetch(request: .init(sortType: profilePostsView.sortType))
@@ -118,7 +118,7 @@ extension ProfileScreenPostsViewController: ProfileScreenPostsViewDelegate {
 }
 
 extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
-    func postCellDidSelected(postId: LemmyModel.PostView.ID) {
+    func postCellDidSelected(postId: LMModels.Views.PostView.ID) {
         let post = tableDataSource.viewModels.getElement(by: postId).require()
         self.coordinator?.goToPostScreen(post: post)
     }
@@ -127,7 +127,7 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        post: LemmyModel.PostView
+        post: LMModels.Views.PostView
     ) {
         guard let coordinator = coordinator else { return }
         
@@ -142,7 +142,7 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
         }
     }
     
-    func showMore(in post: LemmyModel.PostView) {
+    func showMore(in post: LMModels.Views.PostView) {
         guard let coordinator = coordinator else { return }
         self.showMoreHandlerService.showMoreInPost(on: self, coordinator: coordinator, post: post)
     }
@@ -155,7 +155,7 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
         self.coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
-    func onLinkTap(in post: LemmyModel.PostView, url: URL) {
+    func onLinkTap(in post: LMModels.Views.PostView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }
     
@@ -166,7 +166,7 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
         self.viewModel.doNextPostsFetch(request: .init(sortType: profilePostsView.sortType))
     }
     
-    func tableDidSelect(post: LemmyModel.PostView) {
+    func tableDidSelect(post: LMModels.Views.PostView) {
         self.coordinator?.goToPostScreen(post: post)
     }
 }

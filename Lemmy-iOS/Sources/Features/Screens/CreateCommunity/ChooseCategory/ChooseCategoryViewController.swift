@@ -13,7 +13,7 @@ class ChooseCategoryViewController: UIViewController {
     lazy var chooseCategoryView = self.view as! ChooseCategoryUI
     let viewModel = ChooseCategoryViewModel()
     
-    var selectedCategory: ((LemmyModel.CategoryView) -> Void)?
+    var selectedCategory: ((LMModels.Source.Category) -> Void)?
 
     override func loadView() {
         let view = ChooseCategoryUI(model: viewModel)

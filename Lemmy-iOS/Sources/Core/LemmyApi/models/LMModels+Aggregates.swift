@@ -43,14 +43,14 @@ extension LMModels {
             }
         }
         
-        struct PostAggregates: Identifiable, Codable {
+        struct PostAggregates: Identifiable, Codable, Hashable, Equatable {
             let id: Int
             let postId: Int
             let comments: Int
             let score: Int
             let upvotes: Int
             let downvotes: Int
-            let newestCommentTime: Int
+            let newestCommentTime: String
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -76,7 +76,7 @@ extension LMModels {
             }
         }
         
-        struct CommentAggregates: Identifiable, Codable {
+        struct CommentAggregates: Identifiable, Codable, Hashable, Equatable {
             let id: Int
             let commentId: Int
             let score: Int

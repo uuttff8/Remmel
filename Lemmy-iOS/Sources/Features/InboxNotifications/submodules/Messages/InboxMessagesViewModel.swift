@@ -37,17 +37,19 @@ final class InboxMessagesViewModel: InboxMessagesViewModelProtocol {
             return
         }
         
-        let params = LemmyModel.User.GetPrivateMessagesRequest(unread_only: false,
-                                                               page: paginationState,
-                                                               limit: 50,
-                                                               auth: jwt)
+        let params = LMModels.Api.User.GetPrivateMessages(unreadOnly: false,
+                                                          page: paginationState,
+                                                          limit: 50,
+                                                          auth: jwt)
         
         ApiManager.requests.asyncGetPrivateMessages(parameters: params)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
-                self.viewController?.displayMessages(viewModel: .init(state: .result(response.messages)))
+                self.viewController?.displayMessages(
+                    viewModel: .init(state: .result(response.privateMessages))
+                )
             }.store(in: &cancellables)
     }
     
@@ -59,17 +61,19 @@ final class InboxMessagesViewModel: InboxMessagesViewModelProtocol {
             return
         }
         
-        let params = LemmyModel.User.GetPrivateMessagesRequest(unread_only: false,
-                                                               page: paginationState,
-                                                               limit: 50,
-                                                               auth: jwt)
+        let params = LMModels.Api.User.GetPrivateMessages(unreadOnly: false,
+                                                          page: paginationState,
+                                                          limit: 50,
+                                                          auth: jwt)
         
         ApiManager.requests.asyncGetPrivateMessages(parameters: params)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
-                self.viewController?.displayNextMessages(viewModel: .init(state: .result(response.messages)))
+                self.viewController?.displayNextMessages(
+                    viewModel: .init(state: .result(response.privateMessages))
+                )
             }.store(in: &cancellables)
     }
 }
@@ -91,7 +95,7 @@ enum InboxMessages {
     }
     
     enum ViewControllerState {
-        case result([LemmyModel.PrivateMessageView])
+        case result([LMModels.Views.PrivateMessageView])
         case loading
     }
 }

@@ -10,21 +10,21 @@ import UIKit
 import Combine
 
 class CommentsFrontPageModel: NSObject {
-    var dataLoaded: (([LemmyModel.CommentView]) -> Void)?
-    var newDataLoaded: (([LemmyModel.CommentView]) -> Void)?
+    var dataLoaded: (([LMModels.Views.CommentView]) -> Void)?
+    var newDataLoaded: (([LMModels.Views.CommentView]) -> Void)?
     
     private let contentPreferenceService = ContentPreferencesStorageManager()
     
     private var isFetchingNewContent = false
     private var currentPage = 1
     
-    var commentsDataSource: [LemmyModel.CommentView] = []
+    var commentsDataSource: [LMModels.Views.CommentView] = []
     
     private let contentScoreService = ContentScoreService(userAccountService: UserAccountService())
-
+    
     private var cancellable = Set<AnyCancellable>()
     
-    var currentSortType: LemmySortType {
+    var currentSortType: LMModels.Others.SortType {
         get { contentPreferenceService.contentSortType }
         set {
             self.currentPage = 1
@@ -32,20 +32,22 @@ class CommentsFrontPageModel: NSObject {
         }
     }
     
-    var currentListingType: LemmyListingType {
+    var currentListingType: LMModels.Others.ListingType {
         get { contentPreferenceService.listingType }
         set {
             self.currentPage = 1
             contentPreferenceService.listingType = newValue
         }
     }
-
+    
     func loadComments() {
-        let parameters = LemmyModel.Comment.GetCommentsRequest(type: self.currentListingType,
-                                                               sort: self.currentSortType,
-                                                               page: 1,
-                                                               limit: 50,
-                                                               auth: LemmyShareData.shared.jwtToken)
+        let parameters = LMModels.Api.Comment.GetComments(type: self.currentListingType,
+                                                          sort: self.currentSortType,
+                                                          page: 1,
+                                                          limit: 50,
+                                                          communityId: nil,
+                                                          communityName: nil,
+                                                          auth: LemmyShareData.shared.jwtToken)
         
         ApiManager.requests.asyncGetComments(parameters: parameters)
             .receive(on: DispatchQueue.main)
@@ -58,11 +60,13 @@ class CommentsFrontPageModel: NSObject {
     }
     
     func loadMoreComments(completion: @escaping (() -> Void)) {
-        let parameters = LemmyModel.Comment.GetCommentsRequest(type: self.currentListingType,
-                                                               sort: self.currentSortType,
-                                                               page: self.currentPage,
-                                                               limit: 50,
-                                                               auth: LemmyShareData.shared.jwtToken)
+        let parameters = LMModels.Api.Comment.GetComments(type: self.currentListingType,
+                                                          sort: self.currentSortType,
+                                                          page: self.currentPage,
+                                                          limit: 50,
+                                                          communityId: nil,
+                                                          communityName: nil,
+                                                          auth: LemmyShareData.shared.jwtToken)
         
         ApiManager.requests.asyncGetComments(parameters: parameters)
             .receive(on: DispatchQueue.main)
@@ -74,8 +78,8 @@ class CommentsFrontPageModel: NSObject {
             }.store(in: &cancellable)
     }
     
-    func createCommentLike(newVote: LemmyVoteType, comment: LemmyModel.CommentView) {
-        self.contentScoreService.createCommentLike(vote: newVote, contentId: comment.id)
+    func createCommentLike(newVote: LemmyVoteType, comment: LMModels.Views.CommentView) {
+        self.contentScoreService.createCommentLike(vote: newVote, contentId: comment.comment.id)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 print(completion)
@@ -84,8 +88,8 @@ class CommentsFrontPageModel: NSObject {
             }.store(in: &cancellable)
     }
     
-    private func saveNewComment(_ comment: LemmyModel.CommentView) {
-        if let index = commentsDataSource.firstIndex(where: { $0.id == comment.id }) {
+    private func saveNewComment(_ comment: LMModels.Views.CommentView) {
+        if let index = commentsDataSource.firstIndex(where: { $0.comment.id == comment.comment.id }) {
             commentsDataSource[index] = comment
         }
     }

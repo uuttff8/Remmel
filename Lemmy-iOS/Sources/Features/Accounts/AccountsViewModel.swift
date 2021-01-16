@@ -50,7 +50,7 @@ final class AccountsViewModel: AccountsViewModelProtocol {
     }
     
     func doAccountUserSelect(request: AccountsDataFlow.AccountSelected.Request) {
-        let parameters = LemmyModel.Authentication.LoginRequest(
+        let parameters = LMModels.Api.User.Login(
             usernameOrEmail: request.account.login,
             password: request.account.password
         )
@@ -73,16 +73,16 @@ final class AccountsViewModel: AccountsViewModelProtocol {
     }
         
     private func fetchUser(with jwtToken: String) {
-        self.loadUserOnSuccessResponse(jwt: jwtToken) { (currentUser: LemmyModel.MyUser) in
+        self.loadUserOnSuccessResponse(jwt: jwtToken) { (currentUser: LMModels.Source.User_) in
             self.shareData.userdata = currentUser
             self.viewController?.displayAccountSelected(viewModel: .init(myUser: currentUser))
         }
     }
     
-    private func loadUserOnSuccessResponse(jwt: String, completion: @escaping ((LemmyModel.MyUser) -> Void)) {
+    private func loadUserOnSuccessResponse(jwt: String, completion: @escaping ((LMModels.Source.User_) -> Void)) {
         self.shareData.loginData.login(jwt: jwt)
         
-        let params = LemmyModel.Site.GetSiteRequest(auth: jwt)
+        let params = LMModels.Api.Site.GetSite(auth: jwt)
         
         ApiManager.requests.asyncGetSite(parameters: params)
             .receive(on: DispatchQueue.main)
@@ -123,7 +123,7 @@ enum AccountsDataFlow {
         }
         
         struct ViewModel {
-            let myUser: LemmyModel.MyUser
+            let myUser: LMModels.Source.User_
         }
     }
     

@@ -12,7 +12,7 @@ import SnapKit
 
 protocol PostScreenViewDelegate: AnyObject {
     func postView(didEmbedTappedWith url: URL)
-    func postView(_ postView: PostScreenViewController.View, didWriteCommentTappedWith post: LemmyModel.PostView)
+    func postView(_ postView: PostScreenViewController.View, didWriteCommentTappedWith post: LMModels.Views.PostView)
 }
 
 extension PostScreenViewController.View {
@@ -24,7 +24,7 @@ extension PostScreenViewController {
     class View: UIView {
         
         struct ViewData {
-            let post: LemmyModel.PostView
+            let post: LMModels.Views.PostView
             let comments: [LemmyComment]
         }
         
@@ -34,7 +34,7 @@ extension PostScreenViewController {
         
         var headerView = PostScreenUITableCell()
         
-        var postData: LemmyModel.PostView?
+        var postData: LMModels.Views.PostView?
                 
         init() {
             super.init(frame: .zero)
@@ -53,11 +53,11 @@ extension PostScreenViewController {
             fatalError("init(coder:) has not been implemented")
         }
         
-        func bind(with viewData: LemmyModel.PostView) {
+        func bind(with viewData: LMModels.Views.PostView) {
             self.postData = viewData
             self.headerView.bind(with: viewData)
             
-            if let url = viewData.url {
+            if let url = viewData.post.url {
                 headerView.postGreenOutlineView.addTap {
                     self.delegate?.postView(didEmbedTappedWith: URL(string: url)!)
                 }
@@ -111,14 +111,14 @@ class PostScreenUITableCell: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind(with postInfo: LemmyModel.PostView) {
+    func bind(with postInfo: LMModels.Views.PostView) {
         postHeaderView.bind(with: postInfo, config: .fullPost)
         
         postGreenOutlineView.bindData(
             LemmyGreenOutlinePostEmbed.Data(
-                title: postInfo.embedTitle,
-                description: postInfo.embedDescription,
-                url: postInfo.url
+                title: postInfo.post.embedTitle,
+                description: postInfo.post.embedDescription,
+                url: postInfo.post.url
             )
         )
         

@@ -15,7 +15,7 @@ extension LMModels.Api {
             let name: String
             let url: String?
             let body: String?
-            let nsfw: String
+            let nsfw: Bool
             let communityId: Int
             let auth: String
             
@@ -53,7 +53,7 @@ extension LMModels.Api {
             }
         }
         
-        struct GetPosts {
+        struct GetPosts: Codable {
             let type: LMModels.Others.ListingType
             let sort: LMModels.Others.SortType
             let page: Int?

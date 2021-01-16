@@ -19,40 +19,40 @@ extension RequestsManager {
     }
     
     func asyncCreatePost(
-        parameters: LemmyModel.Post.CreatePostRequest
-    ) -> AnyPublisher<LemmyModel.Post.CreatePostResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Post.CreatePost
+    ) -> AnyPublisher<LMModels.Api.Post.PostResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Post.createPost.endpoint, parameters: parameters)
     }
     
     func asyncGetPosts(
-        parameters: LemmyModel.Post.GetPostsRequest
-    ) -> AnyPublisher<LemmyModel.Post.GetPostsResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Post.GetPosts
+    ) -> AnyPublisher<LMModels.Api.Post.GetPostsResponse, LemmyGenericError> {
         
         return asyncRequestDecodable(path: WSEndpoint.Post.getPosts.endpoint, parameters: parameters)
     }
     
     func asyncCreatePostLike(
-        parameters: LemmyModel.Post.CreatePostLikeRequest
-    ) -> AnyPublisher<LemmyModel.Post.CreatePostLikeResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Post.CreatePostLike
+    ) -> AnyPublisher<LMModels.Api.Post.PostResponse, LemmyGenericError> {
         
         asyncRequestDecodable(path: WSEndpoint.Post.createPostLike.endpoint, parameters: parameters)
     }
     
     func asyncCreatePostReport(
-        parameters: LemmyModel.Post.CreatePostReportRequest
-    ) -> AnyPublisher<LemmyModel.Post.CreatePostReportResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Post.CreatePostReport
+    ) -> AnyPublisher<LMModels.Api.Post.CreatePostReportResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Post.createPostReport.endpoint, parameters: parameters)
     }
     
     func asyncResolvePostReport(
-        parameters: LemmyModel.Post.ResolvePostReportRequest
-    ) -> AnyPublisher<LemmyModel.Post.ResolvePostReportResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Post.ResolvePostReport
+    ) -> AnyPublisher<LMModels.Api.Post.ResolvePostReportResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Post.resolvePostReport.endpoint, parameters: parameters)
     }
     
     func asyncListPostReportsRequest(
-        parameters: LemmyModel.Post.ListPostReportsRequest
-    ) -> AnyPublisher<LemmyModel.Post.ListPostReportsResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Post.ListPostReports
+    ) -> AnyPublisher<LMModels.Api.Post.ListPostReportsResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Post.listPostReports.endpoint, parameters: parameters)
     }
 }

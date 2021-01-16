@@ -9,61 +9,31 @@
 import Foundation
 import Combine
 
-private protocol UserRequestManagerProtocol {
-    func asyncGetUserDetails(
-        parameters: LemmyModel.User.GetUserDetailsRequest
-    ) -> AnyPublisher<LemmyModel.User.GetUserDetailsResponse, LemmyGenericError>
-    
-    func asyncSaveUserSettings(
-        parameters: LemmyModel.User.SaveUserSettingsRequest
-    ) -> AnyPublisher<LemmyModel.User.SaveUserSettingsResponse, LemmyGenericError>
-    
-    func asyncGetReplies(
-        parameters: LemmyModel.User.GetRepliesRequest
-    ) -> AnyPublisher<LemmyModel.User.GetRepliesResponse, LemmyGenericError>
-        
-    func asyncGetUserMentions(
-        parameters: LemmyModel.User.GetUserMentionsRequest
-    ) -> AnyPublisher<LemmyModel.User.GetUserMentionsResponse, LemmyGenericError>
-    
-    func asyncMarkUserMentionAsRead<Req: Codable, Res: Codable>(
-        parameters: Req
-    ) -> AnyPublisher<Res, LemmyGenericError>
-    
-    func asyncCreatePrivateMessage(
-        parameters: LemmyModel.User.CreatePrivateMessageRequest
-    ) -> AnyPublisher<LemmyModel.User.CreatePrivateMessageResponse, LemmyGenericError>
-    
-    func asyncGetPrivateMessages(
-        parameters: LemmyModel.User.GetPrivateMessagesRequest
-    ) -> AnyPublisher<LemmyModel.User.GetPrivateMessagesResponse, LemmyGenericError>
-}
-
-extension RequestsManager: UserRequestManagerProtocol {
+extension RequestsManager {
         
     func asyncGetUserDetails(
-        parameters: LemmyModel.User.GetUserDetailsRequest
-    ) -> AnyPublisher<LemmyModel.User.GetUserDetailsResponse, LemmyGenericError> {
+        parameters: LMModels.Api.User.GetUserDetails
+    ) -> AnyPublisher<LMModels.Api.User.GetUserDetailsResponse, LemmyGenericError> {
         
         asyncRequestDecodable(path: WSEndpoint.User.getUserDetails.endpoint,
                               parameters: parameters)
     }
     
     func asyncSaveUserSettings(
-        parameters: LemmyModel.User.SaveUserSettingsRequest
-    ) -> AnyPublisher<LemmyModel.User.SaveUserSettingsResponse, LemmyGenericError> {
+        parameters: LMModels.Api.User.SaveUserSettings
+    ) -> AnyPublisher<LMModels.Api.User.LoginResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.User.saveUserSettings.endpoint, parameters: parameters)
     }
     
     func asyncGetReplies(
-        parameters: LemmyModel.User.GetRepliesRequest
-    ) -> AnyPublisher<LemmyModel.User.GetRepliesResponse, LemmyGenericError> {
+        parameters: LMModels.Api.User.GetReplies
+    ) -> AnyPublisher<LMModels.Api.User.GetRepliesResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.User.getReplies.endpoint, parameters: parameters)
     }
     
     func asyncGetUserMentions(
-        parameters: LemmyModel.User.GetUserMentionsRequest
-    ) -> AnyPublisher<LemmyModel.User.GetUserMentionsResponse, LemmyGenericError> {
+        parameters: LMModels.Api.User.GetUserMentions
+    ) -> AnyPublisher<LMModels.Api.User.GetUserMentionsResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.User.getUserMentions.endpoint, parameters: parameters)
     }
     
@@ -74,14 +44,14 @@ extension RequestsManager: UserRequestManagerProtocol {
     }
     
     func asyncCreatePrivateMessage(
-        parameters: LemmyModel.User.CreatePrivateMessageRequest
-    ) -> AnyPublisher<LemmyModel.User.CreatePrivateMessageResponse, LemmyGenericError> {
+        parameters: LMModels.Api.User.CreatePrivateMessage
+    ) -> AnyPublisher<LMModels.Api.User.PrivateMessageResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.User.createPrivateMessage.endpoint, parameters: parameters)
     }
     
     func asyncGetPrivateMessages(
-        parameters: LemmyModel.User.GetPrivateMessagesRequest
-    ) -> AnyPublisher<LemmyModel.User.GetPrivateMessagesResponse, LemmyGenericError> {
+        parameters: LMModels.Api.User.GetPrivateMessages
+    ) -> AnyPublisher<LMModels.Api.User.PrivateMessagesResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.User.getPrivateMessages.endpoint, parameters: parameters)
     }
 }

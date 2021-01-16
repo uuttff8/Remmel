@@ -95,7 +95,7 @@ class LoginViewController: UIViewController {
             }).store(in: &cancellables)
     }
     
-    private func checkRegisterData() -> LemmyModel.Authentication.RegisterRequest? {
+    private func checkRegisterData() -> LMModels.Api.User.Register? {
         guard let signUpView = signUpView else { return nil }
         
         guard (signUpView.passwordTextField.hasText)
@@ -132,7 +132,7 @@ class LoginViewController: UIViewController {
             email = nil
         }
         
-        return LemmyModel.Authentication.RegisterRequest(username: username,
+        return LMModels.Api.User.Register(username: username,
                                                          email: email,
                                                          password: password,
                                                          passwordVerify: passwordVerify,
@@ -153,8 +153,10 @@ class LoginViewController: UIViewController {
               let password = signInView.passwordTextField.text
         else { return }
         
-        let parameters = LemmyModel.Authentication
-            .LoginRequest(usernameOrEmail: emailOrUsername, password: password)
+        let parameters = LMModels.Api.User.Login(
+            usernameOrEmail: emailOrUsername,
+            password: password
+        )
         
         ApiManager.requests.asyncLogin(parameters: parameters)
             .receive(on: DispatchQueue.main)
@@ -176,9 +178,9 @@ class LoginViewController: UIViewController {
             }).store(in: &cancellables)
     }
         
-    private func loadUserOnSuccessResponse(jwt: String, completion: @escaping ((LemmyModel.MyUser) -> Void)) {
+    private func loadUserOnSuccessResponse(jwt: String, completion: @escaping ((LMModels.Source.User_) -> Void)) {
         
-        let params = LemmyModel.Site.GetSiteRequest(auth: jwt)
+        let params = LMModels.Api.Site.GetSite(auth: jwt)
         
         ApiManager.requests.asyncGetSite(parameters: params)
             .receive(on: DispatchQueue.main)

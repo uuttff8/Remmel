@@ -37,7 +37,7 @@ final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
             return
         }
         
-        let params = LemmyModel.User.GetUserMentionsRequest(sort: .active,
+        let params = LMModels.Api.User.GetUserMentions(sort: .active,
                                                             page: paginationState,
                                                             limit: 50,
                                                             unreadOnly: false,
@@ -60,7 +60,7 @@ final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
             return
         }
         
-        let params = LemmyModel.User.GetUserMentionsRequest(sort: .active,
+        let params = LMModels.Api.User.GetUserMentions(sort: .active,
                                                             page: paginationState,
                                                             limit: 50,
                                                             unreadOnly: false,
@@ -93,7 +93,7 @@ enum InboxMentions {
     }
     
     enum ViewControllerState {
-        case result([LemmyModel.UserMentionView])
+        case result([LMModels.Views.UserMentionView])
         case loading
     }
 }

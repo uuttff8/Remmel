@@ -41,7 +41,7 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
             return
         }
         
-        let params = LemmyModel.User.CreatePrivateMessageRequest(
+        let params = LMModels.Api.User.CreatePrivateMessage(
             content: request.text,
             recipientId: recipientId,
             auth: jwtToken
@@ -58,7 +58,7 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
                     )
                 }
             } receiveValue: { (response) in
-                self.viewController?.displaySuccessCreatingMessage(viewModel: .init(message: response.message))
+                self.viewController?.displaySuccessCreatingMessage(viewModel: .init(message: response.privateMessageView))
             }.store(in: &self.cancellable)
     }
 }
@@ -76,7 +76,7 @@ enum WriteMessage {
         }
         
         struct ViewModel {
-            let message: LemmyModel.PrivateMessageView
+            let message: LMModels.Views.PrivateMessageView
         }
     }
     

@@ -13,7 +13,7 @@ extension LemmyModel {
 
         // MARK: - ListCommunities
         struct ListCommunitiesRequest: Codable, Equatable {
-            let sort: LemmySortType
+            let sort: LMModels.Others.SortType
             let limit: Int?
             let page: Int?
             let auth: String?

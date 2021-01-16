@@ -15,7 +15,7 @@ extension LemmyModel {
         struct SearchRequest: Codable, Equatable, Hashable {
             let query: String
             let type: LemmySearchSortType
-            let sort: LemmySortType
+            let sort: LMModels.Others.SortType
             let page: Int?
             let limit: Int?
             let communityId: Int?

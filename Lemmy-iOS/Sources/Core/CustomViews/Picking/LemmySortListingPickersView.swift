@@ -10,26 +10,26 @@ import UIKit
 
 class LemmySortListingPickersView: UIView {
     
-    var sortFirstPick: LemmySortType = .active {
+    var sortFirstPick: LMModels.Others.SortType = .active {
         didSet {
             sortTypeView.currentPick = sortFirstPick
         }
     }
     
-    var listingFirstPick: LemmyListingType = .all {
+    var listingFirstPick: LMModels.Others.ListingType = .all {
         didSet {
             listingTypeView.currentPick = listingFirstPick
         }
     }
     
     lazy var sortTypeView = LemmyImageTextTypePicker(
-        cases: LemmySortType.allCases,
+        cases: LMModels.Others.SortType.allCases,
         firstPicked: sortFirstPick,
         image: Config.Image.sortType
     )
     
     lazy var listingTypeView = LemmyImageTextTypePicker(
-        cases: LemmyListingType.postListing,
+        cases: [.all, .subscribed, .local],
         firstPicked: listingFirstPick,
         image: Config.Image.postListing
     )

@@ -12,9 +12,9 @@ import Combine
 protocol CommunityFollowServiceProtocol {
     func followUi(
         followButton: FollowButton,
-        to community: LemmyModel.CommunityView
-    ) -> AnyPublisher<LemmyModel.CommunityView, Never>
-    func follow(to community: LemmyModel.CommunityView) -> AnyPublisher<LemmyModel.CommunityView, LemmyGenericError>
+        to community: LMModels.Views.CommunityView
+    ) -> AnyPublisher<LMModels.Views.CommunityView, Never>
+    func follow(to community: LMModels.Views.CommunityView) -> AnyPublisher<LMModels.Views.CommunityView, LemmyGenericError>
 }
 
 class CommunityFollowService: CommunityFollowServiceProtocol {
@@ -31,10 +31,10 @@ class CommunityFollowService: CommunityFollowServiceProtocol {
     
     func followUi(
         followButton: FollowButton,
-        to community: LemmyModel.CommunityView
-    ) -> AnyPublisher<LemmyModel.CommunityView, Never> {
+        to community: LMModels.Views.CommunityView
+    ) -> AnyPublisher<LMModels.Views.CommunityView, Never> {
         
-        Future<LemmyModel.CommunityView, Never> { promise in
+        Future<LMModels.Views.CommunityView, Never> { promise in
             
             followButton.followState = .pending
             
@@ -52,7 +52,7 @@ class CommunityFollowService: CommunityFollowServiceProtocol {
         }.eraseToAnyPublisher()
     }
     
-    func follow(to community: LemmyModel.CommunityView) -> AnyPublisher<LemmyModel.CommunityView, LemmyGenericError> {
+    func follow(to community: LMModels.Views.CommunityView) -> AnyPublisher<LMModels.Views.CommunityView, LemmyGenericError> {
         
         guard let jwtToken = self.userAccountService.jwtToken
         else {
@@ -60,14 +60,14 @@ class CommunityFollowService: CommunityFollowServiceProtocol {
                 .eraseToAnyPublisher()
         }
         
-        let isSubscribed: Bool = community.subscribed ?? false
+        let isSubscribed: Bool = community.subscribed
         
-        let params = LemmyModel.Community.FollowCommunityRequest(communityId: community.id,
-                                                                 follow: !isSubscribed,
-                                                                 auth: jwtToken)
+        let params = LMModels.Api.Community.FollowCommunity(communityId: community.id,
+                                                            follow: !isSubscribed,
+                                                            auth: jwtToken)
         
         return ApiManager.requests.asyncFollowCommunity(parameters: params)
-            .map({ $0.community })
+            .map({ $0.communityView })
             .eraseToAnyPublisher()
         
     }

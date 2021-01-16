@@ -25,14 +25,14 @@ class LemmyShareData {
     
     let userDefaults = UserDefaults.appShared
     
-    var userdata: LemmyModel.MyUser? {
+    var userdata: LMModels.Source.User_? {
         get {
             guard let data = userDefaults.data(forKey: Key.userdata)
             else {
                 return nil
             }
             
-            return try? LemmyJSONDecoder().decode(LemmyModel.MyUser.self, from: data)
+            return try? LemmyJSONDecoder().decode(LMModels.Source.User_.self, from: data)
         } set {
             let encoder = JSONEncoder()
             let dateFormatter = DateFormatter().then {

@@ -9,32 +9,32 @@
 import UIKit
 
 protocol ChooseCommunityTableDataSourceDelegate: AnyObject {
-    func tableDidSelect(community: LemmyModel.CommunityView)
+    func tableDidSelect(community: LMModels.Views.CommunityView)
     func tableShowNotFound()
 }
 
 final class ChooseCommunityTableDataSource: NSObject {
     weak var delegate: ChooseCommunityTableDataSourceDelegate?
     
-    var viewModels: [LemmyModel.CommunityView]
-    var filteredViewModels: [LemmyModel.CommunityView] = []
+    var viewModels: [LMModels.Views.CommunityView]
+    var filteredViewModels: [LMModels.Views.CommunityView] = []
     
     var shouldShowFiltered = false
     
-    init(viewModels: [LemmyModel.CommunityView] = []) {
+    init(viewModels: [LMModels.Views.CommunityView] = []) {
         self.viewModels = viewModels
         super.init()
     }
     
     // MARK: - Public API
     
-    func update(viewModel: LemmyModel.CommunityView) {
-        if let index = self.viewModels.firstIndex(where: { $0.id == viewModel.id }) {
+    func update(viewModel: LMModels.Views.CommunityView) {
+        if let index = self.viewModels.firstIndex(where: { $0.community.id == viewModel.community.id }) {
             self.viewModels[index] = viewModel
         }
     }
     
-    func getCurrentCellData(indexPath: IndexPath) -> LemmyModel.CommunityView {
+    func getCurrentCellData(indexPath: IndexPath) -> LMModels.Views.CommunityView {
         if !filteredViewModels.isEmpty {
             return self.filteredViewModels[indexPath.row]
         } else {
@@ -66,7 +66,7 @@ extension ChooseCommunityTableDataSource: UITableViewDataSource {
         let data = getCurrentCellData(indexPath: indexPath)
 
         let cell: ChooseCommunityCell = tableView.cell(forRowAt: indexPath)
-        cell.bind(with: .init(title: data.title, icon: data.icon))
+        cell.bind(with: .init(title: data.community.title, icon: data.community.icon))
         cell.updateConstraintsIfNeeded()
         return cell
     }        

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FrontPageSearchViewDelegate: AnyObject {
-    func searchView(_ searchView: FrontPageSearchView, searchWith query: String, type: LemmySearchSortType)
+    func searchView(_ searchView: FrontPageSearchView, searchWith query: String, type: LMModels.Others.SearchType)
 }
 
 extension FrontPageSearchView {
@@ -109,7 +109,7 @@ extension FrontPageSearchView: UITableViewDataSource, UITableViewDelegate {
         self.delegate?.searchView(
             self,
             searchWith: searchText,
-            type: LemmySearchSortType.searchViewConfig[indexPath.row]
+            type: [.comments, .posts, .communities, .users][indexPath.row]
         )
         tableView.deselectRow(at: indexPath, animated: true)
     }

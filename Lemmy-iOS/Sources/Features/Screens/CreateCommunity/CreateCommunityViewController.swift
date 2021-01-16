@@ -34,7 +34,7 @@ extension CreateCommunityViewController {
         var sidebar: String?
         var icon: String?
         var banner: String?
-        var category: LemmyModel.CategoryView?
+        var category: LMModels.Source.Category?
         var nsfwOption: Bool
     }
 }
