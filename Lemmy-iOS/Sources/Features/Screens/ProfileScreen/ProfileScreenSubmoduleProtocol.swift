@@ -11,7 +11,7 @@ import Foundation
 protocol ProfileScreenSubmoduleProtocol: AnyObject {
     func handleControllerAppearance()
     func updateFirstData(
-        profile: LMModels.Views.UserViewSafe,
+        profile: ProfileScreenViewModel.ProfileData,
         posts: [LMModels.Views.PostView],
         comments: [LMModels.Views.CommentView],
         subscribers: [LMModels.Views.CommunityFollowerView]

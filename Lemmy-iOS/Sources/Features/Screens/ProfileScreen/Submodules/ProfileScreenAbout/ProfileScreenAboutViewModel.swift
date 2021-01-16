@@ -17,7 +17,7 @@ protocol ProfileScreenAboutViewModelProtocol {
 class ProfileScreenAboutViewModel: ProfileScreenAboutViewModelProtocol {
     weak var viewController: ProfileScreenAboutViewControllerProtocol?
     
-    private var loadedProfile: LMModels.Views.UserViewSafe?
+    private var loadedProfile: ProfileScreenViewModel.ProfileData?
     
     var cancellable = Set<AnyCancellable>()
     
@@ -26,7 +26,7 @@ class ProfileScreenAboutViewModel: ProfileScreenAboutViewModelProtocol {
 
 extension ProfileScreenAboutViewModel: ProfileScreenAboutInputProtocol {
     func updateFirstData(
-        profile: LMModels.Views.UserViewSafe,
+        profile: ProfileScreenViewModel.ProfileData,
         posts: [LMModels.Views.PostView],
         comments: [LMModels.Views.CommentView],
         subscribers: [LMModels.Views.CommunityFollowerView]

@@ -19,7 +19,7 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
     
     weak var viewController: ProfileScreenPostViewControllerProtocol?
     
-    private var loadedProfile: LMModels.Views.UserViewSafe?
+    private var loadedProfile: ProfileScreenViewModel.ProfileData?
     
     private var paginationState = PaginationState(page: 1, hasNext: true)
     private var cancellable = Set<AnyCancellable>()
@@ -27,8 +27,8 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
     func doPostFetch(request: ProfileScreenPosts.NextProfilePostsLoad.Request) {
         self.paginationState.page = 1
         
-        let params = LMModels.Api.User.GetUserDetails(userId: loadedProfile?.user.id,
-                                                      username: loadedProfile?.user.name,
+        let params = LMModels.Api.User.GetUserDetails(userId: loadedProfile?.id,
+                                                      username: loadedProfile?.viewData.name,
                                                       sort: request.sortType,
                                                       page: paginationState.page,
                                                       limit: 50,
@@ -52,8 +52,8 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
     func doNextPostsFetch(request: ProfileScreenPosts.NextProfilePostsLoad.Request) {
         self.paginationState.page += 1
         
-        let params = LMModels.Api.User.GetUserDetails(userId: loadedProfile?.user.id,
-                                                      username: loadedProfile?.user.name,
+        let params = LMModels.Api.User.GetUserDetails(userId: loadedProfile?.id,
+                                                      username: loadedProfile?.viewData.name,
                                                       sort: request.sortType,
                                                       page: paginationState.page,
                                                       limit: 50,
@@ -79,7 +79,7 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
 
 extension ProfileScreenPostsViewModel: ProfileScreenPostsInputProtocol {
     func updateFirstData(
-        profile: LMModels.Views.UserViewSafe,
+        profile: ProfileScreenViewModel.ProfileData,
         posts: [LMModels.Views.PostView],
         comments: [LMModels.Views.CommentView],
         subscribers: [LMModels.Views.CommunityFollowerView]

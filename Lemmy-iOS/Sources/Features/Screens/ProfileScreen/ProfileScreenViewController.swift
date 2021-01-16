@@ -360,7 +360,7 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
         } else {
             
             let sendMessageAction = UIAlertAction(title: "Send Message", style: .default) { _ in
-                guard let recipientId = self.viewModel.loadedProfile?.user.id else {
+                guard let recipientId = self.viewModel.loadedProfile?.id else {
                     Logger.commonLog.error("Can't get id form loaded profile")
                     return
                 }

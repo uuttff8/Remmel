@@ -21,15 +21,15 @@ class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
     
     private var paginationState = PaginationState(page: 1, hasNext: true)
     
-    private var loadedProfile: LMModels.Views.UserViewSafe?
+    private var loadedProfile: ProfileScreenViewModel.ProfileData?
 
     var cancellable = Set<AnyCancellable>()
     
     func doProfileCommentsFetch(request: ProfileScreenComments.CommentsLoad.Request) {
         self.paginationState.page = 1
         
-        let params = LMModels.Api.User.GetUserDetails(userId: loadedProfile?.user.id,
-                                                           username: loadedProfile?.user.name,
+        let params = LMModels.Api.User.GetUserDetails(userId: loadedProfile?.id,
+                                                           username: loadedProfile?.viewData.name,
                                                            sort: request.sortType,
                                                            page: paginationState.page,
                                                            limit: 50,
@@ -55,8 +55,8 @@ class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
     func doNextCommentsFetch(request: ProfileScreenComments.NextProfileCommentsLoad.Request) {
         self.paginationState.page += 1
         
-        let params = LMModels.Api.User.GetUserDetails(userId: loadedProfile?.user.id,
-                                                      username: loadedProfile?.user.name,
+        let params = LMModels.Api.User.GetUserDetails(userId: loadedProfile?.id,
+                                                      username: loadedProfile?.viewData.name,
                                                            sort: request.sortType,
                                                            page: paginationState.page,
                                                            limit: 50,
@@ -82,7 +82,7 @@ class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
 
 extension ProfileScreenCommentsViewModel: ProfileScreenCommentsInputProtocol {
     func updateFirstData(
-        profile: LMModels.Views.UserViewSafe,
+        profile: ProfileScreenViewModel.ProfileData,
         posts: [LMModels.Views.PostView],
         comments: [LMModels.Views.CommentView],
         subscribers: [LMModels.Views.CommunityFollowerView]

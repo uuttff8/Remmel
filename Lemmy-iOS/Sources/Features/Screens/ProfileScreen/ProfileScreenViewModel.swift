@@ -10,7 +10,7 @@ import UIKit
 import Combine
 
 protocol ProfileScreenViewModelProtocol: AnyObject {
-    var loadedProfile: LMModels.Views.UserViewSafe? { get }
+    var loadedProfile: ProfileScreenViewModel.ProfileData? { get }
     
     func doProfileFetch()
     func doIdentifyProfile()
@@ -18,6 +18,17 @@ protocol ProfileScreenViewModelProtocol: AnyObject {
     func doSubmoduleControllerAppearanceUpdate(request: ProfileScreenDataFlow.SubmoduleAppearanceUpdate.Request)
     func doSubmodulesRegistration(request: ProfileScreenDataFlow.SubmoduleRegistration.Request)
     func doSubmodulesDataFilling(request: ProfileScreenDataFlow.SubmoduleDataFilling.Request)
+}
+ 
+extension ProfileScreenViewModel {
+    struct ProfileData: Identifiable {
+        let id: Int
+        let viewData: ProfileScreenHeaderView.ViewData
+        let follows: [LMModels.Views.CommunityFollowerView]
+        let moderates: [LMModels.Views.CommunityModeratorView]
+        let comments: [LMModels.Views.CommentView]
+        let posts: [LMModels.Views.PostView]
+    }
 }
 
 class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
@@ -30,10 +41,14 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     
     private var cancellable = Set<AnyCancellable>()
     
-    private(set) var loadedProfile: LMModels.Views.UserViewSafe?
+    private(set) var loadedProfile: ProfileData?
     
     // Tab index -> Submodule
-    private var submodules: [ProfileScreenSubmoduleProtocol] = []
+    private var submodules: [ProfileScreenSubmoduleProtocol] = [] {
+        didSet {
+            print("Submodules is changed")
+        }
+    }
     
     init(
         profileId: Int?,
@@ -44,7 +59,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
         self.profileUsername = profileUsername
         self.userAccountService = userAccountService
     }
-    
+        
     func doProfileFetch() {
         self.viewController?.displayNotBlockingActivityIndicator(viewModel: .init(shouldDismiss: false))
         
@@ -65,26 +80,21 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
                 guard let self = self else { return }
                 
                 self.viewController?.displayNotBlockingActivityIndicator(viewModel: .init(shouldDismiss: true))
-                
-                assert(response.userView != nil || response.userViewDangerous != nil,
-                             "it should be either userView or userViewDangerous")
-                
-                if let userView = response.userView {
-                    self.loadedProfile = userView
-                } else if let userView = response.userViewDangerous {
-                    self.loadedProfile = userView
+                                
+                guard let loadedProfile = self.initializeProfileData(with: response) else {
+                    Logger.commonLog.emergency("GetUserDetails Response does not have user, or it is changed!")
+                    return
                 }
-                
-                guard let loadedProfile = self.loadedProfile else { return }
+                self.loadedProfile = loadedProfile
                           
                 // if blocked user then show nothing
-                if self.userIsBlocked(userId: loadedProfile.user.id) {
+                if self.userIsBlocked(userId: loadedProfile.id) {
                     self.viewController?.displayProfile(viewModel: .init(state: .blockedUser))
                     return
                 }
                 
                 self.viewController?.displayProfile(
-                    viewModel: .init(state: .result(profile: self.makeHeaderViewData(profile: loadedProfile),
+                    viewModel: .init(state: .result(profile: loadedProfile.viewData,
                                                     posts: response.posts,
                                                     comments: response.comments,
                                                     subscribers: response.follows))
@@ -93,11 +103,11 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     }
     
     func doIdentifyProfile() {
-        let isCurrent = loadedProfile?.user.id == userAccountService.currentUser?.id
+        let isCurrent = loadedProfile?.id == userAccountService.currentUser?.id
             ? true
             : false
         
-        let userId = loadedProfile.require().user.id
+        let userId = loadedProfile.require().id
         
         let isBlocked = self.userIsBlocked(userId: userId)
         
@@ -124,7 +134,10 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     }
     
     func doSubmodulesDataFilling(request: ProfileScreenDataFlow.SubmoduleDataFilling.Request) {
-        guard let profile = loadedProfile else { return }
+        guard let profile = loadedProfile else {
+            Logger.commonLog.error("Profile is not initialized")
+            return
+        }
         
         self.submodules = request.submodules
         request.submodules.forEach {
@@ -137,25 +150,46 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
         }
     }
     
+    private func initializeProfileData(with response: LMModels.Api.User.GetUserDetailsResponse) -> ProfileData? {
+        if let userView = response.userView {
+            return ProfileData(
+                id: userView.user.id,
+                viewData: .init(name: userView.user.name,
+                                avatarUrl: userView.user.avatar,
+                                bannerUrl: userView.user.banner,
+                                numberOfComments: userView.counts.commentCount,
+                                numberOfPosts: userView.counts.postCount,
+                                published: userView.user.published.toLocalTime()),
+                follows: response.follows,
+                moderates: response.moderates,
+                comments: response.comments,
+                posts: response.posts
+            )
+        } else if let userView = response.userViewDangerous {
+            return ProfileData(
+                id: userView.user.id,
+                viewData: .init(name: userView.user.name,
+                                avatarUrl: userView.user.avatar,
+                                bannerUrl: userView.user.banner,
+                                numberOfComments: userView.counts.commentCount,
+                                numberOfPosts: userView.counts.postCount,
+                                published: userView.user.published.toLocalTime()),
+                follows: response.follows,
+                moderates: response.moderates,
+                comments: response.comments,
+                posts: response.posts
+            )
+        }
+        
+        return nil
+    }
+    
     private func userIsBlocked(userId: Int) -> Bool {
         if LemmyShareData.shared.blockedUsersId.contains(userId) {
             return true
         }
         
         return false
-    }
-    
-    private func makeHeaderViewData(
-        profile: LMModels.Views.UserViewSafe
-    ) -> ProfileScreenHeaderView.ViewData {
-        return .init(
-            name: profile.user.name,
-            avatarUrl: profile.user.avatar,
-            bannerUrl: profile.user.banner,
-            numberOfComments: profile.counts.commentCount,
-            numberOfPosts: profile.counts.postCount,
-            published: profile.user.published.toLocalTime()
-        )
     }
 }
 

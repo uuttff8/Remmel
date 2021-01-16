@@ -271,7 +271,7 @@ extension CreateCommunityViewController: UIImagePickerControllerDelegate, UINavi
         _ picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
     ) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        if let _ = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
 //          customView.onPickedImage?(image, currentImagePick!)
         }
         

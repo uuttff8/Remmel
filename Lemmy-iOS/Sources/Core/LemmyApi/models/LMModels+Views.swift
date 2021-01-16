@@ -17,7 +17,7 @@ extension LMModels {
         }
         
         struct UserViewDangerous: Codable {
-            let user: LMModels.Source.UserSafe
+            let user: LMModels.Source.User_
             let counts: LMModels.Aggregates.UserAggregates
         }
         

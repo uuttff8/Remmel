@@ -119,7 +119,7 @@ extension LMModels.Api {
         
         struct GetUserDetailsResponse: Codable {
             let userView: LMModels.Views.UserViewSafe?
-            let userViewDangerous: LMModels.Views.UserViewSafe? // haha 
+            let userViewDangerous: LMModels.Views.UserViewDangerous?
             let follows: [LMModels.Views.CommunityFollowerView]
             let moderates: [LMModels.Views.CommunityModeratorView]
             let comments: [LMModels.Views.CommentView]
