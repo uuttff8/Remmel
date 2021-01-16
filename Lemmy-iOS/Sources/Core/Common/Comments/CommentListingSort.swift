@@ -60,7 +60,9 @@ class CommentListingSort {
         return notReply
     }
     
-    private func findCommentsExcludeNotReply(in comments: [LMModels.Views.CommentView]) -> [LMModels.Views.CommentView] {
+    private func findCommentsExcludeNotReply(
+        in comments: [LMModels.Views.CommentView]
+    ) -> [LMModels.Views.CommentView] {
         var repliesOnly = [LMModels.Views.CommentView]()
         
         for comm in comments where comm.comment.parentId != nil {

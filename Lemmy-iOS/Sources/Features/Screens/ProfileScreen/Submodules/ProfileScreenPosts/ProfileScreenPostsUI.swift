@@ -11,7 +11,10 @@ import SnapKit
 
 protocol ProfileScreenPostsViewDelegate: AnyObject {
     func profileScreenPostsViewDidPickerTapped(toVc: UIViewController)
-    func profileScreenPosts(_ view: ProfileScreenPostsViewController.View, didPickedNewSort type: LMModels.Others.SortType)
+    func profileScreenPosts(
+        _ view: ProfileScreenPostsViewController.View,
+        didPickedNewSort type: LMModels.Others.SortType
+    )
 }
 
 extension ProfileScreenPostsViewController.View {

@@ -189,7 +189,9 @@ class CreatePostScreenViewController: UIViewController {
         }
     }
     
-    private func updateUrlState(for cell: SettingsInputWithImageTableViewCell, state: SettingsInputWithImageCellView.UrlState) {
+    private func updateUrlState(
+        for cell: SettingsInputWithImageTableViewCell, state: SettingsInputWithImageCellView.UrlState
+    ) {
         print("update for state: \(state)")
         cell.urlState = state
         
@@ -252,19 +254,7 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
                 )
             )
         )
-        
-//        let urlCell = SettingsTableSectionViewModel.Cell(
-//            uniqueIdentifier: FormField.url.rawValue,
-//            type: .input(
-//                options: .init(
-//                    valueText: self.createPostData.url ?? nil,
-//                    placeholderText: "Enter Url",
-//                    shouldAlwaysShowPlaceholder: false,
-//                    inputGroup: "url"
-//                )
-//            )
-//        )
-        
+                
         let urlCell = SettingsTableSectionViewModel.Cell(
             uniqueIdentifier: FormField.url.rawValue,
             type: .inputWithImage(

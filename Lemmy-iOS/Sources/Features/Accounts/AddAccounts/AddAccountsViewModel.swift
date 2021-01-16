@@ -128,7 +128,7 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
 
 enum AddAccountDataFlow {
     
-    // since backend returns LemmyModel.MyUser in both situation, we generalize it
+    // since backend returns LMModels.Source.User_ in both situation, we generalize it
     enum Authentication {
         struct AuthRequest {
             let emailOrUsername: String

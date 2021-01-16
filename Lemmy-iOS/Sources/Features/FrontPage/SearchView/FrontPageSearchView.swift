@@ -14,6 +14,7 @@ protocol FrontPageSearchViewDelegate: AnyObject {
 
 extension FrontPageSearchView {
     struct Appearance {
+        let searchTypeConfig: [LMModels.Others.SearchType] = [.comments, .posts, .communities, .users]
         let fadeAnimationDuratation: TimeInterval = 0.3
         let alphaAtInit: CGFloat = 0.0
         
@@ -76,13 +77,13 @@ extension FrontPageSearchView: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Data Source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        LemmySearchSortType.searchViewConfig.count
+        self.appearance.searchTypeConfig.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: FrontPageSearchSubjectTableCell
         
-        switch LemmySearchSortType.searchViewConfig[indexPath.row] {
+        switch self.appearance.searchTypeConfig[indexPath.row] {
         case .comments:
             cell = tableView.cell(forRowAt: indexPath)
             cell.configure(with: searchText, type: .comments)

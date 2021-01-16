@@ -14,7 +14,9 @@ protocol CommunityFollowServiceProtocol {
         followButton: FollowButton,
         to community: LMModels.Views.CommunityView
     ) -> AnyPublisher<LMModels.Views.CommunityView, Never>
-    func follow(to community: LMModels.Views.CommunityView) -> AnyPublisher<LMModels.Views.CommunityView, LemmyGenericError>
+    func follow(
+        to community: LMModels.Views.CommunityView
+    ) -> AnyPublisher<LMModels.Views.CommunityView, LemmyGenericError>
 }
 
 class CommunityFollowService: CommunityFollowServiceProtocol {
@@ -52,7 +54,9 @@ class CommunityFollowService: CommunityFollowServiceProtocol {
         }.eraseToAnyPublisher()
     }
     
-    func follow(to community: LMModels.Views.CommunityView) -> AnyPublisher<LMModels.Views.CommunityView, LemmyGenericError> {
+    func follow(
+        to community: LMModels.Views.CommunityView
+    ) -> AnyPublisher<LMModels.Views.CommunityView, LemmyGenericError> {
         
         guard let jwtToken = self.userAccountService.jwtToken
         else {

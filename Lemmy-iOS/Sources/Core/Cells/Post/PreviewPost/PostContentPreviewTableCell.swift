@@ -41,7 +41,6 @@ class PostContentPreviewTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // TODO: refactor this
     func bind(with post: LMModels.Views.PostView, isInsideCommunity: Bool) {
         if isInsideCommunity {
             postContentView.bind(with: post, config: .insideComminity)

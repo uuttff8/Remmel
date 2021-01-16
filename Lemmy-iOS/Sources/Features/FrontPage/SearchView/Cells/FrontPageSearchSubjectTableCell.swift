@@ -16,7 +16,7 @@ class FrontPageSearchSubjectTableCell: UITableViewCell {
         textLabel?.font = .systemFont(ofSize: 14)
     }
     
-    func configure(with query: String, type: LemmySearchSortType) {
+    func configure(with query: String, type: LMModels.Others.SearchType) {
         
         switch type {
         case .comments:

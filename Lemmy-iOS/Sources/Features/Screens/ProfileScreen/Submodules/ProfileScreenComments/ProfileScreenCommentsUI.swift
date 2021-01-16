@@ -10,7 +10,10 @@ import UIKit
 
 protocol ProfileScreenCommentsViewDelegate: AnyObject {
     func profileScreenPostsViewDidPickerTapped(toVc: UIViewController)
-    func profileScreenComments(_ view: ProfileScreenCommentsViewController.View, didPickedNewSort type: LMModels.Others.SortType)
+    func profileScreenComments(
+        _ view: ProfileScreenCommentsViewController.View,
+        didPickedNewSort type: LMModels.Others.SortType
+    )
 }
 
 extension ProfileScreenCommentsViewController.View {

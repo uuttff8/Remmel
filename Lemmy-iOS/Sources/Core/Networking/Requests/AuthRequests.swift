@@ -24,6 +24,6 @@ extension RequestsManager {
     
     func asyncGetCaptcha() -> AnyPublisher<LMModels.Api.User.GetCaptchaResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Authentication.getCaptcha.endpoint,
-                              parameters: LemmyModel.Authentication.GetCaptchaRequest?.none)
+                              parameters: LMModels.Api.User.GetCaptcha())
     }
 }

@@ -58,7 +58,9 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
                     )
                 }
             } receiveValue: { (response) in
-                self.viewController?.displaySuccessCreatingMessage(viewModel: .init(message: response.privateMessageView))
+                self.viewController?.displaySuccessCreatingMessage(
+                    viewModel: .init(message: response.privateMessageView)
+                )
             }.store(in: &self.cancellable)
     }
 }

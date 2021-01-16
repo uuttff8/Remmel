@@ -37,7 +37,7 @@ class ChooseCommunityUI: UIView {
         $0.registerClass(ChooseCommunityCell.self)
     }
     private let searchBar = UISearchBar()
-    private let tableViewDelegate: ChooseCommunityTableDataSource
+    private var tableManager: ChooseCommunityTableDataSource
     
     private lazy var loadingIndicator: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .large)
@@ -58,9 +58,9 @@ class ChooseCommunityUI: UIView {
     }()
 
     // MARK: - Init
-    init(tableViewDelegate: ChooseCommunityTableDataSource, appearance: Appearance = Appearance()) {
+    init(tableManager: ChooseCommunityTableDataSource, appearance: Appearance = Appearance()) {
         self.appearance = appearance
-        self.tableViewDelegate = tableViewDelegate
+        self.tableManager = tableManager
         super.init(frame: .zero)
         setupSearchController()
         
@@ -105,13 +105,13 @@ class ChooseCommunityUI: UIView {
         self.hideActivityIndicatorView()
         if let text = searchBar.text, text != "" {
             self.hideActivityIndicatorView()
-            tableViewDelegate.shouldShowFiltered = true
-            tableViewDelegate.removeFilteredCommunities()
+            tableManager.shouldShowFiltered = true
+            tableManager.removeFilteredCommunities()
             tableView.reloadData()
             self.delegate?.chooseView(self, didRequestSearch: text)
         } else {
-            tableViewDelegate.shouldShowFiltered = false
-            tableViewDelegate.removeFilteredCommunities()
+            tableManager.shouldShowFiltered = false
+            tableManager.removeFilteredCommunities()
             tableView.reloadData()
         }
     }
@@ -174,9 +174,9 @@ extension ChooseCommunityUI: UISearchBarDelegate {
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        tableViewDelegate.shouldShowFiltered = false
+        tableManager.shouldShowFiltered = false
         searchBar.text = ""
-        tableViewDelegate.removeFilteredCommunities()
+        tableManager.removeFilteredCommunities()
         tableView.reloadData()
         searchBar.resignFirstResponder()
     }
@@ -186,13 +186,13 @@ extension ChooseCommunityUI: UISearchBarDelegate {
     }
 
     public func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-        tableViewDelegate.shouldShowFiltered = false
+        tableManager.shouldShowFiltered = false
         searchBar.setShowsCancelButton(false, animated: true)
         return true
     }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        tableViewDelegate.shouldShowFiltered = false
+        tableManager.shouldShowFiltered = false
         searchBar.setShowsCancelButton(false, animated: true)
     }
 }

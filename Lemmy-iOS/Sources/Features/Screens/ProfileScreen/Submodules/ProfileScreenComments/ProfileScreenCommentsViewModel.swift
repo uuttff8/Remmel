@@ -10,7 +10,6 @@ import UIKit
 import Combine
 
 protocol ProfileScreenCommentsViewModelProtocol {
-    // TODO do pagination
     func doProfileCommentsFetch(request: ProfileScreenComments.CommentsLoad.Request)
     func doNextCommentsFetch(request: ProfileScreenComments.NextProfileCommentsLoad.Request)
 }
