@@ -73,7 +73,7 @@ class VoteButtonsWithScoreView: UIView {
         
         switch newVote {
         case .none:
-            resetScoreToDefaults()
+            resetScoreToNewVote(voteType: newVote)
         case .up:
             updateScoreUp()
         case .down:
@@ -127,7 +127,6 @@ class VoteButtonsWithScoreView: UIView {
             self.scoreLabel.text = String(self.lastKnownVoteScore - 2)
             self.lastKnownVoteScore -= 2
             self.lastKnownVoteType = .down
-            
         case .down:
             resetScoreToDefaults()
         case .none:
@@ -142,6 +141,23 @@ class VoteButtonsWithScoreView: UIView {
         
         self.scoreLabel.text = String(initialViewData.score)
         self.lastKnownVoteScore = initialViewData.score
+        self.lastKnownVoteType = .none
+    }
+    
+    private func resetScoreToNewVote(voteType: LemmyVoteType) {
+        guard let initialViewData = viewData else { return }
+        
+        switch lastKnownVoteType {
+        case .down:
+            self.scoreLabel.text = String(initialViewData.score + 1)
+            self.lastKnownVoteScore = initialViewData.score + 1
+        case .up:
+            self.scoreLabel.text = String(initialViewData.score - 1)
+            self.lastKnownVoteScore = initialViewData.score - 1
+        case .none:
+            fatalError()
+        }
+        
         self.lastKnownVoteType = .none
     }
 
