@@ -133,13 +133,13 @@ class LoginViewController: UIViewController {
         }
         
         return LMModels.Api.User.Register(username: username,
-                                                         email: email,
-                                                         password: password,
-                                                         passwordVerify: passwordVerify,
-                                                         admin: false,
-                                                         showNsfw: showNsfw,
-                                                         captchaUuid: uuid,
-                                                         captchaAnswer: captchaCode)
+                                          email: email,
+                                          password: password,
+                                          passwordVerify: passwordVerify,
+                                          admin: false,
+                                          showNsfw: showNsfw,
+                                          captchaUuid: uuid,
+                                          captchaAnswer: captchaCode)
     }
     
     private func onSignIn() {

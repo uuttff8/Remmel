@@ -11,7 +11,7 @@ import Foundation
 extension LMModels {
     enum Others {
         
-        enum SortType: String, Codable, LemmyTypePickable, CaseIterable {
+        enum SortType: String, Codable, CaseIterable, LemmyTypePickable {
             case active = "Active"
             case hot = "Hot"
             case new = "New"

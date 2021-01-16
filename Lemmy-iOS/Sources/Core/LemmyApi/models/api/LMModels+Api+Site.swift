@@ -37,7 +37,7 @@ extension LMModels.Api {
         }
         
         struct SearchResponse: Codable {
-            let type: LMModels.Others.SortType
+            let type: LMModels.Others.SearchType
             let comments: [LMModels.Views.CommentView]
             let posts: [LMModels.Views.PostView]
             let communities: [LMModels.Views.CommunityView]
