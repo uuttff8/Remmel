@@ -10,10 +10,9 @@ import UIKit
 
 extension VoteButton {
     struct Appearance {
-        let voteAnimationDuration: TimeInterval = 0.5
-        let scaleValue: CGFloat = 0.8
-        let transitionDistance: CGFloat = 10
-        
+        let voteAnimationDuration: TimeInterval = 0.125
+        let transitionDistance: CGFloat = 20
+
         let upvotedColor: UIColor = .lemmyBlue
         let downvotedColor: UIColor = .systemRed
         
@@ -71,21 +70,26 @@ final class VoteButton: ScaledButton {
     
     /// This action increase or decrease y value of this view
     private func animateVote() {
+        // Reject button tap when animation is performing
         guard isTransformAnimationEnded else { return }
+        
         self.isTransformAnimationEnded = false
         self.isEnabled = false
         
-        // FIXIT: For a unknown reason self.center.y is jump to incorrect position at start
-//        let trDistance: CGFloat = voteType == .top
-//            ? -appearance.transitionDistance
-//            : appearance.transitionDistance
-//
-//        animator.addAnimations {
-//            self.center.y -= trDistance
-//        }
-//
-//        animator.startAnimation()
+        let trDistance: CGFloat = voteType == .top
+            ? -appearance.transitionDistance
+            : appearance.transitionDistance
+
+        animator.addAnimations {
+            self.center.y += trDistance
+        }
         
+        animator.addAnimations({
+            self.center.y -= trDistance
+        }, delayFactor: CGFloat(self.appearance.voteAnimationDuration))
+
+        animator.startAnimation()
+
         self.isEnabled = true
         isTransformAnimationEnded = true
     }
