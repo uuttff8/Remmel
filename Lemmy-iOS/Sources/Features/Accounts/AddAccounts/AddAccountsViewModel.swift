@@ -60,7 +60,6 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
             email: request.email,
             password: request.password,
             passwordVerify: request.passwordVerify,
-            admin: false,
             showNsfw: request.showNsfw,
             captchaUuid: request.captchaUuid,
             captchaAnswer: request.captchaAnswer
@@ -83,7 +82,7 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
     }
     
     private func fetchUser(with jwtToken: String) {
-        self.loadUserOnSuccessResponse(jwt: jwtToken) { (currentUser: LMModels.Source.User_) in
+        self.loadUserOnSuccessResponse(jwt: jwtToken) { (currentUser: LMModels.Source.UserSafeSettings) in
             
             guard let password = self.authPassword,
                   let login = self.authLogin
@@ -106,7 +105,10 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
         }
     }
     
-    private func loadUserOnSuccessResponse(jwt: String, completion: @escaping ((LMModels.Source.User_) -> Void)) {
+    private func loadUserOnSuccessResponse(
+        jwt: String,
+        completion: @escaping ((LMModels.Source.UserSafeSettings) -> Void)
+    ) {
         
         let params = LMModels.Api.Site.GetSite(auth: jwt)
         
@@ -146,7 +148,7 @@ enum AddAccountDataFlow {
         }
         
         struct ViewModel {
-            let currentUser: LMModels.Source.User_
+            let currentUser: LMModels.Source.UserSafeSettings
         }
     }
     

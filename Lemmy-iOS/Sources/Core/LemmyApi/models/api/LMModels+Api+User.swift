@@ -26,16 +26,14 @@ extension LMModels.Api {
             let email: String?
             let password: String
             let passwordVerify: String
-            let admin: Bool
             let showNsfw: Bool
-            let captchaUuid: String?
+            let captchaUuid: String? // Only checked if these are enabled in the server
             let captchaAnswer: String?
             
             enum CodingKeys: String, CodingKey {
                 case username, email
                 case password
                 case passwordVerify = "password_verify"
-                case admin
                 case showNsfw = "show_nsfw"
                 case captchaUuid = "captcha_uuid"
                 case captchaAnswer = "captcha_answer"
@@ -45,7 +43,7 @@ extension LMModels.Api {
         struct GetCaptcha: Codable {}
         
         struct GetCaptchaResponse: Codable {
-            let ok: CaptchaResponse?
+            let ok: CaptchaResponse? // Will be undefined if captchas are disabled
         }
         
         struct CaptchaResponse: Codable {
@@ -56,9 +54,9 @@ extension LMModels.Api {
         
         struct SaveUserSettings: Codable {
             let showNsfw: Bool
-            let theme: String
-            let defaultSortType: LMModels.Others.SortType
-            let defaultListingType: LMModels.Others.ListingType
+            let theme: String // Default 'default'
+            let defaultSortType: LMModels.Others.SortType // The Sort types from above, zero indexed as a number
+            let defaultListingType: LMModels.Others.ListingType // Post listing types are `All, Subscribed, Community`
             let lang: String
             let avatar: String?
             let banner: String?
@@ -91,10 +89,16 @@ extension LMModels.Api {
             }
         }
         
+        /**
+         * The `jwt` string should be stored and used anywhere `auth` is called for.
+         */
         struct LoginResponse: Codable {
             let jwt: String
         }
         
+        /**
+        * `username` can only be used for local users. To get details for a federated user, pass `user_id` instead.
+        */
         struct GetUserDetails: Codable {
             let userId: Int?
             let username: String?
@@ -118,8 +122,7 @@ extension LMModels.Api {
         }
         
         struct GetUserDetailsResponse: Codable {
-            let userView: LMModels.Views.UserViewSafe?
-            let userViewDangerous: LMModels.Views.UserViewDangerous?
+            let userView: LMModels.Views.UserViewSafe
             let follows: [LMModels.Views.CommunityFollowerView]
             let moderates: [LMModels.Views.CommunityModeratorView]
             let comments: [LMModels.Views.CommentView]
@@ -127,7 +130,6 @@ extension LMModels.Api {
             
             enum CodingKeys: String, CodingKey {
                 case userView = "user_view"
-                case userViewDangerous = "user_view_dangerous"
                 case follows
                 case moderates
                 case comments
@@ -160,7 +162,7 @@ extension LMModels.Api {
         struct BanUser: Codable {
             let userId: Int
             let ban: Bool
-            let removeData: Bool
+            let removeData: Bool // Removes/Restores their comments, posts, and communities
             let reason: String?
             let expires: Int?
             let auth: String
@@ -237,6 +239,9 @@ extension LMModels.Api {
             }
         }
         
+        /**
+        * Permanently deletes your posts and comments
+        */
         struct DeleteAccount: Codable {
             let password: String
             let auth: String
@@ -273,36 +278,36 @@ extension LMModels.Api {
         }
         
         struct EditPrivateMessage: Codable {
-            let editId: Int
+            let privateMessageId: Int
             let content: String
             let auth: String
             
             enum CodingKeys: String, CodingKey {
-                case editId = "edit_id"
+                case privateMessageId = "private_message_id"
                 case content
                 case auth
             }
         }
         
         struct DeletePrivateMessage: Codable {
-            let editId: Int
+            let privateMessageId: Int
             let deleted: Bool
             let auth: String
             
             enum CodingKeys: String, CodingKey {
-                case editId = "edit_id"
+                case privateMessageId = "private_message_id"
                 case deleted
                 case auth
             }
         }
         
         struct MarkPrivateMessageAsRead: Codable {
-            let editId: Int
+            let privateMessageId: Int
             let read: Bool
             let auth: Bool
             
             enum CodingKeys: String, CodingKey {
-                case editId = "edit_id"
+                case privateMessageId = "private_message_id"
                 case read
                 case auth
             }
@@ -346,6 +351,10 @@ extension LMModels.Api {
             let joined: Bool
         }
         
+        /**
+         * If a community is supplied, returns the report count for only that community,
+         * otherwise returns the report count for all communities the user moderates.
+         */
         struct GetReportCount: Codable {
             let community: Int?
             let auth: String

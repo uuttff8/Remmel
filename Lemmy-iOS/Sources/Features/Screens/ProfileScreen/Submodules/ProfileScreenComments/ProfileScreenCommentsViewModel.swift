@@ -81,11 +81,9 @@ class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
 }
 
 extension ProfileScreenCommentsViewModel: ProfileScreenCommentsInputProtocol {
-    func updateFirstData(
+    func updateCommentsData(
         profile: ProfileScreenViewModel.ProfileData,
-        posts: [LMModels.Views.PostView],
-        comments: [LMModels.Views.CommentView],
-        subscribers: [LMModels.Views.CommunityFollowerView]
+        comments: [LMModels.Views.CommentView]
     ) {
         self.loadedProfile = profile
         self.viewController?.displayProfileComments(

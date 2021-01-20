@@ -53,6 +53,12 @@ extension LMModels.Api {
             }
         }
         
+        /**
+        * Post listing types are `All, Subscribed, Community`
+        *
+        * `community_name` can only be used for local communities.
+        * To get posts for a federated community, pass `community_id` instead.
+        */
         struct GetPosts: Codable {
             let type: LMModels.Others.ListingType
             let sort: LMModels.Others.SortType
@@ -75,6 +81,9 @@ extension LMModels.Api {
             let posts: [LMModels.Views.PostView]
         }
         
+        /**
+        * `score` can be 0, -1, or 1
+        */
         struct CreatePostLike: Codable {
             let postId: Int
             let score: Int
@@ -87,7 +96,7 @@ extension LMModels.Api {
         }
         
         struct EditPost: Codable {
-            let editId: Int
+            let postId: Int
             let name: String
             let url: String?
             let body: String?
@@ -95,47 +104,56 @@ extension LMModels.Api {
             let auth: String
             
             enum CodingKeys: String, CodingKey {
-                case editId = "edit_id"
+                case postId = "post_id"
                 case name, url, body, nsfw, auth
             }
         }
         
         struct DeletePost: Codable {
-            let editId: Int
+            let postId: Int
             let deleted: Bool
             let auth: String
             
             enum CodingKeys: String, CodingKey {
-                case editId = "edit_id"
+                case postId = "post_id"
                 case deleted, auth
             }
             
         }
         
+        /**
+        * Only admins and mods can remove a post.
+        */
         struct RemovePost: Codable {
-            let editId: Int
+            let postId: Int
             let removed: Bool
             let reason: String?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
-                case editId = "edit_id"
+                case postId = "post_id"
                 case removed, reason
                 case auth
             }
         }
         
+        /**
+        * Only admins and mods can lock a post.
+        */
         struct LockPost: Codable {
-            let editId: Int
+            let postId: Int
             let locked: Bool
             let auth: String
             
             enum CodingKeys: String, CodingKey {
-                case editId = "edit_id"
+                case postId = "post_id"
                 case locked, auth
             }
         }
         
+        /**
+        * Only admins and mods can sticky a post.
+        */
         struct StickyPost: Codable {
             let editId: Int
             let stickied: Bool
@@ -157,19 +175,7 @@ extension LMModels.Api {
                 case save, auth
             }
         }
-        
-        struct PostJoin: Codable {
-            let postId: Int
-            
-            enum CodingKeys: String, CodingKey {
-                case postId = "post_id"
-            }
-        }
-        
-        struct PostJoinResponse: Codable {
-            let joined: Bool
-        }
-        
+                
         struct CreatePostReport: Codable {
             let postId: Int
             let reason: String

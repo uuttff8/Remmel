@@ -17,6 +17,9 @@ extension LMModels.Api {
             let categories: [LMModels.Source.Category]
         }
         
+        /**
+        * Search types are `All, Comments, Posts, Communities, Users, Url`
+        */
         struct Search: Codable {
             let query: String
             let type: LMModels.Others.SearchType
@@ -142,7 +145,7 @@ extension LMModels.Api {
             let banned: [LMModels.Views.UserViewSafe]
             let online: Int
             let version: String
-            let myUser: LMModels.Source.User_?
+            let myUser: LMModels.Source.UserSafeSettings? // Gives back your user and settings if logged
             let federatedInstances: [String]
             
             enum CodingKeys: String, CodingKey {

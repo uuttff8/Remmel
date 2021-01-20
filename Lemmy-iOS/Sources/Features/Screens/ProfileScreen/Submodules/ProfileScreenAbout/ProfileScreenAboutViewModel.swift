@@ -25,10 +25,8 @@ class ProfileScreenAboutViewModel: ProfileScreenAboutViewModelProtocol {
 }
 
 extension ProfileScreenAboutViewModel: ProfileScreenAboutInputProtocol {
-    func updateFirstData(
+    func updateFollowersData(
         profile: ProfileScreenViewModel.ProfileData,
-        posts: [LMModels.Views.PostView],
-        comments: [LMModels.Views.CommentView],
         subscribers: [LMModels.Views.CommunityFollowerView]
     ) {
         self.loadedProfile = profile

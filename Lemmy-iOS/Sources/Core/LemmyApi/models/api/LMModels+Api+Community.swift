@@ -68,7 +68,7 @@ extension LMModels.Api {
             let communityId: Int
             let userId: Int
             let ban: Bool
-            let removeData: Bool
+            let removeData: Bool // Removes/Restores their comments and posts for that community
             let reason: String?
             let expires: Int?
             let auth: String
@@ -109,8 +109,11 @@ extension LMModels.Api {
             let moderators: [LMModels.Views.CommunityModeratorView]
         }
         
+        /**
+        * Only mods can edit a community.
+        */
         struct EditCommunity: Codable {
-            let editId: Int
+            let communityId: Int
             let title: String
             let description: String?
             let icon: String?
@@ -120,32 +123,32 @@ extension LMModels.Api {
             let auth: String
             
             enum CodingKeys: String, CodingKey {
-                case editId = "edit_id"
+                case communityId = "community_id"
                 case categoryId = "category_id"
                 case title, description, icon, banner, nsfw, auth
             }
         }
         
         struct DeleteCommunity: Codable {
-            let editId: Int
+            let communityId: Int
             let deleted: Bool
             let auth: String
             
             enum CodingKeys: String, CodingKey {
-                case editId = "edit_id"
+                case communityId = "community_id"
                 case deleted, auth
             }
         }
         
         struct RemoveCommunity: Codable {
-            let editId: Int
+            let communityId: Int
             let removed: Bool
             let reason: String?
             let expires: Int?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
-                case editId = "edit_id"
+                case communityId = "community_id"
                 case removed, reason, expires, auth
             }
         }
@@ -180,30 +183,5 @@ extension LMModels.Api {
                 case auth
             }
         }
-        
-        struct CommunityJoin: Codable {
-            let communityId: Int
-            
-            enum CodingKeys: String, CodingKey {
-                case communityId = "community_id"
-            }
-        }
-        
-        struct CommunityJoinResponse: Codable {
-            let joined: Bool
-        }
-        
-        struct ModJoin: Codable {            
-            let communityId: Int
-            
-            enum CodingKeys: String, CodingKey {
-                case communityId = "community_id"
-            }
-        }
-        
-        struct ModJoinResponse: Codable {
-            let joined: Bool
-        }
-        
     }
 }

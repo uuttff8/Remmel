@@ -10,11 +10,37 @@ import Foundation
 
 protocol ProfileScreenSubmoduleProtocol: AnyObject {
     func handleControllerAppearance()
-    func updateFirstData(
+    func updatePostsData(
         profile: ProfileScreenViewModel.ProfileData,
-        posts: [LMModels.Views.PostView],
-        comments: [LMModels.Views.CommentView],
-        subscribers: [LMModels.Views.CommunityFollowerView]
+        posts: [LMModels.Views.PostView]
     )
+    
+    func updateCommentsData(
+        profile: ProfileScreenViewModel.ProfileData,
+        comments: [LMModels.Views.CommentView]
+    )
+    
+    func updateFollowersData(
+        profile: ProfileScreenViewModel.ProfileData,
+        subscribers: [LMModels.Views.CommunityFollowerView]
+    ) 
+
     func registerSubmodule()
+}
+
+extension ProfileScreenSubmoduleProtocol {
+    func updatePostsData(
+        profile: ProfileScreenViewModel.ProfileData,
+        posts: [LMModels.Views.PostView]
+    ) {}
+    
+    func updateCommentsData(
+        profile: ProfileScreenViewModel.ProfileData,
+        comments: [LMModels.Views.CommentView]
+    ) {}
+    
+    func updateFollowersData(
+        profile: ProfileScreenViewModel.ProfileData,
+        subscribers: [LMModels.Views.CommunityFollowerView]
+    ) {}
 }

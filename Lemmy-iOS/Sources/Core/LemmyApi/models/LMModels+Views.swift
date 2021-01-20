@@ -14,12 +14,7 @@ extension LMModels {
         struct UserViewSafe: Codable {
             let user: LMModels.Source.UserSafe
             let counts: LMModels.Aggregates.UserAggregates
-        }
-        
-        struct UserViewDangerous: Codable {
-            let user: LMModels.Source.User_
-            let counts: LMModels.Aggregates.UserAggregates
-        }
+        }        
         
         struct UserMentionView: Identifiable, Codable, VoteGettable {
             
@@ -34,10 +29,10 @@ extension LMModels {
             let community: LMModels.Source.CommunitySafe
             let recipient: LMModels.Source.UserSafe
             let counts: LMModels.Aggregates.CommentAggregates
-            let creatorBannedFromCommunity: Bool // Left Join to CommunityUserBan
-            let subscribed: Bool // Left join to CommunityFollower
-            let saved: Bool // Left join to CommentSaved
-            let myVote: Int? // Left join to CommentLi,
+            let creatorBannedFromCommunity: Bool
+            let subscribed: Bool
+            let saved: Bool
+            let myVote: Int?
             
             enum CodingKeys: String, CodingKey {
                 case userMention = "user_mention"
@@ -75,12 +70,12 @@ extension LMModels {
             let post: LMModels.Source.Post
             let creator: LMModels.Source.UserSafe
             let community: LMModels.Source.CommunitySafe
-            let creatorBannedFromCommunity: Bool // Left Join to CommunityUserBan
+            let creatorBannedFromCommunity: Bool
             let counts: LMModels.Aggregates.PostAggregates
-            let subscribed: Bool // Left join to CommunityFollower
-            let saved: Bool // Left join to PostSaved
-            let read: Bool // Left join to PostRead
-            let myVote: Int? // Left join to PostLi,
+            let subscribed: Bool
+            let saved: Bool
+            let read: Bool
+            let myVote: Int?
             
             enum CodingKeys: String, CodingKey {
                 case creator, post, community, counts
@@ -113,14 +108,14 @@ extension LMModels {
             
             let comment: LMModels.Source.Comment
             let creator: LMModels.Source.UserSafe
-            let recipient: LMModels.Source.UserSafe? // Left joins to comment and us,
+            let recipient: LMModels.Source.UserSafe?
             let post: LMModels.Source.Post
             let community: LMModels.Source.CommunitySafe
             let counts: LMModels.Aggregates.CommentAggregates
-            let creatorBannedFromCommunity: Bool // Left Join to CommunityUserBan
-            let subscribed: Bool // Left join to CommunityFollower
-            let saved: Bool // Left join to CommentSaved
-            let myVote: Int? // Left join to CommentLi,
+            let creatorBannedFromCommunity: Bool
+            let subscribed: Bool
+            let saved: Bool
+            let myVote: Int? 
             
             enum CodingKeys: String, CodingKey {
                 case comment, creator, recipient, post

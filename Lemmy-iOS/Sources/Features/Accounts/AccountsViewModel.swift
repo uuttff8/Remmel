@@ -73,13 +73,16 @@ final class AccountsViewModel: AccountsViewModelProtocol {
     }
         
     private func fetchUser(with jwtToken: String) {
-        self.loadUserOnSuccessResponse(jwt: jwtToken) { (currentUser: LMModels.Source.User_) in
+        self.loadUserOnSuccessResponse(jwt: jwtToken) { (currentUser: LMModels.Source.UserSafeSettings) in
             self.shareData.userdata = currentUser
             self.viewController?.displayAccountSelected(viewModel: .init(myUser: currentUser))
         }
     }
     
-    private func loadUserOnSuccessResponse(jwt: String, completion: @escaping ((LMModels.Source.User_) -> Void)) {
+    private func loadUserOnSuccessResponse(
+        jwt: String,
+        completion: @escaping ((LMModels.Source.UserSafeSettings) -> Void)
+    ) {
         self.shareData.loginData.login(jwt: jwt)
         
         let params = LMModels.Api.Site.GetSite(auth: jwt)
@@ -123,7 +126,7 @@ enum AccountsDataFlow {
         }
         
         struct ViewModel {
-            let myUser: LMModels.Source.User_
+            let myUser: LMModels.Source.UserSafeSettings
         }
     }
     

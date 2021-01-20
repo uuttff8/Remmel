@@ -37,11 +37,10 @@ extension LMModels {
             }
         }
         
-        struct User_: Identifiable, Codable {
+        struct UserSafeSettings: Identifiable, Codable {
             let id: Int
             let name: String
             let preferredUsername: String?
-            let passwordEncrypted: String
             let email: String?
             let avatar: String?
             let admin: Bool
@@ -59,8 +58,6 @@ extension LMModels {
             let actorId: String
             let bio: String?
             let local: Bool
-            let privateKey: String?
-            let publicKey: String?
             let lastRefreshedAt: String
             let banner: String?
             let deleted: Bool
@@ -68,7 +65,6 @@ extension LMModels {
             enum CodingKeys: String, CodingKey {
                 case id, name
                 case preferredUsername = "preferred_username"
-                case passwordEncrypted = "password_encrypted"
                 case email, avatar, admin, banned
                 case published, updated
                 case showNsfw = "show_nsfw"
@@ -81,8 +77,6 @@ extension LMModels {
                 case matrixUserId = "matrix_user_id"
                 case actorId = "actor_id"
                 case bio, local
-                case privateKey = "private_key"
-                case publicKey = "public_key"
                 case lastRefreshedAt = "last_refreshed_at"
                 case banner
                 case deleted

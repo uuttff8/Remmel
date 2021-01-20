@@ -18,9 +18,9 @@ protocol ProfileScreenViewModelProtocol: AnyObject {
     func doSubmoduleControllerAppearanceUpdate(request: ProfileScreenDataFlow.SubmoduleAppearanceUpdate.Request)
     func doSubmodulesRegistration(request: ProfileScreenDataFlow.SubmoduleRegistration.Request)
     func doSubmodulesDataFilling(request: ProfileScreenDataFlow.SubmoduleDataFilling.Request)
-//    func doSubmoduleDataFilling(request: ProfileScreenDataFlow.SubmoduleDataFilling.Request)
+    //    func doSubmoduleDataFilling(request: ProfileScreenDataFlow.SubmoduleDataFilling.Request)
 }
- 
+
 extension ProfileScreenViewModel {
     struct ProfileData: Identifiable {
         let id: Int
@@ -60,7 +60,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
         self.profileUsername = profileUsername
         self.userAccountService = userAccountService
     }
-        
+    
     func doProfileFetch() {
         self.viewController?.displayNotBlockingActivityIndicator(viewModel: .init(shouldDismiss: false))
         
@@ -81,15 +81,18 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
                 guard let self = self else { return }
                 
                 self.viewController?.displayNotBlockingActivityIndicator(viewModel: .init(shouldDismiss: true))
-                                
-                guard let loadedProfile = self.initializeProfileData(with: response) else {
-                    Logger.commonLog.emergency("GetUserDetails Response does not have user, or it is changed!")
-                    return
-                }
+                
+                let loadedProfile = self.initializeProfileData(with: response)
                 self.loadedProfile = loadedProfile
-                          
+                
                 // if blocked user then show nothing
                 if self.userIsBlocked(userId: loadedProfile.id) {
+                    self.loadedProfile = ProfileData(id: loadedProfile.id,
+                                                     viewData: loadedProfile.viewData,
+                                                     follows: [],
+                                                     moderates: [],
+                                                     comments: [],
+                                                     posts: [])
                     self.viewController?.displayProfile(viewModel: .init(state: .blockedUser))
                     return
                 }
@@ -136,61 +139,63 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     private func pushCurrentCourseToSubmodules(submodules: [ProfileScreenSubmoduleProtocol]) {
         guard let profileData = loadedProfile else { return }
         
-        self.submodules.forEach({ $1.updateFirstData(profile: profileData,
-                                                     posts: profileData.posts,
-                                                     comments: profileData.comments,
-                                                     subscribers: profileData.follows) })
+        self.submodules.forEach { (key, submodule) in
+            switch key {
+            case ProfileScreenDataFlow.Tab.posts.rawValue:
+                submodule.updatePostsData(profile: profileData, posts: profileData.posts)
+            case ProfileScreenDataFlow.Tab.comments.rawValue:
+                submodule.updateCommentsData(profile: profileData, comments: profileData.comments)
+            case ProfileScreenDataFlow.Tab.about.rawValue:
+                submodule.updateFollowersData(profile: profileData, subscribers: profileData.follows)
+                
+            default:
+                break
+            }
+
+        }
     }
     
     func doSubmodulesDataFilling(request: ProfileScreenDataFlow.SubmoduleDataFilling.Request) {
-        guard let profile = loadedProfile else {
+        guard let profileData = loadedProfile else {
             Logger.commonLog.error("Profile is not initialized")
             return
         }
         
         self.submodules = request.submodules
-        request.submodules.forEach {
-            $1.updateFirstData(
-                profile: profile,
-                posts: request.posts,
-                comments: request.comments,
-                subscribers: request.subscribers
-            )
+        
+        request.submodules.forEach { (key, submodule) in
+            switch key {
+            case ProfileScreenDataFlow.Tab.posts.rawValue:
+                submodule.updatePostsData(profile: profileData, posts: request.posts)
+            case ProfileScreenDataFlow.Tab.comments.rawValue:
+                submodule.updateCommentsData(profile: profileData, comments: request.comments)
+            case ProfileScreenDataFlow.Tab.about.rawValue:
+                submodule.updateFollowersData(profile: profileData, subscribers: request.subscribers)
+                
+            default:
+                break
+            }
         }
     }
     
-    private func initializeProfileData(with response: LMModels.Api.User.GetUserDetailsResponse) -> ProfileData? {
-        if let userView = response.userView {
-            return ProfileData(
-                id: userView.user.id,
-                viewData: .init(name: userView.user.name,
-                                avatarUrl: userView.user.avatar,
-                                bannerUrl: userView.user.banner,
-                                numberOfComments: userView.counts.commentCount,
-                                numberOfPosts: userView.counts.postCount,
-                                published: userView.user.published.toLocalTime()),
-                follows: response.follows,
-                moderates: response.moderates,
-                comments: response.comments,
-                posts: response.posts
-            )
-        } else if let userView = response.userViewDangerous {
-            return ProfileData(
-                id: userView.user.id,
-                viewData: .init(name: userView.user.name,
-                                avatarUrl: userView.user.avatar,
-                                bannerUrl: userView.user.banner,
-                                numberOfComments: userView.counts.commentCount,
-                                numberOfPosts: userView.counts.postCount,
-                                published: userView.user.published.toLocalTime()),
-                follows: response.follows,
-                moderates: response.moderates,
-                comments: response.comments,
-                posts: response.posts
-            )
-        }
+    private func initializeProfileData(with response: LMModels.Api.User.GetUserDetailsResponse) -> ProfileData {
+        let userView = response.userView
         
-        return nil
+        return ProfileData(
+            id: userView.user.id,
+            viewData: .init(
+                name: userView.user.name,
+                avatarUrl: userView.user.avatar,
+                bannerUrl: userView.user.banner,
+                numberOfComments: userView.counts.commentCount,
+                numberOfPosts: userView.counts.postCount,
+                published: userView.user.published.toLocalTime()
+            ),
+            follows: response.follows,
+            moderates: response.moderates,
+            comments: response.comments,
+            posts: response.posts
+        )
     }
     
     private func userIsBlocked(userId: Int) -> Bool {
@@ -259,6 +264,13 @@ enum ProfileScreenDataFlow {
     enum SubmoduleRegistration {
         struct Request {
             var submodules: [Int: ProfileScreenSubmoduleProtocol]
+        }
+    }
+    
+    /// Register submodules
+    enum SubmoduleOneRegistration {
+        struct Request {
+            var submodules: [ProfileScreenSubmoduleProtocol]
         }
     }
     

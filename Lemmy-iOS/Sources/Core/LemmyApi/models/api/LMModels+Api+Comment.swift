@@ -15,7 +15,7 @@ extension LMModels.Api {
             let content: String
             let parentId: Int?
             let postId: Int
-            let formId: String?
+            let formId: String? // An optional front end ID, to tell which is coming back
             let auth: String
             
             enum CodingKeys: String, CodingKey {
@@ -29,37 +29,43 @@ extension LMModels.Api {
         
         struct EditComment: Codable {
             let content: String
-            let editId: Int
+            let commentId: Int
             let formId: String?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case content
-                case editId = "edit_id"
+                case commentId = "comment_id"
                 case formId = "form_id"
                 case auth
             }
         }
         
+        /**
+        * Only the creator can delete the comment.
+        */
         struct DeleteComment: Codable {
-            let editId: Int
+            let commentId: Int
             let deleted: Bool
             let auth: String
             
             enum CodingKeys: String, CodingKey {
-                case editId = "edit_id"
+                case commentId = "comment_id"
                 case deleted, auth
             }
         }
         
+        /**
+        * Only a mod or admin can remove the comment.
+        */
         struct RemoveComment: Codable {
-            let editId: Int
+            let commentId: Int
             let removed: Bool
             let reason: String?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
-                case editId = "edit_id"
+                case commentId = "comment_id"
                 case removed, reason, auth
             }
         }
@@ -88,8 +94,8 @@ extension LMModels.Api {
         
         struct CommentResponse: Codable {
             let commentView: LMModels.Views.CommentView
-            let recipientIds: [Int]  // TODO another way to do this? Maybe a UserMention belongs to Comment
-            let formId: Int?  // An optional front end ID, to tell which is coming ba,
+            let recipientIds: [Int]
+            let formId: Int? // An optional front end ID, to tell which is coming back
             
             enum CodingKeys: String, CodingKey {
                 case commentView = "comment_view"
@@ -110,6 +116,12 @@ extension LMModels.Api {
             }
         }
         
+        /**
+        * Comment listing types are `All, Subscribed, Community`
+        *
+        * `community_name` can only be used for local communities.
+        * To get posts for a federated community, pass `community_id` instead.
+        */
         struct GetComments: Codable {
             let type: LMModels.Others.ListingType
             let sort: LMModels.Others.SortType

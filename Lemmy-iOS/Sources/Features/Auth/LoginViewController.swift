@@ -136,7 +136,6 @@ class LoginViewController: UIViewController {
                                           email: email,
                                           password: password,
                                           passwordVerify: passwordVerify,
-                                          admin: false,
                                           showNsfw: showNsfw,
                                           captchaUuid: uuid,
                                           captchaAnswer: captchaCode)
@@ -178,7 +177,10 @@ class LoginViewController: UIViewController {
             }).store(in: &cancellables)
     }
         
-    private func loadUserOnSuccessResponse(jwt: String, completion: @escaping ((LMModels.Source.User_) -> Void)) {
+    private func loadUserOnSuccessResponse(
+        jwt: String,
+        completion: @escaping ((LMModels.Source.UserSafeSettings) -> Void)
+    ) {
         
         let params = LMModels.Api.Site.GetSite(auth: jwt)
         
