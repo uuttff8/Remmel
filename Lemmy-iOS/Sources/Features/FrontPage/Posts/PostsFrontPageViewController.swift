@@ -31,7 +31,7 @@ class PostsFrontPageViewController: UIViewController {
     }
     
     private lazy var dataSource = makeDataSource()
-    private var snapshot = NSDiffableDataSourceSnapshot<Section, LemmyModel.PostView>()
+    private var snapshot = NSDiffableDataSourceSnapshot<Section, LMModels.Views.PostView>()
     
     let pickerView = LemmySortListingPickersView()
     
@@ -76,7 +76,7 @@ class PostsFrontPageViewController: UIViewController {
         updateTableData(immediately: false)
     }
     
-    func addRows(with list: [LemmyModel.PostView], animate: Bool = true) {
+    func addRows(with list: [LMModels.Views.PostView], animate: Bool = true) {
         guard !list.isEmpty else { return }
         
         snapshot.insertItems(list, afterItem: viewModel.postsDataSource.last!)
@@ -86,7 +86,7 @@ class PostsFrontPageViewController: UIViewController {
         }
     }
     
-    func addFirstRows(with list: [LemmyModel.PostView], animate: Bool = true) {
+    func addFirstRows(with list: [LMModels.Views.PostView], animate: Bool = true) {
         self.tableView.hideActivityIndicator()
         self.snapshot.deleteAllItems()
         self.snapshot.appendSections(Section.allCases)
@@ -121,8 +121,8 @@ class PostsFrontPageViewController: UIViewController {
         }
     }
     
-    private func makeDataSource() -> UITableViewDiffableDataSource<Section, LemmyModel.PostView> {
-        return UITableViewDiffableDataSource<Section, LemmyModel.PostView>(
+    private func makeDataSource() -> UITableViewDiffableDataSource<Section, LMModels.Views.PostView> {
+        return UITableViewDiffableDataSource<Section, LMModels.Views.PostView>(
             tableView: tableView,
             cellProvider: { (tableView, indexPath, _) -> UITableViewCell? in
                 let cell = tableView.cell(forClass: PostContentPreviewTableCell.self)
@@ -187,7 +187,7 @@ extension PostsFrontPageViewController: SFSafariViewControllerDelegate {
 }
 
 extension PostsFrontPageViewController: PostContentPreviewTableCellDelegate {
-    func postCellDidSelected(postId: LemmyModel.PostView.ID) {
+    func postCellDidSelected(postId: LMModels.Views.PostView.ID) {
         let post = viewModel.getPost(by: postId).require()
         self.coordinator?.goToPostScreen(post: post)
     }
@@ -196,7 +196,7 @@ extension PostsFrontPageViewController: PostContentPreviewTableCellDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        post: LemmyModel.PostView
+        post: LMModels.Views.PostView
     ) {
         guard let coordinator = coordinator else { return }
         
@@ -214,7 +214,7 @@ extension PostsFrontPageViewController: PostContentPreviewTableCellDelegate {
         self.coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
-    func showMore(in post: LemmyModel.PostView) {
+    func showMore(in post: LMModels.Views.PostView) {
         guard let coordinator = coordinator else { return }
         showMoreHandler.showMoreInPost(on: self, coordinator: coordinator, post: post)
     }    

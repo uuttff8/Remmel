@@ -28,14 +28,14 @@ class CreatePostCoordinator: Coordinator {
     }
 
     func goToChoosingCommunity(
-        choosedCommunity: @escaping ((LemmyModel.CommunityView) -> Void)
+        choosedCommunity: @escaping ((LMModels.Views.CommunityView) -> Void)
     ) {
         let assembly = ChooseCommunityAssembly()
         assembly.onCommunitySelected = choosedCommunity
         navigationController?.pushViewController(assembly.makeModule(), animated: true)
     }
 
-    func goToPost(post: LemmyModel.PostView) {
+    func goToPost(post: LMModels.Views.PostView) {
         rootViewController.dismiss(animated: true, completion: nil)
 
         if let presentingVc = rootViewController.presentingViewController as? LemmyTabBarController {

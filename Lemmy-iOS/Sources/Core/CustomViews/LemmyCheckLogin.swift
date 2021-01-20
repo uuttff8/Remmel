@@ -8,7 +8,6 @@
 
 import UIKit
 
-// TODO refactor this class and remove boilerplate
 func ContinueIfLogined(
     on viewController: UIViewController,
     coordinator: BaseCoordinator,

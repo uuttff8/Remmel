@@ -121,15 +121,15 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
         self.coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
     
-    func postNameTapped(in comment: LemmyModel.CommentView) {
-        self.coordinator?.goToPostScreen(postId: comment.postId)
+    func postNameTapped(in comment: LMModels.Views.CommentView) {
+        self.coordinator?.goToPostScreen(postId: comment.post.id)
     }
         
     func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView
+        comment: LMModels.Views.CommentView
     ) {
         guard let coordinator = coordinator else { return }
         
@@ -145,26 +145,26 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
         }
     }
     
-    func showContext(in comment: LemmyModel.CommentView) {
+    func showContext(in comment: LMModels.Views.CommentView) {
         self.coordinator?.goToPostAndScroll(to: comment)
     }
     
-    func reply(to comment: LemmyModel.CommentView) {
-        self.coordinator?.goToWriteComment(postId: comment.postId, parrentComment: comment)
+    func reply(to comment: LMModels.Views.CommentView) {
+        self.coordinator?.goToWriteComment(postId: comment.post.id, parrentComment: comment)
     }
     
-    func onLinkTap(in comment: LemmyModel.CommentView, url: URL) {
+    func onLinkTap(in comment: LMModels.Views.CommentView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }
     
-    func showMoreAction(in comment: LemmyModel.CommentView) {
+    func showMoreAction(in comment: LMModels.Views.CommentView) {
         guard let coordinator = coordinator else { return }
         self.showMoreHandler.showMoreInComment(on: self, coordinator: coordinator, comment: comment)
     }
 }
 
 extension ProfileScreenCommentsViewController: ProfileScreenCommentsViewDelegate {
-    func profileScreenComments(_ view: View, didPickedNewSort type: LemmySortType) {
+    func profileScreenComments(_ view: View, didPickedNewSort type: LMModels.Others.SortType) {
         self.commentsPostsView.showLoadingIndicator()
         self.commentsPostsView.deleteAllContent()
         self.viewModel.doProfileCommentsFetch(request: .init(sortType: type))

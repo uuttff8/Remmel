@@ -28,18 +28,18 @@ class CreatePostViewModel: CreatePostViewModelProtocol {
     func doRemoteCreatePost(request: CreatePost.RemoteCreatePost.Request) {
         guard let jwtToken = LemmyShareData.shared.jwtToken else { return }
         
-        let params = LemmyModel.Post.CreatePostRequest(name: request.title,
-                                                       url: request.url,
-                                                       body: request.body,
-                                                       nsfw: request.nsfw,
-                                                       communityId: request.communityId,
-                                                       auth: jwtToken)
+        let params = LMModels.Api.Post.CreatePost(name: request.title,
+                                                  url: request.url,
+                                                  body: request.body,
+                                                  nsfw: request.nsfw,
+                                                  communityId: request.communityId,
+                                                  auth: jwtToken)
         
         ApiManager.requests.asyncCreatePost(parameters: params)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
-
+                
                 if case .failure(let error) = completion {
                     self.viewController?.displayCreatePostError(
                         viewModel: .init(error: error.description)
@@ -48,7 +48,7 @@ class CreatePostViewModel: CreatePostViewModelProtocol {
             } receiveValue: { (response) in
                 
                 self.viewController?.displaySuccessCreatingPost(
-                    viewModel: .init(post: response.post)
+                    viewModel: .init(post: response.postView)
                 )
                 
             }.store(in: &cancellable)

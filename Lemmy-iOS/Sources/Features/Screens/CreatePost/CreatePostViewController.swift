@@ -45,7 +45,7 @@ class CreatePostScreenViewController: UIViewController {
         
     private var createPostData: FormData = {
         .init(
-            community: nil,
+            communityView: nil,
             title: nil,
             body: nil,
             url: nil,
@@ -143,7 +143,7 @@ class CreatePostScreenViewController: UIViewController {
     }
     
     struct FormData {
-        var community: LemmyModel.CommunityView?
+        var communityView: LMModels.Views.CommunityView?
         var title: String?
         var body: String?
         var url: String?
@@ -152,7 +152,7 @@ class CreatePostScreenViewController: UIViewController {
     
     // MARK: - Action
     @objc private func postBarButtonTapped(_ sender: UIBarButtonItem) {
-        guard let communityId = self.createPostData.community?.id else {
+        guard let communityId = self.createPostData.communityView?.id else {
             self.displayCreatePostError(viewModel: .init(error: "Community not specified"))
             return
         }
@@ -189,7 +189,9 @@ class CreatePostScreenViewController: UIViewController {
         }
     }
     
-    private func updateUrlState(for cell: SettingsInputWithImageTableViewCell, state: SettingsInputWithImageCellView.UrlState) {
+    private func updateUrlState(
+        for cell: SettingsInputWithImageTableViewCell, state: SettingsInputWithImageCellView.UrlState
+    ) {
         print("update for state: \(state)")
         cell.urlState = state
         
@@ -246,25 +248,13 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
             uniqueIdentifier: FormField.community.rawValue,
             type: .rightDetail(
                 options: .init(
-                    title: .init(text: createPostData.community?.name ?? "Community"),
+                    title: .init(text: createPostData.communityView?.community.name ?? "Community"),
                     detailType: .label(text: nil),
                     accessoryType: .disclosureIndicator
                 )
             )
         )
-        
-//        let urlCell = SettingsTableSectionViewModel.Cell(
-//            uniqueIdentifier: FormField.url.rawValue,
-//            type: .input(
-//                options: .init(
-//                    valueText: self.createPostData.url ?? nil,
-//                    placeholderText: "Enter Url",
-//                    shouldAlwaysShowPlaceholder: false,
-//                    inputGroup: "url"
-//                )
-//            )
-//        )
-        
+                
         let urlCell = SettingsTableSectionViewModel.Cell(
             uniqueIdentifier: FormField.url.rawValue,
             type: .inputWithImage(
@@ -406,7 +396,7 @@ extension CreatePostScreenViewController: CreatePostViewDelegate {
         case .community:
             self.coordinator?.goToChoosingCommunity(
                 choosedCommunity: { (community) in
-                    self.createPostData.community = community
+                    self.createPostData.communityView = community
                 }
             )
         default:

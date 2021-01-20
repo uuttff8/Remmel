@@ -43,8 +43,8 @@ class CreatePostCommunityCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind(with data: LemmyModel.CommunityView) {
-        if let imageString = data.icon, let url = URL(string: imageString) {
+    func bind(with data: LMModels.Views.CommunityView) {
+        if let imageString = data.community.icon, let url = URL(string: imageString) {
             Nuke.loadImage(with: ImageRequest(url: url), into: communityImageView)
         } else {
             self.communityImageView.isHidden = true
@@ -57,7 +57,7 @@ class CreatePostCommunityCell: UITableViewCell {
             }
         }
         
-        communityLabel.text = data.title
+        communityLabel.text = data.community.title
     }
     
     // MARK: - Private

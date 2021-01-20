@@ -10,9 +10,9 @@ import UIKit
 
 class SearchResultsAssembly: Assembly {
     private let searchQuery: String
-    private let searchType: LemmySearchSortType
+    private let searchType: LMModels.Others.SearchType
     
-    init(searchQuery: String, type: LemmySearchSortType) {
+    init(searchQuery: String, type: LMModels.Others.SearchType) {
         self.searchQuery = searchQuery
         self.searchType = type
     }

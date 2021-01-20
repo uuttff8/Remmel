@@ -10,8 +10,8 @@ import UIKit
 import Combine
 
 class PostsFrontPageModel: NSObject {
-    var newDataLoaded: (([LemmyModel.PostView]) -> Void)?
-    var dataLoaded: (([LemmyModel.PostView]) -> Void)?
+    var newDataLoaded: (([LMModels.Views.PostView]) -> Void)?
+    var dataLoaded: (([LMModels.Views.PostView]) -> Void)?
     
     private let contentScoreService = ContentScoreService(userAccountService: UserAccountService())
     private let contentPreferenceService = ContentPreferencesStorageManager()
@@ -21,9 +21,9 @@ class PostsFrontPageModel: NSObject {
     var isFetchingNewContent = false
     var currentPage = 1
     
-    var postsDataSource: [LemmyModel.PostView] = []
+    var postsDataSource: [LMModels.Views.PostView] = []
     
-    var currentSortType: LemmySortType {
+    var currentSortType: LMModels.Others.SortType {
         get { contentPreferenceService.contentSortType }
         set {
             self.currentPage = 1
@@ -31,7 +31,7 @@ class PostsFrontPageModel: NSObject {
         }
     }
     
-    var currentListingType: LemmyListingType {
+    var currentListingType: LMModels.Others.ListingType {
         get { contentPreferenceService.listingType }
         set {
             self.currentPage = 1
@@ -40,7 +40,7 @@ class PostsFrontPageModel: NSObject {
     }
     
     func loadPosts() {
-        let parameters = LemmyModel.Post.GetPostsRequest(type: self.currentListingType,
+        let parameters = LMModels.Api.Post.GetPosts(type: self.currentListingType,
                                                          sort: self.currentSortType,
                                                          page: 1,
                                                          limit: 50,
@@ -59,7 +59,7 @@ class PostsFrontPageModel: NSObject {
     }
     
     func loadMorePosts(completion: @escaping (() -> Void)) {
-        let parameters = LemmyModel.Post.GetPostsRequest(type: self.currentListingType,
+        let parameters = LMModels.Api.Post.GetPosts(type: self.currentListingType,
                                                          sort: self.currentSortType,
                                                          page: self.currentPage,
                                                          limit: 50,
@@ -78,7 +78,7 @@ class PostsFrontPageModel: NSObject {
             }.store(in: &cancellable)
     }
     
-    func getPost(by id: LemmyModel.PostView.ID) -> LemmyModel.PostView? {
+    func getPost(by id: LMModels.Views.PostView.ID) -> LMModels.Views.PostView? {
         if let index = postsDataSource.firstIndex(where: { $0.id == id }) {
             return postsDataSource[index]
         }
@@ -86,11 +86,11 @@ class PostsFrontPageModel: NSObject {
         return nil
     }
     
-    private func saveNewPost(_ post: LemmyModel.PostView) {
+    private func saveNewPost(_ post: LMModels.Views.PostView) {
         postsDataSource.updateElementById(post)
     }
     
-    func createPostLike(newVote: LemmyVoteType, post: LemmyModel.PostView) {
+    func createPostLike(newVote: LemmyVoteType, post: LMModels.Views.PostView) {
         self.contentScoreService.createPostLike(vote: newVote, postId: post.id)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in

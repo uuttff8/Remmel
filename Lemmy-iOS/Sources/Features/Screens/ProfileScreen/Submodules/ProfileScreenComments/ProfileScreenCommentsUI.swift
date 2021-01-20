@@ -10,7 +10,10 @@ import UIKit
 
 protocol ProfileScreenCommentsViewDelegate: AnyObject {
     func profileScreenPostsViewDidPickerTapped(toVc: UIViewController)
-    func profileScreenComments(_ view: ProfileScreenCommentsViewController.View, didPickedNewSort type: LemmySortType)
+    func profileScreenComments(
+        _ view: ProfileScreenCommentsViewController.View,
+        didPickedNewSort type: LMModels.Others.SortType
+    )
 }
 
 extension ProfileScreenCommentsViewController.View {
@@ -23,13 +26,13 @@ extension ProfileScreenCommentsViewController {
     
     class View: UIView {
         struct ViewData {
-            let comments: [LemmyModel.CommentView]
+            let comments: [LMModels.Views.CommentView]
         }
         
         weak var delegate: ProfileScreenCommentsViewDelegate?
         
         let appearance: Appearance
-        var sortType: LemmySortType = .active {
+        var sortType: LMModels.Others.SortType = .active {
             didSet {
                 self.delegate?.profileScreenComments(self, didPickedNewSort: sortType)
             }
@@ -107,7 +110,7 @@ extension ProfileScreenCommentsViewController {
             self.hideLoadingIndicator()
         }
         
-        func appendNew(data: [LemmyModel.CommentView]) {
+        func appendNew(data: [LMModels.Views.CommentView]) {
             self.tableManager?.appendNew(comments: data) { (newIndexpaths) in
                 tableView.performBatchUpdates {
                     tableView.insertRows(at: newIndexpaths, with: .none)

@@ -11,31 +11,31 @@ import UIKit
 protocol ReplyCellViewDelegate: AnyObject {
     func usernameTapped(with userMention: LemmyUserMention)
     func communityTapped(with userMention: LemmyCommunityMention)
-    func postNameTapped(in reply: LemmyModel.ReplyView)
+    func postNameTapped(in reply: LMModels.Views.CommentView)
     func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        reply: LemmyModel.ReplyView
+        reply: LMModels.Views.CommentView
     )
-    func showContext(in reply: LemmyModel.ReplyView)
-    func reply(to reply: LemmyModel.ReplyView)
-    func onLinkTap(in userMention: LemmyModel.ReplyView, url: URL)
-    func showMoreAction(in reply: LemmyModel.ReplyView)
+    func showContext(in reply: LMModels.Views.CommentView)
+    func reply(to reply: LMModels.Views.CommentView)
+    func onLinkTap(in userMention: LMModels.Views.CommentView, url: URL)
+    func showMoreAction(in reply: LMModels.Views.CommentView)
 }
 
 protocol UserMentionCellViewDelegate: AnyObject {
     func usernameTapped(with userMention: LemmyUserMention)
     func communityTapped(with userMention: LemmyCommunityMention)
-    func postNameTapped(in userMention: LemmyModel.UserMentionView)
+    func postNameTapped(in userMention: LMModels.Views.UserMentionView)
     func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        userMention: LemmyModel.UserMentionView
+        userMention: LMModels.Views.UserMentionView
     )
-    func showContext(in userMention: LemmyModel.UserMentionView)
-    func reply(to userMention: LemmyModel.UserMentionView)
-    func onLinkTap(in userMention: LemmyModel.UserMentionView, url: URL)
-    func showMoreAction(in userMention: LemmyModel.UserMentionView)
+    func showContext(in userMention: LMModels.Views.UserMentionView)
+    func reply(to userMention: LMModels.Views.UserMentionView)
+    func onLinkTap(in userMention: LMModels.Views.UserMentionView, url: URL)
+    func showMoreAction(in userMention: LMModels.Views.UserMentionView)
 }

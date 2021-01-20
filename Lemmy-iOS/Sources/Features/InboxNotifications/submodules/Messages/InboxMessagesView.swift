@@ -83,7 +83,7 @@ final class InboxMessagesView: UIView {
         makeConstraints()
     }
     
-    func appendNew(data: [LemmyModel.PrivateMessageView]) {
+    func appendNew(data: [LMModels.Views.PrivateMessageView]) {
         self.tableManager?.appendNew(posts: data) { (newIndexpaths) in
             tableView.performBatchUpdates {
                 tableView.insertRows(at: newIndexpaths, with: .none)

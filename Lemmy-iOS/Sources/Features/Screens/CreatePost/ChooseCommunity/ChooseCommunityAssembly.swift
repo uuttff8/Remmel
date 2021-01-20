@@ -11,7 +11,7 @@ import UIKit
 final class ChooseCommunityAssembly: Assembly {
     typealias ViewController = ChooseCommunityViewController
     
-    var onCommunitySelected: ((LemmyModel.CommunityView) -> Void)?
+    var onCommunitySelected: ((LMModels.Views.CommunityView) -> Void)?
     
     func makeModule() -> ChooseCommunityViewController {
         let viewModel = ChooseCommunityViewModel()

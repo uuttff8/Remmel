@@ -13,12 +13,12 @@ protocol PostContentPreviewTableCellDelegate: AnyObject {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        post: LemmyModel.PostView
+        post: LMModels.Views.PostView
     )
     func usernameTapped(with mention: LemmyUserMention)
     func communityTapped(with mention: LemmyCommunityMention)
-    func showMore(in post: LemmyModel.PostView)
-    func postCellDidSelected(postId: LemmyModel.PostView.ID)
+    func showMore(in post: LMModels.Views.PostView)
+    func postCellDidSelected(postId: LMModels.Views.PostView.ID)
 }
 
 class PostContentPreviewTableCell: UITableViewCell {
@@ -41,8 +41,7 @@ class PostContentPreviewTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // TODO: refactor this
-    func bind(with post: LemmyModel.PostView, isInsideCommunity: Bool) {
+    func bind(with post: LMModels.Views.PostView, isInsideCommunity: Bool) {
         if isInsideCommunity {
             postContentView.bind(with: post, config: .insideComminity)
         } else {

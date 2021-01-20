@@ -9,28 +9,10 @@
 import Foundation
 import Combine
 
-private protocol LemmyCommunityRequestManagerProtocol {
+extension RequestsManager {
     func asyncGetCommunity(
-        parameters: LemmyModel.Community.GetCommunityRequest
-    ) -> AnyPublisher<LemmyModel.Community.GetCommunityResponse, LemmyGenericError>
-    
-    func asyncFollowCommunity(
-        parameters: LemmyModel.Community.FollowCommunityRequest
-    ) -> AnyPublisher<LemmyModel.Community.FollowCommunityResponse, LemmyGenericError>
-    
-    func asyncListCommunities(
-        parameters: LemmyModel.Community.ListCommunitiesRequest
-    ) -> AnyPublisher<LemmyModel.Community.ListCommunitiesResponse, LemmyGenericError>
-    
-    func asyncCreateCommunity(
-        parameters: LemmyModel.Community.CreateCommunityRequest
-    ) -> AnyPublisher<LemmyModel.Community.CreateCommunityResponse, LemmyGenericError>
-}
-
-extension RequestsManager: LemmyCommunityRequestManagerProtocol {    
-    func asyncGetCommunity(
-        parameters: LemmyModel.Community.GetCommunityRequest
-    ) -> AnyPublisher<LemmyModel.Community.GetCommunityResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Community.GetCommunity
+    ) -> AnyPublisher<LMModels.Api.Community.GetCommunityResponse, LemmyGenericError> {
         
         asyncRequestDecodable(path: WSEndpoint.Community.getCommunity.endpoint,
                               parameters: parameters)
@@ -38,8 +20,8 @@ extension RequestsManager: LemmyCommunityRequestManagerProtocol {
     }
     
     func asyncFollowCommunity(
-        parameters: LemmyModel.Community.FollowCommunityRequest
-    ) -> AnyPublisher<LemmyModel.Community.FollowCommunityResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Community.FollowCommunity
+    ) -> AnyPublisher<LMModels.Api.Community.CommunityResponse, LemmyGenericError> {
         
         asyncRequestDecodable(path: WSEndpoint.Community.followCommunity.endpoint,
                               parameters: parameters)
@@ -47,16 +29,16 @@ extension RequestsManager: LemmyCommunityRequestManagerProtocol {
     }
     
     func asyncListCommunities(
-        parameters: LemmyModel.Community.ListCommunitiesRequest
-    ) -> AnyPublisher<LemmyModel.Community.ListCommunitiesResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Community.ListCommunities
+    ) -> AnyPublisher<LMModels.Api.Community.ListCommunitiesResponse, LemmyGenericError> {
         
         asyncRequestDecodable(path: WSEndpoint.Community.listCommunities.endpoint,
                               parameters: parameters)
     }
     
     func asyncCreateCommunity(
-        parameters: LemmyModel.Community.CreateCommunityRequest
-    ) -> AnyPublisher<LemmyModel.Community.CreateCommunityResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Community.CreateCommunity
+    ) -> AnyPublisher<LMModels.Api.Community.CommunityResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Community.createCommunity.endpoint,
                               parameters: parameters)
     }

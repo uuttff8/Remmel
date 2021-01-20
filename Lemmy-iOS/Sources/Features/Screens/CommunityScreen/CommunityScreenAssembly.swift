@@ -9,11 +9,11 @@
 import UIKit
 
 class CommunityScreenAssembly: Assembly {
-    private let communityId: LemmyModel.CommunityView.Id?
+    private let communityId: LMModels.Views.CommunityView.ID?
     private let communityName: String?
     
     init(
-        communityId: LemmyModel.CommunityView.Id?,
+        communityId: LMModels.Views.CommunityView.ID?,
         communityName: String?
     ) {
         self.communityId = communityId

@@ -37,7 +37,7 @@ enum FrontPage {
     enum ProfileAction {
         
         struct ViewModel {
-            let user: LemmyModel.MyUser
+            let user: LMModels.Source.UserSafeSettings
         }
     }
 }

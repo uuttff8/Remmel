@@ -116,15 +116,15 @@ extension InboxRepliesViewController: ReplyCellViewDelegate {
         self.coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
-    func postNameTapped(in reply: LemmyModel.ReplyView) {
-        self.coordinator?.goToPostScreen(postId: reply.postId)
+    func postNameTapped(in reply: LMModels.Views.CommentView) {
+        self.coordinator?.goToPostScreen(postId: reply.post.id)
     }
     
     func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        reply: LemmyModel.ReplyView
+        reply: LMModels.Views.CommentView
     ) {
         self.contentScoreService.voteReply(
             scoreView: scoreView,
@@ -135,17 +135,17 @@ extension InboxRepliesViewController: ReplyCellViewDelegate {
         )
     }
     
-    func showContext(in reply: LemmyModel.ReplyView) { }
+    func showContext(in reply: LMModels.Views.CommentView) { }
     
-    func reply(to reply: LemmyModel.ReplyView) {
-        self.coordinator?.goToWriteComment(postId: reply.postId, parrentComment: nil)
+    func reply(to reply: LMModels.Views.CommentView) {
+        self.coordinator?.goToWriteComment(postId: reply.post.id, parrentComment: nil)
     }
     
-    func onLinkTap(in reply: LemmyModel.ReplyView, url: URL) {
+    func onLinkTap(in reply: LMModels.Views.CommentView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }
         
-    func showMoreAction(in reply: LemmyModel.ReplyView) {
+    func showMoreAction(in reply: LMModels.Views.CommentView) {
         guard let coordinator = coordinator else { return }
         self.showMoreService.showMoreInReply(on: self, coordinator: coordinator, reply: reply)
     }

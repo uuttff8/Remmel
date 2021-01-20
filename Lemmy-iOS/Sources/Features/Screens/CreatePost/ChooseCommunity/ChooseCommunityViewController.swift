@@ -17,15 +17,15 @@ class ChooseCommunityViewController: UIViewController {
     weak var coordinator: CreatePostCoordinator?
     private let viewModel: ChooseCommunityViewModelProtocol
 
-    var onCommunitySelected: ((LemmyModel.CommunityView) -> Void)?
+    var onCommunitySelected: ((LMModels.Views.CommunityView) -> Void)?
     
     lazy var chooseCommunityView = self.view as! ChooseCommunityUI
     
-    let tableViewDataSource = ChooseCommunityTableDataSource()
+    let tableManager = ChooseCommunityTableDataSource()
 
     override func loadView() {
-        tableViewDataSource.delegate = self
-        let view = ChooseCommunityUI(tableViewDelegate: tableViewDataSource)
+        tableManager.delegate = self
+        let view = ChooseCommunityUI(tableManager: tableManager)
         view.delegate = self
         
         self.view = view
@@ -50,20 +50,20 @@ extension ChooseCommunityViewController: ChooseCommunityViewControllerProtocol {
     func displayCommunities(viewModel: ChooseCommunity.CommunitiesLoad.ViewModel) {
         guard case let .result(data) = viewModel.state else { return }
         
-        self.tableViewDataSource.viewModels = data
-        self.chooseCommunityView.updateTableViewData(dataSource: self.tableViewDataSource)
+        self.tableManager.viewModels = data
+        self.chooseCommunityView.updateTableViewData(dataSource: self.tableManager)
     }
     
     func displaySearchResults(viewModel: ChooseCommunity.SearchCommunities.ViewModel) {
         guard case let .result(data) = viewModel.state else { return }
 
-        self.tableViewDataSource.filteredViewModels = data
-        self.chooseCommunityView.updateTableViewData(dataSource: self.tableViewDataSource)
+        self.tableManager.filteredViewModels = data
+        self.chooseCommunityView.updateTableViewData(dataSource: self.tableManager)
     }
 }
 
 extension ChooseCommunityViewController: ChooseCommunityTableDataSourceDelegate {
-    func tableDidSelect(community: LemmyModel.CommunityView) {
+    func tableDidSelect(community: LMModels.Views.CommunityView) {
         onCommunitySelected?(community)
         self.navigationController?.popViewController(animated: true)
     }

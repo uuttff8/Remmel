@@ -22,13 +22,13 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
     
     private var paginationState = PaginationState(page: 1, hasNext: true)
     
-    private let communityId: LemmyModel.CommunityView.Id?
+    private let communityId: LMModels.Views.CommunityView.ID?
     private let communityName: String?
     
     private var cancellable = Set<AnyCancellable>()
     
     init(
-        communityId: LemmyModel.CommunityView.Id?,
+        communityId: LMModels.Views.CommunityView.ID?,
         communityName: String?
     ) {
         self.communityId = communityId
@@ -36,7 +36,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
     }
     
     func doCommunityFetch() {
-        let parameters = LemmyModel.Community.GetCommunityRequest(id: communityId,
+        let parameters = LMModels.Api.Community.GetCommunity(id: communityId,
                                                                   name: communityName,
                                                                   auth: LoginData.shared.jwtToken)
         
@@ -47,13 +47,13 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
             } receiveValue: { (response) in
                 
                 self.viewController?.displayCommunityHeader(
-                    viewModel: .init(data: .init(community: response.community))
+                    viewModel: .init(data: .init(communityView: response.communityView))
                 )
             }.store(in: &cancellable)
     }
     
     func doPostsFetch(request: CommunityScreen.CommunityPostsLoad.Request) {
-        let parameters = LemmyModel.Post.GetPostsRequest(type: .community,
+        let parameters = LMModels.Api.Post.GetPosts(type: .community,
                                                          sort: request.contentType,
                                                          page: paginationState.page,
                                                          limit: 50,
@@ -77,7 +77,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
     func doNextPostsFetch(request: CommunityScreen.NextCommunityPostsLoad.Request) {
         self.paginationState.page += 1
         
-        let parameters = LemmyModel.Post.GetPostsRequest(type: .community,
+        let parameters = LMModels.Api.Post.GetPosts(type: .community,
                                                          sort: request.contentType,
                                                          page: paginationState.page,
                                                          limit: 50,
@@ -105,7 +105,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
 enum CommunityScreen {
     enum CommunityPostsLoad {
         struct Request {
-            let contentType: LemmySortType
+            let contentType: LMModels.Others.SortType
         }
         
         struct ViewModel {
@@ -115,7 +115,7 @@ enum CommunityScreen {
     
     enum NextCommunityPostsLoad {
         struct Request {
-            let contentType: LemmySortType
+            let contentType: LMModels.Others.SortType
         }
         
         struct ViewModel {
@@ -134,11 +134,11 @@ enum CommunityScreen {
     
     enum ViewControllerState {
         case loading
-        case result(data: [LemmyModel.PostView])
+        case result(data: [LMModels.Views.PostView])
     }
     
     enum PaginationState {
-        case result(data: [LemmyModel.PostView])
+        case result(data: [LMModels.Views.PostView])
         case error(message: String)
     }
 }

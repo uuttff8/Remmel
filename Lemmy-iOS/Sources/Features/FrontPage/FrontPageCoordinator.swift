@@ -53,7 +53,7 @@ class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
         self.rootViewController.present(navController, animated: true)
     }
     
-    func goToSearchResults(searchQuery: String, searchType: LemmySearchSortType) {
+    func goToSearchResults(searchQuery: String, searchType: LMModels.Others.SearchType) {
         let assembly = SearchResultsAssembly(searchQuery: searchQuery, type: searchType)
         let vc = assembly.makeModule()
         vc.coordinator = self

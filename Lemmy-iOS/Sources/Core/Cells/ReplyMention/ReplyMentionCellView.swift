@@ -45,52 +45,52 @@ class ReplyMentionCellView: UIView {
     }
 
     // MARK: - Public API
-    func configure(reply: LemmyModel.ReplyView) {
+    func configure(reply: LMModels.Views.CommentView) {
         setupTargets(with: reply)
 
         headerView.bind(
             with: .init(
-                avatarImageUrl: reply.creatorAvatar,
-                username: reply.creatorName,
-                community: reply.communityName,
-                published: reply.published.toLocalTime().shortTimeAgoSinceNow,
-                score: reply.score,
-                postName: reply.postName
+                avatarImageUrl: reply.creator.avatar,
+                username: reply.creator.name,
+                community: reply.community.name,
+                published: reply.comment.published.toLocalTime().shortTimeAgoSinceNow,
+                score: reply.counts.score,
+                postName: reply.post.name
             ),
             config: .inPost
         )
 
-        centerView.bind(with: .init(comment: reply.content, isDeleted: reply.deleted))
+        centerView.bind(with: .init(comment: reply.comment.content, isDeleted: reply.comment.deleted))
         footerView.bind(
             with: .init(
-                id: reply.id,
-                score: reply.score,
+                id: reply.comment.id,
+                score: reply.counts.score,
                 voteType: reply.getVoteType()
             ),
             config: .inPost
         )
     }
     
-    func configure(mention: LemmyModel.UserMentionView) {
+    func configure(mention: LMModels.Views.UserMentionView) {
         setupTargets(with: mention)
 
         headerView.bind(
             with: .init(
-                avatarImageUrl: mention.creatorAvatar,
-                username: mention.creatorName,
-                community: mention.communityName,
-                published: mention.published.toLocalTime().shortTimeAgoSinceNow,
-                score: mention.score,
-                postName: mention.postName
+                avatarImageUrl: mention.creator.avatar,
+                username: mention.creator.name,
+                community: mention.community.name,
+                published: mention.comment.published.toLocalTime().shortTimeAgoSinceNow,
+                score: mention.counts.score,
+                postName: mention.post.name
             ),
             config: .inPost
         )
 
-        centerView.bind(with: .init(comment: mention.content, isDeleted: mention.deleted))
+        centerView.bind(with: .init(comment: mention.comment.content, isDeleted: mention.comment.deleted))
         footerView.bind(
             with: .init(
                 id: mention.id,
-                score: mention.score,
+                score: mention.counts.score,
                 voteType: mention.getVoteType()
             ),
             config: .inPost
@@ -110,16 +110,16 @@ class ReplyMentionCellView: UIView {
     }
 
     // MARK: - Private
-    private func setupTargets(with reply: LemmyModel.ReplyView) {
+    private func setupTargets(with reply: LMModels.Views.CommentView) {
         
         // header view
         headerView.communityButtonTap = { [weak self] in
-            let mention = LemmyCommunityMention(name: reply.communityName, id: reply.communityId)
+            let mention = LemmyCommunityMention(name: reply.community.name, id: reply.community.id)
             self?.mentionDelegate?.communityTapped(with: mention)
         }
 
         headerView.usernameButtonTap = { [weak self] in
-            let mention = LemmyUserMention(string: reply.creatorName, id: reply.creatorId)
+            let mention = LemmyUserMention(string: reply.creator.name, id: reply.creator.id)
             self?.mentionDelegate?.usernameTapped(with: mention)
         }
 
@@ -162,16 +162,16 @@ class ReplyMentionCellView: UIView {
         }
     }
     
-    private func setupTargets(with mention: LemmyModel.UserMentionView) {
+    private func setupTargets(with mention: LMModels.Views.UserMentionView) {
         
         // header view
         headerView.communityButtonTap = { [weak self] in
-            let mention = LemmyCommunityMention(name: mention.communityName)
+            let mention = LemmyCommunityMention(name: mention.community.name)
             self?.mentionDelegate?.communityTapped(with: mention)
         }
 
         headerView.usernameButtonTap = { [weak self] in
-            let mention = LemmyUserMention(string: mention.creatorName)
+            let mention = LemmyUserMention(string: mention.creator.name)
             self?.mentionDelegate?.usernameTapped(with: mention)
         }
 

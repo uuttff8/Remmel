@@ -64,7 +64,7 @@ class CreatePostUrlCell: UITableViewCell {
 
     @objc private func handleImageButtonTap() {
         onPickImage?()
-        onPickedImage = { [self] image in
+        onPickedImage = { [self] _ in
             isImagePicked = true
 //            ApiManager.requests.uploadPictrs(image: image) { (res) in
 //                switch res {

@@ -9,15 +9,15 @@
 import UIKit
 
 class ProfileScreenAboutTableDataSource: NSObject {
-    var viewModels: [LemmyModel.CommunityFollowerView]
+    var viewModels: [LMModels.Views.CommunityFollowerView]
 
-    init(viewModels: [LemmyModel.CommunityFollowerView] = []) {
+    init(viewModels: [LMModels.Views.CommunityFollowerView] = []) {
         self.viewModels = viewModels
         super.init()
     }
     
-    func update(viewModel: LemmyModel.CommunityFollowerView) {
-        if let index = self.viewModels.firstIndex(where: { $0.id == viewModel.id }) {
+    func update(viewModel: LMModels.Views.CommunityFollowerView) {
+        if let index = self.viewModels.firstIndex(where: { $0.community.id == viewModel.community.id }) {
             self.viewModels[index] = viewModel
         }
     }
@@ -33,7 +33,7 @@ extension ProfileScreenAboutTableDataSource: UITableViewDataSource {
         cell.updateConstraintsIfNeeded()
 
         let viewModel = self.viewModels[indexPath.row]
-        cell.textLabel?.text = viewModel.communityName
+        cell.textLabel?.text = viewModel.community.name
 
         return cell
     }

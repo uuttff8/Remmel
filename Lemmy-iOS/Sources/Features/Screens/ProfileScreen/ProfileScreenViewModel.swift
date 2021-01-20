@@ -10,7 +10,7 @@ import UIKit
 import Combine
 
 protocol ProfileScreenViewModelProtocol: AnyObject {
-    var loadedProfile: LemmyModel.UserView? { get }
+    var loadedProfile: ProfileScreenViewModel.ProfileData? { get }
     
     func doProfileFetch()
     func doIdentifyProfile()
@@ -18,6 +18,18 @@ protocol ProfileScreenViewModelProtocol: AnyObject {
     func doSubmoduleControllerAppearanceUpdate(request: ProfileScreenDataFlow.SubmoduleAppearanceUpdate.Request)
     func doSubmodulesRegistration(request: ProfileScreenDataFlow.SubmoduleRegistration.Request)
     func doSubmodulesDataFilling(request: ProfileScreenDataFlow.SubmoduleDataFilling.Request)
+    //    func doSubmoduleDataFilling(request: ProfileScreenDataFlow.SubmoduleDataFilling.Request)
+}
+
+extension ProfileScreenViewModel {
+    struct ProfileData: Identifiable {
+        let id: Int
+        let viewData: ProfileScreenHeaderView.ViewData
+        let follows: [LMModels.Views.CommunityFollowerView]
+        let moderates: [LMModels.Views.CommunityModeratorView]
+        let comments: [LMModels.Views.CommentView]
+        let posts: [LMModels.Views.PostView]
+    }
 }
 
 class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
@@ -30,10 +42,14 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     
     private var cancellable = Set<AnyCancellable>()
     
-    private(set) var loadedProfile: LemmyModel.UserView?
-
+    private(set) var loadedProfile: ProfileData?
+    
     // Tab index -> Submodule
-    private var submodules: [ProfileScreenSubmoduleProtocol] = []
+    private(set) var submodules: [Int: ProfileScreenSubmoduleProtocol] = [:] {
+        didSet {
+            print("Submodules is changed")
+        }
+    }
     
     init(
         profileId: Int?,
@@ -48,14 +64,14 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     func doProfileFetch() {
         self.viewController?.displayNotBlockingActivityIndicator(viewModel: .init(shouldDismiss: false))
         
-        let parameters = LemmyModel.User.GetUserDetailsRequest(userId: profileId,
-                                                               username: profileUsername,
-                                                               sort: .active,
-                                                               page: 1,
-                                                               limit: 50,
-                                                               communityId: nil,
-                                                               savedOnly: false,
-                                                               auth: LemmyShareData.shared.jwtToken)
+        let parameters = LMModels.Api.User.GetUserDetails(userId: profileId,
+                                                          username: profileUsername,
+                                                          sort: .active,
+                                                          page: 1,
+                                                          limit: 50,
+                                                          communityId: nil,
+                                                          savedOnly: false,
+                                                          auth: LemmyShareData.shared.jwtToken)
         
         ApiManager.requests.asyncGetUserDetails(parameters: parameters)
             .receive(on: DispatchQueue.main)
@@ -66,28 +82,34 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
                 
                 self.viewController?.displayNotBlockingActivityIndicator(viewModel: .init(shouldDismiss: true))
                 
-                // if blocked user then show nothing
-                self.loadedProfile = response.user
+                let loadedProfile = self.initializeProfileData(with: response)
+                self.loadedProfile = loadedProfile
                 
-                if self.userIsBlocked(userId: response.user.id) {
+                // if blocked user then show nothing
+                if self.userIsBlocked(userId: loadedProfile.id) {
+                    self.loadedProfile = ProfileData(id: loadedProfile.id,
+                                                     viewData: loadedProfile.viewData,
+                                                     follows: [],
+                                                     moderates: [],
+                                                     comments: [],
+                                                     posts: [])
                     self.viewController?.displayProfile(viewModel: .init(state: .blockedUser))
                     return
                 }
                 
-                self.loadedProfile = response.user
                 self.viewController?.displayProfile(
-                    viewModel: .init(state: .result(profile: self.makeHeaderViewData(profile: response.user),
-                                                   posts: response.posts,
-                                                   comments: response.comments,
-                                                   subscribers: response.follows))
+                    viewModel: .init(state: .result(profile: loadedProfile.viewData,
+                                                    posts: response.posts,
+                                                    comments: response.comments,
+                                                    subscribers: response.follows))
                 )
             }.store(in: &cancellable)
     }
     
     func doIdentifyProfile() {
         let isCurrent = loadedProfile?.id == userAccountService.currentUser?.id
-        ? true
-        : false
+            ? true
+            : false
         
         let userId = loadedProfile.require().id
         
@@ -104,29 +126,76 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     }
     
     func doSubmoduleControllerAppearanceUpdate(request: ProfileScreenDataFlow.SubmoduleAppearanceUpdate.Request) {
-        guard let submodules = self.submodules[safe: request.submoduleIndex] else {
-            Logger.commonLog.error("Submodule is not found")
-            return
-        }
-        submodules.handleControllerAppearance()
+        self.submodules[request.submoduleIndex]?.handleControllerAppearance()
     }
     
     func doSubmodulesRegistration(request: ProfileScreenDataFlow.SubmoduleRegistration.Request) {
-        request.submodules.forEach { $0.registerSubmodule() }
+        for (key, value) in request.submodules {
+            self.submodules[key] = value
+        }
+        self.pushCurrentCourseToSubmodules(submodules: Array(self.submodules.values))
+    }
+    
+    private func pushCurrentCourseToSubmodules(submodules: [ProfileScreenSubmoduleProtocol]) {
+        guard let profileData = loadedProfile else { return }
+        
+        self.submodules.forEach { (key, submodule) in
+            switch key {
+            case ProfileScreenDataFlow.Tab.posts.rawValue:
+                submodule.updatePostsData(profile: profileData, posts: profileData.posts)
+            case ProfileScreenDataFlow.Tab.comments.rawValue:
+                submodule.updateCommentsData(profile: profileData, comments: profileData.comments)
+            case ProfileScreenDataFlow.Tab.about.rawValue:
+                submodule.updateFollowersData(profile: profileData, subscribers: profileData.follows)
+                
+            default:
+                break
+            }
+
+        }
     }
     
     func doSubmodulesDataFilling(request: ProfileScreenDataFlow.SubmoduleDataFilling.Request) {
-        guard let profile = loadedProfile else { return }
+        guard let profileData = loadedProfile else {
+            Logger.commonLog.error("Profile is not initialized")
+            return
+        }
         
         self.submodules = request.submodules
-        request.submodules.forEach {
-            $0.updateFirstData(
-                profile: profile,
-                posts: request.posts,
-                comments: request.comments,
-                subscribers: request.subscribers
-            )
+        
+        request.submodules.forEach { (key, submodule) in
+            switch key {
+            case ProfileScreenDataFlow.Tab.posts.rawValue:
+                submodule.updatePostsData(profile: profileData, posts: request.posts)
+            case ProfileScreenDataFlow.Tab.comments.rawValue:
+                submodule.updateCommentsData(profile: profileData, comments: request.comments)
+            case ProfileScreenDataFlow.Tab.about.rawValue:
+                submodule.updateFollowersData(profile: profileData, subscribers: request.subscribers)
+                
+            default:
+                break
+            }
         }
+    }
+    
+    private func initializeProfileData(with response: LMModels.Api.User.GetUserDetailsResponse) -> ProfileData {
+        let userView = response.userView
+        
+        return ProfileData(
+            id: userView.user.id,
+            viewData: .init(
+                name: userView.user.name,
+                avatarUrl: userView.user.avatar,
+                bannerUrl: userView.user.banner,
+                numberOfComments: userView.counts.commentCount,
+                numberOfPosts: userView.counts.postCount,
+                published: userView.user.published.toLocalTime()
+            ),
+            follows: response.follows,
+            moderates: response.moderates,
+            comments: response.comments,
+            posts: response.posts
+        )
     }
     
     private func userIsBlocked(userId: Int) -> Bool {
@@ -135,19 +204,6 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
         }
         
         return false
-    }
-    
-    private func makeHeaderViewData(
-        profile: LemmyModel.UserView
-    ) -> ProfileScreenHeaderView.ViewData {
-        return .init(
-            name: profile.name,
-            avatarUrl: profile.avatar,
-            bannerUrl: profile.banner,
-            numberOfComments: profile.numberOfComments,
-            numberOfPosts: profile.numberOfPosts,
-            published: profile.published.toLocalTime()
-        )
     }
 }
 
@@ -168,7 +224,7 @@ enum ProfileScreenDataFlow {
     
     enum ProfileLoad {
         struct Request { }
-                
+        
         struct ViewModel {
             var state: ViewControllerState
         }
@@ -190,10 +246,10 @@ enum ProfileScreenDataFlow {
     
     enum SubmoduleDataFilling {
         struct Request {
-            let submodules: [ProfileScreenSubmoduleProtocol]
-            let posts: [LemmyModel.PostView]
-            let comments: [LemmyModel.CommentView]
-            let subscribers: [LemmyModel.CommunityFollowerView]
+            let submodules: [Int: ProfileScreenSubmoduleProtocol]
+            let posts: [LMModels.Views.PostView]
+            let comments: [LMModels.Views.CommentView]
+            let subscribers: [LMModels.Views.CommunityFollowerView]
         }
     }
     
@@ -206,6 +262,13 @@ enum ProfileScreenDataFlow {
     
     /// Register submodules
     enum SubmoduleRegistration {
+        struct Request {
+            var submodules: [Int: ProfileScreenSubmoduleProtocol]
+        }
+    }
+    
+    /// Register submodules
+    enum SubmoduleOneRegistration {
         struct Request {
             var submodules: [ProfileScreenSubmoduleProtocol]
         }
@@ -220,9 +283,9 @@ enum ProfileScreenDataFlow {
     enum ViewControllerState {
         case loading
         case result(profile: ProfileScreenHeaderView.ViewData,
-                    posts: [LemmyModel.PostView],
-                    comments: [LemmyModel.CommentView],
-                    subscribers: [LemmyModel.CommunityFollowerView])
+                    posts: [LMModels.Views.PostView],
+                    comments: [LMModels.Views.CommentView],
+                    subscribers: [LMModels.Views.CommunityFollowerView])
         case blockedUser
     }
 }

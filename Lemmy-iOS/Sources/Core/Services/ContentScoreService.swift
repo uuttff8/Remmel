@@ -14,32 +14,32 @@ protocol ContentScoreServiceProtocol {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        post: LemmyModel.PostView,
-        completion: @escaping (LemmyModel.PostView) -> Void
+        post: LMModels.Views.PostView,
+        completion: @escaping (LMModels.Views.PostView) -> Void
     )
     
     func voteComment(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView,
-        completion: @escaping (LemmyModel.CommentView) -> Void
+        comment: LMModels.Views.CommentView,
+        completion: @escaping (LMModels.Views.CommentView) -> Void
     )
     
     func voteReply(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        reply: LemmyModel.ReplyView,
-        completion: @escaping (LemmyModel.CommentView) -> Void
+        reply: LMModels.Views.CommentView,
+        completion: @escaping (LMModels.Views.CommentView) -> Void
     )
     
     func voteUserMention(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        userMention: LemmyModel.UserMentionView,
-        completion: @escaping (LemmyModel.CommentView) -> Void
+        userMention: LMModels.Views.UserMentionView,
+        completion: @escaping (LMModels.Views.CommentView) -> Void
     )
 }
 
@@ -51,7 +51,7 @@ class ContentScoreService: ContentScoreServiceProtocol {
     
     init(
         userAccountService: UserAccountSerivceProtocol
-    ) {
+    ) {        
         self.userAccountService = userAccountService
     }
     
@@ -59,12 +59,12 @@ class ContentScoreService: ContentScoreServiceProtocol {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        post: LemmyModel.PostView,
-        completion: @escaping (LemmyModel.PostView) -> Void
+        post: LMModels.Views.PostView,
+        completion: @escaping (LMModels.Views.PostView) -> Void
     ) {
         
         scoreView.setVoted(voteButton: voteButton, to: newVote)
-        self.createPostLike(vote: newVote, postId: post.id)
+        self.createPostLike(vote: newVote, postId: post.post.id)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
@@ -78,12 +78,12 @@ class ContentScoreService: ContentScoreServiceProtocol {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView,
-        completion: @escaping (LemmyModel.CommentView) -> Void
+        comment: LMModels.Views.CommentView,
+        completion: @escaping (LMModels.Views.CommentView) -> Void
     ) {
         
         scoreView.setVoted(voteButton: voteButton, to: newVote)
-        self.createCommentLike(vote: newVote, contentId: comment.id)
+        self.createCommentLike(vote: newVote, contentId: comment.comment.id)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
@@ -96,12 +96,12 @@ class ContentScoreService: ContentScoreServiceProtocol {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        reply: LemmyModel.ReplyView,
-        completion: @escaping (LemmyModel.CommentView) -> Void
+        reply: LMModels.Views.CommentView,
+        completion: @escaping (LMModels.Views.CommentView) -> Void
     ) {
         
         scoreView.setVoted(voteButton: voteButton, to: newVote)
-        self.createCommentLike(vote: newVote, contentId: reply.id)
+        self.createCommentLike(vote: newVote, contentId: reply.comment.id)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
@@ -114,12 +114,12 @@ class ContentScoreService: ContentScoreServiceProtocol {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        userMention: LemmyModel.UserMentionView,
-        completion: @escaping (LemmyModel.CommentView) -> Void
+        userMention: LMModels.Views.UserMentionView,
+        completion: @escaping (LMModels.Views.CommentView) -> Void
     ) {
         
         scoreView.setVoted(voteButton: voteButton, to: newVote)
-        self.createCommentLike(vote: newVote, contentId: userMention.id)
+        self.createCommentLike(vote: newVote, contentId: userMention.creator.id)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
@@ -131,26 +131,26 @@ class ContentScoreService: ContentScoreServiceProtocol {
     func createPostLike(
         vote: LemmyVoteType,
         postId: Int
-    ) -> AnyPublisher<LemmyModel.PostView, LemmyGenericError> {
+    ) -> AnyPublisher<LMModels.Views.PostView, LemmyGenericError> {
         guard let jwtToken = self.userAccountService.jwtToken
         else {
             return Fail(error: LemmyGenericError.string("failed to fetch jwt token"))
                 .eraseToAnyPublisher()
         }
         
-        let params = LemmyModel.Post.CreatePostLikeRequest(postId: postId,
+        let params = LMModels.Api.Post.CreatePostLike(postId: postId,
                                                            score: vote.rawValue,
                                                            auth: jwtToken)
         
         return ApiManager.requests.asyncCreatePostLike(parameters: params)
-            .map({ $0.post })
+            .map({ $0.postView })
             .eraseToAnyPublisher()
     }
     
     func createCommentLike(
         vote: LemmyVoteType,
         contentId: Int
-    ) -> AnyPublisher<LemmyModel.CommentView, LemmyGenericError> {
+    ) -> AnyPublisher<LMModels.Views.CommentView, LemmyGenericError> {
         
         guard let jwtToken = self.userAccountService.jwtToken
         else {
@@ -158,12 +158,12 @@ class ContentScoreService: ContentScoreServiceProtocol {
                 .eraseToAnyPublisher()
         }
         
-        let params = LemmyModel.Comment.CreateCommentLikeRequest(commentId: contentId,
-                                                                 score: vote.rawValue,
-                                                                 auth: jwtToken)
+        let params = LMModels.Api.Comment.CreateCommentLike(commentId: contentId,
+                                                            score: vote.rawValue,
+                                                            auth: jwtToken)
         
         return ApiManager.requests.asyncCreateCommentLike(parameters: params)
-            .map({ $0.comment })
+            .map({ $0.commentView })
             .eraseToAnyPublisher()
     }
 }

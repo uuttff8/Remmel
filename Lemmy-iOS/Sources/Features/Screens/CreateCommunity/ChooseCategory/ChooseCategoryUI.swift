@@ -27,7 +27,7 @@ class ChooseCategoryUI: UIView {
     private let model: ChooseCategoryViewModel
     private var shouldShowFiltered = false
 
-    var currentCellData: ((_ indexPath: IndexPath) -> LemmyModel.CategoryView) {
+    var currentCellData: ((_ indexPath: IndexPath) -> LMModels.Source.Category) {
         if !model.filteredCategories.value.isEmpty {
 
             return { (indexPath: IndexPath) in
@@ -131,7 +131,7 @@ extension ChooseCategoryUI: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let data: LemmyModel.CategoryView = currentCellData(indexPath)
+        let data: LMModels.Source.Category = currentCellData(indexPath)
 
         model.selectedCategory.send(data)
         dismissView?()

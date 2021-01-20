@@ -23,7 +23,7 @@ class CommunityPreviewTableCell: UITableViewCell {
 
     weak var delegate: CommunityPreviewTableCellDelegate?
 
-    var community: LemmyModel.CommunityView?
+    var community: LMModels.Views.CommunityView?
 
     private let iconSize = CGSize(width: 20, height: 20)
     private let followButton = FollowButton()
@@ -42,11 +42,11 @@ class CommunityPreviewTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind(community: LemmyModel.CommunityView) {
+    func bind(community: LMModels.Views.CommunityView) {
         self.community = community
 //        self.imageView?.loadImage(urlString: community.icon)
 
-        self.communityNameLabel.text = community.name
+        self.communityNameLabel.text = community.community.name
         self.followButton.bind(isSubcribed: community.subscribed)
         
         followButton.addTarget(self, action: #selector(followButtonTapped(sender:)), for: .touchUpInside)

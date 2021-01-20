@@ -12,17 +12,17 @@ import Nuke
 protocol CommentContentTableCellDelegate: AnyObject {
     func usernameTapped(with mention: LemmyUserMention)
     func communityTapped(with mention: LemmyCommunityMention)
-    func postNameTapped(in comment: LemmyModel.CommentView)
+    func postNameTapped(in comment: LMModels.Views.CommentView)
     func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView
+        comment: LMModels.Views.CommentView
     )
-    func showContext(in comment: LemmyModel.CommentView)
-    func reply(to comment: LemmyModel.CommentView)
-    func onLinkTap(in comment: LemmyModel.CommentView, url: URL)
-    func showMoreAction(in comment: LemmyModel.CommentView)
+    func showContext(in comment: LMModels.Views.CommentView)
+    func reply(to comment: LMModels.Views.CommentView)
+    func onLinkTap(in comment: LMModels.Views.CommentView, url: URL)
+    func showMoreAction(in comment: LMModels.Views.CommentView)
 }
 
 extension CommentContentTableCell {
@@ -69,7 +69,7 @@ class CommentContentTableCell: CommentCell, ContentFocusable {
     }
 
     // MARK: - Public API
-    func bind(with comment: LemmyModel.CommentView, level: Int, appearance: Appearance = Appearance()) {
+    func bind(with comment: LMModels.Views.CommentView, level: Int, appearance: Appearance = Appearance()) {
         self.appearance = appearance
         
         commentContentView.bind(with: comment, setting: appearance.config)

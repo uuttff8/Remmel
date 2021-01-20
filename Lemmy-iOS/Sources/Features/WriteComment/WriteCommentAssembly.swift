@@ -10,10 +10,10 @@ import UIKit
 
 final class WriteCommentAssembly: Assembly {
     
-    private let parentComment: LemmyModel.CommentView?
+    private let parentComment: LMModels.Views.CommentView?
     private let postId: Int
     
-    init(parentComment: LemmyModel.CommentView?, postId: Int) {
+    init(parentComment: LMModels.Views.CommentView?, postId: Int) {
         self.parentComment = parentComment
         self.postId = postId
     }

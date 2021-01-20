@@ -17,7 +17,7 @@ protocol ProfileScreenAboutViewModelProtocol {
 class ProfileScreenAboutViewModel: ProfileScreenAboutViewModelProtocol {
     weak var viewController: ProfileScreenAboutViewControllerProtocol?
     
-    private var loadedProfile: LemmyModel.UserView?
+    private var loadedProfile: ProfileScreenViewModel.ProfileData?
     
     var cancellable = Set<AnyCancellable>()
     
@@ -25,11 +25,9 @@ class ProfileScreenAboutViewModel: ProfileScreenAboutViewModelProtocol {
 }
 
 extension ProfileScreenAboutViewModel: ProfileScreenAboutInputProtocol {
-    func updateFirstData(
-        profile: LemmyModel.UserView,
-        posts: [LemmyModel.PostView],
-        comments: [LemmyModel.CommentView],
-        subscribers: [LemmyModel.CommunityFollowerView]
+    func updateFollowersData(
+        profile: ProfileScreenViewModel.ProfileData,
+        subscribers: [LMModels.Views.CommunityFollowerView]
     ) {
         self.loadedProfile = profile
         self.viewController?.displayProfileSubscribers(
@@ -45,7 +43,7 @@ extension ProfileScreenAboutViewModel: ProfileScreenAboutInputProtocol {
 class ProfileScreenAbout {
     enum SubscribersLoad {
         struct Response {
-            let subscribers: [LemmyModel.CommunityFollowerView]
+            let subscribers: [LMModels.Views.CommunityFollowerView]
         }
         
         struct ViewModel {

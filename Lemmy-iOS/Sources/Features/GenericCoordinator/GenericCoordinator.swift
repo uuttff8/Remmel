@@ -68,11 +68,11 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
         self.goToPostScreenWrapper(post: nil, postId: postId)
     }
     
-    func goToPostScreen(post: LemmyModel.PostView) {
+    func goToPostScreen(post: LMModels.Views.PostView) {
         self.goToPostScreenWrapper(post: post, postId: post.id)
     }
     
-    private func goToPostScreenWrapper(post: LemmyModel.PostView?, postId: Int) {
+    private func goToPostScreenWrapper(post: LMModels.Views.PostView?, postId: Int) {
         let coordinator = PostScreenCoordinator(
             router: Router(navigationController: navigationController),
             postId: postId,
@@ -85,7 +85,7 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
         })
     }
         
-    func goToWriteComment(postId: Int, parrentComment: LemmyModel.CommentView?) {
+    func goToWriteComment(postId: Int, parrentComment: LMModels.Views.CommentView?) {
         ContinueIfLogined(on: rootViewController, coordinator: self) {
             // TODO(uuttff8): Move this code to another component
             let haptic = UIImpactFeedbackGenerator(style: .light)
@@ -100,10 +100,10 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
         }
     }
     
-    func goToPostAndScroll(to comment: LemmyModel.CommentView) {
+    func goToPostAndScroll(to comment: LMModels.Views.CommentView) {
         let coordinator = PostScreenCoordinator(
             router: Router(navigationController: navigationController),
-            postId: comment.postId,
+            postId: comment.post.id,
             postInfo: nil,
             scrollToComment: comment
         )

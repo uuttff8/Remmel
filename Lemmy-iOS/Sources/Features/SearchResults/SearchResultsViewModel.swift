@@ -15,13 +15,13 @@ protocol SearchResultsViewModelProtocol: AnyObject {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        post: LemmyModel.PostView
+        post: LMModels.Views.PostView
     ) // refactor
     func doCommentLike(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView
+        comment: LMModels.Views.CommentView
     )
 }
 
@@ -31,14 +31,14 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
     private var cancellable = Set<AnyCancellable>()
     
     private let searchQuery: String
-    private let searchType: LemmySearchSortType
+    private let searchType: LMModels.Others.SearchType
     
     private let userAccountService: UserAccountSerivceProtocol
     private let contentScoreService: ContentScoreServiceProtocol
     
     init(
         searchQuery: String,
-        searchType: LemmySearchSortType,
+        searchType: LMModels.Others.SearchType,
         userAccountService: UserAccountSerivceProtocol,
         contentScoreService: ContentScoreServiceProtocol
     ) {
@@ -49,15 +49,15 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
     }
     
     func doLoadContent(request: SearchResults.LoadContent.Request) {
-        let params = LemmyModel.Search.SearchRequest(query: self.searchQuery,
-                                                     type: self.searchType,
-                                                     sort: .topAll,
-                                                     page: 1,
-                                                     limit: 20,
-                                                     communityId: nil,
-                                                     communityName: nil,
-                                                     auth: userAccountService.jwtToken)
-
+        let params = LMModels.Api.Site.Search(query: self.searchQuery,
+                                              type: self.searchType,
+                                              communityId: nil,
+                                              communityName: nil,
+                                              sort: .topAll,
+                                              page: 1,
+                                              limit: 20,
+                                              auth: userAccountService.jwtToken)
+        
         ApiManager.requests.asyncSearch(parameters: params)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
@@ -74,7 +74,7 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        post: LemmyModel.PostView
+        post: LMModels.Views.PostView
     ) {
         self.contentScoreService.votePost(
             scoreView: scoreView,
@@ -90,7 +90,7 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView
+        comment: LMModels.Views.CommentView
     ) {
         self.contentScoreService.voteComment(
             scoreView: scoreView,
@@ -103,8 +103,8 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
     }
     
     private func makeViewModelAndPresent(
-        type: LemmySearchSortType,
-        response: LemmyModel.Search.SearchResponse
+        type: LMModels.Others.SearchType,
+        response: LMModels.Api.Site.SearchResponse
     ) {
         
         let result: SearchResults.Results
@@ -142,7 +142,7 @@ enum SearchResults {
         struct Request { }
         
         struct ViewModel {
-            let post: LemmyModel.PostView
+            let post: LMModels.Views.PostView
         }
     }
     
@@ -150,15 +150,15 @@ enum SearchResults {
         struct Request { }
         
         struct ViewModel {
-            let comment: LemmyModel.CommentView
+            let comment: LMModels.Views.CommentView
         }
     }
-        
+    
     enum Results {
-        case comments([LemmyModel.CommentView])
-        case posts([LemmyModel.PostView])
-        case communities([LemmyModel.CommunityView])
-        case users([LemmyModel.UserView])
+        case comments([LMModels.Views.CommentView])
+        case posts([LMModels.Views.PostView])
+        case communities([LMModels.Views.CommunityView])
+        case users([LMModels.Views.UserViewSafe])
     }
     
     enum ViewControllerState {

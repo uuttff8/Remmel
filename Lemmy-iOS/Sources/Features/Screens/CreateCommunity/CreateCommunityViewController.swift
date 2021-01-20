@@ -34,7 +34,7 @@ extension CreateCommunityViewController {
         var sidebar: String?
         var icon: String?
         var banner: String?
-        var category: LemmyModel.CategoryView?
+        var category: LMModels.Source.Category?
         var nsfwOption: Bool
     }
 }
@@ -271,7 +271,7 @@ extension CreateCommunityViewController: UIImagePickerControllerDelegate, UINavi
         _ picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
     ) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        if let _ = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
 //          customView.onPickedImage?(image, currentImagePick!)
         }
         

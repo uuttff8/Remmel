@@ -29,14 +29,14 @@ final class MessageTableCell: UITableViewCell {
         self.cellView.configure(with: nil)
     }
 
-    func configure(viewModel: LemmyModel.PrivateMessageView) {
+    func configure(viewModel: LMModels.Views.PrivateMessageView) {
         self.cellView.configure(
             with: .init(
-                id: viewModel.recipientId,
-                avatar: viewModel.recipientAvatar,
-                nickname: viewModel.recipientName,
-                published: viewModel.published.toLocalTime(),
-                content: viewModel.content
+                id: viewModel.recipient.id,
+                avatar: viewModel.recipient.avatar,
+                nickname: viewModel.recipient.name,
+                published: viewModel.privateMessage.published.toLocalTime(),
+                content: viewModel.privateMessage.content
             )
         )
     }

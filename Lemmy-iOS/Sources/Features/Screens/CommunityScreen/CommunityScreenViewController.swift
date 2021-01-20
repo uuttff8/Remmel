@@ -103,8 +103,8 @@ class CommunityScreenViewController: UIViewController {
 
 extension CommunityScreenViewController: CommunityScreenViewControllerProtocol {
     func displayCommunityHeader(viewModel: CommunityScreen.CommunityHeaderLoad.ViewModel) {
-        self.communityView.communityHeaderViewData = viewModel.data.community
-        self.title = "!" + viewModel.data.community.name
+        self.communityView.communityHeaderViewData = viewModel.data.communityView
+        self.title = "!" + viewModel.data.communityView.community.name
     }
     
     func displayPosts(viewModel: CommunityScreen.CommunityPostsLoad.ViewModel) {
@@ -131,13 +131,13 @@ extension CommunityScreenViewController: CommunityScreenViewControllerProtocol {
 }
 
 extension CommunityScreenViewController: CommunityScreenViewDelegate {
-    func communityView(_ view: View, didPickedNewSort type: LemmySortType) {
+    func communityView(_ view: View, didPickedNewSort type: LMModels.Others.SortType) {
         self.communityView.deleteAllContent()
         self.communityView.showLoadingIndicator()
         self.viewModel.doPostsFetch(request: .init(contentType: type))
     }
     
-    func headerViewDidTapped(followButton: FollowButton, in community: LemmyModel.CommunityView) {
+    func headerViewDidTapped(followButton: FollowButton, in community: LMModels.Views.CommunityView) {
         guard let coord = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coord) {
@@ -171,7 +171,7 @@ extension CommunityScreenViewController: PostContentPreviewTableCellDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        post: LemmyModel.PostView
+        post: LMModels.Views.PostView
     ) {
         guard let coordinator = coordinator else { return }
         
@@ -195,12 +195,12 @@ extension CommunityScreenViewController: PostContentPreviewTableCellDelegate {
         self.coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
-    func showMore(in post: LemmyModel.PostView) {
+    func showMore(in post: LMModels.Views.PostView) {
         guard let coordinator = coordinator else { return }
         self.showMoreService.showMoreInPost(on: self, coordinator: coordinator, post: post)
     }
     
-    func postCellDidSelected(postId: LemmyModel.PostView.ID) {
+    func postCellDidSelected(postId: LMModels.Views.PostView.ID) {
         self.coordinator?.goToPostScreen(postId: postId)
     }
 }

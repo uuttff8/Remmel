@@ -32,7 +32,7 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
     }
     
     func doRemoteAuthentication(request: AddAccountDataFlow.Authentication.AuthRequest) {
-        let parameters = LemmyModel.Authentication.LoginRequest(
+        let parameters = LMModels.Api.User.Login(
             usernameOrEmail: request.emailOrUsername,
             password: request.password
         )
@@ -55,12 +55,11 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
     }
     
     func doRemoteRegister(request: AddAccountDataFlow.Authentication.RegisterRequest) {
-        let parameters = LemmyModel.Authentication.RegisterRequest(
+        let parameters = LMModels.Api.User.Register(
             username: request.username,
             email: request.email,
             password: request.password,
             passwordVerify: request.passwordVerify,
-            admin: false,
             showNsfw: request.showNsfw,
             captchaUuid: request.captchaUuid,
             captchaAnswer: request.captchaAnswer
@@ -83,7 +82,7 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
     }
     
     private func fetchUser(with jwtToken: String) {
-        self.loadUserOnSuccessResponse(jwt: jwtToken) { (currentUser: LemmyModel.MyUser) in
+        self.loadUserOnSuccessResponse(jwt: jwtToken) { (currentUser: LMModels.Source.UserSafeSettings) in
             
             guard let password = self.authPassword,
                   let login = self.authLogin
@@ -96,9 +95,9 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
             account.login = login
             account.password = password
             account.instance = self.currentInstance
-            CoreDataHelper.shared.save()
-            
             self.currentInstance.addAccountItemsObject(value: account)
+
+            CoreDataHelper.shared.save()
             
             self.viewController?.displaySuccessAuth(
                 viewModel: .init(currentUser: currentUser)
@@ -106,9 +105,12 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
         }
     }
     
-    private func loadUserOnSuccessResponse(jwt: String, completion: @escaping ((LemmyModel.MyUser) -> Void)) {
+    private func loadUserOnSuccessResponse(
+        jwt: String,
+        completion: @escaping ((LMModels.Source.UserSafeSettings) -> Void)
+    ) {
         
-        let params = LemmyModel.Site.GetSiteRequest(auth: jwt)
+        let params = LMModels.Api.Site.GetSite(auth: jwt)
         
         ApiManager.requests.asyncGetSite(parameters: params)
             .receive(on: DispatchQueue.main)
@@ -128,7 +130,7 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
 
 enum AddAccountDataFlow {
     
-    // since backend returns LemmyModel.MyUser in both situation, we generalize it
+    // since backend returns LMModels.Source.User_ in both situation, we generalize it
     enum Authentication {
         struct AuthRequest {
             let emailOrUsername: String
@@ -146,7 +148,7 @@ enum AddAccountDataFlow {
         }
         
         struct ViewModel {
-            let currentUser: LemmyModel.MyUser
+            let currentUser: LMModels.Source.UserSafeSettings
         }
     }
     

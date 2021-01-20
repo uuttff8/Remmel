@@ -13,11 +13,11 @@ class CommentListingSort {
     
     // MARK: - Properties
     
-    private let comments: [LemmyModel.CommentView]
+    private let comments: [LMModels.Views.CommentView]
     
     // MARK: - Init
     
-    init(comments: [LemmyModel.CommentView]) {
+    init(comments: [LMModels.Views.CommentView]) {
         self.comments = comments
     }
     
@@ -39,10 +39,10 @@ class CommentListingSort {
     
     // MARK: - Private API
     
-    private func sortComments() -> [LemmyModel.CommentView] {
+    private func sortComments() -> [LMModels.Views.CommentView] {
         let sortedArray = comments.sorted(by: { (comm1, comm2) in
-            let date1 = comm1.published
-            let date2 = comm2.published
+            let date1 = comm1.comment.published
+            let date2 = comm2.comment.published
             
             return date1.compare(date2) == .orderedAscending
         })
@@ -50,20 +50,22 @@ class CommentListingSort {
         return sortedArray
     }
     
-    private func findNotReplyComments(in comments: [LemmyModel.CommentView]) -> [LemmyModel.CommentView] {
-        var notReply = [LemmyModel.CommentView]()
+    private func findNotReplyComments(in comments: [LMModels.Views.CommentView]) -> [LMModels.Views.CommentView] {
+        var notReply = [LMModels.Views.CommentView]()
         
-        for comm in comments where comm.parentId == nil {
+        for comm in comments where comm.comment.parentId == nil {
             notReply.append(comm)
         }
         
         return notReply
     }
     
-    private func findCommentsExcludeNotReply(in comments: [LemmyModel.CommentView]) -> [LemmyModel.CommentView] {
-        var repliesOnly = [LemmyModel.CommentView]()
+    private func findCommentsExcludeNotReply(
+        in comments: [LMModels.Views.CommentView]
+    ) -> [LMModels.Views.CommentView] {
+        var repliesOnly = [LMModels.Views.CommentView]()
         
-        for comm in comments where comm.parentId != nil {
+        for comm in comments where comm.comment.parentId != nil {
             repliesOnly.append(comm)
         }
         
@@ -74,7 +76,7 @@ class CommentListingSort {
         var replies = [LemmyComment]()
                 
         for repliedComm in self.comments
-        where repliedComm.parentId == parent.id {
+        where repliedComm.comment.parentId == parent.id {
             
             let child = LemmyComment()
             

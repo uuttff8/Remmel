@@ -178,5 +178,6 @@ extension WriteCommentViewController: WriteCommentViewDelegate {
             self.formData.text = text
         default: return
         }
+
     }
 }

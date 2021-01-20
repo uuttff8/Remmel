@@ -18,7 +18,7 @@ extension ProfileScreenAboutViewController {
     
     class View: UIView {
         struct ViewData {
-            let subscribers: [LemmyModel.CommunityFollowerView]
+            let subscribers: [LMModels.Views.CommunityFollowerView]
         }
         
         let appearance: Appearance

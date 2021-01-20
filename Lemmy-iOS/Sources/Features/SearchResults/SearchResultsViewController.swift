@@ -105,13 +105,13 @@ extension SearchResultsViewController: SearchResultsViewControllerProtocol {
 }
 
 extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
-    func postCellDidSelected(postId: LemmyModel.PostView.ID) {
+    func postCellDidSelected(postId: LMModels.Views.PostView.ID) {
         guard case .posts(let posts) = tableManager.viewModels else { return }
         let post = posts.getElement(by: postId).require()
         self.coordinator?.goToPostScreen(post: post)
     }
     
-    func tableDidTapped(followButton: FollowButton, in community: LemmyModel.CommunityView) {
+    func tableDidTapped(followButton: FollowButton, in community: LMModels.Views.CommunityView) {
         guard let coord = coordinator else { return }
         ContinueIfLogined(on: self, coordinator: coord) {
             self.followService.followUi(followButton: followButton, to: community)
@@ -121,7 +121,7 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
         }
     }
         
-    func onMentionTap(in post: LemmyModel.CommentView, mention: LemmyUserMention) {
+    func onMentionTap(in post: LMModels.Views.CommentView, mention: LemmyUserMention) {
         self.coordinator?.goToProfileScreen(userId: mention.absoluteId, username: mention.absoluteUsername)
     }
     
@@ -129,7 +129,7 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        post: LemmyModel.PostView
+        post: LMModels.Views.PostView
     ) {
         guard let coordinator = coordinator else { return }
         
@@ -138,11 +138,11 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
         }
     }
         
-    func onLinkTap(in post: LemmyModel.PostView, url: URL) {
+    func onLinkTap(in post: LMModels.Views.PostView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }
     
-    func showMore(in post: LemmyModel.PostView) {
+    func showMore(in post: LMModels.Views.PostView) {
         guard let coordinator = coordinator else { return }
         self.showMoreHandler.showMoreInPost(on: self, coordinator: coordinator, post: post)
     }
@@ -155,15 +155,15 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
         self.coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
-    func postNameTapped(in comment: LemmyModel.CommentView) {
-        self.coordinator?.goToPostScreen(postId: comment.postId)
+    func postNameTapped(in comment: LMModels.Views.CommentView) {
+        self.coordinator?.goToPostScreen(postId: comment.post.id)
     }
     
     func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView
+        comment: LMModels.Views.CommentView
     ) {
         guard let coordinator = coordinator else { return }
         
@@ -172,19 +172,19 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
         }
     }
     
-    func showContext(in comment: LemmyModel.CommentView) {
+    func showContext(in comment: LMModels.Views.CommentView) {
         self.coordinator?.goToPostAndScroll(to: comment)
     }
     
-    func reply(to comment: LemmyModel.CommentView) {
-        coordinator?.goToWriteComment(postId: comment.postId, parrentComment: comment)
+    func reply(to comment: LMModels.Views.CommentView) {
+        coordinator?.goToWriteComment(postId: comment.post.id, parrentComment: comment)
     }
     
-    func onLinkTap(in comment: LemmyModel.CommentView, url: URL) {
+    func onLinkTap(in comment: LMModels.Views.CommentView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }
     
-    func showMoreAction(in comment: LemmyModel.CommentView) {
+    func showMoreAction(in comment: LMModels.Views.CommentView) {
         guard let coordinator = coordinator else { return }
         self.showMoreHandler.showMoreInComment(on: self, coordinator: coordinator, comment: comment)
     }
@@ -201,10 +201,10 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
             let post = data[indexPath.row]
             self.coordinator?.goToPostScreen(post: post)
         case .communities(let data):
-            let community = data[indexPath.row]
+            let community = data[indexPath.row].community
             self.coordinator?.goToCommunityScreen(communityId: community.id, communityName: community.name)
         case .users(let data):
-            let user = data[indexPath.row]
+            let user = data[indexPath.row].user
             self.coordinator?.goToProfileScreen(userId: user.id, username: user.name)
         }
     }

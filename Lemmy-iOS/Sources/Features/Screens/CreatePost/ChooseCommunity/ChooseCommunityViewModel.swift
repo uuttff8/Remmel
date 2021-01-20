@@ -20,10 +20,10 @@ class ChooseCommunityViewModel: ChooseCommunityViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     
     func doCommunitiesLoad(request: ChooseCommunity.CommunitiesLoad.Request) {
-        let parameters = LemmyModel.Community.ListCommunitiesRequest(sort: LemmySortType.topAll,
-                                                                     limit: 100,
-                                                                     page: nil,
-                                                                     auth: LemmyShareData.shared.jwtToken)
+        let parameters = LMModels.Api.Community.ListCommunities(sort: LMModels.Others.SortType.topAll,
+                                                                page: nil,
+                                                                limit: 100,
+                                                                auth: LemmyShareData.shared.jwtToken)
         
         ApiManager.requests.asyncListCommunities(parameters: parameters)
             .receive(on: DispatchQueue.main)
@@ -41,14 +41,14 @@ class ChooseCommunityViewModel: ChooseCommunityViewModelProtocol {
     }
     
     func doSearchCommunities(request: ChooseCommunity.SearchCommunities.Request) {
-        let params = LemmyModel.Search.SearchRequest(query: request.query,
-                                                     type: .communities,
-                                                     sort: .topAll,
-                                                     page: 1,
-                                                     limit: 100,
-                                                     communityId: nil,
-                                                     communityName: nil,
-                                                     auth: LemmyShareData.shared.jwtToken)
+        let params = LMModels.Api.Site.Search(query: request.query,
+                                              type: .communities,
+                                              communityId: nil,
+                                              communityName: nil,
+                                              sort: .topAll,
+                                              page: 1,
+                                              limit: 100,
+                                              auth: LemmyShareData.shared.jwtToken)
         
         ApiManager.requests.asyncSearch(parameters: params)
             .receive(on: DispatchQueue.main)
@@ -87,6 +87,6 @@ enum ChooseCommunity {
     
     enum ViewControllerState {
         case loading
-        case result([LemmyModel.CommunityView])
+        case result([LMModels.Views.CommunityView])
     }
 }

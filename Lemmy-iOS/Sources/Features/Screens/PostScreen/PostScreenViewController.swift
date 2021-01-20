@@ -30,12 +30,12 @@ class PostScreenViewController: UIViewController, Containered {
     
     private var state: PostScreen.ViewControllerState
     
-    private let scrollToComment: LemmyModel.CommentView?
+    private let scrollToComment: LMModels.Views.CommentView?
 
     init(
         viewModel: PostScreenViewModelProtocol,
         state: PostScreen.ViewControllerState = .loading,
-        scrollToComment: LemmyModel.CommentView?
+        scrollToComment: LMModels.Views.CommentView?
     ) {
         self.viewModel = viewModel
         self.state = state
@@ -99,7 +99,7 @@ extension PostScreenViewController: PostScreenViewControllerProtocol {
 }
 
 extension PostScreenViewController: PostContentTableCellDelegate {
-    func postCellDidSelected(postId: LemmyModel.PostView.ID) {
+    func postCellDidSelected(postId: LMModels.Views.PostView.ID) {
         let post = postScreenView.postData.require()
         self.coordinator?.goToPostScreen(post: post)
     }
@@ -108,7 +108,7 @@ extension PostScreenViewController: PostContentTableCellDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        post: LemmyModel.PostView
+        post: LMModels.Views.PostView
     ) {
         guard let coordinator = coordinator else { return }
         
@@ -117,11 +117,11 @@ extension PostScreenViewController: PostContentTableCellDelegate {
         }
     }
         
-    func onLinkTap(in post: LemmyModel.PostView, url: URL) {
+    func onLinkTap(in post: LMModels.Views.PostView, url: URL) {
         coordinator?.goToBrowser(with: url)
     }
     
-    func showMore(in post: LemmyModel.PostView) {
+    func showMore(in post: LMModels.Views.PostView) {
         guard let coordinator = coordinator else { return }
         self.showMoreHandlerService.showMoreInPost(on: self, coordinator: coordinator, post: post)
     }
@@ -132,7 +132,7 @@ extension PostScreenViewController: PostContentTableCellDelegate {
 }
 
 extension PostScreenViewController: CommentsViewControllerDelegate {    
-    func postNameTapped(in comment: LemmyModel.CommentView) {
+    func postNameTapped(in comment: LMModels.Views.CommentView) {
         // not using
     }
     
@@ -148,7 +148,7 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView
+        comment: LMModels.Views.CommentView
     ) {
         guard let coordinator = coordinator else { return }
         
@@ -157,24 +157,24 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
         }
     }
         
-    func showContext(in comment: LemmyModel.CommentView) { }
+    func showContext(in comment: LMModels.Views.CommentView) { }
     
-    func reply(to comment: LemmyModel.CommentView) {
-        coordinator?.goToWriteComment(postId: comment.postId, parrentComment: comment)
+    func reply(to comment: LMModels.Views.CommentView) {
+        coordinator?.goToWriteComment(postId: comment.post.id, parrentComment: comment)
     }
     
-    func onLinkTap(in comment: LemmyModel.CommentView, url: URL) {
+    func onLinkTap(in comment: LMModels.Views.CommentView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }
     
-    func showMoreAction(in comment: LemmyModel.CommentView) {
+    func showMoreAction(in comment: LMModels.Views.CommentView) {
         guard let coordinator = coordinator else { return }
         showMoreHandlerService.showMoreInComment(on: self, coordinator: coordinator, comment: comment)
     }
 }
 
 extension PostScreenViewController: PostScreenViewDelegate {
-    func postView(_ postView: View, didWriteCommentTappedWith post: LemmyModel.PostView) {
+    func postView(_ postView: View, didWriteCommentTappedWith post: LMModels.Views.PostView) {
         self.coordinator?.goToWriteComment(postId: post.id, parrentComment: nil)
     }
     

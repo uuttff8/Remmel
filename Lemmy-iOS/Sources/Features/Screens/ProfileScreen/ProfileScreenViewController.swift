@@ -37,8 +37,8 @@ class ProfileScreenViewController: UIViewController {
     private var lastKnownHeaderHeight: CGFloat = 0
     
     // Element is nil when view controller was not initialized yet
-    private var submodulesControllers: [UIViewController] = []
-    private var submoduleInputs: [ProfileScreenSubmoduleProtocol] = []
+    private var submodulesControllers: [UIViewController?]
+    private var submoduleInputs: [ProfileScreenSubmoduleProtocol?] = []
     
     private lazy var profileScreenView = self.view as! ProfileScreenViewController.View
     lazy var styledNavigationController = self.navigationController as? StyledNavigationController
@@ -54,7 +54,8 @@ class ProfileScreenViewController: UIViewController {
     
     init(viewModel: ProfileScreenViewModel) {
         self.viewModel = viewModel
-
+        self.submodulesControllers = Array(repeating: nil, count: self.availableTabs.count)
+        self.submoduleInputs = Array(repeating: nil, count: self.availableTabs.count)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -85,9 +86,7 @@ class ProfileScreenViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.loadSubmodules()
-        
+                
         self.addChild(self.pageViewController)
         self.pageViewController.dataSource = self
         self.pageViewController.delegate = self
@@ -148,28 +147,51 @@ class ProfileScreenViewController: UIViewController {
         }
     }
     
-    private func loadSubmodules() {
+    private func loadSubmodulesIfNeeded(at index: Int) {
         
-        guard let coordinator = coordinator else { return }
-        
-        availableTabs.forEach { (tab) in
-            switch tab {
-            case .posts:
-                let assembly = ProfileScreenPostsAssembly(coordinator: WeakBox(coordinator))
-                submodulesControllers.append(assembly.makeModule())
-                submoduleInputs.append(assembly.moduleInput!)
-            case .comments:
-                let assembly = ProfileScreenCommentsAssembly(coordinator: WeakBox(coordinator))
-                submodulesControllers.append(assembly.makeModule())
-                submoduleInputs.append(assembly.moduleInput!)
-            case .about:
-                let assembly = ProfileScreenAboutAssembly()
-                submodulesControllers.append(assembly.makeModule())
-                submoduleInputs.append(assembly.moduleInput!)
-            }
+        guard self.submodulesControllers[index] == nil else {
+            return
+        }
+
+        guard let tab = self.availableTabs[safe: index] else {
+            return
         }
         
-        self.viewModel.doSubmodulesRegistration(request: .init(submodules: submoduleInputs))
+        guard let coordinator = coordinator else {
+            Logger.commonLog.error("Coordinator not found")
+            return
+        }
+        
+        var moduleInput: ProfileScreenSubmoduleProtocol?
+        let controller: UIViewController
+        
+        switch tab {
+        case .posts:
+            let assembly = ProfileScreenPostsAssembly(coordinator: WeakBox(coordinator))
+            controller = assembly.makeModule()
+            moduleInput = assembly.moduleInput!
+        case .comments:
+            let assembly = ProfileScreenCommentsAssembly(coordinator: WeakBox(coordinator))
+            controller = assembly.makeModule()
+            moduleInput = assembly.moduleInput!
+        case .about:
+            let assembly = ProfileScreenAboutAssembly()
+            controller = assembly.makeModule()
+            moduleInput = assembly.moduleInput!
+        }
+        
+        self.submodulesControllers[index] = controller
+
+        if let submodule = moduleInput {
+            self.viewModel.doSubmodulesRegistration(request: .init(submodules: [index: submodule]))
+            self.submoduleInputs[index] = submodule
+            
+            guard let profile = self.viewModel.loadedProfile else { return }
+            self.viewModel.doSubmodulesDataFilling(request: .init(submodules: [index: submodule],
+                                                                  posts: profile.posts,
+                                                                  comments: profile.comments,
+                                                                  subscribers: profile.follows))
+        }
     }
     
     // Update content inset (to make header visible)
@@ -180,7 +202,7 @@ class ProfileScreenViewController: UIViewController {
 //                continue
 //            }
 
-            let view = viewController.view as? ProfileScreenScrollablePageViewProtocol
+            let view = viewController?.view as? ProfileScreenScrollablePageViewProtocol
 
             if let view = view {
                 view.contentInsets = UIEdgeInsets(
@@ -192,8 +214,8 @@ class ProfileScreenViewController: UIViewController {
                 view.scrollViewDelegate = self
             }
 
-            viewController.view.setNeedsLayout()
-            viewController.view.layoutIfNeeded()
+            viewController?.view.setNeedsLayout()
+            viewController?.view.layoutIfNeeded()
 
             view?.contentInsetAdjustmentBehavior = .never
         }
@@ -231,7 +253,7 @@ class ProfileScreenViewController: UIViewController {
     
     private func arrangePagesScrollOffset(topOffsetOfCurrentTab: CGFloat, maxTopOffset: CGFloat) {
         for viewController in self.submodulesControllers {
-            guard let view = viewController.view as? ProfileScreenScrollablePageViewProtocol else {
+            guard let view = viewController?.view as? ProfileScreenScrollablePageViewProtocol else {
                 continue
             }
 
@@ -265,6 +287,7 @@ extension ProfileScreenViewController: PageboyViewControllerDataSource, PageboyV
         for pageboyViewController: PageboyViewController,
         at index: PageboyViewController.PageIndex
     ) -> UIViewController? {
+        self.loadSubmodulesIfNeeded(at: index)
         self.updateContentOffset(scrollOffset: self.lastKnownScrollOffset)
         self.updateContentInset(headerHeight: self.lastKnownHeaderHeight)
         return self.submodulesControllers[index]
@@ -322,17 +345,24 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
             self.storedViewModel = headerData
             profileScreenView.configure(viewData: headerData)
             
-            self.viewModel.doSubmodulesDataFilling(request: .init(submodules: submoduleInputs,
-                                                                  posts: posts,
-                                                                  comments: comments,
-                                                                  subscribers: subscribers))
+            self.submoduleInputs.compactMap({$0}).enumerated().forEach { (key, module) in
+                self.viewModel.doSubmodulesDataFilling(request: .init(submodules: [key: module],
+                                                                      posts: posts,
+                                                                      comments: comments,
+                                                                      subscribers: subscribers))
+
+            }
+            
         case .blockedUser:
             UIAlertController.createOkAlert(message: "It's a blocked user!")
             
-            self.viewModel.doSubmodulesDataFilling(request: .init(submodules: submoduleInputs,
-                                                                  posts: [],
-                                                                  comments: [],
-                                                                  subscribers: []))
+            self.submoduleInputs.compactMap({$0}).enumerated().forEach { (key, module) in
+                self.viewModel.doSubmodulesDataFilling(request: .init(submodules: [key: module],
+                                                                      posts: [],
+                                                                      comments: [],
+                                                                      subscribers: []))
+
+            }
         case .loading:
             fatalError()
         }

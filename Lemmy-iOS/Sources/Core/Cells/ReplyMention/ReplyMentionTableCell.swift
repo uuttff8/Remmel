@@ -53,7 +53,7 @@ class ReplyMentionTableCell: CommentCell, ContentFocusable {
     }
 
     // MARK: - Public API
-    func configure(with reply: LemmyModel.ReplyView, level: Int, appearance: Appearance = Appearance()) {
+    func configure(with reply: LMModels.Views.CommentView, level: Int, appearance: Appearance = Appearance()) {
         self.appearance = appearance
         
         commentContentView.configure(reply: reply)
@@ -65,7 +65,7 @@ class ReplyMentionTableCell: CommentCell, ContentFocusable {
         }
     }
     
-    func configure(with mention: LemmyModel.UserMentionView, level: Int, appearance: Appearance = Appearance()) {
+    func configure(with mention: LMModels.Views.UserMentionView, level: Int, appearance: Appearance = Appearance()) {
         self.appearance = appearance
         
         commentContentView.configure(mention: mention)

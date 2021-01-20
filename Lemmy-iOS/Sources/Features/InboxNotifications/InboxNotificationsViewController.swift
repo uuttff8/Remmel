@@ -24,7 +24,7 @@ final class InboxNotificationsViewController: UIViewController {
     lazy var styledNavigationController = self.navigationController as? StyledNavigationController
     
     // Element is nil when view controller was not initialized yet
-    private var submodulesControllers: [UIViewController?] = [nil, nil, nil]
+    private var submodulesControllers: [UIViewController?]
     
     init(
         viewModel: InboxNotificationsViewModel

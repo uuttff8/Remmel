@@ -27,7 +27,7 @@ class CreateCommunityViewModel: CreateCommunityViewModelProtocol {
             return
         }
         
-        let params = LemmyModel.Community.CreateCommunityRequest(name: request.name,
+        let params = LMModels.Api.Community.CreateCommunity(name: request.name,
                                                                  title: request.displayName,
                                                                  description: request.sidebar,
                                                                  icon: request.icon,
@@ -48,7 +48,7 @@ class CreateCommunityViewModel: CreateCommunityViewModelProtocol {
                 
             } receiveValue: { (response) in
                 self.viewController?.displaySuccessCreatingCommunity(
-                    viewModel: .init(community: response.community)
+                    viewModel: .init(community: response.communityView)
                 )
             }.store(in: &cancellable)
 

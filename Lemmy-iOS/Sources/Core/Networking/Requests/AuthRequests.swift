@@ -9,34 +9,21 @@
 import Foundation
 import Combine
 
-private protocol AuthRequestManagerProtocol {
+extension RequestsManager {
     func asyncLogin(
-        parameters: LemmyModel.Authentication.LoginRequest
-    ) -> AnyPublisher<LemmyModel.Authentication.LoginResponse, LemmyGenericError>
-    
-    func asyncRegister(
-        parameters: LemmyModel.Authentication.RegisterRequest
-    ) -> AnyPublisher<LemmyModel.Authentication.RegisterResponse, LemmyGenericError>
-    
-    func asyncGetCaptcha() -> AnyPublisher<LemmyModel.Authentication.GetCaptchaResponse, LemmyGenericError>
-
-}
-
-extension RequestsManager: AuthRequestManagerProtocol {    
-    func asyncLogin(
-        parameters: LemmyModel.Authentication.LoginRequest
-    ) -> AnyPublisher<LemmyModel.Authentication.LoginResponse, LemmyGenericError> {
+        parameters: LMModels.Api.User.Login
+    ) -> AnyPublisher<LMModels.Api.User.LoginResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Authentication.login.endpoint, parameters: parameters)
     }
     
     func asyncRegister(
-        parameters: LemmyModel.Authentication.RegisterRequest
-    ) -> AnyPublisher<LemmyModel.Authentication.RegisterResponse, LemmyGenericError> {
+        parameters: LMModels.Api.User.Register
+    ) -> AnyPublisher<LMModels.Api.User.LoginResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Authentication.register.endpoint, parameters: parameters)
     }
     
-    func asyncGetCaptcha() -> AnyPublisher<LemmyModel.Authentication.GetCaptchaResponse, LemmyGenericError> {
+    func asyncGetCaptcha() -> AnyPublisher<LMModels.Api.User.GetCaptchaResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Authentication.getCaptcha.endpoint,
-                              parameters: LemmyModel.Authentication.GetCaptchaRequest?.none)
+                              parameters: LMModels.Api.User.GetCaptcha())
     }
 }

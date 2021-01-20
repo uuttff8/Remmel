@@ -11,7 +11,7 @@ import Nuke
 import SwiftyMarkdown
 
 protocol CommunityHeaderViewDelegate: AnyObject {
-    func headerViewDidTapped(followButton: FollowButton, in community: LemmyModel.CommunityView)
+    func headerViewDidTapped(followButton: FollowButton, in community: LMModels.Views.CommunityView)
 }
 
 extension CommunityHeaderView {
@@ -26,7 +26,7 @@ class CommunityHeaderView: UIView {
     
     let appearance = Appearance()
     
-    var communityData: LemmyModel.CommunityView?
+    var communityData: LMModels.Views.CommunityView?
     
     let descriptionReadMoreButton = ResizableButton().then {
         $0.setTitle("Read more", for: .normal)
@@ -114,17 +114,17 @@ class CommunityHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind(with data: LemmyModel.CommunityView) {
+    func bind(with data: LMModels.Views.CommunityView) {
         self.communityData = data
-        commImageView.loadImage(urlString: data.icon, imageSize: appearance.iconSize)
+        commImageView.loadImage(urlString: data.community.icon, imageSize: appearance.iconSize)
         
-        commNameLabel.text = data.name
-        subscribersLabel.text = String(data.numberOfSubscribers) + " Subscribers"
-        categoryLabel.text = data.categoryName
-        postsCountLabel.text = String(data.numberOfPosts) + " Posts"
+        commNameLabel.text = data.community.name
+        subscribersLabel.text = String(data.counts.subscribers) + " Subscribers"
+        categoryLabel.text = data.category.name
+        postsCountLabel.text = String(data.counts.posts) + " Posts"
         self.followButton.bind(isSubcribed: data.subscribed)
         
-        if let communityDesciption = data.description {
+        if let communityDesciption = data.community.description {
             communityDescriptionLabel.text = communityDesciption
             
             showReadMoreButtonIfTruncated(mdString: communityDesciption)

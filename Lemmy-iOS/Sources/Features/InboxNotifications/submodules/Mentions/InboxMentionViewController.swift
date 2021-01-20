@@ -107,7 +107,7 @@ extension InboxMentionsViewController: InboxMentionsTableManagerDelegate {
     }
 }
 
-extension InboxMentionsViewController: UserMentionCellViewDelegate {
+extension InboxMentionsViewController: UserMentionCellViewDelegate {    
     func usernameTapped(with mention: LemmyUserMention) {
         self.coordinator?.goToProfileScreen(userId: mention.absoluteId, username: mention.absoluteUsername)
     }
@@ -116,7 +116,7 @@ extension InboxMentionsViewController: UserMentionCellViewDelegate {
         self.coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
-    func postNameTapped(in userMention: LemmyModel.UserMentionView) {
+    func postNameTapped(in userMention: LMModels.Views.UserMentionView) {
         
     }
     
@@ -124,7 +124,7 @@ extension InboxMentionsViewController: UserMentionCellViewDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        userMention: LemmyModel.UserMentionView
+        userMention: LMModels.Views.UserMentionView
     ) {
         self.contentScoreService.voteUserMention(
             scoreView: scoreView,
@@ -135,19 +135,19 @@ extension InboxMentionsViewController: UserMentionCellViewDelegate {
         )
     }
     
-    func showContext(in comment: LemmyModel.UserMentionView) {
+    func showContext(in comment: LMModels.Views.UserMentionView) {
         
     }
     
-    func reply(to userMention: LemmyModel.UserMentionView) {
-        self.coordinator?.goToWriteComment(postId: userMention.postId, parrentComment: nil)
+    func reply(to userMention: LMModels.Views.UserMentionView) {
+        self.coordinator?.goToWriteComment(postId: userMention.post.id, parrentComment: nil)
     }
     
-    func onLinkTap(in userMention: LemmyModel.UserMentionView, url: URL) {
+    func onLinkTap(in userMention: LMModels.Views.UserMentionView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }
         
-    func showMoreAction(in userMention: LemmyModel.UserMentionView) {
+    func showMoreAction(in userMention: LMModels.Views.UserMentionView) {
         guard let coordinator = coordinator else { return }
         self.showMoreService.showMoreInUserMention(on: self, coordinator: coordinator, mention: userMention)
     }

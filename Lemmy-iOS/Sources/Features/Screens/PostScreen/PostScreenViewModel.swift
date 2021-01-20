@@ -15,13 +15,13 @@ protocol PostScreenViewModelProtocol: AnyObject {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        post: LemmyModel.PostView
+        post: LMModels.Views.PostView
     ) // refactor
     func doCommentLike(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView
+        comment: LMModels.Views.CommentView
     )
 }
 
@@ -32,12 +32,12 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     
     private var cancellable = Set<AnyCancellable>()
     
-    let postInfo: LemmyModel.PostView?
+    let postInfo: LMModels.Views.PostView?
     let postId: Int
     
     init(
         postId: Int,
-        postInfo: LemmyModel.PostView?,
+        postInfo: LMModels.Views.PostView?,
         contentScoreService: ContentScoreServiceProtocol
     ) {
         self.postInfo = postInfo
@@ -46,8 +46,8 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     }
     
     func doPostFetch() {
-        let parameters = LemmyModel.Post.GetPostRequest(id: postId,
-                                                        auth: LemmyShareData.shared.jwtToken)
+        let parameters = LMModels.Api.Post.GetPost(id: postId,
+                                                   auth: LemmyShareData.shared.jwtToken)
         
         ApiManager.requests.asyncGetPost(parameters: parameters)
             .receive(on: DispatchQueue.main)
@@ -69,7 +69,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        post: LemmyModel.PostView
+        post: LMModels.Views.PostView
     ) {
         self.contentScoreService.votePost(
             scoreView: scoreView,
@@ -85,7 +85,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        comment: LemmyModel.CommentView
+        comment: LMModels.Views.CommentView
     ) {
         self.contentScoreService.voteComment(
             scoreView: scoreView,
@@ -98,12 +98,12 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     }
     
     private func makeViewData(
-        from data: LemmyModel.Post.GetPostResponse
+        from data: LMModels.Api.Post.GetPostResponse
     ) -> PostScreenViewController.View.ViewData {
         let comments = CommentListingSort(comments: data.comments)
             .createCommentsTree()
         
-        return .init(post: data.post, comments: comments)
+        return .init(post: data.postView, comments: comments)
     }
 }
 
@@ -124,7 +124,7 @@ enum PostScreen {
         struct Request { }
         
         struct ViewModel {
-            let post: LemmyModel.PostView
+            let post: LMModels.Views.PostView
         }
     }
     
@@ -132,7 +132,7 @@ enum PostScreen {
         struct Request { }
         
         struct ViewModel {
-            let comment: LemmyModel.CommentView
+            let comment: LMModels.Views.CommentView
         }
     }
     

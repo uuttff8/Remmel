@@ -9,17 +9,11 @@
 import UIKit
 import Combine
 
-private protocol SearchRequestManagerProtocol {    
-    func asyncSearch(
-        parameters: LemmyModel.Search.SearchRequest
-    ) -> AnyPublisher<LemmyModel.Search.SearchResponse, LemmyGenericError>
-}
-
-extension RequestsManager: SearchRequestManagerProtocol {
+extension RequestsManager {
         
     func asyncSearch(
-        parameters: LemmyModel.Search.SearchRequest
-    ) -> AnyPublisher<LemmyModel.Search.SearchResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Site.Search
+    ) -> AnyPublisher<LMModels.Api.Site.SearchResponse, LemmyGenericError> {
         
         asyncRequestDecodable(path: WSEndpoint.Site.search.endpoint, parameters: parameters)
     }
