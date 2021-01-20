@@ -11,9 +11,11 @@ import Nuke
 
 class LemmyFrontPageNavBar: UIView {
     var onProfileIconTap: (() -> Void)?
+    var onSettingsIconTap: (() -> Void)?
     
     let searchBar = LemmySearchBar()
     private lazy var profileIcon = LemmyProfileIconView()
+    private lazy var settingsIcon = LemmyNavSettingsView()
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -50,6 +52,10 @@ class LemmyFrontPageNavBar: UIView {
     @objc private func profileIconTapped() {
         onProfileIconTap?()
     }
+    
+    @objc private func settingsIconTapped() {
+        
+    }
 
     override var intrinsicContentSize: CGSize {
         CGSize(width: UIScreen.main.bounds.width, height: UIView.noIntrinsicMetric)
@@ -59,6 +65,7 @@ class LemmyFrontPageNavBar: UIView {
 extension LemmyFrontPageNavBar: ProgrammaticallyViewProtocol {
     func setupView() {
         profileIcon.imageButton.addTarget(self, action: #selector(profileIconTapped), for: .touchUpInside)
+        settingsIcon.imageButton.addTarget(self, action: #selector(settingsIconTapped), for: .touchUpInside)
         
         if LemmyShareData.shared.isLoggedIn {
             updateProfileIcon()
@@ -73,19 +80,26 @@ extension LemmyFrontPageNavBar: ProgrammaticallyViewProtocol {
     func addSubviews() {
         self.addSubview(searchBar)
         self.addSubview(profileIcon)
+        self.addSubview(settingsIcon)
     }
     
     func makeConstraints() {
         self.searchBar.snp.makeConstraints { (make) in
             make.top.bottom.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview().inset(50)
+            make.leading.equalToSuperview().inset(50)  // left icon
+            make.trailing.equalToSuperview().inset(50) // right icon
         }
 
         self.profileIcon.snp.makeConstraints { (make) in
             make.top.bottom.equalToSuperview()
             make.leading.equalTo(searchBar.snp.trailing)
             make.trailing.equalToSuperview()
+        }
+        
+        self.settingsIcon.snp.makeConstraints { (make) in
+            make.top.bottom.equalToSuperview()
+            make.trailing.equalTo(searchBar.snp.leading)
+            make.leading.equalToSuperview()
         }
     }
 }
