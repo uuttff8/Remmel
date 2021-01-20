@@ -12,7 +12,6 @@ extension VoteButton {
     struct Appearance {
         let voteAnimationDuration: TimeInterval = 0.125
         let transitionDistance: CGFloat = 20
-
         let upvotedColor: UIColor = .lemmyBlue
         let downvotedColor: UIColor = .systemRed
         
@@ -83,7 +82,7 @@ final class VoteButton: ScaledButton {
         animator.addAnimations {
             self.center.y += trDistance
         }
-        
+      
         animator.addAnimations({
             self.center.y -= trDistance
         }, delayFactor: CGFloat(self.appearance.voteAnimationDuration))
