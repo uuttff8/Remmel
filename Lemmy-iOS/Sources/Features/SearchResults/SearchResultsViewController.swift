@@ -83,8 +83,14 @@ class SearchResultsViewController: UIViewController {
             self.resultsView.hideActivityIndicatorView()
         }
 
-        if case .result = newState {
-            self.resultsView.updateTableViewData(delegate: tableManager)
+        if case .result(let data) = newState {
+            let objects: [Any] = getObjects(from: data)
+            
+            if objects.isEmpty {
+                self.resultsView.displayNoData()
+            } else {
+                self.resultsView.updateTableViewData(delegate: tableManager)
+            }
         }
     }
 }
@@ -100,18 +106,7 @@ extension SearchResultsViewController: SearchResultsViewControllerProtocol {
     func displayMoreContent(viewModel: SearchResults.LoadMoreContent.ViewModel) {
         guard case let .result(data) = viewModel.state else { return }
                 
-        let objects: [Any]
-        switch data {
-        case let .comments(data):
-            objects = data
-        case let .communities(data):
-            objects = data
-        case let .posts(data):
-            objects = data
-        case let .users(data):
-            objects = data
-        }
-        
+        let objects: [Any] = getObjects(from: data)
         self.tableManager.appendViewModels(viewModel: data)
         self.resultsView.appendNew(data: objects)
         
@@ -129,7 +124,19 @@ extension SearchResultsViewController: SearchResultsViewControllerProtocol {
     func operateSaveNewComment(viewModel: SearchResults.SaveComment.ViewModel) {
         tableManager.saveNewComment(comment: viewModel.comment)
     }
-
+    
+    private func getObjects(from data: SearchResults.Results) -> [Any] {
+        switch data {
+        case let .comments(data):
+            return data
+        case let .communities(data):
+            return data
+        case let .posts(data):
+            return data
+        case let .users(data):
+            return data
+        }
+    }
 }
 
 extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {

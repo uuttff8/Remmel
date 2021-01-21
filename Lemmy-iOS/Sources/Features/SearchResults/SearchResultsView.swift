@@ -13,6 +13,12 @@ class SearchResultsView: UIView {
     private var tableView: LemmyTableView!
     private var tableManager: SearchResultsTableDataSource
     
+    private lazy var emptyStateLabel = UILabel().then {
+        $0.text = "No Results"
+        $0.textAlignment = .center
+        $0.textColor = .tertiaryLabel
+    }
+    
     init(tableManager: (SearchResultsTableDataSource)) {
         self.tableManager = tableManager
         super.init(frame: .zero)
@@ -27,6 +33,7 @@ class SearchResultsView: UIView {
     
     func updateTableViewData(delegate: SearchResultsTableDataSource) {
         self.tableManager = delegate
+        self.emptyStateLabel.isHidden = true
         
         let type: UITableView.Style
         
@@ -60,11 +67,21 @@ class SearchResultsView: UIView {
             tableView.insertRows(at: newIndexpaths, with: .none)
         }
     }
+    
+    func displayNoData() {
+        self.emptyStateLabel.isHidden = false
+        
+        self.addSubview(emptyStateLabel)
+        self.emptyStateLabel.snp.makeConstraints {
+            $0.center.equalTo(self.snp.center)
+        }
+    }
 }
 
 extension SearchResultsView: ProgrammaticallyViewProtocol {
     func setupView() {
         self.backgroundColor = .systemBackground
+        self.emptyStateLabel.isHidden = true
     }
     
     func addSubviews() {
