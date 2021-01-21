@@ -40,6 +40,7 @@ class LemmyTabBarController: UITabBarController {
                                                                           image: UIImage(systemName: "bolt.circle"),
                                                                           tag: 0)
         frontPageCoordinator.router = frontPageRouter
+        frontPageCoordinator.router?.viewController = frontPageCoordinator.rootViewController
         frontPageCoordinator.navigationController = frontPageCoordinator.router?.navigationController
         
         self.communitiesCoordinator = CommunitiesCoordinator(router: nil)
@@ -54,6 +55,7 @@ class LemmyTabBarController: UITabBarController {
                                                                             image: UIImage(systemName: "person.2.fill"),
                                                                             tag: 1)
         communitiesCoordinator.router = communitiesRouter
+        communitiesCoordinator.router?.viewController = communitiesCoordinator.rootViewController
         communitiesCoordinator.navigationController = communitiesCoordinator.router?.navigationController
         
         // its wrapper, real controller created in this method
@@ -82,6 +84,7 @@ class LemmyTabBarController: UITabBarController {
             tag: 0
         )
         inboxNotificationsCoordinator.router = inboxRouter
+        inboxNotificationsCoordinator.router?.viewController = inboxNotificationsCoordinator.rootViewController
         inboxNotificationsCoordinator.navigationController = inboxNotificationsCoordinator.router?.navigationController
         
         self.viewControllers = [ frontPageRouter.navigationController!,

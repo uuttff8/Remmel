@@ -14,7 +14,7 @@ final class AddInstanceAssembly: Assembly {
     var completionHandler: (() -> Void)?
     
     func makeModule() -> AddInstanceViewController {
-        let viewModel = AddInstanceViewModel(userAccountService: UserAccountService())
+        let viewModel = AddInstanceViewModel()
         let vc = AddInstanceViewController(viewModel: viewModel)
         completionHandler = vc.completionHandler
 

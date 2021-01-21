@@ -131,7 +131,9 @@ extension InboxRepliesViewController: ReplyCellViewDelegate {
             voteButton: voteButton,
             for: newVote,
             reply: reply,
-            completion: { _ in }
+            completion: { replyComment in
+                self.tableManager.viewModels.updateElementById(replyComment)
+            }
         )
     }
     

@@ -131,7 +131,7 @@ extension InboxMentionsViewController: UserMentionCellViewDelegate {
             voteButton: voteButton,
             for: newVote,
             userMention: userMention,
-            completion: { _ in }
+            completion: { _ in } // FIXIT: CommentContentTableCell should take LMModels.Source.Comment, not view
         )
     }
     

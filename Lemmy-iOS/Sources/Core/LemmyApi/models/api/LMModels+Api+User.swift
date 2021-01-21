@@ -150,9 +150,15 @@ extension LMModels.Api {
         }
         
         struct AddAdmin: Codable {
-            let user_id: Int
+            let userId: Int
             let added: Bool
             let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case userId = "user_id"
+                case added
+                case auth
+            }
         }
         
         struct AddAdminResponse: Codable {

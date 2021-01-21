@@ -17,14 +17,8 @@ protocol AddInstanceViewModelProtocol: AnyObject {
 final class AddInstanceViewModel: AddInstanceViewModelProtocol {
     
     weak var viewController: AddInstanceViewControllerProtocol?
-    
-    private let userAccountService: UserAccountSerivceProtocol
-    
+        
     private var cancellable = Set<AnyCancellable>()
-    
-    init(userAccountService: UserAccountSerivceProtocol) {
-        self.userAccountService = userAccountService
-    }
     
     func doAddInstancePresentation(request: AddInstanceDataFlow.InstancePresentation.Request) {
         self.viewController?.displayAddInstancePresentation(viewModel: .init())
@@ -40,7 +34,7 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
         }
         
         api
-            .asyncGetSite(parameters: .init(auth: userAccountService.jwtToken))
+            .asyncGetSite(parameters: .init(auth: nil))
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 if case .failure = completion {

@@ -57,7 +57,7 @@ class ReplyMentionCellView: UIView {
                 score: reply.counts.score,
                 postName: reply.post.name
             ),
-            config: .inPost
+            config: .list
         )
 
         centerView.bind(with: .init(comment: reply.comment.content, isDeleted: reply.comment.deleted))
@@ -67,7 +67,7 @@ class ReplyMentionCellView: UIView {
                 score: reply.counts.score,
                 voteType: reply.getVoteType()
             ),
-            config: .inPost
+            config: .list
         )
     }
     
@@ -83,7 +83,7 @@ class ReplyMentionCellView: UIView {
                 score: mention.counts.score,
                 postName: mention.post.name
             ),
-            config: .inPost
+            config: .list
         )
 
         centerView.bind(with: .init(comment: mention.comment.content, isDeleted: mention.comment.deleted))
@@ -93,7 +93,7 @@ class ReplyMentionCellView: UIView {
                 score: mention.counts.score,
                 voteType: mention.getVoteType()
             ),
-            config: .inPost
+            config: .list
         )
 
     }
@@ -115,12 +115,12 @@ class ReplyMentionCellView: UIView {
         // header view
         headerView.communityButtonTap = { [weak self] in
             let mention = LemmyCommunityMention(name: reply.community.name, id: reply.community.id)
-            self?.mentionDelegate?.communityTapped(with: mention)
+            self?.replyDelegate?.communityTapped(with: mention)
         }
 
         headerView.usernameButtonTap = { [weak self] in
             let mention = LemmyUserMention(string: reply.creator.name, id: reply.creator.id)
-            self?.mentionDelegate?.usernameTapped(with: mention)
+            self?.replyDelegate?.usernameTapped(with: mention)
         }
 
         headerView.postNameButtonTap = { [weak self] in

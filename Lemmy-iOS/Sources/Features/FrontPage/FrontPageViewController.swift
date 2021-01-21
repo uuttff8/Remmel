@@ -26,6 +26,9 @@ class FrontPageViewController: UIViewController {
         bar.onProfileIconTap = {
             self.viewModel.doNavBarProfileAction()
         }
+        bar.onSettingsIconTap = {
+            self.coordinator?.goToSettings()
+        }
         return bar
     }()
     private let headerSegmentView = FrontPageHeaderView(contentSelected: LemmyContentType.posts)

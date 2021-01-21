@@ -54,7 +54,7 @@ class LemmyFrontPageNavBar: UIView {
     }
     
     @objc private func settingsIconTapped() {
-        
+        onSettingsIconTap?()
     }
 
     override var intrinsicContentSize: CGSize {

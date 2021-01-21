@@ -27,7 +27,6 @@ class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
         super.init(router: router)
         let assembly = FrontPageAssembly()
         self.rootViewController = assembly.makeModule()
-        self.router?.viewController = self.rootViewController
     }
     
     override func start() {
@@ -58,6 +57,15 @@ class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
         let vc = assembly.makeModule()
         vc.coordinator = self
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func goToSettings() {
+        let assembly = SettingsAssembly()
+        let module = assembly.makeModule()
+        module.coordinator = self
+        let navController = StyledNavigationController(rootViewController: module)
+        
+        router?.present(navController, animated: true)
     }
     
     func showSearchIfNeeded(with query: String) {
