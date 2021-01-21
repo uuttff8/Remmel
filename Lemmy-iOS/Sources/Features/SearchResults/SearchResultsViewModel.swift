@@ -11,6 +11,7 @@ import Combine
 
 protocol SearchResultsViewModelProtocol: AnyObject {
     func doLoadContent(request: SearchResults.LoadContent.Request)
+    func doLoadMoreContent(request: SearchResults.LoadMoreContent.Request)
     func doPostLike(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
@@ -33,6 +34,9 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
     private let searchQuery: String
     private let searchType: LMModels.Others.SearchType
     
+    private var paginationState = 1
+    private var searchData: SearchResults.Results = .posts([])
+    
     private let userAccountService: UserAccountSerivceProtocol
     private let contentScoreService: ContentScoreServiceProtocol
     
@@ -54,7 +58,7 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
                                               communityId: nil,
                                               communityName: nil,
                                               sort: .topAll,
-                                              page: 1,
+                                              page: request.page,
                                               limit: 20,
                                               auth: userAccountService.jwtToken)
         
@@ -66,6 +70,30 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
                 guard let self = self else { return }
                 self.makeViewModelAndPresent(type: self.searchType,
                                              response: response)
+                
+            }.store(in: &cancellable)
+    }
+    
+    func doLoadMoreContent(request: SearchResults.LoadMoreContent.Request) {
+        self.paginationState += 1
+        
+        let params = LMModels.Api.Site.Search(query: self.searchQuery,
+                                              type: self.searchType,
+                                              communityId: nil,
+                                              communityName: nil,
+                                              sort: .topAll,
+                                              page: self.paginationState,
+                                              limit: 20,
+                                              auth: userAccountService.jwtToken)
+        
+        ApiManager.requests.asyncSearch(parameters: params)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
+            } receiveValue: { [weak self] (response) in
+                guard let self = self else { return }
+                self.makePaginationViewModelAndPresent(type: self.searchType,
+                                                       response: response)
                 
             }.store(in: &cancellable)
     }
@@ -122,7 +150,33 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
             fatalError("This: \(type) should never be called on search.")
         }
         
+        self.searchData = result
         self.viewController?.displayContent(
+            viewModel: .init(state: .result(result))
+        )
+    }
+    
+    private func makePaginationViewModelAndPresent(
+        type: LMModels.Others.SearchType,
+        response: LMModels.Api.Site.SearchResponse
+    ) {
+        
+        let result: SearchResults.Results
+        
+        switch type {
+        case .comments:
+            result = .comments(response.comments)
+        case .posts:
+            result = .posts(response.posts)
+        case .communities:
+            result = .communities(response.communities)
+        case .users:
+            result = .users(response.users)
+        default:
+            fatalError("This: \(type) should never be called on search.")
+        }
+        
+        self.viewController?.displayMoreContent(
             viewModel: .init(state: .result(result))
         )
     }
@@ -131,6 +185,16 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
 enum SearchResults {
     
     enum LoadContent {
+        struct Request {
+            let page: Int
+        }
+        
+        struct ViewModel {
+            let state: ViewControllerState
+        }
+    }
+    
+    enum LoadMoreContent {
         struct Request { }
         
         struct ViewModel {

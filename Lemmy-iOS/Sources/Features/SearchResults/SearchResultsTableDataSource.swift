@@ -24,7 +24,7 @@ final class SearchResultsTableDataSource: NSObject {
         super.init()
     }
     
-    func appendNew(objects: [AnyObject] = []) -> [IndexPath] {
+    func getUpdatedIndexPaths(objects: [Any]) -> [IndexPath] {
         let startIndex = countViewModels() - objects.count
         let endIndex = startIndex + objects.count
         
@@ -32,6 +32,27 @@ final class SearchResultsTableDataSource: NSObject {
             .map { IndexPath(row: $0, section: 0) }
         
         return newIndexPaths
+    }
+    
+    func appendViewModels(viewModel: SearchResults.Results) {
+        switch viewModel {
+        case let .comments(response):
+            guard case let .comments(data) = self.viewModels else { return }
+            
+            viewModels = .comments(data + response)
+        case let .posts(response):
+            guard case let .posts(data) = self.viewModels else { return }
+            
+            viewModels = .posts(data + response)
+        case let .communities(response):
+            guard case let .communities(data) = self.viewModels else { return }
+
+            viewModels = .communities(data + response)
+        case let .users(response):
+            guard case let .users(data) = self.viewModels else { return }
+            
+            viewModels = .users(data + response)
+        }
     }
     
     private func countViewModels() -> Int {
@@ -151,5 +172,12 @@ extension SearchResultsTableDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.delegate?.tableDidSelect(viewModel: viewModels, indexPath: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 5,
+           tableView.numberOfSections == 1 {
+            self.delegate?.tableDidRequestPagination(self)
+        }
     }
 }

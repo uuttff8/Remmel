@@ -11,7 +11,7 @@ import UIKit
 class SearchResultsView: UIView {
     
     private var tableView: LemmyTableView!
-    private var tableManager: (UITableViewDataSource & UITableViewDelegate)
+    private var tableManager: SearchResultsTableDataSource
     
     init(tableManager: (SearchResultsTableDataSource)) {
         self.tableManager = tableManager
@@ -52,6 +52,13 @@ class SearchResultsView: UIView {
         
         self.tableView.dataSource = self.tableManager
         self.tableView.reloadData()
+    }
+    
+    func appendNew(data: [Any]) {
+        let newIndexpaths = self.tableManager.getUpdatedIndexPaths(objects: data)
+        tableView.performBatchUpdates {
+            tableView.insertRows(at: newIndexpaths, with: .none)
+        }
     }
 }
 

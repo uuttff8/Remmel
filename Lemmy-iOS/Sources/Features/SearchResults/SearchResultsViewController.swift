@@ -11,6 +11,7 @@ import Combine
 
 protocol SearchResultsViewControllerProtocol: AnyObject {
     func displayContent(viewModel: SearchResults.LoadContent.ViewModel)
+    func displayMoreContent(viewModel: SearchResults.LoadMoreContent.ViewModel)
     func operateSaveNewPost(viewModel: SearchResults.SavePost.ViewModel)
     func operateSaveNewComment(viewModel: SearchResults.SaveComment.ViewModel)
 }
@@ -22,6 +23,8 @@ class SearchResultsViewController: UIViewController {
     private let viewModel: SearchResultsViewModelProtocol
     
     private var state: SearchResults.ViewControllerState
+    private var canTriggerPagination = true
+
     private let showMoreHandler: ShowMoreHandlerServiceProtocol
     private let followService: CommunityFollowServiceProtocol
     
@@ -59,7 +62,7 @@ class SearchResultsViewController: UIViewController {
         super.viewDidLoad()
         updateState(newState: self.state)
         
-        self.viewModel.doLoadContent(request: .init())
+        self.viewModel.doLoadContent(request: .init(page: 1))
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -92,6 +95,31 @@ extension SearchResultsViewController: SearchResultsViewControllerProtocol {
         
         self.tableManager.viewModels = data
         self.updateState(newState: viewModel.state)
+    }
+    
+    func displayMoreContent(viewModel: SearchResults.LoadMoreContent.ViewModel) {
+        guard case let .result(data) = viewModel.state else { return }
+                
+        let objects: [Any]
+        switch data {
+        case let .comments(data):
+            objects = data
+        case let .communities(data):
+            objects = data
+        case let .posts(data):
+            objects = data
+        case let .users(data):
+            objects = data
+        }
+        
+        self.tableManager.appendViewModels(viewModel: data)
+        self.resultsView.appendNew(data: objects)
+        
+        if objects.isEmpty {
+            self.canTriggerPagination = false
+        } else {
+            self.canTriggerPagination = true
+        }
     }
     
     func operateSaveNewPost(viewModel: SearchResults.SavePost.ViewModel) {
@@ -190,7 +218,10 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
     }
     
     func tableDidRequestPagination(_ tableDataSource: SearchResultsTableDataSource) {
-        // no more yet
+        guard self.canTriggerPagination else { return }
+        
+        self.canTriggerPagination = false
+        self.viewModel.doLoadMoreContent(request: .init())
     }
     
     func tableDidSelect(viewModel: SearchResults.Results, indexPath: IndexPath) {
