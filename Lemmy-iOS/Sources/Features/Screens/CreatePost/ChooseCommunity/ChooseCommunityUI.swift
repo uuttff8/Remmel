@@ -97,7 +97,7 @@ class ChooseCommunityUI: UIView {
     private func setupSearchController() {
         self.addSubview(searchBar)
         searchBar.delegate = self
-        searchBar.placeholder = "Search"
+        searchBar.placeholder = "searchbar-placeholder".localized
     }
 
     // MARK: Actions

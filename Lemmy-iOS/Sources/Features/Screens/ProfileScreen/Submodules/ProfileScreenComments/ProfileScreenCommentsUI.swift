@@ -63,7 +63,7 @@ extension ProfileScreenCommentsViewController {
         }
         
         private lazy var emptyStateLabel = UILabel().then {
-            $0.text = "No Comments here yet..."
+            $0.text = "nodata-comments".localized
             $0.textAlignment = .center
             $0.textColor = .tertiaryLabel
         }

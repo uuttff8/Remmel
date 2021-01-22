@@ -24,6 +24,7 @@ class LoginViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -79,19 +80,19 @@ class LoginViewController: UIViewController {
                 || (signUpView.usernameTextField.hasText)
                 || (signUpView.passwordVerifyTextField.hasText)
         else {
-            UIAlertController.createOkAlert(message: "Please fill correct email or username or password")
+            UIAlertController.createOkAlert(message: "login-error-email-user".localized)
             return nil
         }
         
         guard signUpView.passwordTextField.text == signUpView.passwordVerifyTextField.text
         else {
-            UIAlertController.createOkAlert(message: "Passwords don't match")
+            UIAlertController.createOkAlert(message: "login-error-password-dont-match".localized)
             return nil
         }
         
         guard signUpView.captchaTextField.hasText
         else {
-            UIAlertController.createOkAlert(message: "Please fill captcha")
+            UIAlertController.createOkAlert(message: "login-error-nocaptcha".localized)
             return nil
         }
         
@@ -145,7 +146,7 @@ class LoginViewController: UIViewController {
         guard let signInView = signInView else { return }
         
         if (!signInView.passwordTextField.hasText) || (!signInView.emailOrUsernameTextField.hasText) {
-            UIAlertController.createOkAlert(message: "Please fill correct email or username or password")
+            UIAlertController.createOkAlert(message: "login-error-email-user".localized)
         }
         
         guard let emailOrUsername = signInView.emailOrUsernameTextField.text,

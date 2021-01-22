@@ -24,7 +24,7 @@ final class AddAccountViewController: UIViewController {
     private lazy var addAccountView = self.view as! AddAccountView
     
     private lazy var addBarButton = UIBarButtonItem(
-        title: "Add",
+        title: "accounts-add".localized,
         style: .done,
         target: self,
         action: #selector(addBarButtonTapped)
@@ -57,9 +57,9 @@ final class AddAccountViewController: UIViewController {
     private func setupNavigationItem() {
         switch authMethod {
         case .auth:
-            title = "Sign In"
+            title = "sign-in-signin".localized
         case .register:
-            title = "Sign Up"
+            title = "sign-up-signup".localized
         }
         self.navigationItem.rightBarButtonItem = addBarButton
     }
@@ -68,7 +68,7 @@ final class AddAccountViewController: UIViewController {
         let authView = addAccountView.authView
         
         if (!authView.passwordTextField.hasText) || (!authView.emailOrUsernameTextField.hasText) {
-            UIAlertController.createOkAlert(message: "Please fill correct email or username or password")
+            UIAlertController.createOkAlert(message: "login-error-email-user".localized)
         }
         
         guard let login = authView.emailOrUsernameTextField.text,
@@ -85,7 +85,7 @@ final class AddAccountViewController: UIViewController {
                 || (registerView.usernameTextField.hasText)
                 || (registerView.passwordVerifyTextField.hasText)
         else {
-            UIAlertController.createOkAlert(message: "Please fill correct email or username or password")
+            UIAlertController.createOkAlert(message: "login-error-email-user".localized)
             return
         }
         

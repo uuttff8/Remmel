@@ -44,7 +44,7 @@ extension AccountsTableDataSource: UITableViewDataSource {
         if indexPath.row == 0 {
             let cell: UITableViewCell = tableView.cell(forRowAt: indexPath)
             cell.accessoryType = .disclosureIndicator
-            cell.textLabel?.text = "Enter as guest"
+            cell.textLabel?.text = "enter-as-guest".localized
             return cell
         }
         

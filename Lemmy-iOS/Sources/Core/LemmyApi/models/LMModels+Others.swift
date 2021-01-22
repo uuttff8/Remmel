@@ -22,7 +22,16 @@ extension LMModels {
             case topAll = "TopAll"
             
             var label: String {
-                return self.rawValue
+                switch self {
+                case .active: return "sort-active".localized
+                case .hot: return "sort-hot".localized
+                case .new: return "sort-new".localized
+                case .topDay: return "sort-day".localized
+                case .topWeek: return "sort-week".localized
+                case .topMonth: return "sort-month".localized
+                case .topYear: return "sort-year".localized
+                case .topAll: return "sort-all".localized
+                }
             }
         }
         
@@ -33,7 +42,12 @@ extension LMModels {
             case community = "Community"
             
             var label: String {
-                return self.rawValue
+                switch self {
+                case .all: return "listing-all".localized
+                case .local: return "listing-local".localized
+                case .subscribed: return "listing-local".localized
+                case .community: return "listing-community".localized
+                }
             }
         }
         
@@ -44,6 +58,17 @@ extension LMModels {
             case communities = "Communities"
             case users = "Users"
             case url = "Url"
+            
+            var label: String {
+            switch self {
+            case .all: return "searchtype-all".localized
+            case .comments: return "searchtype-comments".localized
+            case .posts: return "searchtype-posts".localized
+            case .communities: return "searchtype-communities".localized
+            case .users: return "searchtype-users".localized
+            case .url: return "searchtype-url".localized
+            }
+            }
         }
         
         struct WebSocketResponse<ResponseType: Codable> {

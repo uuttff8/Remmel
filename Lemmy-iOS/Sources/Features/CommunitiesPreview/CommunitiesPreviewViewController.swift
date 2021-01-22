@@ -53,7 +53,7 @@ class CommunitiesPreviewViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "Communities"
+        self.navigationItem.title = "communities".localized
 
         viewModel.doLoadCommunities(request: .init())
     }

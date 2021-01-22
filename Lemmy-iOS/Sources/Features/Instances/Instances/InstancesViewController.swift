@@ -59,7 +59,7 @@ class InstancesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Instances"
+        title = "instances".localized
         
         setupNavigationItem()
     }

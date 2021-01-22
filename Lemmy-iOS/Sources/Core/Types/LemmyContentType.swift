@@ -14,8 +14,8 @@ enum LemmyContentType: String, Codable, CaseIterable {
 
     var label: String {
         switch self {
-        case .posts: return "Posts"
-        case .comments: return "Comments"
+        case .posts: return "content-posts".localized
+        case .comments: return "content-comments".localized
         }
     }
 

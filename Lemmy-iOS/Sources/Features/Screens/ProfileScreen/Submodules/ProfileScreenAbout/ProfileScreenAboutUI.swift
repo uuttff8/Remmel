@@ -46,7 +46,7 @@ extension ProfileScreenAboutViewController {
         }
         
         private lazy var emptyStateLabel = UILabel().then {
-            $0.text = "No following communities here yet..."
+            $0.text = "nodata-about".localized
             $0.textAlignment = .center
             $0.textColor = .tertiaryLabel
         }

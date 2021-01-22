@@ -54,7 +54,7 @@ class CreatePostScreenViewController: UIViewController {
     }()
         
     private lazy var postBarButton = UIBarButtonItem(
-        title: "CREATE",
+        title: "action-create".localized.uppercased(),
         style: .done,
         target: self,
         action: #selector(postBarButtonTapped(_:))
@@ -115,7 +115,7 @@ class CreatePostScreenViewController: UIViewController {
     // MARK: - Private API
     
     private func setupNavigationItem() {
-        self.title = "Create Post"
+        self.title = "create-content-create-post".localized
         navigationItem.rightBarButtonItem = postBarButton
     }
     
@@ -125,7 +125,7 @@ class CreatePostScreenViewController: UIViewController {
         
         var title: String {
             switch self {
-            case .community: return "Community"
+            case .community: return "create-content-community".localized
             case .url: return "url for your post"
             case .title: return "Title for your post. Required."
             case .body: return "Body for your post. Optional"
@@ -248,7 +248,7 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
             uniqueIdentifier: FormField.community.rawValue,
             type: .rightDetail(
                 options: .init(
-                    title: .init(text: createPostData.communityView?.community.name ?? "Community"),
+                    title: .init(text: createPostData.communityView?.community.name ?? "create-content-community".localized),
                     detailType: .label(text: nil),
                     accessoryType: .disclosureIndicator
                 )
@@ -259,7 +259,7 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
             uniqueIdentifier: FormField.url.rawValue,
             type: .inputWithImage(
                 options: .init(
-                    placeholderText: "Enter url",
+                    placeholderText: "create-content-create-url-placeholder".localized,
                     valueText: self.createPostData.url ?? nil,
                     imageIcon: Config.Image.addImage
                 )
@@ -271,7 +271,7 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
             type: .largeInput(
                 options: .init(
                     valueText: self.createPostData.title ?? nil,
-                    placeholderText: "Your title",
+                    placeholderText: "create-content-create-title-placeholder".localized,
                     maxLength: nil,
                     noNewline: true
                 )
@@ -283,7 +283,7 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
             type: .largeInput(
                 options: .init(
                     valueText: self.createPostData.body ?? nil,
-                    placeholderText: "Your body",
+                    placeholderText: "create-content-create-body-placeholder".localized,
                     maxLength: nil
                 )
             )
@@ -293,7 +293,7 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
             uniqueIdentifier: FormField.nsfw.rawValue,
             type: .rightDetail(
                 options: .init(
-                    title: .init(text: "NSFW"),
+                    title: .init(text: "create-content-create-nsfw".localized),
                     detailType: .switch(
                         .init(isOn: self.createPostData.nsfwOption)
                     ),
@@ -304,12 +304,12 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
         
         let sectionsViewModel: [SettingsTableSectionViewModel] = [
             .init(
-                header: .init(title: "Choose Community"),
+                header: .init(title: "create-content-choose-community".localized),
                 cells: [chooseCommunityCell],
                 footer: nil
             ),
             .init(
-                header: .init(title: "Create Url"),
+                header: .init(title: "create-content-create-url".localized),
                 cells: [urlCell],
                 footer: nil
             ),

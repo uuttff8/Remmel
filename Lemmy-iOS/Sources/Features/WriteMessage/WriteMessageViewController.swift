@@ -36,7 +36,7 @@ class WriteMessageViewController: UIViewController {
     lazy var writeMessageView = self.view as! WriteMessageView
     
     private lazy var createBarButton = UIBarButtonItem(
-        title: "CREATE",
+        title: "action-create".localized.uppercased(),
         style: .done,
         target: self,
         action: #selector(createBarButtonTapped(_:))

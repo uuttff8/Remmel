@@ -27,9 +27,9 @@ final class InboxNotificationsViewModel: InboxNotificationsViewModelProtocol {
         
         var title: String {
             switch self {
-            case .replies: return "Replies"
-            case .mentions: return "Mentions"
-            case .messages: return "Messages"
+            case .replies: return "content-replies".localized
+            case .mentions: return "content-mentions".localized
+            case .messages: return "content-messages".localized
             }
         }
     }

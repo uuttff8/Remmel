@@ -159,19 +159,19 @@ extension UIAlertController {
     ) {
         let alertController = UIAlertController(
             title: nil,
-            message: "Log in or Register to continue in current instance",
+            message: "alert-login-or-register".localized,
             preferredStyle: .alert
         )
         
-        let loginAction = UIAlertAction(title: "Login", style: .default) { _ in
+        let loginAction = UIAlertAction(title: "alert-login".localized, style: .default) { _ in
             onLogin()
         }
         
-        let signUpAction = UIAlertAction(title: "Register", style: .default) { _ in
+        let signUpAction = UIAlertAction(title: "alert-register".localized, style: .default) { _ in
             onRegister()
         }
         
-        let anotherInstanceAction = UIAlertAction(title: "Choose another instance", style: .default) { (_) in
+        let anotherInstanceAction = UIAlertAction(title: "alert-choose-instance".localized, style: .default) { (_) in
             onInstances()
         }
         

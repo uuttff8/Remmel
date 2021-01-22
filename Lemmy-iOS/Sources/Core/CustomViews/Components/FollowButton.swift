@@ -54,11 +54,11 @@ final class FollowButton: LoadingButton {
         switch followState {
         case .follow:
             hideLoading()
-            setTitle("Follow", for: .normal)
+            setTitle("follow-follow".localized, for: .normal)
             setTitleColor(.systemRed, for: .normal)
         case .followed:
             hideLoading()
-            setTitle("Followed", for: .normal)
+            setTitle("follow-unfollow".localized, for: .normal)
             setTitleColor(.lemmyBlue, for: .normal)
         case .pending:
             showLoading()

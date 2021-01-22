@@ -46,7 +46,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         
         let shareAction = self.createShareAction(on: viewController, urlString: post.post.apId)
         
-        let reportAction = UIAlertAction(title: "Report", style: .destructive) { (_) in
+        let reportAction = UIAlertAction(title: "alert-report".localized, style: .destructive) { (_) in
             
             ContinueIfLogined(on: viewController, coordinator: coordinator) {
                 self.reportPost(over: viewController, post: post.post)
@@ -70,7 +70,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         let alertController = createActionSheetController(vc: viewController)
         
         let shareAction = self.createShareAction(on: viewController, urlString: comment.getApIdRelatedToPost())
-        let reportAction = UIAlertAction(title: "Report", style: .destructive) { (_) in
+        let reportAction = UIAlertAction(title: "alert-report".localized, style: .destructive) { (_) in
             
             ContinueIfLogined(on: viewController, coordinator: coordinator) {
                 self.reportComment(over: viewController, contentId: comment.comment.id)
@@ -93,12 +93,12 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
     ) {
         let alertController = createActionSheetController(vc: viewController)
         
-        let sendMessageAction = UIAlertAction(title: "Send Message", style: .default) { _ in
+        let sendMessageAction = UIAlertAction(title: "alert-send-message".localized, style: .default) { _ in
             let recipientId = reply.creator.id
             viewController.coordinator?.goToWriteMessage(recipientId: recipientId)
         }
         
-        let reportAction = UIAlertAction(title: "Report", style: .destructive) { (_) in
+        let reportAction = UIAlertAction(title: "alert-report".localized, style: .destructive) { (_) in
             
             ContinueIfLogined(on: viewController, coordinator: coordinator) {
                 self.reportComment(over: viewController, contentId: reply.comment.id)
@@ -120,7 +120,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
     ) {
         let alertController = createActionSheetController(vc: viewController)
         
-        let sendMessageAction = UIAlertAction(title: "Send Message", style: .default) { _ in
+        let sendMessageAction = UIAlertAction(title: "alert-send-message".localized, style: .default) { _ in
             let recipientId = mention.creator.id
             viewController.coordinator?.goToWriteMessage(recipientId: recipientId)
         }
@@ -144,7 +144,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
     }
     
     private func createShareAction(on viewController: UIViewController, urlString: String) -> UIAlertAction {
-        return UIAlertAction(title: "Share", style: .default, handler: { (_) in
+        return UIAlertAction(title: "alert-share".localized, style: .default, handler: { (_) in
             
             if let url = URL(string: urlString) {
                 
@@ -173,14 +173,14 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         over viewController: UIViewController,
         reportAction: @escaping (String) -> Void
     ) {
-        let controller = UIAlertController(title: nil, message: "Reason", preferredStyle: .alert)
+        let controller = UIAlertController(title: nil, message: "alert-reason".localized, preferredStyle: .alert)
         controller.addTextField(configurationHandler: { tf in
-            tf.placeholder = "Text here"
+            tf.placeholder = "alert-reason".localized
         })
         
         controller.addActions([
-            UIAlertAction(title: "Cancel", style: .cancel),
-            UIAlertAction(title: "Report", style: .default, handler: { _ in
+            UIAlertAction(title: "alert-cancel".localized, style: .cancel),
+            UIAlertAction(title: "alert-report".localized, style: .default, handler: { _ in
                 if let textFieldText = controller.textFields!.first!.text, !textFieldText.isEmpty {
                     reportAction(textFieldText)
                 } else {
@@ -193,7 +193,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
     }
     
     private func showWasReportedAlert(over viewController: UIViewController) {
-        let action = UIAlertController(title: nil, message: "Thank you", preferredStyle: .alert)
+        let action = UIAlertController(title: nil, message: "alert-thanks".localized, preferredStyle: .alert)
         action.addAction(UIAlertAction(title: "OK", style: .cancel))
         viewController.present(action, animated: true)
     }

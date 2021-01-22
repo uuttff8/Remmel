@@ -22,23 +22,23 @@ class RegisterView: UIView {
     let model = RegisterViewModel()
 
     lazy var signUpLabel = UILabel().then {
-        $0.text = "Sign up"
+        $0.text = "sign-up-register".localized
         $0.font = .boldSystemFont(ofSize: 23)
     }
 
     lazy var usernameTextField = UITextField().then {
-        $0.placeholder = "Username"
+        $0.placeholder = "sign-up-username".localized
         $0.textContentType = .username
     }
 
     lazy var emailTextField = UITextField().then {
-        $0.placeholder = "Email"
+        $0.placeholder = "sign-up-email".localized
         $0.textContentType = .emailAddress
     }
 
     lazy var emailDescription = UILabel().then {
         $0.textColor = .label
-        $0.text = "You will not be able to reset your password without an email."
+        $0.text = "sign-up-email-description".localized
         $0.numberOfLines = 0
         $0.textColor = .systemGray3
         $0.font = .systemFont(ofSize: 14)
@@ -46,25 +46,25 @@ class RegisterView: UIView {
 
     lazy var passwordTextField = UITextField().then {
         $0.isSecureTextEntry = true
-        $0.placeholder = "Password"
+        $0.placeholder = "sign-up-password".localized
     }
 
     lazy var passwordVerifyTextField = UITextField().then {
         $0.isSecureTextEntry = true
-        $0.placeholder = "Verify Password"
+        $0.placeholder = "sign-up-password-verify".localized
     }
 
     lazy var captchaImageView = UIImageView()
 
     lazy var captchaTextField = UITextField().then {
-        $0.placeholder = "Captcha code"
+        $0.placeholder = "sign-up-code".localized
         $0.autocapitalizationType = .none
         $0.textContentType = .oneTimeCode
     }
 
     lazy var showNsfwSwitch: LemmyLabelWithSwitch = {
         let switcher = LemmyLabelWithSwitch()
-        switcher.checkText = "Show NSFW content"
+        switcher.checkText = "sign-up-show-nsfw".localized
         return switcher
     }()
 

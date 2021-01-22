@@ -12,18 +12,18 @@ class AuthenticationView: UIView {
     var onSignIn: ((_ emailOrUsername: String, _ password: String) -> Void)?
 
     lazy var signInLabel = UILabel().then {
-        $0.text = "Sign in"
+        $0.text = "sign-in-signin".localized
         $0.font = .boldSystemFont(ofSize: 23)
     }
 
     lazy var emailOrUsernameTextField = UITextField().then {
-        $0.placeholder = "Email or username"
+        $0.placeholder = "sign-in-email-username".localized
         $0.autocapitalizationType = .none
         $0.textContentType = .username
     }
 
     lazy var passwordTextField = UITextField().then {
-        $0.placeholder = "Password"
+        $0.placeholder = "sign-in-password".localized
         $0.isSecureTextEntry = true
         $0.textContentType = .password
     }

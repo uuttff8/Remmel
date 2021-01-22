@@ -60,7 +60,7 @@ class SettingsViewController: UIViewController {
         // https://stackoverflow.com/questions/32696615/warning-attempt-to-present-on-which-is-already-presenting-null
         self.definesPresentationContext = true
         
-        title = "App Info"
+        title = "settings-appinfo".localized
         self.navigationItem.rightBarButtonItem = closeBarButton
         self.viewModel.doSettingsForm(request: .init())
     }
@@ -133,7 +133,7 @@ extension SettingsViewController: SettingsViewControllerProtocol {
             uniqueIdentifier: TableForm.contactMatrix.rawValue,
             type: .rightDetail(
                 options: .init(
-                    title: .init(text: "Community in Matrix"),
+                    title: .init(text: "settings-community-matrix".localized),
                     detailType: .label(text: nil),
                     accessoryType: .none
                 )
@@ -144,7 +144,7 @@ extension SettingsViewController: SettingsViewControllerProtocol {
             uniqueIdentifier: TableForm.openSource.rawValue,
             type: .rightDetail(
                 options: .init(
-                    title: .init(text: "Code, Licenses, Contributors and more"),
+                    title: .init(text: "settings-opensource-code".localized),
                     detailType: .label(text: nil),
                     accessoryType: .none
                 )
@@ -155,7 +155,7 @@ extension SettingsViewController: SettingsViewControllerProtocol {
             uniqueIdentifier: TableForm.applicationVersion.rawValue,
             type: .rightDetail(
                 options: .init(
-                    title: .init(text: "Version"),
+                    title: .init(text: "settings-version".localized),
                     detailType: .label(text: viewModel.appVersion),
                     accessoryType: .none
                 )
@@ -166,7 +166,7 @@ extension SettingsViewController: SettingsViewControllerProtocol {
             uniqueIdentifier: TableForm.applicationBuild.rawValue,
             type: .rightDetail(
                 options: .init(
-                    title: .init(text: "Build"),
+                    title: .init(text: "settings-build".localized),
                     detailType: .label(text: viewModel.appBuild),
                     accessoryType: .none
                 )
@@ -175,22 +175,22 @@ extension SettingsViewController: SettingsViewControllerProtocol {
         
         let sectionsViewModel: [SettingsTableSectionViewModel] = [
             .init(
-                header: .init(title: "Author: @uuttff8"),
+                header: .init(title: "settings-author".localized),
                 cells: [authorGhCell, authorTwitterCell, authorTelegramCell],
                 footer: nil
             ),
             .init(
-                header: .init(title: "Contact Info"),
+                header: .init(title: "settings-contactinfo".localized),
                 cells: [contactEmail, contactMatrix],
                 footer: nil
             ),
             .init(
-                header: .init(title: "Open Source"),
+                header: .init(title: "settings-opensource".localized),
                 cells: [openSourceCell],
                 footer: nil
             ),
             .init(
-                header: .init(title: "Application"),
+                header: .init(title: "settings-app".localized),
                 cells: [appVersion, appBuild],
                 footer: nil
             )

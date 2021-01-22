@@ -25,7 +25,7 @@ final class AddInstanceViewController: UIViewController {
     private var validUrl: String?
     
     private lazy var addBarButton = UIBarButtonItem(
-        title: "Add",
+        title: "instances-add".localized,
         style: .done,
         target: self,
         action: #selector(addBarButtonTapped(_:))

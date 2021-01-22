@@ -1,0 +1,153 @@
+/* 
+  Localizable.strings
+  Lemmy-iOS
+
+  Created by uuttff8 on 22.01.2021.
+  Copyright © 2021 Anton Kuzmin. All rights reserved.
+*/
+
+"action-create" = "Create";
+"enter-as-guest" = "Enter as guest";
+
+"community-subscribers" = "Subscribers";
+"community-posts" = "Posts";
+"community-ago" = "ago";
+"community-joined" = "Joined";
+
+"really-exit-alert" = "Do you really want to exit?";
+
+"content-posts" = "Posts";
+"content-comments" = "Comments";
+"content-about" = "About";
+"content-replies" = "Replies";
+"content-mentions" = "Mentions";
+"content-messages" = "Messages";
+
+"nodata-posts" = "No Posts here yet...";
+"nodata-comments" = "No Comments here yet....";
+"nodata-about" = "No following communities here yet...";
+"nodata-mentions" = "No mentions here yet...";
+"nodata-replies" = "No replies here yet...";
+"nodata-messages" = "No messages here yet...";
+"nodata-search" = "No Results";
+
+"sort-active" = "Active";
+"sort-hot" = "Hot";
+"sort-new" = "New";
+"sort-day" = "Top year";
+"sort-week" = "Top week";
+"sort-month" = "Top month";
+"sort-year" = "Top year";
+"sort-all" = "Top all";
+
+"listing-all" = "All";
+"listing-subscribed" = "Subscribed";
+"listing-local" = "Local";
+"listing-community" = "Community";
+
+"searchtype-all" = "all";
+"searchtype-comments" = "comments";
+"searchtype-posts" = "posts";
+"searchtype-communities" = "communities";
+"searchtype-users" = "users";
+"searchtype-url" = "url";
+
+"searchbar-placeholder" = "Search";
+
+"settings-appinfo" = "App Info";
+"settings-author" = "Author: @uuttff8";
+"settings-contactinfo" = "Contact Info";
+"settings-community-matrix" = "Community in Matrix";
+"settings-opensource" = "Open Source";
+"settings-opensource-code" = "Code, Licenses, Contributors and more";
+"settings-app" = "Application";
+"settings-version" = "Version";
+"settings-build" = "Build";
+
+"inbox-notifications" = "Notifications";
+
+"communities" = "Communities";
+
+"follow-follow" = "Follow";
+"follow-unfollow" = "Unfollow";
+
+"readmore-text" = "Read More";
+
+"alert-share" = "Share";
+"alert-report" = "Report";
+"alert-logout" = "Logout";
+"alert-choose-instance" = "Choose another instance";
+"alert-block" = "Block";
+"alert-block-done" = "You've blocked this user!";
+"alert-unblock" = "Unblock";
+"alert-unblock-done" = "You've unblocked this user!";
+"alert-blocked-user" = "It's a blocked user!";
+"alert-send-message" = "Send message";
+"alert-login" = "Login";
+"alert-register" = "Register";
+"alert-login-or-register" = "Log in or Register to continue in current instance";
+"alert-cancel" = "Отменить";
+"alert-yes" = "Yes";
+"alert-no" = "No";
+"alert-reason" = "Reason";
+"alert-thanks" = "Thank you!";
+
+"create-comment" = "Create comment";
+"create-comment-agree" = "Agree!";
+"create-comment-placeholder" = "Please enter a comment";
+
+"create-content-create-post" = "New Post";
+"create-content-create-community" = "New Community";
+"create-content-post" = "Post";
+"create-content-community" = "Community";
+"create-content-choose-community" = "Choose Community";
+"create-content-create-url" = "Create url";
+"create-content-create-url-placeholder" = "Enter url";
+"create-content-create-title-placeholder" = "Your title";
+"create-content-create-body-placeholder" = "Your body";
+"create-content-create-nsfw" = "NSFW";
+"create-content-community-name" = "Name";
+"create-content-community-name-placeholder" = "Enter name";
+"create-content-community-name-description" = "Name – used as the identifier for the community, cannot be changed. Lowercase and underscore only";
+"create-content-community-display-name" = "Display name";
+"create-content-community-display-name-description" = "Display name — shown as the title on the community's page, can be changed.";
+"create-content-community-name-placeholder" = "Enter display name";
+"create-content-community-choose-category" = "Choose category";
+"create-content-community-category" = "Category";
+"create-content-community-description" = "Description";
+"create-content-community-description-placeholder" = "Sidebar";
+"create-content-create-nsfw" = "NSFW";
+"create-content-title-error" = "Please title your community";
+"create-content-name-error" = "Please name your community";
+
+"instances" = "Instances";
+"instances-terms-1" = "By continuing you accept our ";
+"instances-terms-2" = "Terms of use";
+"instances-terms-3" = " and ";
+"instances-terms-4" = "Privacy Policy";
+"instances-add-top" = "Add instance";
+"instances-add" = "Add";
+"instances-new-instance" = "Enter instance link here";
+
+"accounts" = "Accounts";
+"accounts-add-top" = "Login";
+"accounts-add" = "Add";
+
+"sign-in-signin" = "Sign in";
+"sign-in-login" = "Login";
+"sign-in-email-username" = "Email or username";
+"sign-in-password" = "Password";
+
+"sign-up-register" = "Register";
+"sign-up-signup" = "Sign up";
+"sign-up-username" = "Username";
+"sign-up-email" = "Email";
+"sign-up-email-description" = "You will not be able to reset your password without an email.";
+"sign-up-password" = "Password";
+"sign-up-password-verify" = "Verify password";
+"sign-up-code" = "Captcha code";
+"sign-up-show-nsfw" = "Show NSFW content";
+
+"login-error-email-user" = "Please fill correct email or username or password";
+"login-error-password-dont-match" = "Passwords don't match";
+"login-error-nocaptcha" = "Please fill captcha";

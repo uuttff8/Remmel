@@ -14,7 +14,7 @@ class SearchResultsView: UIView {
     private var tableManager: SearchResultsTableDataSource
     
     private lazy var emptyStateLabel = UILabel().then {
-        $0.text = "No Results"
+        $0.text = "nodata-search".localized
         $0.textAlignment = .center
         $0.textColor = .tertiaryLabel
     }

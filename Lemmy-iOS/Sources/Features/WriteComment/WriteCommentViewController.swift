@@ -36,7 +36,7 @@ class WriteCommentViewController: UIViewController {
     lazy var writeCommentView = self.view as! WriteCommentView
     
     private lazy var createBarButton = UIBarButtonItem(
-        title: "CREATE",
+        title: "action-create".localized.uppercased(),
         style: .done,
         target: self,
         action: #selector(createBarButtonTapped(_:))
@@ -64,7 +64,7 @@ class WriteCommentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Create Comment"
+        title = "create-comment".localized
         self.setupNavigationItems()
         
         self.viewModel.doWriteCommentFormLoad(request: .init())
@@ -73,7 +73,7 @@ class WriteCommentViewController: UIViewController {
     // MARK: - Objective-c Actions
     @objc func createBarButtonTapped(_ action: UIBarButtonItem) {
         guard let text = formData.text else {
-            UIAlertController.createOkAlert(message: "Please enter comment")
+            UIAlertController.createOkAlert(message: "create-comment-placeholder".localized)
             return
         }
         
@@ -102,7 +102,7 @@ extension WriteCommentViewController: WriteCommentViewControllerProtocol {
             type: .largeInput(
                 options: .init(
                     valueText: nil,
-                    placeholderText: "Agree!",
+                    placeholderText: "create-comment-agree".localized,
                     maxLength: nil
                 )
             )

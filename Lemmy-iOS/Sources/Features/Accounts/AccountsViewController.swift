@@ -70,15 +70,10 @@ final class AccountsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Accounts"
+        title = "accounts".localized
         view.backgroundColor = .white
         
         setupNavigationItem()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-//        self.coordinator?.removeDependency(coordinator)
     }
     
     private func setupNavigationItem() {
@@ -91,12 +86,10 @@ final class AccountsViewController: UIViewController {
         }
 
         if case .loading = newState {
-//            self.instancesView.showLoadingView()
             return
         }
 
         if case .loading = self.state {
-//            self.instancesView.hideLoadingView()
         }
 
         if case .result = newState {

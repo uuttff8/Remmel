@@ -53,7 +53,7 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
     
     func goToBrowser(with url: URL, inApp: Bool = true) {
         // https://stackoverflow.com/a/35458932
-        if (["http", "https"].contains(url.scheme?.lowercased() ?? "") && inApp) {
+        if ["http", "https"].contains(url.scheme?.lowercased() ?? "") && inApp {
             // Can open with SFSafariViewController
             let safariVc = SFSafariViewController(url: url)
             safariVc.delegate = self

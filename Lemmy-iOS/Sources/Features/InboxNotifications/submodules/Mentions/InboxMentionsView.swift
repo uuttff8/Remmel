@@ -29,7 +29,7 @@ final class InboxMentionsView: UIView {
     }
             
     private lazy var emptyStateLabel = UILabel().then {
-        $0.text = "No Mentions here yet..."
+        $0.text = "nodata-mentions".localized
         $0.textAlignment = .center
         $0.textColor = .tertiaryLabel
     }

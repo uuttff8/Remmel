@@ -58,7 +58,7 @@ final class InboxNotificationsViewController: UIViewController {
 
         self.inboxView?.updateCurrentPageIndex(self.viewModel.initialTabIndex)
 
-        self.navigationItem.title = "Notifications"
+        self.navigationItem.title = "inbox-notifications".localized
     }
     
     override func viewWillAppear(_ animated: Bool) {

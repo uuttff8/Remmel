@@ -30,7 +30,7 @@ final class AddInstanceView: UIView {
     }
     
     private lazy var textField = SloyTextField().then {
-        $0.placeholder = "Enter instance link here"
+        $0.placeholder = "instances-new-instance".localized
         $0.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     
@@ -65,8 +65,6 @@ final class AddInstanceView: UIView {
     private func reload(_ textField: UITextField) {
         if let text = textField.text, text != "" {
             self.delegate?.addInstanceView(self, didTyped: text)
-        } else {
-            
         }
     }
 

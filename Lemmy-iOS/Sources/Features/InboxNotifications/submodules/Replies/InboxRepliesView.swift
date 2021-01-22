@@ -28,7 +28,7 @@ final class InboxRepliesView: UIView {
     }
             
     private lazy var emptyStateLabel = UILabel().then {
-        $0.text = "No Replies here yet..."
+        $0.text = "nodata-replies".localized
         $0.textAlignment = .center
         $0.textColor = .tertiaryLabel
     }

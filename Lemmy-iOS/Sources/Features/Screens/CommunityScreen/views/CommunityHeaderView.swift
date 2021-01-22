@@ -29,7 +29,7 @@ class CommunityHeaderView: UIView {
     var communityData: LMModels.Views.CommunityView?
     
     let descriptionReadMoreButton = ResizableButton().then {
-        $0.setTitle("Read more", for: .normal)
+        $0.setTitle("readmore-text".localized, for: .normal)
         $0.setTitleColor(.lemmyBlue, for: .normal)
         $0.backgroundColor = .systemBackground
     }
@@ -119,9 +119,9 @@ class CommunityHeaderView: UIView {
         commImageView.loadImage(urlString: data.community.icon, imageSize: appearance.iconSize)
         
         commNameLabel.text = data.community.name
-        subscribersLabel.text = String(data.counts.subscribers) + " Subscribers"
+        subscribersLabel.text = String(data.counts.subscribers) + " " + "community-subscribers".localized
         categoryLabel.text = data.category.name
-        postsCountLabel.text = String(data.counts.posts) + " Posts"
+        postsCountLabel.text = String(data.counts.posts) + " " + "content-posts".localized
         self.followButton.bind(isSubcribed: data.subscribed)
         
         if let communityDesciption = data.community.description {

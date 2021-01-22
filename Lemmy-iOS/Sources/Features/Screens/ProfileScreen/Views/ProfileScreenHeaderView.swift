@@ -111,9 +111,12 @@ class ProfileScreenHeaderView: UIView {
         usernameLabel.text = viewData.name
         iconImageView.loadImage(urlString: viewData.avatarUrl, imageSize: appearance.iconSize)
         bannerImageView.loadImage(urlString: viewData.bannerUrl, imageSize: appearance.bannerSize, blur: true)
-        numberOfCommentsLabel.text = String(viewData.numberOfComments) + " Comments"
-        numberOfPostsLabel.text = String(viewData.numberOfPosts) + " Posts"
-        pubslihedLabel.text = "Joined " + String(viewData.published.shortTimeAgoSinceNow) + " ago"
+        numberOfCommentsLabel.text = String(viewData.numberOfComments) + " " + "content-comments".localized
+        numberOfPostsLabel.text = String(viewData.numberOfPosts) + " " + "community-posts".localized
+        
+        pubslihedLabel.text = "community-joined".localized + " "
+            + String(viewData.published.shortTimeAgoSinceNow)
+            + " " + "community-ago".localized
     }
 }
 

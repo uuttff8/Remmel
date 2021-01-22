@@ -41,7 +41,7 @@ extension CommunityScreenViewController {
         }
         
         private lazy var emptyStateLabel = UILabel().then {
-            $0.text = "No Posts here yet..."
+            $0.text = "nodata-posts".localized
             $0.textAlignment = .center
             $0.textColor = .tertiaryLabel
         }

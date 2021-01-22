@@ -1,0 +1,142 @@
+/* 
+  Localizable.strings
+  Lemmy-iOS
+
+  Created by uuttff8 on 22.01.2021.
+  Copyright © 2021 Anton Kuzmin. All rights reserved.
+*/
+
+"action-create" = "Создать";
+"enter-as-guest" = "Войти как гость";
+
+"community-subscribers" = "Подписчиков";
+"community-posts" = "Постов";
+"community-ago" = "назад";
+"community-joined" = "Присоединился";
+
+"really-exit-alert" = "Вы действительно хотите выйти?";
+
+"content-posts" = "Посты";
+"content-comments" = "Комментарии";
+"content-about" = "Подписки";
+"content-replies" = "Ответвы";
+"content-mentions" = "Упоминания";
+"content-messages" = "Сообщения";
+
+"nodata-posts" = "Здесь еще нет постов...";
+"nodata-comments" = "Здесь еще нет комментариев...";
+"nodata-about" = "Здесь еще нет подписок...";
+"nodata-mentions" = "Здесь еще нет упоминаний...";
+"nodata-replies" = "Здесь еще нет ответов...";
+"nodata-messages" = "Здесь еще нет сообщений...";
+"nodata-search" = "Нет данных";
+
+"sort-active" = "Активные";
+"sort-hot" = "Горячие";
+"sort-new" = "Новые";
+"sort-day" = "Топ за день";
+"sort-week" = "Топ за неделю";
+"sort-month" = "Топ за месяц";
+"sort-year" = "Топ за год";
+"sort-all" = "Топ за все время";
+
+"listing-all" = "Все";
+"listing-subscribed" = "Подписки";
+"listing-local" = "Локальные";
+"listing-community" = "Сообщество";
+
+"searchbar-placeholder" = "Поиск";
+
+"settings-appinfo" = "Информация";
+"settings-author" = "Автор: @uuttff8";
+"settings-contactinfo" = "Контакты";
+"settings-community-matrix" = "Сообщество в Matrix";
+"settings-opensource" = "Свободное ПО";
+"settings-opensource-code" = "Код, Лицензии и другое";
+"settings-app" = "Приложение";
+"settings-version" = "Версия";
+"settings-build" = "Билд";
+
+"inbox-notifications" = "Уведомления";
+
+"communities" = "Сообщества";
+
+"follow-follow" = "Подписаться";
+"follow-unfollow" = "Отписаться";
+
+"readmore-text" = "Больше";
+
+"alert-share" = "Поделиться";
+"alert-report" = "Пожаловаться";
+"alert-logout" = "Выйти из аккаунта";
+"alert-choose-instance" = "Выйти из инстанса";
+"alert-block" = "Заблокировать";
+"alert-block-done" = "Вы заблокировали юзера!";
+"alert-unblock" = "Разблокировать";
+"alert-unblock-done" = "Вы заблокировали юзера!";
+"alert-blocked-user" = "Это заблокированный юзер!";
+"alert-send-message" = "Отправить сообщение";
+"alert-login" = "Войти";
+"alert-register" = "Зарегистрироваться";
+"alert-login-or-register" = "Войдите или зарегистрируетесь, чтобы продолжить";
+"alert-cancel" = "Отменить";
+"alert-yes" = "Да";
+"alert-no" = "Нет";
+
+"create-comment" = "Создать комментарий";
+"create-comment-agree" = "Согласен!";
+
+"create-content-create-post" = "Новый пост";
+"create-content-create-community" = "Новое сообщество";
+"create-content-post" = "Пост";
+"create-content-post" = "Пост";
+"create-content-community" = "Сообщество";
+"create-content-choose-community" = "Выберите сообщество";
+"create-content-create-url" = "Ссылка в посте";
+"create-content-create-url-placeholder" = "Введите ссылку";
+"create-content-create-title-placeholder" = "Заголовок";
+"create-content-create-body-placeholder" = "Тело поста";
+"create-content-create-nsfw" = "NSFW";
+"create-content-community-name" = "Название";
+"create-content-community-name-placeholder" = "Введите название";
+"create-content-community-name-description" = "Название – используется как идентификатор сообщества, не может быть изменено. Разрешены только маленькие буквы и подчеркивание";
+"create-content-community-display-name" = "Отображаемое имя";
+"create-content-community-display-name-description" = "Отображаемое имя — показывается название сообщества, не может быть изменено.";
+"create-content-community-name-placeholder" = "Введите отображаемое имя";
+"create-content-community-choose-category" = "Выберите категорию";
+"create-content-community-category" = "Категория";
+"create-content-community-description" = "Описание";
+"create-content-community-description-placeholder" = "Введите описание";
+"create-content-create-nsfw" = "NSFW";
+
+"instances" = "Инстансы";
+"instances-terms-1" = "Продолжая, вы соглашаетесь с ";
+"instances-terms-2" = "условиями пользования";
+"instances-terms-3" = " и ";
+"instances-terms-4" = "политикой конфиденциальности";
+"instances-add-top" = "Добавить инстанс";
+"instances-add" = "Добавить";
+"instances-new-instance" = "Введите ссылку инстанса";
+
+"accounts" = "Аккаунты";
+"accounts-add-top" = "Войти";
+"accounts-add" = "Добавить";
+
+"sign-in-signin" = "Войти";
+"sign-in-login" = "Войти";
+"sign-in-email-username" = "Почта или юзернейм";
+"sign-in-password" = "Пароль";
+
+"sign-up-register" = "Войти";
+"sign-up-signup" = "Зарегистрироваться";
+"sign-up-username" = "Юзернейм";
+"sign-up-email" = "Почта";
+"sign-up-email-description" = "Вы не сможете восстановить пароль без почты.";
+"sign-up-password" = "Пароль";
+"sign-up-password-verify" = "Подтвердите пароль";
+"sign-up-code" = "Код сверху";
+"sign-up-show-nsfw" = "Показывать nsfw контент";
+
+"login-error-email-user" = "Пожалуйста, введите корректную почту или юзернейм или пароль";
+"login-error-password-dont-match" = "Пароли не совпадают";
+"login-error-nocaptcha" = "Пожалуйста заполните капчу";

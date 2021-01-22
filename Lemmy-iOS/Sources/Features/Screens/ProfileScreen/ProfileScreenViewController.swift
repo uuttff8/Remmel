@@ -354,7 +354,7 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
             }
             
         case .blockedUser:
-            UIAlertController.createOkAlert(message: "It's a blocked user!")
+            UIAlertController.createOkAlert(message: "alert-blocked-user".localized)
             
             self.submoduleInputs.compactMap({$0}).enumerated().forEach { (key, module) in
                 self.viewModel.doSubmodulesDataFilling(request: .init(submodules: [key: module],
@@ -380,7 +380,7 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
         alert.popoverPresentationController?.barButtonItem = showMoreBarButton
         
         if viewModel.isCurrentProfile {
-            let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { _ in
+            let logoutAction = UIAlertAction(title: "alert-logout".localized, style: .destructive) { _ in
                 self.viewModel.doProfileLogout()
                 _ = self.styledNavigationController?.popViewController(animated: true)
             }
@@ -389,7 +389,7 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
             
         } else {
             
-            let sendMessageAction = UIAlertAction(title: "Send Message", style: .default) { _ in
+            let sendMessageAction = UIAlertAction(title: "alert-send-message".localized, style: .default) { _ in
                 guard let recipientId = self.viewModel.loadedProfile?.id else {
                     Logger.commonLog.error("Can't get id form loaded profile")
                     return
@@ -400,21 +400,21 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
             
             let blockAction: UIAlertAction
             if viewModel.isBlocked {
-                blockAction = UIAlertAction(title: "Unblock", style: .destructive) { _ in
+                blockAction = UIAlertAction(title: "alert-unblock".localized, style: .destructive) { _ in
                     let userId = viewModel.userId
                     if let index = LemmyShareData.shared.blockedUsersId.firstIndex(where: { $0 == userId }) {
                         LemmyShareData.shared.blockedUsersId.remove(at: index)
                     }
                     
-                    UIAlertController.createOkAlert(message: "You've unblocked this user!")
+                    UIAlertController.createOkAlert(message: "alert-unblock-done".localized)
                 }
 
             } else {
-                blockAction = UIAlertAction(title: "Block", style: .destructive) { _ in
+                blockAction = UIAlertAction(title: "alert-block".localized, style: .destructive) { _ in
                     let userId = viewModel.userId
                     LemmyShareData.shared.blockedUsersId.append(userId)
                     
-                    UIAlertController.createOkAlert(message: "You've blocked this user!")
+                    UIAlertController.createOkAlert(message: "alert-block-done".localized)
                 }
 
             }
@@ -423,7 +423,7 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
             alert.addAction(sendMessageAction)
         }
         
-        let chooseInstanceAction = UIAlertAction(title: "Choose another instance", style: .default) { (_) in
+        let chooseInstanceAction = UIAlertAction(title: "alert-choose-instance".localized, style: .default) { (_) in
             self.coordinator?.goToInstances()
         }
         

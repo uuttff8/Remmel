@@ -14,7 +14,7 @@ class CreatePostOrCommunityViewController: UIViewController {
 
     lazy var createLabel: UILabel = {
         let lbl = UILabel()
-        lbl.text = "Create"
+        lbl.text = "action-create".localized
         lbl.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         return lbl
     }()
@@ -23,12 +23,14 @@ class CreatePostOrCommunityViewController: UIViewController {
     lazy var createView: UIView = UIView()
 
     lazy fileprivate var createPostView: ImageWithTextContainer = {
-        let view = ImageWithTextContainer(text: "POST", image: Config.Image.textQuote)
+        let view = ImageWithTextContainer(text: "create-content-post".localized.uppercased(),
+                                          image: Config.Image.textQuote)
         return view
     }()
 
     lazy fileprivate var createCommunityView: ImageWithTextContainer = {
-        let view = ImageWithTextContainer(text: "COMMUNITY", image: Config.Image.docPlainText)
+        let view = ImageWithTextContainer(text: "listing-community".localized.uppercased(),
+                                          image: Config.Image.docPlainText)
         return view
     }()
             

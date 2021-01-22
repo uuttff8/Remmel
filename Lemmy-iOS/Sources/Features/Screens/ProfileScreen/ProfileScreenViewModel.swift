@@ -215,9 +215,9 @@ enum ProfileScreenDataFlow {
         
         var title: String {
             switch self {
-            case .about: return "About"
-            case .comments: return "Comments"
-            case .posts: return "Posts"
+            case .about: return "content-about".localized
+            case .comments: return "content-comments".localized
+            case .posts: return "content-posts".localized
             }
         }
     }

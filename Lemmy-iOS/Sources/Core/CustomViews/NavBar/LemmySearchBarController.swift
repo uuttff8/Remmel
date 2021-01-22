@@ -24,14 +24,13 @@ class LemmySearchBarController: UISearchController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }
 
 class LemmySearchBar: UISearchBar, UISearchBarDelegate {
     init() {
         super.init(frame: .zero)
 
-        self.placeholder = "Search"
+        self.placeholder = "searchbar-placeholder".localized
     }
 
     required init?(coder: NSCoder) {

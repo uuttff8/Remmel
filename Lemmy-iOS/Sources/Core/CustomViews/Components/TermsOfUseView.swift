@@ -28,25 +28,25 @@ final class TermsOfUseView: UIView {
     
     private var acceptAttributedString: NSMutableAttributedString = {
         let plainAttributedString = NSMutableAttributedString(
-            string: "By continuing you accept our ",
+            string: "instances-terms-1".localized,
             attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
                          NSAttributedString.Key.foregroundColor: UIColor.white]
         )
         
         let attributedLinkStringTerms = NSMutableAttributedString(
-            string: "Terms of use",
+            string: "instances-terms-2".localized,
             attributes: [NSAttributedString.Key.link:
                             URL(string: "https://uuttff8.github.io/static/apps/Lemmer/terms")!,
                          NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
         )
         
         let attributeAnd = NSMutableAttributedString(
-            string: " and ",
+            string: "instances-terms-3".localized,
             attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
                          NSAttributedString.Key.foregroundColor: UIColor.white]
         )
         let attributedLinkStringPrivacy = NSMutableAttributedString(
-            string: "Privacy Policy",
+            string: "instances-terms-4".localized,
             attributes: [NSAttributedString.Key.link:
                             URL(string: "https://uuttff8.github.io/static/apps/Lemmer/privacy")!,
                          NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
@@ -74,7 +74,7 @@ final class TermsOfUseView: UIView {
     }
     
     override var intrinsicContentSize: CGSize {
-        CGSize(width: UIView.noIntrinsicMetric, height: 60)
+        CGSize(width: UIView.noIntrinsicMetric, height: 80)
     }
 }
 

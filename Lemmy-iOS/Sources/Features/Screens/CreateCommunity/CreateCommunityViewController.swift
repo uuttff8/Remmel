@@ -58,7 +58,7 @@ class CreateCommunityViewController: UIViewController {
     }()
     
     private lazy var createBarButton = UIBarButtonItem(
-        title: "CREATE",
+        title: "action-create".localized.uppercased(),
         style: .done,
         target: self,
         action: #selector(createBarButtonTapped(_:))
@@ -123,17 +123,17 @@ class CreateCommunityViewController: UIViewController {
     
     private func setupNavigationItem() {
         navigationItem.rightBarButtonItem = createBarButton
-        title = "Create community"
+        title = "create-content-create-community".localized
     }
     
     @objc private func createBarButtonTapped(_ sender: UIBarButtonItem) {
         let category = createComminityData.category
         guard let nameText = createComminityData.name?.lowercased() else {
-            UIAlertController.createOkAlert(message: "Please name your community")
+            UIAlertController.createOkAlert(message: "create-content-name-error".localized)
             return
         }
         guard let displayNameText = createComminityData.displayName else {
-            UIAlertController.createOkAlert(message: "Please title your community")
+            UIAlertController.createOkAlert(message: "create-content-title-error".localized)
             return
         }
         var descriptionText = createComminityData.sidebar
@@ -191,7 +191,7 @@ extension CreateCommunityViewController: CreateCommunityViewControllerProtocol {
             uniqueIdentifier: FormField.category.rawValue,
             type: .rightDetail(
                 options: .init(
-                    title: .init(text: createComminityData.category?.name ?? "Category"),
+                    title: .init(text: createComminityData.category?.name ?? "create-content-community-category".localized),
                     detailType: .label(text: nil),
                     accessoryType: .disclosureIndicator
                 )
@@ -205,7 +205,7 @@ extension CreateCommunityViewController: CreateCommunityViewControllerProtocol {
             type: .largeInput(
                 options: .init(
                     valueText: createComminityData.sidebar,
-                    placeholderText: "Sidebar",
+                    placeholderText: "create-content-community-description-placeholder".localized,
                     maxLength: nil
                 )
             )
@@ -215,7 +215,7 @@ extension CreateCommunityViewController: CreateCommunityViewControllerProtocol {
             uniqueIdentifier: FormField.nsfwOption.rawValue,
             type: .rightDetail(
                 options: .init(
-                    title: .init(text: "NSFW"),
+                    title: .init(text: "create-content-create-nsfw".localized),
                     detailType: .switch(
                         .init(isOn: self.createComminityData.nsfwOption)
                     ),
@@ -226,22 +226,22 @@ extension CreateCommunityViewController: CreateCommunityViewControllerProtocol {
         
         let sectionsViewModel: [SettingsTableSectionViewModel] = [
             .init(
-                header: .init(title: "Name"),
+                header: .init(title: "create-content-community-name".localized),
                 cells: [nameCell],
-                footer: .init(description: "Name – used as the identifier for the community, cannot be changed. Lowercase and underscore only")
+                footer: .init(description: "create-content-community-name-description".localized)
             ),
             .init(
-                header: .init(title: "Display name"),
+                header: .init(title: "create-content-community-display-name".localized),
                 cells: [displayNameCell],
-                footer: .init(description: "Display name — shown as the title on the community's page, can be changed.")
+                footer: .init(description: "create-content-community-display-name-description".localized)
             ),
             .init(
-                header: .init(title: "Choose Category"),
+                header: .init(title: "create-content-community-choose-category".localized),
                 cells: [categoryCell],
                 footer: nil
             ),
             .init(
-                header: .init(title: "Description"),
+                header: .init(title: "create-content-community-description".localized),
                 cells: [sidebarCell],
                 footer: nil
             ),

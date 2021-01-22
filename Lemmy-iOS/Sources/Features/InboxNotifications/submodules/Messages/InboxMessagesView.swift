@@ -30,7 +30,7 @@ final class InboxMessagesView: UIView {
     }
             
     private lazy var emptyStateLabel = UILabel().then {
-        $0.text = "No Messages here yet..."
+        $0.text = "nodata-messages".localized
         $0.textAlignment = .center
         $0.textColor = .tertiaryLabel
     }

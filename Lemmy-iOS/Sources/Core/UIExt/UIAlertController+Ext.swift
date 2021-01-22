@@ -13,12 +13,12 @@ extension UIAlertController {
         
         static func reallyWantToExit(onYes: @escaping () -> Void) -> UIAlertController {
             let alertControl = UIAlertController(title: nil,
-                                                 message: "Do you really want to exit",
+                                                 message: "really-exit-alert".localized,
                                                  preferredStyle: .alert)
-            let yesAction = UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
+            let yesAction = UIAlertAction(title: "alert-yes".localized, style: .destructive, handler: { _ in
                 onYes()
             })
-            let noAction = UIAlertAction(title: "No", style: .default, handler: nil)
+            let noAction = UIAlertAction(title: "alert-no".localized, style: .default, handler: nil)
             alertControl.addAction(yesAction)
             alertControl.addAction(noAction)
             alertControl.preferredAction = noAction
@@ -34,6 +34,6 @@ extension UIAlertController {
 
 extension UIAlertAction {
     static var cancelAction: UIAlertAction {
-        UIAlertAction(title: "Cancel", style: .cancel)
+        UIAlertAction(title: "alert-cancel".localized, style: .cancel)
     }
 }
