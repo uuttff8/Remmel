@@ -15,7 +15,8 @@ struct ApiErrorResponse: Codable, Equatable {
 }
 
 private func createInstanceFullUrl(instanceUrl: String) -> URL? {
-    guard let url = URL(string: "wss://" + instanceUrl + "/api/v2/ws") else {
+    let newInstanceUrl = String.cleanUpUrl(url: instanceUrl)
+    guard let url = URL(string: "wss://" + newInstanceUrl + "/api/v2/ws") else {
         return nil
     }
     
