@@ -14,8 +14,7 @@ final class MarkdownParsedViewController: UIViewController {
     let scrollableStackView = ScrollableStackView(orientation: .vertical)
     
     private lazy var closeBarButton = UIBarButtonItem(
-        title: "Close",
-        style: .done,
+        barButtonSystemItem: .close,
         target: self,
         action: #selector(dismissVc)
     )

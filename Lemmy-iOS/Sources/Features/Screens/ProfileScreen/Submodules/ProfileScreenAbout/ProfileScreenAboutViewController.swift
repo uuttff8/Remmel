@@ -13,9 +13,11 @@ protocol ProfileScreenAboutViewControllerProtocol: AnyObject {
 }
 
 class ProfileScreenAboutViewController: UIViewController {
+    
+    weak var coordinator: ProfileScreenCoordinator?
     private let viewModel: ProfileScreenAboutViewModelProtocol
 
-    private let tableDataSource = ProfileScreenAboutTableDataSource()
+    private lazy var tableDataSource = ProfileScreenAboutTableManager()
 
     lazy var aboutView = self.view as? ProfileScreenAboutViewController.View
 
@@ -43,7 +45,9 @@ class ProfileScreenAboutViewController: UIViewController {
     }
 
     override func loadView() {
-        self.view = ProfileScreenAboutViewController.View()
+        let view = ProfileScreenAboutViewController.View()
+        view.delegate = self
+        self.view = view
     }
 
     private func updateState(newState: ProfileScreenAbout.ViewControllerState) {
@@ -71,6 +75,17 @@ extension ProfileScreenAboutViewController: ProfileScreenAboutViewControllerProt
         guard case let .result(data) = viewModel.state else { return }
         self.tableDataSource.viewModels = data.subscribers
         self.updateState(newState: viewModel.state)
+    }
+}
 
+extension ProfileScreenAboutViewController: ProfileScreenAboutViewDelegate {
+    func tableDidSelect(
+        _ manager: View,
+        communityFollower: LMModels.Views.CommunityFollowerView
+    ) {
+        self.coordinator?.goToCommunityScreen(
+            communityId: communityFollower.community.id,
+            communityName: communityFollower.community.name
+        )
     }
 }

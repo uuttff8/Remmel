@@ -175,7 +175,7 @@ extension SettingsViewController: SettingsViewControllerProtocol {
         
         let sectionsViewModel: [SettingsTableSectionViewModel] = [
             .init(
-                header: .init(title: "Author"),
+                header: .init(title: "Author: @uuttff8"),
                 cells: [authorGhCell, authorTwitterCell, authorTelegramCell],
                 footer: nil
             ),

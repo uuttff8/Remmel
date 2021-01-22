@@ -8,9 +8,16 @@
 
 import UIKit
 
+protocol ProfileScreenAboutViewDelegate: AnyObject {
+    func tableDidSelect(
+        _ view: ProfileScreenAboutViewController.View,
+        communityFollower: LMModels.Views.CommunityFollowerView
+    )
+}
+
 extension ProfileScreenAboutViewController.View {
     struct Appearance {
-        
+        let tableInset = UIEdgeInsets(top: 0, left: 0, bottom: 90, right: 0)
     }
 }
 
@@ -21,17 +28,21 @@ extension ProfileScreenAboutViewController {
             let subscribers: [LMModels.Views.CommunityFollowerView]
         }
         
+        weak var delegate: ProfileScreenAboutViewDelegate?
+        
         let appearance: Appearance
         
         // Proxify delegates
         private weak var pageScrollViewDelegate: UIScrollViewDelegate?
+        
+        private var tableManager: ProfileScreenAboutTableManager?
         
         private lazy var tableView = LemmyTableView(style: .plain, separator: false).then {
             $0.registerClass(UITableViewCell.self)
             $0.backgroundColor = .clear
             $0.showsVerticalScrollIndicator = false
             $0.delegate = self
-            $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 90, right: 0) // tab bar
+            $0.contentInset = self.appearance.tableInset // tab bar
         }
         
         init(frame: CGRect = .zero, appearance: Appearance = Appearance()) {
@@ -56,7 +67,8 @@ extension ProfileScreenAboutViewController {
             tableView.hideActivityIndicator()
         }
         
-        func updateTableViewData(dataSource: UITableViewDataSource) {
+        func updateTableViewData(dataSource: ProfileScreenAboutTableManager) {
+            self.tableManager = dataSource
             _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
 //            self.emptyStateLabel.isHidden = numberOfRows != 0
 
@@ -85,44 +97,32 @@ extension ProfileScreenAboutViewController.View: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let manager = tableManager else { return }
+        
+        let viewModel = manager.viewModels[indexPath.row]
+        self.delegate?.tableDidSelect(self, communityFollower: viewModel)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
 extension ProfileScreenAboutViewController.View: ProfileScreenScrollablePageViewProtocol {
     var scrollViewDelegate: UIScrollViewDelegate? {
-        get {
-             self.pageScrollViewDelegate
-        }
-        set {
-            self.pageScrollViewDelegate = newValue
-        }
+        get { self.pageScrollViewDelegate }
+        set { self.pageScrollViewDelegate = newValue }
     }
 
     var contentInsets: UIEdgeInsets {
-        get {
-             self.tableView.contentInset
-        }
-        set {
-            self.tableView.contentInset = newValue
-        }
+        get { self.tableView.contentInset }
+        set { self.tableView.contentInset = newValue }
     }
 
     var contentOffset: CGPoint {
-        get {
-             self.tableView.contentOffset
-        }
-        set {
-            self.tableView.contentOffset = newValue
-        }
+        get { self.tableView.contentOffset }
+        set { self.tableView.contentOffset = newValue }
     }
 
     var contentInsetAdjustmentBehavior: UIScrollView.ContentInsetAdjustmentBehavior {
-        get {
-             self.tableView.contentInsetAdjustmentBehavior
-        }
-        set {
-            self.tableView.contentInsetAdjustmentBehavior = newValue
-        }
+        get { self.tableView.contentInsetAdjustmentBehavior }
+        set { self.tableView.contentInsetAdjustmentBehavior = newValue }
     }
 }

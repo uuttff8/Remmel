@@ -18,7 +18,7 @@
 		4E0A8E5C255D586F00B06AF6 /* ProfileScreenAboutInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E5B255D586F00B06AF6 /* ProfileScreenAboutInputProtocol.swift */; };
 		4E0A8E62255D589A00B06AF6 /* ProfileScreenAboutAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E61255D589A00B06AF6 /* ProfileScreenAboutAssembly.swift */; };
 		4E0A8E67255D58CD00B06AF6 /* ProfileScreenAboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E66255D58CD00B06AF6 /* ProfileScreenAboutViewModel.swift */; };
-		4E0A8E6C255D58D900B06AF6 /* ProfileScreenAboutDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E6B255D58D900B06AF6 /* ProfileScreenAboutDataSource.swift */; };
+		4E0A8E6C255D58D900B06AF6 /* ProfileScreenAboutTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E6B255D58D900B06AF6 /* ProfileScreenAboutTableManager.swift */; };
 		4E0A8E71255D58E400B06AF6 /* ProfileScreenAboutUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E70255D58E400B06AF6 /* ProfileScreenAboutUI.swift */; };
 		4E0A8E7C255D590800B06AF6 /* ProfileScreenAboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E7B255D590800B06AF6 /* ProfileScreenAboutViewController.swift */; };
 		4E0A8E8B255DD01500B06AF6 /* FrontPageSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E8A255DD01500B06AF6 /* FrontPageSearchView.swift */; };
@@ -374,7 +374,7 @@
 		4E0A8E5B255D586F00B06AF6 /* ProfileScreenAboutInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenAboutInputProtocol.swift; sourceTree = "<group>"; };
 		4E0A8E61255D589A00B06AF6 /* ProfileScreenAboutAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenAboutAssembly.swift; sourceTree = "<group>"; };
 		4E0A8E66255D58CD00B06AF6 /* ProfileScreenAboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenAboutViewModel.swift; sourceTree = "<group>"; };
-		4E0A8E6B255D58D900B06AF6 /* ProfileScreenAboutDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenAboutDataSource.swift; sourceTree = "<group>"; };
+		4E0A8E6B255D58D900B06AF6 /* ProfileScreenAboutTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenAboutTableManager.swift; sourceTree = "<group>"; };
 		4E0A8E70255D58E400B06AF6 /* ProfileScreenAboutUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenAboutUI.swift; sourceTree = "<group>"; };
 		4E0A8E7B255D590800B06AF6 /* ProfileScreenAboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenAboutViewController.swift; sourceTree = "<group>"; };
 		4E0A8E8A255DD01500B06AF6 /* FrontPageSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageSearchView.swift; sourceTree = "<group>"; };
@@ -764,7 +764,7 @@
 				4E0A8E7B255D590800B06AF6 /* ProfileScreenAboutViewController.swift */,
 				4E0A8E70255D58E400B06AF6 /* ProfileScreenAboutUI.swift */,
 				4E0A8E66255D58CD00B06AF6 /* ProfileScreenAboutViewModel.swift */,
-				4E0A8E6B255D58D900B06AF6 /* ProfileScreenAboutDataSource.swift */,
+				4E0A8E6B255D58D900B06AF6 /* ProfileScreenAboutTableManager.swift */,
 			);
 			path = ProfileScreenAbout;
 			sourceTree = "<group>";
@@ -2549,7 +2549,7 @@
 				4E886C422538C3540076B162 /* Config.swift in Sources */,
 				4EF313A2257BD5370032B58D /* LabelControl.swift in Sources */,
 				4E1070982535DF4F009EABDA /* LemmyShareData.swift in Sources */,
-				4E0A8E6C255D58D900B06AF6 /* ProfileScreenAboutDataSource.swift in Sources */,
+				4E0A8E6C255D58D900B06AF6 /* ProfileScreenAboutTableManager.swift in Sources */,
 				4EDD005225A5F31E006FCB9F /* InboxRepliesView.swift in Sources */,
 				4EF31347257839CF0032B58D /* SearchResultsTableDataSource.swift in Sources */,
 				4EDD001725A5E20B006FCB9F /* InboxNotificationSubmoduleProtocol.swift in Sources */,

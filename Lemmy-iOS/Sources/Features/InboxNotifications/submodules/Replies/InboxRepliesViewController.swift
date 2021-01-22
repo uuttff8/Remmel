@@ -137,7 +137,9 @@ extension InboxRepliesViewController: ReplyCellViewDelegate {
         )
     }
     
-    func showContext(in reply: LMModels.Views.CommentView) { }
+    func showContext(in reply: LMModels.Views.CommentView) {
+        self.coordinator?.goToPostAndScroll(to: reply)
+    }
     
     func reply(to reply: LMModels.Views.CommentView) {
         self.coordinator?.goToWriteComment(postId: reply.post.id, parrentComment: nil)

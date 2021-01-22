@@ -8,7 +8,8 @@
 
 import UIKit
 
-class ProfileScreenAboutTableDataSource: NSObject {
+class ProfileScreenAboutTableManager: NSObject {
+        
     var viewModels: [LMModels.Views.CommunityFollowerView]
 
     init(viewModels: [LMModels.Views.CommunityFollowerView] = []) {
@@ -23,7 +24,7 @@ class ProfileScreenAboutTableDataSource: NSObject {
     }
 }
 
-extension ProfileScreenAboutTableDataSource: UITableViewDataSource {
+extension ProfileScreenAboutTableManager: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.viewModels.count
     }

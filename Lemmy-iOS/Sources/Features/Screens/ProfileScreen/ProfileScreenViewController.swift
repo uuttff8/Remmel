@@ -175,7 +175,7 @@ class ProfileScreenViewController: UIViewController {
             controller = assembly.makeModule()
             moduleInput = assembly.moduleInput!
         case .about:
-            let assembly = ProfileScreenAboutAssembly()
+            let assembly = ProfileScreenAboutAssembly(coordinator: WeakBox(coordinator))
             controller = assembly.makeModule()
             moduleInput = assembly.moduleInput!
         }

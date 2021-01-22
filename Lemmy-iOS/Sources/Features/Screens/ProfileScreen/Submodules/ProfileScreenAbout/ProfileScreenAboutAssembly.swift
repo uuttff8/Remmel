@@ -12,11 +12,17 @@ class ProfileScreenAboutAssembly: Assembly {
     
     // Module Input
     var moduleInput: ProfileScreenAboutInputProtocol?
+    private let coordinator: WeakBox<ProfileScreenCoordinator>
+    
+    init(coordinator: WeakBox<ProfileScreenCoordinator>) {
+        self.coordinator = coordinator
+    }
 
     func makeModule() -> UIViewController {
         let viewModel = ProfileScreenAboutViewModel()
         let vc = ProfileScreenAboutViewController(viewModel: viewModel)
         viewModel.viewController = vc
+        vc.coordinator = coordinator.value
         self.moduleInput = viewModel
         
         return vc
