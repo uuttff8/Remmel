@@ -45,6 +45,12 @@ extension ProfileScreenAboutViewController {
             $0.contentInset = self.appearance.tableInset // tab bar
         }
         
+        private lazy var emptyStateLabel = UILabel().then {
+            $0.text = "No following communities here yet..."
+            $0.textAlignment = .center
+            $0.textColor = .tertiaryLabel
+        }
+        
         init(frame: CGRect = .zero, appearance: Appearance = Appearance()) {
             self.appearance = appearance
             super.init(frame: frame)
@@ -69,24 +75,39 @@ extension ProfileScreenAboutViewController {
         
         func updateTableViewData(dataSource: ProfileScreenAboutTableManager) {
             self.tableManager = dataSource
+            self.emptyStateLabel.isHidden = true
             _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
 //            self.emptyStateLabel.isHidden = numberOfRows != 0
 
             self.tableView.dataSource = dataSource
             self.tableView.reloadData()
         }
+        
+        func displayNoData() {
+            self.emptyStateLabel.isHidden = false
+        }
     }
 }
 
 extension ProfileScreenAboutViewController.View: ProgrammaticallyViewProtocol {
+    func setupView() {
+        self.emptyStateLabel.isHidden = true
+    }
+    
     func addSubviews() {
         self.addSubview(tableView)
+        self.addSubview(emptyStateLabel)
     }
     
     func makeConstraints() {
         self.tableView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.bottom.equalTo(self.safeAreaLayoutGuide) // tab bar
+        }
+        
+        self.emptyStateLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(350)
+            $0.leading.trailing.equalToSuperview()
         }
     }
 }

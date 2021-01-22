@@ -64,8 +64,12 @@ class ProfileScreenAboutViewController: UIViewController {
             self.aboutView?.hideActivityIndicatorView()
         }
 
-        if case .result = newState {
-            self.aboutView?.updateTableViewData(dataSource: self.tableDataSource)
+        if case let .result(data) = newState {
+            if data.subscribers.isEmpty {
+                self.aboutView?.displayNoData()
+            } else {
+                self.aboutView?.updateTableViewData(dataSource: self.tableDataSource)
+            }
         }
     }
 }
