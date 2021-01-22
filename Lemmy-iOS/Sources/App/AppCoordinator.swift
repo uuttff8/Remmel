@@ -9,12 +9,15 @@
 import UIKit
 
 class AppCoordinator: BaseCoordinator {
-    let window: UIWindow
+    
+    private let window: UIWindow
+    private let windowScene: UIWindowScene
     
     private let userAccountService = UserAccountService()
     
-    init(window: UIWindow) {
+    init(window: UIWindow, windowScene: UIWindowScene) {
         self.window = window
+        self.windowScene = windowScene
     }
     
     override func start() {
@@ -34,6 +37,7 @@ class AppCoordinator: BaseCoordinator {
             window.rootViewController = myCoordinator.router.navigationController
         }
         
+        window.windowScene = windowScene
         window.makeKeyAndVisible()
     }
 }

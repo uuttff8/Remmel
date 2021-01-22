@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreData
-import IQKeyboardManagerSwift
+//import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,9 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 //        LemmyShareData.shared.loginData.logout()
         
-        IQKeyboardManager.shared.enable = true
-        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
-        IQKeyboardManager.shared.keyboardDistanceFromTextField = 24
+//        IQKeyboardManager.shared.enable = true
+//        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+//        IQKeyboardManager.shared.keyboardDistanceFromTextField = 24
 //        IQKeyboardManager.shared.enableAutoToolbar = false
         
 //        #if DEBUG

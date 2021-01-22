@@ -143,7 +143,6 @@
 		4E9183A52567FE5500702F04 /* ChooseCommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183A42567FE5500702F04 /* ChooseCommunityViewModel.swift */; };
 		4E9183AA2567FF4200702F04 /* ChooseCommunityTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183A92567FF4200702F04 /* ChooseCommunityTableDataSource.swift */; };
 		4E9183AF25696EAA00702F04 /* ChooseCommunityAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183AE25696EAA00702F04 /* ChooseCommunityAssembly.swift */; };
-		4E9183B8256AF77700702F04 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E9183B7256AF77700702F04 /* IQKeyboardManagerSwift */; };
 		4E9183C3256AFB1200702F04 /* CreateCommunityDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183C2256AFB1200702F04 /* CreateCommunityDataFlow.swift */; };
 		4E9183C8256AFD8800702F04 /* CreateCommunityAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183C7256AFD8800702F04 /* CreateCommunityAssembly.swift */; };
 		4E9183D0256C011200702F04 /* ChooseCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183CF256C011200702F04 /* ChooseCategoryViewModel.swift */; };
@@ -713,7 +712,6 @@
 				4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */,
 				4EF3ACF625506EC900BEC9F1 /* SwiftyMarkdown in Frameworks */,
 				4EBF1D5E25923723004068CD /* XCGLogger in Frameworks */,
-				4E9183B8256AF77700702F04 /* IQKeyboardManagerSwift in Frameworks */,
 				4EE027E625B07EF600D2952D /* GSImageViewerController in Frameworks */,
 				4E9184FC256E9E4E00702F04 /* SwipeCellKit in Frameworks */,
 				4EE027B425AFA02B00D2952D /* Nantes in Frameworks */,
@@ -2047,7 +2045,6 @@
 				4ECCEEFA250C13240075F921 /* SnapKit */,
 				4E1070832534F742009EABDA /* KeychainSwift */,
 				4EF3ACF525506EC900BEC9F1 /* SwiftyMarkdown */,
-				4E9183B7256AF77700702F04 /* IQKeyboardManagerSwift */,
 				4E9184FB256E9E4E00702F04 /* SwipeCellKit */,
 				4EBF1D5D25923723004068CD /* XCGLogger */,
 				4EE027B325AFA02B00D2952D /* Nantes */,
@@ -2129,7 +2126,6 @@
 				4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				4EF3ACF425506EC900BEC9F1 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */,
-				4E9183B6256AF77700702F04 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
 				4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger" */,
 				4EE027B225AFA02B00D2952D /* XCRemoteSwiftPackageReference "Nantes" */,
@@ -2728,7 +2724,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2750,7 +2746,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2900,14 +2896,6 @@
 				minimumVersion = 19.0.0;
 			};
 		};
-		4E9183B6256AF77700702F04 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.5.6;
-			};
-		};
 		4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwipeCellKit/SwipeCellKit.git";
@@ -2963,11 +2951,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
-		};
-		4E9183B7256AF77700702F04 /* IQKeyboardManagerSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E9183B6256AF77700702F04 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
-			productName = IQKeyboardManagerSwift;
 		};
 		4E9184FB256E9E4E00702F04 /* SwipeCellKit */ = {
 			isa = XCSwiftPackageProductDependency;
