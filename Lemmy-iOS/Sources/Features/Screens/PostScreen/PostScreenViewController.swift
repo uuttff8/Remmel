@@ -127,7 +127,7 @@ extension PostScreenViewController: PostContentTableCellDelegate {
     }
     
     func presentVc(viewController: UIViewController) {
-        self.navigationController?.pushViewController(viewController, animated: true)
+        present(viewController, animated: true)
     }
 }
 

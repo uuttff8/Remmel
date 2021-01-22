@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyMarkdown
 import Nantes
-import GSImageViewerController
+import Lightbox
 
 // MARK: - PostContentCenterView: UIView
 class PostContentCenterView: UIView {
@@ -83,7 +83,7 @@ class PostContentCenterView: UIView {
             subtitleLabel.numberOfLines = 0
             thumbailImageView.loadImage(urlString: data.imageUrl) { [self] (res) in
                 guard case let .success(response) = res else { return }
-                self.setupImageViewForFullPostViewer(image: response.image)
+                self.setupImageViewForFullPostViewer(image: response.image, text: data.title)
             }
             
             if let subtitle = data.subtitle {
@@ -108,12 +108,13 @@ class PostContentCenterView: UIView {
         
     }
     
-    func setupImageViewForFullPostViewer(image: UIImage) {
+    func setupImageViewForFullPostViewer(image: UIImage, text: String) {
         self.thumbailImageView.addTap {
-            let imageInfo   = GSImageInfo(image: image, imageMode: .aspectFit)
-            let imageViewerController = GSImageViewerController(imageInfo: imageInfo)
-
-            self.onImagePresent?(imageViewerController)
+            let image = [LightboxImage(image: image, text: text)]
+            let imageController = LightboxController(images: image)
+            imageController.dynamicBackground = true
+            
+            self.onImagePresent?(imageController)
         }
     }
     

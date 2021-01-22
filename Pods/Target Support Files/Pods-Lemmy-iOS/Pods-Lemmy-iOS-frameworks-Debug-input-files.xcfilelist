@@ -1,4 +1,7 @@
 ${PODS_ROOT}/Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Cache/Cache.framework
 ${BUILT_PRODUCTS_DIR}/DateToolsSwift/DateToolsSwift.framework
+${BUILT_PRODUCTS_DIR}/Imaginary/Imaginary.framework
+${BUILT_PRODUCTS_DIR}/Lightbox/Lightbox.framework
 ${BUILT_PRODUCTS_DIR}/Nuke/Nuke.framework
 ${BUILT_PRODUCTS_DIR}/Pageboy/Pageboy.framework
