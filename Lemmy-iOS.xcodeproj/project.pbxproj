@@ -162,6 +162,7 @@
 		4E98BFA225B8DEC3009DA520 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E98BFA125B8DEC3009DA520 /* SettingsViewController.swift */; };
 		4E98BFA725B8DECA009DA520 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E98BFA625B8DECA009DA520 /* SettingsViewModel.swift */; };
 		4E98BFAC25B8DEE1009DA520 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E98BFAB25B8DEE1009DA520 /* SettingsView.swift */; };
+		4E98BFC125BB2438009DA520 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E98BFC025BB2438009DA520 /* IQKeyboardManagerSwift */; };
 		4E9BBA2C25553516004FF2F9 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA2B25553516004FF2F9 /* Error.swift */; };
 		4E9BBA5425555571004FF2F9 /* LemmySortListingPickersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA5325555571004FF2F9 /* LemmySortListingPickersView.swift */; };
 		4E9BBA592555560C004FF2F9 /* LemmyImageTextPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA582555560C004FF2F9 /* LemmyImageTextPickerView.swift */; };
@@ -712,6 +713,7 @@
 				4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */,
 				4EF3ACF625506EC900BEC9F1 /* SwiftyMarkdown in Frameworks */,
 				4EBF1D5E25923723004068CD /* XCGLogger in Frameworks */,
+				4E98BFC125BB2438009DA520 /* IQKeyboardManagerSwift in Frameworks */,
 				4EE027E625B07EF600D2952D /* GSImageViewerController in Frameworks */,
 				4E9184FC256E9E4E00702F04 /* SwipeCellKit in Frameworks */,
 				4EE027B425AFA02B00D2952D /* Nantes in Frameworks */,
@@ -2049,6 +2051,7 @@
 				4EBF1D5D25923723004068CD /* XCGLogger */,
 				4EE027B325AFA02B00D2952D /* Nantes */,
 				4EE027E525B07EF600D2952D /* GSImageViewerController */,
+				4E98BFC025BB2438009DA520 /* IQKeyboardManagerSwift */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */;
@@ -2130,6 +2133,7 @@
 				4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger" */,
 				4EE027B225AFA02B00D2952D /* XCRemoteSwiftPackageReference "Nantes" */,
 				4EE027E425B07EF600D2952D /* XCRemoteSwiftPackageReference "GSImageViewerController" */,
+				4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
@@ -2904,6 +2908,14 @@
 				minimumVersion = 2.7.1;
 			};
 		};
+		4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.6;
+			};
+		};
 		4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/DaveWoodCom/XCGLogger.git";
@@ -2956,6 +2968,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */;
 			productName = SwipeCellKit;
+		};
+		4E98BFC025BB2438009DA520 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
 		};
 		4EBF1D5D25923723004068CD /* XCGLogger */ = {
 			isa = XCSwiftPackageProductDependency;

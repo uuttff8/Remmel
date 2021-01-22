@@ -58,7 +58,7 @@ extension PostsTableDataSource: UITableViewDataSource {
         cell.postContentView.delegate = delegate
         
         let viewModel = self.viewModels[indexPath.row]
-        cell.bind(with: viewModel, isInsideCommunity: true)
+        cell.bind(with: viewModel, isInsideCommunity: false)
         
         return cell
     }
