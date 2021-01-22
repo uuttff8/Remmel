@@ -71,30 +71,7 @@ class LoginViewController: UIViewController {
             onSignUp()
         }
     }
-    
-    private func onSignUp() {
-        guard let params = checkRegisterData() else { return }
         
-        ApiManager.requests.asyncRegister(parameters: params)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { (completion) in
-                Logger.logCombineCompletion(completion)
-
-                if case let .failure(why) = completion {
-                    UIAlertController.createOkAlert(message: why.description)
-                }
-            }, receiveValue: { (response) in
-                self.shareData.loginData.login(jwt: response.jwt)
-                self.loadUserOnSuccessResponse(jwt: response.jwt) { (myUser) in
-                    LemmyShareData.shared.userdata = myUser
-                    
-                    DispatchQueue.main.async {
-                        self.loginSuccessed()
-                    }
-                }
-            }).store(in: &cancellables)
-    }
-    
     private func checkRegisterData() -> LMModels.Api.User.Register? {
         guard let signUpView = signUpView else { return nil }
         
@@ -139,6 +116,29 @@ class LoginViewController: UIViewController {
                                           showNsfw: showNsfw,
                                           captchaUuid: uuid,
                                           captchaAnswer: captchaCode)
+    }
+    
+    private func onSignUp() {
+        guard let params = checkRegisterData() else { return }
+        
+        ApiManager.requests.asyncRegister(parameters: params)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { (completion) in
+                Logger.logCombineCompletion(completion)
+
+                if case let .failure(why) = completion {
+                    UIAlertController.createOkAlert(message: why.description)
+                }
+            }, receiveValue: { (response) in
+                self.shareData.loginData.login(jwt: response.jwt)
+                self.loadUserOnSuccessResponse(jwt: response.jwt) { (myUser) in
+                    LemmyShareData.shared.userdata = myUser
+                    
+                    DispatchQueue.main.async {
+                        self.loginSuccessed()
+                    }
+                }
+            }).store(in: &cancellables)
     }
     
     private func onSignIn() {
