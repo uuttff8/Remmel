@@ -138,8 +138,8 @@ final class SearchResultsTableDataSource: NSObject {
 }
 
 extension SearchResultsTableDataSource: CommunityPreviewTableCellDelegate {
-    func communityPreviewCell(_ cell: CommunityPreviewTableCell, didTapped followButton: FollowButton) {
-        guard let communityCell = cell.community else { return }
+    func communityCellView(_ cell: CommunityPreviewCellView, didTapped followButton: FollowButton) {
+        guard let communityCell = cell.viewData else { return }
         guard case .communities(let viewModels) = viewModels else { return }
         
         if let index = viewModels.firstIndex(where: { $0.id == communityCell.id }) {

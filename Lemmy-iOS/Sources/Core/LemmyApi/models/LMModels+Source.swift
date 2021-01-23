@@ -21,7 +21,7 @@ extension LMModels {
             let published: Date
             let updated: Date?
             let matrixUserId: String?
-            let actorId: String
+            let actorId: URL
             let bio: String?
             let local: Bool
             let banner: String?
@@ -55,7 +55,7 @@ extension LMModels {
             let showAvatars: Bool
             let sendNotificationsToEmail: Bool
             let matrixUserId: String?
-            let actorId: String
+            let actorId: URL
             let bio: String?
             let local: Bool
             let lastRefreshedAt: String
@@ -375,7 +375,7 @@ extension LMModels {
             let updated: Date?
             let deleted: Bool
             let nsfw: Bool
-            let actorId: String
+            let actorId: URL
             let local: Bool
             let icon: String?
             let banner: String?

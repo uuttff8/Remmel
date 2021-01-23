@@ -16,7 +16,7 @@ class CommunitiesPreviewView: UIView {
         
     weak var delegate: CommunitiesPreviewViewDelagate?
     
-    private lazy var tableView = LemmyTableView(style: .plain, separator: false).then {
+    private lazy var tableView = LemmyTableView(style: .plain, separator: true).then {
         $0.registerClass(CommunityPreviewTableCell.self)
         $0.refreshControl = self.refreshControl
         self.refreshControl.addTarget(self, action: #selector(self.refreshControlValueChanged), for: .valueChanged)

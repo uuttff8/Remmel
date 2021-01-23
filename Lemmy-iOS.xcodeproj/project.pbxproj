@@ -56,6 +56,8 @@
 		4E3FBC49258A812B00F97671 /* CommunitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC48258A812B00F97671 /* CommunitiesViewModel.swift */; };
 		4E3FBC51258A82B100F97671 /* CommunitiesPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC50258A82B100F97671 /* CommunitiesPreviewView.swift */; };
 		4E3FBC59258A857600F97671 /* CommunitiesPreviewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSource.swift */; };
+		4E66428725BCC20100E11E20 /* LMModels+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E66428625BCC20100E11E20 /* LMModels+Ext.swift */; };
+		4E66428D25BCC34800E11E20 /* CommunityPreviewCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E66428C25BCC34800E11E20 /* CommunityPreviewCellView.swift */; };
 		4E6E662825B1F33300AF2F48 /* LMModels+Aggregates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E662725B1F33300AF2F48 /* LMModels+Aggregates.swift */; };
 		4E6E663025B1F52E00AF2F48 /* LMModels+Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E662F25B1F52E00AF2F48 /* LMModels+Source.swift */; };
 		4E6E663525B1F93B00AF2F48 /* LMModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E663425B1F93B00AF2F48 /* LMModels.swift */; };
@@ -413,6 +415,8 @@
 		4E3FBC48258A812B00F97671 /* CommunitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesViewModel.swift; sourceTree = "<group>"; };
 		4E3FBC50258A82B100F97671 /* CommunitiesPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewView.swift; sourceTree = "<group>"; };
 		4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewDataSource.swift; sourceTree = "<group>"; };
+		4E66428625BCC20100E11E20 /* LMModels+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Ext.swift"; sourceTree = "<group>"; };
+		4E66428C25BCC34800E11E20 /* CommunityPreviewCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPreviewCellView.swift; sourceTree = "<group>"; };
 		4E6E662725B1F33300AF2F48 /* LMModels+Aggregates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Aggregates.swift"; sourceTree = "<group>"; };
 		4E6E662F25B1F52E00AF2F48 /* LMModels+Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Source.swift"; sourceTree = "<group>"; };
 		4E6E663425B1F93B00AF2F48 /* LMModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMModels.swift; sourceTree = "<group>"; };
@@ -885,6 +889,23 @@
 			path = ProfileScreen;
 			sourceTree = "<group>";
 		};
+		4E66428525BCC1F700E11E20 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4E66428625BCC20100E11E20 /* LMModels+Ext.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
+		4E66428B25BCC33A00E11E20 /* CommunityPreview */ = {
+			isa = PBXGroup;
+			children = (
+				4ECCEF2A250FF56A0075F921 /* CommunityPreviewTableCell.swift */,
+				4E66428C25BCC34800E11E20 /* CommunityPreviewCellView.swift */,
+			);
+			path = CommunityPreview;
+			sourceTree = "<group>";
+		};
 		4E6E664C25B2001900AF2F48 /* api */ = {
 			isa = PBXGroup;
 			children = (
@@ -1250,6 +1271,7 @@
 		4E9BBA1725553132004FF2F9 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				4E66428525BCC1F700E11E20 /* extensions */,
 				4E6E664C25B2001900AF2F48 /* api */,
 				4E6E663425B1F93B00AF2F48 /* LMModels.swift */,
 				4E6E662725B1F33300AF2F48 /* LMModels+Aggregates.swift */,
@@ -1620,11 +1642,11 @@
 		4ECCEF0F250CEFF80075F921 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				4E66428B25BCC33A00E11E20 /* CommunityPreview */,
 				4EDD008A25A60FBE006FCB9F /* Message */,
 				4E7CFCBF25841AE80082AC3D /* WriteCommentParentPreviewCell */,
 				4EF312E32576D2B90032B58D /* Post */,
 				4E9185B52570644900702F04 /* Comment */,
-				4ECCEF2A250FF56A0075F921 /* CommunityPreviewTableCell.swift */,
 				4E1A7E6025573CC900E193B7 /* LoadingTableViewCell.swift */,
 				4EF313BB257BEDC20032B58D /* UserPreviewCell.swift */,
 			);
@@ -2301,6 +2323,7 @@
 				4EB89B302521FDBE007129BF /* LemmyLinkedClickableUILabel.swift in Sources */,
 				4EF3134C257910F00032B58D /* SearchResultsAssembly.swift in Sources */,
 				4EFAB5DD2552FA4300B32780 /* Notification+Ext.swift in Sources */,
+				4E66428D25BCC34800E11E20 /* CommunityPreviewCellView.swift in Sources */,
 				4EFAB5C22552D32600B32780 /* Then.swift in Sources */,
 				4E98C01125BCA71E009DA520 /* SwipingCommentTableCell.swift in Sources */,
 				4E886CD32541E1A20076B162 /* ChooseCommunityUI.swift in Sources */,
@@ -2446,6 +2469,7 @@
 				4ECCEF23250FB3DE0075F921 /* CommunitiesPreviewViewController.swift in Sources */,
 				4E1A7E6625573EA400E193B7 /* ProfileScreenUI.swift in Sources */,
 				4ECCEEAC250B8B6B0075F921 /* SceneDelegate.swift in Sources */,
+				4E66428725BCC20100E11E20 /* LMModels+Ext.swift in Sources */,
 				4EF3ACD1254EF82C00BEC9F1 /* CommunityScreenViewController.swift in Sources */,
 				4EB89B052521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift in Sources */,
 				4EBF1D4925920AC1004068CD /* Instance.swift in Sources */,
