@@ -86,7 +86,7 @@
 "alert-login" = "Login";
 "alert-register" = "Register";
 "alert-login-or-register" = "Log in or Register to continue in current instance";
-"alert-cancel" = "Отменить";
+"alert-cancel" = "Cancel";
 "alert-yes" = "Yes";
 "alert-no" = "No";
 "alert-reason" = "Reason";
