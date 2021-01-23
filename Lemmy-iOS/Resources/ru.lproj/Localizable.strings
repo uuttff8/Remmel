@@ -83,7 +83,7 @@
 "alert-yes" = "Да";
 "alert-no" = "Нет";
 
-"create-comment" = "Создать комментарий";
+"create-comment" = "Новый комментарий";
 "create-comment-agree" = "Согласен!";
 
 "create-content-create-post" = "Новый пост";
@@ -140,3 +140,9 @@
 "login-error-email-user" = "Пожалуйста, введите корректную почту или юзернейм или пароль";
 "login-error-password-dont-match" = "Пароли не совпадают";
 "login-error-nocaptcha" = "Пожалуйста заполните капчу";
+
+"front-search-search" = "Искать по";
+"front-search-posts" = "Постам";
+"front-search-users" = "Юзерам";
+"front-search-communities" = "Сообществам";
+"front-search-comments" = "Комментариям";

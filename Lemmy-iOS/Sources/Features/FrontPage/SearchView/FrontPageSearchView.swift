@@ -14,11 +14,14 @@ protocol FrontPageSearchViewDelegate: AnyObject {
 
 extension FrontPageSearchView {
     struct Appearance {
-        let searchTypeConfig: [LMModels.Others.SearchType] = [.comments, .posts, .communities, .users]
+        let searchTypeConfig: [LMModels.Others.SearchType] = [.posts, .users, .communities, .comments]
         let fadeAnimationDuratation: TimeInterval = 0.3
         let alphaAtInit: CGFloat = 0.0
         
-        let topContentInset: CGFloat = UIScreen.main.bounds.height / 10
+        let tableInset = UIEdgeInsets(top: UIScreen.main.bounds.height / 10,
+                                      left: 0,
+                                      bottom: 0,
+                                      right: 0)
     }
 }
 
@@ -29,11 +32,13 @@ class FrontPageSearchView: UIView {
     
     private var searchText: String = ""
     
+    private lazy var searchHeaderLabel = SearchTableHeaderLabel()
+    
     private lazy var tableView = LemmyTableView(style: .grouped, separator: true).then {
         $0.registerClass(FrontPageSearchSubjectTableCell.self)
         $0.delegate = self
         $0.dataSource = self
-        $0.contentInset = .init(top: appearance.topContentInset, left: 0, bottom: 0, right: 0)
+        $0.contentInset = self.appearance.tableInset
     }
     
     init(appearance: Appearance = Appearance()) {
@@ -51,6 +56,7 @@ class FrontPageSearchView: UIView {
     }
     
     // MARK: Public API
+    // warning: function is called many many times when typing
     func configure(with searchText: String) {
         self.searchText = searchText
         tableView.reloadData()
@@ -118,6 +124,7 @@ extension FrontPageSearchView: UITableViewDataSource, UITableViewDelegate {
 
 extension FrontPageSearchView: ProgrammaticallyViewProtocol {
     func setupView() {
+        self.tableView.tableHeaderView = searchHeaderLabel
         self.backgroundColor = .systemBackground
         self.alpha = appearance.alphaAtInit
     }
@@ -127,8 +134,36 @@ extension FrontPageSearchView: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
+        self.tableView.layoutTableHeaderView()
         self.tableView.snp.makeConstraints {
             $0.edges.equalTo(self.safeAreaLayoutGuide)
         }
+    }
+}
+
+private class SearchTableHeaderLabel: UIView {
+    
+    private lazy var searchLabel: UILabel = {
+        $0.text = "front-search-search".localized
+        $0.font = .boldSystemFont(ofSize: 32)
+        return $0
+    }(UILabel())
+
+    init() {
+        super.init(frame: .zero)
+        
+        self.addSubview(searchLabel)
+        self.searchLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().inset(16)
+            $0.trailing.equalToSuperview()
+            $0.top.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        }
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

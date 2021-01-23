@@ -20,13 +20,13 @@ class FrontPageSearchSubjectTableCell: UITableViewCell {
         
         switch type {
         case .comments:
-            textLabel?.text = "Search comments with \(query)"
+            textLabel?.text = "front-search-comments".localized + " \(query)"
         case .users:
-            textLabel?.text = "Search users with @\(query)"
+            textLabel?.text = "front-search-users".localized + " @\(query)"
         case .communities:
-            textLabel?.text = "Search communities with !\(query)"
+            textLabel?.text = "front-search-communities".localized + " !\(query)"
         case .posts:
-            textLabel?.text = "Search posts with \(query)"
+            textLabel?.text = "front-search-posts".localized + " \(query)"
         default:
             break
         }

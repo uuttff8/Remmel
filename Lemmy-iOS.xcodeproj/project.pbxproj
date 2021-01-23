@@ -1178,6 +1178,7 @@
 		4E9185B52570644900702F04 /* Comment */ = {
 			isa = PBXGroup;
 			children = (
+				4EDD00B925A739B6006FCB9F /* ReplyMention */,
 				4E98C00F25BCA70E009DA520 /* SwipingComment */,
 				4E98BFFD25BCA55A009DA520 /* Components */,
 				4ECCEF1E250DFBC90075F921 /* CommentContentTableCell.swift */,
@@ -1619,7 +1620,6 @@
 		4ECCEF0F250CEFF80075F921 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				4EDD00B925A739B6006FCB9F /* ReplyMention */,
 				4EDD008A25A60FBE006FCB9F /* Message */,
 				4E7CFCBF25841AE80082AC3D /* WriteCommentParentPreviewCell */,
 				4EF312E32576D2B90032B58D /* Post */,

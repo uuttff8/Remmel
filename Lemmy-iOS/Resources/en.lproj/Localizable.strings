@@ -92,7 +92,7 @@
 "alert-reason" = "Reason";
 "alert-thanks" = "Thank you!";
 
-"create-comment" = "Create comment";
+"create-comment" = "New comment";
 "create-comment-agree" = "Agree!";
 "create-comment-placeholder" = "Please enter a comment";
 
@@ -151,3 +151,10 @@
 "login-error-email-user" = "Please fill correct email or username or password";
 "login-error-password-dont-match" = "Passwords don't match";
 "login-error-nocaptcha" = "Please fill captcha";
+
+"front-search-search" = "Search";
+"front-search-posts" = "Posts with";
+"front-search-users" = "Users with";
+"front-search-communities" = "Communities with";
+"front-search-comments" = "Comments with";
+

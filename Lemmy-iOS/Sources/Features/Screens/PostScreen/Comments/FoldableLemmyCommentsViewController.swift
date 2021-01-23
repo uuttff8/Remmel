@@ -58,8 +58,11 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         let indexPath = IndexPath(row: index, section: 0)
         tableView.scrollToRow(at: indexPath, at: .middle, animated: false)
         
-        if let cell = self.tableView.cellForRow(at: indexPath) as? CommentContentTableCell {
+        if let cell = self.tableView.cellForRow(at: indexPath) as? SwipingCommentContentTableCell {
             cell.focusOnContent()
+        } else {
+            Logger.commonLog
+                .error("Not found cell in FoldableLemmyComments \(type(of: SwipingCommentContentTableCell.self))")
         }
     }
     
