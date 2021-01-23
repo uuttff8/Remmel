@@ -2996,7 +2996,7 @@
 			repositoryURL = "https://github.com/uuttff8/Nantes/";
 			requirement = {
 				kind = revision;
-				revision = 01b01cad870d356541604f2bf007790ca55ccb71;
+				revision = c63d7e64fa4266193cb2a3db0f2c1ead357f8a39;
 			};
 		};
 		4EF3ACF425506EC900BEC9F1 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */ = {
