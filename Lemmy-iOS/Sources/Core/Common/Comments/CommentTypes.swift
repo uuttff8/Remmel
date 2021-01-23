@@ -34,9 +34,3 @@ class BaseComment: AbstractComment {
         self.replies.append(reply)
     }
 }
-
-struct CommentNode {
-    let id: Int
-    let comment: LMModels.Views.CommentView
-    var replies: [CommentNode]
-}

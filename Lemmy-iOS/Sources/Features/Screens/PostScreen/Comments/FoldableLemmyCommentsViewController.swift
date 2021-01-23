@@ -15,7 +15,7 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
     
     var commentDataSource: [LemmyComment] {
         get { currentlyDisplayed as! [LemmyComment] }
-        set { (currentlyDisplayed) = newValue }
+        set { currentlyDisplayed = newValue }
     }
     
     init() {
@@ -30,7 +30,7 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.registerClass(CommentContentTableCell.self)
+        tableView.registerClass(SwipingCommentContentTableCell.self)
     }
     
     func showComments(with comments: [LemmyComment]) {
@@ -43,8 +43,8 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
     }
     
     func saveNewComment(comment: LMModels.Views.CommentView) {
-        if let index = commentDataSource.firstIndex(where: { comment in
-            comment.commentContent?.comment.id == comment.id
+        if let index = commentDataSource.firstIndex(where: {
+            $0.id == comment.id
         }) {
             commentDataSource[index].commentContent = comment
         }
@@ -73,17 +73,13 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         commentCellForModel commentModel: AbstractComment,
         atIndexPath indexPath: IndexPath
     ) -> CommentCell {        
-        let commentCell: CommentContentTableCell = tableView.cell(forRowAt: indexPath)
-        let comment = getCommentData(from: indexPath)
+        let commentCell: SwipingCommentContentTableCell = tableView.cell(forRowAt: indexPath)
+        let comment = commentDataSource[indexPath.row]
         
         commentCell.bind(with: comment.commentContent!, level: comment.level, appearance: .init(config: .inPost))
         commentCell.commentContentView.delegate = commentDelegate
         
         return commentCell
-    }
-    
-    private func getCommentData(from indexPath: IndexPath) -> LemmyComment {
-        currentlyDisplayed[indexPath.row] as! LemmyComment
     }
 }
 
@@ -97,7 +93,7 @@ extension FoldableLemmyCommentsViewController: CommentsViewDelegate {
     }
     
     private func updateCellFoldState(_ folded: Bool, atIndex index: Int) {
-        let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as! CommentContentTableCell
+        let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as! SwipingCommentContentTableCell
         cell.animateIsFolded(fold: folded)
         (self.currentlyDisplayed[index] as! LemmyComment).isFolded = folded
         self.tableView.beginUpdates()

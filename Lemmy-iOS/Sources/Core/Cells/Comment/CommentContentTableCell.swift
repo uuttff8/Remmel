@@ -30,29 +30,17 @@ extension CommentContentTableCell {
         
         var config: CommentContentView.Setting = CommentContentView.Setting.list
         
-        let rootCommentMarginColor = UIColor.systemBackground
-        let commentMarginColor = UIColor.systemBackground
         let backgroundColor = UIColor.systemBackground
-        
-        let indentColors = [
-            UIColor.systemIndigo, // for accessing
-            UIColor.systemRed,
-            UIColor.systemGreen,
-            UIColor.systemYellow,
-            UIColor.cyan,
-            UIColor.systemIndigo
-        ]
     }
 }
 
 // MARK: - CommentContentTableCell: CommentCell
-class CommentContentTableCell: CommentCell, ContentFocusable {
+class CommentContentTableCell: UITableViewCell, ContentFocusable {
 
     var appearance = Appearance()
     
     // MARK: - Properties
     let commentContentView = CommentContentView()
-    let selBackView = UIView()
     
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -73,29 +61,6 @@ class CommentContentTableCell: CommentCell, ContentFocusable {
         self.appearance = appearance
         
         commentContentView.bind(with: comment, setting: appearance.config)
-        self.level = level
-        
-        if self.level > 0 {
-            self.indentationIndicatorColor =
-                self.appearance.indentColors[self.level % (self.appearance.indentColors.count - 1)]
-        }
-    }
-    
-    /// Change the value of the isFolded property. Add a color animation.
-    func animateIsFolded(fold: Bool) {
-        UIView.animateKeyframes(withDuration: 0.3, delay: 0.0, options: [], animations: {
-            self.commentContentView.backgroundColor = UIColor.gray.withAlphaComponent(0.06)
-        }, completion: { _ in
-            
-            UIView.animateKeyframes(withDuration: 0.3, delay: 0.0, options: [], animations: {
-                self.commentContentView.backgroundColor = self.appearance.backgroundColor
-            })
-        })
-    }
-
-    // MARK: - Overrided
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        selBackView.backgroundColor = Config.Color.highlightCell
     }
     
     override func prepareForReuse() {
@@ -110,22 +75,19 @@ class CommentContentTableCell: CommentCell, ContentFocusable {
 
 extension CommentContentTableCell: ProgrammaticallyViewProtocol {
     func setupView() {
-        selBackView.backgroundColor = Config.Color.highlightCell
-        self.selectedBackgroundView = selBackView
+        self.selectionStyle = .none
         
         // comment cell
         self.backgroundColor = appearance.backgroundColor
-        self.commentMarginColor = appearance.commentMarginColor
-        self.rootCommentMargin = 8
-        self.rootCommentMarginColor = appearance.rootCommentMarginColor
-        self.commentMargin = 0
-        self.isIndentationIndicatorsExtended = true
     }
     
     func addSubviews() {
-        // see impl inside CommentCell's self.commentViewContent
-        self.commentViewContent = commentContentView
+        self.contentView.addSubview(commentContentView)
     }
     
-    func makeConstraints() { }
+    func makeConstraints() {
+        self.commentContentView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+    }
 }

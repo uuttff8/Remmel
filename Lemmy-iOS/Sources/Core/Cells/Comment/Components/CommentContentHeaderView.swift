@@ -30,7 +30,7 @@ class CommentHeaderView: UIView {
 
     private let imageSize = CGSize(width: 32, height: 32)
 
-    lazy var avatarView = UIImageView().then {
+    lazy var avatarImageView = UIImageView().then {
         $0.layer.cornerRadius = imageSize.width / 2
         $0.layer.masksToBounds = false
         $0.clipsToBounds = true
@@ -132,15 +132,10 @@ class CommentHeaderView: UIView {
         
         usernameButton.setTitle(usernameButtonText, for: .normal)
         communityButton.setTitle(communityButtonText, for: .normal)
+        avatarImageView.loadImage(urlString: comment.avatarImageUrl)
         publishedTitle.text = comment.published
         scoreLabel.set(text: String(comment.score), leftIcon: Config.Image.boltFill)
         postNameButton.titleLabel.text = comment.postName
-
-        if let avatarUrl = comment.avatarImageUrl {
-            bindAvatar(url: avatarUrl)
-        } else {
-            avatarView.removeFromSuperview()
-        }
         
         setup(for: config)
     }
@@ -150,7 +145,7 @@ class CommentHeaderView: UIView {
         communityButton.setTitle(nil, for: .normal)
         publishedTitle.text = nil
         postNameButton.titleLabel.text = nil
-        avatarView.image = nil
+        avatarImageView.image = nil
     }
     
     func setup(for config: CommentContentView.Setting) {
@@ -160,14 +155,6 @@ class CommentHeaderView: UIView {
             postNameButton.removeFromSuperview()
         case .list:
             break
-        }
-    }
-
-    // MARK: - Private API
-    private func bindAvatar(url: String) {
-        Nuke.loadImage(with: ImageRequest(url: URL(string: url)!), into: avatarView)
-        avatarView.snp.makeConstraints { (make) in
-            make.size.equalTo(imageSize.height)
         }
     }
 
@@ -220,7 +207,7 @@ extension CommentHeaderView: ProgrammaticallyViewProtocol {
         )
         
         infoStackView.addStackViewItems(
-            .view(avatarView),
+            .view(avatarImageView),
             .view(lineStackView)
         )
         
@@ -233,6 +220,10 @@ extension CommentHeaderView: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
+        
+        avatarImageView.snp.makeConstraints { (make) in
+            make.size.equalTo(imageSize.height)
+        }
         
         infoStackView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
