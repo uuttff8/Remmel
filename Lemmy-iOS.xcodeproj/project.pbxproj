@@ -56,7 +56,7 @@
 		4E3FBC44258A812000F97671 /* CommunitiesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC43258A812000F97671 /* CommunitiesAssembly.swift */; };
 		4E3FBC49258A812B00F97671 /* CommunitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC48258A812B00F97671 /* CommunitiesViewModel.swift */; };
 		4E3FBC51258A82B100F97671 /* CommunitiesPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC50258A82B100F97671 /* CommunitiesPreviewView.swift */; };
-		4E3FBC59258A857600F97671 /* CommunitiesPreviewDataSoucre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSoucre.swift */; };
+		4E3FBC59258A857600F97671 /* CommunitiesPreviewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSource.swift */; };
 		4E6E662825B1F33300AF2F48 /* LMModels+Aggregates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E662725B1F33300AF2F48 /* LMModels+Aggregates.swift */; };
 		4E6E663025B1F52E00AF2F48 /* LMModels+Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E662F25B1F52E00AF2F48 /* LMModels+Source.swift */; };
 		4E6E663525B1F93B00AF2F48 /* LMModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E663425B1F93B00AF2F48 /* LMModels.swift */; };
@@ -412,7 +412,7 @@
 		4E3FBC43258A812000F97671 /* CommunitiesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesAssembly.swift; sourceTree = "<group>"; };
 		4E3FBC48258A812B00F97671 /* CommunitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesViewModel.swift; sourceTree = "<group>"; };
 		4E3FBC50258A82B100F97671 /* CommunitiesPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewView.swift; sourceTree = "<group>"; };
-		4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSoucre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewDataSoucre.swift; sourceTree = "<group>"; };
+		4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewDataSource.swift; sourceTree = "<group>"; };
 		4E6E662725B1F33300AF2F48 /* LMModels+Aggregates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Aggregates.swift"; sourceTree = "<group>"; };
 		4E6E662F25B1F52E00AF2F48 /* LMModels+Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Source.swift"; sourceTree = "<group>"; };
 		4E6E663425B1F93B00AF2F48 /* LMModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMModels.swift; sourceTree = "<group>"; };
@@ -1558,7 +1558,7 @@
 				4ECCEF22250FB3DE0075F921 /* CommunitiesPreviewViewController.swift */,
 				4E3FBC48258A812B00F97671 /* CommunitiesViewModel.swift */,
 				4E3FBC50258A82B100F97671 /* CommunitiesPreviewView.swift */,
-				4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSoucre.swift */,
+				4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSource.swift */,
 				4ECCEF20250FB3D40075F921 /* CommunitiesCoordinator.swift */,
 			);
 			path = CommunitiesPreview;
@@ -2521,7 +2521,7 @@
 				4EBB222E2559EEFF00B88079 /* MilticastDelegate.swift in Sources */,
 				4ECCEF1F250DFBC90075F921 /* CommentContentTableCell.swift in Sources */,
 				6569A21A2594E8F2005A4C54 /* AccountsViewModel.swift in Sources */,
-				4E3FBC59258A857600F97671 /* CommunitiesPreviewDataSoucre.swift in Sources */,
+				4E3FBC59258A857600F97671 /* CommunitiesPreviewDataSource.swift in Sources */,
 				4E9BBA592555560C004FF2F9 /* LemmyImageTextPickerView.swift in Sources */,
 				4E0A8E3F255C01F400B06AF6 /* ProfileScreenCommentsTableDataSource.swift in Sources */,
 				4E918512256E9EFD00702F04 /* CommentTypes.swift in Sources */,

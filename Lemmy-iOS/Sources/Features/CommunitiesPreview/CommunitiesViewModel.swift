@@ -33,8 +33,11 @@ class CommunitiesPreviewViewModel: CommunitiesPreviewViewModelProtocol {
                 Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
                 
+                let sortedCommunities = response.communities
+                    .sorted { $0.subscribed && !$1.subscribed }
+                
                 self.viewContoller?.displayCommunities(
-                    viewModel: .init(state: .result(response.communities))
+                    viewModel: .init(state: .result(sortedCommunities))
                 )
                 
             }.store(in: &cancellable)
