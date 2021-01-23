@@ -43,6 +43,11 @@ final class MarkdownParsedViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "Description"
+    }
+    
     @objc func dismissVc() {
         self.dismiss(animated: true)
     }
@@ -61,8 +66,8 @@ extension MarkdownParsedViewController: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
-        scrollableStackView.snp.makeConstraints { (make) in
-            make.edges.equalTo(self.view.safeAreaLayoutGuide)
+        scrollableStackView.snp.makeConstraints {
+            $0.edges.equalTo(self.view.safeAreaLayoutGuide).inset(10)
         }
     }
 }
