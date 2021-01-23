@@ -137,7 +137,7 @@ final class SearchResultsTableDataSource: NSObject {
     }
 }
 
-extension SearchResultsTableDataSource: CommunityPreviewTableCellDelegate {
+extension SearchResultsTableDataSource: CommunityPreviewCellViewDelegate {
     func communityCellView(_ cell: CommunityPreviewCellView, didTapped followButton: FollowButton) {
         guard let communityCell = cell.viewData else { return }
         guard case .communities(let viewModels) = viewModels else { return }

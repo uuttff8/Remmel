@@ -9,10 +9,12 @@
 import UIKit
 import Nuke
 
-protocol CommunityPreviewTableCellDelegate: CommunityPreviewCellViewDelegate { }
-
 class CommunityPreviewTableCell: UITableViewCell {
-    weak var delegate: CommunityPreviewTableCellDelegate?
+    
+    var delegate: CommunityPreviewCellViewDelegate? {
+        get { previewView.delegate }
+        set { previewView.delegate = newValue }
+    }
     
     private let previewView = CommunityPreviewCellView()
     

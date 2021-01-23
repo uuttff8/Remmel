@@ -103,7 +103,7 @@ final class CommunityPreviewCellView: UIView {
     }
     
     @objc
-    private func followButtonTapped(sender: FollowButton!) {
+    private func followButtonTapped(sender: FollowButton) {
         self.delegate?.communityCellView(self, didTapped: sender)
     }
 }
