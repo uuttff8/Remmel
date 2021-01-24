@@ -57,6 +57,7 @@
 "settings-app" = "Приложение";
 "settings-version" = "Версия";
 "settings-build" = "Билд";
+"settings-build" = "Версия API";
 
 "inbox-notifications" = "Уведомления";
 

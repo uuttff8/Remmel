@@ -8,6 +8,8 @@
 
 import UIKit
 
+private let API_VERSION = "v0.9.0-rc.16"
+
 protocol SettingsViewModelProtocol: AnyObject {
     func doSettingsForm(request: SettingsDataFlow.SettingsForm.Request)
 }
@@ -19,7 +21,7 @@ class SettingsViewModel: SettingsViewModelProtocol {
     func doSettingsForm(request: SettingsDataFlow.SettingsForm.Request) {
         let info = appInfo()
         self.viewController?.displaySettingsForm(
-            viewModel: .init(appVersion: info.0, appBuild: info.1)
+            viewModel: .init(appVersion: info.0, appBuild: info.1, apiVersion: API_VERSION)
         )
     }
     
@@ -44,6 +46,7 @@ enum SettingsDataFlow {
         struct ViewModel {
             let appVersion: String
             let appBuild: String
+            let apiVersion: String
         }
     }
     

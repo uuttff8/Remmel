@@ -24,6 +24,7 @@ class SettingsViewController: UIViewController {
         case openSource
         case applicationVersion
         case applicationBuild
+        case applicationApiVersion
     }
     
     weak var coordinator: FrontPageCoordinator?
@@ -173,6 +174,17 @@ extension SettingsViewController: SettingsViewControllerProtocol {
             )
         )
         
+        let apiVersion = SettingsTableSectionViewModel.Cell(
+            uniqueIdentifier: TableForm.applicationApiVersion.rawValue,
+            type: .rightDetail(
+                options: .init(
+                    title: .init(text: "settings-api-version".localized),
+                    detailType: .label(text: viewModel.apiVersion),
+                    accessoryType: .none
+                )
+            )
+        )
+        
         let sectionsViewModel: [SettingsTableSectionViewModel] = [
             .init(
                 header: .init(title: "settings-author".localized),
@@ -191,7 +203,7 @@ extension SettingsViewController: SettingsViewControllerProtocol {
             ),
             .init(
                 header: .init(title: "settings-app".localized),
-                cells: [appVersion, appBuild],
+                cells: [appVersion, appBuild, apiVersion],
                 footer: nil
             )
         ]

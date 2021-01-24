@@ -64,6 +64,7 @@
 "settings-app" = "Application";
 "settings-version" = "Version";
 "settings-build" = "Build";
+"settings-api-version" = "API Version";
 
 "inbox-notifications" = "Notifications";
 

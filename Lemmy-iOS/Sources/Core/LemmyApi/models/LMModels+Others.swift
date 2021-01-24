@@ -45,7 +45,7 @@ extension LMModels {
                 switch self {
                 case .all: return "listing-all".localized
                 case .local: return "listing-local".localized
-                case .subscribed: return "listing-local".localized
+                case .subscribed: return "listing-subscribed".localized
                 case .community: return "listing-community".localized
                 }
             }
