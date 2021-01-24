@@ -55,10 +55,10 @@ extension Config {
 
         static var comments: UIImage {
             if UIScreen.isDarkMode {
-                return UIImage(named: "comments")!
+                return UIImage(systemName: "text.bubble")!
                     .withTintColor(UIColor.white, renderingMode: .alwaysOriginal)
             } else {
-                return UIImage(named: "comments")!
+                return UIImage(systemName: "text.bubble")!
                     .withTintColor(UIColor.black, renderingMode: .alwaysOriginal)
             }
         }
