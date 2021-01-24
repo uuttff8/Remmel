@@ -188,9 +188,9 @@ class ProfileScreenViewController: UIViewController {
             
             guard let profile = self.viewModel.loadedProfile else { return }
             self.viewModel.doSubmodulesDataFilling(request: .init(submodules: [index: submodule],
-                                                                  posts: profile.posts,
-                                                                  comments: profile.comments,
-                                                                  subscribers: profile.follows))
+                                                                  posts: profile.userDetails.posts,
+                                                                  comments: profile.userDetails.comments,
+                                                                  subscribers: profile.userDetails.follows))
         }
     }
     
@@ -385,6 +385,11 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
                 _ = self.styledNavigationController?.popViewController(animated: true)
             }
             
+            let editProfileAction = UIAlertAction(title: "profile-edit".localized, style: .default) { (_) in
+                // go to profile settings
+            }
+            
+            alert.addAction(editProfileAction)
             alert.addAction(logoutAction)
             
         } else {

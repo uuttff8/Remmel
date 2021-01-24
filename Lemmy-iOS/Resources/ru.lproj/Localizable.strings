@@ -24,6 +24,8 @@
 "content-mentions" = "Упоминания";
 "content-messages" = "Сообщения";
 
+"profile-edit" = "Изменить";
+
 "nodata-posts" = "Здесь еще нет постов...";
 "nodata-comments" = "Здесь еще нет комментариев...";
 "nodata-about" = "Здесь еще нет подписок...";

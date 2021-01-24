@@ -24,6 +24,8 @@
 "content-mentions" = "Mentions";
 "content-messages" = "Messages";
 
+"profile-edit" = "Edit";
+
 "nodata-posts" = "No Posts here yet...";
 "nodata-comments" = "No Comments here yet....";
 "nodata-about" = "No following communities here yet...";

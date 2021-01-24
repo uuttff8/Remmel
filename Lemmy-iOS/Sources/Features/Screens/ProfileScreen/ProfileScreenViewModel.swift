@@ -25,10 +25,7 @@ extension ProfileScreenViewModel {
     struct ProfileData: Identifiable {
         let id: Int
         let viewData: ProfileScreenHeaderView.ViewData
-        let follows: [LMModels.Views.CommunityFollowerView]
-        let moderates: [LMModels.Views.CommunityModeratorView]
-        let comments: [LMModels.Views.CommentView]
-        let posts: [LMModels.Views.PostView]
+        let userDetails: LMModels.Api.User.GetUserDetailsResponse
     }
 }
 
@@ -89,10 +86,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
                 if self.userIsBlocked(userId: loadedProfile.id) {
                     self.loadedProfile = ProfileData(id: loadedProfile.id,
                                                      viewData: loadedProfile.viewData,
-                                                     follows: [],
-                                                     moderates: [],
-                                                     comments: [],
-                                                     posts: [])
+                                                     userDetails: response)
                     self.viewController?.displayProfile(viewModel: .init(state: .blockedUser))
                     return
                 }
@@ -142,11 +136,11 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
         self.submodules.forEach { (key, submodule) in
             switch key {
             case ProfileScreenDataFlow.Tab.posts.rawValue:
-                submodule.updatePostsData(profile: profileData, posts: profileData.posts)
+                submodule.updatePostsData(profile: profileData, posts: profileData.userDetails.posts)
             case ProfileScreenDataFlow.Tab.comments.rawValue:
-                submodule.updateCommentsData(profile: profileData, comments: profileData.comments)
+                submodule.updateCommentsData(profile: profileData, comments: profileData.userDetails.comments)
             case ProfileScreenDataFlow.Tab.about.rawValue:
-                submodule.updateFollowersData(profile: profileData, subscribers: profileData.follows)
+                submodule.updateFollowersData(profile: profileData, subscribers: profileData.userDetails.follows)
                 
             default:
                 break
@@ -191,10 +185,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
                 numberOfPosts: userView.counts.postCount,
                 published: userView.user.published.toLocalTime()
             ),
-            follows: response.follows,
-            moderates: response.moderates,
-            comments: response.comments,
-            posts: response.posts
+            userDetails: response
         )
     }
     
