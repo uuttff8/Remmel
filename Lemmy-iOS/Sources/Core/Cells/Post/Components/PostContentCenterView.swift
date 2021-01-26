@@ -81,6 +81,7 @@ class PostContentCenterView: UIView {
         switch config {
         case .fullPost:
             subtitleLabel.numberOfLines = 0
+            titleLabel.numberOfLines = 0
             thumbailImageView.loadImage(urlString: data.imageUrl) { [self] (res) in
                 guard case let .success(response) = res else { return }
                 self.setupImageViewForFullPostViewer(image: response.image, text: data.title)

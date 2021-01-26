@@ -14,7 +14,7 @@ protocol FrontPageSearchViewDelegate: AnyObject {
 
 extension FrontPageSearchView {
     struct Appearance {
-        let searchTypeConfig: [LMModels.Others.SearchType] = [.posts, .users, .communities, .comments]
+        let searchTypeConfig: [LMModels.Others.SearchType] = [.comments, .posts, .communities, .users]
         let fadeAnimationDuratation: TimeInterval = 0.3
         let alphaAtInit: CGFloat = 0.0
         

@@ -51,7 +51,7 @@ extension LMModels {
             }
         }
         
-        enum SearchType: String, Codable {
+        enum SearchType: String, CaseIterable, Codable {
             case all = "All"
             case comments = "Comments"
             case posts = "Posts"

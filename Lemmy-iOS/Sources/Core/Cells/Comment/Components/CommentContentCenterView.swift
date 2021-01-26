@@ -29,7 +29,7 @@ class CommentCenterView: UIView {
         $0.textColor = .lemmyLabel
         $0.enabledTextCheckingTypes = [.link]
         $0.delegate = self
-        $0.numberOfLines = 6
+        $0.numberOfLines = 0
     }
 
     // MARK: - Init

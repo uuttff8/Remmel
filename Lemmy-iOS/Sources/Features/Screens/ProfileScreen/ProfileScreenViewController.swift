@@ -389,7 +389,7 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
                 // go to profile settings
             }
             
-            alert.addAction(editProfileAction)
+//            alert.addAction(editProfileAction)
             alert.addAction(logoutAction)
             
         } else {
