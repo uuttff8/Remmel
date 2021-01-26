@@ -53,6 +53,8 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
     }
     
     func doPostsFetch(request: CommunityScreen.CommunityPostsLoad.Request) {
+        self.paginationState.page = 1
+        
         let parameters = LMModels.Api.Post.GetPosts(type: .community,
                                                          sort: request.contentType,
                                                          page: paginationState.page,
