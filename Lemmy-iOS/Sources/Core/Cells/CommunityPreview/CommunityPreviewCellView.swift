@@ -89,8 +89,9 @@ final class CommunityPreviewCellView: UIView {
                                  category: community.category.name,
                                  subscribers: community.counts.subscribers)
         
-        self.originalInstanceLabel.text =  "@" + community.community.originalInstance
         self.communityImageView.loadImage(urlString: community.community.icon)
+        
+        self.originalInstanceLabel.text =  "@" + community.community.originalInstance
         self.communityNameLabel.text = "!" + community.community.name
         self.subscribersLabel.text = String(community.counts.subscribers) + " " + "community-subscribers".localized
         self.commentsLabel.text = String(community.counts.comments) + " " + "community-users".localized

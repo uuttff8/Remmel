@@ -35,14 +35,37 @@ class LemmyUserMention {
     }
     
     init?(url: URL) {
-        if url.absoluteString.hasPrefix("/u/") {
-            var retString = url.absoluteString
-            retString.removeFirst(3)
-            
-            self.absoluteUsername = retString
+        if let username = parseUsername(passedUrl: url) {
+            self.absoluteUsername = username
             return
         }
         
         return nil
     }
+}
+
+private func parseUsername(passedUrl: URL) -> String? {
+    
+    if passedUrl.absoluteString.hasPrefix("@") {
+        var retString = passedUrl.absoluteString
+        retString.removeFirst()
+        
+        return retString
+    }
+    
+    if passedUrl.absoluteString.hasPrefix("/u/") {
+        var retString = passedUrl.absoluteString
+        retString.removeFirst(3)
+        
+        return retString
+    }
+    
+    if passedUrl.relativePath.contains("/u/") {
+        var retString = passedUrl.relativePath
+        retString.removeFirst(3)
+        
+        return retString
+    }
+    
+    return nil
 }

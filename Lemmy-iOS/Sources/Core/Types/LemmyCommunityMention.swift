@@ -14,6 +14,14 @@ class LemmyCommunityMention {
     var absoluteId: Int?
     
     init(name: String, id: Int? = nil) {
+        if name.hasPrefix("!") {
+            var retString = name
+            retString.removeFirst()
+            
+            self.absoluteName = retString
+            return
+        }
+        
         if name.hasPrefix("/c/") {
             var retString = name
             retString.removeFirst(3)
@@ -28,14 +36,37 @@ class LemmyCommunityMention {
     
     init?(url: URL) {
         
-        if url.absoluteString.hasPrefix("/c/") {
-            var retString = url.absoluteString
-            retString.removeFirst(3)
-                        
-            self.absoluteName = retString
+        if let community = parseCommunity(passedUrl: url) {
+            self.absoluteName = community
             return
         }
-        
+
         return nil
     }
+}
+
+private func parseCommunity(passedUrl: URL) -> String? {
+    
+    if passedUrl.absoluteString.hasPrefix("!") {
+        var retString = passedUrl.absoluteString
+        retString.removeFirst()
+        
+        return retString
+    }
+    
+    if passedUrl.absoluteString.hasPrefix("/c/") {
+        var retString = passedUrl.absoluteString
+        retString.removeFirst(3)
+        
+        return retString
+    }
+    
+    if passedUrl.relativePath.contains("/c/") {
+        var retString = passedUrl.relativePath
+        retString.removeFirst(3)
+        
+        return retString
+    }
+    
+    return nil
 }

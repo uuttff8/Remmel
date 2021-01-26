@@ -106,7 +106,7 @@ class CommunityHeaderView: UIView {
         verticalStackView.snp.makeConstraints { (make) in
             make.top.equalTo(horizontalStackView.snp.bottom).offset(10)
             make.leading.trailing.equalTo(horizontalStackView)
-            make.bottom.equalTo(self.snp.bottom).inset(15)
+            make.bottom.equalTo(self.snp.bottom).inset(5)
         }
     }
     

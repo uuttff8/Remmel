@@ -48,6 +48,8 @@ extension UIImageView {
         
         if let url = URL(string: urlString ?? "") {
             
+            self.isHidden = false
+            
             let request = ImageRequest(url: url)
             
             let options = ImageLoadingOptions(
