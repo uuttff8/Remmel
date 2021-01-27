@@ -10,7 +10,7 @@ import UIKit
 
 class SettingsAssembly: Assembly {
     func makeModule() -> SettingsViewController {
-        let viewModel = SettingsViewModel()
+        let viewModel = SettingsViewModel(appIconManager: AppIconManager())
         let vc = SettingsViewController(viewModel: viewModel)
         viewModel.viewController = vc
         

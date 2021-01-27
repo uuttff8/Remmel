@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        instanceObject.label = "Hello man"
 //        
 //        helper.save()
-//        #endif
+//        #endif        
  
         // Override point for customization after application launch.
         return true

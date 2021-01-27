@@ -11,6 +11,7 @@ import MessageUI
 
 protocol SettingsViewControllerProtocol: AnyObject {
     func displaySettingsForm(viewModel: SettingsDataFlow.SettingsForm.ViewModel)
+    func displayAppIconSetting(viewModel: SettingsDataFlow.AppIconSettingPresentation.ViewModel)
 }
 
 class SettingsViewController: UIViewController {
@@ -22,6 +23,7 @@ class SettingsViewController: UIViewController {
         case contactEmail
         case contactMatrix
         case openSource
+        case applicationIcon
         case applicationVersion
         case applicationBuild
         case applicationApiVersion
@@ -85,6 +87,15 @@ class SettingsViewController: UIViewController {
 }
 
 extension SettingsViewController: SettingsViewControllerProtocol {
+    func displayAppIconSetting(viewModel: SettingsDataFlow.AppIconSettingPresentation.ViewModel) {
+        self.displaySelectionList(
+            settingDescription: viewModel.settingDescription,
+            title: "settings-appicon".localized,
+            onSettingSelected: { [weak self] settingSelected in
+                self?.viewModel.doAppIconSettingsUpdate(request: .init(setting: settingSelected))
+            })
+    }
+    
     func displaySettingsForm(viewModel: SettingsDataFlow.SettingsForm.ViewModel) {
         let authorGhCell = SettingsTableSectionViewModel.Cell(
             uniqueIdentifier: TableForm.authorGithub.rawValue,
@@ -152,6 +163,17 @@ extension SettingsViewController: SettingsViewControllerProtocol {
             )
         )
         
+        let appIcon = SettingsTableSectionViewModel.Cell(
+            uniqueIdentifier: TableForm.applicationIcon.rawValue,
+            type: .rightDetail(
+                options: .init(
+                    title: .init(text: "settings-appicon".localized),
+                    detailType: .label(text: nil),
+                    accessoryType: .disclosureIndicator
+                )
+            )
+        )
+        
         let appVersion = SettingsTableSectionViewModel.Cell(
             uniqueIdentifier: TableForm.applicationVersion.rawValue,
             type: .rightDetail(
@@ -203,13 +225,55 @@ extension SettingsViewController: SettingsViewControllerProtocol {
             ),
             .init(
                 header: .init(title: "settings-app".localized),
-                cells: [appVersion, appBuild, apiVersion],
+                cells: [appIcon, appVersion, appBuild, apiVersion],
                 footer: nil
             )
         ]
         
         self.settingsView.configure(viewModel: SettingsTableViewModel(sections: sectionsViewModel))
 
+    }
+    
+    private func displaySelectionList(
+        settingDescription: SettingsDataFlow.SettingDescription,
+        title: String? = nil,
+        headerTitle: String? = nil,
+        footerTitle: String? = nil,
+        onSettingSelected: ((SettingsDataFlow.SettingDescription.Setting) -> Void)? = nil
+    ) {
+        let selectedCellViewModel: SelectItemViewModel.Section.Cell? = {
+            if let currentSetting = settingDescription.currentSetting {
+                return .init(uniqueIdentifier: currentSetting.uniqueIdentifier, title: currentSetting.title)
+            }
+            return nil
+        }()
+
+        let viewController = SelectItemTableViewController(
+            style: .insetGrouped,
+            viewModel: .init(
+                sections: [
+                    .init(
+                        cells: settingDescription.settings.map {
+                            .init(uniqueIdentifier: $0.uniqueIdentifier, title: $0.title)
+                        },
+                        headerTitle: headerTitle,
+                        footerTitle: footerTitle
+                    )
+                ],
+                selectedCell: selectedCellViewModel
+            ),
+            onItemSelected: { selectedCellViewModel in
+                let selectedSetting = SettingsDataFlow.SettingDescription.Setting(
+                    uniqueIdentifier: selectedCellViewModel.uniqueIdentifier,
+                    title: selectedCellViewModel.title
+                )
+                onSettingSelected?(selectedSetting)
+            }
+        )
+
+        viewController.title = title
+
+        self.push(module: viewController)
     }
 }
 
@@ -243,6 +307,8 @@ extension SettingsViewController: SettingsViewDelegate {
         case TableForm.openSource.rawValue:
             guard let url = URL(string: "https://github.com/uuttff8/Lemmy-iOS") else { return }
             self.coordinator?.goToBrowser(with: url, inApp: false)
+        case TableForm.applicationIcon.rawValue:
+            self.viewModel.doAppIconSettingsPresentation(request: .init())
         default:
             break
         }

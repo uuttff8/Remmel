@@ -64,6 +64,7 @@
 "settings-opensource" = "Open Source";
 "settings-opensource-code" = "Code, Licenses, Contributors and more";
 "settings-app" = "Application";
+"settings-appicon" = "App Icon";
 "settings-version" = "Version";
 "settings-build" = "Build";
 "settings-api-version" = "API Version";

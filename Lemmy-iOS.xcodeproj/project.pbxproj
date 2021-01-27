@@ -179,6 +179,7 @@
 		4EB4F69F2590C35C0057BDCC /* AddInstanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4F69E2590C35C0057BDCC /* AddInstanceViewController.swift */; };
 		4EB4F6A42590C3650057BDCC /* AddInstanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4F6A32590C3650057BDCC /* AddInstanceViewModel.swift */; };
 		4EB4F6AA2590C6320057BDCC /* AddInstanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4F6A92590C6320057BDCC /* AddInstanceView.swift */; };
+		4EB5C76825C20ED3004B2349 /* FormatterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB5C76725C20ED3004B2349 /* FormatterHelper.swift */; };
 		4EB89AF8251F47A7007129BF /* PostScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */; };
 		4EB89B00251F4882007129BF /* PostScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AFF251F4882007129BF /* PostScreenUI.swift */; };
 		4EB89B052521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */; };
@@ -299,6 +300,13 @@
 		4EF31453258166680032B58D /* WriteCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF31452258166680032B58D /* WriteCommentViewController.swift */; };
 		4EF31458258166700032B58D /* WriteCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF31457258166700032B58D /* WriteCommentView.swift */; };
 		4EF314602581667E0032B58D /* WriteCommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3145F2581667E0032B58D /* WriteCommentViewModel.swift */; };
+		4EF3414025C1FBED00CEF6D6 /* IconWhite@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF3413A25C1FBED00CEF6D6 /* IconWhite@3x.png */; };
+		4EF3414125C1FBED00CEF6D6 /* IconBlack@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF3413B25C1FBED00CEF6D6 /* IconBlack@3x.png */; };
+		4EF3414225C1FBED00CEF6D6 /* IconBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF3413C25C1FBED00CEF6D6 /* IconBlack@2x.png */; };
+		4EF3414325C1FBED00CEF6D6 /* IconWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF3413D25C1FBED00CEF6D6 /* IconWhite.png */; };
+		4EF3414425C1FBED00CEF6D6 /* IconWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF3413E25C1FBED00CEF6D6 /* IconWhite@2x.png */; };
+		4EF3414525C1FBED00CEF6D6 /* IconBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF3413F25C1FBED00CEF6D6 /* IconBlack.png */; };
+		4EF3414B25C1FF1100CEF6D6 /* AppIconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3414A25C1FF1100CEF6D6 /* AppIconManager.swift */; };
 		4EF3AC5D254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */; };
 		4EF3AC62254A01DA00BEC9F1 /* CreateCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */; };
 		4EF3AC67254A020700BEC9F1 /* CreateCommunityUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */; };
@@ -538,6 +546,7 @@
 		4EB4F69E2590C35C0057BDCC /* AddInstanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInstanceViewController.swift; sourceTree = "<group>"; };
 		4EB4F6A32590C3650057BDCC /* AddInstanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInstanceViewModel.swift; sourceTree = "<group>"; };
 		4EB4F6A92590C6320057BDCC /* AddInstanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInstanceView.swift; sourceTree = "<group>"; };
+		4EB5C76725C20ED3004B2349 /* FormatterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatterHelper.swift; sourceTree = "<group>"; };
 		4EB89AF7251F47A7007129BF /* PostScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenViewController.swift; sourceTree = "<group>"; };
 		4EB89AFF251F4882007129BF /* PostScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenUI.swift; sourceTree = "<group>"; };
 		4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyGreenOutlinePostDescription.swift; sourceTree = "<group>"; };
@@ -661,6 +670,13 @@
 		4EF31452258166680032B58D /* WriteCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteCommentViewController.swift; sourceTree = "<group>"; };
 		4EF31457258166700032B58D /* WriteCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteCommentView.swift; sourceTree = "<group>"; };
 		4EF3145F2581667E0032B58D /* WriteCommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteCommentViewModel.swift; sourceTree = "<group>"; };
+		4EF3413A25C1FBED00CEF6D6 /* IconWhite@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconWhite@3x.png"; sourceTree = "<group>"; };
+		4EF3413B25C1FBED00CEF6D6 /* IconBlack@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconBlack@3x.png"; sourceTree = "<group>"; };
+		4EF3413C25C1FBED00CEF6D6 /* IconBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconBlack@2x.png"; sourceTree = "<group>"; };
+		4EF3413D25C1FBED00CEF6D6 /* IconWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconWhite.png; sourceTree = "<group>"; };
+		4EF3413E25C1FBED00CEF6D6 /* IconWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconWhite@2x.png"; sourceTree = "<group>"; };
+		4EF3413F25C1FBED00CEF6D6 /* IconBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconBlack.png; sourceTree = "<group>"; };
+		4EF3414A25C1FF1100CEF6D6 /* AppIconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconManager.swift; sourceTree = "<group>"; };
 		4EF3AC5C254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityCoordinator.swift; sourceTree = "<group>"; };
 		4EF3AC61254A01DA00BEC9F1 /* CreateCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityViewController.swift; sourceTree = "<group>"; };
 		4EF3AC66254A020700BEC9F1 /* CreateCommunityUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityUI.swift; sourceTree = "<group>"; };
@@ -827,6 +843,7 @@
 		4E1070882534F78D009EABDA /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				4EB5C76625C20ECA004B2349 /* Helpers */,
 				4E87C6C7258EA91E0007FE5E /* Persistence */,
 				4E87C646258D33790007FE5E /* Types */,
 				4EFA81B4255FF64A008AF535 /* Services */,
@@ -1340,6 +1357,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		4EB5C76625C20ECA004B2349 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4EB5C76725C20ED3004B2349 /* FormatterHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		4EB89AF5251F4783007129BF /* Screens */ = {
 			isa = PBXGroup;
 			children = (
@@ -1481,6 +1506,7 @@
 		4ECCEEA8250B8B6B0075F921 /* Lemmy-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				4EF3413925C1FBE000CEF6D6 /* AlternateIcons */,
 				4EFA8149255F2E8D008AF535 /* Resources */,
 				4EFA8148255F2E5D008AF535 /* Sources */,
 			);
@@ -1862,6 +1888,19 @@
 			path = WriteComment;
 			sourceTree = "<group>";
 		};
+		4EF3413925C1FBE000CEF6D6 /* AlternateIcons */ = {
+			isa = PBXGroup;
+			children = (
+				4EF3413F25C1FBED00CEF6D6 /* IconBlack.png */,
+				4EF3413C25C1FBED00CEF6D6 /* IconBlack@2x.png */,
+				4EF3413B25C1FBED00CEF6D6 /* IconBlack@3x.png */,
+				4EF3413D25C1FBED00CEF6D6 /* IconWhite.png */,
+				4EF3413E25C1FBED00CEF6D6 /* IconWhite@2x.png */,
+				4EF3413A25C1FBED00CEF6D6 /* IconWhite@3x.png */,
+			);
+			path = AlternateIcons;
+			sourceTree = "<group>";
+		};
 		4EF3AC5B254A019800BEC9F1 /* CreateCommunity */ = {
 			isa = PBXGroup;
 			children = (
@@ -1980,6 +2019,7 @@
 				4EF313A9257BDF6E0032B58D /* ShowMoreHandlerService.swift */,
 				4E87C636258BF2AB0007FE5E /* CommunityFollowService.swift */,
 				4EBF1D652593A691004068CD /* ShowContextCommentService.swift */,
+				4EF3414A25C1FF1100CEF6D6 /* AppIconManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -2194,8 +2234,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EF3414125C1FBED00CEF6D6 /* IconBlack@3x.png in Resources */,
+				4EF3414225C1FBED00CEF6D6 /* IconBlack@2x.png in Resources */,
 				4ECCEEB9250B8B6E0075F921 /* LaunchScreen.storyboard in Resources */,
+				4EF3414325C1FBED00CEF6D6 /* IconWhite.png in Resources */,
+				4EF3414525C1FBED00CEF6D6 /* IconBlack.png in Resources */,
 				4E98BFF025BB5498009DA520 /* Localizable.strings in Resources */,
+				4EF3414425C1FBED00CEF6D6 /* IconWhite@2x.png in Resources */,
+				4EF3414025C1FBED00CEF6D6 /* IconWhite@3x.png in Resources */,
 				4ECCEEB6250B8B6E0075F921 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2500,6 +2546,7 @@
 				4E6E666625B20D4A00AF2F48 /* LMModels+Api+Community.swift in Sources */,
 				4E3FBC49258A812B00F97671 /* CommunitiesViewModel.swift in Sources */,
 				4EDD001F25A5E669006FCB9F /* InboxNotificationsCoordinator.swift in Sources */,
+				4EF3414B25C1FF1100CEF6D6 /* AppIconManager.swift in Sources */,
 				4ECCEF31251F24AD0075F921 /* LemmyFrontPageNavBar.swift in Sources */,
 				4ECCEF33251F27170075F921 /* LemmyProfileIconView.swift in Sources */,
 				4E10706B253477C1009EABDA /* LemmyTableView.swift in Sources */,
@@ -2598,6 +2645,7 @@
 				4E3E0F7A2555F5BC0086CE0C /* LemmyJSONDecoder.swift in Sources */,
 				4E0A8E47255C0A5500B06AF6 /* ProfileScreenCommentsViewModel.swift in Sources */,
 				4E886C422538C3540076B162 /* Config.swift in Sources */,
+				4EB5C76825C20ED3004B2349 /* FormatterHelper.swift in Sources */,
 				4EF313A2257BD5370032B58D /* LabelControl.swift in Sources */,
 				4E1070982535DF4F009EABDA /* LemmyShareData.swift in Sources */,
 				4E0A8E6C255D58D900B06AF6 /* ProfileScreenAboutTableManager.swift in Sources */,
@@ -2795,7 +2843,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.Lemmer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -2817,7 +2865,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.Lemmer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

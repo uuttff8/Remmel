@@ -110,3 +110,9 @@ final class SelectItemTableViewController: UITableViewController {
         self.viewModel.sections[safe: indexPath.section]?.cells[safe: indexPath.row]
     }
 }
+
+extension SelectItemTableViewController: StyledNavigationControllerPresentable {
+    var navigationBarAppearanceOnFirstPresentation: StyledNavigationController.NavigationBarAppearanceState {
+        .pageSheetAppearance()
+    }
+}
