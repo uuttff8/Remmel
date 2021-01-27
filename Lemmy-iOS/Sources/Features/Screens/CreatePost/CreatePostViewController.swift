@@ -206,23 +206,26 @@ class CreatePostScreenViewController: UIViewController {
             cell.elementView.textFieldIsEnabled = false
             cell.elementView.title = nil
             cell.elementView.imageIcon = Config.Image.close
+            self.createPostData.url = nil
         case .addWithImage(let text):
             cell.elementView.hideLoading()
             cell.elementView.textFieldIsEnabled = false
             cell.elementView.title = text
             cell.elementView.imageIcon = Config.Image.close
             cell.urlState = .urlAdded
+            self.createPostData.url = text
         case .urlAdded:
             cell.elementView.textFieldIsEnabled = true
             cell.elementView.title = nil
             cell.elementView.imageIcon = Config.Image.addImage
-            cell.urlState = .notAdded // for future presenting 
+            cell.urlState = .notAdded // for future presenting
         case .error:
             cell.urlState = .notAdded
             cell.elementView.hideLoading()
             cell.elementView.textFieldIsEnabled = false
             cell.elementView.title = nil
             cell.elementView.imageIcon = Config.Image.addImage
+            self.createPostData.url = nil
         }
     }
 }
@@ -248,7 +251,8 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
             uniqueIdentifier: FormField.community.rawValue,
             type: .rightDetail(
                 options: .init(
-                    title: .init(text: createPostData.communityView?.community.name ?? "create-content-community".localized),
+                    title: .init(text: createPostData.communityView?.community.name
+                                    ?? "create-content-community".localized),
                     detailType: .label(text: nil),
                     accessoryType: .disclosureIndicator
                 )
