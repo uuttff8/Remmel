@@ -14,15 +14,6 @@ struct ApiErrorResponse: Codable, Equatable {
     let error: String
 }
 
-private func createInstanceFullUrl(instanceUrl: String) -> URL? {
-    let newInstanceUrl = String.cleanUpUrl(url: instanceUrl)
-    guard let url = URL(string: "wss://" + newInstanceUrl + "/api/v2/ws") else {
-        return nil
-    }
-    
-    return url
-}
-
 class RequestsManager {
     
     struct ApiResponse<T: Codable>: Codable {
@@ -40,7 +31,7 @@ class RequestsManager {
         
     init?(instanceUrl: String, isNewInstance: Bool) {
         self.isNewInstanceConnection = isNewInstance
-        guard let url = createInstanceFullUrl(instanceUrl: instanceUrl) else {
+        guard let url = String.createInstanceFullUrl(instanceUrl: instanceUrl) else {
             return nil
         }
         self.wsClient = WSLemmyClient(url: url)
@@ -58,7 +49,7 @@ class RequestsManager {
     ) -> AnyPublisher<Res, LemmyGenericError> {
         
         if !isNewInstanceConnection {
-            self.wsClient.instanceUrl = createInstanceFullUrl(instanceUrl: LemmyShareData.shared.currentInstanceUrl)!
+            self.wsClient.instanceUrl = String.createInstanceFullUrl(instanceUrl: LemmyShareData.shared.currentInstanceUrl)!
         }
         Logger.commonLog.info("Trying to connect to \(self.wsClient.instanceUrl) instace")
         
@@ -135,4 +126,15 @@ class RequestsManager {
 
 extension String: Error {
     public var errorDescription: String { return self }
+}
+
+extension String {
+    static func createInstanceFullUrl(instanceUrl: String) -> URL? {
+        let newInstanceUrl = String.cleanUpUrl(url: instanceUrl)
+        guard let url = URL(string: "wss://" + newInstanceUrl + "/api/v2/ws") else {
+            return nil
+        }
+        
+        return url
+    }
 }

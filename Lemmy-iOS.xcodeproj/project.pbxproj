@@ -56,6 +56,7 @@
 		4E3FBC49258A812B00F97671 /* CommunitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC48258A812B00F97671 /* CommunitiesViewModel.swift */; };
 		4E3FBC51258A82B100F97671 /* CommunitiesPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC50258A82B100F97671 /* CommunitiesPreviewView.swift */; };
 		4E3FBC59258A857600F97671 /* CommunitiesPreviewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSource.swift */; };
+		4E5A677125C1A3D700BAA536 /* LemmyDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5A677025C1A3D700BAA536 /* LemmyDecoder.swift */; };
 		4E66428725BCC20100E11E20 /* LMModels+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E66428625BCC20100E11E20 /* LMModels+Ext.swift */; };
 		4E66428D25BCC34800E11E20 /* CommunityPreviewCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E66428C25BCC34800E11E20 /* CommunityPreviewCellView.swift */; };
 		4E6E662825B1F33300AF2F48 /* LMModels+Aggregates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E662725B1F33300AF2F48 /* LMModels+Aggregates.swift */; };
@@ -328,7 +329,6 @@
 		4EFAB5912551858C00B32780 /* UIAlertController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5902551858C00B32780 /* UIAlertController+Ext.swift */; };
 		4EFAB5C22552D32600B32780 /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5C12552D32600B32780 /* Then.swift */; };
 		4EFAB5C72552F85D00B32780 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5C62552F85D00B32780 /* UIView+Ext.swift */; };
-		4EFAB5D32552F98600B32780 /* Codable+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5D22552F98600B32780 /* Codable+Ext.swift */; };
 		4EFAB5D82552FA1100B32780 /* UILabel+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5D72552FA1100B32780 /* UILabel+Ext.swift */; };
 		4EFAB5DD2552FA4300B32780 /* Notification+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5DC2552FA4300B32780 /* Notification+Ext.swift */; };
 		4EFAB5E72552FA9300B32780 /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAB5E62552FA9300B32780 /* UITableView+Ext.swift */; };
@@ -415,6 +415,7 @@
 		4E3FBC48258A812B00F97671 /* CommunitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesViewModel.swift; sourceTree = "<group>"; };
 		4E3FBC50258A82B100F97671 /* CommunitiesPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewView.swift; sourceTree = "<group>"; };
 		4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewDataSource.swift; sourceTree = "<group>"; };
+		4E5A677025C1A3D700BAA536 /* LemmyDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyDecoder.swift; sourceTree = "<group>"; };
 		4E66428625BCC20100E11E20 /* LMModels+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Ext.swift"; sourceTree = "<group>"; };
 		4E66428C25BCC34800E11E20 /* CommunityPreviewCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPreviewCellView.swift; sourceTree = "<group>"; };
 		4E6E662725B1F33300AF2F48 /* LMModels+Aggregates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Aggregates.swift"; sourceTree = "<group>"; };
@@ -689,7 +690,6 @@
 		4EFAB5902551858C00B32780 /* UIAlertController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Ext.swift"; sourceTree = "<group>"; };
 		4EFAB5C12552D32600B32780 /* Then.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Then.swift; sourceTree = "<group>"; };
 		4EFAB5C62552F85D00B32780 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
-		4EFAB5D22552F98600B32780 /* Codable+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Ext.swift"; sourceTree = "<group>"; };
 		4EFAB5D72552FA1100B32780 /* UILabel+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Ext.swift"; sourceTree = "<group>"; };
 		4EFAB5DC2552FA4300B32780 /* Notification+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Ext.swift"; sourceTree = "<group>"; };
 		4EFAB5E62552FA9300B32780 /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
@@ -1620,6 +1620,7 @@
 			children = (
 				4ECCEF08250CC3A60075F921 /* RequestsManager.swift */,
 				4E3D44D52595D3B300108DA3 /* ChainedWSClient.swift */,
+				4E5A677025C1A3D700BAA536 /* LemmyDecoder.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -2015,7 +2016,6 @@
 			isa = PBXGroup;
 			children = (
 				4EFAB5DC2552FA4300B32780 /* Notification+Ext.swift */,
-				4EFAB5D22552F98600B32780 /* Codable+Ext.swift */,
 				4EBB22382559FC3000B88079 /* Collection+SafeSubscript.swift */,
 				4E05D636255EBA63002307E0 /* Optional+Ext.swift */,
 				4E73DF4E258BDBF2001608F2 /* Array+Ext.swift */,
@@ -2374,6 +2374,7 @@
 				4E91837B2566F60600702F04 /* TableInputTextView.swift in Sources */,
 				4E3FBC51258A82B100F97671 /* CommunitiesPreviewView.swift in Sources */,
 				4EF3AC90254B46BD00BEC9F1 /* ChooseCategoryUI.swift in Sources */,
+				4E5A677125C1A3D700BAA536 /* LemmyDecoder.swift in Sources */,
 				4EB4F6AA2590C6320057BDCC /* AddInstanceView.swift in Sources */,
 				4E73DF4F258BDBF2001608F2 /* Array+Ext.swift in Sources */,
 				4E9183472566C16C00702F04 /* SettingsTableSectionFooterView.swift in Sources */,
@@ -2595,7 +2596,6 @@
 				4E87C688258E23990007FE5E /* String+Ext.swift in Sources */,
 				6569A2312594E917005A4C54 /* AccountsView.swift in Sources */,
 				4E3E0F7A2555F5BC0086CE0C /* LemmyJSONDecoder.swift in Sources */,
-				4EFAB5D32552F98600B32780 /* Codable+Ext.swift in Sources */,
 				4E0A8E47255C0A5500B06AF6 /* ProfileScreenCommentsViewModel.swift in Sources */,
 				4E886C422538C3540076B162 /* Config.swift in Sources */,
 				4EF313A2257BD5370032B58D /* LabelControl.swift in Sources */,

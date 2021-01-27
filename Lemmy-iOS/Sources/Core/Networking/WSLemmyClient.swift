@@ -137,15 +137,3 @@ extension String {
 }
 
 // wss://dev.lemmy.ml/api/v1/ws
-
-extension String {
-
-    /// convert JsonString to Dictionary
-    var asDictionary: [String: Any]? {
-        if let data = data(using: .utf8) {
-            return (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: Any]
-        }
-
-        return nil
-    }
-}

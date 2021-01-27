@@ -16,6 +16,8 @@ class PostsFrontPageModel: NSObject {
     private let contentScoreService = ContentScoreService(userAccountService: UserAccountService())
     private let contentPreferenceService = ContentPreferencesStorageManager()
     
+    private let wsEvents = ApiManager.chainedWsCLient
+    
     private var cancellable = Set<AnyCancellable>()
     
     var isFetchingNewContent = false
@@ -39,14 +41,29 @@ class PostsFrontPageModel: NSObject {
         }
     }
     
+    func receiveMessages() {
+        wsEvents?.connect()
+            .onMessage(completion: { (operation, data) in
+                
+                switch operation {
+                case "CreatePostLike":
+                    print("HAha")
+                default:
+                    break
+                }
+                
+            })
+        
+    }
+    
     func loadPosts() {
         let parameters = LMModels.Api.Post.GetPosts(type: self.currentListingType,
-                                                         sort: self.currentSortType,
-                                                         page: 1,
-                                                         limit: 50,
-                                                         communityId: nil,
-                                                         communityName: nil,
-                                                         auth: LemmyShareData.shared.jwtToken)
+                                                    sort: self.currentSortType,
+                                                    page: 1,
+                                                    limit: 50,
+                                                    communityId: nil,
+                                                    communityName: nil,
+                                                    auth: LemmyShareData.shared.jwtToken)
         
         ApiManager.requests.asyncGetPosts(parameters: parameters)
             .receive(on: DispatchQueue.main)
@@ -60,12 +77,12 @@ class PostsFrontPageModel: NSObject {
     
     func loadMorePosts(completion: @escaping (() -> Void)) {
         let parameters = LMModels.Api.Post.GetPosts(type: self.currentListingType,
-                                                         sort: self.currentSortType,
-                                                         page: self.currentPage,
-                                                         limit: 50,
-                                                         communityId: nil,
-                                                         communityName: nil,
-                                                         auth: LemmyShareData.shared.jwtToken)
+                                                    sort: self.currentSortType,
+                                                    page: self.currentPage,
+                                                    limit: 50,
+                                                    communityId: nil,
+                                                    communityName: nil,
+                                                    auth: LemmyShareData.shared.jwtToken)
         
         ApiManager.requests.asyncGetPosts(parameters: parameters)
             .receive(on: DispatchQueue.main)

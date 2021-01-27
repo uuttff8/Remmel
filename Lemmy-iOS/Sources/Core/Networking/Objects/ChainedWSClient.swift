@@ -7,18 +7,24 @@
 //
 
 import Foundation
+import Combine
 
 final class ChainedWSClient {
     
     private var webSocketTask: URLSessionWebSocketTask
     
     private var _onConnected: (() -> Void)?
-    private var _onTextMessage: ((String) -> Void)?
+    private var _onTextMessage: ((_ op: String, _ data: Data) -> Void)?
     private var _onError: ((Error) -> Void)?
     
     private var encoder = JSONEncoder()
+    private let decoder = LemmyDecoder()
     
-    init(url: URL) {
+    private var cancellables = Set<AnyCancellable>()
+    
+    init?(urlString: String) {
+        
+        guard let url = String.createInstanceFullUrl(instanceUrl: urlString) else { return nil }
         
         let urlSession = URLSession(configuration: .default)
         self.webSocketTask = urlSession.webSocketTask(with: url)
@@ -52,7 +58,7 @@ final class ChainedWSClient {
         return self
     }
     
-    func onTextMessage(completion: @escaping (String) -> Void) {
+    func onMessage(completion: @escaping (_ op: String, _ data: Data) -> Void) {
         self._onTextMessage = completion
     }
     
@@ -65,8 +71,16 @@ final class ChainedWSClient {
             case .success(let message):
                 
                 guard case .string(let message) = message else { return }
+                guard let messageData = message.data(using: .utf8) else { return }
                 
-                self?._onTextMessage?(message)
+                self?.decoder.decode(data: messageData) { (res) in
+                    switch res {
+                    case .success(let operation):
+                        self?._onTextMessage?(operation, messageData)
+                    case .failure(let error):
+                        Logger.commonLog.error(error.localizedDescription)
+                    }
+                }
                 
                 Logger.commonLog.info("WebSocket task received message")
                 self?.receiveMessages()
