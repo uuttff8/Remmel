@@ -347,7 +347,7 @@ extension UIView {
             return false
         }
     }
-
+    
     func performBlockIfAppearanceChanged(from previousTraits: UITraitCollection?, block: () -> Void) {
         if #available(iOS 13, *) {
             if self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraits) {
@@ -376,7 +376,7 @@ extension UITableView {
     func layoutTableHeaderView() {
         guard let headerView = self.tableHeaderView else { return }
         headerView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         let headerWidth = headerView.bounds.size.width
         let temporaryWidthConstraints = NSLayoutConstraint.constraints(
             withVisualFormat: "[headerView(width)]",
@@ -387,22 +387,61 @@ extension UITableView {
         temporaryWidthConstraints.forEach {
             $0.identifier = "layoutTableHeaderView() temporary constraint"
         }
-
+        
         headerView.addConstraints(temporaryWidthConstraints)
-
+        
         headerView.setNeedsLayout()
         headerView.layoutIfNeeded()
-
+        
         let headerSize = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         let height = headerSize.height
         var frame = headerView.frame
-
+        
         frame.size.height = height
         headerView.frame = frame
-
+        
         self.tableHeaderView = headerView
-
+        
         headerView.removeConstraints(temporaryWidthConstraints)
         headerView.translatesAutoresizingMaskIntoConstraints = true
+    }
+}
+
+extension UIViewController {
+    func scrollToTop() {
+        func scrollToTop(view: UIView?) {
+            guard let view = view else { return }
+            
+            switch view {
+            case let scrollView as UIScrollView:
+                if scrollView.scrollsToTop == true {
+                    scrollView.setContentOffset(CGPoint(x: 0.0, y: -scrollView.contentInset.top), animated: true)
+                    return
+                }
+            default:
+                break
+            }
+            
+            for subView in view.subviews {
+                scrollToTop(view: subView)
+            }
+        }
+        
+        scrollToTop(view: view)
+    }
+    
+    // Changed this
+    
+    var isScrolledToTop: Bool {
+        if self is UITableViewController {
+            return (self as! UITableViewController).tableView.contentOffset.y == 0
+        }
+        for subView in view.subviews {
+            if let scrollView = subView as? UIScrollView {
+                return (scrollView.contentOffset.y == 0)
+            }
+        }
+        return true
+        
     }
 }

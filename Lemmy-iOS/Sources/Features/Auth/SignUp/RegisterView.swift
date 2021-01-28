@@ -72,10 +72,10 @@ class RegisterView: UIView {
         super.init(frame: .zero)
         self.backgroundColor = UIColor.systemBackground
 
-        getCaptcha()
+        updateCaptcha()
 
         captchaImageView.addTap { [self] in
-            getCaptcha()
+            updateCaptcha()
         }
 
         [
@@ -94,7 +94,7 @@ class RegisterView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func getCaptcha() {
+    func updateCaptcha() {
         model.getCaptcha { [self] (res) in
             switch res {
             case .success(let image):

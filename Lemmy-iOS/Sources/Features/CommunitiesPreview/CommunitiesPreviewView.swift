@@ -16,13 +16,13 @@ class CommunitiesPreviewView: UIView {
         
     weak var delegate: CommunitiesPreviewViewDelagate?
     
+    private let refreshControl = UIRefreshControl()
+    
     private lazy var tableView = LemmyTableView(style: .plain, separator: true).then {
         $0.registerClass(CommunityPreviewTableCell.self)
         $0.refreshControl = self.refreshControl
         self.refreshControl.addTarget(self, action: #selector(self.refreshControlValueChanged), for: .valueChanged)
     }
-    
-    private let refreshControl = UIRefreshControl()
     
     init() {
         super.init(frame: .zero)
@@ -68,6 +68,7 @@ class CommunitiesPreviewView: UIView {
 
 extension CommunitiesPreviewView: ProgrammaticallyViewProtocol {
     func setupView() {
+        self.backgroundColor = .systemBackground
     }
     
     func addSubviews() {

@@ -10,7 +10,7 @@ import UIKit
 
 class CreateTransitionDelegateImpl: NSObject, UIViewControllerTransitioningDelegate {
 
-    static let duration: TimeInterval = 0.25
+    static let duration: TimeInterval = 0.2
 
     func animationController(
         forPresented presented: UIViewController,

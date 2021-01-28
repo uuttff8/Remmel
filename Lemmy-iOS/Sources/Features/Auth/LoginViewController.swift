@@ -126,9 +126,10 @@ class LoginViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { (completion) in
                 Logger.logCombineCompletion(completion)
-
+                
                 if case let .failure(why) = completion {
                     UIAlertController.createOkAlert(message: why.description)
+                    self.signUpView?.updateCaptcha()
                 }
             }, receiveValue: { (response) in
                 self.shareData.loginData.login(jwt: response.jwt)

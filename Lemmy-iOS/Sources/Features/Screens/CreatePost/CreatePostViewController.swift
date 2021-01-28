@@ -192,6 +192,10 @@ class CreatePostScreenViewController: UIViewController {
     private func updateUrlState(
         for cell: SettingsInputWithImageTableViewCell, state: SettingsInputWithImageCellView.UrlState
     ) {
+        // to update data
+        defer {
+            self.displayCreatingPost(viewModel: .init())
+        }
         print("update for state: \(state)")
         cell.urlState = state
         
@@ -206,7 +210,6 @@ class CreatePostScreenViewController: UIViewController {
             cell.elementView.textFieldIsEnabled = false
             cell.elementView.title = nil
             cell.elementView.imageIcon = Config.Image.close
-            self.createPostData.url = nil
         case .addWithImage(let text):
             cell.elementView.hideLoading()
             cell.elementView.textFieldIsEnabled = false
@@ -217,12 +220,13 @@ class CreatePostScreenViewController: UIViewController {
         case .urlAdded:
             cell.elementView.textFieldIsEnabled = true
             cell.elementView.title = nil
-            cell.elementView.imageIcon = Config.Image.addImage
+            cell.elementView.imageIcon = Config.Image.close
             cell.urlState = .notAdded // for future presenting
+            self.createPostData.url = nil
         case .error:
             cell.urlState = .notAdded
             cell.elementView.hideLoading()
-            cell.elementView.textFieldIsEnabled = false
+            cell.elementView.textFieldIsEnabled = true
             cell.elementView.title = nil
             cell.elementView.imageIcon = Config.Image.addImage
             self.createPostData.url = nil
