@@ -10,8 +10,8 @@ import UIKit
 import Combine
 
 class PostsFrontPageModel: NSObject {
-    var newDataLoaded: (([LMModels.Views.PostView]) -> Void)?
-    var dataLoaded: (([LMModels.Views.PostView]) -> Void)?
+    var newDataLoaded: (() -> Void)?
+    var dataLoaded: (() -> Void)?
     
     private let contentScoreService = ContentScoreService(userAccountService: UserAccountService())
     private let contentPreferenceService = ContentPreferencesStorageManager()
@@ -71,7 +71,7 @@ class PostsFrontPageModel: NSObject {
                 Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
                 self.postsDataSource = response.posts
-                self.dataLoaded?(response.posts)
+                self.dataLoaded?()
             }.store(in: &cancellable)
     }
     
@@ -89,7 +89,8 @@ class PostsFrontPageModel: NSObject {
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
-                self.newDataLoaded?(response.posts)
+                self.postsDataSource.append(contentsOf: response.posts)
+                self.newDataLoaded?()
                 completion()
                 
             }.store(in: &cancellable)

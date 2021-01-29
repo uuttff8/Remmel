@@ -10,8 +10,10 @@ import UIKit
 
 class CommentsFrontPageViewController: UIViewController {
 
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, LMModels.Views.CommentView>
+    
     enum Section {
-        case main
+        case comments
     }
 
     weak var coordinator: FrontPageCoordinator?
@@ -31,7 +33,7 @@ class CommentsFrontPageViewController: UIViewController {
     private let showMoreHandler = ShowMoreHandlerService()
     
     private lazy var dataSource = makeDataSource()
-    private var snapshot = NSDiffableDataSourceSnapshot<Section, LMModels.Views.CommentView>()
+//    private var snapshot = NSDiffableDataSourceSnapshot<Section, LMModels.Views.CommentView>()
     
     let pickerView = LemmySortListingPickersView()
     
@@ -54,17 +56,17 @@ class CommentsFrontPageViewController: UIViewController {
         viewModel.loadComments()
         setupTableHeaderView()
 
-        viewModel.dataLoaded = { [self] newComments in
-            addFirstRows(with: newComments)
+        viewModel.dataLoaded = { [self] in
+            diffTable(animating: false)
             tableView.hideActivityIndicator()
             if self.refreshControl.isRefreshing {
                 self.refreshControl.endRefreshing()
             }
         }
-
-        viewModel.newDataLoaded = { [self] newComments in
-            addRows(with: newComments)
-        }        
+        
+        viewModel.newDataLoaded = { [self] in
+            diffTable(animating: true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,26 +84,14 @@ class CommentsFrontPageViewController: UIViewController {
         tableView.layoutTableHeaderView()
     }
 
-    func addRows(with list: [LMModels.Views.CommentView], animate: Bool = true) {
-        guard !list.isEmpty else { return }
-
-        snapshot.insertItems(list, afterItem: viewModel.commentsDataSource.last!)
-        self.viewModel.commentsDataSource.append(contentsOf: list)
-        DispatchQueue.main.async { [self] in
-            dataSource.apply(snapshot, animatingDifferences: true)
-        }
+    func diffTable(animating: Bool) {
+        var snapshot = Snapshot()
+        
+        snapshot.appendSections([.comments])
+        snapshot.appendItems(self.viewModel.commentsDataSource, toSection: .comments)
+        dataSource.apply(snapshot, animatingDifferences: animating)
     }
 
-    func addFirstRows(with list: [LMModels.Views.CommentView], animate: Bool = true) {
-        self.tableView.hideActivityIndicator()
-        self.snapshot.deleteAllItems()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(list)
-        DispatchQueue.main.async { [self] in
-            dataSource.apply(snapshot, animatingDifferences: false)
-        }
-    }
-    
     @objc func refreshControlValueChanged() {
         updateTableData(immediately: false)
     }
@@ -144,9 +134,9 @@ class CommentsFrontPageViewController: UIViewController {
     }
     
     private func updateTableData(immediately: Bool) {
-        if immediately { snapshot.deleteAllItems() }
-        DispatchQueue.main.async {
-            self.dataSource.apply(self.snapshot)
+        if immediately {
+            let snapshot = Snapshot()
+            self.dataSource.apply(snapshot)
         }
 
         viewModel.loadComments()

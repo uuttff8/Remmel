@@ -10,8 +10,8 @@ import UIKit
 import Combine
 
 class CommentsFrontPageModel: NSObject {
-    var dataLoaded: (([LMModels.Views.CommentView]) -> Void)?
-    var newDataLoaded: (([LMModels.Views.CommentView]) -> Void)?
+    var dataLoaded: (() -> Void)?
+    var newDataLoaded: (() -> Void)?
     
     private let contentPreferenceService = ContentPreferencesStorageManager()
     
@@ -55,7 +55,7 @@ class CommentsFrontPageModel: NSObject {
                 Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
                 self.commentsDataSource = response.comments
-                self.dataLoaded?(response.comments)
+                self.dataLoaded?()
             }.store(in: &cancellable)
     }
     
@@ -73,7 +73,8 @@ class CommentsFrontPageModel: NSObject {
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
-                self.newDataLoaded?(response.comments)
+                self.commentsDataSource.append(contentsOf: response.comments)
+                self.newDataLoaded?()
                 completion()
             }.store(in: &cancellable)
     }

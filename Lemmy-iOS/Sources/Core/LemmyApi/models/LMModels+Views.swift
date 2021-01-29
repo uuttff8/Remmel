@@ -62,6 +62,8 @@ extension LMModels {
         }
         
         struct PostView: Identifiable, Codable, VoteGettable, Hashable, Equatable {
+            // for uniquness in uitableviewdiffabledatasource
+            let uuid = UUID()
             
             var id: Int {
                 self.post.id
@@ -101,6 +103,8 @@ extension LMModels {
         }
         
         struct CommentView: Hashable, Equatable, Identifiable, VoteGettable, Codable {
+            // for uniquness in uitableviewdiffabledatasource
+            let uuid = UUID()
             
             var id: Int {
                 comment.id

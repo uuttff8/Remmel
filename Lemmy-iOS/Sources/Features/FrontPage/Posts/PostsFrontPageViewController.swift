@@ -11,6 +11,8 @@ import SafariServices
 
 class PostsFrontPageViewController: UIViewController {
     
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, LMModels.Views.PostView>
+    
     enum Section: Hashable, CaseIterable {
         case posts
     }
@@ -31,7 +33,6 @@ class PostsFrontPageViewController: UIViewController {
     }
     
     private lazy var dataSource = makeDataSource()
-    private var snapshot = NSDiffableDataSourceSnapshot<Section, LMModels.Views.PostView>()
     
     let pickerView = LemmySortListingPickersView()
     
@@ -55,16 +56,16 @@ class PostsFrontPageViewController: UIViewController {
         viewModel.loadPosts()
         setupTableHeaderView()
         
-        viewModel.dataLoaded = { [self] newPosts in
-            addFirstRows(with: newPosts)
+        viewModel.dataLoaded = { [self] in
+            diffTable(animating: false)
             tableView.hideActivityIndicator()
             if self.refreshControl.isRefreshing {
                 self.refreshControl.endRefreshing()
             }
         }
         
-        viewModel.newDataLoaded = { [self] newPosts in
-            addRows(with: newPosts)
+        viewModel.newDataLoaded = { [self] in
+            diffTable(animating: true)
         }
     }
     
@@ -76,25 +77,13 @@ class PostsFrontPageViewController: UIViewController {
     @objc func refreshControlValueChanged() {
         updateTableData(immediately: false)
     }
-    
-    func addRows(with list: [LMModels.Views.PostView], animate: Bool = true) {
-        guard !list.isEmpty else { return }
         
-        snapshot.insertItems(list, afterItem: viewModel.postsDataSource.last!)
-        self.viewModel.postsDataSource.append(contentsOf: list)
-        DispatchQueue.main.async { [self] in
-            dataSource.apply(snapshot, animatingDifferences: false)
-        }
-    }
-    
-    func addFirstRows(with list: [LMModels.Views.PostView], animate: Bool = true) {
-        self.tableView.hideActivityIndicator()
-        self.snapshot.deleteAllItems()
-        self.snapshot.appendSections(Section.allCases)
-        self.snapshot.appendItems(list, toSection: .posts)
-        DispatchQueue.main.async { [self] in
-            dataSource.apply(snapshot, animatingDifferences: false)
-        }
+    func diffTable(animating: Bool) {
+        var snapshot = Snapshot()
+        
+        snapshot.appendSections([.posts])
+        snapshot.appendItems(self.viewModel.postsDataSource, toSection: .posts)
+        dataSource.apply(snapshot, animatingDifferences: animating)
     }
     
     fileprivate func setupTableHeaderView() {
@@ -134,9 +123,9 @@ class PostsFrontPageViewController: UIViewController {
     }
     
     private func updateTableData(immediately: Bool) {
-        if immediately { snapshot.deleteAllItems() }
-        DispatchQueue.main.async {
-            self.dataSource.apply(self.snapshot)
+        if immediately {
+            let snapshot = Snapshot()
+            self.dataSource.apply(snapshot)
         }
 
         viewModel.loadPosts()
