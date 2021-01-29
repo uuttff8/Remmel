@@ -21,6 +21,7 @@ class CommunitiesPreviewViewModel: CommunitiesPreviewViewModelProtocol {
     
     func doLoadCommunities(request: CommunitiesPreview.CommunitiesLoad.Request) {
         let parameters = LMModels.Api.Community.ListCommunities(
+            type: .all,
             sort: LMModels.Others.SortType.topAll,
             page: 1,
             limit: 100,

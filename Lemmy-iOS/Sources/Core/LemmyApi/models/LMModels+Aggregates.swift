@@ -35,11 +35,19 @@ extension LMModels {
             let posts: Int
             let comments: Int
             let communities: Int
+            let usersActiveDay: Int
+            let usersActiveWeek: Int
+            let usersActiveMonth: Int
+            let usersActiveHalfYear: Int
             
             enum CodingKeys: String, CodingKey {
                 case id
                 case siteId = "site_id"
                 case users, posts, comments, communities
+                case usersActiveDay = "users_active_day"
+                case usersActiveWeek = "users_active_week"
+                case usersActiveMonth = "users_active_month"
+                case usersActiveHalfYear = "users_active_half_year"
             }
         }
         
@@ -67,12 +75,20 @@ extension LMModels {
             let subscribers: Int
             let posts: Int
             let comments: Int
+            let usersActiveDay: Int
+            let usersActiveWeek: Int
+            let usersActiveMonth: Int
+            let usersActiveHalfYear: Int
             
             enum CodingKeys: String, CodingKey {
                 case id
                 case communityId = "community_id"
                 case subscribers
                 case posts, comments
+                case usersActiveDay = "users_active_day"
+                case usersActiveWeek = "users_active_week"
+                case usersActiveMonth = "users_active_month"
+                case usersActiveHalfYear = "users_active_half_year"
             }
         }
         

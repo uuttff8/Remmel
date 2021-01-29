@@ -54,10 +54,16 @@ extension LMModels.Api {
         }
         
         struct ListCommunities: Codable {
+            let type: LMModels.Others.ListingType
             let sort: LMModels.Others.SortType
             let page: Int?
             let limit: Int?
             let auth: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case type = "type_"
+                case sort, page, limit, auth
+            }
         }
         
         struct ListCommunitiesResponse: Codable {

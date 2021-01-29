@@ -20,7 +20,8 @@ class ChooseCommunityViewModel: ChooseCommunityViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     
     func doCommunitiesLoad(request: ChooseCommunity.CommunitiesLoad.Request) {
-        let parameters = LMModels.Api.Community.ListCommunities(sort: LMModels.Others.SortType.topAll,
+        let parameters = LMModels.Api.Community.ListCommunities(type: .all,
+                                                                sort: LMModels.Others.SortType.topAll,
                                                                 page: nil,
                                                                 limit: 100,
                                                                 auth: LemmyShareData.shared.jwtToken)
