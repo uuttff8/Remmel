@@ -49,7 +49,9 @@ class RequestsManager {
     ) -> AnyPublisher<Res, LemmyGenericError> {
         
         if !isNewInstanceConnection {
-            self.wsClient.instanceUrl = String.createInstanceFullUrl(instanceUrl: LemmyShareData.shared.currentInstanceUrl)!
+            self.wsClient.instanceUrl = String.createInstanceFullUrl(
+                instanceUrl: LemmyShareData.shared.currentInstanceUrl
+            )!
         }
         Logger.commonLog.info("Trying to connect to \(self.wsClient.instanceUrl) instace")
         

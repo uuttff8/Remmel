@@ -10,7 +10,6 @@ import UIKit
 
 extension UIWindow {
     
-    // FIXME(uuttff8): We should know, if memory is not cleared
     func replaceRootViewControllerWith(
         _ replacementController: UIViewController,
         animated: Bool,

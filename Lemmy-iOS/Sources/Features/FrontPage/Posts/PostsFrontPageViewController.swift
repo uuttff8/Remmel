@@ -52,7 +52,7 @@ class PostsFrontPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.showActivityIndicator()
-//        viewModel.receiveMessages()
+        viewModel.receiveMessages()
         viewModel.loadPosts()
         setupTableHeaderView()
         

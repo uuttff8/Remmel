@@ -348,15 +348,7 @@ extension LMModels.Api {
                 case privateMessageView = "private_message_view"
             }
         }
-        
-        struct UserJoin: Codable {
-            let auth: String
-        }
-        
-        struct UserJoinResponse: Codable {
-            let joined: Bool
-        }
-        
+                
         /**
          * If a community is supplied, returns the report count for only that community,
          * otherwise returns the report count for all communities the user moderates.

@@ -120,11 +120,11 @@ extension String {
             return url
         }
         
-        if url.hasPrefix("www.") {
-            var url = url
-            url.removeFirst(4)
-            return url
-        }
+//        if url.hasPrefix("www.") {
+//            var url = url
+//            url.removeFirst(4)
+//            return url
+//        }
         
         if url.hasSuffix("/") {
             var url = url

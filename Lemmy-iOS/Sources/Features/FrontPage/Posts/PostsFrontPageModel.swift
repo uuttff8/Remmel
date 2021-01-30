@@ -42,12 +42,16 @@ class PostsFrontPageModel: NSObject {
     }
     
     func receiveMessages() {
+        // TODO: check if it works
         wsEvents?.connect()
             .onMessage(completion: { (operation, data) in
                 
                 switch operation {
-                case "CreatePostLike":
-                    print("HAha")
+                case WSEndpoint.Post.createPostLike.endpoint:
+                    guard let data = try? JSONDecoder().decode(LMModels.Api.Post.PostResponse.self, from: data)
+                    else { return }
+                    
+                    self.postsDataSource.updateElementById(data.postView)
                 default:
                     break
                 }

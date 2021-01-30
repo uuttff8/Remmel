@@ -26,6 +26,8 @@ enum WSEndpoint {
     }
 
     enum User {
+        case userJoin
+        
         case getUserDetails
         case saveUserSettings
         case getReplies         // Get Replies / Inbox
@@ -43,6 +45,7 @@ enum WSEndpoint {
 
         var endpoint: String {
             switch self {
+            case .userJoin: return "UserJoin"
             case .getUserDetails: return "GetUserDetails"
             case .saveUserSettings: return "SaveUserSettings"
             case .getReplies: return "GetReplies"
