@@ -33,10 +33,6 @@ We use [Lemmy](https://github.com/LemmyNet/lemmy/) backend.
 
 or email uuttff8@gmail.com me.
 
-### Contributing 
-We welcome any contributions. See the CONTRIBUTING file for how to get involved.
-
-
 ### License 
 The Lemmer project is available for free use, as described by the LICENSE (MIT).
 
