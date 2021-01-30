@@ -8,6 +8,17 @@
 
 import Foundation
 
+extension LMModels.Views.PostView {
+    mutating func updateForCreatePostLike(with newPost: LMModels.Views.PostView ) {
+        self.counts.score = newPost.counts.score
+        self.counts.upvotes = newPost.counts.upvotes
+        self.counts.downvotes = newPost.counts.downvotes
+        if newPost.myVote != nil {
+            self.myVote = newPost.myVote
+        }
+    }
+}
+
 extension LMModels.Source.UserSafe {
     var originalInstance: String {
         extractInstance(instance: self.actorId)

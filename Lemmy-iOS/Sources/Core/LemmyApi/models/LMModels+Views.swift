@@ -73,11 +73,11 @@ extension LMModels {
             let creator: LMModels.Source.UserSafe
             let community: LMModels.Source.CommunitySafe
             let creatorBannedFromCommunity: Bool
-            let counts: LMModels.Aggregates.PostAggregates
+            var counts: LMModels.Aggregates.PostAggregates
             let subscribed: Bool
             let saved: Bool
             let read: Bool
-            let myVote: Int?
+            var myVote: Int?
             
             enum CodingKeys: String, CodingKey {
                 case creator, post, community, counts

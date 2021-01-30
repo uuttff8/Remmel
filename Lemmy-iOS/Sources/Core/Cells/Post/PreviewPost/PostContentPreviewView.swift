@@ -65,6 +65,17 @@ class PostContentPreviewView: UIView {
         
     }
     
+    func updateForCreatePostLike(post: LMModels.Views.PostView) {
+        footerView.bind(
+            with: .init(
+                score: post.counts.score,
+                myVote: post.myVote,
+                numberOfComments: post.counts.comments,
+                voteType: post.getVoteType()
+            )
+        )
+    }
+    
     private func setupTargets(with post: LMModels.Views.PostView) {
         headerView.communityButtonTap = { [weak self] in
             let mention = LemmyCommunityMention(name: post.community.name, id: post.community.id)

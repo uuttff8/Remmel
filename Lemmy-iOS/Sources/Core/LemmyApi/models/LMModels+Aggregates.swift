@@ -55,9 +55,9 @@ extension LMModels {
             let id: Int
             let postId: Int
             let comments: Int
-            let score: Int
-            let upvotes: Int
-            let downvotes: Int
+            var score: Int
+            var upvotes: Int
+            var downvotes: Int
             let newestCommentTime: String
             
             enum CodingKeys: String, CodingKey {

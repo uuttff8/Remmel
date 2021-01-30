@@ -156,12 +156,12 @@ extension FrontPageViewController: FrontPageHeaderCellDelegate {
 extension FrontPageViewController: TabBarReselectHandling {
     func handleReselect() {
         if let currentVc = currentViewController as? PostsFrontPageViewController {
-            if !currentVc.isScrolledToTop {
-                currentVc.scrollToTop()
+            if currentVc.tableView.numberOfRows(inSection: 0) != 0 {
+                currentVc.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }
         } else if let currentVc = currentViewController as? CommentsFrontPageViewController {
-            if !currentVc.isScrolledToTop {
-                currentVc.scrollToTop()
+            if currentVc.tableView.numberOfRows(inSection: 0) != 0 {
+                currentVc.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }
         }
     }

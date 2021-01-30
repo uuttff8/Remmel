@@ -11,6 +11,7 @@ import UIKit
 final class LemmyTableView: UITableView {
     init(style: UITableView.Style, separator: Bool = false) {
         super.init(frame: .zero, style: style)
+        self.scrollsToTop = true
         self.tableFooterView = UIView()
         self.rowHeight = UITableView.automaticDimension
 //        self.estimatedRowHeight = 40

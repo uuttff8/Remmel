@@ -49,6 +49,10 @@ class PostContentPreviewTableCell: UITableViewCell {
         }
     }
     
+    func updateForCreatePostLike(post: LMModels.Views.PostView) {
+        postContentView.updateForCreatePostLike(post: post)
+    }
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         selBackView.backgroundColor = Config.Color.highlightCell
     }
