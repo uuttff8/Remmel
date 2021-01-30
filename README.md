@@ -26,7 +26,7 @@ How to compile and generate .xcworkspace file
 And you are done!
 
 ### Getting Help 
-We use [Lemmy](https://github.com/LemmyNet/lemmy/) as backend. 
+We use [Lemmy](https://github.com/LemmyNet/lemmy/) backend. 
 
 - [Mastodon](https://mastodon.social/@LemmyDev)
 - [Matrix](https://matrix.to/#/#lemmy:matrix.org)
