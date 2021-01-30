@@ -24,7 +24,7 @@ extension LMModels.Api {
          * The main / frontpage community is `community_id: 0`.
          */
         
-        struct CommunityJoin {
+        struct CommunityJoin: Codable {
             let communityId: Int
             
             enum CodingKeys: String, CodingKey {
@@ -32,11 +32,11 @@ extension LMModels.Api {
             }
         }
         
-        struct CommunityJoinResponse {
+        struct CommunityJoinResponse: Codable {
             let joined: Bool
         }
         
-        struct ModJoin {
+        struct ModJoin: Codable {
             let communityId: Int
             
             enum CodingKeys: String, CodingKey {
@@ -44,11 +44,11 @@ extension LMModels.Api {
             }
         }
         
-        struct ModJoinResponse {
+        struct ModJoinResponse: Codable {
             let joined: Bool
         }
         
-        struct PostJoin {
+        struct PostJoin: Codable {
             let postId: Int
             
             enum CodingKeys: String, CodingKey {
@@ -56,7 +56,7 @@ extension LMModels.Api {
             }
         }
         
-        struct PostJoinResponse {
+        struct PostJoinResponse: Codable {
             let joined: Bool
         }
     }
