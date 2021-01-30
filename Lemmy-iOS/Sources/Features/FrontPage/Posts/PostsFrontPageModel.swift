@@ -42,22 +42,31 @@ class PostsFrontPageModel: NSObject {
     }
     
     func receiveMessages() {
-        // TODO: check if it works
         wsEvents?.connect()
             .onMessage(completion: { (operation, data) in
                 
                 switch operation {
                 case WSEndpoint.Post.createPostLike.endpoint:
-                    guard let data = try? JSONDecoder().decode(LMModels.Api.Post.PostResponse.self, from: data)
+                    
+                    guard let data = try? LemmyJSONDecoder().decode(
+                        RequestsManager.ApiResponse<LMModels.Api.Post.PostResponse>.self,
+                        from: data
+                    )
                     else { return }
                     
-                    self.postsDataSource.updateElementById(data.postView)
+                    self.postsDataSource.updateElementById(data.data.postView)
                 default:
                     break
                 }
                 
             })
         
+        let commJoin = LMModels.Api.Websocket.CommunityJoin(communityId: 0)
+
+        wsEvents?.send(
+            WSEndpoint.Community.communityJoin.endpoint,
+            parameters: commJoin
+        )
     }
     
     func loadPosts() {

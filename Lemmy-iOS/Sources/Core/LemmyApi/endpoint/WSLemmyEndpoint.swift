@@ -103,6 +103,7 @@ enum WSEndpoint {
     }
 
     enum Community {
+        case communityJoin
         case getCommunity
         case createCommunity
         case listCommunities
@@ -117,6 +118,7 @@ enum WSEndpoint {
 
         var endpoint: String {
             switch self {
+            case .communityJoin: return "CommunityJoin"
             case .getCommunity: return "GetCommunity"
             case .createCommunity: return "CreateCommunity"
             case .listCommunities: return "ListCommunities"
