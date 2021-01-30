@@ -213,6 +213,7 @@
 		4EBF1D662593A692004068CD /* ShowContextCommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBF1D652593A691004068CD /* ShowContextCommentService.swift */; };
 		4EBF1D6E2593EFCA004068CD /* ContentFocusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBF1D6D2593EFCA004068CD /* ContentFocusable.swift */; };
 		4EBF1DC22594C59F004068CD /* ContentPreferencesStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBF1DC12594C59F004068CD /* ContentPreferencesStorageManager.swift */; };
+		4EC63F0025C6001900F6D6F1 /* LMModels+Api+Websocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC63EFF25C6001900F6D6F1 /* LMModels+Api+Websocket.swift */; };
 		4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */; };
 		4ECCEEAC250B8B6B0075F921 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEAB250B8B6B0075F921 /* SceneDelegate.swift */; };
 		4ECCEEAE250B8B6B0075F921 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEAD250B8B6B0075F921 /* LoginViewController.swift */; };
@@ -579,6 +580,7 @@
 		4EBF1D652593A691004068CD /* ShowContextCommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContextCommentService.swift; sourceTree = "<group>"; };
 		4EBF1D6D2593EFCA004068CD /* ContentFocusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentFocusable.swift; sourceTree = "<group>"; };
 		4EBF1DC12594C59F004068CD /* ContentPreferencesStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPreferencesStorageManager.swift; sourceTree = "<group>"; };
+		4EC63EFF25C6001900F6D6F1 /* LMModels+Api+Websocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Api+Websocket.swift"; sourceTree = "<group>"; };
 		4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lemmy-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4ECCEEAB250B8B6B0075F921 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -932,6 +934,7 @@
 				4E6E666025B208E100AF2F48 /* LMModels+Api+Post.swift */,
 				4E6E666525B20D4A00AF2F48 /* LMModels+Api+Community.swift */,
 				4E6E666A25B214E900AF2F48 /* LMModels+Api+Comment.swift */,
+				4EC63EFF25C6001900F6D6F1 /* LMModels+Api+Websocket.swift */,
 			);
 			path = api;
 			sourceTree = "<group>";
@@ -2479,6 +2482,7 @@
 				4ECCEEEA250BA6230075F921 /* WSLemmyClient.swift in Sources */,
 				4EBB224C255ADE4C00B88079 /* TabSegmentedControlView.swift in Sources */,
 				4EF3142F25811F880032B58D /* GenericCoordinator.swift in Sources */,
+				4EC63F0025C6001900F6D6F1 /* LMModels+Api+Websocket.swift in Sources */,
 				4EFA81B6255FF6B7008AF535 /* UserAccountService.swift in Sources */,
 				4E87C67E258E1AD90007FE5E /* PostContentPreviewTableCell.swift in Sources */,
 				4E6E663025B1F52E00AF2F48 /* LMModels+Source.swift in Sources */,
