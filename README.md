@@ -1,4 +1,4 @@
-# Lemmy-iOS
+# Remmel for Lemmy
 
 [![Lemmer](https://uuttff8.github.io/static/imgs/App_Store_Badge_135x40.svg)](https://apps.apple.com/us/app/lemmer-client-for-lemmy/id1547988171)
 
