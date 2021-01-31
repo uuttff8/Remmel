@@ -12,6 +12,7 @@ import Combine
 class PostsFrontPageModel: NSObject {
     var newDataLoaded: (() -> Void)?
     var dataLoaded: (() -> Void)?
+    var createPostLikeUpdate: ((_ index: Int) -> Void)?
     
     private let contentScoreService = ContentScoreService(userAccountService: UserAccountService())
     private let contentPreferenceService = ContentPreferencesStorageManager()
@@ -54,7 +55,12 @@ class PostsFrontPageModel: NSObject {
                     )
                     else { return }
                     
-                    self.postsDataSource.updateElementById(data.data.postView)
+                    if let index = self.postsDataSource.firstIndex(where: { $0.id == data.data.postView.id }) {
+                        self.postsDataSource[index].updateForCreatePostLike(with: data.data.postView)
+                        
+                        self.createPostLikeUpdate?(index)
+                    }
+                    
                 default:
                     break
                 }

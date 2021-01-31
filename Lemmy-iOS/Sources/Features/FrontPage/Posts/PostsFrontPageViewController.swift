@@ -67,6 +67,16 @@ class PostsFrontPageViewController: UIViewController {
         viewModel.newDataLoaded = { [self] in
             diffTable(animating: true)
         }
+        
+        viewModel.createPostLikeUpdate = { index in
+            let indexPath = IndexPath(row: index, section: 0)
+            
+            DispatchQueue.main.async {
+                if let cell = self.tableView.cellForRow(at: indexPath) as? PostContentPreviewTableCell {
+                    cell.updateForCreatePostLike(post: self.viewModel.postsDataSource[index])
+                }
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
