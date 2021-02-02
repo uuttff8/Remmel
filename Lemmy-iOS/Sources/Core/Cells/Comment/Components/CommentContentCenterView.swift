@@ -9,29 +9,38 @@
 import UIKit
 import Nantes
 import SwiftyMarkdown
+import CocoaMarkdown
+
+private class LabeledTextViewComment: UITextView {
+    override func draw(_ rect: CGRect) {
+        textContainer.lineFragmentPadding = 0
+        textContainerInset = .zero
+    }
+}
 
 // MARK: - CommentCenterView: UIView -
 class CommentCenterView: UIView {
-
+    
     // MARK: - ViewData
     struct ViewData {
         let comment: String
         let isDeleted: Bool
     }
-
+    
     // MARK: - Properties
     var onLinkTap: ((URL) -> Void)?
     var onUserMentionTap: ((LemmyUserMention) -> Void)?
     var onCommunityMentionTap: ((LemmyCommunityMention) -> Void)?
     
-    private lazy var commentLabel = NantesLabel().then {
+    private lazy var commentLabel = LabeledTextViewComment().then {
         $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         $0.textColor = .lemmyLabel
-        $0.enabledTextCheckingTypes = [.link]
+        $0.isScrollEnabled = false
+        $0.isEditable = false
+        $0.dataDetectorTypes = [.link]
         $0.delegate = self
-        $0.numberOfLines = 0
     }
-
+    
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -40,12 +49,12 @@ class CommentCenterView: UIView {
         addSubviews()
         makeConstraints()
     }
-
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - Public API
     func bind(with data: CommentCenterView.ViewData) {
         let commentText: NSAttributedString = data.isDeleted
@@ -53,13 +62,14 @@ class CommentCenterView: UIView {
             : createAttributesForNormalComment(data: data)
         
         commentLabel.attributedText = commentText
-        commentLabel.linkAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lemmyBlue]
+        commentLabel.setNeedsLayout()
+        commentLabel.linkTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lemmyBlue]
     }
     
     func prepareForReuse() {
         commentLabel.attributedText = nil
     }
-
+    
     // MARK: - Overrided
     override var intrinsicContentSize: CGSize {
         CGSize(width: UIScreen.main.bounds.width, height: 30)
@@ -71,9 +81,10 @@ class CommentCenterView: UIView {
     }
     
     private func createAttributesForNormalComment(data: CommentCenterView.ViewData) -> NSAttributedString {
-        let md = SwiftyMarkdown(string: data.comment)
-        md.link.color = .lemmyBlue
-        return md.attributedString()
+        let docMd = CMDocument(string: data.comment, options: .sourcepos)
+        let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes())
+        
+        return renderMd.require().render()
     }
 }
 
@@ -92,6 +103,7 @@ extension CommentCenterView: ProgrammaticallyViewProtocol {
 }
 
 extension CommentCenterView: NantesLabelDelegate {
+    
     func attributedLabel(_ label: NantesLabel, didSelectLink link: URL) {
         if let mention = LemmyUserMention(url: link) {
             onUserMentionTap?(mention)
@@ -104,5 +116,30 @@ extension CommentCenterView: NantesLabelDelegate {
         }
         
         onLinkTap?(link)
+    }
+}
+
+extension CommentCenterView: UITextViewDelegate {
+    
+    func textView(
+        _ textView: UITextView,
+        shouldInteractWith URL: URL,
+        in characterRange: NSRange,
+        interaction: UITextItemInteraction
+    ) -> Bool {
+        let link = URL
+        
+        if let mention = LemmyUserMention(url: link) {
+            onUserMentionTap?(mention)
+            return false
+        }
+        
+        if let mention = LemmyCommunityMention(url: link) {
+            onCommunityMentionTap?(mention)
+            return false
+        }
+        
+        onLinkTap?(link)
+        return false
     }
 }

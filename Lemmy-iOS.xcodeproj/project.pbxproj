@@ -214,6 +214,9 @@
 		4EBF1D6E2593EFCA004068CD /* ContentFocusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBF1D6D2593EFCA004068CD /* ContentFocusable.swift */; };
 		4EBF1DC22594C59F004068CD /* ContentPreferencesStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBF1DC12594C59F004068CD /* ContentPreferencesStorageManager.swift */; };
 		4EC63F0025C6001900F6D6F1 /* LMModels+Api+Websocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC63EFF25C6001900F6D6F1 /* LMModels+Api+Websocket.swift */; };
+		4EC63F6D25C89EF700F6D6F1 /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EC63F3F25C89E9C00F6D6F1 /* CocoaMarkdown.framework */; };
+		4EC63F6E25C89EF700F6D6F1 /* CocoaMarkdown.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4EC63F3F25C89E9C00F6D6F1 /* CocoaMarkdown.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4EC63F7725C9CF8000F6D6F1 /* AttachmentTapGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC63F7625C9CF8000F6D6F1 /* AttachmentTapGesture.swift */; };
 		4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */; };
 		4ECCEEAC250B8B6B0075F921 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEAB250B8B6B0075F921 /* SceneDelegate.swift */; };
 		4ECCEEAE250B8B6B0075F921 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEAD250B8B6B0075F921 /* LoginViewController.swift */; };
@@ -359,6 +362,48 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4EC63F3E25C89E9C00F6D6F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4EC63F3325C89E9B00F6D6F1 /* CocoaMarkdown.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 729F53DA1A68641400CC7448;
+			remoteInfo = "CocoaMarkdown-iOS";
+		};
+		4EC63F4025C89E9C00F6D6F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4EC63F3325C89E9B00F6D6F1 /* CocoaMarkdown.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 729F53E51A68641400CC7448;
+			remoteInfo = "CocoaMarkdownTests-iOS";
+		};
+		4EC63F4225C89E9C00F6D6F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4EC63F3325C89E9B00F6D6F1 /* CocoaMarkdown.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 729F53FB1A68649200CC7448;
+			remoteInfo = "CocoaMarkdown-Mac";
+		};
+		4EC63F4425C89E9C00F6D6F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4EC63F3325C89E9B00F6D6F1 /* CocoaMarkdown.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 729F54051A68649200CC7448;
+			remoteInfo = "CocoaMarkdownTests-Mac";
+		};
+		4EC63F4625C89E9C00F6D6F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4EC63F3325C89E9B00F6D6F1 /* CocoaMarkdown.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 72FE7EC91A68692400F23F46;
+			remoteInfo = "Example-iOS";
+		};
+		4EC63F4825C89E9C00F6D6F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4EC63F3325C89E9B00F6D6F1 /* CocoaMarkdown.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 72FE7EF41A68695100F23F46;
+			remoteInfo = "Example-Mac";
+		};
 		4ECCEEC0250B8B6F0075F921 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4ECCEE9E250B8B6B0075F921 /* Project object */;
@@ -374,6 +419,20 @@
 			remoteInfo = "Lemmy-iOS";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4EC63F6F25C89EF700F6D6F1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4EC63F6E25C89EF700F6D6F1 /* CocoaMarkdown.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4E05D636255EBA63002307E0 /* Optional+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Ext.swift"; sourceTree = "<group>"; };
@@ -581,6 +640,8 @@
 		4EBF1D6D2593EFCA004068CD /* ContentFocusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentFocusable.swift; sourceTree = "<group>"; };
 		4EBF1DC12594C59F004068CD /* ContentPreferencesStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPreferencesStorageManager.swift; sourceTree = "<group>"; };
 		4EC63EFF25C6001900F6D6F1 /* LMModels+Api+Websocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Api+Websocket.swift"; sourceTree = "<group>"; };
+		4EC63F3325C89E9B00F6D6F1 /* CocoaMarkdown.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CocoaMarkdown.xcodeproj; path = CocoaMarkdown/CocoaMarkdown.xcodeproj; sourceTree = "<group>"; };
+		4EC63F7625C9CF8000F6D6F1 /* AttachmentTapGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentTapGesture.swift; sourceTree = "<group>"; };
 		4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lemmy-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4ECCEEAB250B8B6B0075F921 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -741,6 +802,7 @@
 				4EF3ACF625506EC900BEC9F1 /* SwiftyMarkdown in Frameworks */,
 				4EBF1D5E25923723004068CD /* XCGLogger in Frameworks */,
 				4E98BFC125BB2438009DA520 /* IQKeyboardManagerSwift in Frameworks */,
+				4EC63F6D25C89EF700F6D6F1 /* CocoaMarkdown.framework in Frameworks */,
 				4E9184FC256E9E4E00702F04 /* SwipeCellKit in Frameworks */,
 				4EE027B425AFA02B00D2952D /* Nantes in Frameworks */,
 			);
@@ -1484,6 +1546,19 @@
 			path = StorageManagers;
 			sourceTree = "<group>";
 		};
+		4EC63F3425C89E9B00F6D6F1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4EC63F3F25C89E9C00F6D6F1 /* CocoaMarkdown.framework */,
+				4EC63F4125C89E9C00F6D6F1 /* CocoaMarkdownTests-iOS.xctest */,
+				4EC63F4325C89E9C00F6D6F1 /* CocoaMarkdown.framework */,
+				4EC63F4525C89E9C00F6D6F1 /* CocoaMarkdownTests-Mac.xctest */,
+				4EC63F4725C89E9C00F6D6F1 /* Example-iOS.app */,
+				4EC63F4925C89E9C00F6D6F1 /* Example-Mac.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		4ECCEE9D250B8B6B0075F921 = {
 			isa = PBXGroup;
 			children = (
@@ -1978,6 +2053,7 @@
 			children = (
 				4EF3AD042550908D00BEC9F1 /* ResizableButton.swift */,
 				4EFAB5C12552D32600B32780 /* Then.swift */,
+				4EC63F7625C9CF8000F6D6F1 /* AttachmentTapGesture.swift */,
 			);
 			path = UIUtils;
 			sourceTree = "<group>";
@@ -2097,6 +2173,7 @@
 		750E6997D470E00BE92AFA4E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4EC63F3325C89E9B00F6D6F1 /* CocoaMarkdown.xcodeproj */,
 				B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */,
 			);
 			name = Frameworks;
@@ -2124,6 +2201,7 @@
 				4ECCEEA4250B8B6B0075F921 /* Resources */,
 				E11AFFA1835005D5587B3DED /* [CP] Embed Pods Frameworks */,
 				4EF3AC9E254D557A00BEC9F1 /* ShellScript */,
+				4EC63F6F25C89EF700F6D6F1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2223,6 +2301,12 @@
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 4EC63F3425C89E9B00F6D6F1 /* Products */;
+					ProjectRef = 4EC63F3325C89E9B00F6D6F1 /* CocoaMarkdown.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				4ECCEEA5250B8B6B0075F921 /* Lemmy-iOS */,
@@ -2231,6 +2315,51 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		4EC63F3F25C89E9C00F6D6F1 /* CocoaMarkdown.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CocoaMarkdown.framework;
+			remoteRef = 4EC63F3E25C89E9C00F6D6F1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4EC63F4125C89E9C00F6D6F1 /* CocoaMarkdownTests-iOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "CocoaMarkdownTests-iOS.xctest";
+			remoteRef = 4EC63F4025C89E9C00F6D6F1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4EC63F4325C89E9C00F6D6F1 /* CocoaMarkdown.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CocoaMarkdown.framework;
+			remoteRef = 4EC63F4225C89E9C00F6D6F1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4EC63F4525C89E9C00F6D6F1 /* CocoaMarkdownTests-Mac.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "CocoaMarkdownTests-Mac.xctest";
+			remoteRef = 4EC63F4425C89E9C00F6D6F1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4EC63F4725C89E9C00F6D6F1 /* Example-iOS.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Example-iOS.app";
+			remoteRef = 4EC63F4625C89E9C00F6D6F1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4EC63F4925C89E9C00F6D6F1 /* Example-Mac.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Example-Mac.app";
+			remoteRef = 4EC63F4825C89E9C00F6D6F1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4ECCEEA4250B8B6B0075F921 /* Resources */ = {
@@ -2415,6 +2544,7 @@
 				4E0A8E93255DDE4500B06AF6 /* PostScreenAssembly.swift in Sources */,
 				4EF312F72576D3400032B58D /* PostContentView.swift in Sources */,
 				4EB89B0A2521FA73007129BF /* LoginOrRegisterButton.swift in Sources */,
+				4EC63F7725C9CF8000F6D6F1 /* AttachmentTapGesture.swift in Sources */,
 				6569A2222594E8FC005A4C54 /* AccountsViewController.swift in Sources */,
 				4E87C6AE258E696C0007FE5E /* InstancesTableDataSource.swift in Sources */,
 				4E91850A256E9EAA00702F04 /* CommentCell.swift in Sources */,

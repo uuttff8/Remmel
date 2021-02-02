@@ -32,7 +32,7 @@ extension PostScreenViewController {
                 
         let appearance = Appearance()
         
-        var headerView = PostScreenUITableCell()
+        var headerView = PostScreenHeaderView()
         
         var postData: LMModels.Views.PostView?
                 
@@ -92,11 +92,25 @@ extension PostScreenViewController.View: ProgrammaticallyViewProtocol {
     }
 }
 
-class PostScreenUITableCell: UIView {
+class PostScreenHeaderView: UIView {
     
-    let postHeaderView = PostContentView()
-    let postGreenOutlineView = LemmyGreenOutlinePostEmbed()
-    let writeNewCommentButton = WriteNewCommentButton()
+    let postHeaderView = PostContentView().then {
+        $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+    }
+    let postGreenOutlineView = LemmyGreenOutlinePostEmbed().then {
+        $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+    }
+    let writeNewCommentButton = WriteNewCommentButton().then {
+        $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+    }
+    
+    private let mainStackView = UIStackView().then {
+        $0.axis = .vertical
+        $0.spacing = 0
+    }
     
     init() {
         super.init(frame: .zero)
@@ -115,54 +129,38 @@ class PostScreenUITableCell: UIView {
         postHeaderView.bind(with: postInfo, config: .fullPost)
         
         postGreenOutlineView.bindData(
-            LemmyGreenOutlinePostEmbed.Data(
+            .init(
                 title: postInfo.post.embedTitle,
                 description: postInfo.post.embedDescription,
                 url: postInfo.post.url
             )
         )
         
-        makeConstraints()
+        if postInfo.post.embedTitle == nil && postInfo.post.embedDescription == nil {
+            self.postGreenOutlineView.isHidden = true
+        }
     }
 }
 
-extension PostScreenUITableCell: ProgrammaticallyViewProtocol {
+extension PostScreenHeaderView: ProgrammaticallyViewProtocol {
     func setupView() {
         self.backgroundColor = UIColor.systemBackground
     }
     
     func addSubviews() {
-        self.addSubview(postHeaderView)
-        self.addSubview(postGreenOutlineView)
-        self.addSubview(writeNewCommentButton)
+        self.addSubview(mainStackView)
+
+        self.mainStackView.addStackViewItems(
+            .view(postHeaderView),
+            .view(postGreenOutlineView),
+            .view(writeNewCommentButton)
+        )
     }
     
     func makeConstraints() {
-        self.postHeaderView.snp.makeConstraints { (make) in
-            make.top.trailing.leading.equalToSuperview()
+        self.mainStackView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
-        
-        if !postGreenOutlineView.isHidden {
-            self.postGreenOutlineView.snp.makeConstraints { (make) in
-                make.top.equalTo(postHeaderView.snp.bottom).offset(10)
-                make.trailing.leading.equalToSuperview().inset(10)
-            }
-            
-            self.writeNewCommentButton.snp.makeConstraints {
-                $0.top.equalTo(postGreenOutlineView.snp.bottom)
-                $0.leading.trailing.equalToSuperview()
-                $0.height.equalTo(44)
-                $0.bottom.equalToSuperview()
-            }
-        } else {
-            self.writeNewCommentButton.snp.makeConstraints {
-                $0.top.equalTo(postHeaderView.snp.bottom)
-                $0.leading.trailing.equalToSuperview()
-                $0.height.equalTo(44)
-                $0.bottom.equalToSuperview()
-            }
-        }
-        
     }
 }
 
@@ -171,11 +169,11 @@ class WriteNewCommentButton: UIButton {
     init() {
         super.init(frame: .zero)
         
-        setTitle("Write Comment", for: .normal)
-        setTitleColor(.label, for: .normal)
-        setImage(Config.Image.writeComment, for: .normal)
+        self.setTitle("Write Comment", for: .normal)
+        self.setTitleColor(.label, for: .normal)
+        self.setImage(Config.Image.writeComment, for: .normal)
         
-        titleEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
+        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
     }
     
     @available(*, unavailable)
@@ -184,7 +182,7 @@ class WriteNewCommentButton: UIButton {
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        setImage(Config.Image.writeComment, for: .normal)
+        self.setImage(Config.Image.writeComment, for: .normal)
     }
     
     override var intrinsicContentSize: CGSize {

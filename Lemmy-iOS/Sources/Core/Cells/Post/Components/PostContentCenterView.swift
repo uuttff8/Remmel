@@ -7,9 +7,15 @@
 //
 
 import UIKit
-import SwiftyMarkdown
-import Nantes
+import CocoaMarkdown
 import Lightbox
+
+private class LabeledTextViewPost: UITextView {
+    override func draw(_ rect: CGRect) {
+        textContainer.lineFragmentPadding = 0
+        textContainerInset = .zero
+    }    
+}
 
 // MARK: - PostContentCenterView: UIView
 class PostContentCenterView: UIView {
@@ -36,10 +42,14 @@ class PostContentCenterView: UIView {
         $0.numberOfLines = 3
     }
     
-    private lazy var subtitleLabel = NantesLabel().then {
+    private lazy var subtitleLabel = LabeledTextViewPost().then {
         $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        $0.textColor = UIColor.lemmyLabel
+        $0.textColor = .lemmyLabel
+        $0.isScrollEnabled = false
+        $0.isEditable = false
+        $0.dataDetectorTypes = [.link]
         $0.delegate = self
+        $0.backgroundColor = .clear
     }
     
     private let thumbailImageView = UIImageView().then {
@@ -80,7 +90,8 @@ class PostContentCenterView: UIView {
         
         switch config {
         case .fullPost:
-            subtitleLabel.numberOfLines = 0
+            subtitleLabel.isSelectable = true
+            subtitleLabel.textContainer.maximumNumberOfLines = 0
             titleLabel.numberOfLines = 0
             thumbailImageView.loadImage(urlString: data.imageUrl) { [self] (res) in
                 guard case let .success(response) = res else { return }
@@ -88,25 +99,35 @@ class PostContentCenterView: UIView {
             }
             
             if let subtitle = data.subtitle {
-                let md = SwiftyMarkdown(string: subtitle)
-                md.setFontSizeForAllStyles(with: 13)
-                subtitleLabel.linkAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lemmyBlue]
-                subtitleLabel.attributedText = md.attributedString()
+                let docMd = CMDocument(string: subtitle, options: .sourcepos)
+                let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes())
+                
+                subtitleLabel.linkTextAttributes = [.foregroundColor: UIColor.lemmyBlue,
+                                                    .underlineStyle: 0,
+                                                    .underlineColor: UIColor.clear]
+                subtitleLabel.attributedText = renderMd?.render()
             }
             
             self.relayoutForFullPost()
         case .insideComminity, .preview:
             
-            subtitleLabel.numberOfLines = 6
+            subtitleLabel.isSelectable = false
+            subtitleLabel.textContainer.maximumNumberOfLines = 6
+            subtitleLabel.textContainer.lineBreakMode = .byTruncatingTail
             thumbailImageView.loadImage(urlString: data.imageUrl, imageSize: previewImageSize)
             
             if let subtitle = data.subtitle?.removeNewLines() {
-                let md = SwiftyMarkdown(string: subtitle)
-                md.setFontSizeForAllStyles(with: 13)
-                subtitleLabel.attributedText = md.attributedString()
+                let docMd = CMDocument(string: subtitle, options: .sourcepos)
+                let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes())
+                
+                subtitleLabel.linkTextAttributes = [.foregroundColor: UIColor.label,
+                                                    .underlineStyle: 0,
+                                                    .underlineColor: UIColor.clear]
+                subtitleLabel.attributedText = renderMd?.render()
             }
         }
         
+        self.subtitleLabel.textContainer.heightTracksTextView = true
     }
     
     func setupImageViewForFullPostViewer(image: UIImage, text: String) {
@@ -135,30 +156,32 @@ class PostContentCenterView: UIView {
         thumbailImageView.image = nil
         thumbailImageView.isHidden = false
     }
-        
+    
+    @objc private func handleAttachmentInTextView(_ recognizer: AttachmentTapGestureRecognizer) {
+        if let image = recognizer.tappedState?.attachment.image {
+            let image = [LightboxImage(image: image)]
+            let imageController = LightboxController(images: image)
+            imageController.dynamicBackground = true
+            
+            self.onImagePresent?(imageController)
+        }
+    }
+    
     // MARK: - Overrided
     override var intrinsicContentSize: CGSize {
         CGSize(width: UIScreen.main.bounds.width, height: UIView.noIntrinsicMetric)
     }
 }
 
-extension PostContentCenterView: NantesLabelDelegate {
-    func attributedLabel(_ label: NantesLabel, didSelectLink link: URL) {
-        if let mention = LemmyUserMention(url: link) {
-            onUserMentionTap?(mention)
-            return
-        }
-        
-        if let mention = LemmyCommunityMention(url: link) {
-            onCommunityMentionTap?(mention)
-            return
-        }
-        
-        onLinkTap?(link)
-    }
-}
-
 extension PostContentCenterView: ProgrammaticallyViewProtocol {
+    func setupView() {
+        let attachmentGesture = AttachmentTapGestureRecognizer(
+            target: self, action: #selector(handleAttachmentInTextView(_:))
+        )
+        
+        self.subtitleLabel.addGestureRecognizer(attachmentGesture)
+    }
+    
     func addSubviews() {
         self.addSubview(mainStackView)
         
@@ -181,5 +204,29 @@ extension PostContentCenterView: ProgrammaticallyViewProtocol {
         mainStackView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
+    }
+}
+
+extension PostContentCenterView: UITextViewDelegate {
+    
+    func textView(
+        _ textView: UITextView,
+        shouldInteractWith URL: URL,
+        in characterRange: NSRange,
+        interaction: UITextItemInteraction
+    ) -> Bool {
+        let link = URL
+        if let mention = LemmyUserMention(url: link) {
+            onUserMentionTap?(mention)
+            return false
+        }
+        
+        if let mention = LemmyCommunityMention(url: link) {
+            onCommunityMentionTap?(mention)
+            return false
+        }
+        
+        onLinkTap?(link)
+        return false
     }
 }

@@ -1,0 +1,9 @@
+[submodule "Lemmy-iOS/Sources/Libraries/CocoaMarkdown"]
+	path = Lemmy-iOS/Sources/Libraries/CocoaMarkdown
+	url = https://github.com/indragiek/CocoaMarkdown.git
+[submodule "Lemmy-iOS/CocoaMarkdown"]
+	path = Lemmy-iOS/CocoaMarkdown
+	url = https://github.com/indragiek/CocoaMarkdown.git
+[submodule "CocoaMarkdown"]
+	path = CocoaMarkdown
+	url = https://github.com/indragiek/CocoaMarkdown.git

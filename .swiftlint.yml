@@ -1,5 +1,8 @@
+#included:
+#  - Sources
 
 excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - CocoaMarkdown
   - Carthage
   - Pods
   - Source/ExcludedFolder
@@ -16,14 +19,14 @@ identifier_name:
     - GlobalAPIKey
     - ok
 
-nesting:
-  type_level:
-    # should be fixed in future
-    warning: 999
-    error: 999
-  statement_level:
-    warning: 5
-    error: 10
+#nesting:
+#  type_level:
+#    # should be fixed in future
+#    warning: 999
+#    error: 999
+#  statement_level:
+#    warning: 5
+#    error: 10
 
 # should be fixed in future
 file_length: 1000
@@ -34,7 +37,7 @@ disabled_rules:
   # - colon
   - comma
   # - control_statement
-  - variable_name
+  - identifier_name
   - force_cast
   - large_tuple
   - notification_center_detachment
