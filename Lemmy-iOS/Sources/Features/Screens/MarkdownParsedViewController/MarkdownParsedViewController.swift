@@ -11,18 +11,15 @@ import CocoaMarkdown
 
 final class MarkdownParsedViewController: UIViewController {
     
-    let scrollableStackView = ScrollableStackView(orientation: .vertical)
-    
     private lazy var closeBarButton = UIBarButtonItem(
         barButtonSystemItem: .close,
         target: self,
         action: #selector(dismissVc)
     )
     
-    let lbl: SimpleLabeledTextView = {
-        let lbl = SimpleLabeledTextView()
-        lbl
-        
+    let lbl: LabeledTextView = {
+        let lbl = LabeledTextView()
+        lbl.isScrollEnabled = true
         return lbl
     }()
     
@@ -30,9 +27,8 @@ final class MarkdownParsedViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         self.navigationItem.rightBarButtonItem = closeBarButton
-        let docMd = CMDocument(string: mdString, options: .sourcepos)
-        let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes())
-        lbl.attributedText = renderMd?.render()
+        
+        lbl.attributedText = attributtedMarkdown(mdString)
         
         setupView()
         addSubviews()
@@ -52,6 +48,17 @@ final class MarkdownParsedViewController: UIViewController {
     @objc func dismissVc() {
         self.dismiss(animated: true)
     }
+    
+    private func attributtedMarkdown(_ subtitle: String) -> NSAttributedString {
+        let docMd = CMDocument(string: subtitle, options: .sourcepos)
+        let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes())
+        
+        let attributes = NSMutableAttributedString(attributedString: renderMd.require().render())
+        attributes.addAttributes([.foregroundColor: UIColor.lemmyLabel],
+                                 range: NSRange(location: 0, length: attributes.mutableString.length))
+        return attributes
+    }
+
 }
 
 extension MarkdownParsedViewController: ProgrammaticallyViewProtocol {
@@ -60,14 +67,11 @@ extension MarkdownParsedViewController: ProgrammaticallyViewProtocol {
     }
     
     func addSubviews() {
-        view.addSubview(scrollableStackView)
-        scrollableStackView.addArrangedView(lbl)
-        scrollableStackView.contentInsets = .init(top: 16, left: 0, bottom: 0, right: 0)
-        scrollableStackView.showsHorizontalScrollIndicator = false
+        view.addSubview(lbl)
     }
     
     func makeConstraints() {
-        scrollableStackView.snp.makeConstraints {
+        lbl.snp.makeConstraints {
             $0.edges.equalTo(self.view.safeAreaLayoutGuide).inset(10)
         }
     }
