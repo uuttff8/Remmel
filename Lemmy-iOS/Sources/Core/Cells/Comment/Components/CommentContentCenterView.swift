@@ -32,9 +32,8 @@ class CommentCenterView: UIView {
     var onCommunityMentionTap: ((LemmyCommunityMention) -> Void)?
     var onImagePresent: ((UIViewController) -> Void)?
     
-    private lazy var commentTextView = LabeledTextViewComment().then {
+    private lazy var commentTextView = LabeledTextView().then {
         $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        $0.textColor = .lemmyLabel
         $0.isScrollEnabled = false
         $0.isEditable = false
         $0.dataDetectorTypes = [.link]
@@ -84,7 +83,10 @@ class CommentCenterView: UIView {
         let docMd = CMDocument(string: data.comment, options: .sourcepos)
         let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes())
         
-        return renderMd.require().render()
+        let attributes = NSMutableAttributedString(attributedString: renderMd.require().render())
+        attributes.addAttributes([.foregroundColor: UIColor.lemmyLabel],
+                                 range: NSRange(location: 0, length: attributes.mutableString.length))
+        return attributes
     }
     
     @objc private func handleAttachmentInTextView(_ recognizer: AttachmentTapGestureRecognizer) {

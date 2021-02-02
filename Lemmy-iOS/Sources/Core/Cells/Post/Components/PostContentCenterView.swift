@@ -42,10 +42,11 @@ class PostContentCenterView: UIView {
         $0.numberOfLines = 3
     }
     
-    private lazy var subtitlTextView = SimpleLabeledTextView().then {
+    private lazy var subtitleTextView = LabeledTextView().then {
         $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         $0.textColor = .lemmyLabel
         $0.isScrollEnabled = false
+        $0.isSelectable = false
         $0.isEditable = false
         $0.dataDetectorTypes = [.link]
         $0.delegate = self
@@ -90,44 +91,45 @@ class PostContentCenterView: UIView {
         
         switch config {
         case .fullPost:
-            subtitlTextView.isSelectable = true
-            subtitlTextView.textContainer.maximumNumberOfLines = 0
-            titleLabel.numberOfLines = 0
             thumbailImageView.loadImage(urlString: data.imageUrl) { [self] (res) in
                 guard case let .success(response) = res else { return }
                 self.setupImageViewForFullPostViewer(image: response.image, text: data.title)
             }
             
             if let subtitle = data.subtitle {
-                let docMd = CMDocument(string: subtitle, options: .sourcepos)
-                let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes())
+                subtitleTextView.isSelectable = true
+                subtitleTextView.textContainer.maximumNumberOfLines = 0
+                titleLabel.numberOfLines = 0
+
+                subtitleTextView.linkTextAttributes = [.foregroundColor: UIColor.lemmyBlue,
+                                                      .underlineStyle: 0,
+                                                      .underlineColor: UIColor.clear]
                 
-                subtitlTextView.linkTextAttributes = [.foregroundColor: UIColor.lemmyBlue,
-                                                    .underlineStyle: 0,
-                                                    .underlineColor: UIColor.clear]
-                subtitlTextView.attributedText = renderMd?.render()
+                subtitleTextView.attributedText = attributtedMarkdown(subtitle)
+            } else {
+                subtitleTextView.isHidden = true
             }
             
             self.relayoutForFullPost()
         case .insideComminity, .preview:
             
-            subtitlTextView.isSelectable = false
-            subtitlTextView.textContainer.maximumNumberOfLines = 6
-            subtitlTextView.textContainer.lineBreakMode = .byTruncatingTail
             thumbailImageView.loadImage(urlString: data.imageUrl, imageSize: previewImageSize)
             
             if let subtitle = data.subtitle?.removeNewLines() {
-                let docMd = CMDocument(string: subtitle, options: .sourcepos)
-                let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes())
+                subtitleTextView.isSelectable = false
+                subtitleTextView.textContainer.maximumNumberOfLines = 6
+                subtitleTextView.textContainer.lineBreakMode = .byTruncatingTail
+                subtitleTextView.linkTextAttributes = [.foregroundColor: UIColor.lemmyLabel,
+                                                       .underlineStyle: 0,
+                                                       .underlineColor: UIColor.clear]
                 
-                subtitlTextView.linkTextAttributes = [.foregroundColor: UIColor.label,
-                                                    .underlineStyle: 0,
-                                                    .underlineColor: UIColor.clear]
-                subtitlTextView.attributedText = renderMd?.render()
+                subtitleTextView.attributedText = attributtedMarkdown(subtitle)
+            } else {
+                subtitleTextView.isHidden = true
             }
         }
         
-        self.subtitlTextView.textContainer.heightTracksTextView = true
+        self.subtitleTextView.textContainer.heightTracksTextView = true
     }
     
     func setupImageViewForFullPostViewer(image: UIImage, text: String) {
@@ -152,9 +154,20 @@ class PostContentCenterView: UIView {
     
     func prepareForReuse() {
         titleLabel.text = nil
-        subtitlTextView.text = nil
+        subtitleTextView.text = nil
         thumbailImageView.image = nil
         thumbailImageView.isHidden = false
+        subtitleTextView.isHidden = false
+    }
+    
+    private func attributtedMarkdown(_ subtitle: String) -> NSAttributedString {
+        let docMd = CMDocument(string: subtitle, options: .sourcepos)
+        let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes())
+        
+        let attributes = NSMutableAttributedString(attributedString: renderMd.require().render())
+        attributes.addAttributes([.foregroundColor: UIColor.lemmyLabel],
+                                 range: NSRange(location: 0, length: attributes.mutableString.length))
+        return attributes
     }
     
     @objc private func handleAttachmentInTextView(_ recognizer: AttachmentTapGestureRecognizer) {
@@ -179,7 +192,7 @@ extension PostContentCenterView: ProgrammaticallyViewProtocol {
             target: self, action: #selector(handleAttachmentInTextView(_:))
         )
         
-        self.subtitlTextView.addGestureRecognizer(attachmentGesture)
+        self.subtitleTextView.addGestureRecognizer(attachmentGesture)
     }
     
     func addSubviews() {
@@ -192,7 +205,7 @@ extension PostContentCenterView: ProgrammaticallyViewProtocol {
         
         mainStackView.addStackViewItems(
             .view(titleImageStackView),
-            .view(subtitlTextView)
+            .view(subtitleTextView)
         )
     }
     
