@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import Nantes
-import SwiftyMarkdown
 import CocoaMarkdown
+import Lightbox
 
 private class LabeledTextViewComment: UITextView {
     override func draw(_ rect: CGRect) {
@@ -31,6 +30,7 @@ class CommentCenterView: UIView {
     var onLinkTap: ((URL) -> Void)?
     var onUserMentionTap: ((LemmyUserMention) -> Void)?
     var onCommunityMentionTap: ((LemmyCommunityMention) -> Void)?
+    var onImagePresent: ((UIViewController) -> Void)?
     
     private lazy var commentTextView = LabeledTextViewComment().then {
         $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -86,11 +86,27 @@ class CommentCenterView: UIView {
         
         return renderMd.require().render()
     }
+    
+    @objc private func handleAttachmentInTextView(_ recognizer: AttachmentTapGestureRecognizer) {
+        if let image = recognizer.tappedState?.attachment.image {
+            let image = [LightboxImage(image: image)]
+            let imageController = LightboxController(images: image)
+            imageController.dynamicBackground = true
+            
+            self.onImagePresent?(imageController)
+        }
+    }
 }
 
 extension CommentCenterView: ProgrammaticallyViewProtocol {
     func setupView() {
         commentTextView.backgroundColor = .clear
+        
+        let attachmentGesture = AttachmentTapGestureRecognizer(
+            target: self, action: #selector(handleAttachmentInTextView(_:))
+        )
+        
+        self.commentTextView.addGestureRecognizer(attachmentGesture)
     }
     
     func addSubviews() {
@@ -101,23 +117,6 @@ extension CommentCenterView: ProgrammaticallyViewProtocol {
         commentTextView.snp.makeConstraints { (make) in
             make.top.leading.trailing.bottom.equalToSuperview()
         }
-    }
-}
-
-extension CommentCenterView: NantesLabelDelegate {
-    
-    func attributedLabel(_ label: NantesLabel, didSelectLink link: URL) {
-        if let mention = LemmyUserMention(url: link) {
-            onUserMentionTap?(mention)
-            return
-        }
-        
-        if let mention = LemmyCommunityMention(url: link) {
-            onCommunityMentionTap?(mention)
-            return
-        }
-        
-        onLinkTap?(link)
     }
 }
 

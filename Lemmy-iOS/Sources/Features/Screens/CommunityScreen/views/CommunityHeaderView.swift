@@ -8,7 +8,6 @@
 
 import UIKit
 import Nuke
-import SwiftyMarkdown
 
 protocol CommunityHeaderViewDelegate: AnyObject {
     func headerViewDidTapped(followButton: FollowButton, in community: LMModels.Views.CommunityView)

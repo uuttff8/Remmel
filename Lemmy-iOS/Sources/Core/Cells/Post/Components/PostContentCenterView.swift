@@ -10,11 +10,11 @@ import UIKit
 import CocoaMarkdown
 import Lightbox
 
-private class LabeledTextViewPost: UITextView {
+class SimpleLabeledTextView: UITextView {
     override func draw(_ rect: CGRect) {
         textContainer.lineFragmentPadding = 0
         textContainerInset = .zero
-    }    
+    }
 }
 
 // MARK: - PostContentCenterView: UIView
@@ -42,7 +42,7 @@ class PostContentCenterView: UIView {
         $0.numberOfLines = 3
     }
     
-    private lazy var subtitlTextView = LabeledTextViewPost().then {
+    private lazy var subtitlTextView = SimpleLabeledTextView().then {
         $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         $0.textColor = .lemmyLabel
         $0.isScrollEnabled = false
@@ -226,7 +226,6 @@ extension PostContentCenterView: UITextViewDelegate {
             return false
         }
         
-        onLinkTap?(link)
-        return false
+        return true
     }
 }

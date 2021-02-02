@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SwiftyMarkdown
+import CocoaMarkdown
 
 final class MarkdownParsedViewController: UIViewController {
     
@@ -19,9 +19,9 @@ final class MarkdownParsedViewController: UIViewController {
         action: #selector(dismissVc)
     )
     
-    let lbl: UILabel = {
-        let lbl = UILabel()
-        lbl.numberOfLines = 0
+    let lbl: SimpleLabeledTextView = {
+        let lbl = SimpleLabeledTextView()
+        lbl
         
         return lbl
     }()
@@ -30,8 +30,9 @@ final class MarkdownParsedViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         self.navigationItem.rightBarButtonItem = closeBarButton
-        let md = SwiftyMarkdown(string: mdString)
-        lbl.attributedText = md.attributedString()
+        let docMd = CMDocument(string: mdString, options: .sourcepos)
+        let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes())
+        lbl.attributedText = renderMd?.render()
         
         setupView()
         addSubviews()

@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import SwiftyMarkdown
-import Nantes
 
 protocol PostContentTableCellDelegate: AnyObject {
     func voteContent(

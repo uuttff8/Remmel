@@ -23,6 +23,13 @@ protocol CommentContentTableCellDelegate: AnyObject {
     func reply(to comment: LMModels.Views.CommentView)
     func onLinkTap(in comment: LMModels.Views.CommentView, url: URL)
     func showMoreAction(in comment: LMModels.Views.CommentView)
+    func presentVc(viewController: UIViewController)
+}
+
+extension CommentContentTableCellDelegate where Self: UIViewController {
+    func presentVc(viewController: UIViewController) {
+        self.present(viewController, animated: true)
+    }
 }
 
 extension CommentContentTableCell {

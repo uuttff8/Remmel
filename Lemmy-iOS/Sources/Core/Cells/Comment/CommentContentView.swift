@@ -115,6 +115,10 @@ class CommentContentView: UIView {
         centerView.onCommunityMentionTap = { [weak self] mention in
             self?.delegate?.communityTapped(with: mention)
         }
+        
+        centerView.onImagePresent = { [weak self] vc in
+            self?.delegate?.presentVc(viewController: vc)
+        }
 
         // footer view
         footerView.showContextTap = { [weak self] in
