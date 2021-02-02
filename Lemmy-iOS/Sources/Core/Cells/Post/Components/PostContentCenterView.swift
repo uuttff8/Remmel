@@ -42,7 +42,7 @@ class PostContentCenterView: UIView {
         $0.numberOfLines = 3
     }
     
-    private lazy var subtitleLabel = LabeledTextViewPost().then {
+    private lazy var subtitlTextView = LabeledTextViewPost().then {
         $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         $0.textColor = .lemmyLabel
         $0.isScrollEnabled = false
@@ -90,8 +90,8 @@ class PostContentCenterView: UIView {
         
         switch config {
         case .fullPost:
-            subtitleLabel.isSelectable = true
-            subtitleLabel.textContainer.maximumNumberOfLines = 0
+            subtitlTextView.isSelectable = true
+            subtitlTextView.textContainer.maximumNumberOfLines = 0
             titleLabel.numberOfLines = 0
             thumbailImageView.loadImage(urlString: data.imageUrl) { [self] (res) in
                 guard case let .success(response) = res else { return }
@@ -102,32 +102,32 @@ class PostContentCenterView: UIView {
                 let docMd = CMDocument(string: subtitle, options: .sourcepos)
                 let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes())
                 
-                subtitleLabel.linkTextAttributes = [.foregroundColor: UIColor.lemmyBlue,
+                subtitlTextView.linkTextAttributes = [.foregroundColor: UIColor.lemmyBlue,
                                                     .underlineStyle: 0,
                                                     .underlineColor: UIColor.clear]
-                subtitleLabel.attributedText = renderMd?.render()
+                subtitlTextView.attributedText = renderMd?.render()
             }
             
             self.relayoutForFullPost()
         case .insideComminity, .preview:
             
-            subtitleLabel.isSelectable = false
-            subtitleLabel.textContainer.maximumNumberOfLines = 6
-            subtitleLabel.textContainer.lineBreakMode = .byTruncatingTail
+            subtitlTextView.isSelectable = false
+            subtitlTextView.textContainer.maximumNumberOfLines = 6
+            subtitlTextView.textContainer.lineBreakMode = .byTruncatingTail
             thumbailImageView.loadImage(urlString: data.imageUrl, imageSize: previewImageSize)
             
             if let subtitle = data.subtitle?.removeNewLines() {
                 let docMd = CMDocument(string: subtitle, options: .sourcepos)
                 let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes())
                 
-                subtitleLabel.linkTextAttributes = [.foregroundColor: UIColor.label,
+                subtitlTextView.linkTextAttributes = [.foregroundColor: UIColor.label,
                                                     .underlineStyle: 0,
                                                     .underlineColor: UIColor.clear]
-                subtitleLabel.attributedText = renderMd?.render()
+                subtitlTextView.attributedText = renderMd?.render()
             }
         }
         
-        self.subtitleLabel.textContainer.heightTracksTextView = true
+        self.subtitlTextView.textContainer.heightTracksTextView = true
     }
     
     func setupImageViewForFullPostViewer(image: UIImage, text: String) {
@@ -152,7 +152,7 @@ class PostContentCenterView: UIView {
     
     func prepareForReuse() {
         titleLabel.text = nil
-        subtitleLabel.text = nil
+        subtitlTextView.text = nil
         thumbailImageView.image = nil
         thumbailImageView.isHidden = false
     }
@@ -179,7 +179,7 @@ extension PostContentCenterView: ProgrammaticallyViewProtocol {
             target: self, action: #selector(handleAttachmentInTextView(_:))
         )
         
-        self.subtitleLabel.addGestureRecognizer(attachmentGesture)
+        self.subtitlTextView.addGestureRecognizer(attachmentGesture)
     }
     
     func addSubviews() {
@@ -192,7 +192,7 @@ extension PostContentCenterView: ProgrammaticallyViewProtocol {
         
         mainStackView.addStackViewItems(
             .view(titleImageStackView),
-            .view(subtitleLabel)
+            .view(subtitlTextView)
         )
     }
     

@@ -32,7 +32,7 @@ class CommentCenterView: UIView {
     var onUserMentionTap: ((LemmyUserMention) -> Void)?
     var onCommunityMentionTap: ((LemmyCommunityMention) -> Void)?
     
-    private lazy var commentLabel = LabeledTextViewComment().then {
+    private lazy var commentTextView = LabeledTextViewComment().then {
         $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         $0.textColor = .lemmyLabel
         $0.isScrollEnabled = false
@@ -61,13 +61,13 @@ class CommentCenterView: UIView {
             ? createAttributesForDeletedComment()
             : createAttributesForNormalComment(data: data)
         
-        commentLabel.attributedText = commentText
-        commentLabel.setNeedsLayout()
-        commentLabel.linkTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lemmyBlue]
+        commentTextView.attributedText = commentText
+        commentTextView.setNeedsLayout()
+        commentTextView.linkTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lemmyBlue]
     }
     
     func prepareForReuse() {
-        commentLabel.attributedText = nil
+        commentTextView.attributedText = nil
     }
     
     // MARK: - Overrided
@@ -89,14 +89,16 @@ class CommentCenterView: UIView {
 }
 
 extension CommentCenterView: ProgrammaticallyViewProtocol {
-    func setupView() { }
+    func setupView() {
+        commentTextView.backgroundColor = .clear
+    }
     
     func addSubviews() {
-        self.addSubview(commentLabel)
+        self.addSubview(commentTextView)
     }
     
     func makeConstraints() {
-        commentLabel.snp.makeConstraints { (make) in
+        commentTextView.snp.makeConstraints { (make) in
             make.top.leading.trailing.bottom.equalToSuperview()
         }
     }
