@@ -29,7 +29,7 @@ class ProfileScreenViewController: UIViewController {
     
     private let viewModel: ProfileScreenViewModelProtocol
 
-    private var availableTabs: [ProfileScreenDataFlow.Tab] = [.posts, .comments, .about]
+    private var availableTabs: [ProfileScreenDataFlow.Tab] = [.posts, .comments, .subscribed]
     private lazy var pageViewController = PageboyViewController()
     
     // Due to lazy initializing we should know actual values to update inset/offset of new scrollview
@@ -174,8 +174,8 @@ class ProfileScreenViewController: UIViewController {
             let assembly = ProfileScreenCommentsAssembly(coordinator: WeakBox(coordinator))
             controller = assembly.makeModule()
             moduleInput = assembly.moduleInput!
-        case .about:
-            let assembly = ProfileScreenAboutAssembly(coordinator: WeakBox(coordinator))
+        case .subscribed:
+            let assembly = ProfileScreenSubscribedAssembly(coordinator: WeakBox(coordinator))
             controller = assembly.makeModule()
             moduleInput = assembly.moduleInput!
         }

@@ -1,5 +1,5 @@
 //
-//  ProfileScreenAboutViewModel.swift
+//  ProfileScreenSubscribedViewModel.swift
 //  Lemmy-iOS
 //
 //  Created by uuttff8 on 12.11.2020.
@@ -14,7 +14,7 @@ protocol ProfileScreenAboutViewModelProtocol {
     func doProfileAboutFetch()
 }
 
-class ProfileScreenAboutViewModel: ProfileScreenAboutViewModelProtocol {
+class ProfileScreenSubscribedViewModel: ProfileScreenAboutViewModelProtocol {
     weak var viewController: ProfileScreenAboutViewControllerProtocol?
     
     private var loadedProfile: ProfileScreenViewModel.ProfileData?
@@ -24,7 +24,7 @@ class ProfileScreenAboutViewModel: ProfileScreenAboutViewModelProtocol {
     func doProfileAboutFetch() { }
 }
 
-extension ProfileScreenAboutViewModel: ProfileScreenAboutInputProtocol {
+extension ProfileScreenSubscribedViewModel: ProfileScreenSubscribedInputProtocol {
     func updateFollowersData(
         profile: ProfileScreenViewModel.ProfileData,
         subscribers: [LMModels.Views.CommunityFollowerView]
@@ -54,6 +54,6 @@ class ProfileScreenAbout {
     // MARK: States
     enum ViewControllerState {
         case loading
-        case result(data: ProfileScreenAboutViewController.View.ViewData)
+        case result(data: ProfileScreenSubscribedViewController.View.ViewData)
     }
 }

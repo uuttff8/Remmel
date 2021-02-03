@@ -19,7 +19,7 @@
 
 "content-posts" = "Posts";
 "content-comments" = "Comments";
-"content-about" = "About";
+"content-subscribed" = "Subscribed";
 "content-replies" = "Replies";
 "content-mentions" = "Mentions";
 "content-messages" = "Messages";

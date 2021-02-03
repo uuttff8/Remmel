@@ -1,5 +1,5 @@
 //
-//  ProfileScreenAboutViewController.swift
+//  ProfileScreenSubscribedViewController.swift
 //  Lemmy-iOS
 //
 //  Created by uuttff8 on 12.11.2020.
@@ -12,14 +12,14 @@ protocol ProfileScreenAboutViewControllerProtocol: AnyObject {
     func displayProfileSubscribers(viewModel: ProfileScreenAbout.SubscribersLoad.ViewModel)
 }
 
-class ProfileScreenAboutViewController: UIViewController {
+class ProfileScreenSubscribedViewController: UIViewController {
     
     weak var coordinator: ProfileScreenCoordinator?
     private let viewModel: ProfileScreenAboutViewModelProtocol
 
-    private lazy var tableDataSource = ProfileScreenAboutTableManager()
+    private lazy var tableDataSource = ProfileScreenSubscribedTableManager()
 
-    lazy var aboutView = self.view as? ProfileScreenAboutViewController.View
+    lazy var aboutView = self.view as? ProfileScreenSubscribedViewController.View
 
     private var tablePage = 1
     private var state: ProfileScreenAbout.ViewControllerState
@@ -45,7 +45,7 @@ class ProfileScreenAboutViewController: UIViewController {
     }
 
     override func loadView() {
-        let view = ProfileScreenAboutViewController.View()
+        let view = ProfileScreenSubscribedViewController.View()
         view.delegate = self
         self.view = view
     }
@@ -74,7 +74,7 @@ class ProfileScreenAboutViewController: UIViewController {
     }
 }
 
-extension ProfileScreenAboutViewController: ProfileScreenAboutViewControllerProtocol {
+extension ProfileScreenSubscribedViewController: ProfileScreenAboutViewControllerProtocol {
     func displayProfileSubscribers(viewModel: ProfileScreenAbout.SubscribersLoad.ViewModel) {
         guard case let .result(data) = viewModel.state else { return }
         self.tableDataSource.viewModels = data.subscribers
@@ -82,7 +82,7 @@ extension ProfileScreenAboutViewController: ProfileScreenAboutViewControllerProt
     }
 }
 
-extension ProfileScreenAboutViewController: ProfileScreenAboutViewDelegate {
+extension ProfileScreenSubscribedViewController: ProfileScreenSubscribedViewDelegate {
     func tableDidSelect(
         _ manager: View,
         communityFollower: LMModels.Views.CommunityFollowerView

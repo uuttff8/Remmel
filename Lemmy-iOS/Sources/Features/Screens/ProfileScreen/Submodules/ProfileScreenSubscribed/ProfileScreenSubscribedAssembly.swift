@@ -1,5 +1,5 @@
 //
-//  ProfileScreenAboutAssembly.swift
+//  ProfileScreenSubscribedAssembly.swift
 //  Lemmy-iOS
 //
 //  Created by uuttff8 on 12.11.2020.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class ProfileScreenAboutAssembly: Assembly {
+class ProfileScreenSubscribedAssembly: Assembly {
     
     // Module Input
-    var moduleInput: ProfileScreenAboutInputProtocol?
+    var moduleInput: ProfileScreenSubscribedInputProtocol?
     private let coordinator: WeakBox<ProfileScreenCoordinator>
     
     init(coordinator: WeakBox<ProfileScreenCoordinator>) {
@@ -19,8 +19,8 @@ class ProfileScreenAboutAssembly: Assembly {
     }
 
     func makeModule() -> UIViewController {
-        let viewModel = ProfileScreenAboutViewModel()
-        let vc = ProfileScreenAboutViewController(viewModel: viewModel)
+        let viewModel = ProfileScreenSubscribedViewModel()
+        let vc = ProfileScreenSubscribedViewController(viewModel: viewModel)
         viewModel.viewController = vc
         vc.coordinator = coordinator.value
         self.moduleInput = viewModel

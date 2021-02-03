@@ -16,11 +16,11 @@
 		4E0A8E4D255C0AF900B06AF6 /* ProfileScreenCommentsInputOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E4C255C0AF900B06AF6 /* ProfileScreenCommentsInputOutput.swift */; };
 		4E0A8E52255C0BEC00B06AF6 /* ProfileScreenCommentsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E51255C0BEC00B06AF6 /* ProfileScreenCommentsAssembly.swift */; };
 		4E0A8E5C255D586F00B06AF6 /* ProfileScreenAboutInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E5B255D586F00B06AF6 /* ProfileScreenAboutInputProtocol.swift */; };
-		4E0A8E62255D589A00B06AF6 /* ProfileScreenAboutAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E61255D589A00B06AF6 /* ProfileScreenAboutAssembly.swift */; };
-		4E0A8E67255D58CD00B06AF6 /* ProfileScreenAboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E66255D58CD00B06AF6 /* ProfileScreenAboutViewModel.swift */; };
-		4E0A8E6C255D58D900B06AF6 /* ProfileScreenAboutTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E6B255D58D900B06AF6 /* ProfileScreenAboutTableManager.swift */; };
-		4E0A8E71255D58E400B06AF6 /* ProfileScreenAboutUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E70255D58E400B06AF6 /* ProfileScreenAboutUI.swift */; };
-		4E0A8E7C255D590800B06AF6 /* ProfileScreenAboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E7B255D590800B06AF6 /* ProfileScreenAboutViewController.swift */; };
+		4E0A8E62255D589A00B06AF6 /* ProfileScreenSubscribedAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E61255D589A00B06AF6 /* ProfileScreenSubscribedAssembly.swift */; };
+		4E0A8E67255D58CD00B06AF6 /* ProfileScreenSubscribedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E66255D58CD00B06AF6 /* ProfileScreenSubscribedViewModel.swift */; };
+		4E0A8E6C255D58D900B06AF6 /* ProfileScreenSubscribedTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E6B255D58D900B06AF6 /* ProfileScreenSubscribedTableManager.swift */; };
+		4E0A8E71255D58E400B06AF6 /* ProfileScreenSubscribedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E70255D58E400B06AF6 /* ProfileScreenSubscribedView.swift */; };
+		4E0A8E7C255D590800B06AF6 /* ProfileScreenSubscribedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E7B255D590800B06AF6 /* ProfileScreenSubscribedViewController.swift */; };
 		4E0A8E8B255DD01500B06AF6 /* FrontPageSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E8A255DD01500B06AF6 /* FrontPageSearchView.swift */; };
 		4E0A8E93255DDE4500B06AF6 /* PostScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E92255DDE4500B06AF6 /* PostScreenAssembly.swift */; };
 		4E106F6525274325009EABDA /* PostScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106F6425274325009EABDA /* PostScreenViewModel.swift */; };
@@ -115,7 +115,7 @@
 		4E886CAE2540A9820076B162 /* CreatePostContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CAD2540A9820076B162 /* CreatePostContentCell.swift */; };
 		4E886CCE2541E1670076B162 /* ChooseCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CCD2541E1670076B162 /* ChooseCommunityViewController.swift */; };
 		4E886CD32541E1A20076B162 /* ChooseCommunityUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CD22541E1A20076B162 /* ChooseCommunityUI.swift */; };
-		4E886CD8254215B60076B162 /* ChooseCommunityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CD7254215B60076B162 /* ChooseCommunityCell.swift */; };
+		4E886CD8254215B60076B162 /* CommunityMiniPreviewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CD7254215B60076B162 /* CommunityMiniPreviewTableCell.swift */; };
 		4E886CE225422BDC0076B162 /* SearchRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CE125422BDC0076B162 /* SearchRequests.swift */; };
 		4E886CE7254429280076B162 /* WSLemmyEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CE6254429270076B162 /* WSLemmyEndpoint.swift */; };
 		4E886CEC25442B3B0076B162 /* HttpEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CEB25442B3B0076B162 /* HttpEndpoint.swift */; };
@@ -442,11 +442,11 @@
 		4E0A8E4C255C0AF900B06AF6 /* ProfileScreenCommentsInputOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenCommentsInputOutput.swift; sourceTree = "<group>"; };
 		4E0A8E51255C0BEC00B06AF6 /* ProfileScreenCommentsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenCommentsAssembly.swift; sourceTree = "<group>"; };
 		4E0A8E5B255D586F00B06AF6 /* ProfileScreenAboutInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenAboutInputProtocol.swift; sourceTree = "<group>"; };
-		4E0A8E61255D589A00B06AF6 /* ProfileScreenAboutAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenAboutAssembly.swift; sourceTree = "<group>"; };
-		4E0A8E66255D58CD00B06AF6 /* ProfileScreenAboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenAboutViewModel.swift; sourceTree = "<group>"; };
-		4E0A8E6B255D58D900B06AF6 /* ProfileScreenAboutTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenAboutTableManager.swift; sourceTree = "<group>"; };
-		4E0A8E70255D58E400B06AF6 /* ProfileScreenAboutUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenAboutUI.swift; sourceTree = "<group>"; };
-		4E0A8E7B255D590800B06AF6 /* ProfileScreenAboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenAboutViewController.swift; sourceTree = "<group>"; };
+		4E0A8E61255D589A00B06AF6 /* ProfileScreenSubscribedAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenSubscribedAssembly.swift; sourceTree = "<group>"; };
+		4E0A8E66255D58CD00B06AF6 /* ProfileScreenSubscribedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenSubscribedViewModel.swift; sourceTree = "<group>"; };
+		4E0A8E6B255D58D900B06AF6 /* ProfileScreenSubscribedTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenSubscribedTableManager.swift; sourceTree = "<group>"; };
+		4E0A8E70255D58E400B06AF6 /* ProfileScreenSubscribedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenSubscribedView.swift; sourceTree = "<group>"; };
+		4E0A8E7B255D590800B06AF6 /* ProfileScreenSubscribedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenSubscribedViewController.swift; sourceTree = "<group>"; };
 		4E0A8E8A255DD01500B06AF6 /* FrontPageSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageSearchView.swift; sourceTree = "<group>"; };
 		4E0A8E92255DDE4500B06AF6 /* PostScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenAssembly.swift; sourceTree = "<group>"; };
 		4E106F6425274325009EABDA /* PostScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenViewModel.swift; sourceTree = "<group>"; };
@@ -540,7 +540,7 @@
 		4E886CAD2540A9820076B162 /* CreatePostContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostContentCell.swift; sourceTree = "<group>"; };
 		4E886CCD2541E1670076B162 /* ChooseCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityViewController.swift; sourceTree = "<group>"; };
 		4E886CD22541E1A20076B162 /* ChooseCommunityUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityUI.swift; sourceTree = "<group>"; };
-		4E886CD7254215B60076B162 /* ChooseCommunityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityCell.swift; sourceTree = "<group>"; };
+		4E886CD7254215B60076B162 /* CommunityMiniPreviewTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMiniPreviewTableCell.swift; sourceTree = "<group>"; };
 		4E886CE125422BDC0076B162 /* SearchRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRequests.swift; sourceTree = "<group>"; };
 		4E886CE6254429270076B162 /* WSLemmyEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSLemmyEndpoint.swift; sourceTree = "<group>"; };
 		4E886CEB25442B3B0076B162 /* HttpEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpEndpoint.swift; sourceTree = "<group>"; };
@@ -842,17 +842,17 @@
 			path = InputOutput;
 			sourceTree = "<group>";
 		};
-		4E0A8E5A255D585D00B06AF6 /* ProfileScreenAbout */ = {
+		4E0A8E5A255D585D00B06AF6 /* ProfileScreenSubscribed */ = {
 			isa = PBXGroup;
 			children = (
 				4E0A8E60255D587900B06AF6 /* InputOutput */,
-				4E0A8E61255D589A00B06AF6 /* ProfileScreenAboutAssembly.swift */,
-				4E0A8E7B255D590800B06AF6 /* ProfileScreenAboutViewController.swift */,
-				4E0A8E70255D58E400B06AF6 /* ProfileScreenAboutUI.swift */,
-				4E0A8E66255D58CD00B06AF6 /* ProfileScreenAboutViewModel.swift */,
-				4E0A8E6B255D58D900B06AF6 /* ProfileScreenAboutTableManager.swift */,
+				4E0A8E61255D589A00B06AF6 /* ProfileScreenSubscribedAssembly.swift */,
+				4E0A8E7B255D590800B06AF6 /* ProfileScreenSubscribedViewController.swift */,
+				4E0A8E70255D58E400B06AF6 /* ProfileScreenSubscribedView.swift */,
+				4E0A8E66255D58CD00B06AF6 /* ProfileScreenSubscribedViewModel.swift */,
+				4E0A8E6B255D58D900B06AF6 /* ProfileScreenSubscribedTableManager.swift */,
 			);
-			path = ProfileScreenAbout;
+			path = ProfileScreenSubscribed;
 			sourceTree = "<group>";
 		};
 		4E0A8E60255D587900B06AF6 /* InputOutput */ = {
@@ -1147,7 +1147,6 @@
 				4E886CA0254093040076B162 /* CreatePostCommunityCell.swift */,
 				4E886CA52540A27E0076B162 /* CreatePostUrlCell.swift */,
 				4E886CAD2540A9820076B162 /* CreatePostContentCell.swift */,
-				4E886CD7254215B60076B162 /* ChooseCommunityCell.swift */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -1505,7 +1504,7 @@
 		4EBB2255255AE64800B88079 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
-				4E0A8E5A255D585D00B06AF6 /* ProfileScreenAbout */,
+				4E0A8E5A255D585D00B06AF6 /* ProfileScreenSubscribed */,
 				4EBB2256255AE6A100B88079 /* ProfileScreenPosts */,
 				4E0A8E33255C019A00B06AF6 /* ProfileScreenComments */,
 			);
@@ -1748,6 +1747,7 @@
 				4E7CFCBF25841AE80082AC3D /* WriteCommentParentPreviewCell */,
 				4EF312E32576D2B90032B58D /* Post */,
 				4E9185B52570644900702F04 /* Comment */,
+				4E886CD7254215B60076B162 /* CommunityMiniPreviewTableCell.swift */,
 				4E1A7E6025573CC900E193B7 /* LoadingTableViewCell.swift */,
 				4EF313BB257BEDC20032B58D /* UserPreviewCell.swift */,
 			);
@@ -2476,7 +2476,7 @@
 				4EF3133F257832700032B58D /* SearchResultsViewController.swift in Sources */,
 				4E886D4625447E350076B162 /* LemmyModel+Pictrs.swift in Sources */,
 				4EBF1DC22594C59F004068CD /* ContentPreferencesStorageManager.swift in Sources */,
-				4E0A8E67255D58CD00B06AF6 /* ProfileScreenAboutViewModel.swift in Sources */,
+				4E0A8E67255D58CD00B06AF6 /* ProfileScreenSubscribedViewModel.swift in Sources */,
 				4E886C99253F679C0076B162 /* CreatePostCoordinator.swift in Sources */,
 				4E6E666B25B214E900AF2F48 /* LMModels+Api+Comment.swift in Sources */,
 				4E98C01625BCA76B009DA520 /* CommentContentImpl.swift in Sources */,
@@ -2510,7 +2510,7 @@
 				4EFAB6112553279700B32780 /* CommunityHeaderCell.swift in Sources */,
 				4E9183C3256AFB1200702F04 /* CreateCommunityDataFlow.swift in Sources */,
 				4E3FBC44258A812000F97671 /* CommunitiesAssembly.swift in Sources */,
-				4E0A8E62255D589A00B06AF6 /* ProfileScreenAboutAssembly.swift in Sources */,
+				4E0A8E62255D589A00B06AF6 /* ProfileScreenSubscribedAssembly.swift in Sources */,
 				4E05D637255EBA63002307E0 /* Optional+Ext.swift in Sources */,
 				4E886CA62540A27E0076B162 /* CreatePostUrlCell.swift in Sources */,
 				4ECCEEE0250B8DEE0075F921 /* Coordinator.swift in Sources */,
@@ -2552,8 +2552,8 @@
 				4E91834E2566C16C00702F04 /* SettingsRightDetailCellView.swift in Sources */,
 				4E7CFCC125841B140082AC3D /* WriteCommentParrentPreviewCell.swift in Sources */,
 				4ECCEF0C250CCD3E0075F921 /* PostRequests.swift in Sources */,
-				4E0A8E7C255D590800B06AF6 /* ProfileScreenAboutViewController.swift in Sources */,
-				4E886CD8254215B60076B162 /* ChooseCommunityCell.swift in Sources */,
+				4E0A8E7C255D590800B06AF6 /* ProfileScreenSubscribedViewController.swift in Sources */,
+				4E886CD8254215B60076B162 /* CommunityMiniPreviewTableCell.swift in Sources */,
 				4E886C3B2538BE830076B162 /* LemmyTextWithSwitch.swift in Sources */,
 				4EF31360257A7B530032B58D /* ContentScoreService.swift in Sources */,
 				4EB4F684259024B40057BDCC /* InstancesProvider.swift in Sources */,
@@ -2684,7 +2684,7 @@
 				4E9BBA5425555571004FF2F9 /* LemmySortListingPickersView.swift in Sources */,
 				4EDD003225A5EC52006FCB9F /* InboxMentionsViewModel.swift in Sources */,
 				4EFA81E82561EFBD008AF535 /* CommunityTableHeaderView.swift in Sources */,
-				4E0A8E71255D58E400B06AF6 /* ProfileScreenAboutUI.swift in Sources */,
+				4E0A8E71255D58E400B06AF6 /* ProfileScreenSubscribedView.swift in Sources */,
 				4EBF1D582592365A004068CD /* Logger.swift in Sources */,
 				4EDDFFEF25A5CFB8006FCB9F /* WriteMessageViewController.swift in Sources */,
 				4EFA81BB255FFD14008AF535 /* FrontPageAssembly.swift in Sources */,
@@ -2774,7 +2774,7 @@
 				4EB5C76825C20ED3004B2349 /* FormatterHelper.swift in Sources */,
 				4EF313A2257BD5370032B58D /* LabelControl.swift in Sources */,
 				4E1070982535DF4F009EABDA /* LemmyShareData.swift in Sources */,
-				4E0A8E6C255D58D900B06AF6 /* ProfileScreenAboutTableManager.swift in Sources */,
+				4E0A8E6C255D58D900B06AF6 /* ProfileScreenSubscribedTableManager.swift in Sources */,
 				4EDD005225A5F31E006FCB9F /* InboxRepliesView.swift in Sources */,
 				4EF31347257839CF0032B58D /* SearchResultsTableDataSource.swift in Sources */,
 				4EDD001725A5E20B006FCB9F /* InboxNotificationSubmoduleProtocol.swift in Sources */,
@@ -2961,7 +2961,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2983,7 +2983,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

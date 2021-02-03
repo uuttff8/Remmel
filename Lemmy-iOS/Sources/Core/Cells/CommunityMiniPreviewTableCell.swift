@@ -9,7 +9,7 @@
 import UIKit
 import Nuke
 
-class ChooseCommunityCell: UITableViewCell {
+class CommunityMiniPreviewTableCell: UITableViewCell {
     struct ViewData {
         let title: String
         let icon: String?
@@ -60,7 +60,7 @@ class ChooseCommunityCell: UITableViewCell {
     }
 }
 
-extension ChooseCommunityCell: ProgrammaticallyViewProtocol {
+extension CommunityMiniPreviewTableCell: ProgrammaticallyViewProtocol {
     func setupView() {
         
     }

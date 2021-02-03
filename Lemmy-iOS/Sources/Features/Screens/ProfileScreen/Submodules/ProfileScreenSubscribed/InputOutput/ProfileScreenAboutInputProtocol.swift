@@ -1,5 +1,5 @@
 //
-//  ProfileScreenAboutInputProtocol.swift
+//  ProfileScreenSubscribedInputProtocol.swift
 //  Lemmy-iOS
 //
 //  Created by uuttff8 on 12.11.2020.
@@ -8,4 +8,4 @@
 
 import Foundation
 
-protocol ProfileScreenAboutInputProtocol: ProfileScreenSubmoduleProtocol { }
+protocol ProfileScreenSubscribedInputProtocol: ProfileScreenSubmoduleProtocol { }

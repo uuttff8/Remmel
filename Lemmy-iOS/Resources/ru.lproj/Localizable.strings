@@ -19,7 +19,7 @@
 
 "content-posts" = "Посты";
 "content-comments" = "Комментарии";
-"content-about" = "Подписки";
+"content-subscribed" = "Подписки";
 "content-replies" = "Ответвы";
 "content-mentions" = "Упоминания";
 "content-messages" = "Сообщения";

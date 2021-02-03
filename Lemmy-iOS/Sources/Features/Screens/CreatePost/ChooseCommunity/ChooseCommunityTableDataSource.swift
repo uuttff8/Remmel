@@ -52,7 +52,6 @@ extension ChooseCommunityTableDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if shouldShowFiltered {
             if self.filteredViewModels.isEmpty {
-//                self.tableView.setEmptyMessage("Not found")
                 self.delegate?.tableShowNotFound()
             }
 
@@ -65,7 +64,7 @@ extension ChooseCommunityTableDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let data = getCurrentCellData(indexPath: indexPath)
 
-        let cell: ChooseCommunityCell = tableView.cell(forRowAt: indexPath)
+        let cell: CommunityMiniPreviewTableCell = tableView.cell(forRowAt: indexPath)
         cell.bind(with: .init(title: data.community.title, icon: data.community.icon))
         cell.updateConstraintsIfNeeded()
         return cell

@@ -1,5 +1,5 @@
 //
-//  ProfileScreenAboutUI.swift
+//  ProfileScreenSubscribedView.swift
 //  Lemmy-iOS
 //
 //  Created by uuttff8 on 12.11.2020.
@@ -8,41 +8,32 @@
 
 import UIKit
 
-protocol ProfileScreenAboutViewDelegate: AnyObject {
+protocol ProfileScreenSubscribedViewDelegate: AnyObject {
     func tableDidSelect(
-        _ view: ProfileScreenAboutViewController.View,
+        _ view: ProfileScreenSubscribedViewController.View,
         communityFollower: LMModels.Views.CommunityFollowerView
     )
 }
 
-extension ProfileScreenAboutViewController.View {
-    struct Appearance {
-        let tableInset = UIEdgeInsets(top: 0, left: 0, bottom: 90, right: 0)
-    }
-}
-
-extension ProfileScreenAboutViewController {
+extension ProfileScreenSubscribedViewController {
     
     class View: UIView {
         struct ViewData {
             let subscribers: [LMModels.Views.CommunityFollowerView]
         }
         
-        weak var delegate: ProfileScreenAboutViewDelegate?
-        
-        let appearance: Appearance
-        
+        weak var delegate: ProfileScreenSubscribedViewDelegate?
+                
         // Proxify delegates
         private weak var pageScrollViewDelegate: UIScrollViewDelegate?
         
-        private var tableManager: ProfileScreenAboutTableManager?
+        private var tableManager: ProfileScreenSubscribedTableManager?
         
         private lazy var tableView = LemmyTableView(style: .plain, separator: false).then {
-            $0.registerClass(UITableViewCell.self)
+            $0.registerClass(CommunityMiniPreviewTableCell.self)
             $0.backgroundColor = .clear
             $0.showsVerticalScrollIndicator = false
             $0.delegate = self
-            $0.contentInset = self.appearance.tableInset // tab bar
         }
         
         private lazy var emptyStateLabel = UILabel().then {
@@ -51,8 +42,7 @@ extension ProfileScreenAboutViewController {
             $0.textColor = .tertiaryLabel
         }
         
-        init(frame: CGRect = .zero, appearance: Appearance = Appearance()) {
-            self.appearance = appearance
+        override init(frame: CGRect = .zero) {
             super.init(frame: frame)
 
             self.setupView()
@@ -73,7 +63,7 @@ extension ProfileScreenAboutViewController {
             tableView.hideActivityIndicator()
         }
         
-        func updateTableViewData(dataSource: ProfileScreenAboutTableManager) {
+        func updateTableViewData(dataSource: ProfileScreenSubscribedTableManager) {
             self.tableManager = dataSource
             self.emptyStateLabel.isHidden = true
             _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
@@ -89,7 +79,7 @@ extension ProfileScreenAboutViewController {
     }
 }
 
-extension ProfileScreenAboutViewController.View: ProgrammaticallyViewProtocol {
+extension ProfileScreenSubscribedViewController.View: ProgrammaticallyViewProtocol {
     func setupView() {
         self.emptyStateLabel.isHidden = true
     }
@@ -112,7 +102,7 @@ extension ProfileScreenAboutViewController.View: ProgrammaticallyViewProtocol {
     }
 }
 
-extension ProfileScreenAboutViewController.View: UITableViewDelegate {
+extension ProfileScreenSubscribedViewController.View: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.pageScrollViewDelegate?.scrollViewDidScroll?(scrollView)
     }
@@ -126,7 +116,7 @@ extension ProfileScreenAboutViewController.View: UITableViewDelegate {
     }
 }
 
-extension ProfileScreenAboutViewController.View: ProfileScreenScrollablePageViewProtocol {
+extension ProfileScreenSubscribedViewController.View: ProfileScreenScrollablePageViewProtocol {
     var scrollViewDelegate: UIScrollViewDelegate? {
         get { self.pageScrollViewDelegate }
         set { self.pageScrollViewDelegate = newValue }

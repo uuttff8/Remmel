@@ -139,7 +139,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
                 submodule.updatePostsData(profile: profileData, posts: profileData.userDetails.posts)
             case ProfileScreenDataFlow.Tab.comments.rawValue:
                 submodule.updateCommentsData(profile: profileData, comments: profileData.userDetails.comments)
-            case ProfileScreenDataFlow.Tab.about.rawValue:
+            case ProfileScreenDataFlow.Tab.subscribed.rawValue:
                 submodule.updateFollowersData(profile: profileData, subscribers: profileData.userDetails.follows)
                 
             default:
@@ -163,7 +163,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
                 submodule.updatePostsData(profile: profileData, posts: request.posts)
             case ProfileScreenDataFlow.Tab.comments.rawValue:
                 submodule.updateCommentsData(profile: profileData, comments: request.comments)
-            case ProfileScreenDataFlow.Tab.about.rawValue:
+            case ProfileScreenDataFlow.Tab.subscribed.rawValue:
                 submodule.updateFollowersData(profile: profileData, subscribers: request.subscribers)
                 
             default:
@@ -202,11 +202,11 @@ enum ProfileScreenDataFlow {
     enum Tab: Int, CaseIterable {
         case posts
         case comments
-        case about
+        case subscribed
         
         var title: String {
             switch self {
-            case .about: return "content-about".localized
+            case .subscribed: return "content-subscribed".localized
             case .comments: return "content-comments".localized
             case .posts: return "content-posts".localized
             }
