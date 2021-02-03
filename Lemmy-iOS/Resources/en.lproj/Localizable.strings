@@ -70,6 +70,8 @@
 "settings-build" = "Build";
 "settings-api-version" = "API Version";
 
+"profile-settings-title" = "Profile Settings";
+
 "inbox-notifications" = "Notifications";
 
 "communities" = "Communities";

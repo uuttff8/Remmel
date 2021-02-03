@@ -31,6 +31,12 @@ final class ProfileSettingsViewController: UIViewController {
     
     private lazy var profileSettingsView = self.view as! ProfileSettingsView
     
+    private lazy var closeBarButton = UIBarButtonItem(
+        barButtonSystemItem: .close,
+        target: self,
+        action: #selector(dismissSelf)
+    )
+    
     init(viewModel: ProfileSettingsViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -49,7 +55,17 @@ final class ProfileSettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // https://stackoverflow.com/questions/32696615/warning-attempt-to-present-on-which-is-already-presenting-null
+        self.definesPresentationContext = true
+        
+        title = "settings-appinfo".localized
+        self.navigationItem.rightBarButtonItem = closeBarButton
         self.viewModel.doProfileSettingsForm(request: .init())
+    }
+    
+    @objc private func dismissSelf() {
+        self.dismiss(animated: true)
     }
 }
 
@@ -179,4 +195,10 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
 }
 
 extension ProfileSettingsViewController: ProfileSettingsViewDelegate {
+}
+
+extension ProfileSettingsViewController: StyledNavigationControllerPresentable {
+    var navigationBarAppearanceOnFirstPresentation: StyledNavigationController.NavigationBarAppearanceState {
+        .pageSheetAppearance()
+    }
 }
