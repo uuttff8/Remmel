@@ -280,7 +280,6 @@
 		4EDDFFFF25A5DC06006FCB9F /* InboxNotificationsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFFFE25A5DC06006FCB9F /* InboxNotificationsAssembly.swift */; };
 		4EE0279025AF82D800D2952D /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0278F25AF82D800D2952D /* Date+Ext.swift */; };
 		4EE0279E25AF93EE00D2952D /* LemmyCommunityMention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0279D25AF93EE00D2952D /* LemmyCommunityMention.swift */; };
-		4EE027B425AFA02B00D2952D /* Nantes in Frameworks */ = {isa = PBXBuildFile; productRef = 4EE027B325AFA02B00D2952D /* Nantes */; };
 		4EE26859255972590009D2BC /* ProfileScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE26858255972590009D2BC /* ProfileScreenAssembly.swift */; };
 		4EF312E52576D2D10032B58D /* PostContentFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312E42576D2D10032B58D /* PostContentFooterView.swift */; };
 		4EF312ED2576D2EA0032B58D /* PostContentCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312EC2576D2EA0032B58D /* PostContentCenterView.swift */; };
@@ -324,7 +323,6 @@
 		4EF3AC9A254C690400BEC9F1 /* CreateCommunitySidebarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC99254C690400BEC9F1 /* CreateCommunitySidebarCell.swift */; };
 		4EF3ACD1254EF82C00BEC9F1 /* CommunityScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3ACD0254EF82C00BEC9F1 /* CommunityScreenViewController.swift */; };
 		4EF3ACEA25502D5600BEC9F1 /* CommunityHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3ACE925502D5600BEC9F1 /* CommunityHeaderView.swift */; };
-		4EF3ACF625506EC900BEC9F1 /* SwiftyMarkdown in Frameworks */ = {isa = PBXBuildFile; productRef = 4EF3ACF525506EC900BEC9F1 /* SwiftyMarkdown */; };
 		4EF3ACFF2550757200BEC9F1 /* MarkdownParsedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3ACFE2550757200BEC9F1 /* MarkdownParsedViewController.swift */; };
 		4EF3AD052550908D00BEC9F1 /* ResizableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AD042550908D00BEC9F1 /* ResizableButton.swift */; };
 		4EF3AD0A25510D1900BEC9F1 /* CommunityContentTypePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AD0925510D1900BEC9F1 /* CommunityContentTypePickerCell.swift */; };
@@ -799,12 +797,10 @@
 				4E1070842534F742009EABDA /* KeychainSwift in Frameworks */,
 				921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */,
 				4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */,
-				4EF3ACF625506EC900BEC9F1 /* SwiftyMarkdown in Frameworks */,
 				4EBF1D5E25923723004068CD /* XCGLogger in Frameworks */,
 				4E98BFC125BB2438009DA520 /* IQKeyboardManagerSwift in Frameworks */,
 				4EC63F6D25C89EF700F6D6F1 /* CocoaMarkdown.framework in Frameworks */,
 				4E9184FC256E9E4E00702F04 /* SwipeCellKit in Frameworks */,
-				4EE027B425AFA02B00D2952D /* Nantes in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2211,10 +2207,8 @@
 			packageProductDependencies = (
 				4ECCEEFA250C13240075F921 /* SnapKit */,
 				4E1070832534F742009EABDA /* KeychainSwift */,
-				4EF3ACF525506EC900BEC9F1 /* SwiftyMarkdown */,
 				4E9184FB256E9E4E00702F04 /* SwipeCellKit */,
 				4EBF1D5D25923723004068CD /* XCGLogger */,
-				4EE027B325AFA02B00D2952D /* Nantes */,
 				4E98BFC025BB2438009DA520 /* IQKeyboardManagerSwift */,
 			);
 			productName = "Lemmy-iOS";
@@ -2293,10 +2287,8 @@
 			packageReferences = (
 				4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */,
-				4EF3ACF425506EC900BEC9F1 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */,
 				4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
 				4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger" */,
-				4EE027B225AFA02B00D2952D /* XCRemoteSwiftPackageReference "Nantes" */,
 				4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
@@ -2969,7 +2961,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2991,7 +2983,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -3173,22 +3165,6 @@
 				minimumVersion = 5.0.1;
 			};
 		};
-		4EE027B225AFA02B00D2952D /* XCRemoteSwiftPackageReference "Nantes" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/uuttff8/Nantes/";
-			requirement = {
-				kind = revision;
-				revision = ce046f13b6bb10ef062371eb2e682a6bdb34d140;
-			};
-		};
-		4EF3ACF425506EC900BEC9F1 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SimonFairbairn/SwiftyMarkdown";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.3;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -3216,16 +3192,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		4EE027B325AFA02B00D2952D /* Nantes */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4EE027B225AFA02B00D2952D /* XCRemoteSwiftPackageReference "Nantes" */;
-			productName = Nantes;
-		};
-		4EF3ACF525506EC900BEC9F1 /* SwiftyMarkdown */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4EF3ACF425506EC900BEC9F1 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */;
-			productName = SwiftyMarkdown;
 		};
 /* End XCSwiftPackageProductDependency section */
 

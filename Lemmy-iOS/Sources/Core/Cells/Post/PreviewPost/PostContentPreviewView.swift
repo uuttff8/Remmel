@@ -160,7 +160,7 @@ extension PostContentPreviewView: ProgrammaticallyViewProtocol {
         }
                 
         footerView.snp.makeConstraints { (make) in
-            make.top.equalTo(centerView.snp.bottom).offset(5)
+            make.top.equalTo(centerView.snp.bottom).offset(10)
             make.leading.trailing.equalTo(headerView)
             make.bottom.equalToSuperview() // SELF SIZE BOTTOM HERE
         }

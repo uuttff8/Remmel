@@ -20,30 +20,12 @@
         }
       },
       {
-        "package": "Nantes",
-        "repositoryURL": "https://github.com/uuttff8/Nantes/",
-        "state": {
-          "branch": null,
-          "revision": "ce046f13b6bb10ef062371eb2e682a6bdb34d140",
-          "version": null
-        }
-      },
-      {
         "package": "SnapKit",
         "repositoryURL": "https://github.com/SnapKit/SnapKit",
         "state": {
           "branch": null,
           "revision": "d458564516e5676af9c70b4f4b2a9178294f1bc6",
           "version": "5.0.1"
-        }
-      },
-      {
-        "package": "SwiftyMarkdown",
-        "repositoryURL": "https://github.com/SimonFairbairn/SwiftyMarkdown",
-        "state": {
-          "branch": null,
-          "revision": "5b0a1e76332a633726f9f9a00b4bbd840166bccf",
-          "version": "1.2.3"
         }
       },
       {
