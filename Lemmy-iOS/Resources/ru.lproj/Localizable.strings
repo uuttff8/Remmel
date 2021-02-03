@@ -42,6 +42,7 @@
 "sort-month" = "Топ за месяц";
 "sort-year" = "Топ за год";
 "sort-all" = "Топ за все время";
+"sort-most-comments" = "Большинство комментариев";
 
 "listing-all" = "Все";
 "listing-subscribed" = "Подписки";

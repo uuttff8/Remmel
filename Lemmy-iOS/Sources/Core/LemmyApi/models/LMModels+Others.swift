@@ -20,6 +20,7 @@ extension LMModels {
             case topMonth = "TopMonth"
             case topYear = "TopYear"
             case topAll = "TopAll"
+            case mostComments = "MostComments"
             
             var label: String {
                 switch self {
@@ -31,6 +32,7 @@ extension LMModels {
                 case .topMonth: return "sort-month".localized
                 case .topYear: return "sort-year".localized
                 case .topAll: return "sort-all".localized
+                case .mostComments: return "sort-most-comments".localized
                 }
             }
         }

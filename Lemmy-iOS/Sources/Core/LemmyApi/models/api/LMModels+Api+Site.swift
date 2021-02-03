@@ -146,7 +146,7 @@ extension LMModels.Api {
             let online: Int
             let version: String
             let myUser: LMModels.Source.UserSafeSettings? // Gives back your user and settings if logged
-            let federatedInstances: [String]
+            let federatedInstances: FederatedInstances?
             
             enum CodingKeys: String, CodingKey {
                 case siteView = "site_view"
@@ -165,6 +165,12 @@ extension LMModels.Api {
                 case auth
             }
         }
+        
+        struct FederatedInstances: Codable {
+            let linked: [String]
+            let allowed: [String]
+            let blocked: [String]
+         }
         
         struct GetSiteConfig: Codable {
             let auth: String

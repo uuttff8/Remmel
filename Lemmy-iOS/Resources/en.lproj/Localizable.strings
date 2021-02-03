@@ -42,6 +42,7 @@
 "sort-month" = "Top month";
 "sort-year" = "Top year";
 "sort-all" = "Top all";
+"sort-most-comments" = "Most Comments";
 
 "listing-all" = "All";
 "listing-subscribed" = "Subscribed";
