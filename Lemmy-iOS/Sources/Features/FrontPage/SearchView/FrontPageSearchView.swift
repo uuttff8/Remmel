@@ -156,7 +156,6 @@ private class SearchTableHeaderLabel: UIView {
         self.searchLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().inset(16)
-            $0.trailing.equalToSuperview()
             $0.top.equalToSuperview()
             $0.bottom.equalToSuperview()
         }

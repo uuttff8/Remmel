@@ -111,16 +111,12 @@ class PostContentHeaderView: UIView {
         communityButton.setTitle(communityButtonText, for: .normal)
         publishedTitle.text = data.published
         
-        if let avatarUrl = data.avatarImageUrl {
-            setupAvatar(with: avatarUrl)
-        } else {
-            avatarImageView.removeFromSuperview()
-        }
+        avatarImageView.loadImage(urlString: data.avatarImageUrl, imageSize: imageSize)
         
         switch config {
         case .insideComminity:
-            byTitle.removeFromSuperview()
-            communityButton.removeFromSuperview()
+            byTitle.isHidden = true
+            communityButton.isHidden = true
         default: break
         }
     }
@@ -145,20 +141,16 @@ class PostContentHeaderView: UIView {
         self.hapticGenerator.impactOccurred()
         showMoreButtonTap?()
     }
-    
-    private func setupAvatar(with url: String) {
-        Nuke.loadImage(with: ImageRequest(url: URL(string: url)!), into: avatarImageView)
-        avatarImageView.snp.makeConstraints { (make) in
-            make.size.equalTo(imageSize.height)
-        }
-    }
-        
+            
     func prepareForReuse() {
         avatarImageView.image = nil
         publishedTitle.text = nil
         urlDomainTitle.text = nil
         usernameButton.setTitle(nil, for: .normal)
         communityButton.setTitle(nil, for: .normal)
+        byTitle.isHidden = false
+        communityButton.isHidden = false
+        avatarImageView.isHidden = false
     }
     
     // MARK: - Overrided
@@ -194,6 +186,10 @@ extension PostContentHeaderView: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
+        avatarImageView.snp.makeConstraints {
+            $0.size.equalTo(imageSize)
+        }
+        
         mainStackView.snp.makeConstraints {
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
