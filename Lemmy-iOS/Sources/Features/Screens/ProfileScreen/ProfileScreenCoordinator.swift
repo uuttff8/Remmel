@@ -22,4 +22,12 @@ final class ProfileScreenCoordinator: GenericCoordinator<ProfileScreenViewContro
     override func start() {
         rootViewController.coordinator = self
     }
+    
+    func goToProfileSettings(userId: Int) {
+        let assembly = ProfileSettingsAssembly(userId: userId)
+        let module = assembly.makeModule()
+        let navController = StyledNavigationController(rootViewController: module)
+        
+        router?.present(navController, animated: true)
+    }
 }

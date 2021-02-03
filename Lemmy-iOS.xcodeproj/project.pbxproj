@@ -36,6 +36,10 @@
 		4E10708E2534F7A7009EABDA /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10708D2534F7A7009EABDA /* LoginData.swift */; };
 		4E1070982535DF4F009EABDA /* LemmyShareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1070972535DF4F009EABDA /* LemmyShareData.swift */; };
 		4E10709D25361846009EABDA /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10709C25361846009EABDA /* AuthenticationView.swift */; };
+		4E110D4A25CB406E00A06306 /* ProfileSettingsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E110D4925CB406E00A06306 /* ProfileSettingsAssembly.swift */; };
+		4E110D4E25CB407800A06306 /* ProfileSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E110D4D25CB407800A06306 /* ProfileSettingsViewController.swift */; };
+		4E110D5225CB407E00A06306 /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E110D5125CB407E00A06306 /* ProfileSettingsView.swift */; };
+		4E110D5625CB408600A06306 /* ProfileSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E110D5525CB408600A06306 /* ProfileSettingsViewModel.swift */; };
 		4E1A7E6125573CC900E193B7 /* LoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A7E6025573CC900E193B7 /* LoadingTableViewCell.swift */; };
 		4E1A7E6625573EA400E193B7 /* ProfileScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A7E6525573EA400E193B7 /* ProfileScreenUI.swift */; };
 		4E1A7E6B25573F1800E193B7 /* ProfileScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A7E6A25573F1800E193B7 /* ProfileScreenViewModel.swift */; };
@@ -461,6 +465,10 @@
 		4E10708D2534F7A7009EABDA /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
 		4E1070972535DF4F009EABDA /* LemmyShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyShareData.swift; sourceTree = "<group>"; };
 		4E10709C25361846009EABDA /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
+		4E110D4925CB406E00A06306 /* ProfileSettingsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsAssembly.swift; sourceTree = "<group>"; };
+		4E110D4D25CB407800A06306 /* ProfileSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewController.swift; sourceTree = "<group>"; };
+		4E110D5125CB407E00A06306 /* ProfileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
+		4E110D5525CB408600A06306 /* ProfileSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewModel.swift; sourceTree = "<group>"; };
 		4E1A7E6025573CC900E193B7 /* LoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTableViewCell.swift; sourceTree = "<group>"; };
 		4E1A7E6525573EA400E193B7 /* ProfileScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenUI.swift; sourceTree = "<group>"; };
 		4E1A7E6A25573F1800E193B7 /* ProfileScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewModel.swift; sourceTree = "<group>"; };
@@ -930,6 +938,17 @@
 				4E1070972535DF4F009EABDA /* LemmyShareData.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		4E110D4825CB403A00A06306 /* ProfileSettings */ = {
+			isa = PBXGroup;
+			children = (
+				4E110D4925CB406E00A06306 /* ProfileSettingsAssembly.swift */,
+				4E110D4D25CB407800A06306 /* ProfileSettingsViewController.swift */,
+				4E110D5125CB407E00A06306 /* ProfileSettingsView.swift */,
+				4E110D5525CB408600A06306 /* ProfileSettingsViewModel.swift */,
+			);
+			path = ProfileSettings;
 			sourceTree = "<group>";
 		};
 		4E2A0FD7259C875400BF0841 /* Coordinator */ = {
@@ -1636,6 +1655,7 @@
 				4EDDFFFD25A5DBEA006FCB9F /* InboxNotifications */,
 				4E87C698258E67A50007FE5E /* Instances */,
 				4ECCEEF0250C03910075F921 /* LemmyTabBar */,
+				4E110D4825CB403A00A06306 /* ProfileSettings */,
 				4EB89AF5251F4783007129BF /* Screens */,
 				4EF3131E25782BA90032B58D /* SearchResults */,
 				4E98BF9B25B8DE27009DA520 /* Settings */,
@@ -2476,6 +2496,7 @@
 				4EF3133F257832700032B58D /* SearchResultsViewController.swift in Sources */,
 				4E886D4625447E350076B162 /* LemmyModel+Pictrs.swift in Sources */,
 				4EBF1DC22594C59F004068CD /* ContentPreferencesStorageManager.swift in Sources */,
+				4E110D4A25CB406E00A06306 /* ProfileSettingsAssembly.swift in Sources */,
 				4E0A8E67255D58CD00B06AF6 /* ProfileScreenSubscribedViewModel.swift in Sources */,
 				4E886C99253F679C0076B162 /* CreatePostCoordinator.swift in Sources */,
 				4E6E666B25B214E900AF2F48 /* LMModels+Api+Comment.swift in Sources */,
@@ -2533,6 +2554,7 @@
 				4EDD003725A5EC59006FCB9F /* InboxMentionsView.swift in Sources */,
 				4EDD00CE25A73ACA006FCB9F /* ReplyMentionProtocols.swift in Sources */,
 				4EB4F69F2590C35C0057BDCC /* AddInstanceViewController.swift in Sources */,
+				4E110D5625CB408600A06306 /* ProfileSettingsViewModel.swift in Sources */,
 				4E0A8E93255DDE4500B06AF6 /* PostScreenAssembly.swift in Sources */,
 				4EF312F72576D3400032B58D /* PostContentView.swift in Sources */,
 				4EB89B0A2521FA73007129BF /* LoginOrRegisterButton.swift in Sources */,
@@ -2600,6 +2622,7 @@
 				4E886C61253CAF650076B162 /* CreateTransitionDelegateImpl.swift in Sources */,
 				4EFA81B0255F3FEB008AF535 /* FrontPageSearchSubjectTableCell.swift in Sources */,
 				4E87C648258D33810007FE5E /* LemmyUserMention.swift in Sources */,
+				4E110D5225CB407E00A06306 /* ProfileSettingsView.swift in Sources */,
 				4EBB22262559EBAA00B88079 /* ColorPalette.swift in Sources */,
 				4ECCEEEA250BA6230075F921 /* WSLemmyClient.swift in Sources */,
 				4EBB224C255ADE4C00B88079 /* TabSegmentedControlView.swift in Sources */,
@@ -2666,6 +2689,7 @@
 				4EB89AF8251F47A7007129BF /* PostScreenViewController.swift in Sources */,
 				657DF46525968E9F00831B0F /* AddAccountsAssembly.swift in Sources */,
 				4E886CAE2540A9820076B162 /* CreatePostContentCell.swift in Sources */,
+				4E110D4E25CB407800A06306 /* ProfileSettingsViewController.swift in Sources */,
 				4EF3AC80254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift in Sources */,
 				4E73DF6A258BE964001608F2 /* FollowButton.swift in Sources */,
 				4E87C6C9258EA92B0007FE5E /* CoreDataManager.swift in Sources */,

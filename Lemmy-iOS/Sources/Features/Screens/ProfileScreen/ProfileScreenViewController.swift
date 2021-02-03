@@ -378,7 +378,7 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
     func displayMoreButtonAlert(viewModel: ProfileScreenDataFlow.IdentifyProfile.ViewModel) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.popoverPresentationController?.barButtonItem = showMoreBarButton
-        
+                
         if viewModel.isCurrentProfile {
             let logoutAction = UIAlertAction(title: "alert-logout".localized, style: .destructive) { _ in
                 self.viewModel.doProfileLogout()
@@ -386,21 +386,16 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
             }
             
             let editProfileAction = UIAlertAction(title: "profile-edit".localized, style: .default) { (_) in
-                // go to profile settings
+                self.coordinator?.goToProfileSettings(userId: viewModel.userId)
             }
             
-//            alert.addAction(editProfileAction)
+            alert.addAction(editProfileAction)
             alert.addAction(logoutAction)
             
         } else {
             
             let sendMessageAction = UIAlertAction(title: "alert-send-message".localized, style: .default) { _ in
-                guard let recipientId = self.viewModel.loadedProfile?.id else {
-                    Logger.commonLog.error("Can't get id form loaded profile")
-                    return
-                }
-                
-                self.coordinator?.goToWriteMessage(recipientId: recipientId)
+                self.coordinator?.goToWriteMessage(recipientId: viewModel.userId)
             }
             
             let blockAction: UIAlertAction

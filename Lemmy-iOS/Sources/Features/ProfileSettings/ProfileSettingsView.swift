@@ -1,20 +1,20 @@
 //
-//  SettingsView.swift
+//  ProfileSettingsView.swift
 //  Lemmy-iOS
 //
-//  Created by uuttff8 on 21.01.2021.
+//  Created by uuttff8 on 03.02.2021.
 //  Copyright © 2021 Anton Kuzmin. All rights reserved.
 //
 
 import UIKit
 
-protocol SettingsViewDelegate: SettingsTableViewDelegate { }
+protocol ProfileSettingsViewDelegate: SettingsTableViewDelegate { }
 
-class SettingsView: UIView {
+class ProfileSettingsView: UIView {
 
     // MARK: - Properties
 
-    weak var delegate: SettingsViewDelegate? {
+    weak var delegate: ProfileSettingsViewDelegate? {
         didSet {
             self.tableView.delegate = self.delegate
         }
@@ -44,7 +44,7 @@ class SettingsView: UIView {
         self.tableView.configure(viewModel: viewModel)
     }
 }
-extension SettingsView: ProgrammaticallyViewProtocol {
+extension ProfileSettingsView: ProgrammaticallyViewProtocol {
     func addSubviews() {
         self.addSubview(self.tableView)
     }

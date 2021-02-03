@@ -70,14 +70,12 @@ class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
     
     func showSearchIfNeeded(with query: String) {
         searchViewController.coordinator = self
-//        searchViewController.loadView()
         searchViewController.showSearchIfNeeded()
         searchViewController.searchQuery = query
     }
     
     func hideSearchIfNeeded() {
         searchViewController.coordinator = nil
-//        searchViewController.view.removeFromSuperview()
         searchViewController.hideSearchIfNeeded()
         searchViewController.searchQuery = ""
     }    

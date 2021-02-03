@@ -82,7 +82,7 @@ final class ChainedWSClient {
                     }
                 }
                 
-                Logger.commonLog.info("WebSocket task received message")
+                Logger.commonLog.info("WebSocket task received message \(message)")
                 self?.receiveMessages()
             }
         }
