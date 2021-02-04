@@ -47,7 +47,8 @@ class LemmyShareData {
     }
     
     var jwtToken: String? {
-        loginData.jwtToken
+        get { loginData.jwtToken }
+        set { loginData.jwtToken = newValue }
     }
     
     var isLoggedIn: Bool {

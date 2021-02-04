@@ -77,14 +77,8 @@ final class AddInstanceViewController: UIViewController {
     }
     
     private func setNewBarButton(loading: Bool, isEnabled: Bool) {
-        let button: UIBarButtonItem
-        if loading {
-            button = loadingBarButton
-            addBarButton.isEnabled = isEnabled
-        } else {
-            button = addBarButton
-            addBarButton.isEnabled = isEnabled
-        }
+        let button: UIBarButtonItem = loading ? loadingBarButton : addBarButton
+        button.isEnabled = isEnabled
         self.navigationItem.rightBarButtonItem = button
     }
     

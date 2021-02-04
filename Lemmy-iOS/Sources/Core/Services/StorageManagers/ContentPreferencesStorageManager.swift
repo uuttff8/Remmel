@@ -22,7 +22,7 @@ final class ContentPreferencesStorageManager: ContentPreferencesStorageManagerPr
     var contentSortType: LMModels.Others.SortType {
         get {
             if let stringValue = UserDefaults.appShared.string(forKey: Key.contentSortType.rawValue),
-               let sortType = LMModels.Others.SortType(rawValue: stringValue) {
+               let sortType = LMModels.Others.SortType(fromStr: stringValue) {
                 return sortType
             } else {
                 return .active

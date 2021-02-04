@@ -49,8 +49,8 @@ extension LMModels {
             let updated: Date?
             let showNsfw: Bool
             let theme: String
-            let defaultSortType: Int
-            let defaultListingType: Int
+            let defaultSortType: LMModels.Others.SortType
+            let defaultListingType: LMModels.Others.ListingType
             let lang: String
             let showAvatars: Bool
             let sendNotificationsToEmail: Bool

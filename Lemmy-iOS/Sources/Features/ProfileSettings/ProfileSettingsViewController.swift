@@ -12,6 +12,7 @@ protocol ProfileSettingsViewControllerProtocol: AnyObject {
     func displayProfileSettingsForm(viewModel: ProfileSettings.ProfileSettingsForm.ViewModel)
     func displayLoadingIndicator(viewModel: ProfileSettings.LoadingIndicator.ViewModel)
     func displayError(viewModel: ProfileSettings.SomeError.ViewModel)
+    func displaySuccessUpdatingSetting()
 }
 
 final class ProfileSettingsViewController: UIViewController {
@@ -54,11 +55,16 @@ final class ProfileSettingsViewController: UIViewController {
     
     private var tableFormData = TableFormData()
     
-    private lazy var closeBarButton = UIBarButtonItem(
+    private lazy var _activityIndicator = UIActivityIndicatorView(style: .medium).then {
+        $0.startAnimating()
+    }
+    private lazy var loadingBarButton = UIBarButtonItem(customView: _activityIndicator)
+    
+    private lazy var updateBarButton = UIBarButtonItem(
         title: "Update",
         style: .done,
         target: self,
-        action: #selector(dismissSelf)
+        action: #selector(updateBarButtonTapped)
     )
     
     init(viewModel: ProfileSettingsViewModelProtocol) {
@@ -84,12 +90,22 @@ final class ProfileSettingsViewController: UIViewController {
         self.definesPresentationContext = true
         
         title = "profile-settings-title".localized
-        self.navigationItem.rightBarButtonItem = closeBarButton
+        self.navigationItem.rightBarButtonItem = updateBarButton
         self.viewModel.doProfileSettingsForm(request: .init())
     }
     
-    @objc private func dismissSelf() {
-        
+    @objc private func updateBarButtonTapped() {
+        self.setNewBarButton(loading: true)
+        self.viewModel.doRemoteProfileSettingsUpdate(request: .init(data: tableFormData))
+    }
+    
+    private func dismissSelf() {
+        self.dismiss(animated: true)
+    }
+    
+    private func setNewBarButton(loading: Bool) {
+        let button: UIBarButtonItem = loading ? loadingBarButton : updateBarButton
+        self.navigationItem.rightBarButtonItem = button
     }
 }
 
@@ -122,6 +138,11 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
                 }
             }
         )
+    }
+    
+    func displaySuccessUpdatingSetting() {
+        self.setNewBarButton(loading: false)
+        self.dismissSelf()
     }
     
     private func updateTableViewModel() {
@@ -157,7 +178,7 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
         )
         
         let emailCell = SettingsTableSectionViewModel.Cell(
-            uniqueIdentifier: TableFormType.displayName.rawValue,
+            uniqueIdentifier: TableFormType.email.rawValue,
             type: .input(
                 options: .init(
                     valueText: viewModel.email,
@@ -172,7 +193,7 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
             type: .input(
                 options: .init(
                     valueText: "",
-                    placeholderText: "Matrix link",
+                    placeholderText: "@user:example.com",
                     isEnabled: true,
                     capitalization: .none
                 ))

@@ -55,8 +55,8 @@ extension LMModels.Api {
         struct SaveUserSettings: Codable {
             let showNsfw: Bool
             let theme: String // Default 'browser'
-            let defaultSortType: LMModels.Others.SortType // The Sort types from above, zero indexed as a number
-            let defaultListingType: LMModels.Others.ListingType // Post listing types are `All, Subscribed, Community`
+            let defaultSortType: Int // The Sort types from above, zero indexed as a number
+            let defaultListingType: Int // Post listing types are `All, Subscribed, Community`, number
             let lang: String
             let avatar: String?
             let banner: String?
@@ -66,7 +66,7 @@ extension LMModels.Api {
             let matrixUserId: String?
             let newPassword: String? // If setting a new password, you need all 3 password fields
             let newPasswordVerify: String?
-            let oldPassword: String
+            let oldPassword: String? // SHOULD BE NON NULL BUT WE CANT UPDATE USER DATA WITHOUT PASSWORD 
             let showAvatars: Bool
             let sendNotificationsToEmail: Bool
             let auth: String
