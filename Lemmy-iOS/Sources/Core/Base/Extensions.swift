@@ -143,9 +143,9 @@ extension UIViewController {
 }
 
 extension UIAlertController {
-    static func createOkAlert(title: String? = nil, message: String) {
+    static func createOkAlert(title: String? = nil, message: String, completion: (() -> Void)? = nil) {
         let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: { _ in completion?()})
         controller.addAction(okAction)
         guard let vc = UIApplication.getTopMostViewController() else { return }
         vc.present(controller, animated: true, completion: nil)

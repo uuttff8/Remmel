@@ -386,7 +386,7 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
             }
             
             let editProfileAction = UIAlertAction(title: "profile-edit".localized, style: .default) { (_) in
-                self.coordinator?.goToProfileSettings(userId: viewModel.userId)
+                self.coordinator?.goToProfileSettings()
             }
             
             alert.addAction(editProfileAction)

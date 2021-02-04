@@ -23,8 +23,8 @@ final class ProfileScreenCoordinator: GenericCoordinator<ProfileScreenViewContro
         rootViewController.coordinator = self
     }
     
-    func goToProfileSettings(userId: Int) {
-        let assembly = ProfileSettingsAssembly(userId: userId)
+    func goToProfileSettings() {
+        let assembly = ProfileSettingsAssembly()
         let module = assembly.makeModule()
         let navController = StyledNavigationController(rootViewController: module)
         

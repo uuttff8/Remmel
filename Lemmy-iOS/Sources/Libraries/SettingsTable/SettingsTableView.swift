@@ -95,6 +95,12 @@ final class SettingsTableView: UIView {
         self.performTableViewUpdates()
     }
     
+    func updateViewModel(_ viewModel: SettingsTableViewModel) {
+        self.viewModel = viewModel
+        
+        self.makeCellGroups(viewModel: viewModel)
+    }
+    
     // MARK: Cells initialization
 
     func updateInputCell(

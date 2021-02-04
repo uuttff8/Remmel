@@ -16,7 +16,7 @@ protocol SettingsViewControllerProtocol: AnyObject {
 
 class SettingsViewController: UIViewController {
     
-    enum TableForm: String {
+    enum TableFormType: String {
         case authorTwitter
         case authorGithub
         case authorTelegram
@@ -100,7 +100,7 @@ extension SettingsViewController: SettingsViewControllerProtocol {
     // swiftlint:disable function_body_length
     func displaySettingsForm(viewModel: SettingsDataFlow.SettingsForm.ViewModel) {
         let authorGhCell = SettingsTableSectionViewModel.Cell(
-            uniqueIdentifier: TableForm.authorGithub.rawValue,
+            uniqueIdentifier: TableFormType.authorGithub.rawValue,
             type: .rightDetail(
                 options: .init(
                     title: .init(text: "Github"),
@@ -111,7 +111,7 @@ extension SettingsViewController: SettingsViewControllerProtocol {
         )
         
         let authorTwitterCell = SettingsTableSectionViewModel.Cell(
-            uniqueIdentifier: TableForm.authorTwitter.rawValue,
+            uniqueIdentifier: TableFormType.authorTwitter.rawValue,
             type: .rightDetail(
                 options: .init(
                     title: .init(text: "Twitter"),
@@ -122,7 +122,7 @@ extension SettingsViewController: SettingsViewControllerProtocol {
         )
         
         let authorTelegramCell = SettingsTableSectionViewModel.Cell(
-            uniqueIdentifier: TableForm.authorTelegram.rawValue,
+            uniqueIdentifier: TableFormType.authorTelegram.rawValue,
             type: .rightDetail(
                 options: .init(
                     title: .init(text: "Telegram"),
@@ -133,7 +133,7 @@ extension SettingsViewController: SettingsViewControllerProtocol {
         )
         
         let contactEmail = SettingsTableSectionViewModel.Cell(
-            uniqueIdentifier: TableForm.contactEmail.rawValue,
+            uniqueIdentifier: TableFormType.contactEmail.rawValue,
             type: .rightDetail(
                 options: .init(
                     title: .init(text: "Email"),
@@ -144,7 +144,7 @@ extension SettingsViewController: SettingsViewControllerProtocol {
         )
         
         let contactMatrix = SettingsTableSectionViewModel.Cell(
-            uniqueIdentifier: TableForm.contactMatrix.rawValue,
+            uniqueIdentifier: TableFormType.contactMatrix.rawValue,
             type: .rightDetail(
                 options: .init(
                     title: .init(text: "settings-community-matrix".localized),
@@ -155,7 +155,7 @@ extension SettingsViewController: SettingsViewControllerProtocol {
         )
         
         let openSourceCell = SettingsTableSectionViewModel.Cell(
-            uniqueIdentifier: TableForm.openSource.rawValue,
+            uniqueIdentifier: TableFormType.openSource.rawValue,
             type: .rightDetail(
                 options: .init(
                     title: .init(text: "settings-opensource-code".localized),
@@ -166,7 +166,7 @@ extension SettingsViewController: SettingsViewControllerProtocol {
         )
         
         let appIcon = SettingsTableSectionViewModel.Cell(
-            uniqueIdentifier: TableForm.applicationIcon.rawValue,
+            uniqueIdentifier: TableFormType.applicationIcon.rawValue,
             type: .rightDetail(
                 options: .init(
                     title: .init(text: "settings-appicon".localized),
@@ -177,7 +177,7 @@ extension SettingsViewController: SettingsViewControllerProtocol {
         )
         
         let appVersion = SettingsTableSectionViewModel.Cell(
-            uniqueIdentifier: TableForm.applicationVersion.rawValue,
+            uniqueIdentifier: TableFormType.applicationVersion.rawValue,
             type: .rightDetail(
                 options: .init(
                     title: .init(text: "settings-version".localized),
@@ -188,7 +188,7 @@ extension SettingsViewController: SettingsViewControllerProtocol {
         )
         
         let appBuild = SettingsTableSectionViewModel.Cell(
-            uniqueIdentifier: TableForm.applicationBuild.rawValue,
+            uniqueIdentifier: TableFormType.applicationBuild.rawValue,
             type: .rightDetail(
                 options: .init(
                     title: .init(text: "settings-build".localized),
@@ -199,7 +199,7 @@ extension SettingsViewController: SettingsViewControllerProtocol {
         )
         
         let apiVersion = SettingsTableSectionViewModel.Cell(
-            uniqueIdentifier: TableForm.applicationApiVersion.rawValue,
+            uniqueIdentifier: TableFormType.applicationApiVersion.rawValue,
             type: .rightDetail(
                 options: .init(
                     title: .init(text: "settings-api-version".localized),
@@ -292,24 +292,24 @@ extension SettingsViewController: SettingsViewDelegate {
         at indexPath: IndexPath
     ) {
         switch cell.uniqueIdentifier {
-        case TableForm.authorGithub.rawValue:
+        case TableFormType.authorGithub.rawValue:
             guard let myGh = URL(string: "https://github.com/uuttff8/") else { return }
             self.coordinator?.goToBrowser(with: myGh, inApp: false)
-        case TableForm.authorTwitter.rawValue:
+        case TableFormType.authorTwitter.rawValue:
             guard let myGh = URL(string: "https://twitter.com/babnikbezbab/") else { return }
             self.coordinator?.goToBrowser(with: myGh, inApp: false)
-        case TableForm.authorTelegram.rawValue:
+        case TableFormType.authorTelegram.rawValue:
             guard let myGh = URL(string: "https://t.me/uuttff8/") else { return }
             self.coordinator?.goToBrowser(with: myGh, inApp: false)
-        case TableForm.contactEmail.rawValue:
+        case TableFormType.contactEmail.rawValue:
             self.sendEmail(to: "uuttff8@gmail.com")
-        case TableForm.contactMatrix.rawValue:
+        case TableFormType.contactMatrix.rawValue:
             guard let url = URL(string: "https://matrix.to/#/%23lemmy:matrix.org") else { return }
             self.coordinator?.goToBrowser(with: url, inApp: false)
-        case TableForm.openSource.rawValue:
+        case TableFormType.openSource.rawValue:
             guard let url = URL(string: "https://github.com/uuttff8/Lemmy-iOS") else { return }
             self.coordinator?.goToBrowser(with: url, inApp: false)
-        case TableForm.applicationIcon.rawValue:
+        case TableFormType.applicationIcon.rawValue:
             self.viewModel.doAppIconSettingsPresentation(request: .init())
         default:
             break

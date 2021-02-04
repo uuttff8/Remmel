@@ -9,15 +9,11 @@
 import UIKit
 
 class ProfileSettingsAssembly: Assembly {
-    
-    private let userId: Int
-    
-    init(userId: Int) {
-        self.userId = userId
-    }
-    
+        
     func makeModule() -> ProfileSettingsViewController {
-        let viewModel = ProfileSettingsViewModel(userId: userId)
+        let viewModel = ProfileSettingsViewModel(
+            userAccountService: UserAccountService()
+        )
         let vc = ProfileSettingsViewController(viewModel: viewModel)
         viewModel.viewController = vc
         

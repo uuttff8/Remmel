@@ -43,6 +43,18 @@ class ProfileSettingsView: UIView {
     func configure(viewModel: SettingsTableViewModel) {
         self.tableView.configure(viewModel: viewModel)
     }
+    
+    func updateData(viewModel: SettingsTableViewModel) {
+        self.tableView.updateViewModel(viewModel)
+    }
+    
+    func showLoadingIndicator() {
+        self.tableView.showActivityIndicatorView()
+    }
+    
+    func hideLoadingIndicator() {
+        self.tableView.hideActivityIndicatorView()
+    }
 }
 extension ProfileSettingsView: ProgrammaticallyViewProtocol {
     func addSubviews() {

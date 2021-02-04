@@ -68,12 +68,7 @@ class CommentCenterView: UIView {
     func prepareForReuse() {
         commentTextView.attributedText = nil
     }
-    
-    // MARK: - Overrided
-    override var intrinsicContentSize: CGSize {
-        CGSize(width: UIScreen.main.bounds.width, height: 30)
-    }
-    
+        
     private func createAttributesForDeletedComment() -> NSAttributedString {
         NSAttributedString(string: "Deleted by creator", attributes: [.font: UIFont.italicSystemFont(ofSize: 17),
                                                                       .foregroundColor: UIColor.label])
