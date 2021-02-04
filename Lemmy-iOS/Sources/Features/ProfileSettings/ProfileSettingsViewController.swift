@@ -95,8 +95,15 @@ final class ProfileSettingsViewController: UIViewController {
     }
     
     @objc private func updateBarButtonTapped() {
+        self.nullifyEmptyPasswords()
         self.setNewBarButton(loading: true)
         self.viewModel.doRemoteProfileSettingsUpdate(request: .init(data: tableFormData))
+    }
+    
+    private func nullifyEmptyPasswords() {
+        if tableFormData.newPassword == "" { tableFormData.newPassword = nil }
+        if tableFormData.oldPassword == "" { tableFormData.oldPassword = nil }
+        if tableFormData.verifyPassword == "" { tableFormData.verifyPassword = nil }
     }
     
     private func dismissSelf() {
@@ -129,6 +136,7 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
     }
     
     func displayError(viewModel: ProfileSettings.SomeError.ViewModel) {
+        self.setNewBarButton(loading: false)
         self.profileSettingsView.hideLoadingIndicator()
         UIAlertController.createOkAlert(
             message: viewModel.error,
