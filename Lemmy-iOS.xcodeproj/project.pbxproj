@@ -60,6 +60,7 @@
 		4E3FBC49258A812B00F97671 /* CommunitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC48258A812B00F97671 /* CommunitiesViewModel.swift */; };
 		4E3FBC51258A82B100F97671 /* CommunitiesPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC50258A82B100F97671 /* CommunitiesPreviewView.swift */; };
 		4E3FBC59258A857600F97671 /* CommunitiesPreviewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSource.swift */; };
+		4E50674D25D085CF003F1AB4 /* CatalystDismissProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E50674C25D085CF003F1AB4 /* CatalystDismissProtocol.swift */; };
 		4E5A677125C1A3D700BAA536 /* LemmyDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5A677025C1A3D700BAA536 /* LemmyDecoder.swift */; };
 		4E66428725BCC20100E11E20 /* LMModels+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E66428625BCC20100E11E20 /* LMModels+Ext.swift */; };
 		4E66428D25BCC34800E11E20 /* CommunityPreviewCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E66428C25BCC34800E11E20 /* CommunityPreviewCellView.swift */; };
@@ -490,6 +491,7 @@
 		4E3FBC50258A82B100F97671 /* CommunitiesPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewView.swift; sourceTree = "<group>"; };
 		4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewDataSource.swift; sourceTree = "<group>"; };
 		4E50674125D07EB1003F1AB4 /* Lemmy-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Lemmy-iOS.entitlements"; sourceTree = "<group>"; };
+		4E50674C25D085CF003F1AB4 /* CatalystDismissProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalystDismissProtocol.swift; sourceTree = "<group>"; };
 		4E5A677025C1A3D700BAA536 /* LemmyDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyDecoder.swift; sourceTree = "<group>"; };
 		4E66428625BCC20100E11E20 /* LMModels+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Ext.swift"; sourceTree = "<group>"; };
 		4E66428C25BCC34800E11E20 /* CommunityPreviewCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPreviewCellView.swift; sourceTree = "<group>"; };
@@ -1441,6 +1443,7 @@
 			isa = PBXGroup;
 			children = (
 				4EB5C76725C20ED3004B2349 /* FormatterHelper.swift */,
+				4E50674C25D085CF003F1AB4 /* CatalystDismissProtocol.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2559,6 +2562,7 @@
 				4E110D5625CB408600A06306 /* ProfileSettingsViewModel.swift in Sources */,
 				4E0A8E93255DDE4500B06AF6 /* PostScreenAssembly.swift in Sources */,
 				4EF312F72576D3400032B58D /* PostContentView.swift in Sources */,
+				4E50674D25D085CF003F1AB4 /* CatalystDismissProtocol.swift in Sources */,
 				4EB89B0A2521FA73007129BF /* LoginOrRegisterButton.swift in Sources */,
 				4EC63F7725C9CF8000F6D6F1 /* AttachmentTapGesture.swift in Sources */,
 				6569A2222594E8FC005A4C54 /* AccountsViewController.swift in Sources */,

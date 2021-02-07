@@ -39,7 +39,7 @@ extension CreateCommunityViewController {
     }
 }
 
-class CreateCommunityViewController: UIViewController {
+class CreateCommunityViewController: UIViewController, CatalystDismissProtocol {
     
     // MARK: - Properties
     weak var coordinator: CreateCommunityCoordinator?
@@ -107,19 +107,18 @@ class CreateCommunityViewController: UIViewController {
         super.viewDidAppear(animated)
         self.styledNavController.setNeedsNavigationBarAppearanceUpdate(sender: self)
     }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-//        self.coordinator?.removeDependency(coordinator)
-    }
-    
+        
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.viewModel.doCreateCommunityFormLoad(request: .init())
     }
     
-    // MARK: Actions
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        self.dismissWithExitButton(presses: presses)
+    }
+    
+    // MARK: - Actions
     
     private func setupNavigationItem() {
         navigationItem.rightBarButtonItem = createBarButton
