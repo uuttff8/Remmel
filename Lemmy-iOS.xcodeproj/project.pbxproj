@@ -489,6 +489,7 @@
 		4E3FBC48258A812B00F97671 /* CommunitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesViewModel.swift; sourceTree = "<group>"; };
 		4E3FBC50258A82B100F97671 /* CommunitiesPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewView.swift; sourceTree = "<group>"; };
 		4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewDataSource.swift; sourceTree = "<group>"; };
+		4E50674125D07EB1003F1AB4 /* Lemmy-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Lemmy-iOS.entitlements"; sourceTree = "<group>"; };
 		4E5A677025C1A3D700BAA536 /* LemmyDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyDecoder.swift; sourceTree = "<group>"; };
 		4E66428625BCC20100E11E20 /* LMModels+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Ext.swift"; sourceTree = "<group>"; };
 		4E66428C25BCC34800E11E20 /* CommunityPreviewCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPreviewCellView.swift; sourceTree = "<group>"; };
@@ -1598,6 +1599,7 @@
 		4ECCEEA8250B8B6B0075F921 /* Lemmy-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				4E50674125D07EB1003F1AB4 /* Lemmy-iOS.entitlements */,
 				4EF3413925C1FBE000CEF6D6 /* AlternateIcons */,
 				4EFA8149255F2E8D008AF535 /* Resources */,
 				4EFA8148255F2E5D008AF535 /* Sources */,
@@ -2984,6 +2986,7 @@
 			baseConfigurationReference = F8130B334E7F53B10E26E71F /* Pods-Lemmy-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Lemmy-iOS/Lemmy-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
@@ -2996,6 +2999,8 @@
 				MARKETING_VERSION = 1.1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.Lemmer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -3006,6 +3011,7 @@
 			baseConfigurationReference = AF9E5291792018DE1B6050FA /* Pods-Lemmy-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Lemmy-iOS/Lemmy-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
@@ -3018,6 +3024,8 @@
 				MARKETING_VERSION = 1.1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.Lemmer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
