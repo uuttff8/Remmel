@@ -9,7 +9,7 @@
 import UIKit
 import CocoaMarkdown
 
-final class MarkdownParsedViewController: UIViewController {
+final class MarkdownParsedViewController: UIViewController, CatalystDismissProtocol {
     
     private lazy var closeBarButton = UIBarButtonItem(
         barButtonSystemItem: .close,
@@ -43,6 +43,10 @@ final class MarkdownParsedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Description"
+    }
+    
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        self.dismissWithExitButton(presses: presses)
     }
     
     @objc func dismissVc() {

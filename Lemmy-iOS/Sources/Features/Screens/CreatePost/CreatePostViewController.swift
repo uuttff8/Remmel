@@ -30,7 +30,7 @@ extension CreatePostScreenViewController {
 
 // MARK: - CreatePostScreenViewController: UIViewController -
 
-class CreatePostScreenViewController: UIViewController {
+class CreatePostScreenViewController: UIViewController, CatalystDismissProtocol {
     // MARK: - Properties
     
     let appearance: Appearance
@@ -114,6 +114,10 @@ class CreatePostScreenViewController: UIViewController {
         super.viewDidAppear(animated)
         
         self.styledNavController.setNeedsNavigationBarAppearanceUpdate(sender: self)
+    }
+    
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        self.dismissWithExitButton(presses: presses)
     }
         
     // MARK: - Private API

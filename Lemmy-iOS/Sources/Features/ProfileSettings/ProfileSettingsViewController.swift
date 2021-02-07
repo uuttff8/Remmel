@@ -15,7 +15,7 @@ protocol ProfileSettingsViewControllerProtocol: AnyObject {
     func displaySuccessUpdatingSetting()
 }
 
-final class ProfileSettingsViewController: UIViewController {
+final class ProfileSettingsViewController: UIViewController, CatalystDismissProtocol {
     
     enum TableFormType: String {
         case displayName
@@ -92,6 +92,10 @@ final class ProfileSettingsViewController: UIViewController {
         title = "profile-settings-title".localized
         self.navigationItem.rightBarButtonItem = updateBarButton
         self.viewModel.doProfileSettingsForm(request: .init())
+    }
+    
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        self.dismissWithExitButton(presses: presses)
     }
     
     @objc private func updateBarButtonTapped() {
