@@ -13,6 +13,7 @@ protocol CommunityScreenViewControllerProtocol: AnyObject {
     func displayCommunityHeader(viewModel: CommunityScreen.CommunityHeaderLoad.ViewModel)
     func displayPosts(viewModel: CommunityScreen.CommunityPostsLoad.ViewModel)
     func displayNextPosts(viewModel: CommunityScreen.NextCommunityPostsLoad.ViewModel)
+    func displayCommunityShowMore(viewModel: CommunityScreen.CommunityShowMore.ViewModel)
 }
 
 class CommunityScreenViewController: UIViewController {
@@ -25,6 +26,13 @@ class CommunityScreenViewController: UIViewController {
     }
 
     lazy var communityView = self.view as! CommunityScreenViewController.View
+    
+    private lazy var showMoreBarButton = UIBarButtonItem(
+        image: Config.Image.ellipsis,
+        style: .done,
+        target: self,
+        action: #selector(showMoreBarButtonTapped(_:))
+    )
     
     private var canTriggerPagination = true
     private var state: CommunityScreen.ViewControllerState
@@ -54,6 +62,8 @@ class CommunityScreenViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: VC Lifecycle
+    
     override func loadView() {
         let view = CommunityScreenViewController.View(tableManager: tableDataSource)
         view.delegate = self
@@ -66,12 +76,17 @@ class CommunityScreenViewController: UIViewController {
         viewModel.doCommunityFetch()
         viewModel.doPostsFetch(request: .init(contentType: communityView.contentType))
         self.updateState(newState: state)
+        
+        self.navigationItem.rightBarButtonItem = showMoreBarButton
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-//        coordinator?.removeDependency(coordinator)
+    // MARK: - NavBar Actions
+    
+    @objc private func showMoreBarButtonTapped(_ action: UIBarButtonItem) {
+        self.viewModel.doCommunityShowMore(request: .init())
     }
+    
+    // MARK: - Private API
     
     private func updateState(newState: CommunityScreen.ViewControllerState) {
         defer {
@@ -127,6 +142,19 @@ extension CommunityScreenViewController: CommunityScreenViewControllerProtocol {
         case .error:
             break
         }
+    }
+    
+    func displayCommunityShowMore(viewModel: CommunityScreen.CommunityShowMore.ViewModel) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.popoverPresentationController?.barButtonItem = showMoreBarButton
+        
+        let createPostAction = UIAlertAction(title: "Create Post", style: .default) { (_) in
+            self.coordinator?.goToCreatePost(predefinedCommunity: viewModel.community)
+        }
+        
+        alert.addActions([createPostAction, UIAlertAction.cancelAction])
+        
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

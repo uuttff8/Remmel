@@ -14,8 +14,8 @@ class CreatePostCoordinator: Coordinator {
 
     var navigationController: UINavigationController?
 
-    init(navigationController: UINavigationController?) {
-        let assembly = CreatePostAssembly()
+    init(navigationController: UINavigationController?, predefinedCommunity: LMModels.Views.CommunityView? = nil) {
+        let assembly = CreatePostAssembly(predefinedCommunity: predefinedCommunity)
         self.rootViewController = assembly.makeModule()
         self.navigationController = navigationController
 

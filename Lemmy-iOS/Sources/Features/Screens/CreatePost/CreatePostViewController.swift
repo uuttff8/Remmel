@@ -41,8 +41,11 @@ class CreatePostScreenViewController: UIViewController {
     lazy var createPostView = self.view as! CreatePostScreenUI
     lazy var styledNavController = self.navigationController as! StyledNavigationController
     
+    // TODO: refactor this
     private var inputWithImageCell: SettingsInputWithImageTableViewCell?
         
+    private let predefinedCommunity: LMModels.Views.CommunityView?
+    
     private var createPostData: FormData = {
         .init(
             communityView: nil,
@@ -69,9 +72,11 @@ class CreatePostScreenViewController: UIViewController {
     
     init(
         viewModel: CreatePostViewModelProtocol,
+        predefinedCommunity: LMModels.Views.CommunityView? = nil,
         appearance: Appearance = Appearance()
     ) {
         self.viewModel = viewModel
+        self.predefinedCommunity = predefinedCommunity
         self.appearance = appearance
         super.init(nibName: nil, bundle: nil)
     }
@@ -91,6 +96,10 @@ class CreatePostScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let predefCommunity = predefinedCommunity {
+            createPostData.communityView = predefCommunity
+        }
+        
         self.setupNavigationItem()
         self.hideKeyboardWhenTappedAround()
     }
@@ -106,12 +115,7 @@ class CreatePostScreenViewController: UIViewController {
         
         self.styledNavController.setNeedsNavigationBarAppearanceUpdate(sender: self)
     }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-//        self.coordinator?.removeDependency(coordinator)
-    }
-    
+        
     // MARK: - Private API
     
     private func setupNavigationItem() {
@@ -248,6 +252,7 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
         updateUrlState(for: inputWithImageCell, state: .error)
     }
     
+    //swiftlint:disable function_body_length
     func displayCreatingPost(viewModel: CreatePost.CreatePostLoad.ViewModel) {
         
         // Community choosing

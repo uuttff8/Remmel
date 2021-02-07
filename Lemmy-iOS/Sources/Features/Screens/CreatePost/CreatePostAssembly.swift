@@ -9,11 +9,19 @@
 import UIKit
 
 final class CreatePostAssembly: Assembly {
-    typealias ViewController = CreatePostScreenViewController
+    
+    private let predefinedCommunity: LMModels.Views.CommunityView?
+    
+    init(predefinedCommunity: LMModels.Views.CommunityView? = nil) {
+        self.predefinedCommunity = predefinedCommunity
+    }
     
     func makeModule() -> CreatePostScreenViewController {
         let viewModel = CreatePostViewModel()
-        let vc = CreatePostScreenViewController(viewModel: viewModel)
+        let vc = CreatePostScreenViewController(
+            viewModel: viewModel,
+            predefinedCommunity: self.predefinedCommunity
+        )
         viewModel.viewController = vc
         
         return vc

@@ -11,6 +11,7 @@ import Combine
 
 protocol CommunityScreenViewModelProtocol: AnyObject {
     func doCommunityFetch()
+    func doCommunityShowMore(request: CommunityScreen.CommunityShowMore.Request)
     func doPostsFetch(request: CommunityScreen.CommunityPostsLoad.Request)
     func doNextPostsFetch(request: CommunityScreen.NextCommunityPostsLoad.Request)
 }
@@ -25,6 +26,8 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
     private let communityId: LMModels.Views.CommunityView.ID?
     private let communityName: String?
     
+    var loadedCommunity: LMModels.Views.CommunityView?
+    
     private var cancellable = Set<AnyCancellable>()
     
     init(
@@ -37,14 +40,16 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
     
     func doCommunityFetch() {
         let parameters = LMModels.Api.Community.GetCommunity(id: communityId,
-                                                                  name: communityName,
-                                                                  auth: LoginData.shared.jwtToken)
+                                                             name: communityName,
+                                                             auth: LoginData.shared.jwtToken)
         
         ApiManager.requests.asyncGetCommunity(parameters: parameters)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
+                
+                self.loadedCommunity = response.communityView
                 
                 self.viewController?.displayCommunityHeader(
                     viewModel: .init(data: .init(communityView: response.communityView))
@@ -56,12 +61,12 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
         self.paginationState.page = 1
         
         let parameters = LMModels.Api.Post.GetPosts(type: .community,
-                                                         sort: request.contentType,
-                                                         page: paginationState.page,
-                                                         limit: 50,
-                                                         communityId: communityId,
-                                                         communityName: nil,
-                                                         auth: LoginData.shared.jwtToken)
+                                                    sort: request.contentType,
+                                                    page: paginationState.page,
+                                                    limit: 50,
+                                                    communityId: communityId,
+                                                    communityName: nil,
+                                                    auth: LoginData.shared.jwtToken)
         
         ApiManager.requests.asyncGetPosts(parameters: parameters)
             .receive(on: DispatchQueue.main)
@@ -80,12 +85,12 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
         self.paginationState.page += 1
         
         let parameters = LMModels.Api.Post.GetPosts(type: .community,
-                                                         sort: request.contentType,
-                                                         page: paginationState.page,
-                                                         limit: 50,
-                                                         communityId: communityId,
-                                                         communityName: nil,
-                                                         auth: LoginData.shared.jwtToken)
+                                                    sort: request.contentType,
+                                                    page: paginationState.page,
+                                                    limit: 50,
+                                                    communityId: communityId,
+                                                    communityName: nil,
+                                                    auth: LoginData.shared.jwtToken)
         
         ApiManager.requests.asyncGetPosts(parameters: parameters)
             .receive(on: DispatchQueue.main)
@@ -100,7 +105,14 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
                 )
                 
             }.store(in: &cancellable)
-
+    }
+    
+    func doCommunityShowMore(request: CommunityScreen.CommunityShowMore.Request) {
+        if let community = loadedCommunity {
+            self.viewController?.displayCommunityShowMore(viewModel: .init(community: community))
+        } else {
+            Logger.commonLog.alert("Show More bar button in CommunityScreen called on nil community data")
+        }
     }
 }
 
@@ -129,7 +141,13 @@ enum CommunityScreen {
         struct ViewModel {
             let data: CommunityScreenViewController.View.HeaderViewData
         }
-        
+    }
+    
+    enum CommunityShowMore {
+        struct Request { }
+        struct ViewModel {
+            let community: LMModels.Views.CommunityView
+        }
     }
     
     // MARK: - States

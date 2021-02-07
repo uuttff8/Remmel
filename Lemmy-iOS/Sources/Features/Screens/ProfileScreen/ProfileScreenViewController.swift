@@ -64,6 +64,7 @@ class ProfileScreenViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: VC Lifecycle
     override func loadView() {
         let statusBarHeight = UIApplication.shared.lemmyStatusBarFrame.height
         let navigationBarHeight = self.navigationController?.navigationBar.frame.height ?? 0
@@ -101,9 +102,8 @@ class ProfileScreenViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         styledNavigationController?.insertBackButtonTitleForTopController()
-//        coordinator?.removeDependency(coordinator)
     }
-    
+        
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
@@ -112,6 +112,8 @@ class ProfileScreenViewController: UIViewController {
             self.updateContentOffset(scrollOffset: self.lastKnownScrollOffset)
         }
     }
+    
+    // MARK: NavBar Actions
     
     @objc private func moreBarButtonTapped(_ action: UIBarButtonItem) {
         self.viewModel.doIdentifyProfile()

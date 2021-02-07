@@ -142,8 +142,11 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
         }
     }
     
-    func goToCreatePost() {
-        let createPostCoord = CreatePostCoordinator(navigationController: StyledNavigationController())
+    func goToCreatePost(predefinedCommunity: LMModels.Views.CommunityView? = nil) {
+        let createPostCoord = CreatePostCoordinator(
+            navigationController: StyledNavigationController(),
+            predefinedCommunity: predefinedCommunity
+        )
         self.store(coordinator: createPostCoord)
         createPostCoord.start()
 
