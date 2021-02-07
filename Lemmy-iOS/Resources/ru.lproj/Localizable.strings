@@ -23,7 +23,7 @@
 "content-posts" = "Посты";
 "content-comments" = "Комментарии";
 "content-subscribed" = "Подписки";
-"content-replies" = "Ответвы";
+"content-replies" = "Ответы";
 "content-mentions" = "Упоминания";
 "content-messages" = "Сообщения";
 
@@ -33,7 +33,7 @@
 "profile-display-name-hint" = "Отображаемое имя";
 "profile-bio" = "Bio";
 "profile-bio-hint" = "Ваш Bio";
-"profile-bio-footer" = "Есть поддержка Markdown";
+"profile-bio-footer" = "Имеется поддержка Markdown";
 "profile-email-and-matrix" = "Почта и Matrix";
 "profile-email-hint" = "Email";
 "profile-matrix-hint" = "@user:example.com";
