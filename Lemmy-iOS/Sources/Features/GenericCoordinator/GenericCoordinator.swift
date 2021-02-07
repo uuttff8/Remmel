@@ -126,14 +126,30 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
             myCoordinator.start()
             self.childCoordinators.append(myCoordinator)
             myCoordinator.router.setRoot(myCoordinator, isAnimated: true)
-
-            UIApplication.shared.windows.first!.replaceRootViewControllerWith(
+            
+            guard let appWindow = UIApplication.shared.windows.first else {
+                Logger.commonLog.emergency("App must have only one `root` window")
+                return
+            }
+            
+            appWindow.replaceRootViewControllerWith(
                 myCoordinator.router.navigationController!,
                 animated: true
             )
         } else {
+            Logger.commonLog.emergency("At going to instances, we must logout user!")
             fatalError("Unexpexted error, must not be happen")
         }
+    }
+    
+    func goToCreatePost() {
+        let createPostCoord = CreatePostCoordinator(navigationController: StyledNavigationController())
+        self.store(coordinator: createPostCoord)
+        createPostCoord.start()
+
+        guard let navController = createPostCoord.navigationController else { return }
+
+        rootViewController.present(navController, animated: true)
     }
     
     func goToWriteMessage(recipientId: Int) {

@@ -8,12 +8,11 @@
 
 import UIKit
 
-final class LemmyTabBarCoordinator: BaseCoordinator {
-    var rootViewController: LemmyTabBarController
+final class LemmyTabBarCoordinator: GenericCoordinator<LemmyTabBarController> {
 
-    override init() {
+    init() {
+        super.init(router: Router(navigationController: nil))
         self.rootViewController = LemmyTabBarController()
-        super.init()
     }
 
     override func start() {
@@ -37,16 +36,6 @@ final class LemmyTabBarCoordinator: BaseCoordinator {
         let loginvc = LoginViewController(authMethod: authMethod)
         let navController = StyledNavigationController(rootViewController: loginvc)
         
-        rootViewController.present(navController, animated: true)
-    }
-
-    func goToCreatePost() {
-        let createPostCoord = CreatePostCoordinator(navigationController: StyledNavigationController())
-        self.store(coordinator: createPostCoord)
-        createPostCoord.start()
-
-        guard let navController = createPostCoord.navigationController else { return }
-
         rootViewController.present(navController, animated: true)
     }
 

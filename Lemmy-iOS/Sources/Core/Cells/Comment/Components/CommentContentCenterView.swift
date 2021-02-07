@@ -137,7 +137,6 @@ extension CommentCenterView: UITextViewDelegate {
             return false
         }
         
-        onLinkTap?(link)
-        return false
+        return true
     }
 }
