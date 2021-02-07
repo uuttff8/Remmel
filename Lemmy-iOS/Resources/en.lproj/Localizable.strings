@@ -9,6 +9,8 @@
 "action-create" = "Create";
 "enter-as-guest" = "Enter as guest";
 
+"activity-open-in-safari" = "Open in Safari";
+
 "community-subscribers" = "Subscribers";
 "community-posts" = "Posts";
 "community-users" = "Users";
