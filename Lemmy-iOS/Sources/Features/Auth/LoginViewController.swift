@@ -50,9 +50,9 @@ class LoginViewController: UIViewController {
         
         switch authMethod {
         case .auth:
-            barItemTitle = "Login"
+            barItemTitle = "alert-login".localized
         case .register:
-            barItemTitle = "Register"
+            barItemTitle = "alert-register".localized
         }
         
         let barItem = UIBarButtonItem(

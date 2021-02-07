@@ -26,6 +26,22 @@
 "content-messages" = "Messages";
 
 "profile-edit" = "Edit";
+"profile-update" = "Update";
+"profile-display-name" = "Display Name";
+"profile-display-name-hint" = "Display Name";
+"profile-bio" = "Bio";
+"profile-bio-hint" = "Your Bio";
+"profile-bio-footer" = "Supports markdown";
+"profile-email-and-matrix" = "Email and Matrix";
+"profile-email-hint" = "Email";
+"profile-matrix-hint" = "@user:example.com";
+"profile-password" = "Password";
+"profile-new-password-hint" = "New password";
+"profile-verify-password-hint" = "Repeat password";
+"profile-old-password-hint" = "Old password";
+"profile-password-footer" = "If setting a new password, you need all 3 password fields";
+"profile-show-nsfw" = "Show NSFW content";
+"profile-send-notification-to-email" = "Send notifications to email";
 
 "nodata-posts" = "No Posts here yet...";
 "nodata-comments" = "No Comments here yet....";

@@ -61,7 +61,7 @@ final class ProfileSettingsViewController: UIViewController {
     private lazy var loadingBarButton = UIBarButtonItem(customView: _activityIndicator)
     
     private lazy var updateBarButton = UIBarButtonItem(
-        title: "Update",
+        title: "profile-update".localized,
         style: .done,
         target: self,
         action: #selector(updateBarButtonTapped)
@@ -170,7 +170,7 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
             type: .input(
                 options: .init(
                     valueText: viewModel.displayName,
-                    placeholderText: "Display name",
+                    placeholderText: "profile-display-name-hint".localized,
                     isEnabled: true,
                     capitalization: .none
                 ))
@@ -181,7 +181,7 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
             type: .largeInput(
                 options: .init(
                     valueText: viewModel.bio,
-                    placeholderText: "Your bio"
+                    placeholderText: "profile-bio-hint".localized
                 ))
         )
         
@@ -190,7 +190,7 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
             type: .input(
                 options: .init(
                     valueText: viewModel.email,
-                    placeholderText: "Email",
+                    placeholderText: "profile-email-hint".localized,
                     isEnabled: true,
                     capitalization: .none
                 ))
@@ -200,8 +200,9 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
             uniqueIdentifier: TableFormType.matrix.rawValue,
             type: .input(
                 options: .init(
-                    valueText: "",
-                    placeholderText: "@user:example.com",
+                    valueText: viewModel.matrix,
+                    placeholderText: "profile-matrix-hint".localized
+                    ,
                     isEnabled: true,
                     capitalization: .none
                 ))
@@ -211,7 +212,7 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
             uniqueIdentifier: TableFormType.newPassword.rawValue,
             type: .input(
                 options: .init(
-                    placeholderText: "New password",
+                    placeholderText: "profile-new-password-hint".localized,
                     isEnabled: true,
                     capitalization: .none
                 ))
@@ -221,7 +222,7 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
             uniqueIdentifier: TableFormType.verifyPassword.rawValue,
             type: .input(
                 options: .init(
-                    placeholderText: "Repeat password",
+                    placeholderText: "profile-verify-password-hint".localized,
                     isEnabled: true,
                     capitalization: .none
                 ))
@@ -231,7 +232,7 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
             uniqueIdentifier: TableFormType.oldPassword.rawValue,
             type: .input(
                 options: .init(
-                    placeholderText: "Old password",
+                    placeholderText: "profile-old-password-hint".localized,
                     isEnabled: true,
                     capitalization: .none
                 ))
@@ -241,7 +242,7 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
             uniqueIdentifier: TableFormType.showNsfwContent.rawValue,
             type: .rightDetail(
                 options: .init(
-                    title: .init(text: "Show NSFW content"),
+                    title: .init(text: "profile-show-nsfw".localized),
                     detailType: .switch(.init(isOn: viewModel.nsfwContent))
                 ))
         )
@@ -250,31 +251,31 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
             uniqueIdentifier: TableFormType.sendNotificationsToEmail.rawValue,
             type: .rightDetail(
                 options: .init(
-                    title: .init(text: "Send notifications to email"),
+                    title: .init(text: "profile-send-notification-to-email".localized),
                     detailType: .switch(.init(isOn: viewModel.notifToEmail))
                 ))
         )
         
         let sectionsViewModel: [SettingsTableSectionViewModel] = [
             .init(
-                header: .init(title: "Display name".localized),
+                header: .init(title: "profile-display-name".localized),
                 cells: [displayNameCell],
                 footer: nil
             ),
             .init(
-                header: .init(title: "Bio".localized),
+                header: .init(title: "profile-bio".localized),
                 cells: [bioCell],
-                footer: .init(description: "Supports markdown")
+                footer: .init(description: "profile-bio-footer".localized)
             ),
             .init(
-                header: .init(title: "Email And Matrix".localized),
+                header: .init(title: "profile-email-and-matrix".localized),
                 cells: [emailCell, matrixCell],
                 footer: nil
             ),
             .init(
-                header: .init(title: "Password".localized),
+                header: .init(title: "profile-password".localized),
                 cells: [newPasswordCell, verifyPasswordCell, oldPasswordCell],
-                footer: .init(description: "If setting a new password, you need all 3 password fields")
+                footer: .init(description: "profile-password-footer".localized)
             ),
             .init(
                 header: nil,

@@ -26,6 +26,23 @@
 "content-messages" = "Сообщения";
 
 "profile-edit" = "Изменить";
+"profile-update" = "Обновить";
+"profile-display-name" = "Отображаемое имя";
+"profile-display-name-hint" = "Отображаемое имя";
+"profile-bio" = "Bio";
+"profile-bio-hint" = "Ваш Bio";
+"profile-bio-footer" = "Есть поддержка Markdown";
+"profile-email-and-matrix" = "Почта и Matrix";
+"profile-email-hint" = "Email";
+"profile-matrix-hint" = "@user:example.com";
+"profile-password" = "Пароль";
+"profile-new-password-hint" = "Новый пароль";
+"profile-verify-password-hint" = "Повторите пароль";
+"profile-old-password-hint" = "Старый пароль";
+"profile-password-footer" = "Если устанавливаете новый пароль, вам нужно заполнить все 3 поля";
+"profile-show-nsfw" = "Показывать NSFW контент";
+"profile-send-notification-to-email" = "Отправлять уведомления на почту";
+
 
 "nodata-posts" = "Здесь еще нет постов...";
 "nodata-comments" = "Здесь еще нет комментариев...";
@@ -62,7 +79,8 @@
 "settings-appicon" = "Иконка";
 "settings-version" = "Версия";
 "settings-build" = "Билд";
-"settings-build" = "Версия API";
+"settings-api-version" = "Версия API";
+
 
 "profile-settings-title" = "Настройки профиля";
 
