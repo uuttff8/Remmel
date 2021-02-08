@@ -9,6 +9,12 @@
 import UIKit
 import SafariServices
 
+extension PostsFrontPageViewController {
+    struct Appearance {
+        let estimatedRowHeight: CGFloat = 220
+    }
+}
+
 class PostsFrontPageViewController: UIViewController {
     
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, LMModels.Views.PostView>
@@ -18,6 +24,8 @@ class PostsFrontPageViewController: UIViewController {
     }
     
     weak var coordinator: FrontPageCoordinator?    
+    
+    private let appearance: Appearance
     
     let viewModel = PostsFrontPageModel()
     let showMoreHandler = ShowMoreHandlerService()
@@ -36,7 +44,8 @@ class PostsFrontPageViewController: UIViewController {
     
     let pickerView = LemmySortListingPickersView()
     
-    init() {
+    init(appearance: Appearance = Appearance()) {
+        self.appearance = appearance
         super.init(nibName: nil, bundle: nil)
         
         setupView()
@@ -145,6 +154,7 @@ class PostsFrontPageViewController: UIViewController {
 extension PostsFrontPageViewController: ProgrammaticallyViewProtocol {
     func setupView() {
         tableView.tableHeaderView = pickerView
+        tableView.estimatedRowHeight = self.appearance.estimatedRowHeight
     }
     
     func addSubviews() {
