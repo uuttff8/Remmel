@@ -8,6 +8,12 @@
 
 import UIKit
 
+extension CommentsFrontPageViewController {
+    struct Appearance {
+        let estimatedRowHeight: CGFloat = 200
+    }
+}
+
 class CommentsFrontPageViewController: UIViewController {
 
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, LMModels.Views.CommentView>
@@ -17,10 +23,13 @@ class CommentsFrontPageViewController: UIViewController {
     }
 
     weak var coordinator: FrontPageCoordinator?
-
-    let viewModel = CommentsFrontPageModel()
     
-    let refreshControl = UIRefreshControl()
+    private let appearance: Appearance
+
+    private let viewModel = CommentsFrontPageModel()
+    private let showMoreHandler = ShowMoreHandlerService()
+    
+    private let refreshControl = UIRefreshControl()
 
     lazy var tableView = LemmyTableView(style: .plain).then {
         $0.registerClass(CommentContentTableCell.self)
@@ -30,14 +39,12 @@ class CommentsFrontPageViewController: UIViewController {
         self.refreshControl.addTarget(self, action: #selector(refreshControlValueChanged), for: .valueChanged)
     }
     
-    private let showMoreHandler = ShowMoreHandlerService()
-    
     private lazy var dataSource = makeDataSource()
-//    private var snapshot = NSDiffableDataSourceSnapshot<Section, LMModels.Views.CommentView>()
     
-    let pickerView = LemmySortListingPickersView()
+    private let pickerView = LemmySortListingPickersView()
     
-    init() {
+    init(appearance: Appearance = Appearance()) {
+        self.appearance = appearance
         super.init(nibName: nil, bundle: nil)
         
         setupView()
@@ -143,6 +150,23 @@ class CommentsFrontPageViewController: UIViewController {
     }
 }
 
+extension CommentsFrontPageViewController: ProgrammaticallyViewProtocol {
+    func setupView() {
+        tableView.tableHeaderView = pickerView
+        tableView.estimatedRowHeight = self.appearance.estimatedRowHeight
+    }
+    
+    func addSubviews() {
+        self.view.addSubview(tableView)
+    }
+    
+    func makeConstraints() {
+        tableView.snp.makeConstraints { (make) in
+            make.edges.equalTo(self.view.safeAreaLayoutGuide)
+        }
+    }
+}
+
 extension CommentsFrontPageViewController: CommentContentTableCellDelegate {    
     func postNameTapped(in comment: LMModels.Views.CommentView) {
         self.coordinator?.goToPostScreen(postId: comment.post.id)
@@ -186,20 +210,4 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
         guard let coordinator = coordinator else { return }
         showMoreHandler.showMoreInComment(on: self, coordinator: coordinator, comment: comment)
     }    
-}
-
-extension CommentsFrontPageViewController: ProgrammaticallyViewProtocol {
-    func setupView() {
-        tableView.tableHeaderView = pickerView
-    }
-    
-    func addSubviews() {
-        self.view.addSubview(tableView)
-    }
-    
-    func makeConstraints() {
-        tableView.snp.makeConstraints { (make) in
-            make.edges.equalTo(self.view.safeAreaLayoutGuide)
-        }
-    }
 }

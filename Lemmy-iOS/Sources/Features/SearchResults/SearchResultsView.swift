@@ -8,7 +8,18 @@
 
 import UIKit
 
+extension SearchResultsView {
+    struct Appearance {
+        let estimatedCommentHeight: CGFloat = 200
+        let estimatedPostHeight: CGFloat = 220
+        let estimatedUserHeight: CGFloat = 57
+        let estimatedCommunityHeight: CGFloat = 127
+    }
+}
+
 class SearchResultsView: UIView {
+    
+    private let appearance: Appearance
     
     private var tableView: LemmyTableView!
     private var tableManager: SearchResultsTableDataSource
@@ -19,7 +30,8 @@ class SearchResultsView: UIView {
         $0.textColor = .tertiaryLabel
     }
     
-    init(tableManager: (SearchResultsTableDataSource)) {
+    init(appearance: Appearance = Appearance(), tableManager: (SearchResultsTableDataSource)) {
+        self.appearance = appearance
         self.tableManager = tableManager
         super.init(frame: .zero)
         
@@ -36,7 +48,7 @@ class SearchResultsView: UIView {
         self.emptyStateLabel.isHidden = true
         
         let type: UITableView.Style
-        
+                
         if case .users = delegate.viewModels {
             type = .insetGrouped
         } else {
@@ -51,6 +63,17 @@ class SearchResultsView: UIView {
             
             $0.delegate = tableManager
             $0.dataSource = tableManager
+        }
+        
+        switch delegate.viewModels {
+        case .comments:
+            tableView.estimatedRowHeight = self.appearance.estimatedCommentHeight
+        case .posts:
+            tableView.estimatedRowHeight = self.appearance.estimatedPostHeight
+        case .communities:
+            tableView.estimatedRowHeight = self.appearance.estimatedCommunityHeight
+        case .users:
+            tableView.estimatedRowHeight = self.appearance.estimatedUserHeight
         }
         
         setupView()
