@@ -124,8 +124,7 @@ class CommunityHeaderView: UIView {
         self.followButton.bind(isSubcribed: data.subscribed)
         
         if let communityDesciption = data.community.description {
-            communityDescriptionLabel.text = communityDesciption
-            
+            communityDescriptionLabel.text = communityDesciption.removeNewLines()
             showReadMoreButtonIfTruncated(mdString: communityDesciption)
             
         } else {

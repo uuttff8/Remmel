@@ -42,6 +42,8 @@ extension CommunityScreenViewController {
         open var contentType: LMModels.Others.SortType = .active
         
         weak var tableManager: CommunityScreenTableDataSource?
+        
+        private lazy var communityHeaderView = CommunityTableHeaderView()
                 
         private lazy var tableView = LemmyTableView(style: .plain).then {
             $0.delegate = tableManager
@@ -56,25 +58,9 @@ extension CommunityScreenViewController {
         
         var communityHeaderViewData: LMModels.Views.CommunityView? {
             didSet {
-                let view = CommunityTableHeaderView()
-                view.delegate = delegate
-                
-                view.communityHeaderView.descriptionReadMoreButton
-                    .addTarget(self, action: #selector(descriptionMoreButtonTapped), for: .touchUpInside)
-                
-                view.contentTypeView.addTap {
-                    let vc = view.contentTypeView.configuredAlert
-                    self.delegate?.communityViewDidPickerTapped(self, toVc: vc)
-                }
-
-                view.contentTypeView.newCasePicked = { newCase in
-                    self.contentType = newCase
-                    self.delegate?.communityView(self, didPickedNewSort: newCase)
-                }
-                
-                view.bindData(community: communityHeaderViewData.require())
-                tableView.tableHeaderView = view
-                tableView.layoutTableHeaderView()
+                communityHeaderView.delegate = self.delegate
+                communityHeaderView.bindData(community: communityHeaderViewData.require())
+                tableView.tableHeaderView = communityHeaderView
             }
         }
         
@@ -147,6 +133,20 @@ extension CommunityScreenViewController {
 
 extension CommunityScreenViewController.View: ProgrammaticallyViewProtocol {
     func setupView() {
+        
+        communityHeaderView.communityHeaderView.descriptionReadMoreButton
+            .addTarget(self, action: #selector(descriptionMoreButtonTapped), for: .touchUpInside)
+        
+        communityHeaderView.contentTypeView.addTap {
+            let vc = self.communityHeaderView.contentTypeView.configuredAlert
+            self.delegate?.communityViewDidPickerTapped(self, toVc: vc)
+        }
+
+        communityHeaderView.contentTypeView.newCasePicked = { newCase in
+            self.contentType = newCase
+            self.delegate?.communityView(self, didPickedNewSort: newCase)
+        }
+                
         self.emptyStateLabel.isHidden = true
         self.tableView.estimatedRowHeight = self.appearance.estimatedRowHeight
     }

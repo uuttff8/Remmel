@@ -17,9 +17,9 @@ final class MarkdownParsedViewController: UIViewController, CatalystDismissProto
         action: #selector(dismissVc)
     )
     
-    let lbl: LabeledTextView = {
+    private lazy var lbl: LabeledTextView = {
         let lbl = LabeledTextView()
-        lbl.isScrollEnabled = true
+        
         return lbl
     }()
     
@@ -42,7 +42,7 @@ final class MarkdownParsedViewController: UIViewController, CatalystDismissProto
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Description"
+        title = "create-content-community-description".localized
     }
     
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
@@ -55,9 +55,9 @@ final class MarkdownParsedViewController: UIViewController, CatalystDismissProto
     
     private func attributtedMarkdown(_ subtitle: String) -> NSAttributedString {
         let docMd = CMDocument(string: subtitle, options: .sourcepos)
-        let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes())
+        let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes()).require()
         
-        let attributes = NSMutableAttributedString(attributedString: renderMd.require().render())
+        let attributes = NSMutableAttributedString(attributedString: renderMd.render())
         attributes.addAttributes([.foregroundColor: UIColor.lemmyLabel],
                                  range: NSRange(location: 0, length: attributes.mutableString.length))
         return attributes
@@ -78,6 +78,30 @@ extension MarkdownParsedViewController: ProgrammaticallyViewProtocol {
         lbl.snp.makeConstraints {
             $0.edges.equalTo(self.view.safeAreaLayoutGuide).inset(10)
         }
+    }
+}
+
+extension MarkdownParsedViewController: UITextViewDelegate {
+    func textView(
+        _ textView: UITextView,
+        shouldInteractWith URL: URL,
+        in characterRange: NSRange,
+        interaction: UITextItemInteraction
+    ) -> Bool {
+        let link = URL
+        
+        // TODO uncomment and go to these
+        if let mention = LemmyUserMention(url: link) {
+//            onUserMentionTap?(mention)
+            return false
+        }
+        
+        if let mention = LemmyCommunityMention(url: link) {
+//            onCommunityMentionTap?(mention)
+            return false
+        }
+        
+        return true
     }
 }
 

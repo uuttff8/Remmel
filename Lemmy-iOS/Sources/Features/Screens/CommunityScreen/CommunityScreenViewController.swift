@@ -148,7 +148,7 @@ extension CommunityScreenViewController: CommunityScreenViewControllerProtocol {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.popoverPresentationController?.barButtonItem = showMoreBarButton
         
-        let createPostAction = UIAlertAction(title: "Create Post", style: .default) { (_) in
+        let createPostAction = UIAlertAction(title: "community-create-post".localized, style: .default) { (_) in
             self.coordinator?.goToCreatePost(predefinedCommunity: viewModel.community)
         }
         
