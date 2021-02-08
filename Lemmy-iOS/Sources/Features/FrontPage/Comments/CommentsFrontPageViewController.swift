@@ -10,7 +10,7 @@ import UIKit
 
 extension CommentsFrontPageViewController {
     struct Appearance {
-        let estimatedRowHeight: CGFloat = 200
+        let estimatedRowHeight: CGFloat = CommentContentTableCell.estimatedHeight
     }
 }
 

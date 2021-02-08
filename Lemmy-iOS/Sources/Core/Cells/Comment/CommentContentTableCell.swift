@@ -44,6 +44,8 @@ extension CommentContentTableCell {
 // MARK: - CommentContentTableCell: CommentCell
 class CommentContentTableCell: UITableViewCell, ContentFocusable {
 
+    static let estimatedHeight: CGFloat = 220
+    
     var appearance = Appearance()
     
     // MARK: - Properties

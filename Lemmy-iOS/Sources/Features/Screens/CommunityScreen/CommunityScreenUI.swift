@@ -17,9 +17,17 @@ protocol CommunityScreenViewDelegate: CommunityTableHeaderViewDelegate {
     func communityView(_ view: CommunityScreenViewController.View, didPickedNewSort type: LMModels.Others.SortType)
 }
 
+extension CommunityScreenViewController.View {
+    struct Appearance {
+        let estimatedRowHeight = PostContentPreviewTableCell.estimatedHeight
+    }
+}
+
 extension CommunityScreenViewController {
     
     class View: UIView {
+        
+        private let appearance: Appearance
         
         struct HeaderViewData {
             let communityView: LMModels.Views.CommunityView
@@ -70,7 +78,8 @@ extension CommunityScreenViewController {
             }
         }
         
-        init(tableManager: CommunityScreenTableDataSource) {
+        init(appearance: Appearance = Appearance(), tableManager: CommunityScreenTableDataSource) {
+            self.appearance = appearance
             self.tableManager = tableManager
             super.init(frame: .zero)
             
@@ -139,6 +148,7 @@ extension CommunityScreenViewController {
 extension CommunityScreenViewController.View: ProgrammaticallyViewProtocol {
     func setupView() {
         self.emptyStateLabel.isHidden = true
+        self.tableView.estimatedRowHeight = self.appearance.estimatedRowHeight
     }
     
     func addSubviews() {

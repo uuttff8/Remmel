@@ -26,6 +26,7 @@ class LemmyTabBarController: UITabBarController {
         self.delegate = self
     }
     
+    //swiftlint:disable function_body_length
     func createTabs() {
         
         frontPageCoordinator = FrontPageCoordinator(router: nil)
@@ -52,7 +53,7 @@ class LemmyTabBarController: UITabBarController {
             )
         )
         communitiesCoordinator.rootViewController.tabBarItem = UITabBarItem(title: "",
-                                                                            image: UIImage(systemName: "person.2.fill"),
+                                                                            image: UIImage(systemName: "person.2"),
                                                                             tag: 1)
         communitiesCoordinator.router = communitiesRouter
         communitiesCoordinator.router?.viewController = communitiesCoordinator.rootViewController

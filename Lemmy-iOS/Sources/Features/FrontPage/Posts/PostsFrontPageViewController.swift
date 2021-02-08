@@ -11,7 +11,7 @@ import SafariServices
 
 extension PostsFrontPageViewController {
     struct Appearance {
-        let estimatedRowHeight: CGFloat = 220
+        let estimatedRowHeight: CGFloat = PostContentPreviewTableCell.estimatedHeight
     }
 }
 

@@ -31,6 +31,7 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         super.viewDidLoad()
         
         tableView.registerClass(SwipingCommentContentTableCell.self)
+        tableView.estimatedRowHeight = CommentContentTableCell.estimatedHeight
     }
     
     func showComments(with comments: [LemmyComment]) {

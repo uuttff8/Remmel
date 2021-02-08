@@ -68,5 +68,5 @@ extension CommunityScreenTableDataSource: UITableViewDelegate {
            tableView.numberOfSections == 1 {
             self.delegate?.tableDidRequestPagination(self)
         }
-    }    
+    }
 }

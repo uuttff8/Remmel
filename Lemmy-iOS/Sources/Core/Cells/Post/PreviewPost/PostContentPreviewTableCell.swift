@@ -23,6 +23,8 @@ protocol PostContentPreviewTableCellDelegate: AnyObject {
 
 class PostContentPreviewTableCell: UITableViewCell {
     
+    static let estimatedHeight: CGFloat = 220
+    
     var postContentView = PostContentPreviewView()
     let selBackView = UIView()
     
