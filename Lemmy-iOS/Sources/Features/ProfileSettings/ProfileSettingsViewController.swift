@@ -216,6 +216,7 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
             uniqueIdentifier: TableFormType.newPassword.rawValue,
             type: .input(
                 options: .init(
+                    valueText: self.tableFormData.newPassword,
                     placeholderText: "profile-new-password-hint".localized,
                     isEnabled: true,
                     capitalization: .none
@@ -226,6 +227,7 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
             uniqueIdentifier: TableFormType.verifyPassword.rawValue,
             type: .input(
                 options: .init(
+                    valueText: self.tableFormData.verifyPassword,
                     placeholderText: "profile-verify-password-hint".localized,
                     isEnabled: true,
                     capitalization: .none
@@ -236,6 +238,7 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
             uniqueIdentifier: TableFormType.oldPassword.rawValue,
             type: .input(
                 options: .init(
+                    valueText: self.tableFormData.oldPassword,
                     placeholderText: "profile-old-password-hint".localized,
                     isEnabled: true,
                     capitalization: .none
@@ -342,10 +345,11 @@ extension ProfileSettingsViewController: ProfileSettingsViewDelegate {
             self.tableFormData.matrix = text
         case .newPassword:
             self.tableFormData.newPassword = text
-        case .oldPassword:
-            self.tableFormData.oldPassword = text
         case .verifyPassword:
             self.tableFormData.verifyPassword = text
+        case .oldPassword:
+            self.tableFormData.oldPassword = text
+
         default: break
         }
         
