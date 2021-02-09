@@ -205,8 +205,7 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
             type: .input(
                 options: .init(
                     valueText: viewModel.matrix,
-                    placeholderText: "profile-matrix-hint".localized
-                    ,
+                    placeholderText: "profile-matrix-hint".localized,
                     isEnabled: true,
                     capitalization: .none
                 ))
