@@ -21,7 +21,8 @@ extension LMModels {
             case topYear = "TopYear"
             case topAll = "TopAll"
             case mostComments = "MostComments"
-            
+            case newComments = "NewComments"
+        
             var label: String {
                 switch self {
                 case .active: return "sort-active".localized
@@ -33,6 +34,7 @@ extension LMModels {
                 case .topYear: return "sort-year".localized
                 case .topAll: return "sort-all".localized
                 case .mostComments: return "sort-most-comments".localized
+                case .newComments: return "sort-new-comments".localized
                 }
             }
             
@@ -47,6 +49,7 @@ extension LMModels {
                 case .topYear: return 6
                 case .topAll: return 7
                 case .mostComments: return 8
+                case .newComments: return 9
                 }
             }
             
@@ -61,6 +64,7 @@ extension LMModels {
                 case "TopYear": self = .topYear
                 case "TopAll": self = .topAll
                 case "MostComments": self = .mostComments
+                case "NewComments": self = .newComments
                 default:
                     return nil
                 }
@@ -90,6 +94,8 @@ extension LMModels {
                 case (nil, "TopAll"): self = .topAll
                 case (8, nil): self = .mostComments
                 case (nil, "MostComments"): self = .mostComments
+                case (9, nil): self = .newComments
+                case (nil, "NewComments"): self = .newComments
                 default:
                     throw CodingError.unknownValue
                 }
@@ -111,6 +117,7 @@ extension LMModels {
                 case .topYear: try container.encode("TopYear")
                 case .topAll: try container.encode("TopAll")
                 case .mostComments: try container.encode("MostComments")
+                case .newComments: try container.encode("NewComments")
                 }
             }
         }

@@ -59,13 +59,14 @@ extension LMModels {
             var upvotes: Int
             var downvotes: Int
             let newestCommentTime: String
+            let newestCommentTimeNecro: String
             
             enum CodingKeys: String, CodingKey {
                 case id
                 case postId = "post_id"
                 case newestCommentTime = "newest_comment_time"
+                case newestCommentTimeNecro = "newest_comment_time_necro"
                 case comments, score, upvotes, downvotes
-                
             }
         }
         
