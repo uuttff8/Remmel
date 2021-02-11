@@ -239,6 +239,7 @@ extension PostContentCenterView: UITextViewDelegate {
             return false
         }
         
-        return true
+        self.onLinkTap?(link)
+        return false
     }
 }

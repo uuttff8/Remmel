@@ -39,8 +39,8 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
     }
     
     func doCommunityFetch() {
-        let parameters = LMModels.Api.Community.GetCommunity(id: communityId,
-                                                             name: communityName,
+        let parameters = LMModels.Api.Community.GetCommunity(id: self.communityId,
+                                                             name: self.communityName,
                                                              auth: LoginData.shared.jwtToken)
         
         ApiManager.requests.asyncGetCommunity(parameters: parameters)
@@ -64,8 +64,8 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
                                                     sort: request.contentType,
                                                     page: paginationState.page,
                                                     limit: 50,
-                                                    communityId: communityId,
-                                                    communityName: nil,
+                                                    communityId: self.communityId,
+                                                    communityName: self.communityName,
                                                     auth: LoginData.shared.jwtToken)
         
         ApiManager.requests.asyncGetPosts(parameters: parameters)
@@ -86,10 +86,10 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
         
         let parameters = LMModels.Api.Post.GetPosts(type: .community,
                                                     sort: request.contentType,
-                                                    page: paginationState.page,
+                                                    page: self.paginationState.page,
                                                     limit: 50,
-                                                    communityId: communityId,
-                                                    communityName: nil,
+                                                    communityId: self.communityId,
+                                                    communityName: self.communityName,
                                                     auth: LoginData.shared.jwtToken)
         
         ApiManager.requests.asyncGetPosts(parameters: parameters)
