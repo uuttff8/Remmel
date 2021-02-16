@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LemmyGreenOutlinePostEmbed: UIView {
+class LemmyGreenOutlinePostEmbed: UIControl {
 
     struct Data {
         let title: String?
@@ -33,7 +33,9 @@ class LemmyGreenOutlinePostEmbed: UIView {
         $0.spacing = 10
     }
     
-    let containerView = UIView()
+    let containerView = UIView().then {
+        $0.isUserInteractionEnabled = false
+    }
 
     init() {
         super.init(frame: .zero)
@@ -60,6 +62,12 @@ class LemmyGreenOutlinePostEmbed: UIView {
             self.titleLabel.isHidden = true
         }
     }
+    
+    override var isHighlighted: Bool {
+        didSet {
+            alpha = self.isHighlighted ? 0.6 : 1.0
+        }
+    }
 }
 
 extension LemmyGreenOutlinePostEmbed: ProgrammaticallyViewProtocol {
@@ -81,7 +89,8 @@ extension LemmyGreenOutlinePostEmbed: ProgrammaticallyViewProtocol {
     
     func makeConstraints() {
         self.containerView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(5)
+            $0.top.bottom.equalToSuperview().inset(5)
+            $0.leading.trailing.equalToSuperview().inset(16)
         }
         
         self.mainStackView.snp.makeConstraints {

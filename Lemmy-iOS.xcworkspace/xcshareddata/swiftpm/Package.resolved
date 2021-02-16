@@ -2,6 +2,24 @@
   "object": {
     "pins": [
       {
+        "package": "AttributedText",
+        "repositoryURL": "https://github.com/gonzalezreal/AttributedText",
+        "state": {
+          "branch": null,
+          "revision": "bf076de48dbb2172525486936d512e1bba062642",
+          "version": "0.3.0"
+        }
+      },
+      {
+        "package": "combine-schedulers",
+        "repositoryURL": "https://github.com/pointfreeco/combine-schedulers",
+        "state": {
+          "branch": null,
+          "revision": "8eab6ad841ccc420f29f3e77e17e7b260841b50a",
+          "version": "0.2.0"
+        }
+      },
+      {
         "package": "IQKeyboardManagerSwift",
         "repositoryURL": "https://github.com/hackiftekhar/IQKeyboardManager.git",
         "state": {
@@ -20,12 +38,57 @@
         }
       },
       {
+        "package": "MarkdownUI",
+        "repositoryURL": "https://github.com/gonzalezreal/MarkdownUI.git",
+        "state": {
+          "branch": null,
+          "revision": "d7da53e5e1ab1764d69cf251064b05420fcd4b74",
+          "version": "0.4.0"
+        }
+      },
+      {
+        "package": "NetworkImage",
+        "repositoryURL": "https://github.com/gonzalezreal/NetworkImage",
+        "state": {
+          "branch": null,
+          "revision": "15582b821cb097012b41b83d6219717926ec4ed6",
+          "version": "2.1.0"
+        }
+      },
+      {
         "package": "SnapKit",
         "repositoryURL": "https://github.com/SnapKit/SnapKit",
         "state": {
           "branch": null,
           "revision": "d458564516e5676af9c70b4f4b2a9178294f1bc6",
           "version": "5.0.1"
+        }
+      },
+      {
+        "package": "SubviewAttachingTextView",
+        "repositoryURL": "https://github.com/vlas-voloshin/SubviewAttachingTextView.git",
+        "state": {
+          "branch": null,
+          "revision": "6025828b6c05fbf5529616a70c702f7425899fe5",
+          "version": "1.5.1"
+        }
+      },
+      {
+        "package": "cmark",
+        "repositoryURL": "https://github.com/SwiftDocOrg/swift-cmark.git",
+        "state": {
+          "branch": null,
+          "revision": "9c8096a23f44794bde297452d87c455fc4f76d42",
+          "version": "0.29.0+20210102.9c8096a"
+        }
+      },
+      {
+        "package": "SwiftCommonMark",
+        "repositoryURL": "https://github.com/gonzalezreal/SwiftCommonMark",
+        "state": {
+          "branch": null,
+          "revision": "9698a3049b1fdbf64c73c75cd2ab86042d8a0f37",
+          "version": "0.1.0"
         }
       },
       {

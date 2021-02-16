@@ -58,9 +58,11 @@ extension PostScreenViewController {
             self.headerView.bind(with: viewData)
             
             if let url = viewData.post.url {
-                headerView.postGreenOutlineView.addTap {
+                
+                headerView.postGreenOutlineView.addAction(for: .touchUpInside) { (_) in
                     self.delegate?.postView(didEmbedTappedWith: URL(string: url)!)
                 }
+                
             }
         }
                 

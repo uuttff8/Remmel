@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E004E1A25DC6C78006B81CF /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4E004E1925DC6C78006B81CF /* MarkdownUI */; };
+		4E004E1F25DC6D78006B81CF /* SubviewAttachingTextView in Frameworks */ = {isa = PBXBuildFile; productRef = 4E004E1E25DC6D78006B81CF /* SubviewAttachingTextView */; };
+		4E004E2525DC70C8006B81CF /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004E2425DC70C8006B81CF /* CopyableLabel.swift */; };
+		4E004E2925DC736C006B81CF /* Actionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004E2825DC736C006B81CF /* Actionable.swift */; };
 		4E05D637255EBA63002307E0 /* Optional+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05D636255EBA63002307E0 /* Optional+Ext.swift */; };
 		4E0A8E2F255BFC0000B06AF6 /* UIApplication+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */; };
 		4E0A8E35255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E34255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift */; };
@@ -189,7 +193,7 @@
 		4EB89B00251F4882007129BF /* PostScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89AFF251F4882007129BF /* PostScreenUI.swift */; };
 		4EB89B052521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */; };
 		4EB89B0A2521FA73007129BF /* LoginOrRegisterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B092521FA73007129BF /* LoginOrRegisterButton.swift */; };
-		4EB89B302521FDBE007129BF /* LemmyLinkedClickableUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B2F2521FDBE007129BF /* LemmyLinkedClickableUILabel.swift */; };
+		4EB89B302521FDBE007129BF /* LabeledTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B2F2521FDBE007129BF /* LabeledTextView.swift */; };
 		4EB89B3B25220DC6007129BF /* CommentListingSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B3A25220DC6007129BF /* CommentListingSort.swift */; };
 		4EBB220925598AA700B88079 /* Containered.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB220825598AA700B88079 /* Containered.swift */; };
 		4EBB220E25598AC100B88079 /* ProgrammaticallyViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB220D25598AC100B88079 /* ProgrammaticallyViewProtocol.swift */; };
@@ -438,6 +442,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4E004E2425DC70C8006B81CF /* CopyableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
+		4E004E2825DC736C006B81CF /* Actionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actionable.swift; sourceTree = "<group>"; };
 		4E05D636255EBA63002307E0 /* Optional+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Ext.swift"; sourceTree = "<group>"; };
 		4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Ext.swift"; sourceTree = "<group>"; };
 		4E0A8E34255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenCommentsViewController.swift; sourceTree = "<group>"; };
@@ -620,7 +626,7 @@
 		4EB89AFF251F4882007129BF /* PostScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenUI.swift; sourceTree = "<group>"; };
 		4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyGreenOutlinePostDescription.swift; sourceTree = "<group>"; };
 		4EB89B092521FA73007129BF /* LoginOrRegisterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginOrRegisterButton.swift; sourceTree = "<group>"; };
-		4EB89B2F2521FDBE007129BF /* LemmyLinkedClickableUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyLinkedClickableUILabel.swift; sourceTree = "<group>"; };
+		4EB89B2F2521FDBE007129BF /* LabeledTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledTextView.swift; sourceTree = "<group>"; };
 		4EB89B3A25220DC6007129BF /* CommentListingSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListingSort.swift; sourceTree = "<group>"; };
 		4EBB220825598AA700B88079 /* Containered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Containered.swift; sourceTree = "<group>"; };
 		4EBB220D25598AC100B88079 /* ProgrammaticallyViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammaticallyViewProtocol.swift; sourceTree = "<group>"; };
@@ -805,9 +811,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E004E1F25DC6D78006B81CF /* SubviewAttachingTextView in Frameworks */,
 				4E1070842534F742009EABDA /* KeychainSwift in Frameworks */,
 				921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */,
 				4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */,
+				4E004E1A25DC6C78006B81CF /* MarkdownUI in Frameworks */,
 				4EBF1D5E25923723004068CD /* XCGLogger in Frameworks */,
 				4E98BFC125BB2438009DA520 /* IQKeyboardManagerSwift in Frameworks */,
 				4EC63F6D25C89EF700F6D6F1 /* CocoaMarkdown.framework in Frameworks */,
@@ -1634,6 +1642,7 @@
 				4E2A0FD7259C875400BF0841 /* Coordinator */,
 				4EBB220725598A9500B88079 /* Protocols */,
 				4ECCEF15250D2D9F0075F921 /* Extensions.swift */,
+				4E004E2825DC736C006B81CF /* Actionable.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1790,7 +1799,7 @@
 				4E10706A253477C1009EABDA /* LemmyTableView.swift */,
 				4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */,
 				4EB89B092521FA73007129BF /* LoginOrRegisterButton.swift */,
-				4EB89B2F2521FDBE007129BF /* LemmyLinkedClickableUILabel.swift */,
+				4EB89B2F2521FDBE007129BF /* LabeledTextView.swift */,
 				4E10707D2534F5EC009EABDA /* LemmyCheckLogin.swift */,
 				4E886C3A2538BE830076B162 /* LemmyTextWithSwitch.swift */,
 				4E73DF64258BE78D001608F2 /* LoadingButton.swift */,
@@ -1956,6 +1965,7 @@
 				4E3D450125964EA800108DA3 /* ImageControl.swift */,
 				4E24395C259DE2200006C742 /* IncreasedTapAreaButton.swift */,
 				4EB2641225AC8A03003D5183 /* TermsOfUseView.swift */,
+				4E004E2425DC70C8006B81CF /* CopyableLabel.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -2235,6 +2245,8 @@
 				4E9184FB256E9E4E00702F04 /* SwipeCellKit */,
 				4EBF1D5D25923723004068CD /* XCGLogger */,
 				4E98BFC025BB2438009DA520 /* IQKeyboardManagerSwift */,
+				4E004E1925DC6C78006B81CF /* MarkdownUI */,
+				4E004E1E25DC6D78006B81CF /* SubviewAttachingTextView */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */;
@@ -2315,6 +2327,8 @@
 				4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
 				4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger" */,
 				4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				4E004E1825DC6C78006B81CF /* XCRemoteSwiftPackageReference "MarkdownUI" */,
+				4E004E1D25DC6D78006B81CF /* XCRemoteSwiftPackageReference "SubviewAttachingTextView" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
@@ -2516,7 +2530,7 @@
 				4EF313BC257BEDC20032B58D /* UserPreviewCell.swift in Sources */,
 				4E9183462566C16C00702F04 /* SettingsTableView.swift in Sources */,
 				4E886C1C25364DD70076B162 /* AuthRequests.swift in Sources */,
-				4EB89B302521FDBE007129BF /* LemmyLinkedClickableUILabel.swift in Sources */,
+				4EB89B302521FDBE007129BF /* LabeledTextView.swift in Sources */,
 				4EF3134C257910F00032B58D /* SearchResultsAssembly.swift in Sources */,
 				4EFAB5DD2552FA4300B32780 /* Notification+Ext.swift in Sources */,
 				4E66428D25BCC34800E11E20 /* CommunityPreviewCellView.swift in Sources */,
@@ -2724,6 +2738,7 @@
 				4E10709D25361846009EABDA /* AuthenticationView.swift in Sources */,
 				4EDD004325A5F2FB006FCB9F /* InboxRepliesAssembly.swift in Sources */,
 				4EDD002D25A5EC37006FCB9F /* InboxMentionsAssembly.swift in Sources */,
+				4E004E2525DC70C8006B81CF /* CopyableLabel.swift in Sources */,
 				4EFA81D0256165B1008AF535 /* CommunityScreenViewModel.swift in Sources */,
 				4E886C73253CD4270076B162 /* CreateDismissTransitionDriver.swift in Sources */,
 				4E87C63C258C04BB0007FE5E /* CommunityScreenCoordinator.swift in Sources */,
@@ -2750,6 +2765,7 @@
 				4ECCEF2B250FF56A0075F921 /* CommunityPreviewTableCell.swift in Sources */,
 				4E886C2125364EC30076B162 /* UserRequests.swift in Sources */,
 				4EDDFFEA25A5CFAC006FCB9F /* WriteMessageAssembly.swift in Sources */,
+				4E004E2925DC736C006B81CF /* Actionable.swift in Sources */,
 				4EBB2258255AE6E600B88079 /* ProfileScreenPostsViewController.swift in Sources */,
 				4E91850C256E9EAA00702F04 /* AbstractComment.swift in Sources */,
 				4E87C6A4258E68560007FE5E /* InstancesAssembly.swift in Sources */,
@@ -3161,6 +3177,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4E004E1825DC6C78006B81CF /* XCRemoteSwiftPackageReference "MarkdownUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gonzalezreal/MarkdownUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.0;
+			};
+		};
+		4E004E1D25DC6D78006B81CF /* XCRemoteSwiftPackageReference "SubviewAttachingTextView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/vlas-voloshin/SubviewAttachingTextView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.1;
+			};
+		};
 		4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
@@ -3204,6 +3236,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4E004E1925DC6C78006B81CF /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E004E1825DC6C78006B81CF /* XCRemoteSwiftPackageReference "MarkdownUI" */;
+			productName = MarkdownUI;
+		};
+		4E004E1E25DC6D78006B81CF /* SubviewAttachingTextView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E004E1D25DC6D78006B81CF /* XCRemoteSwiftPackageReference "SubviewAttachingTextView" */;
+			productName = SubviewAttachingTextView;
+		};
 		4E1070832534F742009EABDA /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */;

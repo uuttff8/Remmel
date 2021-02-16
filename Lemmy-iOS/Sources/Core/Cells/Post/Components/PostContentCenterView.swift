@@ -9,6 +9,10 @@
 import UIKit
 import CocoaMarkdown
 import Lightbox
+import SubviewAttachingTextView
+import MarkdownUI
+
+
 
 class SimpleLabeledTextView: UITextView {
     override func draw(_ rect: CGRect) {
@@ -36,7 +40,7 @@ class PostContentCenterView: UIView {
     private lazy var previewImageSize = CGSize(width: 110, height: 60)
     private lazy var fullPostImageHeight = UIScreen.main.bounds.height / 2.5
     
-    private let titleLabel = UILabel().then {
+    private let titleLabel = LMMCopyableLabel().then {
         $0.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         $0.textColor = UIColor.lemmyLabel
         $0.numberOfLines = 3
@@ -91,6 +95,7 @@ class PostContentCenterView: UIView {
         
         switch config {
         case .fullPost:
+            titleLabel.numberOfLines = 0
             thumbailImageView.loadImage(urlString: data.imageUrl) { [self] (res) in
                 guard case let .success(response) = res else { return }
                 self.setupImageViewForFullPostViewer(image: response.image, text: data.title)
@@ -99,7 +104,6 @@ class PostContentCenterView: UIView {
             if let subtitle = data.subtitle {
                 subtitleTextView.isSelectable = true
                 subtitleTextView.textContainer.maximumNumberOfLines = 0
-                titleLabel.numberOfLines = 0
 
                 subtitleTextView.linkTextAttributes = [.foregroundColor: UIColor.lemmyBlue,
                                                       .underlineStyle: 0,

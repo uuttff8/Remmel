@@ -9,6 +9,8 @@
 import UIKit
 import CocoaMarkdown
 import Lightbox
+import MarkdownUI
+import SubviewAttachingTextView
 
 private class LabeledTextViewComment: UITextView {
     override func draw(_ rect: CGRect) {
@@ -70,18 +72,20 @@ class CommentCenterView: UIView {
     }
         
     private func createAttributesForDeletedComment() -> NSAttributedString {
-        NSAttributedString(string: "Deleted by creator", attributes: [.font: UIFont.italicSystemFont(ofSize: 17),
+        NSAttributedString(string: "Deleted by creator", attributes: [.font: UIFont.italicSystemFont(ofSize: 16),
                                                                       .foregroundColor: UIColor.label])
     }
     
     private func createAttributesForNormalComment(data: CommentCenterView.ViewData) -> NSAttributedString {
-        let docMd = CMDocument(string: data.comment, options: .sourcepos)
-        let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes())
+//        let docMd = CMDocument(string: data.comment, options: .sourcepos)
+//        let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes())
         
-        let attributes = NSMutableAttributedString(attributedString: renderMd.require().render())
-        attributes.addAttributes([.foregroundColor: UIColor.lemmyLabel],
-                                 range: NSRange(location: 0, length: attributes.mutableString.length))
-        return attributes
+        let attr = NSAttributedString(document: Document(data.comment), style: .init(font: .system(size: 16)))
+        
+//        let attributes = NSMutableAttributedString(attributedString: renderMd.require().render())
+//        attributes.addAttributes([.foregroundColor: UIColor.lemmyLabel],
+//                                 range: NSRange(location: 0, length: attributes.mutableString.length))
+        return attr
     }
     
     @objc private func handleAttachmentInTextView(_ recognizer: AttachmentTapGestureRecognizer) {
