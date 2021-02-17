@@ -14,7 +14,7 @@ class LemmyJSONDecoder: JSONDecoder {
         let decoder = JSONDecoder()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = Date.lemmyDateFormat
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone.autoupdatingCurrent
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
         return try decoder.decode(T.self, from: data)
     }
