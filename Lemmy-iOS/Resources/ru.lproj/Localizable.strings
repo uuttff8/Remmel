@@ -75,6 +75,8 @@
 "settings-author" = "Автор: @uuttff8";
 "settings-contactinfo" = "Контакты";
 "settings-community-matrix" = "Сообщество в Matrix";
+"settings-instances" = "Инстансы";
+"settings-instances-change-instance" = "Сменить инстанс";
 "settings-opensource" = "Свободное ПО";
 "settings-opensource-code" = "Код, Лицензии и другое";
 "settings-app" = "Приложение";
@@ -82,7 +84,6 @@
 "settings-version" = "Версия";
 "settings-build" = "Билд";
 "settings-api-version" = "Версия API";
-
 
 "profile-settings-title" = "Настройки профиля";
 
@@ -98,7 +99,7 @@
 "alert-share" = "Поделиться";
 "alert-report" = "Пожаловаться";
 "alert-logout" = "Выйти из аккаунта";
-"alert-choose-instance" = "Выйти из инстанса";
+"alert-choose-instance" = "Сменить инстанса";
 "alert-block" = "Заблокировать";
 "alert-block-done" = "Вы заблокировали юзера!";
 "alert-unblock" = "Разблокировать";

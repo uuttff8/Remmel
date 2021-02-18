@@ -8,8 +8,7 @@
 
 import UIKit
 import Lightbox
-import MarkdownUI
-import SubviewAttachingTextView
+import CocoaMarkdown
 
 // MARK: - CommentCenterView: UIView -
 class CommentCenterView: UIView {
@@ -69,9 +68,13 @@ class CommentCenterView: UIView {
     }
     
     private func createAttributesForNormalComment(data: CommentCenterView.ViewData) -> NSAttributedString {
-        let attr = NSAttributedString(document: Document(data.comment), style: .init(font: .system(size: 16)))
+        let docMd = CMDocument(string: data.comment, options: .sourcepos)
+        let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes())
         
-        return attr
+        let attributes = NSMutableAttributedString(attributedString: renderMd.require().render())
+        attributes.addAttributes([.foregroundColor: UIColor.lemmyLabel],
+                                 range: NSRange(location: 0, length: attributes.mutableString.length))
+        return attributes
     }
     
     @objc private func handleAttachmentInTextView(_ recognizer: AttachmentTapGestureRecognizer) {

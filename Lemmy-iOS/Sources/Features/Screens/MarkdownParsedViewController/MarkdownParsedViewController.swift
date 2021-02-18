@@ -8,6 +8,7 @@
 
 import UIKit
 import MarkdownUI
+import CocoaMarkdown
 
 final class MarkdownParsedViewController: UIViewController, CatalystDismissProtocol {
     
@@ -23,6 +24,8 @@ final class MarkdownParsedViewController: UIViewController, CatalystDismissProto
         lbl.linkTextAttributes = [.foregroundColor: UIColor.lemmyBlue,
                                               .underlineStyle: 0,
                                               .underlineColor: UIColor.clear]
+        
+        lbl.isEditable = false
         
         return lbl
     }()
@@ -58,10 +61,14 @@ final class MarkdownParsedViewController: UIViewController, CatalystDismissProto
     }
     
     private func attributtedMarkdown(_ subtitle: String) -> NSAttributedString {
-        let attr = NSAttributedString(document: Document(subtitle), style: .init(font: .system(size: 16)))
-        return attr
+        let docMd = CMDocument(string: subtitle, options: .sourcepos)
+        let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes())
+        
+        let attributes = NSMutableAttributedString(attributedString: renderMd.require().render())
+        attributes.addAttributes([.foregroundColor: UIColor.lemmyLabel],
+                                 range: NSRange(location: 0, length: attributes.mutableString.length))
+        return attributes
     }
-
 }
 
 extension MarkdownParsedViewController: ProgrammaticallyViewProtocol {

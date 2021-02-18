@@ -8,7 +8,7 @@
 
 import UIKit
 import Lightbox
-import MarkdownUI
+import CocoaMarkdown
 
 // MARK: - PostContentCenterView: UIView
 class PostContentCenterView: UIView {
@@ -154,8 +154,13 @@ class PostContentCenterView: UIView {
     }
     
     private func attributtedMarkdown(_ subtitle: String) -> NSAttributedString {
-        let attr = NSAttributedString(document: Document(subtitle), style: .init(font: .system(size: 16)))
-        return attr
+        let docMd = CMDocument(string: subtitle, options: .sourcepos)
+        let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes())
+        
+        let attributes = NSMutableAttributedString(attributedString: renderMd.require().render())
+        attributes.addAttributes([.foregroundColor: UIColor.lemmyLabel],
+                                 range: NSRange(location: 0, length: attributes.mutableString.length))
+        return attributes
     }
     
     @objc private func handleAttachmentInTextView(_ recognizer: AttachmentTapGestureRecognizer) {

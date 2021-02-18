@@ -81,6 +81,8 @@
 "settings-author" = "Author: @uuttff8";
 "settings-contactinfo" = "Contact Info";
 "settings-community-matrix" = "Community in Matrix";
+"settings-instances" = "Instances";
+"settings-instances-change-instance" = "Change instance";
 "settings-opensource" = "Open Source";
 "settings-opensource-code" = "Code, Licenses, Contributors and more";
 "settings-app" = "Application";

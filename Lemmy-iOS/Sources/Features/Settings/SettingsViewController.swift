@@ -23,6 +23,7 @@ class SettingsViewController: UIViewController, CatalystDismissProtocol {
         case contactEmail
         case contactMatrix
         case openSource
+        case changeInstance
         case applicationIcon
         case applicationVersion
         case applicationBuild
@@ -169,6 +170,20 @@ extension SettingsViewController: SettingsViewControllerProtocol {
             )
         )
         
+        let instancesChangeInstance = SettingsTableSectionViewModel.Cell(
+            uniqueIdentifier: TableForm.changeInstance.rawValue,
+            type: .rightDetail(
+                options: .init(
+                    title: .init(
+                        text: "settings-instances-change-instance".localized,
+                        appearance: .init(textColor: .systemRed, textAlignment: .natural)
+                        ),
+                    detailType: .label(text: nil),
+                    accessoryType: .none
+                )
+            )
+        )
+        
         let appIcon = SettingsTableSectionViewModel.Cell(
             uniqueIdentifier: TableForm.applicationIcon.rawValue,
             type: .rightDetail(
@@ -227,6 +242,11 @@ extension SettingsViewController: SettingsViewControllerProtocol {
             .init(
                 header: .init(title: "settings-opensource".localized),
                 cells: [openSourceCell],
+                footer: nil
+            ),
+            .init(
+                header: .init(title: "settings-instances".localized),
+                cells: [instancesChangeInstance],
                 footer: nil
             ),
             .init(
@@ -310,6 +330,8 @@ extension SettingsViewController: SettingsViewDelegate {
         case TableForm.contactMatrix.rawValue:
             guard let url = URL(string: "https://matrix.to/#/%23lemmy:matrix.org") else { return }
             self.coordinator?.goToBrowser(with: url, inApp: false)
+        case TableForm.changeInstance.rawValue:
+            self.coordinator?.goToInstances()
         case TableForm.openSource.rawValue:
             guard let url = URL(string: "https://github.com/uuttff8/Lemmy-iOS") else { return }
             self.coordinator?.goToBrowser(with: url, inApp: false)
