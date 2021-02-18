@@ -12,8 +12,6 @@ import Lightbox
 import SubviewAttachingTextView
 import MarkdownUI
 
-
-
 class SimpleLabeledTextView: UITextView {
     override func draw(_ rect: CGRect) {
         textContainer.lineFragmentPadding = 0

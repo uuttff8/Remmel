@@ -10,11 +10,7 @@ import UIKit
 
 class LMMCopyableLabel: UILabel {
 
-    override public var canBecomeFirstResponder: Bool {
-        get {
-            return true
-        }
-    }
+    override public var canBecomeFirstResponder: Bool { true }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
