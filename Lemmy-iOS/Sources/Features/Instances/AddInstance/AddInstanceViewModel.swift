@@ -78,7 +78,7 @@ enum AddInstanceDataFlow {
     }
     
     enum ViewControllerState {
-        case result(iconUrl: String?, instanceUrl: String)
+        case result(iconUrl: URL?, instanceUrl: String)
         case noResult
     }
 }

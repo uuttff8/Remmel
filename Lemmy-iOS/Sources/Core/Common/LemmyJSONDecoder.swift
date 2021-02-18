@@ -10,6 +10,7 @@ import Foundation
 
 class LemmyJSONDecoder: JSONDecoder {
 
+    // if you touch date things, app response may break  on real devices
     override func decode<T>(_ type: T.Type, from data: Data) throws -> T where T: Decodable {
         let decoder = JSONDecoder()
         let dateFormatter = DateFormatter()

@@ -14,7 +14,7 @@ class PostContentHeaderView: UIView {
     
     // MARK: - Data
     struct ViewData {
-        let avatarImageUrl: String?
+        let avatarImageUrl: URL?
         let username: String
         let community: String
         let published: String

@@ -44,7 +44,7 @@ class CreatePostCommunityCell: UITableViewCell {
     }
     
     func bind(with data: LMModels.Views.CommunityView) {
-        if let imageString = data.community.icon, let url = URL(string: imageString) {
+        if let url = data.community.icon {
             Nuke.loadImage(with: ImageRequest(url: url), into: communityImageView)
         } else {
             self.communityImageView.isHidden = true

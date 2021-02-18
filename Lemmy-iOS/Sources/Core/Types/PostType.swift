@@ -15,17 +15,16 @@ enum PostType {
     case none
     
     static func getPostType(from postView: LMModels.Views.PostView) -> PostType {
-        guard let url = postView.post.url,
-              !url.isEmpty
-        else { return PostType.none }
+        guard let url = postView.post.url else { return PostType.none }
+        let str = url.absoluteString
         
-        if url.hasSuffix("jpg")
-            || url.hasSuffix(".jpeg")
-            || url.hasSuffix(".png")
-            || url.hasSuffix(".gif")
-            || url.hasSuffix(".webp")
-            || url.hasSuffix(".bmp")
-            || url.hasSuffix(".wbpm") {
+        if str.hasSuffix("jpg")    ||
+            str.hasSuffix(".jpeg") ||
+            str.hasSuffix(".png")  ||
+            str.hasSuffix(".gif")  ||
+            str.hasSuffix(".webp") ||
+            str.hasSuffix(".bmp")  ||
+            str.hasSuffix(".wbpm") {
             
             return PostType.image
         }

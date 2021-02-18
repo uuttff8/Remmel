@@ -1,5 +1,5 @@
 //
-//  LemmyGreenOutlinePostEmbed.swift
+//  LemmyOutlinePostEmbedView.swift
 //  Lemmy-iOS
 //
 //  Created by uuttff8 on 9/28/20.
@@ -8,29 +8,32 @@
 
 import UIKit
 
-class LemmyGreenOutlinePostEmbed: UIControl {
+class LemmyOutlinePostEmbedView: UIControl {
 
     struct Data {
         let title: String?
         let description: String?
-        let url: String?
+        let url: URL?
     }
     
-    private let titleLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.numberOfLines = 0
-        return lbl
-    }()
+    private let topTitleLabel = UILabel().then {
+        $0.numberOfLines = 0
+        $0.font = .systemFont(ofSize: 15)
+    }
     
-    private let descriptionLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.numberOfLines = 0
-        return lbl
-    }()
+    private let descriptionLabel = UILabel().then {
+        $0.numberOfLines = 0
+        $0.font = .systemFont(ofSize: 15)
+    }
+    
+    private let urlLabel = UILabel().then {
+        $0.font = .italicSystemFont(ofSize: 14)
+        $0.textColor = .lemmySecondLabel
+    }
     
     private let mainStackView = UIStackView().then {
         $0.axis = .vertical
-        $0.spacing = 10
+        $0.spacing = 5
     }
     
     let containerView = UIView().then {
@@ -51,16 +54,15 @@ class LemmyGreenOutlinePostEmbed: UIControl {
     }
 
     func bindData(_ viewData: Data) {
-        titleLabel.text = viewData.title
+        if let link = viewData.url {
+            urlLabel.text = link.host
+        }
+        topTitleLabel.text = viewData.title
         descriptionLabel.text = viewData.description
-
-        if viewData.description == nil {
-            self.descriptionLabel.isHidden = true
-        }
-        
-        if viewData.title == nil {
-            self.titleLabel.isHidden = true
-        }
+                
+        self.urlLabel.isHidden = viewData.url == nil ? true : false
+        self.descriptionLabel.isHidden = viewData.description == nil ? true : false
+        self.topTitleLabel.isHidden = viewData.title == nil ? true : false
     }
     
     override var isHighlighted: Bool {
@@ -70,11 +72,12 @@ class LemmyGreenOutlinePostEmbed: UIControl {
     }
 }
 
-extension LemmyGreenOutlinePostEmbed: ProgrammaticallyViewProtocol {
+extension LemmyOutlinePostEmbedView: ProgrammaticallyViewProtocol {
     func setupView() {
         self.containerView.layer.cornerRadius = 10
         self.containerView.layer.borderWidth = 2
-        self.containerView.layer.borderColor = UIColor.systemGreen.cgColor
+        self.containerView.layer.borderColor = UIColor.lemmyBlue.cgColor
+        self.containerView.backgroundColor = UIColor.systemGray6
     }
     
     func addSubviews() {
@@ -82,7 +85,9 @@ extension LemmyGreenOutlinePostEmbed: ProgrammaticallyViewProtocol {
         containerView.addSubview(mainStackView)
         
         self.mainStackView.addStackViewItems(
-            .view(titleLabel),
+            .view(urlLabel),
+            .customSpace(2),
+            .view(topTitleLabel),
             .view(descriptionLabel)
         )
     }

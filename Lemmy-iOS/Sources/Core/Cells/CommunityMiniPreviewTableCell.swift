@@ -12,7 +12,7 @@ import Nuke
 class CommunityMiniPreviewTableCell: UITableViewCell {
     struct ViewData {
         let title: String
-        let icon: String?
+        let icon: URL?
     }
 
     // MARK: - Properties

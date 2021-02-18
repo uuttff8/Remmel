@@ -36,6 +36,11 @@ extension SettingsTableViewDelegate {
     func settingsCell(_ cell: SettingsRightDetailSwitchTableViewCell, switchValueChanged isOn: Bool) {}
     
     func settingsCellDidTappedToIcon(_ cell: SettingsInputWithImageTableViewCell) { }
+    
+    func settingsCellWithImageDidEnterText(
+        elementView: SettingsInputWithImageTableViewCell,
+        didReportTextChange text: String?
+    ) {}
 }
 
 extension SettingsTableView {

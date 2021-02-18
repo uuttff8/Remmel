@@ -12,9 +12,9 @@ import Nuke
 extension UIImageView {
     
     // load image or hide the view if it is not
-    func loadImage(urlString: String?, imageSize: CGSize, blur: Bool = false) {
+    func loadImage(urlString: URL?, imageSize: CGSize, blur: Bool = false) {
         
-        if let url = URL(string: urlString ?? "") {
+        if let url = urlString {
             
             var processors: [ImageProcessing] = [ImageProcessors.Resize(size: imageSize)]
             
@@ -44,10 +44,10 @@ extension UIImageView {
     }
     
     // load image or hide the view if it is not
-    func loadImage(urlString: String?, completion: ImageTask.Completion? = nil) {
+    func loadImage(urlString: URL?, completion: ImageTask.Completion? = nil) {
         
-        if let url = URL(string: urlString ?? "") {
-            
+        if let url = urlString {
+
             self.isHidden = false
             
             let request = ImageRequest(url: url)

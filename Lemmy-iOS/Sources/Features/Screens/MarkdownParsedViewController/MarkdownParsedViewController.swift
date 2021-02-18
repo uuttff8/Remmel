@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CocoaMarkdown
+import MarkdownUI
 
 final class MarkdownParsedViewController: UIViewController, CatalystDismissProtocol {
     
@@ -19,6 +19,10 @@ final class MarkdownParsedViewController: UIViewController, CatalystDismissProto
     
     private lazy var lbl: LabeledTextView = {
         let lbl = LabeledTextView()
+        
+        lbl.linkTextAttributes = [.foregroundColor: UIColor.lemmyBlue,
+                                              .underlineStyle: 0,
+                                              .underlineColor: UIColor.clear]
         
         return lbl
     }()
@@ -54,13 +58,8 @@ final class MarkdownParsedViewController: UIViewController, CatalystDismissProto
     }
     
     private func attributtedMarkdown(_ subtitle: String) -> NSAttributedString {
-        let docMd = CMDocument(string: subtitle, options: .sourcepos)
-        let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes()).require()
-        
-        let attributes = NSMutableAttributedString(attributedString: renderMd.render())
-        attributes.addAttributes([.foregroundColor: UIColor.lemmyLabel],
-                                 range: NSRange(location: 0, length: attributes.mutableString.length))
-        return attributes
+        let attr = NSAttributedString(document: Document(subtitle), style: .init(font: .system(size: 16)))
+        return attr
     }
 
 }

@@ -295,10 +295,8 @@ extension LMModels.Views.PostView {
         let type = PostType.getPostType(from: self)
         
         guard !(.none == type) else { return nil }
-        guard let urlStr = self.post.url,
-              let urlDomain = URL(string: urlStr)
-              else { return nil }
+        guard let url = self.post.url else { return nil }
         
-        return urlDomain.host
+        return url.host
     }
 }

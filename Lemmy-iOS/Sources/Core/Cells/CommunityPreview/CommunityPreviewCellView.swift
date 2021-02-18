@@ -15,7 +15,7 @@ protocol CommunityPreviewCellViewDelegate: AnyObject {
 final class CommunityPreviewCellView: UIView {
     struct ViewData {
         let id: Int
-        let imageUrl: String?
+        let imageUrl: URL?
         let name: String
         let category: String
         let subscribers: Int

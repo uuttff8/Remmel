@@ -195,6 +195,8 @@ class CreatePostScreenViewController: UIViewController, CatalystDismissProtocol 
             self.createPostData.url = text
         default: break
         }
+        
+        updateTableViewModel()
     }
     
     private func updateUrlState(
@@ -202,7 +204,7 @@ class CreatePostScreenViewController: UIViewController, CatalystDismissProtocol 
     ) {
         // to update data
         defer {
-            self.displayCreatingPost(viewModel: .init())
+            self.updateTableViewModel()
         }
         print("update for state: \(state)")
         cell.urlState = state
@@ -228,7 +230,7 @@ class CreatePostScreenViewController: UIViewController, CatalystDismissProtocol 
         case .urlAdded:
             cell.elementView.textFieldIsEnabled = true
             cell.elementView.title = nil
-            cell.elementView.imageIcon = Config.Image.close
+            cell.elementView.imageIcon = Config.Image.addImage
             cell.urlState = .notAdded // for future presenting
             self.createPostData.url = nil
         case .error:
@@ -245,20 +247,30 @@ class CreatePostScreenViewController: UIViewController, CatalystDismissProtocol 
 extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol {
     func displayUrlLoadImage(viewModel: CreatePost.RemoteLoadImage.ViewModel) {
         guard let inputWithImageCell = inputWithImageCell else { return }
-        let state: SettingsInputWithImageCellView.UrlState = .addWithImage(text: viewModel.url)
-        updateUrlState(for: inputWithImageCell, state: state)
+        self.updateUrlState(for: inputWithImageCell, state: .addWithImage(text: viewModel.url))
     }
     
     func displayErrorUrlLoadImage(viewModel: CreatePost.ErrorRemoteLoadImage.ViewModel) {
         guard let inputWithImageCell = inputWithImageCell else { return }
         
         UIAlertController.createOkAlert(message: "Some error happened when uploading a picture")
-        updateUrlState(for: inputWithImageCell, state: .error)
+        self.updateUrlState(for: inputWithImageCell, state: .error)
     }
     
     //swiftlint:disable function_body_length
     func displayCreatingPost(viewModel: CreatePost.CreatePostLoad.ViewModel) {
+        let sectionsViewModel = getTableViewSections()
         
+        self.createPostView.configure(viewModel: SettingsTableViewModel(sections: sectionsViewModel))
+    }
+    
+    func updateTableViewModel() {
+        let sectionsViewModel = getTableViewSections()
+        
+        self.createPostView.updateOnlyViewModel(viewModel: SettingsTableViewModel(sections: sectionsViewModel))
+    }
+    
+    private func getTableViewSections() -> [SettingsTableSectionViewModel] {
         // Community choosing
         let chooseCommunityCell = SettingsTableSectionViewModel.Cell(
             uniqueIdentifier: FormField.community.rawValue,
@@ -341,8 +353,8 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
                 footer: nil
             )
         ]
-        
-        self.createPostView.configure(viewModel: SettingsTableViewModel(sections: sectionsViewModel))
+
+        return sectionsViewModel
     }
     
     func displayBlockingActivityIndicator(viewModel: CreatePost.BlockingWaitingIndicatorUpdate.ViewModel) {
@@ -369,6 +381,7 @@ extension CreatePostScreenViewController: UIImagePickerControllerDelegate, UINav
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
            let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL {
             guard let inputWithImageCell = inputWithImageCell else { return }
+            
             self.updateUrlState(for: inputWithImageCell, state: .loading)
             self.viewModel.doRemoteLoadImage(request: .init(image: image, filename: imageUrl.lastPathComponent))
         }
@@ -419,8 +432,28 @@ extension CreatePostScreenViewController: CreatePostViewDelegate {
         default:
             break
         }
+        
+        updateTableViewModel()
     }
     
+    func settingsCellWithImageDidEnterText(
+        elementView: SettingsInputWithImageTableViewCell,
+        didReportTextChange text: String?
+    ) {
+        guard let selectedForm = FormField(uniqueIdentifier: elementView.uniqueIdentifier ?? "") else {
+            return
+        }
+        
+        switch selectedForm {
+        case .url:
+            self.createPostData.url = text
+        default:
+            break
+        }
+        
+        updateTableViewModel()
+    }
+
     func settingsCell(
         elementView: UITextView,
         didReportTextChange text: String,
@@ -442,6 +475,7 @@ extension CreatePostScreenViewController: CreatePostViewDelegate {
         switchValueChanged isOn: Bool
     ) {
         self.createPostData.nsfwOption = isOn
+        updateTableViewModel()
     }
     
     func settingsCellDidTappedToIcon(_ cell: SettingsInputWithImageTableViewCell) {

@@ -59,8 +59,8 @@ extension PostScreenViewController {
             
             if let url = viewData.post.url {
                 
-                headerView.postGreenOutlineView.addAction(for: .touchUpInside) { (_) in
-                    self.delegate?.postView(didEmbedTappedWith: URL(string: url)!)
+                headerView.postOutlineEmbedView.addAction(for: .touchUpInside) { (_) in
+                    self.delegate?.postView(didEmbedTappedWith: url)
                 }
                 
             }
@@ -100,7 +100,7 @@ class PostScreenHeaderView: UIView {
         $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
         $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     }
-    let postGreenOutlineView = LemmyGreenOutlinePostEmbed().then {
+    let postOutlineEmbedView = LemmyOutlinePostEmbedView().then {
         $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
         $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     }
@@ -130,7 +130,7 @@ class PostScreenHeaderView: UIView {
     func bind(with postInfo: LMModels.Views.PostView) {
         postHeaderView.bind(with: postInfo, config: .fullPost)
         
-        postGreenOutlineView.bindData(
+        postOutlineEmbedView.bindData(
             .init(
                 title: postInfo.post.embedTitle,
                 description: postInfo.post.embedDescription,
@@ -139,7 +139,7 @@ class PostScreenHeaderView: UIView {
         )
         
         if postInfo.post.embedTitle == nil && postInfo.post.embedDescription == nil {
-            self.postGreenOutlineView.isHidden = true
+            self.postOutlineEmbedView.isHidden = true
         }
     }
 }
@@ -154,7 +154,7 @@ extension PostScreenHeaderView: ProgrammaticallyViewProtocol {
 
         self.mainStackView.addStackViewItems(
             .view(postHeaderView),
-            .view(postGreenOutlineView),
+            .view(postOutlineEmbedView),
             .view(writeNewCommentButton)
         )
     }

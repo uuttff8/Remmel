@@ -19,7 +19,7 @@ class UserPreviewCell: UITableViewCell {
     struct ViewData {
         let name: String
         let numberOfComments: Int
-        let thumbailUrl: String?
+        let thumbailUrl: URL?
     }
     
     let appearance = Appearance()

@@ -52,7 +52,7 @@ final class AddInstanceView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bindImage(with url: String?) {
+    func bindImage(with url: URL?) {
         self.instanceImageView.loadImage(urlString: url, imageSize: appearance.iconSize)
     }
     

@@ -28,7 +28,6 @@ class LabeledTextView: SubviewAttachingTextView {
         commonInit()
     }
     
-    // swiftlint:disable unused_setter_value
 //    override var selectedTextRange: UITextRange? {
 //        get { return nil }
 //        set { /* no-op to prevent compiler error */ }

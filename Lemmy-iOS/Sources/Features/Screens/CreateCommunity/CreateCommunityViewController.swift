@@ -190,7 +190,8 @@ extension CreateCommunityViewController: CreateCommunityViewControllerProtocol {
             uniqueIdentifier: FormField.category.rawValue,
             type: .rightDetail(
                 options: .init(
-                    title: .init(text: createComminityData.category?.name ?? "create-content-community-category".localized),
+                    title: .init(text: createComminityData.category?.name
+                                    ?? "create-content-community-category".localized),
                     detailType: .label(text: nil),
                     accessoryType: .disclosureIndicator
                 )

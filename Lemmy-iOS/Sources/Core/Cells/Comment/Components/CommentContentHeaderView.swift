@@ -14,7 +14,7 @@ class CommentHeaderView: UIView {
 
     // MARK: - ViewData
     struct ViewData {
-        let avatarImageUrl: String?
+        let avatarImageUrl: URL?
         let username: String
         let community: String
         let published: String

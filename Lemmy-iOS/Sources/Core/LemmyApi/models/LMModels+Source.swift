@@ -15,7 +15,7 @@ extension LMModels {
             let id: Int
             let name: String
             let preferredUsername: String?
-            let avatar: String?
+            let avatar: URL?
             let admin: Bool
             let banned: Bool
             let published: Date
@@ -24,7 +24,7 @@ extension LMModels {
             let actorId: URL
             let bio: String?
             let local: Bool
-            let banner: String?
+            let banner: URL?
             let deleted: Bool
             
             enum CodingKeys: String, CodingKey {
@@ -93,8 +93,8 @@ extension LMModels {
             let enableDownvotes: Bool
             let openRegistration: Bool
             let enableNsfw: Bool
-            let icon: String?
-            let banner: String?
+            let icon: URL?
+            let banner: URL?
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -135,7 +135,7 @@ extension LMModels {
             let creatorId: Int
             let postId: Int
             let originalPostName: String
-            let originalPostUrl: String
+            let originalPostUrl: URL
             let originalPostBody: String
             let reason: String
             let resolved: Bool
@@ -159,7 +159,7 @@ extension LMModels {
         struct Post: Identifiable, Codable, Hashable, Equatable {
             let id: Int
             let name: String
-            let url: String?
+            let url: URL?
             let body: String?
             let creatorId: Int
             let communityId: Int
@@ -173,7 +173,7 @@ extension LMModels {
             let embedTitle: String?
             let embedDescription: String?
             let embedHtml: String?
-            let thumbnailUrl: String?
+            let thumbnailUrl: URL?
             let apId: String
             let local: Bool
             
@@ -377,8 +377,8 @@ extension LMModels {
             let nsfw: Bool
             let actorId: URL
             let local: Bool
-            let icon: String?
-            let banner: String?
+            let icon: URL?
+            let banner: URL?
             
             enum CodingKeys: String, CodingKey {
                 case id

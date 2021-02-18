@@ -7,24 +7,15 @@
 //
 
 import UIKit
-import CocoaMarkdown
 import Lightbox
-import SubviewAttachingTextView
 import MarkdownUI
-
-class SimpleLabeledTextView: UITextView {
-    override func draw(_ rect: CGRect) {
-        textContainer.lineFragmentPadding = 0
-        textContainerInset = .zero
-    }
-}
 
 // MARK: - PostContentCenterView: UIView
 class PostContentCenterView: UIView {
     
     // MARK: - Data
     struct ViewData {
-        let imageUrl: String?
+        let imageUrl: URL?
         let title: String
         let subtitle: String?
     }
@@ -163,13 +154,8 @@ class PostContentCenterView: UIView {
     }
     
     private func attributtedMarkdown(_ subtitle: String) -> NSAttributedString {
-        let docMd = CMDocument(string: subtitle, options: .sourcepos)
-        let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes())
-        
-        let attributes = NSMutableAttributedString(attributedString: renderMd.require().render())
-        attributes.addAttributes([.foregroundColor: UIColor.lemmyLabel],
-                                 range: NSRange(location: 0, length: attributes.mutableString.length))
-        return attributes
+        let attr = NSAttributedString(document: Document(subtitle), style: .init(font: .system(size: 16)))
+        return attr
     }
     
     @objc private func handleAttachmentInTextView(_ recognizer: AttachmentTapGestureRecognizer) {

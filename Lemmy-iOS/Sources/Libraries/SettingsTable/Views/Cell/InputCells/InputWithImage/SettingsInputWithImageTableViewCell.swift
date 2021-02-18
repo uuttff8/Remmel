@@ -12,6 +12,11 @@ protocol SettingsInputWithImageCellDelegate: AnyObject {
     func settingsCellDidTappedToIcon(
         _ cell: SettingsInputWithImageTableViewCell
     )
+    
+    func settingsCellWithImageDidEnterText(
+        elementView: SettingsInputWithImageTableViewCell,
+        didReportTextChange text: String?
+    )
 }
 
 final class SettingsInputWithImageTableViewCell: SettingsTableViewCell<SettingsInputWithImageCellView> {
@@ -31,6 +36,12 @@ final class SettingsInputWithImageTableViewCell: SettingsTableViewCell<SettingsI
             guard let self = self else { return }
 
             self.delegate?.settingsCellDidTappedToIcon(self)
+        }
+        
+        self.elementView.onEnteredText = { [weak self] text in
+            guard let self = self else { return }
+            
+            self.delegate?.settingsCellWithImageDidEnterText(elementView: self, didReportTextChange: text)
         }
     }
 }

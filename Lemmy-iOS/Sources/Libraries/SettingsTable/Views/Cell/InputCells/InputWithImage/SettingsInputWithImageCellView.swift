@@ -31,7 +31,7 @@ final class SettingsInputWithImageCellView: UIView {
     
     let appearance: Appearance
     
-    private lazy var textField = TableInputTextField()
+    private(set) lazy var textField = TableInputTextField()
     
     private lazy var imageIconView = ImageControl()
 
@@ -40,6 +40,7 @@ final class SettingsInputWithImageCellView: UIView {
     var urlState = UrlState.notAdded
     
     var onIconImageTap: (() -> Void)?
+    var onEnteredText: ((String?) -> Void)?
 
     var textFieldIsEnabled: Bool = true {
         didSet {
@@ -86,6 +87,7 @@ final class SettingsInputWithImageCellView: UIView {
         self.makeConstraints()
         
         self.imageIconView.addTarget(self, action: #selector(imageTapped), for: .touchUpInside)
+        self.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
 
     @available(*, unavailable)
@@ -95,6 +97,10 @@ final class SettingsInputWithImageCellView: UIView {
     
     @objc func imageTapped() {
         self.onIconImageTap?()
+    }
+    
+    @objc func textFieldDidChange(_ textField: TableInputTextField) {
+        self.onEnteredText?(textField.text)
     }
     
     func showLoading() {
@@ -142,3 +148,4 @@ extension SettingsInputWithImageCellView: ProgrammaticallyViewProtocol {
         }
     }
 }
+

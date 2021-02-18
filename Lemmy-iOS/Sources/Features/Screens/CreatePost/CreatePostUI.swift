@@ -51,6 +51,10 @@ class CreatePostScreenUI: UIView {
     func configure(viewModel: SettingsTableViewModel) {
         self.tableView.configure(viewModel: viewModel)
     }
+    
+    func updateOnlyViewModel(viewModel: SettingsTableViewModel) {
+        self.tableView.updateViewModel(viewModel)
+    }
 }
 extension CreatePostScreenUI: ProgrammaticallyViewProtocol {
     func addSubviews() {

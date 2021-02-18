@@ -26,8 +26,8 @@ class ProfileScreenHeaderView: UIView {
     
     struct ViewData {
         let name: String
-        let avatarUrl: String?
-        let bannerUrl: String?
+        let avatarUrl: URL?
+        let bannerUrl: URL?
         let numberOfComments: Int
         let numberOfPosts: Int
         let published: Date

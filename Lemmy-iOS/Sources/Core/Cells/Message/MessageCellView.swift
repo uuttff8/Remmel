@@ -16,7 +16,7 @@ protocol MessageCellViewDelegate: AnyObject {
 final class MessageCellView: UIView {
     struct MentionViewData {
         let id: Int
-        let avatar: String?
+        let avatar: URL?
         let nickname: String
         let published: Date
         let content: String

@@ -35,7 +35,9 @@ extension Actionable where Self: UIControl {
 
         let sleeve = ClosureSleeve(sender: self, action)
         addTarget(sleeve, action: #selector(ClosureSleeve<Self>.invoke), for: controlEvent)
-        objc_setAssociatedObject(self, String(controlEvent.rawValue), sleeve, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+        objc_setAssociatedObject(self, String(controlEvent.rawValue),
+                                 sleeve,
+                                 objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
     }
 }
 
