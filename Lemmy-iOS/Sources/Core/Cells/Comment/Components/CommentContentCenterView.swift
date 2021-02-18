@@ -8,7 +8,7 @@
 
 import UIKit
 import Lightbox
-import CocoaMarkdown
+import markymark
 
 // MARK: - CommentCenterView: UIView -
 class CommentCenterView: UIView {
@@ -25,12 +25,12 @@ class CommentCenterView: UIView {
     var onCommunityMentionTap: ((LemmyCommunityMention) -> Void)?
     var onImagePresent: ((UIViewController) -> Void)?
     
-    private lazy var commentTextView = LabeledTextView().then {
-        $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        $0.isScrollEnabled = false
-        $0.isEditable = false
-        $0.dataDetectorTypes = [.link]
-        $0.delegate = self
+    private lazy var commentTextView = MarkDownTextView(
+        markDownConfiguration: .attributedString,
+        flavor: ContentfulFlavor(),
+        styling: .init()
+    ).then {
+        $0.urlOpener = self
     }
     
     // MARK: - Init
@@ -49,32 +49,20 @@ class CommentCenterView: UIView {
     
     // MARK: - Public API
     func bind(with data: CommentCenterView.ViewData) {
-        let commentText: NSAttributedString = data.isDeleted
-            ? createAttributesForDeletedComment()
-            : createAttributesForNormalComment(data: data)
+        let commentText: String = data.isDeleted
+            ? "*Deleted by creator*"
+            : data.comment
         
-        commentTextView.attributedText = commentText
-        commentTextView.setNeedsLayout()
-        commentTextView.linkTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lemmyBlue]
+        commentTextView.onDidPreconfigureTextView = { tv in
+            tv.linkTextAttributes = [.foregroundColor: UIColor.lemmyBlue,
+                                                   .underlineStyle: 0,
+                                                   .underlineColor: UIColor.clear]
+        }
+        commentTextView.text = commentText
     }
     
     func prepareForReuse() {
-        commentTextView.attributedText = nil
-    }
-        
-    private func createAttributesForDeletedComment() -> NSAttributedString {
-        NSAttributedString(string: "Deleted by creator", attributes: [.font: UIFont.italicSystemFont(ofSize: 16),
-                                                                      .foregroundColor: UIColor.label])
-    }
-    
-    private func createAttributesForNormalComment(data: CommentCenterView.ViewData) -> NSAttributedString {
-        let docMd = CMDocument(string: data.comment, options: .sourcepos)
-        let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes())
-        
-        let attributes = NSMutableAttributedString(attributedString: renderMd.require().render())
-        attributes.addAttributes([.foregroundColor: UIColor.lemmyLabel],
-                                 range: NSRange(location: 0, length: attributes.mutableString.length))
-        return attributes
+        commentTextView.text = nil
     }
     
     @objc private func handleAttachmentInTextView(_ recognizer: AttachmentTapGestureRecognizer) {
@@ -110,27 +98,19 @@ extension CommentCenterView: ProgrammaticallyViewProtocol {
     }
 }
 
-extension CommentCenterView: UITextViewDelegate {
+extension CommentCenterView: URLOpener {
     
-    func textView(
-        _ textView: UITextView,
-        shouldInteractWith URL: URL,
-        in characterRange: NSRange,
-        interaction: UITextItemInteraction
-    ) -> Bool {
-        let link = URL
+    func open(url: URL) {
+        let link = url
         
         if let mention = LemmyUserMention(url: link) {
             onUserMentionTap?(mention)
-            return false
         }
         
         if let mention = LemmyCommunityMention(url: link) {
             onCommunityMentionTap?(mention)
-            return false
         }
         
         self.onLinkTap?(link)
-        return false
     }
 }

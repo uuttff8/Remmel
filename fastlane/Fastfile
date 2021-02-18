@@ -24,4 +24,31 @@ platform :ios do
     build_app(workspace: "Lemmy-iOS.xcworkspace", scheme: "Lemmy-iOS")
     upload_to_testflight
   end
+
+  desc "Push a new build to App Store Connect"
+  lane :release do
+    increment_build_number(xcodeproj: "Lemmy-iOS.xcodeproj")
+    bumpVersion
+    build_app(workspace: "Lemmy-iOS.xcworkspace", scheme: "Lemmy-iOS")
+    upload_to_testflight
+  end
+
+
+  desc "Increment the app's version number (required for app store build)"
+  lane :bumpVersion do
+    # check whether we should increase build version number
+    precheck = prompt(text: "\nCurrent build version number: #{get_version_number}.\nWould you like to increase the build number? ".blue, boolean: true)
+    
+    if precheck == true
+      # enter new version number
+      version_number = prompt(text: "\nCurrent build version number: #{get_version_number}" + "\nPlease enter new version number: ".yellow)
+      
+    # increase version number then commit
+    confirm = prompt(text: "Confirm bump to: " +  version_number + " ?", boolean: true)
+    raise "cancel..." if confirm == false
+      
+    increment_version_number(version_number: version_number)
+  end
+end
+
 end

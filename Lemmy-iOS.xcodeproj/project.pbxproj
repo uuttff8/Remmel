@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		4E004E1A25DC6C78006B81CF /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4E004E1925DC6C78006B81CF /* MarkdownUI */; };
-		4E004E1F25DC6D78006B81CF /* SubviewAttachingTextView in Frameworks */ = {isa = PBXBuildFile; productRef = 4E004E1E25DC6D78006B81CF /* SubviewAttachingTextView */; };
 		4E004E2525DC70C8006B81CF /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004E2425DC70C8006B81CF /* CopyableLabel.swift */; };
 		4E004E2925DC736C006B81CF /* Actionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004E2825DC736C006B81CF /* Actionable.swift */; };
 		4E004E7C25DE7A5F006B81CF /* ControlContainableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004E7B25DE7A5F006B81CF /* ControlContainableScrollView.swift */; };
+		4E004F4025DEBC7C006B81CF /* markymark in Frameworks */ = {isa = PBXBuildFile; productRef = 4E004F3F25DEBC7C006B81CF /* markymark */; };
 		4E05D637255EBA63002307E0 /* Optional+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05D636255EBA63002307E0 /* Optional+Ext.swift */; };
 		4E0A8E2F255BFC0000B06AF6 /* UIApplication+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */; };
 		4E0A8E35255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E34255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift */; };
@@ -224,8 +224,6 @@
 		4EBF1D6E2593EFCA004068CD /* ContentFocusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBF1D6D2593EFCA004068CD /* ContentFocusable.swift */; };
 		4EBF1DC22594C59F004068CD /* ContentPreferencesStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBF1DC12594C59F004068CD /* ContentPreferencesStorageManager.swift */; };
 		4EC63F0025C6001900F6D6F1 /* LMModels+Api+Websocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC63EFF25C6001900F6D6F1 /* LMModels+Api+Websocket.swift */; };
-		4EC63F6D25C89EF700F6D6F1 /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EC63F3F25C89E9C00F6D6F1 /* CocoaMarkdown.framework */; };
-		4EC63F6E25C89EF700F6D6F1 /* CocoaMarkdown.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4EC63F3F25C89E9C00F6D6F1 /* CocoaMarkdown.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4EC63F7725C9CF8000F6D6F1 /* AttachmentTapGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC63F7625C9CF8000F6D6F1 /* AttachmentTapGesture.swift */; };
 		4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */; };
 		4ECCEEAC250B8B6B0075F921 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCEEAB250B8B6B0075F921 /* SceneDelegate.swift */; };
@@ -370,48 +368,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4EC63F3E25C89E9C00F6D6F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4EC63F3325C89E9B00F6D6F1 /* CocoaMarkdown.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 729F53DA1A68641400CC7448;
-			remoteInfo = "CocoaMarkdown-iOS";
-		};
-		4EC63F4025C89E9C00F6D6F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4EC63F3325C89E9B00F6D6F1 /* CocoaMarkdown.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 729F53E51A68641400CC7448;
-			remoteInfo = "CocoaMarkdownTests-iOS";
-		};
-		4EC63F4225C89E9C00F6D6F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4EC63F3325C89E9B00F6D6F1 /* CocoaMarkdown.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 729F53FB1A68649200CC7448;
-			remoteInfo = "CocoaMarkdown-Mac";
-		};
-		4EC63F4425C89E9C00F6D6F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4EC63F3325C89E9B00F6D6F1 /* CocoaMarkdown.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 729F54051A68649200CC7448;
-			remoteInfo = "CocoaMarkdownTests-Mac";
-		};
-		4EC63F4625C89E9C00F6D6F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4EC63F3325C89E9B00F6D6F1 /* CocoaMarkdown.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 72FE7EC91A68692400F23F46;
-			remoteInfo = "Example-iOS";
-		};
-		4EC63F4825C89E9C00F6D6F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4EC63F3325C89E9B00F6D6F1 /* CocoaMarkdown.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 72FE7EF41A68695100F23F46;
-			remoteInfo = "Example-Mac";
-		};
 		4ECCEEC0250B8B6F0075F921 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4ECCEE9E250B8B6B0075F921 /* Project object */;
@@ -427,20 +383,6 @@
 			remoteInfo = "Lemmy-iOS";
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		4EC63F6F25C89EF700F6D6F1 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				4EC63F6E25C89EF700F6D6F1 /* CocoaMarkdown.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4E004E2425DC70C8006B81CF /* CopyableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
@@ -657,7 +599,6 @@
 		4EBF1D6D2593EFCA004068CD /* ContentFocusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentFocusable.swift; sourceTree = "<group>"; };
 		4EBF1DC12594C59F004068CD /* ContentPreferencesStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPreferencesStorageManager.swift; sourceTree = "<group>"; };
 		4EC63EFF25C6001900F6D6F1 /* LMModels+Api+Websocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Api+Websocket.swift"; sourceTree = "<group>"; };
-		4EC63F3325C89E9B00F6D6F1 /* CocoaMarkdown.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CocoaMarkdown.xcodeproj; path = CocoaMarkdown/CocoaMarkdown.xcodeproj; sourceTree = "<group>"; };
 		4EC63F7625C9CF8000F6D6F1 /* AttachmentTapGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentTapGesture.swift; sourceTree = "<group>"; };
 		4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lemmy-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ECCEEA9250B8B6B0075F921 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -813,14 +754,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E004E1F25DC6D78006B81CF /* SubviewAttachingTextView in Frameworks */,
+				4E004F4025DEBC7C006B81CF /* markymark in Frameworks */,
 				4E1070842534F742009EABDA /* KeychainSwift in Frameworks */,
 				921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */,
 				4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */,
 				4E004E1A25DC6C78006B81CF /* MarkdownUI in Frameworks */,
 				4EBF1D5E25923723004068CD /* XCGLogger in Frameworks */,
 				4E98BFC125BB2438009DA520 /* IQKeyboardManagerSwift in Frameworks */,
-				4EC63F6D25C89EF700F6D6F1 /* CocoaMarkdown.framework in Frameworks */,
 				4E9184FC256E9E4E00702F04 /* SwipeCellKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1574,19 +1514,6 @@
 			path = StorageManagers;
 			sourceTree = "<group>";
 		};
-		4EC63F3425C89E9B00F6D6F1 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4EC63F3F25C89E9C00F6D6F1 /* CocoaMarkdown.framework */,
-				4EC63F4125C89E9C00F6D6F1 /* CocoaMarkdownTests-iOS.xctest */,
-				4EC63F4325C89E9C00F6D6F1 /* CocoaMarkdown.framework */,
-				4EC63F4525C89E9C00F6D6F1 /* CocoaMarkdownTests-Mac.xctest */,
-				4EC63F4725C89E9C00F6D6F1 /* Example-iOS.app */,
-				4EC63F4925C89E9C00F6D6F1 /* Example-Mac.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		4ECCEE9D250B8B6B0075F921 = {
 			isa = PBXGroup;
 			children = (
@@ -2207,7 +2134,6 @@
 		750E6997D470E00BE92AFA4E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4EC63F3325C89E9B00F6D6F1 /* CocoaMarkdown.xcodeproj */,
 				B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */,
 			);
 			name = Frameworks;
@@ -2235,7 +2161,6 @@
 				4ECCEEA4250B8B6B0075F921 /* Resources */,
 				E11AFFA1835005D5587B3DED /* [CP] Embed Pods Frameworks */,
 				4EF3AC9E254D557A00BEC9F1 /* ShellScript */,
-				4EC63F6F25C89EF700F6D6F1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2249,7 +2174,7 @@
 				4EBF1D5D25923723004068CD /* XCGLogger */,
 				4E98BFC025BB2438009DA520 /* IQKeyboardManagerSwift */,
 				4E004E1925DC6C78006B81CF /* MarkdownUI */,
-				4E004E1E25DC6D78006B81CF /* SubviewAttachingTextView */,
+				4E004F3F25DEBC7C006B81CF /* markymark */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */;
@@ -2331,16 +2256,10 @@
 				4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger" */,
 				4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				4E004E1825DC6C78006B81CF /* XCRemoteSwiftPackageReference "MarkdownUI" */,
-				4E004E1D25DC6D78006B81CF /* XCRemoteSwiftPackageReference "SubviewAttachingTextView" */,
+				4E004F3E25DEBC7C006B81CF /* XCRemoteSwiftPackageReference "Marky-Mark" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 4EC63F3425C89E9B00F6D6F1 /* Products */;
-					ProjectRef = 4EC63F3325C89E9B00F6D6F1 /* CocoaMarkdown.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				4ECCEEA5250B8B6B0075F921 /* Lemmy-iOS */,
@@ -2349,51 +2268,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		4EC63F3F25C89E9C00F6D6F1 /* CocoaMarkdown.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CocoaMarkdown.framework;
-			remoteRef = 4EC63F3E25C89E9C00F6D6F1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4EC63F4125C89E9C00F6D6F1 /* CocoaMarkdownTests-iOS.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "CocoaMarkdownTests-iOS.xctest";
-			remoteRef = 4EC63F4025C89E9C00F6D6F1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4EC63F4325C89E9C00F6D6F1 /* CocoaMarkdown.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CocoaMarkdown.framework;
-			remoteRef = 4EC63F4225C89E9C00F6D6F1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4EC63F4525C89E9C00F6D6F1 /* CocoaMarkdownTests-Mac.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "CocoaMarkdownTests-Mac.xctest";
-			remoteRef = 4EC63F4425C89E9C00F6D6F1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4EC63F4725C89E9C00F6D6F1 /* Example-iOS.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "Example-iOS.app";
-			remoteRef = 4EC63F4625C89E9C00F6D6F1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4EC63F4925C89E9C00F6D6F1 /* Example-Mac.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "Example-Mac.app";
-			remoteRef = 4EC63F4825C89E9C00F6D6F1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4ECCEEA4250B8B6B0075F921 /* Resources */ = {
@@ -3012,15 +2886,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Lemmy-iOS/Lemmy-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.9;
+				MARKETING_VERSION = 1.1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.Lemmer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -3037,15 +2911,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Lemmy-iOS/Lemmy-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.9;
+				MARKETING_VERSION = 1.1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.Lemmer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -3189,12 +3063,12 @@
 				minimumVersion = 0.4.0;
 			};
 		};
-		4E004E1D25DC6D78006B81CF /* XCRemoteSwiftPackageReference "SubviewAttachingTextView" */ = {
+		4E004F3E25DEBC7C006B81CF /* XCRemoteSwiftPackageReference "Marky-Mark" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/vlas-voloshin/SubviewAttachingTextView.git";
+			repositoryURL = "https://github.com/uuttff8/Marky-Mark.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.1;
+				kind = revision;
+				revision = fb1aa975a7ca79cc2bdd50037707ccfdd0b6a2ab;
 			};
 		};
 		4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
@@ -3245,10 +3119,10 @@
 			package = 4E004E1825DC6C78006B81CF /* XCRemoteSwiftPackageReference "MarkdownUI" */;
 			productName = MarkdownUI;
 		};
-		4E004E1E25DC6D78006B81CF /* SubviewAttachingTextView */ = {
+		4E004F3F25DEBC7C006B81CF /* markymark */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E004E1D25DC6D78006B81CF /* XCRemoteSwiftPackageReference "SubviewAttachingTextView" */;
-			productName = SubviewAttachingTextView;
+			package = 4E004F3E25DEBC7C006B81CF /* XCRemoteSwiftPackageReference "Marky-Mark" */;
+			productName = markymark;
 		};
 		4E1070832534F742009EABDA /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -17,4 +17,9 @@ enum FormatterHelper {
             return "Black"
         }
     }
+    
+    static func removeImageTag(fromMarkdown md: String) -> String {
+        return md.replacingOccurrences(of: "[", with: "")
+            .replacingOccurrences(of: "]", with: "")
+    }
 }

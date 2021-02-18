@@ -8,7 +8,7 @@
 
 import UIKit
 import Lightbox
-import CocoaMarkdown
+import markymark
 
 // MARK: - PostContentCenterView: UIView
 class PostContentCenterView: UIView {
@@ -35,15 +35,12 @@ class PostContentCenterView: UIView {
         $0.numberOfLines = 3
     }
     
-    private lazy var subtitleTextView = LabeledTextView().then {
-        $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        $0.textColor = .lemmyLabel
-        $0.isScrollEnabled = false
-        $0.isSelectable = false
-        $0.isEditable = false
-        $0.dataDetectorTypes = [.link]
-        $0.delegate = self
-        $0.backgroundColor = .clear
+    private lazy var subtitleTextView = MarkDownTextView(
+        markDownConfiguration: .attributedString,
+        flavor: ContentfulFlavor(),
+        styling: .init()
+    ).then {
+        $0.urlOpener = self
     }
     
     private let thumbailImageView = UIImageView().then {
@@ -91,14 +88,16 @@ class PostContentCenterView: UIView {
             }
             
             if let subtitle = data.subtitle {
-                subtitleTextView.isSelectable = true
-                subtitleTextView.textContainer.maximumNumberOfLines = 0
+                subtitleTextView.onDidPreconfigureTextView = { tv in
+                    tv.textContainer.maximumNumberOfLines = 0
+                    tv.textContainer.lineBreakMode = .byTruncatingTail
 
-                subtitleTextView.linkTextAttributes = [.foregroundColor: UIColor.lemmyBlue,
-                                                      .underlineStyle: 0,
-                                                      .underlineColor: UIColor.clear]
-                
-                subtitleTextView.attributedText = attributtedMarkdown(subtitle)
+                    tv.linkTextAttributes = [.foregroundColor: UIColor.lemmyBlue,
+                                                           .underlineStyle: 0,
+                                                           .underlineColor: UIColor.clear]
+                    self.setupImageTap(in: tv)
+                }
+                subtitleTextView.text = subtitle
             } else {
                 subtitleTextView.isHidden = true
             }
@@ -108,21 +107,24 @@ class PostContentCenterView: UIView {
             
             thumbailImageView.loadImage(urlString: data.imageUrl, imageSize: previewImageSize)
             
-            if let subtitle = data.subtitle?.removeNewLines() {
-                subtitleTextView.isSelectable = false
-                subtitleTextView.textContainer.maximumNumberOfLines = 6
-                subtitleTextView.textContainer.lineBreakMode = .byTruncatingTail
-                subtitleTextView.linkTextAttributes = [.foregroundColor: UIColor.lemmyLabel,
-                                                       .underlineStyle: 0,
-                                                       .underlineColor: UIColor.clear]
+            if var subtitle = data.subtitle?.removeNewLines() {
+                subtitle = FormatterHelper.removeImageTag(fromMarkdown: subtitle)
+                subtitleTextView.onDidPreconfigureTextView = { tv in
+                    tv.textContainer.maximumNumberOfLines = 6
+                    tv.textContainer.lineBreakMode = .byTruncatingTail
+
+                    tv.linkTextAttributes = [.foregroundColor: UIColor.lemmyLabel,
+                                             .underlineStyle: 0,
+                                             .underlineColor: UIColor.clear]
+                    self.setupImageTap(in: tv)
+                }
                 
-                subtitleTextView.attributedText = attributtedMarkdown(subtitle)
+                subtitleTextView.text = subtitle
+                subtitleTextView.isUserInteractionEnabled = false
             } else {
                 subtitleTextView.isHidden = true
             }
         }
-        
-        self.subtitleTextView.textContainer.heightTracksTextView = true
     }
     
     func setupImageViewForFullPostViewer(image: UIImage, text: String) {
@@ -153,16 +155,6 @@ class PostContentCenterView: UIView {
         subtitleTextView.isHidden = false
     }
     
-    private func attributtedMarkdown(_ subtitle: String) -> NSAttributedString {
-        let docMd = CMDocument(string: subtitle, options: .sourcepos)
-        let renderMd = CMAttributedStringRenderer(document: docMd, attributes: CMTextAttributes())
-        
-        let attributes = NSMutableAttributedString(attributedString: renderMd.require().render())
-        attributes.addAttributes([.foregroundColor: UIColor.lemmyLabel],
-                                 range: NSRange(location: 0, length: attributes.mutableString.length))
-        return attributes
-    }
-    
     @objc private func handleAttachmentInTextView(_ recognizer: AttachmentTapGestureRecognizer) {
         if let image = recognizer.tappedState?.attachment.image {
             let image = [LightboxImage(image: image)]
@@ -173,6 +165,14 @@ class PostContentCenterView: UIView {
         }
     }
     
+    private func setupImageTap(in textView: UITextView) {
+        let attachmentGesture = AttachmentTapGestureRecognizer(
+            target: self, action: #selector(handleAttachmentInTextView(_:))
+        )
+        
+        textView.addGestureRecognizer(attachmentGesture)
+    }
+    
     // MARK: - Overrided
     override var intrinsicContentSize: CGSize {
         CGSize(width: UIScreen.main.bounds.width, height: UIView.noIntrinsicMetric)
@@ -180,14 +180,6 @@ class PostContentCenterView: UIView {
 }
 
 extension PostContentCenterView: ProgrammaticallyViewProtocol {
-    func setupView() {
-        let attachmentGesture = AttachmentTapGestureRecognizer(
-            target: self, action: #selector(handleAttachmentInTextView(_:))
-        )
-        
-        self.subtitleTextView.addGestureRecognizer(attachmentGesture)
-    }
-    
     func addSubviews() {
         self.addSubview(mainStackView)
         
@@ -213,26 +205,18 @@ extension PostContentCenterView: ProgrammaticallyViewProtocol {
     }
 }
 
-extension PostContentCenterView: UITextViewDelegate {
+extension PostContentCenterView: URLOpener {
     
-    func textView(
-        _ textView: UITextView,
-        shouldInteractWith URL: URL,
-        in characterRange: NSRange,
-        interaction: UITextItemInteraction
-    ) -> Bool {
-        let link = URL
+    func open(url: URL) {
+        let link = url
         if let mention = LemmyUserMention(url: link) {
             onUserMentionTap?(mention)
-            return false
         }
         
         if let mention = LemmyCommunityMention(url: link) {
             onCommunityMentionTap?(mention)
-            return false
         }
         
         self.onLinkTap?(link)
-        return false
     }
 }

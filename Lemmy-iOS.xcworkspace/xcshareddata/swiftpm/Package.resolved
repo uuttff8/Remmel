@@ -47,6 +47,15 @@
         }
       },
       {
+        "package": "Marky-Mark",
+        "repositoryURL": "https://github.com/uuttff8/Marky-Mark.git",
+        "state": {
+          "branch": null,
+          "revision": "fb1aa975a7ca79cc2bdd50037707ccfdd0b6a2ab",
+          "version": null
+        }
+      },
+      {
         "package": "NetworkImage",
         "repositoryURL": "https://github.com/gonzalezreal/NetworkImage",
         "state": {
@@ -62,15 +71,6 @@
           "branch": null,
           "revision": "d458564516e5676af9c70b4f4b2a9178294f1bc6",
           "version": "5.0.1"
-        }
-      },
-      {
-        "package": "SubviewAttachingTextView",
-        "repositoryURL": "https://github.com/vlas-voloshin/SubviewAttachingTextView.git",
-        "state": {
-          "branch": null,
-          "revision": "6025828b6c05fbf5529616a70c702f7425899fe5",
-          "version": "1.5.1"
         }
       },
       {
