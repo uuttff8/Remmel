@@ -48,47 +48,56 @@ enum LMMMessagesToast {
     }
     
     static func showSuccessCreateComment() {
-        let config = successBottomToast(title: "Success", body: "You've created a new comment!")
+        let config = successBottomToast(title: "toast-success".localized,
+                                        body: "toast-creating-comment-success".localized)
         SwiftMessages.show(config: config.0, view: config.1)
     }
     
     static func showSuccessEditPost() {
-        let config = successBottomToast(title: "Success", body: "You've edited your post!")
+        let config = successBottomToast(title: "toast-success".localized,
+                                        body: "toast-edit-post-success".localized)
         SwiftMessages.show(config: config.0, view: config.1)
     }
     
     static func showSuccessEditComment() {
-        let config = successBottomToast(title: "Success", body: "You've edited your comment!")
+        let config = successBottomToast(title: "toast-success".localized,
+                                        body: "toast-edit-comment-success".localized)
         SwiftMessages.show(config: config.0, view: config.1)
     }
     
     static func showSuccessDeletePost() {
-        let config = successBottomToast(title: "Success", body: "You've deleted/restored your post!")
+        let config = successBottomToast(title: "toast-success".localized,
+                                        body: "toast-delete-post-success".localized)
         SwiftMessages.show(config: config.0, view: config.1)
     }
     
     static func showErrorDeletePost() {
-        let config = errorBottomToast(title: "Error", body: "Some error happened when deleting/restoring your post...")
+        let config = errorBottomToast(title: "toast-error".localized,
+                                      body: "toast-delete-post-error".localized)
         SwiftMessages.show(config: config.0, view: config.1)
     }
     
     static func showSuccessSavePost() {
-        let config = successBottomToast(title: "Success", body: "You've saved/unsaved post!")
+        let config = successBottomToast(title: "toast-success".localized,
+                                        body: "toast-save-post-success".localized)
         SwiftMessages.show(config: config.0, view: config.1)
     }
     
     static func showErrorSavePost() {
-        let config = errorBottomToast(title: "Success", body: "Some error happened when saved/unsaved post!")
+        let config = errorBottomToast(title: "toast-success".localized,
+                                      body: "toast-save-post-error".localized)
         SwiftMessages.show(config: config.0, view: config.1)
     }
     
     static func showSuccessSaveComment() {
-        let config = successBottomToast(title: "Success", body: "You've saved/unsaved comment!")
+        let config = successBottomToast(title: "toast-success".localized,
+                                        body: "toast-save-comment-success")
         SwiftMessages.show(config: config.0, view: config.1)
     }
     
     static func showErrorSaveComment() {
-        let config = errorBottomToast(title: "Success", body: "Some error happened when saved/unsaved comment!")
+        let config = errorBottomToast(title: "toast-success".localized,
+                                      body: "toast-save-comment-error".localized)
         SwiftMessages.show(config: config.0, view: config.1)
     }
 }

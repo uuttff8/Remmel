@@ -189,4 +189,13 @@
 "front-search-comments" = "Comments with";
 
 "toast-success" = "Success";
+"toast-error" = "Error";
 "toast-creating-comment-success" = "You've created a new comment!";
+"toast-edit-post-success" = "You've edited your post!";
+"toast-edit-comment-success" = "You've edited your comment!";
+"toast-delete-post-success" = "You've deleted/restored your post!";
+"toast-delete-post-error" = "Some error happened when deleting/restoring your post...";
+"toast-save-post-success" = "You've saved/unsaved post!";
+"toast-save-post-error" = "Some error happened when saved/unsaved post!";
+"toast-save-comment-success" = "You've saved/unsaved comment!";
+"toast-save-comment-error" = "Some error happened when saved/unsaved comment!";
