@@ -229,7 +229,12 @@ extension PostsFrontPageViewController: PostContentPreviewTableCellDelegate {
     }
 
     func showMore(in post: LMModels.Views.PostView) {
-        guard let coordinator = coordinator else { return }
-        showMoreHandler.showMoreInPost(on: self, coordinator: coordinator, post: post)
-    }    
+        
+        if let post = self.viewModel.postsDataSource.getElement(by: post.id) {
+            guard let coordinator = coordinator else { return }
+            showMoreHandler.showMoreInPost(on: self, coordinator: coordinator, post: post) { updatedPost in
+                self.viewModel.postsDataSource.updateElementById(updatedPost)
+            }
+        }
+    }
 }

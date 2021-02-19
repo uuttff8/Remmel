@@ -25,7 +25,7 @@ class SearchResultsViewController: UIViewController {
     private var state: SearchResults.ViewControllerState
     private var canTriggerPagination = true
 
-    private let showMoreHandler: ShowMoreHandlerServiceProtocol
+    private let showMoreHandler: ShowMoreHandlerService
     private let followService: CommunityFollowServiceProtocol
     
     private var cancellable = Set<AnyCancellable>()
@@ -38,7 +38,7 @@ class SearchResultsViewController: UIViewController {
     init(
         viewModel: SearchResultsViewModelProtocol,
         state: SearchResults.ViewControllerState = .loading,
-        showMoreHandler: ShowMoreHandlerServiceProtocol,
+        showMoreHandler: ShowMoreHandlerService,
         followService: CommunityFollowServiceProtocol
     ) {
         self.viewModel = viewModel
@@ -178,8 +178,12 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
     }
     
     func showMore(in post: LMModels.Views.PostView) {
+        
+        
         guard let coordinator = coordinator else { return }
-        self.showMoreHandler.showMoreInPost(on: self, coordinator: coordinator, post: post)
+        self.showMoreHandler.showMoreInPost(on: self, coordinator: coordinator, post: post) { updatedPost in
+            self.operateSaveNewPost(viewModel: .init(post: updatedPost))
+        }
     }
     
     func usernameTapped(with mention: LemmyUserMention) {
@@ -222,8 +226,17 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
     }
     
     func showMoreAction(in comment: LMModels.Views.CommentView) {
-        guard let coordinator = coordinator else { return }
-        self.showMoreHandler.showMoreInComment(on: self, coordinator: coordinator, comment: comment)
+        if case .comments(let data) = tableManager.viewModels {
+            
+            if let comment = data.getElement(by: comment.id) {
+                
+                guard let coordinator = coordinator else { return }
+                self.showMoreHandler.showMoreInComment(on: self, coordinator: coordinator, comment: comment) { updatedComment in
+                    self.operateSaveNewComment(viewModel: .init(comment: updatedComment))
+                }
+                
+            }
+        }
     }
     
     func tableDidRequestPagination(_ tableDataSource: SearchResultsTableDataSource) {

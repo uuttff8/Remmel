@@ -63,15 +63,11 @@ class PostScreenViewController: UIViewController, Containered {
         
         self.add(asChildViewController: commentsViewController)
         
-        viewModel.doPostFetch()
+        self.viewModel.doPostFetch()
+        self.viewModel.doReceiveMessages()
         self.updateState(newState: state)
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.viewModel.doReceiveMessages()
-    }
-            
+                
     private func updateState(newState: PostScreen.ViewControllerState) {
         defer {
             self.state = newState
@@ -159,8 +155,13 @@ extension PostScreenViewController: PostContentTableCellDelegate {
     }
     
     func showMore(in post: LMModels.Views.PostView) {
-        guard let coordinator = coordinator else { return }
-        self.showMoreHandlerService.showMoreInPost(on: self, coordinator: coordinator, post: post)
+        
+        if let post = postScreenView.postData {
+            guard let coordinator = coordinator else { return }
+            self.showMoreHandlerService.showMoreInPost(on: self, coordinator: coordinator, post: post) { updatedPost in
+                self.postScreenView.bind(with: updatedPost)
+            }
+        }
     }
     
     func presentVc(viewController: UIViewController) {
@@ -214,8 +215,16 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
     }
     
     func showMoreAction(in comment: LMModels.Views.CommentView) {
-        guard let coordinator = coordinator else { return }
-        showMoreHandlerService.showMoreInComment(on: self, coordinator: coordinator, comment: comment)
+        if let index = commentsViewController.commentDataSource.getElementIndex(by: comment.id) {
+            guard let coordinator = coordinator else { return }
+            showMoreHandlerService.showMoreInComment(
+                on: self,
+                coordinator: coordinator,
+                comment: commentsViewController.commentDataSource[index].commentContent!
+            ) { updatedComment in
+                self.commentsViewController.updateExistingComment(updatedComment)
+            }
+        }
     }
     
     func refreshControlDidRequestRefresh() {

@@ -152,8 +152,13 @@ extension InboxRepliesViewController: ReplyCellViewDelegate {
     }
         
     func showMoreAction(in reply: LMModels.Views.CommentView) {
-        guard let coordinator = coordinator else { return }
-        self.showMoreService.showMoreInReply(on: self, coordinator: coordinator, reply: reply)
+        
+        if let reply = self.tableManager.viewModels.getElement(by: reply.id) {
+            guard let coordinator = coordinator else { return }
+            self.showMoreService.showMoreInReply(on: self, coordinator: coordinator, reply: reply) { updatedReply in
+                self.tableManager.viewModels.updateElementById(updatedReply)
+            }
+        }
     }
 }
 

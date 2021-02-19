@@ -160,8 +160,16 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
     }
     
     func showMoreAction(in comment: LMModels.Views.CommentView) {
-        guard let coordinator = coordinator else { return }
-        self.showMoreHandler.showMoreInComment(on: self, coordinator: coordinator, comment: comment)
+        if let index = self.tableDataSource.viewModels.getElementIndex(by: comment.id) {
+            
+            guard let coordinator = coordinator else { return }
+            self.showMoreHandler.showMoreInComment(on: self,
+                                                   coordinator: coordinator,
+                                                   comment: self.tableDataSource.viewModels[index]) { updatedComment in
+                self.tableDataSource.viewModels.updateElementById(updatedComment)
+            }
+            
+        }
     }
 }
 

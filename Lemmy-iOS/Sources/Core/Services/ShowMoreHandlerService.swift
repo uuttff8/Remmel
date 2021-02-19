@@ -13,30 +13,33 @@ protocol ShowMoreHandlerServiceProtocol {
     func showMoreInPost<T: UIViewController>(
         on viewController: UIViewController,
         coordinator: GenericCoordinator<T>,
-        post: LMModels.Views.PostView
+        post: LMModels.Views.PostView,
+        updateCompletion: @escaping ((LMModels.Views.PostView) -> Void)
     )
     
     func showMoreInComment<T: UIViewController>(
         on viewController: UIViewController,
         coordinator: GenericCoordinator<T>,
-        comment: LMModels.Views.CommentView
+        comment: LMModels.Views.CommentView,
+        updateCompletion: @escaping ((LMModels.Views.CommentView) -> Void)
     )
     
     func showMoreInReply(
         on viewController: InboxRepliesViewController,
         coordinator: BaseCoordinator,
-        reply: LMModels.Views.CommentView
+        reply: LMModels.Views.CommentView,
+        updateCompletion: @escaping ((LMModels.Views.CommentView) -> Void)
     )
     
     func showMoreInUserMention(
         on viewController: InboxMentionsViewController,
         coordinator: BaseCoordinator,
         mention: LMModels.Views.UserMentionView
+//        updateCompletion: @escaping ((LMModels.Views.CommentView) -> Void)
     )
 }
 
 class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
-    
     private let networkService: RequestsManager
     private let userAccountService: UserAccountService
     
@@ -53,13 +56,13 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
     func showMoreInPost<T: UIViewController>(
         on viewController: UIViewController,
         coordinator: GenericCoordinator<T>,
-        post: LMModels.Views.PostView
-        /*updateCompletion: ((LMModels.Views.PostView) -> Void)? = nil*/
+        post: LMModels.Views.PostView,
+        updateCompletion: @escaping ((LMModels.Views.PostView) -> Void)
     ) {
-        let mineActions = self.minePostActions(post: post.post, coordinator: coordinator)
+        let mineActions = self.minePostActions(post: post.post, coordinator: coordinator, completion: updateCompletion)
         
         let alertController = createActionSheetController(vc: viewController)
-        let savePostAction = self.createSavePostAction(postId: post.id, saved: post.saved)
+        let savePostAction = self.createSavePostAction(postId: post.id, saved: post.saved, completion: updateCompletion)
         let shareAction = self.createShareAction(on: viewController, urlString: post.post.apId)
         
         let reportAction = UIAlertAction(title: "alert-report".localized, style: .destructive) { (_) in
@@ -84,13 +87,15 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
     func showMoreInComment<T: UIViewController>(
         on viewController: UIViewController,
         coordinator: GenericCoordinator<T>,
-        comment: LMModels.Views.CommentView
-        /*updateCompletion: ((LMModels.Views.CommentView) -> Void)? = nil*/
+        comment: LMModels.Views.CommentView,
+        updateCompletion: @escaping ((LMModels.Views.CommentView) -> Void)
     ) {
         let alertController = createActionSheetController(vc: viewController)
         
         let mineActions = self.mineCommentActions(comment: comment.comment, coordinator: coordinator)
-        let saveCommentAction = self.createSaveCommentAction(commentId: comment.id, saved: comment.saved)
+        let saveCommentAction = self.createSaveCommentAction(commentId: comment.id,
+                                                             saved: comment.saved,
+                                                             completion: updateCompletion)
         let shareAction = self.createShareAction(on: viewController, urlString: comment.getApIdRelatedToPost())
         let reportAction = UIAlertAction(title: "alert-report".localized, style: .destructive) { (_) in
             
@@ -114,11 +119,14 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
     func showMoreInReply(
         on viewController: InboxRepliesViewController,
         coordinator: BaseCoordinator,
-        reply: LMModels.Views.CommentView
+        reply: LMModels.Views.CommentView,
+        updateCompletion: @escaping ((LMModels.Views.CommentView) -> Void)
     ) {
         let alertController = createActionSheetController(vc: viewController)
         
-        let saveCommentAction = self.createSaveCommentAction(commentId: reply.id, saved: reply.saved)
+        let saveCommentAction = self.createSaveCommentAction(commentId: reply.id,
+                                                             saved: reply.saved,
+                                                             completion: updateCompletion)
         let sendMessageAction = UIAlertAction(title: "alert-send-message".localized, style: .default) { _ in
             let recipientId = reply.creator.id
             viewController.coordinator?.goToWriteMessage(recipientId: recipientId)
@@ -144,10 +152,13 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         on viewController: InboxMentionsViewController,
         coordinator: BaseCoordinator,
         mention: LMModels.Views.UserMentionView
+//        updateCompletion: @escaping ((LMModels.Views.CommentView) -> Void)
     ) {
         let alertController = createActionSheetController(vc: viewController)
         
-        let saveCommentAction = self.createSaveCommentAction(commentId: mention.id, saved: mention.saved)
+        let saveCommentAction = self.createSaveCommentAction(commentId: mention.id,
+                                                             saved: mention.saved,
+                                                             completion: {_ in})
         let sendMessageAction = UIAlertAction(title: "alert-send-message".localized, style: .default) { _ in
             let recipientId = mention.creator.id
             viewController.coordinator?.goToWriteMessage(recipientId: recipientId)
@@ -229,26 +240,34 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         viewController.present(action, animated: true)
     }
     
-    private func createSavePostAction(postId: Int, saved: Bool) -> UIAlertAction {
+    private func createSavePostAction(
+        postId: Int,
+        saved: Bool,
+        completion: @escaping ((LMModels.Views.PostView) -> Void)
+    ) -> UIAlertAction {
         if !saved {
             return UIAlertAction(title: "Save", style: .default) { (_) in
-                self.savePost(postId: postId, toSave: true)
+                self.savePost(postId: postId, toSave: true, completion: completion)
             }
         } else {
             return UIAlertAction(title: "Unsave", style: .default) { (_) in
-                self.savePost(postId: postId, toSave: false)
+                self.savePost(postId: postId, toSave: false, completion: completion)
             }
         }
     }
     
-    private func createSaveCommentAction(commentId: Int, saved: Bool) -> UIAlertAction {
+    private func createSaveCommentAction(
+        commentId: Int,
+        saved: Bool,
+        completion: @escaping ((LMModels.Views.CommentView) -> Void)
+    ) -> UIAlertAction {
         if !saved {
             return UIAlertAction(title: "Save", style: .default) { (_) in
-                self.saveComment(commentId: commentId, toSave: true)
+                self.saveComment(commentId: commentId, toSave: true, completion: completion)
             }
         } else {
             return UIAlertAction(title: "Unsave", style: .default) { (_) in
-                self.saveComment(commentId: commentId, toSave: false)
+                self.saveComment(commentId: commentId, toSave: false, completion: completion)
             }
         }
     }
@@ -272,7 +291,8 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
     
     fileprivate func minePostActions<T: UIViewController>(
         post: LMModels.Source.Post,
-        coordinator: GenericCoordinator<T>
+        coordinator: GenericCoordinator<T>,
+        completion: @escaping ((LMModels.Views.PostView) -> Void)
     ) -> [UIAlertAction] {
         if isMineUser(creatorId: post.creatorId) {
             
@@ -285,11 +305,11 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
             let deleteAction: UIAlertAction
             if !post.deleted {
                 deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
-                    self.deletePost(postId: post.id, toDelete: true)
+                    self.deletePost(postId: post.id, toDelete: true, completion: completion)
                 }
             } else {
                 deleteAction = UIAlertAction(title: "Restore", style: .destructive) { (_) in
-                    self.deletePost(postId: post.id, toDelete: false)
+                    self.deletePost(postId: post.id, toDelete: false, completion: completion)
                 }
             }
             
@@ -347,7 +367,11 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         }
     }
     
-    private func savePost(postId: Int, toSave: Bool) {
+    private func savePost(
+        postId: Int,
+        toSave: Bool,
+        completion: @escaping ((LMModels.Views.PostView) -> Void)
+    ) {
         guard let jwtToken = LemmyShareData.shared.jwtToken else { return }
 
         self.networkService.asyncSavePost(parameters: .init(postId: postId, save: toSave, auth: jwtToken))
@@ -357,12 +381,17 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
                 if case .failure = completion {
                     LMMMessagesToast.showErrorSavePost()
                 }
-            } receiveValue: { (_) in
+            } receiveValue: { (response) in
+                completion(response.postView)
                 LMMMessagesToast.showSuccessSavePost()
             }.store(in: &cancellables)
     }
     
-    private func saveComment(commentId: Int, toSave: Bool) {
+    private func saveComment(
+        commentId: Int,
+        toSave: Bool,
+        completion: @escaping ((LMModels.Views.CommentView) -> Void)
+    ) {
         guard let jwtToken = LemmyShareData.shared.jwtToken else { return }
 
         self.networkService.asyncSaveComment(parameters: .init(commentId: commentId, save: toSave, auth: jwtToken))
@@ -372,12 +401,17 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
                 if case .failure = completion {
                     LMMMessagesToast.showErrorSaveComment()
                 }
-            } receiveValue: { (_) in
+            } receiveValue: { (response) in
+                completion(response.commentView)
                 LMMMessagesToast.showSuccessSaveComment()
             }.store(in: &cancellables)
     }
     
-    private func deletePost(postId: Int, toDelete: Bool) {
+    private func deletePost(
+        postId: Int,
+        toDelete: Bool,
+        completion: @escaping ((LMModels.Views.PostView) -> Void)
+    ) {
         guard let jwtToken = LemmyShareData.shared.jwtToken else { return }
         
         self.networkService.asyncDeletePost(parameters: .init(postId: postId, deleted: toDelete, auth: jwtToken))
@@ -387,7 +421,8 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
                 if case .failure = completion {
                     LMMMessagesToast.showErrorDeletePost()
                 }
-            } receiveValue: { (_) in
+            } receiveValue: { (response) in
+                completion(response.postView)
                 LMMMessagesToast.showSuccessDeletePost()
             }.store(in: &cancellables)
     }

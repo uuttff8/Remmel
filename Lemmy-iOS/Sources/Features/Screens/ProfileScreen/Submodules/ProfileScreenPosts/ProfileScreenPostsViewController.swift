@@ -23,7 +23,7 @@ class ProfileScreenPostsViewController: UIViewController {
         $0.delegate = self
     }
     
-    private let showMoreHandlerService: ShowMoreHandlerServiceProtocol
+    private let showMoreHandlerService: ShowMoreHandlerService
     private let contentScoreService: ContentScoreServiceProtocol
     
     lazy var profilePostsView = self.view as! ProfileScreenPostsViewController.View
@@ -34,7 +34,7 @@ class ProfileScreenPostsViewController: UIViewController {
     init(
         viewModel: ProfileScreenPostsViewModel,
         initialState: ProfileScreenPosts.ViewControllerState = .loading,
-        showMoreHandlerService: ShowMoreHandlerServiceProtocol,
+        showMoreHandlerService: ShowMoreHandlerService,
         contentScoreService: ContentScoreServiceProtocol
     ) {
         self.viewModel = viewModel
@@ -143,8 +143,12 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
     }
     
     func showMore(in post: LMModels.Views.PostView) {
-        guard let coordinator = coordinator else { return }
-        self.showMoreHandlerService.showMoreInPost(on: self, coordinator: coordinator, post: post)
+        if let post = self.tableDataSource.viewModels.getElement(by: post.id) {
+            guard let coordinator = coordinator else { return }
+            self.showMoreHandlerService.showMoreInPost(on: self, coordinator: coordinator, post: post) { updatedPost in
+                self.tableDataSource.viewModels.updateElementById(updatedPost)
+            }
+        }
     }
     
     func usernameTapped(with mention: LemmyUserMention) {

@@ -220,7 +220,16 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
     }
     
     func showMoreAction(in comment: LMModels.Views.CommentView) {
-        guard let coordinator = coordinator else { return }
-        showMoreHandler.showMoreInComment(on: self, coordinator: coordinator, comment: comment)
-    }    
+        if let index = self.viewModel.commentsDataSource.getElementIndex(by: comment.id) {
+            guard let coordinator = coordinator else { return }
+            
+            showMoreHandler.showMoreInComment(
+                on: self,
+                coordinator: coordinator,
+                comment: self.viewModel.commentsDataSource[index]
+            ) { updatedComment in
+                self.viewModel.commentsDataSource.updateElementById(updatedComment)
+            }
+        }        
+    }
 }

@@ -38,7 +38,7 @@ class CommunityScreenViewController: UIViewController {
     private var state: CommunityScreen.ViewControllerState
     private let followService: CommunityFollowServiceProtocol
     private let contentScoreService: ContentScoreServiceProtocol
-    private let showMoreService: ShowMoreHandlerServiceProtocol
+    private let showMoreService: ShowMoreHandlerService
     
     private var cancellable = Set<AnyCancellable>()
     
@@ -47,7 +47,7 @@ class CommunityScreenViewController: UIViewController {
         state: CommunityScreen.ViewControllerState = .loading,
         followService: CommunityFollowServiceProtocol,
         contentScoreService: ContentScoreServiceProtocol,
-        showMoreService: ShowMoreHandlerServiceProtocol
+        showMoreService: ShowMoreHandlerService
     ) {
         self.viewModel = viewModel
         self.state = state
@@ -224,8 +224,13 @@ extension CommunityScreenViewController: PostContentPreviewTableCellDelegate {
     }
 
     func showMore(in post: LMModels.Views.PostView) {
-        guard let coordinator = coordinator else { return }
-        self.showMoreService.showMoreInPost(on: self, coordinator: coordinator, post: post)
+        
+        if let post = self.tableDataSource.viewModels.getElement(by: post.id) {
+            guard let coordinator = coordinator else { return }
+            self.showMoreService.showMoreInPost(on: self, coordinator: coordinator, post: post) { updatedPost in
+                self.tableDataSource.viewModels.updateElementById(updatedPost)
+            }
+        }
     }
     
     func postCellDidSelected(postId: LMModels.Views.PostView.ID) {

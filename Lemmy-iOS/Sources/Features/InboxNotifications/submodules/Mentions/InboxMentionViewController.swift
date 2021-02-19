@@ -150,8 +150,11 @@ extension InboxMentionsViewController: UserMentionCellViewDelegate {
     }
         
     func showMoreAction(in userMention: LMModels.Views.UserMentionView) {
-        guard let coordinator = coordinator else { return }
-        self.showMoreService.showMoreInUserMention(on: self, coordinator: coordinator, mention: userMention)
+        
+        if let userMention = self.tableManager.viewModels.getElement(by: userMention.id) {
+            guard let coordinator = coordinator else { return }
+            self.showMoreService.showMoreInUserMention(on: self, coordinator: coordinator, mention: userMention)
+        }
     }
 }
 
