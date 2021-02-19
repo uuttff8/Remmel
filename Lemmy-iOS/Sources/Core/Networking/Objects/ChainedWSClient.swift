@@ -53,6 +53,10 @@ final class ChainedWSClient {
             Logger.commonLog.error("Socket send failure: \(error)")
         }
     }
+    
+    func close() {
+        self.webSocketTask.cancel(with: .goingAway, reason: nil)
+    }
      
     func onConnected(completion: @escaping () -> Void) -> ChainedWSClient {
         self._onConnected = completion
