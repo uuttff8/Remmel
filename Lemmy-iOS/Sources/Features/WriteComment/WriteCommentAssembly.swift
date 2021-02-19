@@ -11,16 +11,16 @@ import UIKit
 final class WriteCommentAssembly: Assembly {
     
     private let parentComment: LMModels.Views.CommentView?
-    private let postId: Int
+    private let postSource: LMModels.Source.Post
     
-    init(parentComment: LMModels.Views.CommentView?, postId: Int) {
+    init(parentComment: LMModels.Views.CommentView?, postSource: LMModels.Source.Post) {
         self.parentComment = parentComment
-        self.postId = postId
+        self.postSource = postSource
     }
     
     func makeModule() -> WriteCommentViewController {
         let viewModel = WriteCommentViewModel(parentComment: parentComment,
-                                              postId: postId,
+                                              postSource: postSource,
                                               userAccountService: UserAccountService())
         let vc = WriteCommentViewController(viewModel: viewModel)
         viewModel.viewController = vc

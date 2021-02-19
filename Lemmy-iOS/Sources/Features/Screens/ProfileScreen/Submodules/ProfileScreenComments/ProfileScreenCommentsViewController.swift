@@ -150,7 +150,7 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
     }
     
     func reply(to comment: LMModels.Views.CommentView) {
-        self.coordinator?.goToWriteComment(postId: comment.post.id, parrentComment: comment)
+        self.coordinator?.goToWriteComment(postSource: comment.post, parrentComment: comment)
     }
     
     func onLinkTap(in comment: LMModels.Views.CommentView, url: URL) {

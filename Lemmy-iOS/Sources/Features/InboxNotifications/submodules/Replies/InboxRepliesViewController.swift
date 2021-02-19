@@ -142,7 +142,7 @@ extension InboxRepliesViewController: ReplyCellViewDelegate {
     }
     
     func reply(to reply: LMModels.Views.CommentView) {
-        self.coordinator?.goToWriteComment(postId: reply.post.id, parrentComment: nil)
+        self.coordinator?.goToWriteComment(postSource: reply.post, parrentComment: nil)
     }
     
     func onLinkTap(in reply: LMModels.Views.CommentView, url: URL) {

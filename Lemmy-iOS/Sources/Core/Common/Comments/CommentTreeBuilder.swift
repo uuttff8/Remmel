@@ -28,7 +28,7 @@ class CommentTreeBuilder {
         var nodes = [LemmyComment]()
         
         for notReply in notReplies {
-            let parentComment = LemmyComment(level: 0, replyTo: nil, commentContent: nil)
+            let parentComment = LemmyComment(level: 0, replyTo: nil)
             parentComment.commentContent = notReply
             
             nodes.append(createReplyTree(for: parentComment))
@@ -78,10 +78,12 @@ class CommentTreeBuilder {
         for repliedComm in self.comments
         where repliedComm.comment.parentId == parent.id {
             
-            let newLevel = parent.level + 1
+            let child = LemmyComment(level: 0, replyTo: nil)
             
-            let child = LemmyComment(level: newLevel, replyTo: parent, commentContent: repliedComm)
-            
+            child.replyTo = parent
+            child.commentContent = repliedComm
+            child.level = parent.level + 1
+
             parent.addReply(child)
             
             replies.append(createReplyTree(for: child))

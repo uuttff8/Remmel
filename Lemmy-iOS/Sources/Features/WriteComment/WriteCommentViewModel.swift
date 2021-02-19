@@ -18,7 +18,7 @@ class WriteCommentViewModel: WriteCommentViewModelProtocol {
     weak var viewController: WriteCommentViewControllerProtocol?
     
     private let parentComment: LMModels.Views.CommentView?
-    private let postId: Int
+    private let postSource: LMModels.Source.Post
     
     private let userAccountService: UserAccountSerivceProtocol
     
@@ -26,17 +26,25 @@ class WriteCommentViewModel: WriteCommentViewModelProtocol {
     
     init(
         parentComment: LMModels.Views.CommentView?,
-        postId: Int,
+        postSource: LMModels.Source.Post,
         userAccountService: UserAccountSerivceProtocol
     ) {
         self.parentComment = parentComment
-        self.postId = postId
+        self.postSource = postSource
         self.userAccountService = userAccountService
     }
-
+    
     func doWriteCommentFormLoad(request: WriteComment.FormLoad.Request) {
+        
+        let headerText: String
+        if let parrentCommentText = parentComment?.comment.content {
+            headerText = parrentCommentText
+        } else {
+            headerText = FormatterHelper.newMessagePostHeaderText(name: postSource.name, body: postSource.body)
+        }
+        
         self.viewController?.displayWriteCommentForm(
-            viewModel: .init(parrentCommentText: self.parentComment?.comment.content)
+            viewModel: .init(headerText: headerText)
         )
     }
     
@@ -47,16 +55,16 @@ class WriteCommentViewModel: WriteCommentViewModelProtocol {
         }
         
         let params = LMModels.Api.Comment.CreateComment(content: request.text,
-                                                             parentId: parentComment?.id,
-                                                             postId: postId,
-                                                             formId: nil,
-                                                             auth: jwtToken)
+                                                        parentId: self.parentComment?.id,
+                                                        postId: self.postSource.id,
+                                                        formId: nil,
+                                                        auth: jwtToken)
         
         ApiManager.requests.asyncCreateComment(parameters: params)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
-
+                
                 if case .failure(let error) = completion {
                     self.viewController?.displayCreatePostError(
                         viewModel: .init(error: error.description)
@@ -75,7 +83,7 @@ enum WriteComment {
         struct Request { }
         
         struct ViewModel {
-            let parrentCommentText: String?
+            let headerText: String?
         }
     }
     

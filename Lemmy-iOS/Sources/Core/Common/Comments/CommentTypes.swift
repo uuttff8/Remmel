@@ -14,11 +14,6 @@ class LemmyComment: BaseComment, Identifiable {
     }
     var commentContent: LMModels.Views.CommentView?
     var isFolded: Bool = true
-    
-    init(level: Int, replyTo: BaseComment?, commentContent: LMModels.Views.CommentView?) {
-        super.init(level: level, replyTo: replyTo)
-        self.level = level
-    }
 }
 
 class BaseComment: AbstractComment {

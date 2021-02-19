@@ -22,4 +22,16 @@ enum FormatterHelper {
         return md.replacingOccurrences(of: "[", with: "")
             .replacingOccurrences(of: "]", with: "")
     }
+    
+    static func newMessagePostHeaderText(name: String, body: String?) -> String {
+        let headerText: String
+        
+        if let body = body {
+            headerText = name + "\n\n" + body
+            return headerText
+        }
+        
+        headerText = name
+        return headerText
+    }
 }

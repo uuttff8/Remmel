@@ -90,7 +90,7 @@ extension WriteCommentViewController: WriteCommentViewControllerProtocol {
         let headerCell = SettingsTableSectionViewModel.Cell(
             uniqueIdentifier: TableForm.headerCell.rawValue,
             type: .rightDetail(
-                options: .init(title: .init(text: viewModel.parrentCommentText ?? ""),
+                options: .init(title: .init(text: viewModel.headerText ?? ""),
                                detailType: .label(text: self.formData.text),
                                accessoryType: .none
                 )
@@ -116,7 +116,7 @@ extension WriteCommentViewController: WriteCommentViewControllerProtocol {
             )
         ]
         
-        if viewModel.parrentCommentText != nil {
+        if viewModel.headerText != nil {
             sections.insert(
                 .init(
                     header: nil,

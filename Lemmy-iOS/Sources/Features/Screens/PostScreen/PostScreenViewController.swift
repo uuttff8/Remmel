@@ -180,7 +180,7 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
     func showContext(in comment: LMModels.Views.CommentView) { }
     
     func reply(to comment: LMModels.Views.CommentView) {
-        coordinator?.goToWriteComment(postId: comment.post.id, parrentComment: comment)
+        coordinator?.goToWriteComment(postSource: comment.post, parrentComment: comment)
     }
     
     func onLinkTap(in comment: LMModels.Views.CommentView, url: URL) {
@@ -195,7 +195,7 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
 
 extension PostScreenViewController: PostScreenViewDelegate {
     func postView(_ postView: View, didWriteCommentTappedWith post: LMModels.Views.PostView) {
-        self.coordinator?.goToWriteComment(postId: post.id, parrentComment: nil)
+        self.coordinator?.goToWriteComment(postSource: post.post, parrentComment: nil)
     }
     
     func postView(didEmbedTappedWith url: URL) {

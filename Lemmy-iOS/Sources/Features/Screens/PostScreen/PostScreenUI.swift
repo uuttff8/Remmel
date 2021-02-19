@@ -79,8 +79,6 @@ extension PostScreenViewController {
             
             self.delegate?.postView(self, didWriteCommentTappedWith: post)
         }
-        
-        
     }
 }
 

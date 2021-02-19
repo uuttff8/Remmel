@@ -140,7 +140,7 @@ extension InboxMentionsViewController: UserMentionCellViewDelegate {
     }
     
     func reply(to userMention: LMModels.Views.UserMentionView) {
-        self.coordinator?.goToWriteComment(postId: userMention.post.id, parrentComment: nil)
+        self.coordinator?.goToWriteComment(postSource: userMention.post, parrentComment: nil)
     }
     
     func onLinkTap(in userMention: LMModels.Views.UserMentionView, url: URL) {

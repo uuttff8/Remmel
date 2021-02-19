@@ -24,7 +24,8 @@ class CommentTreeMutator {
     // MARK: - API
     
     func insert(comment: LMModels.Views.CommentView) {
-        let newComment = LemmyComment(level: 0, replyTo: nil, commentContent: comment)
+        let newComment = LemmyComment(level: 0, replyTo: nil)
+        newComment.commentContent = comment
         
         if let parentId = comment.comment.parentId {
             
