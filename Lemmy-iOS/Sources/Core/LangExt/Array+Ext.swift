@@ -17,9 +17,17 @@ extension Array where Element: Identifiable {
         return nil
     }
     
+    func getElementIndex(by id: Element.ID) -> Index? {
+        if let index = self.firstIndex(where: { $0.id == id }) {
+            return index
+        }
+        
+        return nil
+    }
+    
     mutating func updateElementById(_ element: Element) {
         if let index = self.firstIndex(where: { $0.id == element.id }) {
             self[index] = element
         }
-    }    
+    }
 }

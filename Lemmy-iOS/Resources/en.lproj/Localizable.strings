@@ -62,6 +62,7 @@
 "sort-year" = "Top year";
 "sort-all" = "Top all";
 "sort-most-comments" = "Most Comments";
+"sort-new-comments" = "New Comments";
 
 "listing-all" = "All";
 "listing-subscribed" = "Subscribed";

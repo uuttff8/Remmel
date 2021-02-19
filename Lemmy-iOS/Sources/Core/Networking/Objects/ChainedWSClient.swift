@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Network
 import Combine
 
 final class ChainedWSClient {
@@ -20,9 +21,13 @@ final class ChainedWSClient {
     private var encoder = JSONEncoder()
     private let decoder = LemmyDecoder()
     
+    private let reconnecting: Bool
+    private let nwMonitor = NWPathMonitor()
+    
     private var cancellables = Set<AnyCancellable>()
     
-    init?(urlString: String) {
+    init?(urlString: String, reconnecting: Bool = true) {
+        self.reconnecting = reconnecting
         
         guard let url = String.createInstanceFullUrl(instanceUrl: urlString) else { return nil }
         
@@ -31,6 +36,7 @@ final class ChainedWSClient {
         Logger.commonLog.info("URLSession webSocketTask opened to \(url)")
     }
     
+    @discardableResult
     func connect() -> ChainedWSClient {
         self.webSocketTask.resume()
         self._onConnected?()
@@ -93,6 +99,16 @@ final class ChainedWSClient {
         webSocketTask.sendPing { [weak self] error in
             if let error = error {
                 Logger.commonLog.error("SocketPingFailure: \(error.localizedDescription)")
+                
+                guard let self = self else { return }
+                if self.reconnecting {
+                    if self.nwMonitor.currentPath.status == .satisfied {
+                        self.connect()
+                    } else {
+                        self._onError?("No internet")
+                    }
+                }
+                
                 return
             }
             

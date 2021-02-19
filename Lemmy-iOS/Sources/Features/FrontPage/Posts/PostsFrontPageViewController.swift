@@ -198,7 +198,7 @@ extension PostsFrontPageViewController: SFSafariViewControllerDelegate {
 
 extension PostsFrontPageViewController: PostContentPreviewTableCellDelegate {
     func postCellDidSelected(postId: LMModels.Views.PostView.ID) {
-        let post = viewModel.getPost(by: postId).require()
+        let post = viewModel.postsDataSource.getElement(by: postId).require()
         self.coordinator?.goToPostScreen(post: post)
     }
             

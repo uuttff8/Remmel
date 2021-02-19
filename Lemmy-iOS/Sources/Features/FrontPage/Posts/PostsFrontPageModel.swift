@@ -43,23 +43,16 @@ class PostsFrontPageModel: NSObject {
     }
     
     func receiveMessages() {
-        wsEvents?.connect()
+        wsEvents?
+            .connect()
             .onMessage(completion: { (operation, data) in
                 
                 switch operation {
                 case WSEndpoint.Post.createPostLike.endpoint:
                     
-                    guard let data = try? LemmyJSONDecoder().decode(
-                        RequestsManager.ApiResponse<LMModels.Api.Post.PostResponse>.self,
-                        from: data
-                    )
+                    guard let postLike = self.decodeWsType(LMModels.Api.Post.PostResponse.self, data: data)
                     else { return }
-                    
-                    if let index = self.postsDataSource.firstIndex(where: { $0.id == data.data.postView.id }) {
-                        self.postsDataSource[index].updateForCreatePostLike(with: data.data.postView)
-                        
-                        self.createPostLikeUpdate?(index)
-                    }
+                    self.updatePostCell(with: postLike.postView)
                     
                 default:
                     break
@@ -114,15 +107,7 @@ class PostsFrontPageModel: NSObject {
                 
             }.store(in: &cancellable)
     }
-    
-    func getPost(by id: LMModels.Views.PostView.ID) -> LMModels.Views.PostView? {
-        if let index = postsDataSource.firstIndex(where: { $0.id == id }) {
-            return postsDataSource[index]
-        }
         
-        return nil
-    }
-    
     private func saveNewPost(_ post: LMModels.Views.PostView) {
         postsDataSource.updateElementById(post)
     }
@@ -136,10 +121,20 @@ class PostsFrontPageModel: NSObject {
                 self.saveNewPost(post)
             }.store(in: &cancellable)
     }
-}
-
-extension PostsFrontPageModel: FrontPageHeaderCellDelegate {
-    func contentTypeChanged(to content: LemmyContentType) {
+    
+    private func updatePostCell(with updatedPost: LMModels.Views.PostView) {
+        if let index = self.postsDataSource.getElementIndex(by: updatedPost.id) {
+            self.postsDataSource[index].updateForCreatePostLike(with: updatedPost)
+            self.createPostLikeUpdate?(index)
+        }
+    }
+    
+    private func decodeWsType<T: Codable>(_ type: T.Type, data: Data) -> T? {
+        guard let data = try? LemmyJSONDecoder().decode(
+            RequestsManager.ApiResponse<T>.self,
+            from: data
+        ) else { return nil }
         
+        return data.data
     }
 }
