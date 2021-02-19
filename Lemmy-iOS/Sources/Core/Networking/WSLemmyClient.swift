@@ -112,28 +112,4 @@ class WSLemmyClient {
     }
 }
 
-extension String {
-    static func cleanUpUrl(url: String) -> String {
-        if url.hasPrefix("https://") {
-            var url = url
-            url.removeFirst(8)
-            return url
-        }
-        
-//        if url.hasPrefix("www.") {
-//            var url = url
-//            url.removeFirst(4)
-//            return url
-//        }
-        
-        if url.hasSuffix("/") {
-            var url = url
-            url.removeLast()
-            return url
-        }
-        
-        return url
-    }
-}
-
 // wss://dev.lemmy.ml/api/v1/ws

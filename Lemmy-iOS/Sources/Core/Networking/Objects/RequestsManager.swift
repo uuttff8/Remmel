@@ -132,8 +132,18 @@ extension String: Error {
 
 extension String {
     static func createInstanceFullUrl(instanceUrl: String) -> URL? {
-        let newInstanceUrl = String.cleanUpUrl(url: instanceUrl)
-        guard let url = URL(string: "wss://" + newInstanceUrl + "/api/v2/ws") else {
+        var link = instanceUrl
+        
+        if link.hasPrefix("https://") {
+            link.removeFirst(8)
+        }
+        
+        if link.hasSuffix("/") {
+            link.removeLast()
+        }
+        
+        guard let url = URL(string: "wss://" + link + "/api/v2/ws") else {
+            Logger.commonLog.error("Could not create instance url from \(instanceUrl), transformed url: \(link) ")
             return nil
         }
         

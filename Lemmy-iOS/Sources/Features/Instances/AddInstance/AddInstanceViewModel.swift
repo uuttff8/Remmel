@@ -26,7 +26,7 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
     
     func doAddInstanceCheck(request: AddInstanceDataFlow.InstanceCheck.Request) {
         guard let api = ApiManager(instanceUrl: request.query).requestsManager else {
-            Logger.commonLog.info("Not valid instance url")
+            Logger.commonLog.error("Not valid instance url")
             self.viewController?.displayAddInstanceCheck(
                 viewModel: .init(state: .noResult)
             )
@@ -47,7 +47,9 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
                 }
             } receiveValue: { (response) in
                 
-                let instanceUrl = String.cleanUpUrl(url: request.query)
+                guard let instanceUrl =
+                        String.createInstanceFullUrl(instanceUrl: request.query)?.host
+                else { return }
                 
                 self.viewController?.displayAddInstanceCheck(
                     viewModel: .init(
@@ -55,7 +57,6 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
                     )
                 )
             }.store(in: &self.cancellable)
-        
     }
 }
 
