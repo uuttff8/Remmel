@@ -13,12 +13,15 @@ protocol ShowMoreHandlerServiceProtocol {
     func showMoreInPost(on viewController: UIViewController,
                         coordinator: BaseCoordinator,
                         post: LMModels.Views.PostView)
+    
     func showMoreInComment(on viewController: UIViewController,
                            coordinator: BaseCoordinator,
                            comment: LMModels.Views.CommentView)
+    
     func showMoreInReply(on viewController: InboxRepliesViewController,
                          coordinator: BaseCoordinator,
                          reply: LMModels.Views.CommentView)
+    
     func showMoreInUserMention(on viewController: InboxMentionsViewController,
                                coordinator: BaseCoordinator,
                                mention: LMModels.Views.UserMentionView)
@@ -201,6 +204,28 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         viewController.present(action, animated: true)
     }
     
+    fileprivate func modPostAction(post: LMModels.Source.Post) -> [UIAlertAction] {
+        if isMineUser(creatorId: post.creatorId) {
+            
+            let editAction = UIAlertAction(title: "Edit", style: .default) { (_) in
+                
+            }
+            
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
+                
+            }
+            
+            let savePostAction = UIAlertAction(title: "Save", style: .default) { (_) in
+                
+            }
+            
+            return [editAction, deleteAction, savePostAction]
+            
+        }
+        
+        return []
+    }
+    
     fileprivate func reportPost(over viewController: UIViewController, post: LMModels.Source.Post) {
         self.showAlertWithTextField(over: viewController) { reportReason in
             
@@ -246,5 +271,13 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
                     
                 }.store(in: &self.cancellables)
         }
+    }
+    
+    private func isMineUser(creatorId: Int) -> Bool {
+        if userAccountService.currentUserID == creatorId {
+            return true
+        }
+        
+        return false
     }
 }
