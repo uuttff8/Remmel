@@ -1,19 +1,20 @@
 //
-//  WriteMessageView.swift
+//  EditPostView.swift
 //  Lemmy-iOS
 //
-//  Created by uuttff8 on 06.01.2021.
+//  Created by uuttff8 on 19.02.2021.
 //  Copyright © 2021 Anton Kuzmin. All rights reserved.
 //
 
 import UIKit
+import Combine
 
-protocol WriteMessageViewDelegate: SettingsTableViewDelegate { }
+protocol EditPostViewDelegate: SettingsTableViewDelegate { }
 
-// MARK: - WriteMessageView: UIView -
-class WriteMessageView: UIView {
+// MARK: - EditPostView: UIView -
+class EditPostView: UIView {
     
-    weak var delegate: WriteMessageViewDelegate? {
+    weak var delegate: EditPostViewDelegate? {
         didSet {
             self.tableView.delegate = self.delegate
         }
@@ -42,12 +43,12 @@ class WriteMessageView: UIView {
         self.tableView.configure(viewModel: viewModel)
     }
     
-    func updateViewModel(viewModel: SettingsTableViewModel) {
+    func updateViewModel(_ viewModel: SettingsTableViewModel) {
         self.tableView.updateViewModel(viewModel)
     }
 }
 
-extension WriteMessageView: ProgrammaticallyViewProtocol {
+extension EditPostView: ProgrammaticallyViewProtocol {
     func setupView() {
         
     }
@@ -62,3 +63,4 @@ extension WriteMessageView: ProgrammaticallyViewProtocol {
         }
     }
 }
+

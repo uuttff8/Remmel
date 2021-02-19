@@ -51,4 +51,9 @@ enum LMMMessagesToast {
         let config = successBottomToast(title: "Success", body: "You've created a new comment!")
         SwiftMessages.show(config: config.0, view: config.1)
     }
+    
+    static func showSuccessEditPost() {
+        let config = successBottomToast(title: "Success", body: "You've edited your post!")
+        SwiftMessages.show(config: config.0, view: config.1)
+    }
 }

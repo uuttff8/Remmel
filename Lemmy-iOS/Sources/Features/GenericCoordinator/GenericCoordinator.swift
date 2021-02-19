@@ -96,7 +96,7 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
             haptic.prepare()
             haptic.impactOccurred()
             
-            let assembly = WriteCommentAssembly(parentComment: parrentComment, postSource: postSource)
+            let assembly = WriteMessageAssembly(action: .writeComment(parentComment: parrentComment, postSource: postSource))
             let module = assembly.makeModule()
             module.completionHandler = completion
             
@@ -161,8 +161,18 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
         rootViewController.present(navController, animated: true)
     }
     
+    func goToEditPost(post: LMModels.Source.Post, completion: (() -> Void)? = nil) {
+        let assembly = EditPostAssembly(postSource: post)
+        let module = assembly.makeModule()
+        
+        module.completionHandler = completion
+        let navController = UINavigationController(rootViewController: module)
+        
+        rootViewController.present(navController, animated: true)
+    }
+    
     func goToWriteMessage(recipientId: Int) {
-        let assembly = WriteMessageAssembly(recipientId: recipientId)
+        let assembly = WriteMessageAssembly(action: .replyToPrivateMessage(recipientId: recipientId))
         let vc = assembly.makeModule()
         let navigationController = StyledNavigationController(rootViewController: vc)
         navigationController.presentationController?.delegate = vc

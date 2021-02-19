@@ -25,7 +25,7 @@ final class UserAccountService: UserAccountSerivceProtocol {
         set { LemmyShareData.shared.userdata = newValue }
     }
     
-    var currentUserID: LMModels.Source.UserSafeSettings.ID? { LemmyShareData.shared.loginData.userId }
+    var currentUserID: LMModels.Source.UserSafeSettings.ID? { LemmyShareData.shared.userdata?.id }
     
     var jwtToken: String? {
         get { LemmyShareData.shared.jwtToken }

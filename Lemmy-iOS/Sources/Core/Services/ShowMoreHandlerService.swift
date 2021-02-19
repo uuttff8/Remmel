@@ -10,12 +10,12 @@ import UIKit
 import Combine
 
 protocol ShowMoreHandlerServiceProtocol {
-    func showMoreInPost(on viewController: UIViewController,
-                        coordinator: BaseCoordinator,
+    func showMoreInPost<T: UIViewController>(on viewController: UIViewController,
+                        coordinator: GenericCoordinator<T>,
                         post: LMModels.Views.PostView)
     
-    func showMoreInComment(on viewController: UIViewController,
-                           coordinator: BaseCoordinator,
+    func showMoreInComment<T: UIViewController>(on viewController: UIViewController,
+                           coordinator: GenericCoordinator<T>,
                            comment: LMModels.Views.CommentView)
     
     func showMoreInReply(on viewController: InboxRepliesViewController,
@@ -42,11 +42,12 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         self.userAccountService = userAccountService
     }
     
-    func showMoreInPost(
+    func showMoreInPost<T: UIViewController>(
         on viewController: UIViewController,
-        coordinator: BaseCoordinator,
+        coordinator: GenericCoordinator<T>,
         post: LMModels.Views.PostView
     ) {
+        let mineActions = self.modPostAction(post: post.post, coordinator: coordinator)
         
         let alertController = createActionSheetController(vc: viewController)
         
@@ -59,6 +60,8 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
             }
         }
         
+        alertController.addActions(mineActions)
+        
         alertController.addActions([
             shareAction,
             reportAction,
@@ -68,9 +71,9 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         viewController.present(alertController, animated: true)
     }
     
-    func showMoreInComment(
+    func showMoreInComment<T: UIViewController>(
         on viewController: UIViewController,
-        coordinator: BaseCoordinator,
+        coordinator: GenericCoordinator<T>,
         comment: LMModels.Views.CommentView
     ) {
         let alertController = createActionSheetController(vc: viewController)
@@ -204,11 +207,16 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         viewController.present(action, animated: true)
     }
     
-    fileprivate func modPostAction(post: LMModels.Source.Post) -> [UIAlertAction] {
+    fileprivate func modPostAction<T: UIViewController>(
+        post: LMModels.Source.Post,
+        coordinator: GenericCoordinator<T>
+    ) -> [UIAlertAction] {
         if isMineUser(creatorId: post.creatorId) {
             
-            let editAction = UIAlertAction(title: "Edit", style: .default) { (_) in
-                
+            let editAction = UIAlertAction(title: "Edit", style: .default) { [weak self] (_) in
+                coordinator.goToEditPost(post: post) {
+                    LMMMessagesToast.showSuccessEditPost()
+                }
             }
             
             let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in

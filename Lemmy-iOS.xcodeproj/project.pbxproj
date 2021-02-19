@@ -15,6 +15,10 @@
 		4E004F6125DFA81B006B81CF /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = 4E004F6025DFA81B006B81CF /* SwiftMessages */; };
 		4E004F6925DFAA2E006B81CF /* CommentTreeMutator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004F6825DFAA2E006B81CF /* CommentTreeMutator.swift */; };
 		4E004F6E25DFE258006B81CF /* LMMMessagesToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004F6D25DFE258006B81CF /* LMMMessagesToast.swift */; };
+		4E004F8225DFF86F006B81CF /* EditPostAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004F8125DFF86F006B81CF /* EditPostAssembly.swift */; };
+		4E004F8A25DFF8A9006B81CF /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004F8925DFF8A9006B81CF /* EditPostViewController.swift */; };
+		4E004F8F25DFF8B0006B81CF /* EditPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004F8E25DFF8B0006B81CF /* EditPostViewModel.swift */; };
+		4E004F9425DFF8C1006B81CF /* EditPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004F9325DFF8C1006B81CF /* EditPostView.swift */; };
 		4E05D637255EBA63002307E0 /* Optional+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05D636255EBA63002307E0 /* Optional+Ext.swift */; };
 		4E0A8E2F255BFC0000B06AF6 /* UIApplication+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */; };
 		4E0A8E35255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E34255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift */; };
@@ -393,6 +397,10 @@
 		4E004E7B25DE7A5F006B81CF /* ControlContainableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlContainableScrollView.swift; sourceTree = "<group>"; };
 		4E004F6825DFAA2E006B81CF /* CommentTreeMutator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTreeMutator.swift; sourceTree = "<group>"; };
 		4E004F6D25DFE258006B81CF /* LMMMessagesToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMMMessagesToast.swift; sourceTree = "<group>"; };
+		4E004F8125DFF86F006B81CF /* EditPostAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostAssembly.swift; sourceTree = "<group>"; };
+		4E004F8925DFF8A9006B81CF /* EditPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
+		4E004F8E25DFF8B0006B81CF /* EditPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostViewModel.swift; sourceTree = "<group>"; };
+		4E004F9325DFF8C1006B81CF /* EditPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostView.swift; sourceTree = "<group>"; };
 		4E05D636255EBA63002307E0 /* Optional+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Ext.swift"; sourceTree = "<group>"; };
 		4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Ext.swift"; sourceTree = "<group>"; };
 		4E0A8E34255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenCommentsViewController.swift; sourceTree = "<group>"; };
@@ -788,6 +796,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E004F7D25DFF857006B81CF /* EditPost */ = {
+			isa = PBXGroup;
+			children = (
+				4E004F8125DFF86F006B81CF /* EditPostAssembly.swift */,
+				4E004F8925DFF8A9006B81CF /* EditPostViewController.swift */,
+				4E004F8E25DFF8B0006B81CF /* EditPostViewModel.swift */,
+				4E004F9325DFF8C1006B81CF /* EditPostView.swift */,
+			);
+			path = EditPost;
+			sourceTree = "<group>";
+		};
 		4E0A8E33255C019A00B06AF6 /* ProfileScreenComments */ = {
 			isa = PBXGroup;
 			children = (
@@ -1408,6 +1427,7 @@
 		4EB89AF5251F4783007129BF /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				4E004F7D25DFF857006B81CF /* EditPost */,
 				4E3E0F702555BCE70086CE0C /* ProfileScreen */,
 				4EF3ACFD2550755700BEC9F1 /* MarkdownParsedViewController */,
 				4EF3ACCF254EF82000BEC9F1 /* CommunityScreen */,
@@ -2458,6 +2478,7 @@
 				4E1070712534E970009EABDA /* CreatePostOrCommunityViewController.swift in Sources */,
 				4ECCEF1D250D63BE0075F921 /* CommentRequests.swift in Sources */,
 				4EDD003725A5EC59006FCB9F /* InboxMentionsView.swift in Sources */,
+				4E004F9425DFF8C1006B81CF /* EditPostView.swift in Sources */,
 				4EDD00CE25A73ACA006FCB9F /* ReplyMentionProtocols.swift in Sources */,
 				4EB4F69F2590C35C0057BDCC /* AddInstanceViewController.swift in Sources */,
 				4E110D5625CB408600A06306 /* ProfileSettingsViewModel.swift in Sources */,
@@ -2466,6 +2487,7 @@
 				4E50674D25D085CF003F1AB4 /* CatalystDismissProtocol.swift in Sources */,
 				4EB89B0A2521FA73007129BF /* LoginOrRegisterButton.swift in Sources */,
 				4EC63F7725C9CF8000F6D6F1 /* AttachmentTapGesture.swift in Sources */,
+				4E004F8F25DFF8B0006B81CF /* EditPostViewModel.swift in Sources */,
 				6569A2222594E8FC005A4C54 /* AccountsViewController.swift in Sources */,
 				4E87C6AE258E696C0007FE5E /* InstancesTableDataSource.swift in Sources */,
 				4E91850A256E9EAA00702F04 /* CommentCell.swift in Sources */,
@@ -2594,6 +2616,7 @@
 				4EBF1D662593A692004068CD /* ShowContextCommentService.swift in Sources */,
 				4EB4F69A2590C33F0057BDCC /* AddInstanceAssembly.swift in Sources */,
 				4E6E662825B1F33300AF2F48 /* LMModels+Aggregates.swift in Sources */,
+				4E004F8A25DFF8A9006B81CF /* EditPostViewController.swift in Sources */,
 				4E106F6525274325009EABDA /* PostScreenViewModel.swift in Sources */,
 				4E918509256E9EAA00702F04 /* CommentsViewDelegate.swift in Sources */,
 				4EB89AF8251F47A7007129BF /* PostScreenViewController.swift in Sources */,
@@ -2699,6 +2722,7 @@
 				4E886C17253626950076B162 /* RegisterView.swift in Sources */,
 				4E8165632562B6FC00907D31 /* PostsTableDataSource.swift in Sources */,
 				4E918518256ECBC700702F04 /* FoldableLemmyCommentsViewController.swift in Sources */,
+				4E004F8225DFF86F006B81CF /* EditPostAssembly.swift in Sources */,
 				4E91839D2567DCC500702F04 /* SelectItemTableViewController.swift in Sources */,
 				4E886C4B253C95D20076B162 /* CreatePresentAnimator.swift in Sources */,
 				4ECCEF21250FB3D40075F921 /* CommunitiesCoordinator.swift in Sources */,

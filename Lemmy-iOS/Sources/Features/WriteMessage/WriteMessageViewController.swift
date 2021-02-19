@@ -16,6 +16,8 @@ protocol WriteMessageViewControllerProtocol: AnyObject {
 
 class WriteMessageViewController: UIViewController {
     
+    var completionHandler: (() -> Void)?
+    
     enum TableForm: String {
         case headerCell
         case textFieldMessage
@@ -30,8 +32,11 @@ class WriteMessageViewController: UIViewController {
     }
     
     struct FormData {
+        var headerText: String?
         var text: String?
     }
+    
+    private var formData = FormData(headerText: nil, text: nil)
     
     lazy var writeMessageView = self.view as! WriteMessageView
     
@@ -41,9 +46,7 @@ class WriteMessageViewController: UIViewController {
         target: self,
         action: #selector(createBarButtonTapped(_:))
     )
-    
-    private var formData = FormData(text: nil)
-    
+        
     private let viewModel: WriteMessageViewModelProtocol
     
     init(viewModel: WriteMessageViewModelProtocol) {
@@ -87,32 +90,66 @@ class WriteMessageViewController: UIViewController {
 
 extension WriteMessageViewController: WriteMessageViewControllerProtocol {
     func displayWriteMessageForm(viewModel: WriteMessage.FormLoad.ViewModel) {
+        self.formData.headerText = viewModel.headerText
+        
+        let sections = getSections()
+        
+        let viewModel = SettingsTableViewModel(sections: sections)
+        self.writeMessageView.configure(viewModel: viewModel)
+    }
+    
+    func updateViewModel() {
+        let sections = getSections()
+        
+        let viewModel = SettingsTableViewModel(sections: sections)
+        self.writeMessageView.updateViewModel(viewModel: viewModel)
+    }
+    
+    private func getSections() -> [SettingsTableSectionViewModel] {
+        let headerCell = SettingsTableSectionViewModel.Cell(
+            uniqueIdentifier: TableForm.headerCell.rawValue,
+            type: .rightDetail(
+                options: .init(title: .init(text: self.formData.headerText ?? ""),
+                               detailType: .label(text: self.formData.text),
+                               accessoryType: .none
+                )
+            )
+        )
         
         let textFieldCell = SettingsTableSectionViewModel.Cell(
             uniqueIdentifier: TableForm.textFieldMessage.rawValue,
             type: .largeInput(
                 options: .init(
-                    valueText: nil,
-                    placeholderText: "not absolute private message here!",
+                    valueText: self.formData.text,
+                    placeholderText: "create-comment-agree".localized,
                     maxLength: nil
                 )
             )
         )
                 
-        let sections: [SettingsTableSectionViewModel] = [
+        var sections: [SettingsTableSectionViewModel] = [
             .init(
                 header: nil,
                 cells: [textFieldCell],
                 footer: nil
             )
         ]
-                
-        let viewModel = SettingsTableViewModel(sections: sections)
-        self.writeMessageView.configure(viewModel: viewModel)
+        
+        if let headerText = formData.headerText, !headerText.isEmpty {
+            sections.insert(
+                .init(
+                    header: nil,
+                    cells: [headerCell],
+                    footer: nil
+                ), at: 0)
+        }
+        
+        return sections
     }
     
     func displaySuccessCreatingMessage(viewModel: WriteMessage.RemoteCreateMessage.ViewModel) {
         self.dismiss(animated: true)
+        self.completionHandler?()
     }
     
     func displayCreateMessageError(viewModel: WriteMessage.CreateMessageError.ViewModel) {
@@ -159,5 +196,7 @@ extension WriteMessageViewController: WriteMessageViewDelegate {
             self.formData.text = text
         default: return
         }
+        
+        updateViewModel()
     }
 }

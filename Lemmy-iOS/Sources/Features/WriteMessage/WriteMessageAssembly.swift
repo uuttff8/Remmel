@@ -10,15 +10,20 @@ import UIKit
 
 final class WriteMessageAssembly: Assembly {
     
-    private let recipientId: Int
+    enum Action {
+        case replyToPrivateMessage(recipientId: Int)
+        case writeComment(parentComment: LMModels.Source.Comment?, postSource: LMModels.Source.Post)
+    }
     
-    init(recipientId: Int) {
-        self.recipientId = recipientId
+    private let action: Action
+    
+    init(action: Action) {
+        self.action = action
     }
     
     func makeModule() -> WriteMessageViewController {
         let viewModel = WriteMessageViewModel(
-            recipientId: recipientId,
+            action: action,
             userAccountService: UserAccountService()
         )
         let vc = WriteMessageViewController(viewModel: viewModel)
