@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Nuke
 
 class CommunityPreviewTableCell: UITableViewCell {
     

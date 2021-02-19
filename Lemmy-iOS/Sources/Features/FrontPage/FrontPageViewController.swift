@@ -67,6 +67,9 @@ class FrontPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.viewModel.receiveMessages()
+        
         self.view.backgroundColor = UIColor.systemBackground
         self.headerSegmentView.delegate = self
         

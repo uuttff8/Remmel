@@ -13,26 +13,26 @@ import Combine
 protocol WSClientProtocol: AnyObject {
     func connect() -> WSClientProtocol
 
+    var onConnected: (() -> Void)? { get set }
+    var onTextMessage: MessageDynamicValue { get set }
+    var onError: ((Error) -> Void)? { get set }
+    
     func send<T: Codable>(_ op: String, parameters: T)
     func send<T: Codable>(_ op: LMMUserOperation, parameters: T)
     
     func close()
     
-    func onConnected(completion: @escaping () -> Void) -> WSClientProtocol
-    func onError(completion: @escaping (Error) -> Void) -> WSClientProtocol
-    func onMessage(completion: @escaping (_ op: String, _ data: Data) -> Void)
-    
     func decodeWsType<T: Codable>(_ type: T.Type, data: Data) -> T?
 }
 
 final class ChainedWSClient: WSClientProtocol {
-    
+        
     private var webSocketTask: URLSessionWebSocketTask?
     private let wsEndpoint: URL
     
-    private var _onConnected: (() -> Void)?
-    private var _onTextMessage: ((_ op: String, _ data: Data) -> Void)?
-    private var _onError: ((Error) -> Void)?
+    var onConnected: (() -> Void)?
+    var onTextMessage: MessageDynamicValue = MessageDynamicValue(("", Data()))
+    var onError: ((Error) -> Void)?
     
     private var encoder = JSONEncoder()
     private let decoder = LemmyDecoder()
@@ -55,8 +55,9 @@ final class ChainedWSClient: WSClientProtocol {
     
     @discardableResult
     func connect() -> WSClientProtocol {
+        Logger.commonLog.info("Open connection at \(LemmyShareData.shared.currentInstanceUrl)")
         self.webSocketTask?.resume()
-        self._onConnected?()
+        self.onConnected?()
         receiveMessages()
         ping()
         return self
@@ -81,22 +82,10 @@ final class ChainedWSClient: WSClientProtocol {
     func close() {
         self.webSocketTask?.cancel(with: .goingAway, reason: nil)
     }
-     
-    func onConnected(completion: @escaping () -> Void) -> WSClientProtocol {
-        self._onConnected = completion
-        return self
-    }
-    
-    func onError(completion: @escaping (Error) -> Void) -> WSClientProtocol {
-        self._onError = completion
-        return self
-    }
-    
-    func onMessage(completion: @escaping (_ op: String, _ data: Data) -> Void) {
-        self._onTextMessage = completion
-    }
     
     func reconnectIfNeeded() {
+        Logger.commonLog.info("Trying to reconnect at \(LemmyShareData.shared.currentInstanceUrl)")
+        
         if self.reconnecting {
 //            if self.nwMonitor.currentPath.status == .satisfied {
                 let urlSession = URLSession(configuration: .default)
@@ -123,7 +112,7 @@ final class ChainedWSClient: WSClientProtocol {
         webSocketTask?.receive { [weak self] result in
             switch result {
             case .failure(let error):
-                self?._onError?(error)
+                self?.onError?(error)
                 Logger.commonLog.error("SocketReceiveFailure: \(error.localizedDescription)")
             case .success(let message):
                 
@@ -133,7 +122,7 @@ final class ChainedWSClient: WSClientProtocol {
                 self?.decoder.decode(data: messageData) { (res) in
                     switch res {
                     case .success(let operation):
-                        self?._onTextMessage?(operation, messageData)
+                        self?.onTextMessage.value = (operation, messageData)
                     case .failure(let error):
                         Logger.commonLog.error(error.localizedDescription)
                     }

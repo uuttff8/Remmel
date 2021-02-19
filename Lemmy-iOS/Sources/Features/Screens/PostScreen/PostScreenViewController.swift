@@ -64,8 +64,12 @@ class PostScreenViewController: UIViewController, Containered {
         self.add(asChildViewController: commentsViewController)
         
         viewModel.doPostFetch()
-        viewModel.doReceiveMessages()
         self.updateState(newState: state)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel.doReceiveMessages()
     }
             
     private func updateState(newState: PostScreen.ViewControllerState) {

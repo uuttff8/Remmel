@@ -72,6 +72,10 @@ class CommentContentTableCell: UITableViewCell, ContentFocusable {
         commentContentView.bind(with: comment, setting: appearance.config)
     }
     
+    func updateForCreateCommentLike(comment: LMModels.Views.CommentView) {
+        commentContentView.updateForCreateCommentLike(comment: comment)
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         

@@ -10,21 +10,29 @@ import UIKit
 import Combine
 
 protocol ShowMoreHandlerServiceProtocol {
-    func showMoreInPost<T: UIViewController>(on viewController: UIViewController,
-                        coordinator: GenericCoordinator<T>,
-                        post: LMModels.Views.PostView)
+    func showMoreInPost<T: UIViewController>(
+        on viewController: UIViewController,
+        coordinator: GenericCoordinator<T>,
+        post: LMModels.Views.PostView
+    )
     
-    func showMoreInComment<T: UIViewController>(on viewController: UIViewController,
-                           coordinator: GenericCoordinator<T>,
-                           comment: LMModels.Views.CommentView)
+    func showMoreInComment<T: UIViewController>(
+        on viewController: UIViewController,
+        coordinator: GenericCoordinator<T>,
+        comment: LMModels.Views.CommentView
+    )
     
-    func showMoreInReply(on viewController: InboxRepliesViewController,
-                         coordinator: BaseCoordinator,
-                         reply: LMModels.Views.CommentView)
+    func showMoreInReply(
+        on viewController: InboxRepliesViewController,
+        coordinator: BaseCoordinator,
+        reply: LMModels.Views.CommentView
+    )
     
-    func showMoreInUserMention(on viewController: InboxMentionsViewController,
-                               coordinator: BaseCoordinator,
-                               mention: LMModels.Views.UserMentionView)
+    func showMoreInUserMention(
+        on viewController: InboxMentionsViewController,
+        coordinator: BaseCoordinator,
+        mention: LMModels.Views.UserMentionView
+    )
 }
 
 class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
@@ -46,6 +54,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         on viewController: UIViewController,
         coordinator: GenericCoordinator<T>,
         post: LMModels.Views.PostView
+        /*updateCompletion: ((LMModels.Views.PostView) -> Void)? = nil*/
     ) {
         let mineActions = self.minePostActions(post: post.post, coordinator: coordinator)
         
@@ -76,11 +85,12 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         on viewController: UIViewController,
         coordinator: GenericCoordinator<T>,
         comment: LMModels.Views.CommentView
+        /*updateCompletion: ((LMModels.Views.CommentView) -> Void)? = nil*/
     ) {
         let alertController = createActionSheetController(vc: viewController)
         
         let mineActions = self.mineCommentActions(comment: comment.comment, coordinator: coordinator)
-        let savePostAction = self.createSaveCommentAction(commentId: comment.id, saved: comment.saved)
+        let saveCommentAction = self.createSaveCommentAction(commentId: comment.id, saved: comment.saved)
         let shareAction = self.createShareAction(on: viewController, urlString: comment.getApIdRelatedToPost())
         let reportAction = UIAlertAction(title: "alert-report".localized, style: .destructive) { (_) in
             
@@ -92,7 +102,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         alertController.addActions(mineActions)
         
         alertController.addActions([
-            savePostAction,
+            saveCommentAction,
             shareAction,
             reportAction,
             UIAlertAction.cancelAction
@@ -108,6 +118,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
     ) {
         let alertController = createActionSheetController(vc: viewController)
         
+        let saveCommentAction = self.createSaveCommentAction(commentId: reply.id, saved: reply.saved)
         let sendMessageAction = UIAlertAction(title: "alert-send-message".localized, style: .default) { _ in
             let recipientId = reply.creator.id
             viewController.coordinator?.goToWriteMessage(recipientId: recipientId)
@@ -121,6 +132,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         }
         
         alertController.addActions([
+            saveCommentAction,
             sendMessageAction,
             reportAction,
             UIAlertAction.cancelAction
@@ -135,13 +147,17 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
     ) {
         let alertController = createActionSheetController(vc: viewController)
         
+        let saveCommentAction = self.createSaveCommentAction(commentId: mention.id, saved: mention.saved)
         let sendMessageAction = UIAlertAction(title: "alert-send-message".localized, style: .default) { _ in
             let recipientId = mention.creator.id
             viewController.coordinator?.goToWriteMessage(recipientId: recipientId)
         }
         
-        alertController.addAction(sendMessageAction)
-        alertController.addAction(UIAlertAction.cancelAction)
+        alertController.addActions([
+            saveCommentAction,
+            sendMessageAction,
+            UIAlertAction.cancelAction
+        ])
         viewController.present(alertController, animated: true)
     }
     

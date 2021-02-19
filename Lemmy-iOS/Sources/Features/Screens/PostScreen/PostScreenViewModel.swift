@@ -61,51 +61,50 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     func doReceiveMessages() {
         sendPostJoin(flag: true)
         
-        wsClient?
-            .onMessage(completion: { (operation, data) in
-                switch operation {
-                case LMMUserOperation.CreateComment.rawValue:
-                    guard let newComment = self.wsClient?.decodeWsType(
-                        LMModels.Api.Comment.CommentResponse.self,
-                        data: data
-                    ) else { return }
-                    
-                    // Necessary since it might be a user reply, which has the recipients, to avoid double
-                    if newComment.recipientIds.count == 0 {
-                        self.viewController?.displayCreatedComment(viewModel: .init(comment: newComment.commentView))
-                    }
-                    
-                case LMMUserOperation.EditPost.rawValue,
-                     LMMUserOperation.DeletePost.rawValue,
-                     LMMUserOperation.RemovePost.rawValue,
-                     LMMUserOperation.LockPost.rawValue,
-                     LMMUserOperation.StickyPost.rawValue,
-                     LMMUserOperation.SavePost.rawValue,
-                     LMMUserOperation.CreatePostLike.rawValue:
-                    
-                    guard let newPost = self.wsClient?.decodeWsType(
-                        LMModels.Api.Post.PostResponse.self,
-                        data: data
-                    ) else { return }
-                    
-                    self.viewController?.displayOnlyPost(viewModel: .init(postView: newPost.postView))
-                    
-                case LMMUserOperation.EditComment.rawValue,
-                     LMMUserOperation.DeleteComment.rawValue,
-                     LMMUserOperation.RemoveComment.rawValue:
-                    
-                    guard let newComment = self.wsClient?.decodeWsType(
-                        LMModels.Api.Comment.CommentResponse.self,
-                        data: data
-                    ) else { return }
-                    
-                    self.viewController?.displayUpdateComment(
-                        viewModel: .init(commentView: newComment.commentView)
-                    )                    
-                default:
-                    break
+        wsClient?.onTextMessage.addObserver(self, completionHandler: { (operation, data) in
+            switch operation {
+            case LMMUserOperation.CreateComment.rawValue:
+                guard let newComment = self.wsClient?.decodeWsType(
+                    LMModels.Api.Comment.CommentResponse.self,
+                    data: data
+                ) else { return }
+                
+                // Necessary since it might be a user reply, which has the recipients, to avoid double
+                if newComment.recipientIds.count == 0 {
+                    self.viewController?.displayCreatedComment(viewModel: .init(comment: newComment.commentView))
                 }
-            })
+                
+            case LMMUserOperation.EditPost.rawValue,
+                 LMMUserOperation.DeletePost.rawValue,
+                 LMMUserOperation.RemovePost.rawValue,
+                 LMMUserOperation.LockPost.rawValue,
+                 LMMUserOperation.StickyPost.rawValue,
+                 LMMUserOperation.SavePost.rawValue,
+                 LMMUserOperation.CreatePostLike.rawValue:
+                
+                guard let newPost = self.wsClient?.decodeWsType(
+                    LMModels.Api.Post.PostResponse.self,
+                    data: data
+                ) else { return }
+                
+                self.viewController?.displayOnlyPost(viewModel: .init(postView: newPost.postView))
+                
+            case LMMUserOperation.EditComment.rawValue,
+                 LMMUserOperation.DeleteComment.rawValue,
+                 LMMUserOperation.RemoveComment.rawValue:
+                
+                guard let newComment = self.wsClient?.decodeWsType(
+                    LMModels.Api.Comment.CommentResponse.self,
+                    data: data
+                ) else { return }
+                
+                self.viewController?.displayUpdateComment(
+                    viewModel: .init(commentView: newComment.commentView)
+                )
+            default:
+                break
+            }
+        })
     }
     
     private func sendPostJoin(flag: Bool) {

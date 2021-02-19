@@ -43,31 +43,35 @@ class PostsFrontPageModel: NSObject {
     }
     
     func receiveMessages() {
-        wsEvents?
-            .onMessage(completion: { (operation, data) in
-                
-                switch operation {
-                case LMMUserOperation.CreatePostLike.rawValue:
-                    
-                    guard let postLike = self.wsEvents?.decodeWsType(
-                        LMModels.Api.Post.PostResponse.self,
-                        data: data
-                    ) else { return }
-                    
-                    self.updatePostCell(with: postLike.postView)
-                    
-                default:
-                    break
-                }
-                
-            })
         
-        let commJoin = LMModels.Api.Websocket.CommunityJoin(communityId: 0)
-
-        wsEvents?.send(
-            WSEndpoint.Community.communityJoin.endpoint,
-            parameters: commJoin
-        )
+        wsEvents?.onTextMessage.addObserver(self, completionHandler: { (operation, data) in
+            switch operation {
+            case LMMUserOperation.CreatePostLike.rawValue:
+                
+                guard let postLike = self.wsEvents?.decodeWsType(
+                    LMModels.Api.Post.PostResponse.self,
+                    data: data
+                ) else { return }
+                
+                self.createPostLike(with: postLike.postView)
+                
+            case LMMUserOperation.EditPost.rawValue,
+                 LMMUserOperation.DeletePost.rawValue,
+                 LMMUserOperation.RemovePost.rawValue,
+                 LMMUserOperation.LockPost.rawValue,
+                 LMMUserOperation.StickyPost.rawValue,
+                 LMMUserOperation.SavePost.rawValue:
+                
+                guard let newPost = self.wsEvents?.decodeWsType(
+                    LMModels.Api.Post.PostResponse.self,
+                    data: data
+                ) else { return }
+                
+                self.updatePost(with: newPost.postView)
+            default:
+                break
+            }
+        })
     }
     
     func loadPosts() {
@@ -109,7 +113,7 @@ class PostsFrontPageModel: NSObject {
                 
             }.store(in: &cancellable)
     }
-        
+    
     private func saveNewPost(_ post: LMModels.Views.PostView) {
         postsDataSource.updateElementById(post)
     }
@@ -124,10 +128,16 @@ class PostsFrontPageModel: NSObject {
             }.store(in: &cancellable)
     }
     
-    private func updatePostCell(with updatedPost: LMModels.Views.PostView) {
+    private func createPostLike(with updatedPost: LMModels.Views.PostView) {
         if let index = self.postsDataSource.getElementIndex(by: updatedPost.id) {
             self.postsDataSource[index].updateForCreatePostLike(with: updatedPost)
             self.createPostLikeUpdate?(index)
         }
-    }    
+    }
+    
+    private func updatePost(with updatedPost: LMModels.Views.PostView) {
+        if let index = self.postsDataSource.getElementIndex(by: updatedPost.id) {
+            self.postsDataSource[index] = updatedPost
+        }
+    }
 }

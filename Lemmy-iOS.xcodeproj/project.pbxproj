@@ -19,6 +19,7 @@
 		4E004F8A25DFF8A9006B81CF /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004F8925DFF8A9006B81CF /* EditPostViewController.swift */; };
 		4E004F8F25DFF8B0006B81CF /* EditPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004F8E25DFF8B0006B81CF /* EditPostViewModel.swift */; };
 		4E004F9425DFF8C1006B81CF /* EditPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004F9325DFF8C1006B81CF /* EditPostView.swift */; };
+		4E004FB325E0676B006B81CF /* MessageDynamicValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004FB225E0676B006B81CF /* MessageDynamicValue.swift */; };
 		4E05D637255EBA63002307E0 /* Optional+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05D636255EBA63002307E0 /* Optional+Ext.swift */; };
 		4E0A8E2F255BFC0000B06AF6 /* UIApplication+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */; };
 		4E0A8E35255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E34255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift */; };
@@ -401,6 +402,7 @@
 		4E004F8925DFF8A9006B81CF /* EditPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
 		4E004F8E25DFF8B0006B81CF /* EditPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostViewModel.swift; sourceTree = "<group>"; };
 		4E004F9325DFF8C1006B81CF /* EditPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostView.swift; sourceTree = "<group>"; };
+		4E004FB225E0676B006B81CF /* MessageDynamicValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDynamicValue.swift; sourceTree = "<group>"; };
 		4E05D636255EBA63002307E0 /* Optional+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Ext.swift"; sourceTree = "<group>"; };
 		4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Ext.swift"; sourceTree = "<group>"; };
 		4E0A8E34255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenCommentsViewController.swift; sourceTree = "<group>"; };
@@ -1710,6 +1712,7 @@
 				4ECCEF08250CC3A60075F921 /* RequestsManager.swift */,
 				4E3D44D52595D3B300108DA3 /* ChainedWSClient.swift */,
 				4E5A677025C1A3D700BAA536 /* LemmyDecoder.swift */,
+				4E004FB225E0676B006B81CF /* MessageDynamicValue.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -2549,6 +2552,7 @@
 				4EFAB5E72552FA9300B32780 /* UITableView+Ext.swift in Sources */,
 				4E3E0F722555BCF70086CE0C /* ProfileScreenViewController.swift in Sources */,
 				4E1A7E6125573CC900E193B7 /* LoadingTableViewCell.swift in Sources */,
+				4E004FB325E0676B006B81CF /* MessageDynamicValue.swift in Sources */,
 				4EDD007625A5F4A6006FCB9F /* InboxMessagesViewModel.swift in Sources */,
 				4E886CEC25442B3B0076B162 /* HttpEndpoint.swift in Sources */,
 				4E886C61253CAF650076B162 /* CreateTransitionDelegateImpl.swift in Sources */,

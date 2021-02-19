@@ -74,11 +74,22 @@ class CommentsFrontPageViewController: UIViewController {
         viewModel.newDataLoaded = { [self] in
             diffTable(animating: true)
         }
+        
+        viewModel.createCommentLikeUpdate = { index in
+            let indexPath = IndexPath(row: index, section: 0)
+            
+            DispatchQueue.main.async {
+                if let cell = self.tableView.cellForRow(at: indexPath) as? CommentContentTableCell {
+                    cell.updateForCreateCommentLike(comment: self.viewModel.commentsDataSource[index])
+                }
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.showActivityIndicator()
+        self.viewModel.receiveMessages()
     }
     
     override func viewDidLayoutSubviews() {

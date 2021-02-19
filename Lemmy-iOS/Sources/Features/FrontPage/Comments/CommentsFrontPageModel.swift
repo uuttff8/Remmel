@@ -12,6 +12,7 @@ import Combine
 class CommentsFrontPageModel: NSObject {
     var dataLoaded: (() -> Void)?
     var newDataLoaded: (() -> Void)?
+    var createCommentLikeUpdate: ((_ index: Int) -> Void)?
     
     private let contentPreferenceService = ContentPreferencesStorageManager()
     
@@ -21,6 +22,8 @@ class CommentsFrontPageModel: NSObject {
     var commentsDataSource: [LMModels.Views.CommentView] = []
     
     private let contentScoreService = ContentScoreService(userAccountService: UserAccountService())
+    
+    private let wsEvents = ApiManager.chainedWsCLient
     
     private var cancellable = Set<AnyCancellable>()
     
@@ -89,12 +92,53 @@ class CommentsFrontPageModel: NSObject {
             }.store(in: &cancellable)
     }
     
+    func receiveMessages() {
+        
+        wsEvents?.onTextMessage.addObserver(self, completionHandler: { (operation, data) in
+            switch operation {
+            case LMMUserOperation.CreateCommentLike.rawValue:
+                
+                guard let commentLike = self.wsEvents?.decodeWsType(
+                    LMModels.Api.Comment.CommentResponse.self,
+                    data: data
+                ) else { return }
+                
+                self.createPostLike(with: commentLike.commentView)
+                
+            case LMMUserOperation.EditComment.rawValue,
+                 LMMUserOperation.DeleteComment.rawValue,
+                 LMMUserOperation.RemoveComment.rawValue:
+                
+                guard let newComment = self.wsEvents?.decodeWsType(
+                    LMModels.Api.Comment.CommentResponse.self,
+                    data: data
+                ) else { return }
+                
+                self.updateComment(with: newComment.commentView)
+            default:
+                break
+            }
+        })
+    }
+    
+    private func createPostLike(with updatedComment: LMModels.Views.CommentView) {
+        if let index = self.commentsDataSource.getElementIndex(by: updatedComment.id) {
+            self.commentsDataSource[index].updateForCreatePostLike(with: updatedComment)
+            self.createCommentLikeUpdate?(index)
+        }
+    }
+    
+    private func updateComment(with updatedComment: LMModels.Views.CommentView) {
+        if let index = self.commentsDataSource.getElementIndex(by: updatedComment.id) {
+            self.commentsDataSource[index] = updatedComment
+        }
+    }
+    
     private func saveNewComment(_ comment: LMModels.Views.CommentView) {
         if let index = commentsDataSource.firstIndex(where: { $0.comment.id == comment.comment.id }) {
             commentsDataSource[index] = comment
         }
     }
-    
 }
 
 extension CommentsFrontPageModel: UITableViewDelegate {

@@ -61,7 +61,6 @@ class PostsFrontPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.showActivityIndicator()
-        viewModel.receiveMessages()
         viewModel.loadPosts()
         setupTableHeaderView()
         
@@ -86,6 +85,11 @@ class PostsFrontPageViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.receiveMessages()
     }
     
     override func viewDidLayoutSubviews() {
