@@ -39,6 +39,7 @@ class CreatePostCoordinator: Coordinator {
         rootViewController.dismiss(animated: true, completion: nil)
 
         if let presentingVc = rootViewController.presentingViewController as? LemmyTabBarController {
+            presentingVc.selectedIndex = 0 // TODO: change to a enum valueasd
             presentingVc.coordinator?.goToPost(post: post)
         }
     }
