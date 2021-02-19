@@ -35,7 +35,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     }
     
     deinit {
-        
+        sendPostJoin(flag: false)
     }
     
     func doPostFetch() {
@@ -59,6 +59,8 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     }
     
     func doReceiveMessages() {
+        sendPostJoin(flag: true)
+        
         wsClient?
             .onMessage(completion: { (operation, data) in
                 switch operation {
@@ -67,6 +69,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
                             LMModels.Api.Comment.CommentResponse.self,
                             data: data
                     )
+                    
                     else { return }
                     
                     // Necessary since it might be a user reply, which has the recipients, to avoid double
@@ -129,6 +132,7 @@ enum PostScreen {
     
     enum ToastMessage {
         struct ViewModel {
+            let isSuccess: Bool
             let message: String
         }
     }

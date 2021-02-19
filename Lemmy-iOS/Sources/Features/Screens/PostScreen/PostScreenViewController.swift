@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftMessages
 
 protocol PostScreenViewControllerProtocol: AnyObject {
     func displayPost(viewModel: PostScreen.PostLoad.ViewModel)
@@ -60,6 +61,7 @@ class PostScreenViewController: UIViewController, Containered {
         self.add(asChildViewController: commentsViewController)
         
         viewModel.doPostFetch()
+        viewModel.doReceiveMessages()
         self.updateState(newState: state)
     }
             
@@ -92,7 +94,10 @@ class PostScreenViewController: UIViewController, Containered {
 
 extension PostScreenViewController: PostScreenViewControllerProtocol {
     func displayToastMessage(viewModel: PostScreen.ToastMessage.ViewModel) {
-        
+        if viewModel.isSuccess {
+            let config = LMMMessagesToast.successBottomToast(title: "Success", body: viewModel.message)
+            SwiftMessages.show(config: config.0, view: config.1)
+        }
     }
     
     func displayCreatedComment(viewModel: PostScreen.CreateComment.ViewModel) {
@@ -180,7 +185,9 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
     func showContext(in comment: LMModels.Views.CommentView) { }
     
     func reply(to comment: LMModels.Views.CommentView) {
-        coordinator?.goToWriteComment(postSource: comment.post, parrentComment: comment.comment)
+        coordinator?.goToWriteComment(postSource: comment.post, parrentComment: comment.comment) {
+            LMMMessagesToast.showSuccessCreateComment()
+        }
     }
     
     func onLinkTap(in comment: LMModels.Views.CommentView, url: URL) {
@@ -191,11 +198,19 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
         guard let coordinator = coordinator else { return }
         showMoreHandlerService.showMoreInComment(on: self, coordinator: coordinator, comment: comment)
     }
+    
+    func refreshControlDidRequestRefresh() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.viewModel.doPostFetch()
+        }
+    }
 }
 
 extension PostScreenViewController: PostScreenViewDelegate {
     func postView(_ postView: View, didWriteCommentTappedWith post: LMModels.Views.PostView) {
-        self.coordinator?.goToWriteComment(postSource: post.post, parrentComment: nil)
+        self.coordinator?.goToWriteComment(postSource: post.post, parrentComment: nil) {
+            LMMMessagesToast.showSuccessCreateComment()
+        }
     }
     
     func postView(didEmbedTappedWith url: URL) {

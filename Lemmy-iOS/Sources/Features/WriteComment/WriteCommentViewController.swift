@@ -16,6 +16,8 @@ protocol WriteCommentViewControllerProtocol: AnyObject {
 
 class WriteCommentViewController: UIViewController {
     
+    var completionHandler: (() -> Void)?
+    
     enum TableForm: String {
         case headerCell
         case textFieldComment
@@ -131,6 +133,7 @@ extension WriteCommentViewController: WriteCommentViewControllerProtocol {
     
     func displaySuccessCreatingComment(viewModel: WriteComment.RemoteCreateComment.ViewModel) {
         self.dismiss(animated: true)
+        completionHandler?()
     }
     
     func displayCreatePostError(viewModel: WriteComment.CreateCommentError.ViewModel) {

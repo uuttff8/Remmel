@@ -85,7 +85,11 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
         })
     }
         
-    func goToWriteComment(postSource: LMModels.Source.Post, parrentComment: LMModels.Source.Comment?) {
+    func goToWriteComment(
+        postSource: LMModels.Source.Post,
+        parrentComment: LMModels.Source.Comment?,
+        completion: (() -> Void)? = nil
+    ) {
         ContinueIfLogined(on: rootViewController, coordinator: self) {
             // TODO(uuttff8): Move this code to another component
             let haptic = UIImpactFeedbackGenerator(style: .light)
@@ -93,9 +97,11 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
             haptic.impactOccurred()
             
             let assembly = WriteCommentAssembly(parentComment: parrentComment, postSource: postSource)
-            let vc = assembly.makeModule()
-            let navigationController = StyledNavigationController(rootViewController: vc)
-            navigationController.presentationController?.delegate = vc
+            let module = assembly.makeModule()
+            module.completionHandler = completion
+            
+            let navigationController = StyledNavigationController(rootViewController: module)
+            navigationController.presentationController?.delegate = module
             rootViewController.present(navigationController, animated: true)
         }
     }

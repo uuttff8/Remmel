@@ -95,7 +95,7 @@ extension LMModels.Api {
         struct CommentResponse: Codable {
             let commentView: LMModels.Views.CommentView
             let recipientIds: [Int]
-            let formId: Int? // An optional front end ID, to tell which is coming back
+            let formId: String? // An optional front end ID, to tell which is coming back
             
             enum CodingKeys: String, CodingKey {
                 case commentView = "comment_view"

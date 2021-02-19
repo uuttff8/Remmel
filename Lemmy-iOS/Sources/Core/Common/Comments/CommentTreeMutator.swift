@@ -47,7 +47,7 @@ class CommentTreeMutator {
             
         } else {
             // if parentComment is not found, just show it as a new comment
-            buildedComments.append(newComment)
+            buildedComments.insert(newComment, at: 0)
         }
     }
 }

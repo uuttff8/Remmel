@@ -14,6 +14,7 @@
 		4E004F4025DEBC7C006B81CF /* markymark in Frameworks */ = {isa = PBXBuildFile; productRef = 4E004F3F25DEBC7C006B81CF /* markymark */; };
 		4E004F6125DFA81B006B81CF /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = 4E004F6025DFA81B006B81CF /* SwiftMessages */; };
 		4E004F6925DFAA2E006B81CF /* CommentTreeMutator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004F6825DFAA2E006B81CF /* CommentTreeMutator.swift */; };
+		4E004F6E25DFE258006B81CF /* LMMMessagesToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004F6D25DFE258006B81CF /* LMMMessagesToast.swift */; };
 		4E05D637255EBA63002307E0 /* Optional+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05D636255EBA63002307E0 /* Optional+Ext.swift */; };
 		4E0A8E2F255BFC0000B06AF6 /* UIApplication+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */; };
 		4E0A8E35255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E34255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift */; };
@@ -391,6 +392,7 @@
 		4E004E2825DC736C006B81CF /* Actionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actionable.swift; sourceTree = "<group>"; };
 		4E004E7B25DE7A5F006B81CF /* ControlContainableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlContainableScrollView.swift; sourceTree = "<group>"; };
 		4E004F6825DFAA2E006B81CF /* CommentTreeMutator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTreeMutator.swift; sourceTree = "<group>"; };
+		4E004F6D25DFE258006B81CF /* LMMMessagesToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMMMessagesToast.swift; sourceTree = "<group>"; };
 		4E05D636255EBA63002307E0 /* Optional+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Ext.swift"; sourceTree = "<group>"; };
 		4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Ext.swift"; sourceTree = "<group>"; };
 		4E0A8E34255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenCommentsViewController.swift; sourceTree = "<group>"; };
@@ -1901,6 +1903,7 @@
 				4E24395C259DE2200006C742 /* IncreasedTapAreaButton.swift */,
 				4EB2641225AC8A03003D5183 /* TermsOfUseView.swift */,
 				4E004E2425DC70C8006B81CF /* CopyableLabel.swift */,
+				4E004F6D25DFE258006B81CF /* LMMMessagesToast.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -2504,6 +2507,7 @@
 				4EF3AC95254B60F000BEC9F1 /* CreateCommunityImagesCell.swift in Sources */,
 				4E0A8E4D255C0AF900B06AF6 /* ProfileScreenCommentsInputOutput.swift in Sources */,
 				4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */,
+				4E004F6E25DFE258006B81CF /* LMMMessagesToast.swift in Sources */,
 				4E0A8E5C255D586F00B06AF6 /* ProfileScreenAboutInputProtocol.swift in Sources */,
 				4E24395D259DE2200006C742 /* IncreasedTapAreaButton.swift in Sources */,
 				4EF3AC5D254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift in Sources */,

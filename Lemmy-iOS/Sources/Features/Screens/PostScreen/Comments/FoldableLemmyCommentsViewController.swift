@@ -8,10 +8,12 @@
 
 import UIKit
 
-protocol CommentsViewControllerDelegate: CommentContentTableCellDelegate { }
+protocol CommentsViewControllerDelegate: CommentContentTableCellDelegate {
+    func refreshControlDidRequestRefresh()
+}
 
 final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyCommentTableViewDataSource {
-    
+        
     weak var commentDelegate: CommentsViewControllerDelegate?
         
     var commentDataSource: [LemmyComment] {
@@ -31,11 +33,24 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.refreshControl = UIRefreshControl()
+        if let refreshControl = self.refreshControl {
+            refreshControl.addTarget(self,
+                                     action: #selector(self.refreshControlValueChanged),
+                                     for: .valueChanged)
+            self.tableView.addSubview(refreshControl)
+        }
+        
         tableView.registerClass(SwipingCommentContentTableCell.self)
         tableView.estimatedRowHeight = CommentContentTableCell.estimatedHeight
     }
     
     func showComments(with comments: [LemmyComment]) {
+        _currentlyDisplayed.removeAll()
+        if let refresh = self.refreshControl, refresh.isRefreshing {
+            refresh.endRefreshing()
+        }
+
         self.delegate = self
         self.fullyExpanded = true
         
@@ -51,9 +66,14 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
     }
     
     func displayCreatedComment(comment: LMModels.Views.CommentView) {
-        let mutator = CommentTreeMutator(buildedComments: &self.commentDataSource)
-        
-        mutator.insert(comment: comment)
+        // TODO: just paste a new comment
+//        let mutator = CommentTreeMutator(buildedComments: &self.commentDataSource)
+//
+//        
+//        mutator.insert(comment: comment)
+//        DispatchQueue.main.async {
+//            self.tableView.reloadData()
+//        }
     }
     
     func scrollTo(_ comment: LMModels.Views.CommentView) {
@@ -89,6 +109,10 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         commentCell.commentContentView.delegate = commentDelegate
         
         return commentCell
+    }
+    
+    @objc private func refreshControlValueChanged() {
+        self.commentDelegate?.refreshControlDidRequestRefresh()
     }
 }
 

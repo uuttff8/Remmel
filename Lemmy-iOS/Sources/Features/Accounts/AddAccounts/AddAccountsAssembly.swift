@@ -15,8 +15,6 @@ enum LemmyAuthMethod {
 
 final class AddAccountsAssembly: Assembly {
     
-    var completionHandler: (() -> Void)?
-
     private let authMethod: LemmyAuthMethod
     private let currentInstance: Instance
     
@@ -37,9 +35,7 @@ final class AddAccountsAssembly: Assembly {
             authMethod: authMethod
         )
         viewModel.viewController = vc
-        
-        completionHandler = vc.completionHandler
-        
+                
         return vc
     }
 }

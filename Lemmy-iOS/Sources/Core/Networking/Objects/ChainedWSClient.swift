@@ -27,7 +27,8 @@ protocol WSClientProtocol: AnyObject {
 
 final class ChainedWSClient: WSClientProtocol {
     
-    private var webSocketTask: URLSessionWebSocketTask
+    private var webSocketTask: URLSessionWebSocketTask?
+    private let wsEndpoint: URL
     
     private var _onConnected: (() -> Void)?
     private var _onTextMessage: ((_ op: String, _ data: Data) -> Void)?
@@ -45,6 +46,7 @@ final class ChainedWSClient: WSClientProtocol {
         self.reconnecting = reconnecting
         
         guard let url = String.createInstanceFullUrl(instanceUrl: urlString) else { return nil }
+        self.wsEndpoint = url
         
         let urlSession = URLSession(configuration: .default)
         self.webSocketTask = urlSession.webSocketTask(with: url)
@@ -53,7 +55,7 @@ final class ChainedWSClient: WSClientProtocol {
     
     @discardableResult
     func connect() -> WSClientProtocol {
-        self.webSocketTask.resume()
+        self.webSocketTask?.resume()
         self._onConnected?()
         receiveMessages()
         ping()
@@ -63,9 +65,12 @@ final class ChainedWSClient: WSClientProtocol {
     func send<T: Codable>(_ op: String, parameters: T) {
         guard let message = self.makeRequestString(url: op, data: parameters) else { return }
         
-        self.webSocketTask.send(.string(message)) { (error) in
+        Logger.commonLog.info(message)
+        
+        self.webSocketTask?.send(.string(message)) { (error) in
             guard let error = error else { return }
             Logger.commonLog.error("Socket send failure: \(error)")
+            self.reconnectIfNeeded()
         }
     }
     
@@ -74,7 +79,7 @@ final class ChainedWSClient: WSClientProtocol {
     }
     
     func close() {
-        self.webSocketTask.cancel(with: .goingAway, reason: nil)
+        self.webSocketTask?.cancel(with: .goingAway, reason: nil)
     }
      
     func onConnected(completion: @escaping () -> Void) -> WSClientProtocol {
@@ -91,17 +96,31 @@ final class ChainedWSClient: WSClientProtocol {
         self._onTextMessage = completion
     }
     
+    func reconnectIfNeeded() {
+        if self.reconnecting {
+//            if self.nwMonitor.currentPath.status == .satisfied {
+                let urlSession = URLSession(configuration: .default)
+                self.webSocketTask = urlSession.webSocketTask(with: self.wsEndpoint)
+                self.webSocketTask?.resume()
+                receiveMessages()
+//            } else {
+//                self._onError?("No internet")
+//            }
+        }
+    }
+    
     func decodeWsType<T: Codable>(_ type: T.Type, data: Data) -> T? {
-        guard let data = try? LemmyJSONDecoder().decode(
+        //swiftlint:disable:next force_try
+        /*guard*/ let data = try! LemmyJSONDecoder().decode(
             RequestsManager.ApiResponse<T>.self,
             from: data
-        ) else { return nil }
+        ) /*else { return nil }*/
         
         return data.data
     }
     
     private func receiveMessages() {
-        webSocketTask.receive { [weak self] result in
+        webSocketTask?.receive { [weak self] result in
             switch result {
             case .failure(let error):
                 self?._onError?(error)
@@ -128,19 +147,10 @@ final class ChainedWSClient: WSClientProtocol {
     
     private func ping() {
         Logger.commonLog.info("PING Websocket")
-        webSocketTask.sendPing { [weak self] error in
+        webSocketTask?.sendPing { [weak self] error in
             if let error = error {
                 Logger.commonLog.error("SocketPingFailure: \(error.localizedDescription)")
-                
-                guard let self = self else { return }
-                if self.reconnecting {
-                    if self.nwMonitor.currentPath.status == .satisfied {
-                        self.connect()
-                    } else {
-                        self._onError?("No internet")
-                    }
-                }
-                
+                self?.reconnectIfNeeded()
                 return
             }
             
