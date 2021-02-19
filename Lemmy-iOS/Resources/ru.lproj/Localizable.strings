@@ -179,4 +179,13 @@
 "front-search-comments" = "Комментариям";
 
 "toast-success" = "Успех";
+"toast-error" = "Ошибка";
 "toast-creating-comment-success" = "Вы создали ковый комментарий!";
+"toast-edit-post-success" = "Вы изменили свой пост!";
+"toast-edit-comment-success" = "Вы изменили свой комментарий!";
+"toast-delete-post-success" = "Вы удалили/восстановили свой пост!";
+"toast-delete-post-error" = "Что-то произошло при удалении/восстановления вашего поста...";
+"toast-save-post-success" = "Вы сохранили/удалили сохранение вашего поста!";
+"toast-save-post-error" = "Что-то произошло при сохранении/удалении сохранения поста!";
+"toast-save-comment-success" = "Вы сохранили/удалили сохранение вашего комментария!";
+"toast-save-comment-error" = "Что-то произошло при сохранении/удалении сохранениякомментария!";
