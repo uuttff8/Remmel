@@ -44,7 +44,7 @@ extension PostScreenViewController {
             self.makeConstraints()
             
             headerView.writeNewCommentButton.addTarget(self,
-                                                       action: #selector(writeCommentTapped(_:)),
+                                                       action: #selector(writeCommentButtonTapped(_:)),
                                                        for: .touchUpInside)
         }
         
@@ -74,11 +74,13 @@ extension PostScreenViewController {
             self.hideActivityIndicatorView()
         }
         
-        @objc func writeCommentTapped(_ sender: WriteNewCommentButton) {
+        @objc func writeCommentButtonTapped(_ sender: WriteNewCommentButton) {
             guard let post = postData else { return }
             
             self.delegate?.postView(self, didWriteCommentTappedWith: post)
         }
+        
+        
     }
 }
 

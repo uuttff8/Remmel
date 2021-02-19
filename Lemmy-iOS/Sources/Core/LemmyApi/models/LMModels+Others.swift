@@ -8,8 +8,74 @@
 
 import Foundation
 
+typealias LMMUserOperation = LMModels.Others.UserOperation
+
 extension LMModels {
     enum Others {
+        
+        enum UserOperation: String {
+            case
+                Login,
+                Register,
+                GetCaptcha,
+                CreateCommunity,
+                CreatePost,
+                ListCommunities,
+                ListCategories,
+                GetPost,
+                GetCommunity,
+                CreateComment,
+                EditComment,
+                DeleteComment,
+                RemoveComment,
+                MarkCommentAsRead,
+                SaveComment,
+                CreateCommentLike,
+                GetPosts,
+                CreatePostLike,
+                EditPost,
+                DeletePost,
+                RemovePost,
+                LockPost,
+                StickyPost,
+                SavePost,
+                EditCommunity,
+                DeleteCommunity,
+                RemoveCommunity,
+                FollowCommunity,
+                GetFollowedCommunities,
+                GetUserDetails,
+                GetReplies,
+                GetUserMentions,
+                MarkUserMentionAsRead,
+                GetModlog,
+                BanFromCommunity,
+                AddModToCommunity,
+                CreateSite,
+                EditSite,
+                GetSite,
+                AddAdmin,
+                BanUser,
+                Search,
+                MarkAllAsRead,
+                SaveUserSettings,
+                TransferCommunity,
+                TransferSite,
+                DeleteAccount,
+                PasswordReset,
+                PasswordChange,
+                CreatePrivateMessage,
+                EditPrivateMessage,
+                DeletePrivateMessage,
+                MarkPrivateMessageAsRead,
+                GetPrivateMessages,
+                UserJoin,
+                GetComments,
+                GetSiteConfig,
+                SaveSiteConfig,
+                PostJoin,
+                CommunityJoin
+        }
         
         enum SortType: String, Codable, CaseIterable, LemmyTypePickable {
             case active = "Active"
@@ -22,7 +88,7 @@ extension LMModels {
             case topAll = "TopAll"
             case mostComments = "MostComments"
             case newComments = "NewComments"
-        
+            
             var label: String {
                 switch self {
                 case .active: return "sort-active".localized
@@ -200,14 +266,14 @@ extension LMModels {
             case url = "Url"
             
             var label: String {
-            switch self {
-            case .all: return "searchtype-all".localized
-            case .comments: return "searchtype-comments".localized
-            case .posts: return "searchtype-posts".localized
-            case .communities: return "searchtype-communities".localized
-            case .users: return "searchtype-users".localized
-            case .url: return "searchtype-url".localized
-            }
+                switch self {
+                case .all: return "searchtype-all".localized
+                case .comments: return "searchtype-comments".localized
+                case .posts: return "searchtype-posts".localized
+                case .communities: return "searchtype-communities".localized
+                case .users: return "searchtype-users".localized
+                case .url: return "searchtype-url".localized
+                }
             }
         }
         

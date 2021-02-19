@@ -10,8 +10,8 @@ import UIKit
 
 protocol PostScreenViewControllerProtocol: AnyObject {
     func displayPost(viewModel: PostScreen.PostLoad.ViewModel)
-    func operateSaveNewComment(viewModel: PostScreen.SaveComment.ViewModel)
-    func operateSaveNewPost(viewModel: PostScreen.SavePost.ViewModel)
+    func displayToastMessage(viewModel: PostScreen.ToastMessage.ViewModel)
+    func displayCreatedComment(viewModel: PostScreen.CreateComment.ViewModel)
 }
 
 class PostScreenViewController: UIViewController, Containered {
@@ -91,16 +91,16 @@ class PostScreenViewController: UIViewController, Containered {
 }
 
 extension PostScreenViewController: PostScreenViewControllerProtocol {
+    func displayToastMessage(viewModel: PostScreen.ToastMessage.ViewModel) {
+        
+    }
+    
+    func displayCreatedComment(viewModel: PostScreen.CreateComment.ViewModel) {
+        self.commentsViewController.displayCreatedComment(comment: viewModel.comment)
+    }
+    
     func displayPost(viewModel: PostScreen.PostLoad.ViewModel) {
         self.updateState(newState: viewModel.state)
-    }
-        
-    func operateSaveNewComment(viewModel: PostScreen.SaveComment.ViewModel) {
-        commentsViewController.saveNewComment(comment: viewModel.comment)
-    }
-
-    func operateSaveNewPost(viewModel: PostScreen.SavePost.ViewModel) {
-        self.postScreenView.bind(with: viewModel.post)
     }
 }
 
@@ -125,7 +125,7 @@ extension PostScreenViewController: PostContentTableCellDelegate {
                 for: newVote,
                 post: post
             ) { (post) in
-                self.operateSaveNewPost(viewModel: .init(post: post))
+                self.postScreenView.bind(with: post)
             }
         }
     }
@@ -172,7 +172,7 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
                 for: newVote,
                 comment: comment
             ) { (comment) in
-                self.operateSaveNewComment(viewModel: .init(comment: comment))
+                self.commentsViewController.updateExistingComment(comment)
             }
         }
     }

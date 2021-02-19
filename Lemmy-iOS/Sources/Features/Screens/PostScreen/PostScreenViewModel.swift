@@ -34,6 +34,10 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
         self.wsClient = wsClient
     }
     
+    deinit {
+        
+    }
+    
     func doPostFetch() {
         let parameters = LMModels.Api.Post.GetPost(id: postId,
                                                    auth: LemmyShareData.shared.jwtToken)
@@ -57,14 +61,37 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     func doReceiveMessages() {
         wsClient?
             .onMessage(completion: { (operation, data) in
-                
+                switch operation {
+                case LMMUserOperation.CreateComment.rawValue:
+                    guard let newComment = self.wsClient?.decodeWsType(
+                            LMModels.Api.Comment.CommentResponse.self,
+                            data: data
+                    )
+                    else { return }
+                    
+                    // Necessary since it might be a user reply, which has the recipients, to avoid double
+                    if newComment.recipientIds.count == 0 {
+                        self.viewController?.displayCreatedComment(viewModel: .init(comment: newComment.commentView))
+                    }
+                default:
+                    break
+                }
             })
+    }
+    
+    private func sendPostJoin(flag: Bool) {
+        let commJoin = LMModels.Api.Websocket.PostJoin(postId: self.postId)
+
+        wsClient?.send(
+            LMMUserOperation.PostJoin.rawValue,
+            parameters: commJoin
+        )
     }
     
     private func makeViewData(
         from data: LMModels.Api.Post.GetPostResponse
     ) -> PostScreenViewController.View.ViewData {
-        let comments = CommentListingSort(comments: data.comments)
+        let comments = CommentTreeBuilder(comments: data.comments)
             .createCommentsTree()
         
         return .init(post: data.postView, comments: comments)
@@ -95,6 +122,18 @@ enum PostScreen {
     enum SaveComment {
         struct Request { }
         
+        struct ViewModel {
+            let comment: LMModels.Views.CommentView
+        }
+    }
+    
+    enum ToastMessage {
+        struct ViewModel {
+            let message: String
+        }
+    }
+    
+    enum CreateComment {
         struct ViewModel {
             let comment: LMModels.Views.CommentView
         }

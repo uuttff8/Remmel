@@ -11,8 +11,9 @@ import UIKit
 protocol CommentsViewControllerDelegate: CommentContentTableCellDelegate { }
 
 final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyCommentTableViewDataSource {
-    weak var commentDelegate: CommentsViewControllerDelegate?
     
+    weak var commentDelegate: CommentsViewControllerDelegate?
+        
     var commentDataSource: [LemmyComment] {
         get { currentlyDisplayed as! [LemmyComment] }
         set { currentlyDisplayed = newValue }
@@ -43,12 +44,16 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         self.tableView.reloadData()
     }
     
-    func saveNewComment(comment: LMModels.Views.CommentView) {
-        if let index = commentDataSource.firstIndex(where: {
-            $0.id == comment.id
-        }) {
+    func updateExistingComment(_ comment: LMModels.Views.CommentView) {
+        if let index = self.commentDataSource.getElementIndex(by: comment.id) {
             commentDataSource[index].commentContent = comment
         }
+    }
+    
+    func displayCreatedComment(comment: LMModels.Views.CommentView) {
+        let mutator = CommentTreeMutator(buildedComments: &self.commentDataSource)
+        
+        mutator.insert(comment: comment)
     }
     
     func scrollTo(_ comment: LMModels.Views.CommentView) {

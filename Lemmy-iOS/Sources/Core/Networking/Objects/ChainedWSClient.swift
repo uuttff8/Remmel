@@ -14,6 +14,7 @@ protocol WSClientProtocol: AnyObject {
     func connect() -> WSClientProtocol
 
     func send<T: Codable>(_ op: String, parameters: T)
+    func send<T: Codable>(_ op: LMMUserOperation, parameters: T)
     
     func close()
     
@@ -66,6 +67,10 @@ final class ChainedWSClient: WSClientProtocol {
             guard let error = error else { return }
             Logger.commonLog.error("Socket send failure: \(error)")
         }
+    }
+    
+    func send<T: Codable>(_ op: LMMUserOperation, parameters: T) {
+        self.send(op.rawValue, parameters: parameters)
     }
     
     func close() {

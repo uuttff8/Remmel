@@ -47,7 +47,7 @@ class PostsFrontPageModel: NSObject {
             .onMessage(completion: { (operation, data) in
                 
                 switch operation {
-                case WSEndpoint.Post.createPostLike.endpoint:
+                case LMMUserOperation.CreatePostLike.rawValue:
                     
                     guard let postLike = self.wsEvents?.decodeWsType(LMModels.Api.Post.PostResponse.self, data: data)
                     else { return }

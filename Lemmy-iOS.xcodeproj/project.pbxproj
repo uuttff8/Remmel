@@ -12,6 +12,8 @@
 		4E004E2925DC736C006B81CF /* Actionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004E2825DC736C006B81CF /* Actionable.swift */; };
 		4E004E7C25DE7A5F006B81CF /* ControlContainableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004E7B25DE7A5F006B81CF /* ControlContainableScrollView.swift */; };
 		4E004F4025DEBC7C006B81CF /* markymark in Frameworks */ = {isa = PBXBuildFile; productRef = 4E004F3F25DEBC7C006B81CF /* markymark */; };
+		4E004F6125DFA81B006B81CF /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = 4E004F6025DFA81B006B81CF /* SwiftMessages */; };
+		4E004F6925DFAA2E006B81CF /* CommentTreeMutator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004F6825DFAA2E006B81CF /* CommentTreeMutator.swift */; };
 		4E05D637255EBA63002307E0 /* Optional+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05D636255EBA63002307E0 /* Optional+Ext.swift */; };
 		4E0A8E2F255BFC0000B06AF6 /* UIApplication+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */; };
 		4E0A8E35255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E34255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift */; };
@@ -195,7 +197,7 @@
 		4EB89B052521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */; };
 		4EB89B0A2521FA73007129BF /* LoginOrRegisterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B092521FA73007129BF /* LoginOrRegisterButton.swift */; };
 		4EB89B302521FDBE007129BF /* LabeledTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B2F2521FDBE007129BF /* LabeledTextView.swift */; };
-		4EB89B3B25220DC6007129BF /* CommentListingSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B3A25220DC6007129BF /* CommentListingSort.swift */; };
+		4EB89B3B25220DC6007129BF /* CommentTreeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89B3A25220DC6007129BF /* CommentTreeBuilder.swift */; };
 		4EBB220925598AA700B88079 /* Containered.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB220825598AA700B88079 /* Containered.swift */; };
 		4EBB220E25598AC100B88079 /* ProgrammaticallyViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB220D25598AC100B88079 /* ProgrammaticallyViewProtocol.swift */; };
 		4EBB221325598B0C00B88079 /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB221225598B0C00B88079 /* Assembly.swift */; };
@@ -388,6 +390,7 @@
 		4E004E2425DC70C8006B81CF /* CopyableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
 		4E004E2825DC736C006B81CF /* Actionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actionable.swift; sourceTree = "<group>"; };
 		4E004E7B25DE7A5F006B81CF /* ControlContainableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlContainableScrollView.swift; sourceTree = "<group>"; };
+		4E004F6825DFAA2E006B81CF /* CommentTreeMutator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTreeMutator.swift; sourceTree = "<group>"; };
 		4E05D636255EBA63002307E0 /* Optional+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Ext.swift"; sourceTree = "<group>"; };
 		4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Ext.swift"; sourceTree = "<group>"; };
 		4E0A8E34255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenCommentsViewController.swift; sourceTree = "<group>"; };
@@ -571,7 +574,7 @@
 		4EB89B042521EAA6007129BF /* LemmyGreenOutlinePostDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyGreenOutlinePostDescription.swift; sourceTree = "<group>"; };
 		4EB89B092521FA73007129BF /* LoginOrRegisterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginOrRegisterButton.swift; sourceTree = "<group>"; };
 		4EB89B2F2521FDBE007129BF /* LabeledTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledTextView.swift; sourceTree = "<group>"; };
-		4EB89B3A25220DC6007129BF /* CommentListingSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListingSort.swift; sourceTree = "<group>"; };
+		4EB89B3A25220DC6007129BF /* CommentTreeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTreeBuilder.swift; sourceTree = "<group>"; };
 		4EBB220825598AA700B88079 /* Containered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Containered.swift; sourceTree = "<group>"; };
 		4EBB220D25598AC100B88079 /* ProgrammaticallyViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammaticallyViewProtocol.swift; sourceTree = "<group>"; };
 		4EBB221225598B0C00B88079 /* Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
@@ -755,6 +758,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E004F4025DEBC7C006B81CF /* markymark in Frameworks */,
+				4E004F6125DFA81B006B81CF /* SwiftMessages in Frameworks */,
 				4E1070842534F742009EABDA /* KeychainSwift in Frameworks */,
 				921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */,
 				4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */,
@@ -1231,8 +1235,9 @@
 		4E918510256E9EEF00702F04 /* Comments */ = {
 			isa = PBXGroup;
 			children = (
-				4EB89B3A25220DC6007129BF /* CommentListingSort.swift */,
+				4EB89B3A25220DC6007129BF /* CommentTreeBuilder.swift */,
 				4E918511256E9EFD00702F04 /* CommentTypes.swift */,
+				4E004F6825DFAA2E006B81CF /* CommentTreeMutator.swift */,
 			);
 			path = Comments;
 			sourceTree = "<group>";
@@ -2175,6 +2180,7 @@
 				4E98BFC025BB2438009DA520 /* IQKeyboardManagerSwift */,
 				4E004E1925DC6C78006B81CF /* MarkdownUI */,
 				4E004F3F25DEBC7C006B81CF /* markymark */,
+				4E004F6025DFA81B006B81CF /* SwiftMessages */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Lemmy-iOS.app */;
@@ -2257,6 +2263,7 @@
 				4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				4E004E1825DC6C78006B81CF /* XCRemoteSwiftPackageReference "MarkdownUI" */,
 				4E004F3E25DEBC7C006B81CF /* XCRemoteSwiftPackageReference "Marky-Mark" */,
+				4E004F5F25DFA81B006B81CF /* XCRemoteSwiftPackageReference "SwiftMessages" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
@@ -2500,6 +2507,7 @@
 				4E0A8E5C255D586F00B06AF6 /* ProfileScreenAboutInputProtocol.swift in Sources */,
 				4E24395D259DE2200006C742 /* IncreasedTapAreaButton.swift in Sources */,
 				4EF3AC5D254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift in Sources */,
+				4E004F6925DFAA2E006B81CF /* CommentTreeMutator.swift in Sources */,
 				4E3D450225964EA800108DA3 /* ImageControl.swift in Sources */,
 				4EF312F22576D3230032B58D /* PostContentHeaderView.swift in Sources */,
 				4EF313B3257BE8670032B58D /* SafariActivity.swift in Sources */,
@@ -2548,7 +2556,7 @@
 				4ECCEF29250FB8260075F921 /* CommunityRequests.swift in Sources */,
 				4E0A8E3A255C01E800B06AF6 /* ProfileScreenCommentsUI.swift in Sources */,
 				4E9185C5257064CA00702F04 /* CommentContentHeaderView.swift in Sources */,
-				4EB89B3B25220DC6007129BF /* CommentListingSort.swift in Sources */,
+				4EB89B3B25220DC6007129BF /* CommentTreeBuilder.swift in Sources */,
 				4E9185C02570649D00702F04 /* CommentContentFooterView.swift in Sources */,
 				657DF46F25968EB500831B0F /* AddAccountsViewModel.swift in Sources */,
 				4EF3136C257A7F910032B58D /* ScaledControl.swift in Sources */,
@@ -3071,6 +3079,14 @@
 				revision = fb1aa975a7ca79cc2bdd50037707ccfdd0b6a2ab;
 			};
 		};
+		4E004F5F25DFA81B006B81CF /* XCRemoteSwiftPackageReference "SwiftMessages" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftKickMobile/SwiftMessages.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
 		4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
@@ -3123,6 +3139,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E004F3E25DEBC7C006B81CF /* XCRemoteSwiftPackageReference "Marky-Mark" */;
 			productName = markymark;
+		};
+		4E004F6025DFA81B006B81CF /* SwiftMessages */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E004F5F25DFA81B006B81CF /* XCRemoteSwiftPackageReference "SwiftMessages" */;
+			productName = SwiftMessages;
 		};
 		4E1070832534F742009EABDA /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;

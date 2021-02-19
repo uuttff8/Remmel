@@ -114,3 +114,13 @@ extension UITableView {
         }
     }
 }
+
+extension UITableView {
+    
+    func isCellVisible(indexPath: IndexPath) -> Bool {
+        guard let indexes = self.indexPathsForVisibleRows else {
+            return false
+        }
+        return indexes.contains(indexPath)
+    }
+}
