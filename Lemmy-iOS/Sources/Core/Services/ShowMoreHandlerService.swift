@@ -27,13 +27,16 @@ protocol ShowMoreHandlerServiceProtocol {
 class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
     
     private let networkService: RequestsManager
+    private let userAccountService: UserAccountService
     
     private var cancellables = Set<AnyCancellable>()
     
     init(
-        networkService: RequestsManager = ApiManager.requests
+        networkService: RequestsManager = ApiManager.requests,
+        userAccountService: UserAccountService = UserAccountService()
     ) {
         self.networkService = networkService
+        self.userAccountService = userAccountService
     }
     
     func showMoreInPost(
