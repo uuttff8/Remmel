@@ -17,7 +17,7 @@ protocol WriteCommentViewModelProtocol: AnyObject {
 class WriteCommentViewModel: WriteCommentViewModelProtocol {
     weak var viewController: WriteCommentViewControllerProtocol?
     
-    private let parentComment: LMModels.Views.CommentView?
+    private let parentComment: LMModels.Source.Comment?
     private let postSource: LMModels.Source.Post
     
     private let userAccountService: UserAccountSerivceProtocol
@@ -25,7 +25,7 @@ class WriteCommentViewModel: WriteCommentViewModelProtocol {
     private var cancellable = Set<AnyCancellable>()
     
     init(
-        parentComment: LMModels.Views.CommentView?,
+        parentComment: LMModels.Source.Comment?,
         postSource: LMModels.Source.Post,
         userAccountService: UserAccountSerivceProtocol
     ) {
@@ -37,7 +37,7 @@ class WriteCommentViewModel: WriteCommentViewModelProtocol {
     func doWriteCommentFormLoad(request: WriteComment.FormLoad.Request) {
         
         let headerText: String
-        if let parrentCommentText = parentComment?.comment.content {
+        if let parrentCommentText = parentComment?.content {
             headerText = parrentCommentText
         } else {
             headerText = FormatterHelper.newMessagePostHeaderText(name: postSource.name, body: postSource.body)

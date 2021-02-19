@@ -199,7 +199,7 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
     }
     
     func reply(to comment: LMModels.Views.CommentView) {
-        coordinator?.goToWriteComment(postSource: comment.post, parrentComment: comment)
+        coordinator?.goToWriteComment(postSource: comment.post, parrentComment: comment.comment)
     }
     
     func onLinkTap(in comment: LMModels.Views.CommentView, url: URL) {

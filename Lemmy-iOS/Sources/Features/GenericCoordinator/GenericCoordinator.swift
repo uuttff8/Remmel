@@ -85,7 +85,7 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
         })
     }
         
-    func goToWriteComment(postSource: LMModels.Source.Post, parrentComment: LMModels.Views.CommentView?) {
+    func goToWriteComment(postSource: LMModels.Source.Post, parrentComment: LMModels.Source.Comment?) {
         ContinueIfLogined(on: rootViewController, coordinator: self) {
             // TODO(uuttff8): Move this code to another component
             let haptic = UIImpactFeedbackGenerator(style: .light)
