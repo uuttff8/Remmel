@@ -301,17 +301,14 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         guard let jwtToken = LemmyShareData.shared.jwtToken else { return }
 
         self.networkService.asyncSavePost(parameters: .init(postId: postId, save: toSave, auth: jwtToken))
+            .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
                 if case .failure = completion {
-                    DispatchQueue.main.async {
-                        LMMMessagesToast.showErrorSavePost()
-                    }
+                    LMMMessagesToast.showErrorSavePost()
                 }
             } receiveValue: { (_) in
-                DispatchQueue.main.async {
-                    LMMMessagesToast.showSuccessSavePost()
-                }
+                LMMMessagesToast.showSuccessSavePost()
             }.store(in: &cancellables)
     }
     
@@ -319,19 +316,15 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         guard let jwtToken = LemmyShareData.shared.jwtToken else { return }
         
         self.networkService.asyncDeletePost(parameters: .init(postId: postId, deleted: toDelete, auth: jwtToken))
+            .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
                 if case .failure = completion {
-                    DispatchQueue.main.async {
-                        LMMMessagesToast.showErrorDeletePost()
-                    }
+                    LMMMessagesToast.showErrorDeletePost()
                 }
             } receiveValue: { (_) in
-                DispatchQueue.main.async {
-                    LMMMessagesToast.showSuccessDeletePost()
-                }
+                LMMMessagesToast.showSuccessDeletePost()
             }.store(in: &cancellables)
-
     }
     
     private func isMineUser(creatorId: Int) -> Bool {

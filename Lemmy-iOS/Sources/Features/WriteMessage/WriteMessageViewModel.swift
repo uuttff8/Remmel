@@ -43,6 +43,8 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
             } else {
                 headerText = FormatterHelper.newMessagePostHeaderText(name: postSource.name, body: postSource.body)
             }
+        case let .edit(comment: comment):
+            headerText = comment.content
         }
         
         self.viewController?.displayWriteMessageForm(viewModel: .init(headerText: headerText))
@@ -62,6 +64,8 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
                                     parentId: parentComment?.id,
                                     postId: postSource.id,
                                     text: request.text)
+        case let .edit(comment: comment):
+            sendEditCommentRequest(auth: jwtToken, text: request.text, commentId: comment.id)
         }
     }
     
@@ -73,6 +77,31 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
         )
         
         ApiManager.requests.asyncCreatePrivateMessage(parameters: params)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
+                
+                if case .failure(let error) = completion {
+                    self.viewController?.displayCreateMessageError(
+                        viewModel: .init(error: error.description)
+                    )
+                }
+            } receiveValue: { (_) in
+                self.viewController?.displaySuccessCreatingMessage(
+                    viewModel: .init()
+                )
+            }.store(in: &self.cancellable)
+    }
+    
+    private func sendEditCommentRequest(auth: String, text: String, commentId: Int) {
+        let params = LMModels.Api.Comment.EditComment(
+            content: text,
+            commentId: commentId,
+            formId: nil,
+            auth: auth
+        )
+        
+        ApiManager.requests.asyncEditComment(parameters: params)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)

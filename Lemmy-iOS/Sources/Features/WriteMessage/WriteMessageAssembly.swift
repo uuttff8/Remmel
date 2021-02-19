@@ -13,6 +13,7 @@ final class WriteMessageAssembly: Assembly {
     enum Action {
         case replyToPrivateMessage(recipientId: Int)
         case writeComment(parentComment: LMModels.Source.Comment?, postSource: LMModels.Source.Post)
+        case edit(comment: LMModels.Source.Comment)
     }
     
     private let action: Action

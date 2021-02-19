@@ -96,13 +96,11 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
             haptic.prepare()
             haptic.impactOccurred()
             
-            let assembly = WriteMessageAssembly(action: .writeComment(parentComment: parrentComment, postSource: postSource))
-            let module = assembly.makeModule()
-            module.completionHandler = completion
             
-            let navigationController = StyledNavigationController(rootViewController: module)
-            navigationController.presentationController?.delegate = module
-            rootViewController.present(navigationController, animated: true)
+            self.goToWriteMessageWrapper(
+                action: .writeComment(parentComment: parrentComment, postSource: postSource),
+                completion: completion
+            )
         }
     }
     
@@ -171,11 +169,23 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
         rootViewController.present(navController, animated: true)
     }
     
-    func goToWriteMessage(recipientId: Int) {
-        let assembly = WriteMessageAssembly(action: .replyToPrivateMessage(recipientId: recipientId))
-        let vc = assembly.makeModule()
-        let navigationController = StyledNavigationController(rootViewController: vc)
-        navigationController.presentationController?.delegate = vc
+    func goToEditComment(comment: LMModels.Source.Comment, completion: (() -> Void)? = nil) {
+        self.goToWriteMessageWrapper(action: .edit(comment: comment), completion: completion)
+    }
+    
+    func goToWriteMessage(recipientId: Int, completion: (() -> Void)? = nil) {
+        self.goToWriteMessageWrapper(action: .replyToPrivateMessage(recipientId: recipientId),
+                                     completion: completion)
+    }
+    
+    private func goToWriteMessageWrapper(action: WriteMessageAssembly.Action, completion: (() -> Void)? = nil) {
+        let assembly = WriteMessageAssembly(action: action)
+        let module = assembly.makeModule()
+        module.completionHandler = completion
+        
+        let navigationController = StyledNavigationController(rootViewController: module)
+        navigationController.presentationController?.delegate = module
+        
         rootViewController.present(navigationController, animated: true)
     }
     
