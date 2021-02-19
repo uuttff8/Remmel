@@ -211,10 +211,12 @@ extension PostContentCenterView: URLOpener {
         let link = url
         if let mention = LemmyUserMention(url: link) {
             onUserMentionTap?(mention)
+            return
         }
         
         if let mention = LemmyCommunityMention(url: link) {
             onCommunityMentionTap?(mention)
+            return
         }
         
         self.onLinkTap?(link)

@@ -10,6 +10,9 @@ import UIKit
 import Combine
 
 protocol WriteMessageViewModelProtocol: AnyObject {
+    
+    var action: WriteMessageAssembly.Action { get }
+    
     func doWriteMessageFormLoad(request: WriteMessage.FormLoad.Request)
     func doRemoteCreateMessage(request: WriteMessage.RemoteCreateMessage.Request)
 }
@@ -17,7 +20,7 @@ protocol WriteMessageViewModelProtocol: AnyObject {
 class WriteMessageViewModel: WriteMessageViewModelProtocol {
     weak var viewController: WriteMessageViewControllerProtocol?
     
-    private let action: WriteMessageAssembly.Action
+    var action: WriteMessageAssembly.Action
 
     private let userAccountService: UserAccountSerivceProtocol
     

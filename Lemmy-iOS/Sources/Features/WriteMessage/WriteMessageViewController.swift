@@ -67,7 +67,16 @@ class WriteMessageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Create Message"
+        
+        switch viewModel.action {
+        case .edit:
+            title = "Edit Comment"
+        case .replyToPrivateMessage:
+            title = "Reply"
+        case .writeComment:
+            title = "New Comment"
+        }
+        
         self.setupNavigationItems()
         
         self.viewModel.doWriteMessageFormLoad(request: .init())
