@@ -30,6 +30,18 @@ extension RequestsManager {
         asyncRequestDecodable(path: WSEndpoint.Post.editPost.endpoint, parameters: parameters)
     }
     
+    func asyncDeletePost(
+        parameters: LMModels.Api.Post.DeletePost
+    ) -> AnyPublisher<LMModels.Api.Post.PostResponse, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.Post.deletePost.endpoint, parameters: parameters)
+    }
+    
+    func asyncSavePost(
+        parameters: LMModels.Api.Post.SavePost
+    ) -> AnyPublisher<LMModels.Api.Post.PostResponse, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.Post.savePost.endpoint, parameters: parameters)
+    }
+    
     func asyncGetPosts(
         parameters: LMModels.Api.Post.GetPosts
     ) -> AnyPublisher<LMModels.Api.Post.GetPostsResponse, LemmyGenericError> {

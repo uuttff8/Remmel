@@ -50,7 +50,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         let mineActions = self.modPostAction(post: post.post, coordinator: coordinator)
         
         let alertController = createActionSheetController(vc: viewController)
-        
+        let savePostAction = self.createSavePostAction(postId: post.id, saved: post.saved)
         let shareAction = self.createShareAction(on: viewController, urlString: post.post.apId)
         
         let reportAction = UIAlertAction(title: "alert-report".localized, style: .destructive) { (_) in
@@ -63,6 +63,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         alertController.addActions(mineActions)
         
         alertController.addActions([
+            savePostAction,
             shareAction,
             reportAction,
             UIAlertAction.cancelAction
@@ -207,27 +208,42 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         viewController.present(action, animated: true)
     }
     
+    private func createSavePostAction(postId: Int, saved: Bool) -> UIAlertAction {
+        if !saved {
+            return UIAlertAction(title: "Save", style: .default) { (_) in
+                self.savePost(postId: postId, toSave: true)
+            }
+        } else {
+            return UIAlertAction(title: "Unsave", style: .default) { (_) in
+                self.savePost(postId: postId, toSave: false)
+            }
+        }
+    }
+    
     fileprivate func modPostAction<T: UIViewController>(
         post: LMModels.Source.Post,
         coordinator: GenericCoordinator<T>
     ) -> [UIAlertAction] {
         if isMineUser(creatorId: post.creatorId) {
             
-            let editAction = UIAlertAction(title: "Edit", style: .default) { [weak self] (_) in
+            let editAction = UIAlertAction(title: "Edit", style: .default) { (_) in
                 coordinator.goToEditPost(post: post) {
                     LMMMessagesToast.showSuccessEditPost()
                 }
             }
             
-            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
-                
+            let deleteAction: UIAlertAction
+            if !post.deleted {
+                deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
+                    self.deletePost(postId: post.id, toDelete: true)
+                }
+            } else {
+                deleteAction = UIAlertAction(title: "Restore", style: .destructive) { (_) in
+                    self.deletePost(postId: post.id, toDelete: false)
+                }
             }
             
-            let savePostAction = UIAlertAction(title: "Save", style: .default) { (_) in
-                
-            }
-            
-            return [editAction, deleteAction, savePostAction]
+            return [editAction, deleteAction]
             
         }
         
@@ -279,6 +295,43 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
                     
                 }.store(in: &self.cancellables)
         }
+    }
+    
+    private func savePost(postId: Int, toSave: Bool) {
+        guard let jwtToken = LemmyShareData.shared.jwtToken else { return }
+
+        self.networkService.asyncSavePost(parameters: .init(postId: postId, save: toSave, auth: jwtToken))
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
+                if case .failure = completion {
+                    DispatchQueue.main.async {
+                        LMMMessagesToast.showErrorSavePost()
+                    }
+                }
+            } receiveValue: { (_) in
+                DispatchQueue.main.async {
+                    LMMMessagesToast.showSuccessSavePost()
+                }
+            }.store(in: &cancellables)
+    }
+    
+    private func deletePost(postId: Int, toDelete: Bool) {
+        guard let jwtToken = LemmyShareData.shared.jwtToken else { return }
+        
+        self.networkService.asyncDeletePost(parameters: .init(postId: postId, deleted: toDelete, auth: jwtToken))
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
+                if case .failure = completion {
+                    DispatchQueue.main.async {
+                        LMMMessagesToast.showErrorDeletePost()
+                    }
+                }
+            } receiveValue: { (_) in
+                DispatchQueue.main.async {
+                    LMMMessagesToast.showSuccessDeletePost()
+                }
+            }.store(in: &cancellables)
+
     }
     
     private func isMineUser(creatorId: Int) -> Bool {

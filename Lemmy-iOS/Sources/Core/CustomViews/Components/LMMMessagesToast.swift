@@ -56,4 +56,24 @@ enum LMMMessagesToast {
         let config = successBottomToast(title: "Success", body: "You've edited your post!")
         SwiftMessages.show(config: config.0, view: config.1)
     }
+    
+    static func showSuccessDeletePost() {
+        let config = successBottomToast(title: "Success", body: "You've deleted/restored your post!")
+        SwiftMessages.show(config: config.0, view: config.1)
+    }
+    
+    static func showErrorDeletePost() {
+        let config = errorBottomToast(title: "Error", body: "Some error happened when deleting/restoring your post...")
+        SwiftMessages.show(config: config.0, view: config.1)
+    }
+    
+    static func showSuccessSavePost() {
+        let config = successBottomToast(title: "Success", body: "You've saved/unsaved post!")
+        SwiftMessages.show(config: config.0, view: config.1)
+    }
+    
+    static func showErrorSavePost() {
+        let config = errorBottomToast(title: "Success", body: "Some error happened when saved/unsaved post!")
+        SwiftMessages.show(config: config.0, view: config.1)
+    }
 }
