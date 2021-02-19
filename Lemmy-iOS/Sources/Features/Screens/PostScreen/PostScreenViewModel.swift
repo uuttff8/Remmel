@@ -11,11 +11,14 @@ import Combine
 
 protocol PostScreenViewModelProtocol: AnyObject {
     func doPostFetch()
+    func doReceiveMessages()
 }
 
 class PostScreenViewModel: PostScreenViewModelProtocol {
     weak var viewController: PostScreenViewControllerProtocol?
-        
+    
+    private weak var wsClient: WSClientProtocol?
+    
     private var cancellable = Set<AnyCancellable>()
     
     let postInfo: LMModels.Views.PostView?
@@ -23,10 +26,12 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     
     init(
         postId: Int,
-        postInfo: LMModels.Views.PostView?
+        postInfo: LMModels.Views.PostView?,
+        wsClient: WSClientProtocol?
     ) {
         self.postInfo = postInfo
         self.postId = postId
+        self.wsClient = wsClient
     }
     
     func doPostFetch() {
@@ -47,6 +52,13 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
                     )
                 )
             }.store(in: &cancellable)
+    }
+    
+    func doReceiveMessages() {
+        wsClient?
+            .onMessage(completion: { (operation, data) in
+                
+            })
     }
     
     private func makeViewData(

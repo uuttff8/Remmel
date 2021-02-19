@@ -44,14 +44,14 @@ class PostsFrontPageModel: NSObject {
     
     func receiveMessages() {
         wsEvents?
-            .connect()
             .onMessage(completion: { (operation, data) in
                 
                 switch operation {
                 case WSEndpoint.Post.createPostLike.endpoint:
                     
-                    guard let postLike = self.decodeWsType(LMModels.Api.Post.PostResponse.self, data: data)
+                    guard let postLike = self.wsEvents?.decodeWsType(LMModels.Api.Post.PostResponse.self, data: data)
                     else { return }
+                    
                     self.updatePostCell(with: postLike.postView)
                     
                 default:
@@ -127,14 +127,5 @@ class PostsFrontPageModel: NSObject {
             self.postsDataSource[index].updateForCreatePostLike(with: updatedPost)
             self.createPostLikeUpdate?(index)
         }
-    }
-    
-    private func decodeWsType<T: Codable>(_ type: T.Type, data: Data) -> T? {
-        guard let data = try? LemmyJSONDecoder().decode(
-            RequestsManager.ApiResponse<T>.self,
-            from: data
-        ) else { return nil }
-        
-        return data.data
-    }
+    }    
 }

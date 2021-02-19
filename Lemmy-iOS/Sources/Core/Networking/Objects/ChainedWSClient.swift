@@ -10,7 +10,21 @@ import Foundation
 import Network
 import Combine
 
-final class ChainedWSClient {
+protocol WSClientProtocol: AnyObject {
+    func connect() -> WSClientProtocol
+
+    func send<T: Codable>(_ op: String, parameters: T)
+    
+    func close()
+    
+    func onConnected(completion: @escaping () -> Void) -> WSClientProtocol
+    func onError(completion: @escaping (Error) -> Void) -> WSClientProtocol
+    func onMessage(completion: @escaping (_ op: String, _ data: Data) -> Void)
+    
+    func decodeWsType<T: Codable>(_ type: T.Type, data: Data) -> T?
+}
+
+final class ChainedWSClient: WSClientProtocol {
     
     private var webSocketTask: URLSessionWebSocketTask
     
@@ -37,7 +51,7 @@ final class ChainedWSClient {
     }
     
     @discardableResult
-    func connect() -> ChainedWSClient {
+    func connect() -> WSClientProtocol {
         self.webSocketTask.resume()
         self._onConnected?()
         receiveMessages()
@@ -58,18 +72,27 @@ final class ChainedWSClient {
         self.webSocketTask.cancel(with: .goingAway, reason: nil)
     }
      
-    func onConnected(completion: @escaping () -> Void) -> ChainedWSClient {
+    func onConnected(completion: @escaping () -> Void) -> WSClientProtocol {
         self._onConnected = completion
         return self
     }
     
-    func onError(completion: @escaping (Error) -> Void) -> ChainedWSClient {
+    func onError(completion: @escaping (Error) -> Void) -> WSClientProtocol {
         self._onError = completion
         return self
     }
     
     func onMessage(completion: @escaping (_ op: String, _ data: Data) -> Void) {
         self._onTextMessage = completion
+    }
+    
+    func decodeWsType<T: Codable>(_ type: T.Type, data: Data) -> T? {
+        guard let data = try? LemmyJSONDecoder().decode(
+            RequestsManager.ApiResponse<T>.self,
+            from: data
+        ) else { return nil }
+        
+        return data.data
     }
     
     private func receiveMessages() {
@@ -122,7 +145,7 @@ final class ChainedWSClient {
         }
     }
     
-    func makeRequestString<T: Codable>(url: String, data: T?) -> String? {
+    private func makeRequestString<T: Codable>(url: String, data: T?) -> String? {
         if let data = data {
             
             encoder.outputFormatting = .prettyPrinted

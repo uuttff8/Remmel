@@ -27,7 +27,8 @@ class PostScreenAssembly: Assembly {
     func makeModule() -> PostScreenViewController {
         let viewModel = PostScreenViewModel(
             postId: self.postId,
-            postInfo: self.postInfo
+            postInfo: self.postInfo,
+            wsClient: ApiManager.chainedWsCLient
         )
         
         let vc = PostScreenViewController(
