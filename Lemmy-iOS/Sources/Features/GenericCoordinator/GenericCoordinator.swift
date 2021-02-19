@@ -96,7 +96,6 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
             haptic.prepare()
             haptic.impactOccurred()
             
-            
             self.goToWriteMessageWrapper(
                 action: .writeComment(parentComment: parrentComment, postSource: postSource),
                 completion: completion

@@ -47,7 +47,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         coordinator: GenericCoordinator<T>,
         post: LMModels.Views.PostView
     ) {
-        let mineActions = self.modPostAction(post: post.post, coordinator: coordinator)
+        let mineActions = self.minePostActions(post: post.post, coordinator: coordinator)
         
         let alertController = createActionSheetController(vc: viewController)
         let savePostAction = self.createSavePostAction(postId: post.id, saved: post.saved)
@@ -79,6 +79,8 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
     ) {
         let alertController = createActionSheetController(vc: viewController)
         
+        let mineActions = self.mineCommentActions(comment: comment.comment, coordinator: coordinator)
+        let savePostAction = self.createSaveCommentAction(commentId: comment.id, saved: comment.saved)
         let shareAction = self.createShareAction(on: viewController, urlString: comment.getApIdRelatedToPost())
         let reportAction = UIAlertAction(title: "alert-report".localized, style: .destructive) { (_) in
             
@@ -87,7 +89,10 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
             }
         }
         
+        alertController.addActions(mineActions)
+        
         alertController.addActions([
+            savePostAction,
             shareAction,
             reportAction,
             UIAlertAction.cancelAction
@@ -220,7 +225,36 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         }
     }
     
-    fileprivate func modPostAction<T: UIViewController>(
+    private func createSaveCommentAction(commentId: Int, saved: Bool) -> UIAlertAction {
+        if !saved {
+            return UIAlertAction(title: "Save", style: .default) { (_) in
+                self.saveComment(commentId: commentId, toSave: true)
+            }
+        } else {
+            return UIAlertAction(title: "Unsave", style: .default) { (_) in
+                self.saveComment(commentId: commentId, toSave: false)
+            }
+        }
+    }
+    
+    fileprivate func mineCommentActions<T: UIViewController>(
+        comment: LMModels.Source.Comment,
+        coordinator: GenericCoordinator<T>
+    ) -> [UIAlertAction] {
+        if isMineUser(creatorId: comment.creatorId) {
+            let editAction = UIAlertAction(title: "Edit", style: .default) { (_) in
+                coordinator.goToEditComment(comment: comment) {
+                    LMMMessagesToast.showSuccessEditComment()
+                }
+            }
+            
+            return [editAction]
+        }
+        
+        return []
+    }
+    
+    fileprivate func minePostActions<T: UIViewController>(
         post: LMModels.Source.Post,
         coordinator: GenericCoordinator<T>
     ) -> [UIAlertAction] {
@@ -309,6 +343,21 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
                 }
             } receiveValue: { (_) in
                 LMMMessagesToast.showSuccessSavePost()
+            }.store(in: &cancellables)
+    }
+    
+    private func saveComment(commentId: Int, toSave: Bool) {
+        guard let jwtToken = LemmyShareData.shared.jwtToken else { return }
+
+        self.networkService.asyncSaveComment(parameters: .init(commentId: commentId, save: toSave, auth: jwtToken))
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                Logger.logCombineCompletion(completion)
+                if case .failure = completion {
+                    LMMMessagesToast.showErrorSaveComment()
+                }
+            } receiveValue: { (_) in
+                LMMMessagesToast.showSuccessSaveComment()
             }.store(in: &cancellables)
     }
     
