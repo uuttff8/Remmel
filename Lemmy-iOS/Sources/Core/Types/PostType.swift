@@ -16,7 +16,7 @@ enum PostType {
     
     static func getPostType(from postView: LMModels.Views.PostView) -> PostType {
         guard let url = postView.post.url else { return PostType.none }
-        let str = url.absoluteString
+        guard let str = URL(string: url)?.absoluteString else { return PostType.none }
         
         if str.hasSuffix("jpg")    ||
             str.hasSuffix(".jpeg") ||

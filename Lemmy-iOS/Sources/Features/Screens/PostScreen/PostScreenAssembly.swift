@@ -27,15 +27,14 @@ class PostScreenAssembly: Assembly {
     func makeModule() -> PostScreenViewController {
         let viewModel = PostScreenViewModel(
             postId: self.postId,
-            postInfo: self.postInfo,
-            contentScoreService: ContentScoreService(
-                userAccountService: UserAccountService()
-            )
+            postInfo: self.postInfo
         )
         
         let vc = PostScreenViewController(
             viewModel: viewModel,
-            scrollToComment: scrollToComment
+            scrollToComment: scrollToComment,
+            contentScoreService: ContentScoreService(userAccountService: UserAccountService()),
+            showMoreHandlerService: ShowMoreHandlerService()
         )
         viewModel.viewController = vc
         

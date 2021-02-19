@@ -11,25 +11,11 @@ import Combine
 
 protocol PostScreenViewModelProtocol: AnyObject {
     func doPostFetch()
-    func doPostLike(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        for newVote: LemmyVoteType,
-        post: LMModels.Views.PostView
-    ) // refactor
-    func doCommentLike(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        for newVote: LemmyVoteType,
-        comment: LMModels.Views.CommentView
-    )
 }
 
 class PostScreenViewModel: PostScreenViewModelProtocol {
     weak var viewController: PostScreenViewControllerProtocol?
-    
-    private let contentScoreService: ContentScoreServiceProtocol
-    
+        
     private var cancellable = Set<AnyCancellable>()
     
     let postInfo: LMModels.Views.PostView?
@@ -37,12 +23,10 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     
     init(
         postId: Int,
-        postInfo: LMModels.Views.PostView?,
-        contentScoreService: ContentScoreServiceProtocol
+        postInfo: LMModels.Views.PostView?
     ) {
         self.postInfo = postInfo
         self.postId = postId
-        self.contentScoreService = contentScoreService
     }
     
     func doPostFetch() {
@@ -63,38 +47,6 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
                     )
                 )
             }.store(in: &cancellable)
-    }
-        
-    func doPostLike(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        for newVote: LemmyVoteType,
-        post: LMModels.Views.PostView
-    ) {
-        self.contentScoreService.votePost(
-            scoreView: scoreView,
-            voteButton: voteButton,
-            for: newVote,
-            post: post
-        ) { (post) in
-            self.viewController?.operateSaveNewPost(viewModel: .init(post: post))
-        }
-    }
-    
-    func doCommentLike(
-        scoreView: VoteButtonsWithScoreView,
-        voteButton: VoteButton,
-        for newVote: LemmyVoteType,
-        comment: LMModels.Views.CommentView
-    ) {
-        self.contentScoreService.voteComment(
-            scoreView: scoreView,
-            voteButton: voteButton,
-            for: newVote,
-            comment: comment
-        ) { (comment) in
-            self.viewController?.operateSaveNewComment(viewModel: .init(comment: comment))
-        }
     }
     
     private func makeViewData(

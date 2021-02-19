@@ -18,11 +18,12 @@ class PostScreenViewController: UIViewController, Containered {
     weak var coordinator: PostScreenCoordinator?
     private let viewModel: PostScreenViewModelProtocol
         
-    private let showMoreHandlerService = ShowMoreHandlerService()
     lazy var postScreenView = PostScreenViewController.View().then {
         $0.headerView.postHeaderView.delegate = self
         $0.delegate = self
     }
+    
+    private let scrollToComment: LMModels.Views.CommentView?
     
     private lazy var commentsViewController = FoldableLemmyCommentsViewController().then {
         $0.commentDelegate = self
@@ -30,15 +31,20 @@ class PostScreenViewController: UIViewController, Containered {
     
     private var state: PostScreen.ViewControllerState
     
-    private let scrollToComment: LMModels.Views.CommentView?
+    private let showMoreHandlerService: ShowMoreHandlerServiceProtocol
+    private let contentScoreService: ContentScoreServiceProtocol
 
     init(
         viewModel: PostScreenViewModelProtocol,
         state: PostScreen.ViewControllerState = .loading,
-        scrollToComment: LMModels.Views.CommentView?
+        scrollToComment: LMModels.Views.CommentView?,
+        contentScoreService: ContentScoreServiceProtocol,
+        showMoreHandlerService: ShowMoreHandlerServiceProtocol
     ) {
         self.viewModel = viewModel
         self.state = state
+        self.contentScoreService = contentScoreService
+        self.showMoreHandlerService = showMoreHandlerService
         self.scrollToComment = scrollToComment
         super.init(nibName: nil, bundle: nil)
     }
@@ -113,7 +119,14 @@ extension PostScreenViewController: PostContentTableCellDelegate {
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            viewModel.doPostLike(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post)
+            self.contentScoreService.votePost(
+                scoreView: scoreView,
+                voteButton: voteButton,
+                for: newVote,
+                post: post
+            ) { (post) in
+                self.operateSaveNewPost(viewModel: .init(post: post))
+            }
         }
     }
         
@@ -153,7 +166,14 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            self.viewModel.doCommentLike(scoreView: scoreView, voteButton: voteButton, for: newVote, comment: comment)
+            self.contentScoreService.voteComment(
+                scoreView: scoreView,
+                voteButton: voteButton,
+                for: newVote,
+                comment: comment
+            ) { (comment) in
+                self.operateSaveNewComment(viewModel: .init(comment: comment))
+            }
         }
     }
         

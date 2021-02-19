@@ -60,7 +60,7 @@ extension PostScreenViewController {
             if let url = viewData.post.url {
                 
                 headerView.postOutlineEmbedView.addAction(for: .touchUpInside) { (_) in
-                    self.delegate?.postView(didEmbedTappedWith: url)
+                    self.delegate?.postView(didEmbedTappedWith: URL(string: url)!)
                 }
                 
             }
@@ -134,7 +134,7 @@ class PostScreenHeaderView: UIView {
             .init(
                 title: postInfo.post.embedTitle,
                 description: postInfo.post.embedDescription,
-                url: postInfo.post.url
+                url: URL(string: postInfo.post.url ?? "")
             )
         )
         

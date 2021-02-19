@@ -159,7 +159,7 @@ extension LMModels {
         struct Post: Identifiable, Codable, Hashable, Equatable {
             let id: Int
             let name: String
-            let url: URL?
+            let url: String? // sometimes may return image in base 64 encoding
             let body: String?
             let creatorId: Int
             let communityId: Int

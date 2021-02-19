@@ -289,7 +289,6 @@ extension LMModels {
 }
 
 // legacy:
-
 extension LMModels.Views.PostView {
     func getUrlDomain() -> String? {
         let type = PostType.getPostType(from: self)
@@ -297,6 +296,6 @@ extension LMModels.Views.PostView {
         guard !(.none == type) else { return nil }
         guard let url = self.post.url else { return nil }
         
-        return url.host
+        return URL(string: url)?.host
     }
 }
