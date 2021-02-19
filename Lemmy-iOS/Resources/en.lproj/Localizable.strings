@@ -188,3 +188,5 @@
 "front-search-communities" = "Communities with";
 "front-search-comments" = "Comments with";
 
+"toast-success" = "Success";
+"toast-creating-comment-success" = "You've created a new comment!";

@@ -177,3 +177,6 @@
 "front-search-users" = "Юзерам";
 "front-search-communities" = "Сообществам";
 "front-search-comments" = "Комментариям";
+
+"toast-success" = "Успех";
+"toast-creating-comment-success" = "Вы создали ковый комментарий!";
