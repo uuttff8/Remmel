@@ -48,7 +48,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
                 Logger.logCombineCompletion(completion)
             } receiveValue: { [weak self] (response) in
                 guard let self = self else { return }
-                self.viewController?.displayPost(
+                self.viewController?.displayPostWithComments(
                     viewModel: .init(
                         state: .result(
                             data: self.makeViewData(from: response)
@@ -66,16 +66,42 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
                 switch operation {
                 case LMMUserOperation.CreateComment.rawValue:
                     guard let newComment = self.wsClient?.decodeWsType(
-                            LMModels.Api.Comment.CommentResponse.self,
-                            data: data
-                    )
-                    
-                    else { return }
+                        LMModels.Api.Comment.CommentResponse.self,
+                        data: data
+                    ) else { return }
                     
                     // Necessary since it might be a user reply, which has the recipients, to avoid double
                     if newComment.recipientIds.count == 0 {
                         self.viewController?.displayCreatedComment(viewModel: .init(comment: newComment.commentView))
                     }
+                    
+                case LMMUserOperation.EditPost.rawValue,
+                     LMMUserOperation.DeletePost.rawValue,
+                     LMMUserOperation.RemovePost.rawValue,
+                     LMMUserOperation.LockPost.rawValue,
+                     LMMUserOperation.StickyPost.rawValue,
+                     LMMUserOperation.SavePost.rawValue,
+                     LMMUserOperation.CreatePostLike.rawValue:
+                    
+                    guard let newPost = self.wsClient?.decodeWsType(
+                        LMModels.Api.Post.PostResponse.self,
+                        data: data
+                    ) else { return }
+                    
+                    self.viewController?.displayOnlyPost(viewModel: .init(postView: newPost.postView))
+                    
+                case LMMUserOperation.EditComment.rawValue,
+                     LMMUserOperation.DeleteComment.rawValue,
+                     LMMUserOperation.RemoveComment.rawValue:
+                    
+                    guard let newComment = self.wsClient?.decodeWsType(
+                        LMModels.Api.Comment.CommentResponse.self,
+                        data: data
+                    ) else { return }
+                    
+                    self.viewController?.displayUpdateComment(
+                        viewModel: .init(commentView: newComment.commentView)
+                    )                    
                 default:
                     break
                 }
@@ -84,7 +110,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     
     private func sendPostJoin(flag: Bool) {
         let commJoin = LMModels.Api.Websocket.PostJoin(postId: self.postId)
-
+        
         wsClient?.send(
             LMMUserOperation.PostJoin.rawValue,
             parameters: commJoin
@@ -104,13 +130,28 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
 enum PostScreen {
     
     enum PostLoad {
-        
-        struct Response {
-            let postId: ViewControllerState
-        }
+        struct Response { }
         
         struct ViewModel {
             let state: ViewControllerState
+        }
+    }
+    
+    enum OnlyPostLoad {
+        struct ViewModel {
+            let postView: LMModels.Views.PostView
+        }
+    }
+    
+    enum UpdateComment {
+        struct ViewModel {
+            let commentView: LMModels.Views.CommentView
+        }
+    }
+    
+    enum CreateCommentLike {
+        struct ViewModel {
+            let commentView: LMModels.Views.CommentView
         }
     }
     

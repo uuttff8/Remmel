@@ -49,8 +49,10 @@ class PostsFrontPageModel: NSObject {
                 switch operation {
                 case LMMUserOperation.CreatePostLike.rawValue:
                     
-                    guard let postLike = self.wsEvents?.decodeWsType(LMModels.Api.Post.PostResponse.self, data: data)
-                    else { return }
+                    guard let postLike = self.wsEvents?.decodeWsType(
+                        LMModels.Api.Post.PostResponse.self,
+                        data: data
+                    ) else { return }
                     
                     self.updatePostCell(with: postLike.postView)
                     

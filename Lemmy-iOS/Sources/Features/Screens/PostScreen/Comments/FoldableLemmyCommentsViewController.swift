@@ -76,6 +76,24 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
 //        }
     }
     
+    func displayCommentLike(commentView: LMModels.Views.CommentView) {
+        guard let index = commentDataSource.firstIndex(where: { $0.commentContent?.comment.id == commentView.id })
+        else { return }
+        
+        let indexPath = IndexPath(row: index, section: 0)
+        
+        DispatchQueue.main.async {
+            if let cell = self.tableView.cellForRow(at: indexPath) as? SwipingCommentContentTableCell {
+                guard let commentContent = self.commentDataSource[index].commentContent else {
+                    Logger.commonLog.error("commentContent for comment is not found, so not updating comment like")
+                    return
+                }
+                
+                cell.updateForCreateCommentLike(comment: commentContent)
+            }
+        }
+    }
+    
     func scrollTo(_ comment: LMModels.Views.CommentView) {
         guard let index = commentDataSource.firstIndex(where: { $0.commentContent?.comment.id == comment.id }) else {
             return

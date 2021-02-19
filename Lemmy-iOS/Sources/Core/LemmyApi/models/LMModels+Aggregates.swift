@@ -96,9 +96,9 @@ extension LMModels {
         struct CommentAggregates: Identifiable, Codable, Hashable, Equatable {
             let id: Int
             let commentId: Int
-            let score: Int
-            let upvotes: Int
-            let downvotes: Int
+            var score: Int
+            var upvotes: Int
+            var downvotes: Int
             
             enum CodingKeys: String, CodingKey {
                 case id

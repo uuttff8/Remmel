@@ -28,7 +28,7 @@ extension SwipingCommentContentTableCell {
     }
 }
 
-// MARK: - CommentContentTableCell: CommentCell
+// MARK: - SwipingCommentContentTableCell: CommentCell, ContentFocusable
 class SwipingCommentContentTableCell: CommentCell, ContentFocusable {
 
     var appearance = Appearance()
@@ -62,6 +62,10 @@ class SwipingCommentContentTableCell: CommentCell, ContentFocusable {
             self.indentationIndicatorColor =
                 self.appearance.indentColors[self.level % (self.appearance.indentColors.count - 1)]
         }
+    }
+    
+    func updateForCreateCommentLike(comment: LMModels.Views.CommentView) {
+        commentContentView.updateForCreateCommentLike(comment: comment)
     }
     
     /// Change the value of the isFolded property. Add a color animation.

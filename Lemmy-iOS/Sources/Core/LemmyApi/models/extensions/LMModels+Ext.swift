@@ -9,12 +9,23 @@
 import Foundation
 
 extension LMModels.Views.PostView {
-    mutating func updateForCreatePostLike(with newPost: LMModels.Views.PostView ) {
+    mutating func updateForCreatePostLike(with newPost: LMModels.Views.PostView) {
         self.counts.score = newPost.counts.score
         self.counts.upvotes = newPost.counts.upvotes
         self.counts.downvotes = newPost.counts.downvotes
         if newPost.myVote != nil {
             self.myVote = newPost.myVote
+        }
+    }
+}
+
+extension LMModels.Views.CommentView {
+    mutating func updateForCreatePostLike(with newComment: LMModels.Views.CommentView) {
+        self.counts.score = newComment.counts.score
+        self.counts.upvotes = newComment.counts.upvotes
+        self.counts.downvotes = newComment.counts.downvotes
+        if newComment.myVote != nil {
+            self.myVote = newComment.myVote
         }
     }
 }

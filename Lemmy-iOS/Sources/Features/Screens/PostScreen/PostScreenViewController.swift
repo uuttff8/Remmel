@@ -10,7 +10,10 @@ import UIKit
 import SwiftMessages
 
 protocol PostScreenViewControllerProtocol: AnyObject {
-    func displayPost(viewModel: PostScreen.PostLoad.ViewModel)
+    func displayPostWithComments(viewModel: PostScreen.PostLoad.ViewModel)
+    func displayOnlyPost(viewModel: PostScreen.OnlyPostLoad.ViewModel)
+    func displayCreateCommentLike(viewModel: PostScreen.CreateCommentLike.ViewModel)
+    func displayUpdateComment(viewModel: PostScreen.UpdateComment.ViewModel)
     func displayToastMessage(viewModel: PostScreen.ToastMessage.ViewModel)
     func displayCreatedComment(viewModel: PostScreen.CreateComment.ViewModel)
 }
@@ -100,11 +103,23 @@ extension PostScreenViewController: PostScreenViewControllerProtocol {
         }
     }
     
+    func displayOnlyPost(viewModel: PostScreen.OnlyPostLoad.ViewModel) {
+        self.postScreenView.bind(with: viewModel.postView)
+    }
+    
+    func displayUpdateComment(viewModel: PostScreen.UpdateComment.ViewModel) {
+        self.commentsViewController.updateExistingComment(viewModel.commentView)
+    }
+    
+    func displayCreateCommentLike(viewModel: PostScreen.CreateCommentLike.ViewModel) {
+        self.commentsViewController.displayCommentLike(commentView: viewModel.commentView)
+    }
+    
     func displayCreatedComment(viewModel: PostScreen.CreateComment.ViewModel) {
         self.commentsViewController.displayCreatedComment(comment: viewModel.comment)
     }
     
-    func displayPost(viewModel: PostScreen.PostLoad.ViewModel) {
+    func displayPostWithComments(viewModel: PostScreen.PostLoad.ViewModel) {
         self.updateState(newState: viewModel.state)
     }
 }

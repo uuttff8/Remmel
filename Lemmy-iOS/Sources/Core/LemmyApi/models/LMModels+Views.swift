@@ -115,11 +115,11 @@ extension LMModels {
             let recipient: LMModels.Source.UserSafe?
             let post: LMModels.Source.Post
             let community: LMModels.Source.CommunitySafe
-            let counts: LMModels.Aggregates.CommentAggregates
+            var counts: LMModels.Aggregates.CommentAggregates
             let creatorBannedFromCommunity: Bool
             let subscribed: Bool
             let saved: Bool
-            let myVote: Int? 
+            var myVote: Int? 
             
             enum CodingKeys: String, CodingKey {
                 case comment, creator, recipient, post

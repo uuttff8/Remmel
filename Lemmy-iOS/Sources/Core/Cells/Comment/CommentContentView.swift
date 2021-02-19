@@ -28,6 +28,8 @@ class CommentContentView: UIView {
         view.backgroundColor = Config.Color.separator
         return view
     }()
+    
+    private var currentSetting: Setting?
 
     // MARK: - Init
     init() {
@@ -45,6 +47,8 @@ class CommentContentView: UIView {
 
     // MARK: - Public API
     func bind(with comment: LMModels.Views.CommentView, setting: Setting) {
+        self.currentSetting = setting
+        
         setupTargets(with: comment)
 
         headerView.bind(
@@ -60,6 +64,22 @@ class CommentContentView: UIView {
         )
 
         centerView.bind(with: .init(comment: comment.comment.content, isDeleted: comment.comment.deleted))
+        footerView.bind(
+            with: .init(
+                id: comment.comment.id,
+                score: comment.counts.score,
+                voteType: comment.getVoteType()
+            ),
+            config: setting
+        )
+    }
+    
+    func updateForCreateCommentLike(comment: LMModels.Views.CommentView) {
+        guard let setting = currentSetting else {
+            Logger.commonLog.error("Could not determine comment cell setting, so not updating comment like")
+            return
+        }
+        
         footerView.bind(
             with: .init(
                 id: comment.comment.id,
