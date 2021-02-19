@@ -12,6 +12,7 @@ import Combine
 protocol EditPostViewModelProtocol: AnyObject {
     func doEditPostFormLoad(request: EditPost.FormLoad.Request)
     func doRemoteEditPost(request: EditPost.RemoteEditPost.Request)
+    func doRemoteLoadImage(request: EditPost.RemoteLoadImage.Request)
 }
 
 class EditPostViewModel: EditPostViewModelProtocol {
@@ -73,6 +74,24 @@ class EditPostViewModel: EditPostViewModelProtocol {
                 )
             }.store(in: &cancellable)
     }
+    
+    func doRemoteLoadImage(request: EditPost.RemoteLoadImage.Request) {
+        
+        ApiManager.requests.uploadPictrs(
+            image: request.image,
+            filename: request.filename
+        ) { (result) in
+            switch result {
+            case .success(let response):
+                self.viewController?.displayUrlLoadImage(
+                    viewModel: .init(url: response.files.first!.file)
+                )
+            case .failure(let error):
+                Logger.commonLog.error(error)
+                self.viewController?.displayErrorUrlLoadImage(viewModel: .init())
+            }
+        }
+    }
 }
 
 enum EditPost {
@@ -107,5 +126,22 @@ enum EditPost {
         struct ViewModel {
             let error: String
         }
+    }
+    
+    enum RemoteLoadImage {
+        struct Request {
+            let image: UIImage
+            let filename: String
+        }
+        
+        struct ViewModel {
+            let url: String
+        }
+    }
+    
+    enum ErrorRemoteLoadImage {
+        struct Request { }
+        
+        struct ViewModel { }
     }
 }

@@ -12,6 +12,8 @@ protocol EditPostViewControllerProtocol: AnyObject {
     func displayEditPostForm(viewModel: EditPost.FormLoad.ViewModel)
     func displaySuccessEditingPost(viewModel: EditPost.RemoteEditPost.ViewModel)
     func displayEditPostError(viewModel: EditPost.CreatePostError.ViewModel)
+    func displayUrlLoadImage(viewModel: EditPost.RemoteLoadImage.ViewModel)
+    func displayErrorUrlLoadImage(viewModel: EditPost.ErrorRemoteLoadImage.ViewModel)
 }
 
 class EditPostViewController: UIViewController {
@@ -53,7 +55,17 @@ class EditPostViewController: UIViewController {
     
     private var formData = FormData(headerText: "", name: "", url: nil, body: "", nsfw: false)
     
+    private lazy var imagePickerController: UIImagePickerController = {
+        $0.delegate = self
+        $0.allowsEditing = false
+        $0.sourceType = .photoLibrary
+        return $0
+    }(UIImagePickerController())
+    
     private let viewModel: EditPostViewModelProtocol
+    
+    // TODO: refactor this
+    private var inputWithImageCell: SettingsInputWithImageTableViewCell?
     
     init(viewModel: EditPostViewModelProtocol) {
         self.viewModel = viewModel
@@ -79,6 +91,8 @@ class EditPostViewController: UIViewController {
         self.viewModel.doEditPostFormLoad(request: .init())
     }
     
+    
+    
     // MARK: - Objective-c Actions
     @objc func createBarButtonTapped(_ action: UIBarButtonItem) {
         guard !self.formData.name.isEmpty else {
@@ -95,6 +109,50 @@ class EditPostViewController: UIViewController {
     private func setupNavigationItems() {
         self.navigationItem.rightBarButtonItem = createBarButton
     }
+    
+    private func updateUrlState(
+        for cell: SettingsInputWithImageTableViewCell, state: SettingsInputWithImageCellView.UrlState
+    ) {
+        // to update data
+        defer {
+            self.updateTableViewModel()
+        }
+        print("update for state: \(state)")
+        cell.urlState = state
+        
+        self.inputWithImageCell = cell
+        
+        switch state {
+        case .notAdded:
+            cell.elementView.hideLoading()
+            self.present(imagePickerController, animated: true)
+        case .loading:
+            cell.elementView.showLoading()
+            cell.elementView.textFieldIsEnabled = false
+            cell.elementView.title = nil
+            cell.elementView.imageIcon = Config.Image.close
+        case .addWithImage(let text):
+            cell.elementView.hideLoading()
+            cell.elementView.textFieldIsEnabled = false
+            cell.elementView.title = text
+            cell.elementView.imageIcon = Config.Image.close
+            cell.urlState = .urlAdded
+            self.formData.url = text
+        case .urlAdded:
+            cell.elementView.textFieldIsEnabled = true
+            cell.elementView.title = nil
+            cell.elementView.imageIcon = Config.Image.addImage
+            cell.urlState = .notAdded // for future presenting
+            self.formData.url = nil
+        case .error:
+            cell.urlState = .notAdded
+            cell.elementView.hideLoading()
+            cell.elementView.textFieldIsEnabled = true
+            cell.elementView.title = nil
+            cell.elementView.imageIcon = Config.Image.addImage
+            self.formData.url = nil
+        }
+    }
 }
 
 extension EditPostViewController: EditPostViewControllerProtocol {
@@ -109,6 +167,18 @@ extension EditPostViewController: EditPostViewControllerProtocol {
         
         let viewModel = SettingsTableViewModel(sections: sections)
         self.editPostView.configure(viewModel: viewModel)
+    }
+    
+    func displayUrlLoadImage(viewModel: EditPost.RemoteLoadImage.ViewModel) {
+        guard let inputWithImageCell = inputWithImageCell else { return }
+        self.updateUrlState(for: inputWithImageCell, state: .addWithImage(text: viewModel.url))
+    }
+    
+    func displayErrorUrlLoadImage(viewModel: EditPost.ErrorRemoteLoadImage.ViewModel) {
+        guard let inputWithImageCell = inputWithImageCell else { return }
+        
+        UIAlertController.createOkAlert(message: "Some error happened when uploading a picture")
+        self.updateUrlState(for: inputWithImageCell, state: .error)
     }
     
     func updateTableViewModel() {
@@ -229,6 +299,28 @@ extension EditPostViewController: UIAdaptivePresentationControllerDelegate {
     }
 }
 
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate -
+extension EditPostViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+    ) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
+           let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL {
+            guard let inputWithImageCell = inputWithImageCell else { return }
+            
+            self.updateUrlState(for: inputWithImageCell, state: .loading)
+            self.viewModel.doRemoteLoadImage(request: .init(image: image, filename: imageUrl.lastPathComponent))
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
 extension EditPostViewController: StyledNavigationControllerPresentable {
     var navigationBarAppearanceOnFirstPresentation: StyledNavigationController.NavigationBarAppearanceState {
         .pageSheetAppearance()
@@ -262,7 +354,15 @@ extension EditPostViewController: EditPostViewDelegate {
         self.handleTextField(uniqueIdentifier: uniqueIdentifier, text: text)
     }
     
-    func settingsCell(elementView: UITextField, didReportTextChange text: String?, identifiedBy uniqueIdentifier: UniqueIdentifierType?) {
+    func settingsCell(
+        elementView: UITextField,
+        didReportTextChange text: String?,
+        identifiedBy uniqueIdentifier: UniqueIdentifierType?
+    ) {
         self.handleTextField(uniqueIdentifier: uniqueIdentifier, text: text)
+    }
+    
+    func settingsCellDidTappedToIcon(_ cell: SettingsInputWithImageTableViewCell) {
+        updateUrlState(for: cell, state: cell.urlState)
     }
 }
