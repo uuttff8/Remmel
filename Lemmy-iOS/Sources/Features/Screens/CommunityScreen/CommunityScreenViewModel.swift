@@ -10,6 +10,7 @@ import UIKit
 import Combine
 
 protocol CommunityScreenViewModelProtocol: AnyObject {
+    func doReceiveMessages()
     func doCommunityFetch()
     func doCommunityShowMore(request: CommunityScreen.CommunityShowMore.Request)
     func doPostsFetch(request: CommunityScreen.CommunityPostsLoad.Request)
@@ -21,7 +22,9 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
     
     weak var viewController: CommunityScreenViewControllerProtocol?
     
-    private var paginationState = PaginationState(page: 1, hasNext: true)
+    private weak var wsClient: WSClientProtocol?
+    
+    private var paginationState = 1
     
     private let communityId: LMModels.Views.CommunityView.ID?
     private let communityName: String?
@@ -32,10 +35,51 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
     
     init(
         communityId: LMModels.Views.CommunityView.ID?,
-        communityName: String?
+        communityName: String?,
+        wsClient: WSClientProtocol?
     ) {
         self.communityId = communityId
         self.communityName = communityName
+        self.wsClient = wsClient
+    }
+    
+    func doReceiveMessages() {
+        wsClient?.onTextMessage.addObserver(self, completionHandler: { [weak self] (operation, data) in
+            switch operation {
+            case LMMUserOperation.EditPost.rawValue,
+                 LMMUserOperation.DeletePost.rawValue,
+                 LMMUserOperation.RemovePost.rawValue,
+                 LMMUserOperation.LockPost.rawValue,
+                 LMMUserOperation.StickyPost.rawValue,
+                 LMMUserOperation.SavePost.rawValue,
+                 LMMUserOperation.CreatePostLike.rawValue:
+                
+                guard let newPost = self?.wsClient?.decodeWsType(
+                    LMModels.Api.Post.PostResponse.self,
+                    data: data
+                ) else { return }
+                
+                DispatchQueue.main.async {
+                    self?.viewController?.displayUpdatePost(viewModel: .init(postView: newPost.postView))
+                }
+            case LMMUserOperation.GetCommunity.rawValue:
+                guard let newComm = self?.wsClient?.decodeWsType(
+                    LMModels.Api.Community.CommunityResponse.self,
+                    data: data
+                ) else { return }
+                
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.loadedCommunity = newComm.communityView
+                    
+                    self.viewController?.displayCommunityHeader(
+                        viewModel: .init(data: .init(communityView: newComm.communityView))
+                    )
+                }
+
+            default: break
+            }
+        })
     }
     
     func doCommunityFetch() {
@@ -43,26 +87,15 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
                                                              name: self.communityName,
                                                              auth: LoginData.shared.jwtToken)
         
-        ApiManager.requests.asyncGetCommunity(parameters: parameters)
-            .receive(on: DispatchQueue.main)
-            .sink { (completion) in
-                Logger.logCombineCompletion(completion)
-            } receiveValue: { (response) in
-                
-                self.loadedCommunity = response.communityView
-                
-                self.viewController?.displayCommunityHeader(
-                    viewModel: .init(data: .init(communityView: response.communityView))
-                )
-            }.store(in: &cancellable)
+        self.wsClient?.send(LMMUserOperation.GetCommunity, parameters: parameters)
     }
     
     func doPostsFetch(request: CommunityScreen.CommunityPostsLoad.Request) {
-        self.paginationState.page = 1
+        self.paginationState = 1
         
         let parameters = LMModels.Api.Post.GetPosts(type: .community,
                                                     sort: request.contentType,
-                                                    page: paginationState.page,
+                                                    page: self.paginationState,
                                                     limit: 50,
                                                     communityId: self.communityId,
                                                     communityName: self.communityName,
@@ -82,11 +115,11 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
     }
     
     func doNextPostsFetch(request: CommunityScreen.NextCommunityPostsLoad.Request) {
-        self.paginationState.page += 1
+        self.paginationState += 1
         
         let parameters = LMModels.Api.Post.GetPosts(type: .community,
                                                     sort: request.contentType,
-                                                    page: self.paginationState.page,
+                                                    page: self.paginationState,
                                                     limit: 50,
                                                     communityId: self.communityId,
                                                     communityName: self.communityName,
@@ -147,6 +180,12 @@ enum CommunityScreen {
         struct Request { }
         struct ViewModel {
             let community: LMModels.Views.CommunityView
+        }
+    }
+    
+    enum UpdatePost {
+        struct ViewModel {
+            let postView: LMModels.Views.PostView
         }
     }
     

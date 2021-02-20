@@ -24,7 +24,8 @@ class CommunityScreenAssembly: Assembly {
         let userAccountService = UserAccountService()
         
         let viewModel = CommunityScreenViewModel(communityId: communityId,
-                                                 communityName: communityName)
+                                                 communityName: communityName,
+                                                 wsClient: ApiManager.chainedWsCLient)
         
         let vc = CommunityScreenViewController(
             viewModel: viewModel,

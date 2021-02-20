@@ -14,6 +14,7 @@ protocol CommunityScreenViewControllerProtocol: AnyObject {
     func displayPosts(viewModel: CommunityScreen.CommunityPostsLoad.ViewModel)
     func displayNextPosts(viewModel: CommunityScreen.NextCommunityPostsLoad.ViewModel)
     func displayCommunityShowMore(viewModel: CommunityScreen.CommunityShowMore.ViewModel)
+    func displayUpdatePost(viewModel: CommunityScreen.UpdatePost.ViewModel)
 }
 
 class CommunityScreenViewController: UIViewController {
@@ -73,6 +74,7 @@ class CommunityScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.doReceiveMessages()
         viewModel.doCommunityFetch()
         viewModel.doPostsFetch(request: .init(contentType: communityView.contentType))
         self.updateState(newState: state)
@@ -155,6 +157,10 @@ extension CommunityScreenViewController: CommunityScreenViewControllerProtocol {
         alert.addActions([createPostAction, UIAlertAction.cancelAction])
         
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func displayUpdatePost(viewModel: CommunityScreen.UpdatePost.ViewModel) {
+        self.tableDataSource.viewModels.updateElementById(viewModel.postView)
     }
 }
 

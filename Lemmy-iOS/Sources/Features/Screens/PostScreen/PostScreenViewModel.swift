@@ -35,29 +35,18 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     }
     
     func doPostFetch() {
-        let parameters = LMModels.Api.Post.GetPost(id: postId,
+        let parameters = LMModels.Api.Post.GetPost(id: self.postId,
                                                    auth: LemmyShareData.shared.jwtToken)
         
-        ApiManager.requests.asyncGetPost(parameters: parameters)
-            .receive(on: DispatchQueue.main)
-            .sink { (completion) in
-                Logger.logCombineCompletion(completion)
-            } receiveValue: { [weak self] (response) in
-                guard let self = self else { return }
-                self.viewController?.displayPostWithComments(
-                    viewModel: .init(
-                        state: .result(
-                            data: self.makeViewData(from: response)
-                        )
-                    )
-                )
-            }.store(in: &cancellable)
+        self.wsClient?.send(LMMUserOperation.GetPost, parameters: parameters)
     }
-        
+    
     func doReceiveMessages() {
         sendPostJoin()
         
-        wsClient?.onTextMessage.addObserver(self, completionHandler: { (operation, data) in
+        wsClient?.onTextMessage.addObserver(self, completionHandler: { [weak self] (operation, data) in
+            guard let self = self else { return }
+            
             switch operation {
             case LMMUserOperation.CreateComment.rawValue:
                 guard let newComment = self.wsClient?.decodeWsType(
@@ -104,6 +93,23 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
                         viewModel: .init(commentView: newComment.commentView)
                     )
                 }
+                
+            case LMMUserOperation.GetPost.rawValue:
+                guard let newPost = self.wsClient?.decodeWsType(
+                    LMModels.Api.Post.GetPostResponse.self,
+                    data: data
+                ) else { return }
+                
+                DispatchQueue.main.async {
+                    self.viewController?.displayPostWithComments(
+                        viewModel: .init(
+                            state: .result(
+                                data: self.makeViewData(from: newPost)
+                            )
+                        )
+                    )
+                }
+                
             default:
                 break
             }
