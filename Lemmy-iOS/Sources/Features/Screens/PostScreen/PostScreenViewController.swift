@@ -144,9 +144,7 @@ extension PostScreenViewController: PostContentTableCellDelegate {
                 voteButton: voteButton,
                 for: newVote,
                 post: post
-            ) { (post) in
-                self.postScreenView.bind(with: post)
-            }
+            )
         }
     }
         
@@ -196,9 +194,7 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
                 voteButton: voteButton,
                 for: newVote,
                 comment: comment
-            ) { (comment) in
-                self.commentsViewController.updateExistingComment(comment)
-            }
+            )
         }
     }
         

@@ -109,9 +109,7 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
             voteButton: voteButton,
             for: newVote,
             post: post
-        ) {
-            self.viewController?.operateSaveNewPost(viewModel: .init(post: $0))
-        }
+        )
     }
     
     func doCommentLike(
@@ -125,9 +123,7 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
             voteButton: voteButton,
             for: newVote,
             comment: comment
-        ) {
-            self.viewController?.operateSaveNewComment(viewModel: .init(comment: $0))
-        }
+        )
     }
     
     private func makeViewModelAndPresent(

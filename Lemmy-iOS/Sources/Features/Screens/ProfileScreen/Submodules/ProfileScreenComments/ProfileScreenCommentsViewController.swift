@@ -139,9 +139,7 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
                 voteButton: voteButton,
                 for: newVote,
                 comment: comment
-            ) { (comment) in
-                self.tableDataSource.viewModels.updateElementById(comment)
-            }
+            )
         }
     }
     

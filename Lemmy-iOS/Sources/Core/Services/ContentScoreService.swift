@@ -14,156 +14,116 @@ protocol ContentScoreServiceProtocol {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        post: LMModels.Views.PostView,
-        completion: @escaping (LMModels.Views.PostView) -> Void
+        post: LMModels.Views.PostView
     )
     
     func voteComment(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        comment: LMModels.Views.CommentView,
-        completion: @escaping (LMModels.Views.CommentView) -> Void
+        comment: LMModels.Views.CommentView
     )
     
     func voteReply(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        reply: LMModels.Views.CommentView,
-        completion: @escaping (LMModels.Views.CommentView) -> Void
+        reply: LMModels.Views.CommentView
     )
     
     func voteUserMention(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        userMention: LMModels.Views.UserMentionView,
-        completion: @escaping (LMModels.Views.CommentView) -> Void
+        userMention: LMModels.Views.UserMentionView
     )
 }
 
 class ContentScoreService: ContentScoreServiceProtocol {
         
     private let userAccountService: UserAccountSerivceProtocol
+    private let wsClient: WSClientProtocol
     
     private var cancellable = Set<AnyCancellable>()
     
     init(
-        userAccountService: UserAccountSerivceProtocol
+        userAccountService: UserAccountSerivceProtocol,
+        wsClient: WSClientProtocol = ApiManager.chainedWsCLient
     ) {        
         self.userAccountService = userAccountService
+        self.wsClient = wsClient
     }
     
     func votePost(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        post: LMModels.Views.PostView,
-        completion: @escaping (LMModels.Views.PostView) -> Void
+        post: LMModels.Views.PostView
     ) {
+        guard let jwtToken = self.userAccountService.jwtToken else {
+            Logger.commonLog.emergency("Cannot get jwt token"); return
+        }
         
         scoreView.setVoted(voteButton: voteButton, to: newVote)
-        self.createPostLike(vote: newVote, postId: post.post.id)
-            .receive(on: DispatchQueue.main)
-            .sink { (completion) in
-                Logger.logCombineCompletion(completion)
-            } receiveValue: { (post) in
-                completion(post)
-            }.store(in: &cancellable)
+        let params = LMModels.Api.Post.CreatePostLike(postId: post.id,
+                                                      score: newVote.rawValue,
+                                                      auth: jwtToken)
         
+        self.wsClient.send(LMMUserOperation.CreatePostLike, parameters: params)
     }
     
     func voteComment(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        comment: LMModels.Views.CommentView,
-        completion: @escaping (LMModels.Views.CommentView) -> Void
+        comment: LMModels.Views.CommentView
     ) {
+        guard let jwtToken = self.userAccountService.jwtToken else {
+            Logger.commonLog.emergency("Cannot get jwt token"); return
+        }
         
         scoreView.setVoted(voteButton: voteButton, to: newVote)
-        self.createCommentLike(vote: newVote, contentId: comment.comment.id)
-            .receive(on: DispatchQueue.main)
-            .sink { (completion) in
-                Logger.logCombineCompletion(completion)
-            } receiveValue: { (comment) in
-                completion(comment)
-            }.store(in: &cancellable)
+        
+        let params = LMModels.Api.Comment.CreateCommentLike(commentId: comment.id,
+                                                            score: newVote.rawValue,
+                                                            auth: jwtToken)
+        wsClient.send(LMMUserOperation.CreateCommentLike, parameters: params)
     }
     
     func voteReply(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        reply: LMModels.Views.CommentView,
-        completion: @escaping (LMModels.Views.CommentView) -> Void
+        reply: LMModels.Views.CommentView
     ) {
-        
-        scoreView.setVoted(voteButton: voteButton, to: newVote)
-        self.createCommentLike(vote: newVote, contentId: reply.comment.id)
-            .receive(on: DispatchQueue.main)
-            .sink { (completion) in
-                Logger.logCombineCompletion(completion)
-            } receiveValue: { (comment) in
-                completion(comment)
-            }.store(in: &cancellable)
+        self.createCommentLike(contentId: reply.id, vote: newVote, scoreView: scoreView, voteButton: voteButton)
     }
     
     func voteUserMention(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        userMention: LMModels.Views.UserMentionView,
-        completion: @escaping (LMModels.Views.CommentView) -> Void
+        userMention: LMModels.Views.UserMentionView
     ) {
         
-        scoreView.setVoted(voteButton: voteButton, to: newVote)
-        self.createCommentLike(vote: newVote, contentId: userMention.creator.id)
-            .receive(on: DispatchQueue.main)
-            .sink { (completion) in
-                Logger.logCombineCompletion(completion)
-            } receiveValue: { (comment) in
-                completion(comment)
-            }.store(in: &cancellable)
-    }
-    
-    func createPostLike(
-        vote: LemmyVoteType,
-        postId: Int
-    ) -> AnyPublisher<LMModels.Views.PostView, LemmyGenericError> {
-        guard let jwtToken = self.userAccountService.jwtToken
-        else {
-            return Fail(error: LemmyGenericError.string("failed to fetch jwt token"))
-                .eraseToAnyPublisher()
-        }
-        
-        let params = LMModels.Api.Post.CreatePostLike(postId: postId,
-                                                           score: vote.rawValue,
-                                                           auth: jwtToken)
-        
-        return ApiManager.requests.asyncCreatePostLike(parameters: params)
-            .map({ $0.postView })
-            .eraseToAnyPublisher()
+        self.createCommentLike(contentId: userMention.creator.id, vote: newVote, scoreView: scoreView, voteButton: voteButton)
     }
     
     func createCommentLike(
+        contentId: Int,
         vote: LemmyVoteType,
-        contentId: Int
-    ) -> AnyPublisher<LMModels.Views.CommentView, LemmyGenericError> {
-        
-        guard let jwtToken = self.userAccountService.jwtToken
-        else {
-            return Fail(error: LemmyGenericError.string("failed to fetch jwt token"))
-                .eraseToAnyPublisher()
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton
+    ) {
+        guard let jwtToken = self.userAccountService.jwtToken else {
+            Logger.commonLog.emergency("Cannot get jwt token"); return
         }
+        
+        scoreView.setVoted(voteButton: voteButton, to: vote)
         
         let params = LMModels.Api.Comment.CreateCommentLike(commentId: contentId,
                                                             score: vote.rawValue,
                                                             auth: jwtToken)
-        
-        return ApiManager.requests.asyncCreateCommentLike(parameters: params)
-            .map({ $0.commentView })
-            .eraseToAnyPublisher()
+        wsClient.send(LMMUserOperation.CreateCommentLike, parameters: params)
     }
 }

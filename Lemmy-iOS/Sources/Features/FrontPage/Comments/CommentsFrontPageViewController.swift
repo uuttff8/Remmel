@@ -200,8 +200,7 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            scoreView.setVoted(voteButton: voteButton, to: newVote)
-            viewModel.createCommentLike(newVote: newVote, comment: comment)
+            viewModel.createCommentLike(scoreView: scoreView, voteButton: voteButton, for: newVote, comment: comment)
         }
     }
     
@@ -230,6 +229,6 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
             ) { updatedComment in
                 self.viewModel.commentsDataSource.updateElementById(updatedComment)
             }
-        }        
+        }
     }
 }

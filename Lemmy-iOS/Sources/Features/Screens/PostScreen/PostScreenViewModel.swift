@@ -34,10 +34,6 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
         self.wsClient = wsClient
     }
     
-    deinit {
-        sendPostJoin(flag: false)
-    }
-    
     func doPostFetch() {
         let parameters = LMModels.Api.Post.GetPost(id: postId,
                                                    auth: LemmyShareData.shared.jwtToken)
@@ -57,9 +53,9 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
                 )
             }.store(in: &cancellable)
     }
-    
+        
     func doReceiveMessages() {
-        sendPostJoin(flag: true)
+        sendPostJoin()
         
         wsClient?.onTextMessage.addObserver(self, completionHandler: { (operation, data) in
             switch operation {
@@ -103,7 +99,6 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
                     data: data
                 ) else { return }
                 
-                
                 DispatchQueue.main.async {
                     self.viewController?.displayUpdateComment(
                         viewModel: .init(commentView: newComment.commentView)
@@ -115,7 +110,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
         })
     }
     
-    private func sendPostJoin(flag: Bool) {
+    private func sendPostJoin() {
         let commJoin = LMModels.Api.Websocket.PostJoin(postId: self.postId)
         
         wsClient?.send(

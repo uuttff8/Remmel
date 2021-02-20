@@ -135,10 +135,7 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
             self.contentScoreService.votePost(scoreView: scoreView,
                                               voteButton: voteButton,
                                               for: newVote,
-                                              post: post) { (post) in
-                
-                self.tableDataSource.viewModels.updateElementById(post)   
-            }
+                                              post: post)
         }
     }
     

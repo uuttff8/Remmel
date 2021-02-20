@@ -114,6 +114,7 @@ final class ChainedWSClient: WSClientProtocol {
             case .failure(let error):
                 self?.onError?(error)
                 Logger.commonLog.error("SocketReceiveFailure: \(error.localizedDescription)")
+                self?.reconnectIfNeeded()
             case .success(let message):
                 
                 guard case .string(let message) = message else { return }

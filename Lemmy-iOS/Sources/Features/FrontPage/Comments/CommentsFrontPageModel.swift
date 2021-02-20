@@ -82,23 +82,17 @@ class CommentsFrontPageModel: NSObject {
             }.store(in: &cancellable)
     }
     
-    func createCommentLike(newVote: LemmyVoteType, comment: LMModels.Views.CommentView) {
-        self.contentScoreService.createCommentLike(vote: newVote, contentId: comment.comment.id)
-            .receive(on: DispatchQueue.main)
-            .sink { (completion) in
-                print(completion)
-            } receiveValue: { (comment) in
-                self.saveNewComment(comment)
-            }.store(in: &cancellable)
+    func createCommentLike(scoreView: VoteButtonsWithScoreView, voteButton: VoteButton, for newVote: LemmyVoteType, comment: LMModels.Views.CommentView) {
+        self.contentScoreService.voteComment(scoreView: scoreView, voteButton: voteButton, for: newVote, comment: comment)
     }
     
     func receiveMessages() {
         
-        wsEvents?.onTextMessage.addObserver(self, completionHandler: { (operation, data) in
+        wsEvents.onTextMessage.addObserver(self, completionHandler: { (operation, data) in
             switch operation {
             case LMMUserOperation.CreateCommentLike.rawValue:
                 
-                guard let commentLike = self.wsEvents?.decodeWsType(
+                guard let commentLike = self.wsEvents.decodeWsType(
                     LMModels.Api.Comment.CommentResponse.self,
                     data: data
                 ) else { return }
@@ -111,7 +105,7 @@ class CommentsFrontPageModel: NSObject {
                  LMMUserOperation.DeleteComment.rawValue,
                  LMMUserOperation.RemoveComment.rawValue:
                 
-                guard let newComment = self.wsEvents?.decodeWsType(
+                guard let newComment = self.wsEvents.decodeWsType(
                     LMModels.Api.Comment.CommentResponse.self,
                     data: data
                 ) else { return }

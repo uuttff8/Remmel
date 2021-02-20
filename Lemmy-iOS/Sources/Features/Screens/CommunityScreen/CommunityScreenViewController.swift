@@ -209,9 +209,7 @@ extension CommunityScreenViewController: PostContentPreviewTableCellDelegate {
                 voteButton: voteButton,
                 for: newVote,
                 post: post
-            ) { (newPost) in
-                self.tableDataSource.viewModels.updateElementById(newPost)
-            }
+            ) 
         }
     }
     

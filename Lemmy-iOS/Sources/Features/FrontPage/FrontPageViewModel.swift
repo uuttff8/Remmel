@@ -30,7 +30,7 @@ class FrontPageViewModel: FrontPageViewModelProtocol {
         
         let commJoin = LMModels.Api.Websocket.CommunityJoin(communityId: 0)
 
-        wsEvents?.send(
+        wsEvents.send(
             WSEndpoint.Community.communityJoin.endpoint,
             parameters: commJoin
         )
@@ -41,7 +41,7 @@ class FrontPageViewModel: FrontPageViewModelProtocol {
         }
         
         let userJoin = LMModels.Api.Websocket.UserJoin(auth: jwtToken)
-        wsEvents?.send(WSEndpoint.User.userJoin.endpoint, parameters: userJoin)
+        wsEvents.send(WSEndpoint.User.userJoin.endpoint, parameters: userJoin)
     }
     
     func doNavBarProfileAction() {

@@ -213,8 +213,7 @@ extension PostsFrontPageViewController: PostContentPreviewTableCellDelegate {
         guard let coordinator = coordinator else { return }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            scoreView.setVoted(voteButton: voteButton, to: newVote)
-            viewModel.createPostLike(newVote: newVote, post: post)
+            viewModel.createPostLike(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post)
         }
     }
     

@@ -27,7 +27,7 @@ class MessageDynamicValue {
 
     public func addObserver(_ observer: AnyObject, completionHandler: @escaping CompletionHandler) {
         observers[observer.description] = completionHandler
-    }
+    }    
 
     public func addAndNotify(observer: AnyObject, completionHandler: @escaping CompletionHandler) {
         self.addObserver(observer, completionHandler: completionHandler)

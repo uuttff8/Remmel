@@ -28,7 +28,7 @@ class LoginData {
     }
 
     func logout() {
-        ApiManager.chainedWsCLient?.close()
+        ApiManager.chainedWsCLient.close()
         self.clear()
         userDefaults.resetDefaults()
         URLCache.shared.removeAllCachedResponses()

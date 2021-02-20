@@ -130,10 +130,7 @@ extension InboxRepliesViewController: ReplyCellViewDelegate {
             scoreView: scoreView,
             voteButton: voteButton,
             for: newVote,
-            reply: reply,
-            completion: { replyComment in
-                self.tableManager.viewModels.updateElementById(replyComment)
-            }
+            reply: reply
         )
     }
     

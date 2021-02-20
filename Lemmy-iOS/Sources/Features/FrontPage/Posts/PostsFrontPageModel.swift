@@ -17,7 +17,7 @@ class PostsFrontPageModel: NSObject {
     private let contentScoreService = ContentScoreService(userAccountService: UserAccountService())
     private let contentPreferenceService = ContentPreferencesStorageManager()
     
-    private let wsEvents = ApiManager.chainedWsCLient
+    private weak var wsEvents = ApiManager.chainedWsCLient
     
     private var cancellable = Set<AnyCancellable>()
     
@@ -44,17 +44,17 @@ class PostsFrontPageModel: NSObject {
     
     func receiveMessages() {
         
-        wsEvents?.onTextMessage.addObserver(self, completionHandler: { (operation, data) in
+        wsEvents?.onTextMessage.addObserver(self, completionHandler: { [weak self] (operation, data) in
             switch operation {
             case LMMUserOperation.CreatePostLike.rawValue:
                 
-                guard let postLike = self.wsEvents?.decodeWsType(
+                guard let postLike = self?.wsEvents?.decodeWsType(
                     LMModels.Api.Post.PostResponse.self,
                     data: data
                 ) else { return }
                 
                 DispatchQueue.main.async {
-                    self.createPostLike(with: postLike.postView)
+                    self?.createPostLike(with: postLike.postView)
                 }
                 
             case LMMUserOperation.EditPost.rawValue,
@@ -64,13 +64,13 @@ class PostsFrontPageModel: NSObject {
                  LMMUserOperation.StickyPost.rawValue,
                  LMMUserOperation.SavePost.rawValue:
                 
-                guard let newPost = self.wsEvents?.decodeWsType(
+                guard let newPost = self?.wsEvents?.decodeWsType(
                     LMModels.Api.Post.PostResponse.self,
                     data: data
                 ) else { return }
                 
                 DispatchQueue.main.async {
-                    self.updatePost(with: newPost.postView)
+                    self?.updatePost(with: newPost.postView)
                 }
             default:
                 break
@@ -122,14 +122,8 @@ class PostsFrontPageModel: NSObject {
         postsDataSource.updateElementById(post)
     }
     
-    func createPostLike(newVote: LemmyVoteType, post: LMModels.Views.PostView) {
-        self.contentScoreService.createPostLike(vote: newVote, postId: post.id)
-            .receive(on: DispatchQueue.main)
-            .sink { (completion) in
-                Logger.logCombineCompletion(completion)
-            } receiveValue: { (post) in
-                self.saveNewPost(post)
-            }.store(in: &cancellable)
+    func createPostLike(scoreView: VoteButtonsWithScoreView, voteButton: VoteButton, for newVote: LemmyVoteType, post: LMModels.Views.PostView) {
+        self.contentScoreService.votePost(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post)
     }
     
     private func createPostLike(with updatedPost: LMModels.Views.PostView) {
