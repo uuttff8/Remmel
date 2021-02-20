@@ -11,6 +11,7 @@ import UIKit
 protocol InboxMentionsViewControllerProtocol: AnyObject {
     func displayMentions(viewModel: InboxMentions.LoadMentions.ViewModel)
     func displayNextMentions(viewModel: InboxMentions.LoadMentions.ViewModel)
+    func displayCreateCommentLike(viewModel: InboxMentions.CreateCommentLike.ViewModel)
 }
 
 final class InboxMentionsViewController: UIViewController {
@@ -53,6 +54,11 @@ final class InboxMentionsViewController: UIViewController {
         self.view = view
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewModel.doReceiveMessages()
+    }
+    
     private func updateState(newState: InboxMentions.ViewControllerState) {
         defer {
             self.state = newState
@@ -78,6 +84,11 @@ final class InboxMentionsViewController: UIViewController {
 }
 
 extension InboxMentionsViewController: InboxMentionsViewControllerProtocol {
+    func displayCreateCommentLike(viewModel: InboxMentions.CreateCommentLike.ViewModel) {
+        var comments = self.tableManager.viewModels.map(\.comment)
+        comments.updateElementById(viewModel.commentView.comment)
+    }
+    
     func displayMentions(viewModel: InboxMentions.LoadMentions.ViewModel) {
         guard case .result(let data) = viewModel.state else { return }
         self.tableManager.viewModels = data

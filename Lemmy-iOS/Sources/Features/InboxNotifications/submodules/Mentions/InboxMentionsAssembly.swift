@@ -22,7 +22,7 @@ final class InboxMentionsAssembly: Assembly {
     func makeModule() -> InboxMentionsViewController {
         let userAccService = UserAccountService()
         
-        let viewModel = InboxMentionsViewModel(userAccountService: userAccService)
+        let viewModel = InboxMentionsViewModel(userAccountService: userAccService, wsClient: ApiManager.chainedWsCLient)
         let vc = InboxMentionsViewController(
             viewModel: viewModel,
             contentScoreService: ContentScoreService(

@@ -11,6 +11,7 @@ import UIKit
 protocol InboxRepliesViewControllerProtocol: AnyObject {
     func displayReplies(viewModel: InboxReplies.LoadReplies.ViewModel)
     func displayNextReplies(viewModel: InboxReplies.LoadReplies.ViewModel)
+    func displayCreateCommentLike(viewModel: InboxReplies.CreateCommentLike.ViewModel)
 }
 
 final class InboxRepliesViewController: UIViewController {
@@ -51,6 +52,12 @@ final class InboxRepliesViewController: UIViewController {
         let view = InboxRepliesView()
         view.delegate = self
         self.view = view
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        viewModel.doReceiveMessages()
     }
     
     private func updateState(newState: InboxReplies.ViewControllerState) {
@@ -95,6 +102,10 @@ extension InboxRepliesViewController: InboxRepliesViewControllerProtocol {
         } else {
             self.canTriggerPagination = true
         }
+    }
+    
+    func displayCreateCommentLike(viewModel: InboxReplies.CreateCommentLike.ViewModel) {
+        self.tableManager.viewModels.updateElementById(viewModel.commentView)
     }
 }
 

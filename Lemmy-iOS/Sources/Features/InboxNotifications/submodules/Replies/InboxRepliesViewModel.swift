@@ -10,6 +10,7 @@ import UIKit
 import Combine
 
 protocol InboxRepliesViewModelProtocol {
+    func doReceiveMessages()
     func doLoadReplies(request: InboxReplies.LoadReplies.Request)
     func doNextLoadReplies(request: InboxReplies.LoadReplies.Request)
 }
@@ -17,6 +18,7 @@ protocol InboxRepliesViewModelProtocol {
 final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
     weak var viewController: InboxRepliesViewControllerProtocol?
     
+    private weak var wsClient: WSClientProtocol?
     private let userAccountService: UserAccountSerivceProtocol
     
     private var paginationState = 1
@@ -24,9 +26,30 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     
     init(
-        userAccountService: UserAccountSerivceProtocol
+        userAccountService: UserAccountSerivceProtocol,
+        wsClient: WSClientProtocol
     ) {
         self.userAccountService = userAccountService
+        self.wsClient = wsClient
+    }
+    
+    func doReceiveMessages() {
+        self.wsClient?.onTextMessage.addObserver(self, completionHandler: { [weak self] (operation, data) in
+            guard let self = self else { return }
+            
+            switch operation {
+            case LMMUserOperation.CreateCommentLike.rawValue:
+                guard let like = self.wsClient?.decodeWsType(
+                    LMModels.Api.Comment.CommentResponse.self,
+                    data: data
+                ) else { return }
+                
+                DispatchQueue.main.async {
+                    self.viewController?.displayCreateCommentLike(viewModel: .init(commentView: like.commentView))
+                }
+            default: break
+            }
+        })
     }
     
     func doLoadReplies(request: InboxReplies.LoadReplies.Request) {
@@ -89,6 +112,12 @@ enum InboxReplies {
         struct Request { }
         struct ViewModel {
             let state: ViewControllerState
+        }
+    }
+    
+    enum CreateCommentLike {
+        struct ViewModel {
+            let commentView: LMModels.Views.CommentView
         }
     }
     

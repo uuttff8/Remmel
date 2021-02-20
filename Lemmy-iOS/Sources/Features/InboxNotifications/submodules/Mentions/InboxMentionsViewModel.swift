@@ -10,6 +10,7 @@ import UIKit
 import Combine
 
 protocol InboxMentionsViewModelProtocol {
+    func doReceiveMessages()
     func doLoadMentions(request: InboxMentions.LoadMentions.Request)
     func doNextLoadMentions(request: InboxMentions.LoadMentions.Request)
 }
@@ -17,6 +18,7 @@ protocol InboxMentionsViewModelProtocol {
 final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
     weak var viewController: InboxMentionsViewControllerProtocol?
     
+    private weak var wsClient: WSClientProtocol?
     private let userAccountService: UserAccountService
     
     private var paginationState = 1
@@ -24,9 +26,30 @@ final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     
     init(
-        userAccountService: UserAccountService
+        userAccountService: UserAccountService,
+        wsClient: WSClientProtocol
     ) {
         self.userAccountService = userAccountService
+        self.wsClient = wsClient
+    }
+    
+    func doReceiveMessages() {
+        self.wsClient?.onTextMessage.addObserver(self, completionHandler: { [weak self] (operation, data) in
+            guard let self = self else { return }
+            
+            switch operation {
+            case LMMUserOperation.CreateCommentLike.rawValue:
+                guard let like = self.wsClient?.decodeWsType(
+                    LMModels.Api.Comment.CommentResponse.self,
+                    data: data
+                ) else { return }
+                
+                DispatchQueue.main.async {
+                    self.viewController?.displayCreateCommentLike(viewModel: .init(commentView: like.commentView))
+                }
+            default: break
+            }
+        })
     }
     
     func doLoadMentions(request: InboxMentions.LoadMentions.Request) {
@@ -89,6 +112,12 @@ enum InboxMentions {
         struct Request { }
         struct ViewModel {
             let state: ViewControllerState
+        }
+    }
+    
+    enum CreateCommentLike {
+        struct ViewModel {
+            let commentView: LMModels.Views.CommentView
         }
     }
     

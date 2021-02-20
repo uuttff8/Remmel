@@ -106,7 +106,7 @@ class ContentScoreService: ContentScoreServiceProtocol {
         userMention: LMModels.Views.UserMentionView
     ) {
         
-        self.createCommentLike(contentId: userMention.creator.id, vote: newVote, scoreView: scoreView, voteButton: voteButton)
+        self.createCommentLike(contentId: userMention.id, vote: newVote, scoreView: scoreView, voteButton: voteButton)
     }
     
     func createCommentLike(

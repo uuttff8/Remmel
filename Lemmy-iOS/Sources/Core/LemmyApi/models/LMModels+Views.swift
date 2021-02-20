@@ -23,7 +23,7 @@ extension LMModels {
             }
             
             let userMention: LMModels.Source.UserMention
-            let comment: LMModels.Source.Comment
+            var comment: LMModels.Source.Comment
             let creator: LMModels.Source.UserSafe
             let post: LMModels.Source.Post
             let community: LMModels.Source.CommunitySafe

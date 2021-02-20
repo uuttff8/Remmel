@@ -22,7 +22,7 @@ final class InboxRepliesAssembly: Assembly {
     func makeModule() -> InboxRepliesViewController {
         let userAccService = UserAccountService()
         
-        let viewModel = InboxRepliesViewModel(userAccountService: userAccService)
+        let viewModel = InboxRepliesViewModel(userAccountService: userAccService, wsClient: ApiManager.chainedWsCLient)
         let vc = InboxRepliesViewController(
             viewModel: viewModel,
             contentScoreService: ContentScoreService(
