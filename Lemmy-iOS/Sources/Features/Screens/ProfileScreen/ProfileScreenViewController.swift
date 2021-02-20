@@ -87,7 +87,10 @@ class ProfileScreenViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
+        viewModel.doReceiveMessages()
+        viewModel.doProfileFetch()
+        
         self.addChild(self.pageViewController)
         self.pageViewController.dataSource = self
         self.pageViewController.delegate = self
@@ -95,8 +98,6 @@ class ProfileScreenViewController: UIViewController {
         self.profileScreenView.updateCurrentPageIndex(ProfileScreenDataFlow.Tab.posts.rawValue)
         
         styledNavigationController?.removeBackButtonTitleForTopController()
-        
-        viewModel.doProfileFetch()
     }
         
     override func viewDidDisappear(_ animated: Bool) {

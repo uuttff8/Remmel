@@ -12,6 +12,7 @@ import Combine
 protocol ProfileScreenViewModelProtocol: AnyObject {
     var loadedProfile: ProfileScreenViewModel.ProfileData? { get }
     
+    func doReceiveMessages()
     func doProfileFetch()
     func doIdentifyProfile()
     func doProfileLogout()
@@ -35,6 +36,8 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     
     weak var viewController: ProfileScreenViewControllerProtocol?
     
+    private weak var wsClient: WSClientProtocol?
+    
     private let userAccountService: UserAccountSerivceProtocol
     
     private var cancellable = Set<AnyCancellable>()
@@ -51,11 +54,33 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     init(
         profileId: Int?,
         profileUsername: String?,
-        userAccountService: UserAccountSerivceProtocol
+        userAccountService: UserAccountSerivceProtocol,
+        wsClient: WSClientProtocol
     ) {
         self.profileId = profileId
         self.profileUsername = profileUsername
         self.userAccountService = userAccountService
+        self.wsClient = wsClient
+    }
+    
+    func doReceiveMessages() {
+        self.wsClient?.onTextMessage.addObserver(self, completionHandler: { [weak self] (operation, data) in
+            guard let self = self else { return }
+            
+            switch operation {
+            case LMMUserOperation.GetUserDetails.rawValue:
+                guard let userDetails = self.wsClient?.decodeWsType(
+                    LMModels.Api.User.GetUserDetailsResponse.self,
+                    data: data
+                ) else { return }
+                
+                DispatchQueue.main.async {
+                    self.fetchProfile(with: userDetails)
+                }
+                
+            default: break
+            }
+        })
     }
     
     func doProfileFetch() {
@@ -70,34 +95,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
                                                           savedOnly: false,
                                                           auth: LemmyShareData.shared.jwtToken)
         
-        ApiManager.requests.asyncGetUserDetails(parameters: parameters)
-            .receive(on: DispatchQueue.main)
-            .sink { (completion) in
-                Logger.logCombineCompletion(completion)
-            } receiveValue: { [weak self] response in
-                guard let self = self else { return }
-                
-                self.viewController?.displayNotBlockingActivityIndicator(viewModel: .init(shouldDismiss: true))
-                
-                let loadedProfile = self.initializeProfileData(with: response)
-                self.loadedProfile = loadedProfile
-                
-                // if blocked user then show nothing
-                if self.userIsBlocked(userId: loadedProfile.id) {
-                    self.loadedProfile = ProfileData(id: loadedProfile.id,
-                                                     viewData: loadedProfile.viewData,
-                                                     userDetails: response)
-                    self.viewController?.displayProfile(viewModel: .init(state: .blockedUser))
-                    return
-                }
-                
-                self.viewController?.displayProfile(
-                    viewModel: .init(state: .result(profile: loadedProfile.viewData,
-                                                    posts: response.posts,
-                                                    comments: response.comments,
-                                                    subscribers: response.follows))
-                )
-            }.store(in: &cancellable)
+        self.wsClient?.send(LMMUserOperation.GetUserDetails, parameters: parameters)
     }
     
     func doIdentifyProfile() {
@@ -128,6 +126,29 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
             self.submodules[key] = value
         }
         self.pushCurrentCourseToSubmodules(submodules: Array(self.submodules.values))
+    }
+    
+    private func fetchProfile(with response: LMModels.Api.User.GetUserDetailsResponse) {
+        self.viewController?.displayNotBlockingActivityIndicator(viewModel: .init(shouldDismiss: true))
+        
+        let loadedProfile = self.initializeProfileData(with: response)
+        self.loadedProfile = loadedProfile
+        
+        // if blocked user then show nothing
+        if self.userIsBlocked(userId: loadedProfile.id) {
+            self.loadedProfile = ProfileData(id: loadedProfile.id,
+                                             viewData: loadedProfile.viewData,
+                                             userDetails: response)
+            self.viewController?.displayProfile(viewModel: .init(state: .blockedUser))
+            return
+        }
+        
+        self.viewController?.displayProfile(
+            viewModel: .init(state: .result(profile: loadedProfile.viewData,
+                                            posts: response.posts,
+                                            comments: response.comments,
+                                            subscribers: response.follows))
+        )
     }
     
     private func pushCurrentCourseToSubmodules(submodules: [ProfileScreenSubmoduleProtocol]) {

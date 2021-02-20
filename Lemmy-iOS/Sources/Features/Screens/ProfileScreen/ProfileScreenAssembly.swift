@@ -21,7 +21,8 @@ final class ProfileInfoScreenAssembly: Assembly {
         let viewModel = ProfileScreenViewModel(
             profileId: self.profileId,
             profileUsername: self.profileUsername,
-            userAccountService: UserAccountService()
+            userAccountService: UserAccountService(),
+            wsClient: ApiManager.chainedWsCLient
         )
         let viewController = ProfileScreenViewController(viewModel: viewModel)
         
