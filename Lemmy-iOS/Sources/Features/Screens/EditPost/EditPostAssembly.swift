@@ -18,7 +18,8 @@ final class EditPostAssembly: Assembly {
     
     func makeModule() -> EditPostViewController {
         let viewModel = EditPostViewModel(postSource: postSource,
-                                          userAccountService: UserAccountService())
+                                          userAccountService: UserAccountService(),
+                                          wsClient: ApiManager.chainedWsCLient)
         let vc = EditPostViewController(viewModel: viewModel)
         viewModel.viewController = vc
         

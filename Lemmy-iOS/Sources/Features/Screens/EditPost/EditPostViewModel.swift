@@ -10,6 +10,7 @@ import UIKit
 import Combine
 
 protocol EditPostViewModelProtocol: AnyObject {
+    func doReceiveMessages()
     func doEditPostFormLoad(request: EditPost.FormLoad.Request)
     func doRemoteEditPost(request: EditPost.RemoteEditPost.Request)
     func doRemoteLoadImage(request: EditPost.RemoteLoadImage.Request)
@@ -17,6 +18,8 @@ protocol EditPostViewModelProtocol: AnyObject {
 
 class EditPostViewModel: EditPostViewModelProtocol {
     weak var viewController: EditPostViewControllerProtocol?
+    
+    private weak var wsClient: WSClientProtocol?
     
     private let postSource: LMModels.Source.Post
     
@@ -26,10 +29,26 @@ class EditPostViewModel: EditPostViewModelProtocol {
     
     init(
         postSource: LMModels.Source.Post,
-        userAccountService: UserAccountSerivceProtocol
+        userAccountService: UserAccountSerivceProtocol,
+        wsClient: WSClientProtocol
     ) {
         self.postSource = postSource
         self.userAccountService = userAccountService
+        self.wsClient = wsClient
+    }
+    
+    func doReceiveMessages() {
+//        self.wsClient?.onTextMessage.addObserver(self, completionHandler: { [weak self] (operation, data) in
+//            guard let self = self else { return }
+//            
+//            switch operation {
+//            case LMMUserOperation.EditPost.rawValue:
+//                DispatchQueue.main.async {
+//                    <#code#>
+//                }
+//            default: break
+//            }
+//        })
     }
     
     func doEditPostFormLoad(request: EditPost.FormLoad.Request) {
