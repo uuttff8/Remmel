@@ -130,6 +130,7 @@ final class AddAccountViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func addBarButtonTapped(_ sender: UIBarButtonItem) {
+        self.addBarButton.isEnabled = false
         switch authMethod {
         case .auth:
             onAuth()
@@ -146,6 +147,7 @@ extension AddAccountViewController: AddAccountViewControllerProtocol {
     }
     
     func displayErrorAuth(viewModel: AddAccountDataFlow.AuthError.ViewModel) {
+        self.addBarButton.isEnabled = true
         UIAlertController.createOkAlert(message: viewModel.error)
     }
 }
