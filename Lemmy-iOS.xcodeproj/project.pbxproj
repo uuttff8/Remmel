@@ -20,6 +20,7 @@
 		4E004F8F25DFF8B0006B81CF /* EditPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004F8E25DFF8B0006B81CF /* EditPostViewModel.swift */; };
 		4E004F9425DFF8C1006B81CF /* EditPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004F9325DFF8C1006B81CF /* EditPostView.swift */; };
 		4E004FB325E0676B006B81CF /* MessageDynamicValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004FB225E0676B006B81CF /* MessageDynamicValue.swift */; };
+		4E004FC125E1BB48006B81CF /* ErrorDynamicValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E004FC025E1BB48006B81CF /* ErrorDynamicValue.swift */; };
 		4E05D637255EBA63002307E0 /* Optional+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05D636255EBA63002307E0 /* Optional+Ext.swift */; };
 		4E0A8E2F255BFC0000B06AF6 /* UIApplication+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */; };
 		4E0A8E35255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E34255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift */; };
@@ -403,6 +404,7 @@
 		4E004F8E25DFF8B0006B81CF /* EditPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostViewModel.swift; sourceTree = "<group>"; };
 		4E004F9325DFF8C1006B81CF /* EditPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostView.swift; sourceTree = "<group>"; };
 		4E004FB225E0676B006B81CF /* MessageDynamicValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDynamicValue.swift; sourceTree = "<group>"; };
+		4E004FC025E1BB48006B81CF /* ErrorDynamicValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDynamicValue.swift; sourceTree = "<group>"; };
 		4E05D636255EBA63002307E0 /* Optional+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Ext.swift"; sourceTree = "<group>"; };
 		4E0A8E2E255BFC0000B06AF6 /* UIApplication+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Ext.swift"; sourceTree = "<group>"; };
 		4E0A8E34255C01DE00B06AF6 /* ProfileScreenCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenCommentsViewController.swift; sourceTree = "<group>"; };
@@ -1713,6 +1715,7 @@
 				4E3D44D52595D3B300108DA3 /* ChainedWSClient.swift */,
 				4E5A677025C1A3D700BAA536 /* LemmyDecoder.swift */,
 				4E004FB225E0676B006B81CF /* MessageDynamicValue.swift */,
+				4E004FC025E1BB48006B81CF /* ErrorDynamicValue.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -2561,6 +2564,7 @@
 				4E110D5225CB407E00A06306 /* ProfileSettingsView.swift in Sources */,
 				4EBB22262559EBAA00B88079 /* ColorPalette.swift in Sources */,
 				4ECCEEEA250BA6230075F921 /* WSLemmyClient.swift in Sources */,
+				4E004FC125E1BB48006B81CF /* ErrorDynamicValue.swift in Sources */,
 				4EBB224C255ADE4C00B88079 /* TabSegmentedControlView.swift in Sources */,
 				4EF3142F25811F880032B58D /* GenericCoordinator.swift in Sources */,
 				4EC63F0025C6001900F6D6F1 /* LMModels+Api+Websocket.swift in Sources */,

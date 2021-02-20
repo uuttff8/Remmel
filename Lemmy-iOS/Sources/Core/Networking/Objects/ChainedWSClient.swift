@@ -15,7 +15,7 @@ protocol WSClientProtocol: AnyObject {
 
     var onConnected: (() -> Void)? { get set }
     var onTextMessage: MessageDynamicValue { get set }
-    var onError: ((Error) -> Void)? { get set }
+    var onError: ErrorDynamicValue { get set }
     
     func send<T: Codable>(_ op: String, parameters: T)
     func send<T: Codable>(_ op: LMMUserOperation, parameters: T)
@@ -32,7 +32,7 @@ final class ChainedWSClient: WSClientProtocol {
     
     var onConnected: (() -> Void)?
     var onTextMessage: MessageDynamicValue = MessageDynamicValue(("", Data()))
-    var onError: ((Error) -> Void)?
+    var onError: ErrorDynamicValue = ErrorDynamicValue("")
     
     private var encoder = JSONEncoder()
     private let decoder = LemmyDecoder()
@@ -112,7 +112,8 @@ final class ChainedWSClient: WSClientProtocol {
         webSocketTask?.receive { [weak self] result in
             switch result {
             case .failure(let error):
-                self?.onError?(error)
+//                self?.onError?(error)
+                self?.onError.value = error
                 Logger.commonLog.error("SocketReceiveFailure: \(error.localizedDescription)")
                 self?.reconnectIfNeeded()
             case .success(let message):
