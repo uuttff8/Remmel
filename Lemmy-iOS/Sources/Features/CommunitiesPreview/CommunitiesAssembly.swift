@@ -11,7 +11,7 @@ import UIKit
 final class CommunitiesPreviewAssembly: Assembly {
     
     func makeModule() -> CommunitiesPreviewViewController {
-        let viewModel = CommunitiesPreviewViewModel()
+        let viewModel = CommunitiesPreviewViewModel(wsClient: ApiManager.chainedWsCLient)
         let vc = CommunitiesPreviewViewController(
             viewModel: viewModel,
             followService: CommunityFollowService(userAccountService: UserAccountService())

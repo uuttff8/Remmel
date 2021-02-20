@@ -55,6 +55,7 @@ class CommunitiesPreviewViewController: UIViewController {
         super.viewDidLoad()
         self.navigationItem.title = "communities".localized
 
+        viewModel.doReceiveMessages()
         viewModel.doLoadCommunities(request: .init())
     }
     
