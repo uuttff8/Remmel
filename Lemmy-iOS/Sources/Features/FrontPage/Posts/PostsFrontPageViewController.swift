@@ -79,10 +79,8 @@ class PostsFrontPageViewController: UIViewController {
         viewModel.createPostLikeUpdate = { index in
             let indexPath = IndexPath(row: index, section: 0)
             
-            DispatchQueue.main.async {
-                if let cell = self.tableView.cellForRow(at: indexPath) as? PostContentPreviewTableCell {
-                    cell.updateForCreatePostLike(post: self.viewModel.postsDataSource[index])
-                }
+            if let cell = self.tableView.cellForRow(at: indexPath) as? PostContentPreviewTableCell {
+                cell.updateForCreatePostLike(post: self.viewModel.postsDataSource[index])
             }
         }
     }

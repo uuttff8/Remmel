@@ -22,10 +22,9 @@ class LemmyDecoder {
         completion: ((Result<String, LemmyGenericError>) -> Void)? = nil
     ) {
         do {
-            guard let apiResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-                return
-            }
-            completion?(.success(apiResponse["op"] as! String))
+            let apiResponse = try self.decoder.decode(ApiResponse.self, from: data)
+            
+            completion?(.success(apiResponse.op))
         } catch {
             do {
                 let errorResponse = try self.decoder.decode(ApiErrorResponse.self, from: data)

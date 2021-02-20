@@ -70,8 +70,11 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
                 ) else { return }
                 
                 // Necessary since it might be a user reply, which has the recipients, to avoid double
-                if newComment.recipientIds.count == 0 {
-                    self.viewController?.displayCreatedComment(viewModel: .init(comment: newComment.commentView))
+                
+                DispatchQueue.main.async {
+                    if newComment.recipientIds.count == 0 {
+                        self.viewController?.displayCreatedComment(viewModel: .init(comment: newComment.commentView))
+                    }
                 }
                 
             case LMMUserOperation.EditPost.rawValue,
@@ -87,7 +90,9 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
                     data: data
                 ) else { return }
                 
-                self.viewController?.displayOnlyPost(viewModel: .init(postView: newPost.postView))
+                DispatchQueue.main.async {
+                    self.viewController?.displayOnlyPost(viewModel: .init(postView: newPost.postView))
+                }
                 
             case LMMUserOperation.EditComment.rawValue,
                  LMMUserOperation.DeleteComment.rawValue,
@@ -98,9 +103,12 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
                     data: data
                 ) else { return }
                 
-                self.viewController?.displayUpdateComment(
-                    viewModel: .init(commentView: newComment.commentView)
-                )
+                
+                DispatchQueue.main.async {
+                    self.viewController?.displayUpdateComment(
+                        viewModel: .init(commentView: newComment.commentView)
+                    )
+                }
             default:
                 break
             }

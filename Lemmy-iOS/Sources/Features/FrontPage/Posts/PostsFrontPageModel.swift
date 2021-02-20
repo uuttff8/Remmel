@@ -53,7 +53,9 @@ class PostsFrontPageModel: NSObject {
                     data: data
                 ) else { return }
                 
-                self.createPostLike(with: postLike.postView)
+                DispatchQueue.main.async {
+                    self.createPostLike(with: postLike.postView)
+                }
                 
             case LMMUserOperation.EditPost.rawValue,
                  LMMUserOperation.DeletePost.rawValue,
@@ -67,7 +69,9 @@ class PostsFrontPageModel: NSObject {
                     data: data
                 ) else { return }
                 
-                self.updatePost(with: newPost.postView)
+                DispatchQueue.main.async {
+                    self.updatePost(with: newPost.postView)
+                }
             default:
                 break
             }

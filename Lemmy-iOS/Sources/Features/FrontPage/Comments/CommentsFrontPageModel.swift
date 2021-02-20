@@ -103,7 +103,9 @@ class CommentsFrontPageModel: NSObject {
                     data: data
                 ) else { return }
                 
-                self.createPostLike(with: commentLike.commentView)
+                DispatchQueue.main.async {
+                    self.createPostLike(with: commentLike.commentView)
+                }
                 
             case LMMUserOperation.EditComment.rawValue,
                  LMMUserOperation.DeleteComment.rawValue,
@@ -114,7 +116,10 @@ class CommentsFrontPageModel: NSObject {
                     data: data
                 ) else { return }
                 
-                self.updateComment(with: newComment.commentView)
+                
+                DispatchQueue.main.async {
+                    self.updateComment(with: newComment.commentView)
+                }
             default:
                 break
             }
