@@ -94,7 +94,7 @@ final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
             } receiveValue: { (response) in
-                self.viewController?.displayMentions(viewModel: .init(state: .result(response.mentions)))
+                self.viewController?.displayNextMentions(viewModel: .init(state: .result(response.mentions)))
             }.store(in: &cancellables)
     }
 }

@@ -113,7 +113,7 @@ class CommunityScreenViewController: UIViewController {
         }
     }
     
-    private func updatePagination(hasNextPage: Bool, hasError: Bool) {
+    private func updatePagination(hasNextPage: Bool) {
         self.canTriggerPagination = hasNextPage
     }
 }
@@ -137,9 +137,9 @@ extension CommunityScreenViewController: CommunityScreenViewControllerProtocol {
             self.communityView.appendNew(data: posts)
             
             if posts.isEmpty {
-                self.updatePagination(hasNextPage: false, hasError: false)
+                self.updatePagination(hasNextPage: false)
             } else {
-                self.updatePagination(hasNextPage: true, hasError: false)
+                self.updatePagination(hasNextPage: true)
             }
         case .error:
             break
