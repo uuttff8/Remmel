@@ -16,6 +16,8 @@ final class MessageTableCell: UITableViewCell {
         set { self.cellView.delegate = newValue }
     }
     
+    private var bottomSeparator = ViewPreConfigutations.separatorView
+    
     override func updateConstraintsIfNeeded() {
         super.updateConstraintsIfNeeded()
 
@@ -43,13 +45,18 @@ final class MessageTableCell: UITableViewCell {
     
     private func setupSubview() {
         self.contentView.addSubview(self.cellView)
+        self.contentView.addSubview(self.bottomSeparator)
 
         self.clipsToBounds = true
         self.contentView.clipsToBounds = true
 
-        self.cellView.translatesAutoresizingMaskIntoConstraints = false
-        self.cellView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        self.cellView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        self.bottomSeparator.snp.makeConstraints {
+            $0.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(16)
         }
     }
 }

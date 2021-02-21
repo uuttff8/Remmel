@@ -17,7 +17,7 @@ class PostContentPreviewView: UIView {
     private let headerView = PostContentHeaderView()
     private let centerView = PostContentCenterView()
     private let footerView = PostContentFooterView()
-    private let separatorView = UIView.Configutations.separatorView
+    private let separatorView = UIView.ViewPreConfigutations.separatorView
     
     init() {
         super.init(frame: .zero)

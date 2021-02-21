@@ -35,7 +35,10 @@ final class MessageCellView: UIView {
         $0.setTitleColor(UIColor(red: 0/255, green: 123/255, blue: 255/255, alpha: 1), for: .normal)
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .regular)
     }
-    private lazy var publishedLabel = UILabel()
+    private lazy var publishedLabel = UILabel().then {
+        $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        $0.textColor = .lemmySecondLabel
+    }
     
     private lazy var headerStackView = UIStackView().then {
         $0.axis = .horizontal

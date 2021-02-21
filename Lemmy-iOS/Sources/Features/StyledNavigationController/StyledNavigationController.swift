@@ -18,7 +18,7 @@ class StyledNavigationController: UINavigationController {
 
         static let titleFont = UIFont.systemFont(ofSize: 17, weight: .regular)
 
-        static let shadowViewColor = Config.Color.separator
+        static let shadowViewColor = UIColor.navControllerSeparator
         static let shadowViewHeight: CGFloat = 0.5
 
         static let statusBarStyle = UIStatusBarStyle.default

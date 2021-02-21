@@ -13,7 +13,7 @@ struct Config {  }
 extension Config {
     struct Color {
         static var separator: UIColor {
-            .dynamic(light: UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1),
+            .dynamic(light: .separator,
                      dark: .separator)
         }
 

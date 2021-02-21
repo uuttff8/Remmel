@@ -24,11 +24,7 @@ class ReplyMentionCellView: UIView {
     private let headerView = CommentHeaderView()
     private let centerView = CommentCenterView()
     private let footerView = CommentFooterView()
-    private let separatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = Config.Color.separator
-        return view
-    }()
+    private let separatorView = UIView.ViewPreConfigutations.separatorView
 
     // MARK: - Init
     init() {

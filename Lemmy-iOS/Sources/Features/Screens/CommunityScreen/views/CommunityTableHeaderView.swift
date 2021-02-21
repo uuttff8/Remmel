@@ -60,7 +60,7 @@ extension CommunityTableHeaderView: ProgrammaticallyViewProtocol {
     func makeConstraints() {
         mainStackView.addStackViewItems(
             .view(communityHeaderView),
-            .view(UIView.Configutations.separatorView),
+            .view(UIView.ViewPreConfigutations.separatorView),
             .view(horizontalStackView),
             .customSpace(10)
         )

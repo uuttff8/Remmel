@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIView {
-    struct Configutations {
+    struct ViewPreConfigutations {
         /// Returns a line with height of 1pt. Used to imitate a separator line in custom views.
         static var separatorView: UIView {
             let view = UIView().then {

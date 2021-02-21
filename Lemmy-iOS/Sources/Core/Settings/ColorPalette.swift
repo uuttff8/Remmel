@@ -10,6 +10,13 @@ import UIKit
 
 extension UIColor {
     
+    static var navControllerSeparator: UIColor {
+        .dynamic(
+            light: UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1),
+            dark: .separator
+        )
+    }
+    
     static var lemmyAccent: UIColor {
         .dynamic(
             light: UIColor.label,
