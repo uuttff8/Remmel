@@ -101,6 +101,12 @@ extension WriteMessageViewController: WriteMessageViewControllerProtocol {
     func displayWriteMessageForm(viewModel: WriteMessage.FormLoad.ViewModel) {
         self.formData.headerText = viewModel.headerText
         
+        switch self.viewModel.action {
+        case .edit(comment: let comment):
+            self.formData.text = comment.content
+        default: break
+        }
+        
         let sections = getSections()
         
         let viewModel = SettingsTableViewModel(sections: sections)

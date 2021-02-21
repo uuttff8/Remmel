@@ -396,6 +396,27 @@
 			<key>orderHint</key>
 			<integer>37</integer>
 		</dict>
+		<key>AttributedText_iOS (Playground) 60.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>291</integer>
+		</dict>
+		<key>AttributedText_iOS (Playground) 61.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>292</integer>
+		</dict>
+		<key>AttributedText_iOS (Playground) 62.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>293</integer>
+		</dict>
 		<key>AttributedText_iOS (Playground) 7.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -816,6 +837,27 @@
 			<key>orderHint</key>
 			<integer>43</integer>
 		</dict>
+		<key>AttributedText_macOS (Playground) 60.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>288</integer>
+		</dict>
+		<key>AttributedText_macOS (Playground) 61.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>289</integer>
+		</dict>
+		<key>AttributedText_macOS (Playground) 62.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>290</integer>
+		</dict>
 		<key>AttributedText_macOS (Playground) 7.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -1235,6 +1277,27 @@
 			<false/>
 			<key>orderHint</key>
 			<integer>40</integer>
+		</dict>
+		<key>AttributedText_tvOS (Playground) 60.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>294</integer>
+		</dict>
+		<key>AttributedText_tvOS (Playground) 61.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>295</integer>
+		</dict>
+		<key>AttributedText_tvOS (Playground) 62.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>296</integer>
 		</dict>
 		<key>AttributedText_tvOS (Playground) 7.xcscheme</key>
 		<dict>
@@ -1886,6 +1949,27 @@
 			<false/>
 			<key>orderHint</key>
 			<integer>31</integer>
+		</dict>
+		<key>SnapKitPlayground (Playground) 60.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>285</integer>
+		</dict>
+		<key>SnapKitPlayground (Playground) 61.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>286</integer>
+		</dict>
+		<key>SnapKitPlayground (Playground) 62.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>287</integer>
 		</dict>
 		<key>SnapKitPlayground (Playground) 7.xcscheme</key>
 		<dict>
