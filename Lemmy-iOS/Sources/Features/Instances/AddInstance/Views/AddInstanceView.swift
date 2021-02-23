@@ -31,6 +31,8 @@ final class AddInstanceView: UIView {
     
     private lazy var textField = SloyTextField().then {
         $0.placeholder = "instances-new-instance".localized
+        $0.keyboardType = .URL
+        $0.autocapitalizationType = .none
         $0.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     
@@ -63,7 +65,7 @@ final class AddInstanceView: UIView {
     // MARK: Actions
     @objc
     private func reload(_ textField: UITextField) {
-        if let text = textField.text, text != "" {
+        if let text = textField.text?.lowercased(), text != "" {
             self.delegate?.addInstanceView(self, didTyped: text)
         }
     }

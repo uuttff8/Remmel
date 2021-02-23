@@ -178,8 +178,6 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
     }
     
     func showMore(in post: LMModels.Views.PostView) {
-        
-        
         guard let coordinator = coordinator else { return }
         self.showMoreHandler.showMoreInPost(on: self, coordinator: coordinator, post: post) { updatedPost in
             self.operateSaveNewPost(viewModel: .init(post: updatedPost))
@@ -231,10 +229,13 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
             if let comment = data.getElement(by: comment.id) {
                 
                 guard let coordinator = coordinator else { return }
-                self.showMoreHandler.showMoreInComment(on: self, coordinator: coordinator, comment: comment) { updatedComment in
+                self.showMoreHandler.showMoreInComment(
+                    on: self,
+                    coordinator: coordinator,
+                    comment: comment
+                ) { updatedComment in
                     self.operateSaveNewComment(viewModel: .init(comment: updatedComment))
                 }
-                
             }
         }
     }

@@ -56,7 +56,7 @@ class LemmyShareData {
     }
     
     var currentInstanceUrl: String {
-        get { self.userDefaults.string(forKey: Key.currentInstanceUrl) ?? "" }
+        get { self.userDefaults.string(forKey: Key.currentInstanceUrl)?.lowercased() ?? "" }
         set { self.userDefaults.setValue(newValue, forKey: Key.currentInstanceUrl) }
     }
     

@@ -48,8 +48,7 @@ final class ChainedWSClient: WSClientProtocol {
         guard let url = String.createInstanceFullUrl(instanceUrl: urlString) else { return nil }
         self.wsEndpoint = url
         
-        let urlSession = URLSession(configuration: .default)
-        self.webSocketTask = urlSession.webSocketTask(with: url)
+        self.webSocketTask = self.getNewWsTask()
         Logger.commonLog.info("URLSession webSocketTask opened to \(url)")
     }
     
@@ -88,8 +87,7 @@ final class ChainedWSClient: WSClientProtocol {
         
         if self.reconnecting {
 //            if self.nwMonitor.currentPath.status == .satisfied {
-                let urlSession = URLSession(configuration: .default)
-                self.webSocketTask = urlSession.webSocketTask(with: self.wsEndpoint)
+                self.webSocketTask = getNewWsTask()
                 self.webSocketTask?.resume()
                 receiveMessages()
 //            } else {
@@ -99,11 +97,10 @@ final class ChainedWSClient: WSClientProtocol {
     }
     
     func decodeWsType<T: Codable>(_ type: T.Type, data: Data) -> T? {
-        //swiftlint:disable:next force_try
-        /*guard*/ let data = try! LemmyJSONDecoder().decode(
+        guard let data = try? LemmyJSONDecoder().decode(
             RequestsManager.ApiResponse<T>.self,
             from: data
-        ) /*else { return nil }*/
+        ) else { return nil }
         
         return data.data
     }
@@ -112,7 +109,6 @@ final class ChainedWSClient: WSClientProtocol {
         webSocketTask?.receive { [weak self] result in
             switch result {
             case .failure(let error):
-//                self?.onError?(error)
                 self?.onError.value = error
                 Logger.commonLog.error("SocketReceiveFailure: \(error.localizedDescription)")
                 self?.reconnectIfNeeded()
@@ -170,5 +166,13 @@ final class ChainedWSClient: WSClientProtocol {
             {"op":"\(url)","data":{}}
             """
         }
+    }
+    
+    private func getNewWsTask() -> URLSessionWebSocketTask {
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForResource = 300
+        config.waitsForConnectivity = true
+        let sess = URLSession(configuration: config)
+        return sess.webSocketTask(with: self.wsEndpoint)
     }
 }

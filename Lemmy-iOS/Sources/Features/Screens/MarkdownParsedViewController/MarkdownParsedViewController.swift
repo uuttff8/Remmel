@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import MarkdownUI
+import markymark
 
 final class MarkdownParsedViewController: UIViewController, CatalystDismissProtocol {
     
@@ -17,24 +17,20 @@ final class MarkdownParsedViewController: UIViewController, CatalystDismissProto
         action: #selector(dismissVc)
     )
     
-    private lazy var lbl: LabeledTextView = {
-        let lbl = LabeledTextView()
-        
-        lbl.linkTextAttributes = [.foregroundColor: UIColor.lemmyBlue,
-                                              .underlineStyle: 0,
-                                              .underlineColor: UIColor.clear]
-        
-        lbl.isEditable = false
-        
-        return lbl
-    }()
-    
+    private lazy var mdTextView = MarkDownTextView(
+        markDownConfiguration: .attributedString,
+        flavor: ContentfulFlavor(),
+        styling: .init()
+    ).then {
+        $0.urlOpener = DefaultURLOpener()
+    }
+
     init(mdString: String) {
         super.init(nibName: nil, bundle: nil)
         
         self.navigationItem.rightBarButtonItem = closeBarButton
         
-        lbl.attributedText = attributtedMarkdown(mdString)
+        mdTextView.text = mdString
         
         setupView()
         addSubviews()
@@ -58,11 +54,6 @@ final class MarkdownParsedViewController: UIViewController, CatalystDismissProto
     @objc func dismissVc() {
         self.dismiss(animated: true)
     }
-    
-    private func attributtedMarkdown(_ subtitle: String) -> NSAttributedString {
-        let attr = NSAttributedString(document: Document(subtitle), style: .init(font: .system(size: 16)))
-        return attr
-    }
 }
 
 extension MarkdownParsedViewController: ProgrammaticallyViewProtocol {
@@ -71,39 +62,30 @@ extension MarkdownParsedViewController: ProgrammaticallyViewProtocol {
     }
     
     func addSubviews() {
-        view.addSubview(lbl)
+        view.addSubview(mdTextView)
     }
     
     func makeConstraints() {
-        lbl.snp.makeConstraints {
+        mdTextView.snp.makeConstraints {
             $0.edges.equalTo(self.view.safeAreaLayoutGuide).inset(10)
         }
     }
 }
 
-extension MarkdownParsedViewController: UITextViewDelegate {
-    func textView(
-        _ textView: UITextView,
-        shouldInteractWith URL: URL,
-        in characterRange: NSRange,
-        interaction: UITextItemInteraction
-    ) -> Bool {
-        let link = URL
-        
-        // TODO uncomment and go to these
-        if let mention = LemmyUserMention(url: link) {
+//extension CommentCenterView: URLOpener {
+//    func open(url: URL) {
+//        if let mention = LemmyUserMention(url: url) {
 //            onUserMentionTap?(mention)
-            return false
-        }
-        
-        if let mention = LemmyCommunityMention(url: link) {
+//            return
+//        }
+//
+//        if let mention = LemmyCommunityMention(url: url) {
 //            onCommunityMentionTap?(mention)
-            return false
-        }
-        
-        return true
-    }
-}
+//            return
+//        }
+//    }
+//}
+
 
 extension MarkdownParsedViewController: StyledNavigationControllerPresentable {
     var navigationBarAppearanceOnFirstPresentation: StyledNavigationController.NavigationBarAppearanceState {

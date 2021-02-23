@@ -53,10 +53,9 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
                     LMModels.Api.Comment.CommentResponse.self,
                     data: data
                 ) else { return }
-                
-                // Necessary since it might be a user reply, which has the recipients, to avoid double
-                
+                                
                 DispatchQueue.main.async {
+                    // Necessary since it might be a user reply, which has the recipients, to avoid double
                     if newComment.recipientIds.count == 0 {
                         self.viewController?.displayCreatedComment(viewModel: .init(comment: newComment.commentView))
                     }

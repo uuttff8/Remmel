@@ -49,7 +49,7 @@ private func parseCommunity(passedUrl: URL) -> String? {
     
     // community hostname MUST match current instance
     if let host = passedUrl.host,
-       !host.contains(LemmyShareData.shared.currentInstanceUrl) {
+       !host.contains(LemmyShareData.shared.currentInstanceUrl.lowercased()) {
         return nil
     }
     
