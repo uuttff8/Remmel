@@ -138,7 +138,9 @@ class PostScreenHeaderView: UIView {
             )
         )
         
-        if postInfo.post.embedTitle == nil && postInfo.post.embedDescription == nil {
+        if postInfo.post.embedTitle == nil
+            && postInfo.post.embedDescription == nil
+            && postInfo.post.url == nil {
             self.postOutlineEmbedView.isHidden = true
         }
     }
