@@ -20,6 +20,8 @@ protocol WSClientProtocol: AnyObject {
     func send<T: Codable>(_ op: String, parameters: T)
     func send<T: Codable>(_ op: LMMUserOperation, parameters: T)
     
+    func reconnectIfNeeded()
+    
     func close()
     
     func decodeWsType<T: Codable>(_ type: T.Type, data: Data) -> T?
