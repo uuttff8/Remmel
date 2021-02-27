@@ -14,7 +14,7 @@ final class ApiManager {
     
     static var requests = RequestsManager()
     
-    static var chainedWsCLient = ChainedWSClient(urlString: LemmyShareData.shared.currentInstanceUrl)!.connect()
+    static var chainedWsCLient = ChainedWSClient().connect()
     
     private let instanceUrl: String
     

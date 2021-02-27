@@ -28,7 +28,9 @@ protocol WSClientProtocol: AnyObject {
 final class ChainedWSClient: WSClientProtocol {
         
     private var webSocketTask: URLSessionWebSocketTask?
-    private let wsEndpoint: URL
+    private var wsEndpoint: URL {
+        String.createInstanceFullUrl(instanceUrl: LemmyShareData.shared.currentInstanceUrl)!
+    }
     
     var onConnected: (() -> Void)?
     var onTextMessage: MessageDynamicValue = MessageDynamicValue(("", Data()))
@@ -42,14 +44,11 @@ final class ChainedWSClient: WSClientProtocol {
     
     private var cancellables = Set<AnyCancellable>()
     
-    init?(urlString: String, reconnecting: Bool = true) {
+    init(reconnecting: Bool = true) {
         self.reconnecting = reconnecting
         
-        guard let url = String.createInstanceFullUrl(instanceUrl: urlString) else { return nil }
-        self.wsEndpoint = url
-        
         self.webSocketTask = self.getNewWsTask()
-        Logger.commonLog.info("URLSession webSocketTask opened to \(url)")
+        Logger.commonLog.info("URLSession webSocketTask opened to \(wsEndpoint)")
     }
     
     @discardableResult
@@ -66,7 +65,7 @@ final class ChainedWSClient: WSClientProtocol {
         guard let message = self.makeRequestString(url: op, data: parameters) else { return }
         
         Logger.commonLog.info(message)
-        
+        self.reconnectIfNeeded()
         self.webSocketTask?.send(.string(message)) { (error) in
             guard let error = error else { return }
             Logger.commonLog.error("Socket send failure: \(error)")
@@ -84,8 +83,8 @@ final class ChainedWSClient: WSClientProtocol {
     
     func reconnectIfNeeded() {
         Logger.commonLog.info("Trying to reconnect at \(LemmyShareData.shared.currentInstanceUrl)")
-        
-        if self.reconnecting {
+                
+        if self.reconnecting && self.webSocketTask?.state == .suspended {
 //            if self.nwMonitor.currentPath.status == .satisfied {
                 self.webSocketTask = getNewWsTask()
                 self.webSocketTask?.resume()
