@@ -122,7 +122,12 @@ class PostsFrontPageModel: NSObject {
         postsDataSource.updateElementById(post)
     }
     
-    func createPostLike(scoreView: VoteButtonsWithScoreView, voteButton: VoteButton, for newVote: LemmyVoteType, post: LMModels.Views.PostView) {
+    func createPostLike(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        for newVote: LemmyVoteType,
+        post: LMModels.Views.PostView
+    ) {
         self.contentScoreService.votePost(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post)
     }
     

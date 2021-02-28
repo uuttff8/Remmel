@@ -68,7 +68,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "43F256F7-AA2B-4BAC-A9A3-84DC2B1B509B"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Lemmy-iOS/Sources/Core/Types/LemmyCommunityMention.swift"

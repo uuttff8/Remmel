@@ -72,21 +72,6 @@ extension MarkdownParsedViewController: ProgrammaticallyViewProtocol {
     }
 }
 
-//extension CommentCenterView: URLOpener {
-//    func open(url: URL) {
-//        if let mention = LemmyUserMention(url: url) {
-//            onUserMentionTap?(mention)
-//            return
-//        }
-//
-//        if let mention = LemmyCommunityMention(url: url) {
-//            onCommunityMentionTap?(mention)
-//            return
-//        }
-//    }
-//}
-
-
 extension MarkdownParsedViewController: StyledNavigationControllerPresentable {
     var navigationBarAppearanceOnFirstPresentation: StyledNavigationController.NavigationBarAppearanceState {
         .pageSheetAppearance()

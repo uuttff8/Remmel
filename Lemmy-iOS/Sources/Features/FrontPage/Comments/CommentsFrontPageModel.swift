@@ -82,8 +82,18 @@ class CommentsFrontPageModel: NSObject {
             }.store(in: &cancellable)
     }
     
-    func createCommentLike(scoreView: VoteButtonsWithScoreView, voteButton: VoteButton, for newVote: LemmyVoteType, comment: LMModels.Views.CommentView) {
-        self.contentScoreService.voteComment(scoreView: scoreView, voteButton: voteButton, for: newVote, comment: comment)
+    func createCommentLike(
+        scoreView: VoteButtonsWithScoreView,
+        voteButton: VoteButton,
+        for newVote: LemmyVoteType,
+        comment: LMModels.Views.CommentView
+    ) {
+        self.contentScoreService.voteComment(
+            scoreView: scoreView,
+            voteButton: voteButton,
+            for: newVote,
+            comment: comment
+        )
     }
     
     func receiveMessages() {
@@ -109,7 +119,6 @@ class CommentsFrontPageModel: NSObject {
                     LMModels.Api.Comment.CommentResponse.self,
                     data: data
                 ) else { return }
-                
                 
                 DispatchQueue.main.async {
                     self.updateComment(with: newComment.commentView)

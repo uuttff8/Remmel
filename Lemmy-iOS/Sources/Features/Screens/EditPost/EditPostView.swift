@@ -63,4 +63,3 @@ extension EditPostView: ProgrammaticallyViewProtocol {
         }
     }
 }
-

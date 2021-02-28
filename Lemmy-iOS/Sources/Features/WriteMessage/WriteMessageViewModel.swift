@@ -138,7 +138,7 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
                         viewModel: .init(error: error.description)
                     )
                 }
-            } receiveValue: { (response) in
+            } receiveValue: { (_) in
                 self.viewController?.displaySuccessCreatingMessage(viewModel: .init())
             }.store(in: &self.cancellable)
 

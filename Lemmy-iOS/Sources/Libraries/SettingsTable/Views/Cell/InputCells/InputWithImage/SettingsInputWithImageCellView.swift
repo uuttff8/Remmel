@@ -148,4 +148,3 @@ extension SettingsInputWithImageCellView: ProgrammaticallyViewProtocol {
         }
     }
 }
-

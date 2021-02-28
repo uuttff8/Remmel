@@ -27,7 +27,7 @@ protocol WSClientProtocol: AnyObject {
     func decodeWsType<T: Codable>(_ type: T.Type, data: Data) -> T?
 }
 
-final class ChainedWSClient: WSClientProtocol {
+final class ChainedWSClient: NSObject, WSClientProtocol {
         
     private var webSocketTask: URLSessionWebSocketTask?
     private var wsEndpoint: URL {
@@ -48,6 +48,7 @@ final class ChainedWSClient: WSClientProtocol {
     
     init(reconnecting: Bool = true) {
         self.reconnecting = reconnecting
+        super.init()
         
         self.webSocketTask = self.getNewWsTask()
         Logger.commonLog.info("URLSession webSocketTask opened to \(wsEndpoint)")
@@ -86,7 +87,7 @@ final class ChainedWSClient: WSClientProtocol {
     func reconnectIfNeeded() {
         Logger.commonLog.info("Trying to reconnect at \(LemmyShareData.shared.currentInstanceUrl)")
                 
-        if self.reconnecting && self.webSocketTask?.state == .suspended {
+        if self.reconnecting {
 //            if self.nwMonitor.currentPath.status == .satisfied {
                 self.webSocketTask = getNewWsTask()
                 self.webSocketTask?.resume()
@@ -173,7 +174,18 @@ final class ChainedWSClient: WSClientProtocol {
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForResource = 300
         config.waitsForConnectivity = true
-        let sess = URLSession(configuration: config)
+        let sess = URLSession(configuration: config, delegate: self, delegateQueue: OperationQueue.current)
         return sess.webSocketTask(with: self.wsEndpoint)
+    }
+}
+
+extension ChainedWSClient: URLSessionWebSocketDelegate {
+    func urlSession(
+        _ session: URLSession,
+        webSocketTask: URLSessionWebSocketTask,
+        didCloseWith closeCode: URLSessionWebSocketTask.CloseCode,
+        reason: Data?
+    ) {
+        self.reconnectIfNeeded()
     }
 }

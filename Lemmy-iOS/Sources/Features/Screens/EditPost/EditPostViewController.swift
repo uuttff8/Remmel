@@ -91,8 +91,6 @@ class EditPostViewController: UIViewController {
         self.viewModel.doEditPostFormLoad(request: .init())
     }
     
-    
-    
     // MARK: - Objective-c Actions
     @objc func createBarButtonTapped(_ action: UIBarButtonItem) {
         guard !self.formData.name.isEmpty else {

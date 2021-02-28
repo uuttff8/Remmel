@@ -160,6 +160,7 @@ class CreateCommunityViewController: UIViewController, CatalystDismissProtocol {
 }
 
 extension CreateCommunityViewController: CreateCommunityViewControllerProtocol {
+    //swiftlint:disable:next function_body_length
     func displayCreateCommunityForm(viewModel: CreateCommunity.CreateCommunityFormLoad.ViewModel) {
         let nameCell = SettingsTableSectionViewModel.Cell(
             uniqueIdentifier: FormField.name.rawValue,
@@ -271,9 +272,9 @@ extension CreateCommunityViewController: UIImagePickerControllerDelegate, UINavi
         _ picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
     ) {
-        if let _ = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+//        if let _ = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
 //          customView.onPickedImage?(image, currentImagePick!)
-        }
+//        }
         
         dismiss(animated: true, completion: nil)
     }
