@@ -63,7 +63,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         
         let alertController = createActionSheetController(vc: viewController)
         let savePostAction = self.createSavePostAction(postId: post.id, saved: post.saved, completion: updateCompletion)
-        let shareAction = self.createShareAction(on: viewController, urlString: post.post.apId)
+        let shareAction = self.createShareAction(on: viewController, toEndpoint: post.post.apId)
         
         let reportAction = UIAlertAction(title: "alert-report".localized, style: .destructive) { (_) in
             
@@ -96,7 +96,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         let saveCommentAction = self.createSaveCommentAction(commentId: comment.id,
                                                              saved: comment.saved,
                                                              completion: updateCompletion)
-        let shareAction = self.createShareAction(on: viewController, urlString: comment.getApIdRelatedToPost())
+        let shareAction = self.createShareAction(on: viewController, toEndpoint: comment.getApIdRelatedToPost())
         let reportAction = UIAlertAction(title: "alert-report".localized, style: .destructive) { (_) in
             
             ContinueIfLogined(on: viewController, coordinator: coordinator) {
@@ -185,30 +185,8 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         return alertController
     }
     
-    private func createShareAction(on viewController: UIViewController, urlString: String) -> UIAlertAction {
-        return UIAlertAction(title: "alert-share".localized, style: .default, handler: { (_) in
-            
-            if let url = URL(string: urlString) {
-                
-                let safariActiv = SafariActivity(url: url)
-                
-                let activityVc = UIActivityViewController(
-                    activityItems: [url],
-                    applicationActivities: [safariActiv]
-                )
-                
-                if let popoverController = activityVc.popoverPresentationController {
-                    popoverController.sourceRect = CGRect(x: UIScreen.main.bounds.width / 2,
-                                                          y: UIScreen.main.bounds.height / 2,
-                                                          width: 0,
-                                                          height: 0)
-                    popoverController.sourceView = viewController.view
-                    popoverController.permittedArrowDirections = []
-                }
-                
-                viewController.present(activityVc, animated: true)
-            }
-        })
+    private func createShareAction(on viewController: UIViewController, toEndpoint endpoint: String) -> UIAlertAction {
+        return UIAlertAction.createShareAction(title: "alert-share".localized, on: viewController, toEndpoint: endpoint)
     }
     
     private func showAlertWithTextField(

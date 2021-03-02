@@ -102,13 +102,17 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
         let isCurrent = loadedProfile?.id == userAccountService.currentUser?.id
             ? true
             : false
+        guard let profile = loadedProfile else { return }
         
-        let userId = loadedProfile.require().id
+        let userId = profile.id
         
         let isBlocked = self.userIsBlocked(userId: userId)
         
         self.viewController?.displayMoreButtonAlert(
-            viewModel: .init(isCurrentProfile: isCurrent, isBlocked: isBlocked, userId: userId)
+            viewModel: .init(isCurrentProfile: isCurrent,
+                             isBlocked: isBlocked,
+                             userId: userId,
+                             actorId: profile.userDetails.userView.user.actorId)
         )
     }
     
@@ -249,6 +253,7 @@ enum ProfileScreenDataFlow {
             let isCurrentProfile: Bool
             let isBlocked: Bool
             let userId: Int
+            let actorId: URL
         }
     }
     

@@ -426,11 +426,18 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
             alert.addAction(sendMessageAction)
         }
         
+        let shareAction = UIAlertAction.createShareAction(
+            title: "alert-share".localized,
+            on: self,
+            toEndpoint: viewModel.actorId.absoluteString
+        )
+        
         let chooseInstanceAction = UIAlertAction(title: "alert-choose-instance".localized, style: .default) { (_) in
             self.coordinator?.goToInstances()
         }
         
         alert.addAction(chooseInstanceAction)
+        alert.addAction(shareAction)
         alert.addAction(UIAlertAction.cancelAction)
         
         self.present(alert, animated: true)

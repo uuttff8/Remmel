@@ -36,4 +36,30 @@ extension UIAlertAction {
     static var cancelAction: UIAlertAction {
         UIAlertAction(title: "alert-cancel".localized, style: .cancel)
     }
+    
+    static func createShareAction(title: String, on viewController: UIViewController, toEndpoint endpoint: String) -> UIAlertAction {
+        return UIAlertAction(title: title, style: .default, handler: { (_) in
+            
+            if let url = URL(string: endpoint) {
+                
+                let safariActiv = SafariActivity(url: url)
+                
+                let activityVc = UIActivityViewController(
+                    activityItems: [url],
+                    applicationActivities: [safariActiv]
+                )
+                
+                if let popoverController = activityVc.popoverPresentationController {
+                    popoverController.sourceRect = CGRect(x: UIScreen.main.bounds.width / 2,
+                                                          y: UIScreen.main.bounds.height / 2,
+                                                          width: 0,
+                                                          height: 0)
+                    popoverController.sourceView = viewController.view
+                    popoverController.permittedArrowDirections = []
+                }
+                
+                viewController.present(activityVc, animated: true)
+            }
+        })
+    }
 }

@@ -154,7 +154,17 @@ extension CommunityScreenViewController: CommunityScreenViewControllerProtocol {
             self.coordinator?.goToCreatePost(predefinedCommunity: viewModel.community)
         }
         
-        alert.addActions([createPostAction, UIAlertAction.cancelAction])
+        let shareAction = UIAlertAction.createShareAction(
+            title: "alert-share".localized,
+            on: self,
+            toEndpoint: viewModel.community.community.actorId.absoluteString
+        )
+        
+        alert.addActions([
+            createPostAction,
+            shareAction,
+            UIAlertAction.cancelAction,
+        ])
         
         self.present(alert, animated: true, completion: nil)
     }
