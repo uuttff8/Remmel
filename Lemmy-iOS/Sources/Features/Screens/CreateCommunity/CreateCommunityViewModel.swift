@@ -38,7 +38,7 @@ class CreateCommunityViewModel: CreateCommunityViewModelProtocol {
         ApiManager.requests.asyncCreateCommunity(parameters: params)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
-                Logger.commonLog.notice(completion)
+                Logger.commonLog.info(completion)
                 
                 if case .failure(let error) = completion {
                     self.viewController?.displayErrorCreatingCommunity(

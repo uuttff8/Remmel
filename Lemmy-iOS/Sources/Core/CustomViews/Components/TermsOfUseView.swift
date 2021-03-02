@@ -72,10 +72,6 @@ final class TermsOfUseView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override var intrinsicContentSize: CGSize {
-        CGSize(width: UIView.noIntrinsicMetric, height: 80)
-    }
 }
 
 extension TermsOfUseView: ProgrammaticallyViewProtocol {
@@ -90,6 +86,7 @@ extension TermsOfUseView: ProgrammaticallyViewProtocol {
     func makeConstraints() {
         textView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
+            $0.height.equalTo(80)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
         

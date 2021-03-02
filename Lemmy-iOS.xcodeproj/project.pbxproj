@@ -73,6 +73,7 @@
 		4E3FBC49258A812B00F97671 /* CommunitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC48258A812B00F97671 /* CommunitiesViewModel.swift */; };
 		4E3FBC51258A82B100F97671 /* CommunitiesPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC50258A82B100F97671 /* CommunitiesPreviewView.swift */; };
 		4E3FBC59258A857600F97671 /* CommunitiesPreviewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSource.swift */; };
+		4E405AC825EC1F0500057F77 /* CenterBackSwipeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E405AC725EC1F0500057F77 /* CenterBackSwipeable.swift */; };
 		4E50674D25D085CF003F1AB4 /* CatalystDismissProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E50674C25D085CF003F1AB4 /* CatalystDismissProtocol.swift */; };
 		4E5A677125C1A3D700BAA536 /* LemmyDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5A677025C1A3D700BAA536 /* LemmyDecoder.swift */; };
 		4E66428725BCC20100E11E20 /* LMModels+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E66428625BCC20100E11E20 /* LMModels+Ext.swift */; };
@@ -456,6 +457,7 @@
 		4E3FBC48258A812B00F97671 /* CommunitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesViewModel.swift; sourceTree = "<group>"; };
 		4E3FBC50258A82B100F97671 /* CommunitiesPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewView.swift; sourceTree = "<group>"; };
 		4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewDataSource.swift; sourceTree = "<group>"; };
+		4E405AC725EC1F0500057F77 /* CenterBackSwipeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterBackSwipeable.swift; sourceTree = "<group>"; };
 		4E50674125D07EB1003F1AB4 /* Lemmy-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Lemmy-iOS.entitlements"; sourceTree = "<group>"; };
 		4E50674C25D085CF003F1AB4 /* CatalystDismissProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalystDismissProtocol.swift; sourceTree = "<group>"; };
 		4E5A677025C1A3D700BAA536 /* LemmyDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyDecoder.swift; sourceTree = "<group>"; };
@@ -1475,6 +1477,7 @@
 				4EBB221225598B0C00B88079 /* Assembly.swift */,
 				4EBF1D6D2593EFCA004068CD /* ContentFocusable.swift */,
 				4E6E667425B224F600AF2F48 /* VoteGettable.swift */,
+				4E405AC725EC1F0500057F77 /* CenterBackSwipeable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -2628,6 +2631,7 @@
 				4E886CAE2540A9820076B162 /* CreatePostContentCell.swift in Sources */,
 				4E110D4E25CB407800A06306 /* ProfileSettingsViewController.swift in Sources */,
 				4EF3AC80254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift in Sources */,
+				4E405AC825EC1F0500057F77 /* CenterBackSwipeable.swift in Sources */,
 				4E73DF6A258BE964001608F2 /* FollowButton.swift in Sources */,
 				4E87C6C9258EA92B0007FE5E /* CoreDataManager.swift in Sources */,
 				4E6E666625B20D4A00AF2F48 /* LMModels+Api+Community.swift in Sources */,

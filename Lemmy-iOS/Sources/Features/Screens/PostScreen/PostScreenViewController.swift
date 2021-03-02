@@ -60,7 +60,6 @@ class PostScreenViewController: UIViewController, Containered {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.add(asChildViewController: commentsViewController)
         
         self.viewModel.doPostFetch()

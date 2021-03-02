@@ -29,22 +29,27 @@ class PostContentHeaderView: UIView {
     private let imageSize = CGSize(width: 32, height: 32)
     
     lazy var avatarImageView = UIImageView().then {
+        $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
         $0.layer.cornerRadius = imageSize.width / 2
         $0.layer.masksToBounds = false
         $0.clipsToBounds = true
     }
     
     private let usernameButton = ResizableButton().then {
+        $0.setContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
         $0.setTitleColor(UIColor.lemmyBlue, for: .normal)
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .regular)
     }
     
     private let communityButton = ResizableButton().then {
+        $0.setContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
         $0.setTitleColor(UIColor.lemmyCommunity, for: .normal)
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
     }
     
     private let publishedTitle = UILabel().then {
+        $0.setContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
         $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         $0.textColor = .lemmySecondLabel
     }
@@ -55,18 +60,21 @@ class PostContentHeaderView: UIView {
     }
     
     private let byTitle = UILabel().then {
+        $0.setContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
         $0.text = "by"
         $0.textColor = .lemmySecondLabel
         $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
     }
     
     private let dotTitle = UILabel().then {
+        $0.setContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
         $0.text = " · "
         $0.textColor = UIColor.lemmySecondLabel
         $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
     }
     
     lazy var urlDomainTitle = UILabel().then {
+        $0.setContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
         $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
     }
     
@@ -123,6 +131,9 @@ class PostContentHeaderView: UIView {
     
     // MARK: - Private
     private func setupTargets() {
+        avatarImageView.addTap {
+            self.usernameButtonTap?()
+        }
         usernameButton.addTarget(self, action: #selector(usernameButtonTapped(sender:)), for: .touchUpInside)
         communityButton.addTarget(self, action: #selector(communityButtonTapped(sender:)), for: .touchUpInside)
         showMoreButton.addTarget(self, action: #selector(showMoreButtonTapped(sender:)), for: .touchUpInside)
@@ -148,15 +159,12 @@ class PostContentHeaderView: UIView {
         urlDomainTitle.text = nil
         usernameButton.setTitle(nil, for: .normal)
         communityButton.setTitle(nil, for: .normal)
-        byTitle.isHidden = false
-        communityButton.isHidden = false
-        avatarImageView.isHidden = false
     }
     
-    // MARK: - Overrided
-    override var intrinsicContentSize: CGSize {
-        CGSize(width: UIScreen.main.bounds.width, height: 30)
-    }
+//    // MARK: - Overrided
+//    override var intrinsicContentSize: CGSize {
+//        CGSize(width: UIScreen.main.bounds.width, height: 30)
+//    }
 }
 
 extension PostContentHeaderView: ProgrammaticallyViewProtocol {

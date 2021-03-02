@@ -171,11 +171,10 @@ extension CommentContentView: ProgrammaticallyViewProtocol {
     
     func makeConstraints() {
         paddingView.snp.makeConstraints { (make) in
-            make.bottom.top.equalToSuperview().inset(5) // SELF-SIZE TOP HERE
-            make.leading.trailing.equalToSuperview().inset(16) // SELF SIZE BOTTOM HERE
+            make.bottom.top.equalToSuperview().inset(5)
+            make.leading.trailing.equalToSuperview().inset(16)
         }
         separatorView.snp.makeConstraints { (make) in
-            make.height.equalTo(1)
             make.bottom.equalToSuperview()
             make.trailing.equalToSuperview().inset(10)
             make.leading.equalToSuperview().offset(10)

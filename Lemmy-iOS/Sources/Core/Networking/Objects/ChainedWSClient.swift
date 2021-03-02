@@ -69,6 +69,7 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
         
         Logger.commonLog.info(message)
         self.reconnectIfNeeded()
+        
         self.webSocketTask?.send(.string(message)) { (error) in
             guard let error = error else { return }
             Logger.commonLog.error("Socket send failure: \(error)")
@@ -85,16 +86,20 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
     }
     
     func reconnectIfNeeded() {
-        Logger.commonLog.info("Trying to reconnect at \(LemmyShareData.shared.currentInstanceUrl)")
                 
-        if self.reconnecting {
-//            if self.nwMonitor.currentPath.status == .satisfied {
+        if self.webSocketTask?.state != .running  {
+        
+            if self.reconnecting {
+                Logger.commonLog.info("Trying to reconnect at \(LemmyShareData.shared.currentInstanceUrl)")
+
+                //            if self.nwMonitor.currentPath.status == .satisfied {
                 self.webSocketTask = getNewWsTask()
                 self.webSocketTask?.resume()
                 receiveMessages()
-//            } else {
-//                self._onError?("No internet")
-//            }
+                //            } else {
+                //                self._onError?("No internet")
+                //            }
+            }
         }
     }
     
@@ -113,6 +118,8 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
             case .failure(let error):
                 self?.onError.value = error
                 Logger.commonLog.error("SocketReceiveFailure: \(error.localizedDescription)")
+                self?.webSocketTask?.cancel(with: .goingAway, reason: nil)
+                
                 self?.reconnectIfNeeded()
             case .success(let message):
                 
