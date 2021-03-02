@@ -106,6 +106,5 @@ extension LMModels {
                 case score, upvotes, downvotes
             }
         }
-        
     }
 }

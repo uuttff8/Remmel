@@ -108,8 +108,9 @@ extension AddInstanceViewController: AddInstanceViewControllerProtocol {
 }
 extension AddInstanceViewController: AddInstanceViewDelegate {
     func addInstanceView(_ view: AddInstanceView, didTyped text: String?) {
-        self.setNewBarButton(loading: true, isEnabled: false)
+        
         if let text = text {
+            self.setNewBarButton(loading: true, isEnabled: false)
             self.viewModel.doAddInstanceCheck(request: .init(query: text))
         }
     }
