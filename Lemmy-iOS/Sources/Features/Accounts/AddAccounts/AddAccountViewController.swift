@@ -67,13 +67,19 @@ final class AddAccountViewController: UIViewController {
     private func onAuth() {
         let authView = addAccountView.authView
         
-        if (!authView.passwordTextField.hasText) || (!authView.emailOrUsernameTextField.hasText) {
+        guard authView.passwordTextField.hasText && authView.emailOrUsernameTextField.hasText else {
             UIAlertController.createOkAlert(message: "login-error-email-user".localized)
+            self.addBarButton.isEnabled = true
+            return
         }
         
-        guard let login = authView.emailOrUsernameTextField.text,
-              let password = authView.passwordTextField.text
-        else { return }
+        guard let login = authView.emailOrUsernameTextField.text, login != "",
+              let password = authView.passwordTextField.text, password != ""
+        else {
+            UIAlertController.createOkAlert(message: "login-error-email-user".localized)
+            self.addBarButton.isEnabled = true
+            return
+        }
         
         self.viewModel.doRemoteAuthentication(request: .init(emailOrUsername: login, password: password))
     }
@@ -81,23 +87,24 @@ final class AddAccountViewController: UIViewController {
     private func onRegister() {
         let registerView = addAccountView.registerView
         
-        guard (registerView.passwordTextField.hasText)
-                || (registerView.usernameTextField.hasText)
-                || (registerView.passwordVerifyTextField.hasText)
+        guard registerView.passwordTextField.hasText ||
+                registerView.usernameTextField.hasText ||
+                registerView.passwordVerifyTextField.hasText
         else {
             UIAlertController.createOkAlert(message: "login-error-email-user".localized)
+            self.addBarButton.isEnabled = true
             return
         }
         
-        guard registerView.passwordTextField.text == registerView.passwordVerifyTextField.text
-        else {
-            UIAlertController.createOkAlert(message: "Passwords don't match")
+        guard registerView.passwordTextField.text == registerView.passwordVerifyTextField.text else {
+            UIAlertController.createOkAlert(message: "login-error-password-dont-match".localized)
+            self.addBarButton.isEnabled = true
             return
         }
         
-        guard registerView.captchaTextField.hasText
-        else {
-            UIAlertController.createOkAlert(message: "Please fill captcha")
+        guard registerView.captchaTextField.hasText else {
+            UIAlertController.createOkAlert(message: "login-error-nocaptcha".localized)
+            self.addBarButton.isEnabled = true
             return
         }
         
@@ -105,7 +112,10 @@ final class AddAccountViewController: UIViewController {
               let password = registerView.passwordTextField.text,
               let passwordVerify = registerView.passwordVerifyTextField.text,
               let captchaCode = registerView.captchaTextField.text
-        else { return }
+        else {
+            self.addBarButton.isEnabled = true
+            return
+        }
         
         guard let captchaUuid = registerView.model.uuid else { return }
         
@@ -131,6 +141,7 @@ final class AddAccountViewController: UIViewController {
     // MARK: - Actions
     @objc private func addBarButtonTapped(_ sender: UIBarButtonItem) {
         self.addBarButton.isEnabled = false
+        
         switch authMethod {
         case .auth:
             onAuth()
