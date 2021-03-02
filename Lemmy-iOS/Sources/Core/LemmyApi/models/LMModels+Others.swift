@@ -288,6 +288,5 @@ extension LMModels {
             let error: String?
             let reconnect: Bool?
         }
-        
     }
 }
