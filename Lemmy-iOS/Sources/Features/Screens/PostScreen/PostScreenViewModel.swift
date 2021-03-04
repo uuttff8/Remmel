@@ -62,6 +62,16 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
                     }
                 }
                 
+            case LMMUserOperation.CreateCommentLike.rawValue:
+                guard let newComment = self.wsClient?.decodeWsType(
+                    LMModels.Api.Comment.CommentResponse.self,
+                    data: data
+                ) else { return }
+                
+                DispatchQueue.main.async {
+                    self.viewController?.displayCreateCommentLike(viewModel: .init(commentView: newComment.commentView))
+                }
+                
             case LMMUserOperation.EditPost.rawValue,
                  LMMUserOperation.DeletePost.rawValue,
                  LMMUserOperation.RemovePost.rawValue,

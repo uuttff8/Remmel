@@ -66,6 +66,8 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
     }
     
     func displayCreatedComment(comment: LMModels.Views.CommentView) {
+        self.updateExistingComment(comment)
+        
         // TODO: just paste a new comment
 //        let mutator = CommentTreeMutator(buildedComments: &self.commentDataSource)
 //
@@ -77,6 +79,8 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
     }
     
     func displayCommentLike(commentView: LMModels.Views.CommentView) {
+        self.updateExistingComment(commentView)
+        
         guard let index = commentDataSource.firstIndex(where: { $0.commentContent?.comment.id == commentView.id })
         else { return }
         

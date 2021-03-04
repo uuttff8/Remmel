@@ -87,6 +87,15 @@ extension CommunityScreenViewController {
             tableView.hideActivityIndicator()
         }
         
+        func updateForPostLike(at index: Int) {
+            guard let tableManager = self.tableManager else { return }
+            
+            let indexPath = IndexPath(row: index, section: 0)
+            if let cell = self.tableView.cellForRow(at: indexPath) as? PostContentPreviewTableCell {
+                cell.updateForCreatePostLike(post: tableManager.viewModels[index])
+            }
+        }
+        
         func updateTableViewData(dataSource: UITableViewDataSource) {
             self.hideLoadingIndicator()
             self.emptyStateLabel.isHidden = true

@@ -51,8 +51,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
                  LMMUserOperation.RemovePost.rawValue,
                  LMMUserOperation.LockPost.rawValue,
                  LMMUserOperation.StickyPost.rawValue,
-                 LMMUserOperation.SavePost.rawValue,
-                 LMMUserOperation.CreatePostLike.rawValue:
+                 LMMUserOperation.SavePost.rawValue:
                 
                 guard let newPost = self?.wsClient?.decodeWsType(
                     LMModels.Api.Post.PostResponse.self,
@@ -62,6 +61,16 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
                 DispatchQueue.main.async {
                     self?.viewController?.displayUpdatePost(viewModel: .init(postView: newPost.postView))
                 }
+            case LMMUserOperation.CreatePostLike.rawValue:
+                guard let newPost = self?.wsClient?.decodeWsType(
+                    LMModels.Api.Post.PostResponse.self,
+                    data: data
+                ) else { return }
+                
+                DispatchQueue.main.async {
+                    self?.viewController?.displayCreatePostLike(viewModel: .init(postView: newPost.postView))
+                }
+                
             case LMMUserOperation.GetCommunity.rawValue:
                 guard let newComm = self?.wsClient?.decodeWsType(
                     LMModels.Api.Community.CommunityResponse.self,
@@ -184,6 +193,12 @@ enum CommunityScreen {
     }
     
     enum UpdatePost {
+        struct ViewModel {
+            let postView: LMModels.Views.PostView
+        }
+    }
+    
+    enum CreateCommentLike {
         struct ViewModel {
             let postView: LMModels.Views.PostView
         }

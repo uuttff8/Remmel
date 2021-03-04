@@ -15,6 +15,7 @@ protocol CommunityScreenViewControllerProtocol: AnyObject {
     func displayNextPosts(viewModel: CommunityScreen.NextCommunityPostsLoad.ViewModel)
     func displayCommunityShowMore(viewModel: CommunityScreen.CommunityShowMore.ViewModel)
     func displayUpdatePost(viewModel: CommunityScreen.UpdatePost.ViewModel)
+    func displayCreatePostLike(viewModel: CommunityScreen.CreateCommentLike.ViewModel)
 }
 
 class CommunityScreenViewController: UIViewController {
@@ -146,6 +147,15 @@ extension CommunityScreenViewController: CommunityScreenViewControllerProtocol {
         }
     }
     
+    func displayCreatePostLike(viewModel: CommunityScreen.CreateCommentLike.ViewModel) {
+        self.tableDataSource.viewModels.updateElementById(viewModel.postView)
+        guard let index = tableDataSource.viewModels.getElementIndex(by: viewModel.postView.id) else {
+            return
+        }
+        
+        self.communityView.updateForPostLike(at: index)
+    }
+    
     func displayCommunityShowMore(viewModel: CommunityScreen.CommunityShowMore.ViewModel) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.popoverPresentationController?.barButtonItem = showMoreBarButton
@@ -163,7 +173,7 @@ extension CommunityScreenViewController: CommunityScreenViewControllerProtocol {
         alert.addActions([
             createPostAction,
             shareAction,
-            UIAlertAction.cancelAction,
+            UIAlertAction.cancelAction
         ])
         
         self.present(alert, animated: true, completion: nil)
