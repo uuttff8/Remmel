@@ -34,13 +34,11 @@ extension LMModels.Api {
             let description: String?
             let icon: String?
             let banner: String?
-            let categoryId: Int
             let nsfw: Bool
             let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case name, title, description, icon, banner
-                case categoryId = "category_id"
                 case nsfw, auth
             }
         }
@@ -124,13 +122,11 @@ extension LMModels.Api {
             let description: String?
             let icon: String?
             let banner: String?
-            let categoryId: Int
             let nsfw: Bool
             let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
-                case categoryId = "category_id"
                 case title, description, icon, banner, nsfw, auth
             }
         }

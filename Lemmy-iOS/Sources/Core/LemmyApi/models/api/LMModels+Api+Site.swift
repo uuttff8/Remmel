@@ -10,13 +10,7 @@ import Foundation
 
 extension LMModels.Api {
     enum Site {
-        
-        struct ListCategories: Codable {}
-        
-        struct ListCategoriesResponse: Codable {
-            let categories: [LMModels.Source.Category]
-        }
-        
+                
         /**
         * Search types are `All, Comments, Posts, Communities, Users, Url`
         */

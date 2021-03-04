@@ -368,7 +368,6 @@ extension LMModels {
             let name: String
             let title: String
             let description: String?
-            let categoryId: Int
             let creatorId: Int
             let removed: Bool
             let published: Date
@@ -383,7 +382,6 @@ extension LMModels {
             enum CodingKeys: String, CodingKey {
                 case id
                 case name, title, description
-                case categoryId = "category_id"
                 case creatorId = "creator_id"
                 case removed, published, updated, deleted
                 case nsfw
@@ -440,12 +438,7 @@ extension LMModels {
                 case local
             }
         }
-        
-        struct Category: Identifiable, Codable, Equatable, Hashable {
-            let id: Int
-            let name: String
-        }
-        
+                
         struct UserMention: Identifiable, Codable {
             let id: Int
             let recipientId: Int

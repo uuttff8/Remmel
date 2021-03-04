@@ -17,7 +17,7 @@ protocol CreateCommunityViewControllerProtocol: AnyObject {
 extension CreateCommunityViewController {
     // MARK: - Inner Types
     enum FormField: String {
-        case name, displayName, category, icon, banner, sidebar, nsfwOption
+        case name, displayName, icon, banner, sidebar, nsfwOption
         
         init?(uniqueIdentifier: UniqueIdentifierType) {
             if let value = FormField(rawValue: uniqueIdentifier) {
@@ -34,7 +34,6 @@ extension CreateCommunityViewController {
         var sidebar: String?
         var icon: String?
         var banner: String?
-        var category: LMModels.Source.Category?
         var nsfwOption: Bool
     }
 }
@@ -73,7 +72,6 @@ class CreateCommunityViewController: UIViewController, CatalystDismissProtocol {
             sidebar: nil,
             icon: nil,
             banner: nil,
-            category: nil,
             nsfwOption: false
         )
     }()
@@ -126,7 +124,6 @@ class CreateCommunityViewController: UIViewController, CatalystDismissProtocol {
     }
     
     @objc private func createBarButtonTapped(_ sender: UIBarButtonItem) {
-        let category = createComminityData.category
         guard let nameText = createComminityData.name?.lowercased() else {
             UIAlertController.createOkAlert(message: "create-content-name-error".localized)
             return
@@ -152,7 +149,6 @@ class CreateCommunityViewController: UIViewController, CatalystDismissProtocol {
                       sidebar: descriptionText,
                       icon: iconText,
                       banner: bannerText,
-                      category: category,
                       nsfwOption: nsfwOption
                 )
             )
@@ -186,19 +182,7 @@ extension CreateCommunityViewController: CreateCommunityViewControllerProtocol {
                 )
             )
         )
-        
-        let categoryCell = SettingsTableSectionViewModel.Cell(
-            uniqueIdentifier: FormField.category.rawValue,
-            type: .rightDetail(
-                options: .init(
-                    title: .init(text: createComminityData.category?.name
-                                    ?? "create-content-community-category".localized),
-                    detailType: .label(text: nil),
-                    accessoryType: .disclosureIndicator
-                )
-            )
-        )
-        
+                
         // TODO: add icon and banner cells
         
         let sidebarCell = SettingsTableSectionViewModel.Cell(
@@ -235,11 +219,6 @@ extension CreateCommunityViewController: CreateCommunityViewControllerProtocol {
                 header: .init(title: "create-content-community-display-name".localized),
                 cells: [displayNameCell],
                 footer: .init(description: "create-content-community-display-name-description".localized)
-            ),
-            .init(
-                header: .init(title: "create-content-community-choose-category".localized),
-                cells: [categoryCell],
-                footer: nil
             ),
             .init(
                 header: .init(title: "create-content-community-description".localized),
@@ -338,25 +317,7 @@ extension CreateCommunityViewController: CreateCommunityViewDelegate {
             self.createComminityData.sidebar = text
         default: break
         }
-    }
-    
-    func settingsTableView(
-        _ tableView: SettingsTableView,
-        didSelectCell cell: SettingsTableSectionViewModel.Cell,
-        at indexPath: IndexPath
-    ) {
-        let field = FormField(uniqueIdentifier: cell.uniqueIdentifier)
-        
-        switch field {
-        case .category:
-            self.coordinator?.goToChoosingCommunity(
-                choosed: { (category) in
-                    self.createComminityData.category = category
-                }
-            )
-        default: break
-        }
-    }
+    }    
 }
 
 // MARK: - CreateCommunityViewController: StyledNavigationControllerPresentable -

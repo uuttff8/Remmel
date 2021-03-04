@@ -23,7 +23,6 @@ enum CreateCommunity {
             let sidebar: String?
             let icon: String?
             let banner: String?
-            let category: LMModels.Source.Category?
             let nsfwOption: Bool
         }
         

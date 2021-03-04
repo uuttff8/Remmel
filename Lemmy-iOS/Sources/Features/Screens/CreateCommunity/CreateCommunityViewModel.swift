@@ -32,7 +32,6 @@ class CreateCommunityViewModel: CreateCommunityViewModelProtocol {
                                                                  description: request.sidebar,
                                                                  icon: request.icon,
                                                                  banner: request.banner,
-                                                                 categoryId: request.category?.id ?? 1,
                                                                  nsfw: request.nsfwOption,
                                                                  auth: jwtToken)
         ApiManager.requests.asyncCreateCommunity(parameters: params)

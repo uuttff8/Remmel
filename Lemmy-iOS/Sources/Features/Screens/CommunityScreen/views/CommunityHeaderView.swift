@@ -119,7 +119,6 @@ class CommunityHeaderView: UIView {
         
         commNameLabel.text = data.community.name
         subscribersLabel.text = String(data.counts.subscribers) + " " + "community-subscribers".localized
-        categoryLabel.text = data.category.name
         postsCountLabel.text = String(data.counts.posts) + " " + "content-posts".localized
         self.followButton.bind(isSubcribed: data.subscribed)
         

@@ -166,7 +166,6 @@
 		4E9183AF25696EAA00702F04 /* ChooseCommunityAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183AE25696EAA00702F04 /* ChooseCommunityAssembly.swift */; };
 		4E9183C3256AFB1200702F04 /* CreateCommunityDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183C2256AFB1200702F04 /* CreateCommunityDataFlow.swift */; };
 		4E9183C8256AFD8800702F04 /* CreateCommunityAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183C7256AFD8800702F04 /* CreateCommunityAssembly.swift */; };
-		4E9183D0256C011200702F04 /* ChooseCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183CF256C011200702F04 /* ChooseCategoryViewModel.swift */; };
 		4E9184FC256E9E4E00702F04 /* SwipeCellKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4E9184FB256E9E4E00702F04 /* SwipeCellKit */; };
 		4E918509256E9EAA00702F04 /* CommentsViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E918505256E9EAA00702F04 /* CommentsViewDelegate.swift */; };
 		4E91850A256E9EAA00702F04 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E918506256E9EAA00702F04 /* CommentCell.swift */; };
@@ -334,8 +333,6 @@
 		4EF3AC7B254AE12800BEC9F1 /* CreateCommunityNamesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC7A254AE12800BEC9F1 /* CreateCommunityNamesCell.swift */; };
 		4EF3AC80254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC7F254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift */; };
 		4EF3AC85254B456400BEC9F1 /* CreateCommunityChooseCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC84254B456400BEC9F1 /* CreateCommunityChooseCategoryCell.swift */; };
-		4EF3AC8B254B469F00BEC9F1 /* ChooseCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC8A254B469F00BEC9F1 /* ChooseCategoryViewController.swift */; };
-		4EF3AC90254B46BD00BEC9F1 /* ChooseCategoryUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC8F254B46BD00BEC9F1 /* ChooseCategoryUI.swift */; };
 		4EF3AC95254B60F000BEC9F1 /* CreateCommunityImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC94254B60F000BEC9F1 /* CreateCommunityImagesCell.swift */; };
 		4EF3AC9A254C690400BEC9F1 /* CreateCommunitySidebarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC99254C690400BEC9F1 /* CreateCommunitySidebarCell.swift */; };
 		4EF3ACD1254EF82C00BEC9F1 /* CommunityScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3ACD0254EF82C00BEC9F1 /* CommunityScreenViewController.swift */; };
@@ -551,7 +548,6 @@
 		4E9183AE25696EAA00702F04 /* ChooseCommunityAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityAssembly.swift; sourceTree = "<group>"; };
 		4E9183C2256AFB1200702F04 /* CreateCommunityDataFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityDataFlow.swift; sourceTree = "<group>"; };
 		4E9183C7256AFD8800702F04 /* CreateCommunityAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityAssembly.swift; sourceTree = "<group>"; };
-		4E9183CF256C011200702F04 /* ChooseCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCategoryViewModel.swift; sourceTree = "<group>"; };
 		4E918505256E9EAA00702F04 /* CommentsViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewDelegate.swift; sourceTree = "<group>"; };
 		4E918506256E9EAA00702F04 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		4E918507256E9EAA00702F04 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
@@ -723,8 +719,6 @@
 		4EF3AC7A254AE12800BEC9F1 /* CreateCommunityNamesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityNamesCell.swift; sourceTree = "<group>"; };
 		4EF3AC7F254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityDisplayNameCell.swift; sourceTree = "<group>"; };
 		4EF3AC84254B456400BEC9F1 /* CreateCommunityChooseCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityChooseCategoryCell.swift; sourceTree = "<group>"; };
-		4EF3AC8A254B469F00BEC9F1 /* ChooseCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCategoryViewController.swift; sourceTree = "<group>"; };
-		4EF3AC8F254B46BD00BEC9F1 /* ChooseCategoryUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCategoryUI.swift; sourceTree = "<group>"; };
 		4EF3AC94254B60F000BEC9F1 /* CreateCommunityImagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityImagesCell.swift; sourceTree = "<group>"; };
 		4EF3AC99254C690400BEC9F1 /* CreateCommunitySidebarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunitySidebarCell.swift; sourceTree = "<group>"; };
 		4EF3ACD0254EF82C00BEC9F1 /* CommunityScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityScreenViewController.swift; sourceTree = "<group>"; };
@@ -1978,7 +1972,6 @@
 		4EF3AC5B254A019800BEC9F1 /* CreateCommunity */ = {
 			isa = PBXGroup;
 			children = (
-				4EF3AC89254B468B00BEC9F1 /* ChooseCategory */,
 				4EF3AC79254AE11200BEC9F1 /* cells */,
 				4E9183C7256AFD8800702F04 /* CreateCommunityAssembly.swift */,
 				4E9183C2256AFB1200702F04 /* CreateCommunityDataFlow.swift */,
@@ -2000,16 +1993,6 @@
 				4EF3AC99254C690400BEC9F1 /* CreateCommunitySidebarCell.swift */,
 			);
 			path = cells;
-			sourceTree = "<group>";
-		};
-		4EF3AC89254B468B00BEC9F1 /* ChooseCategory */ = {
-			isa = PBXGroup;
-			children = (
-				4EF3AC8A254B469F00BEC9F1 /* ChooseCategoryViewController.swift */,
-				4E9183CF256C011200702F04 /* ChooseCategoryViewModel.swift */,
-				4EF3AC8F254B46BD00BEC9F1 /* ChooseCategoryUI.swift */,
-			);
-			path = ChooseCategory;
 			sourceTree = "<group>";
 		};
 		4EF3ACCF254EF82000BEC9F1 /* CommunityScreen */ = {
@@ -2411,7 +2394,6 @@
 				4E6E666125B208E100AF2F48 /* LMModels+Api+Post.swift in Sources */,
 				4EB4F689259024C40057BDCC /* InstancesViewModel.swift in Sources */,
 				4E9183C8256AFD8800702F04 /* CreateCommunityAssembly.swift in Sources */,
-				4EF3AC8B254B469F00BEC9F1 /* ChooseCategoryViewController.swift in Sources */,
 				4EDD00A125A64C71006FCB9F /* InboxRepliesTableManager.swift in Sources */,
 				4E9183902567DBE200702F04 /* PushRouterSourceProtocol.swift in Sources */,
 				4EFAB5C72552F85D00B32780 /* UIView+Ext.swift in Sources */,
@@ -2500,7 +2482,6 @@
 				4E2A0FD0259BC1CB00BF0841 /* UIWindow+Ext.swift in Sources */,
 				4E91837B2566F60600702F04 /* TableInputTextView.swift in Sources */,
 				4E3FBC51258A82B100F97671 /* CommunitiesPreviewView.swift in Sources */,
-				4EF3AC90254B46BD00BEC9F1 /* ChooseCategoryUI.swift in Sources */,
 				4E5A677125C1A3D700BAA536 /* LemmyDecoder.swift in Sources */,
 				4EB4F6AA2590C6320057BDCC /* AddInstanceView.swift in Sources */,
 				4E73DF4F258BDBF2001608F2 /* Array+Ext.swift in Sources */,
@@ -2715,7 +2696,6 @@
 				4EBB22342559EF2100B88079 /* WeakBox.swift in Sources */,
 				4E6E667525B224F600AF2F48 /* VoteGettable.swift in Sources */,
 				4EBB22192559EB3600B88079 /* StyledNavigationController.swift in Sources */,
-				4E9183D0256C011200702F04 /* ChooseCategoryViewModel.swift in Sources */,
 				4E918383256726A400702F04 /* CreatePostDataFlow.swift in Sources */,
 				650B3F402596731B00A3CB17 /* AccountsTableDataSource.swift in Sources */,
 				4EF3ACEA25502D5600BEC9F1 /* CommunityHeaderView.swift in Sources */,
@@ -2930,7 +2910,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Lemmy-iOS/Lemmy-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -2955,7 +2935,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Lemmy-iOS/Lemmy-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
