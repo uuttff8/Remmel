@@ -54,6 +54,10 @@ class InstancesViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.viewModel.doInstancesRefresh(request: .init())
+        
+        if LemmyShareData.shared.needsAppOnboarding {
+            self.coordinator?.goToOnboarding()
+        }
     }
     
     override func viewDidLoad() {

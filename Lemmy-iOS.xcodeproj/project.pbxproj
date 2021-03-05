@@ -74,6 +74,10 @@
 		4E3FBC51258A82B100F97671 /* CommunitiesPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC50258A82B100F97671 /* CommunitiesPreviewView.swift */; };
 		4E3FBC59258A857600F97671 /* CommunitiesPreviewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSource.swift */; };
 		4E405AC825EC1F0500057F77 /* CenterBackSwipeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E405AC725EC1F0500057F77 /* CenterBackSwipeable.swift */; };
+		4E405B3825F1568000057F77 /* ContentView+Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E405B3725F1568000057F77 /* ContentView+Onboarding.swift */; };
+		4E405B3D25F156BF00057F77 /* ContentView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E405B3C25F156BF00057F77 /* ContentView+Ext.swift */; };
+		4E405B4225F156D500057F77 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E405B4125F156D500057F77 /* OnboardingView.swift */; };
+		4E405B4725F156F600057F77 /* OnboardingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E405B4625F156F600057F77 /* OnboardingButton.swift */; };
 		4E50674D25D085CF003F1AB4 /* CatalystDismissProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E50674C25D085CF003F1AB4 /* CatalystDismissProtocol.swift */; };
 		4E5A677125C1A3D700BAA536 /* LemmyDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5A677025C1A3D700BAA536 /* LemmyDecoder.swift */; };
 		4E66428725BCC20100E11E20 /* LMModels+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E66428625BCC20100E11E20 /* LMModels+Ext.swift */; };
@@ -455,6 +459,10 @@
 		4E3FBC50258A82B100F97671 /* CommunitiesPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewView.swift; sourceTree = "<group>"; };
 		4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewDataSource.swift; sourceTree = "<group>"; };
 		4E405AC725EC1F0500057F77 /* CenterBackSwipeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterBackSwipeable.swift; sourceTree = "<group>"; };
+		4E405B3725F1568000057F77 /* ContentView+Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView+Onboarding.swift"; sourceTree = "<group>"; };
+		4E405B3C25F156BF00057F77 /* ContentView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView+Ext.swift"; sourceTree = "<group>"; };
+		4E405B4125F156D500057F77 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		4E405B4625F156F600057F77 /* OnboardingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingButton.swift; sourceTree = "<group>"; };
 		4E50674125D07EB1003F1AB4 /* Lemmy-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Lemmy-iOS.entitlements"; sourceTree = "<group>"; };
 		4E50674C25D085CF003F1AB4 /* CatalystDismissProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalystDismissProtocol.swift; sourceTree = "<group>"; };
 		4E5A677025C1A3D700BAA536 /* LemmyDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyDecoder.swift; sourceTree = "<group>"; };
@@ -959,6 +967,17 @@
 				4EBB2255255AE64800B88079 /* Submodules */,
 			);
 			path = ProfileScreen;
+			sourceTree = "<group>";
+		};
+		4E405B3625F1561900057F77 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				4E405B3725F1568000057F77 /* ContentView+Onboarding.swift */,
+				4E405B3C25F156BF00057F77 /* ContentView+Ext.swift */,
+				4E405B4125F156D500057F77 /* OnboardingView.swift */,
+				4E405B4625F156F600057F77 /* OnboardingButton.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		4E66428525BCC1F700E11E20 /* extensions */ = {
@@ -1624,6 +1643,7 @@
 				4EDDFFFD25A5DBEA006FCB9F /* InboxNotifications */,
 				4E87C698258E67A50007FE5E /* Instances */,
 				4ECCEEF0250C03910075F921 /* LemmyTabBar */,
+				4E405B3625F1561900057F77 /* Onboarding */,
 				4E110D4825CB403A00A06306 /* ProfileSettings */,
 				4EB89AF5251F4783007129BF /* Screens */,
 				4EF3131E25782BA90032B58D /* SearchResults */,
@@ -2494,6 +2514,7 @@
 				4E886C3B2538BE830076B162 /* LemmyTextWithSwitch.swift in Sources */,
 				4EF31360257A7B530032B58D /* ContentScoreService.swift in Sources */,
 				4EB4F684259024B40057BDCC /* InstancesProvider.swift in Sources */,
+				4E405B3D25F156BF00057F77 /* ContentView+Ext.swift in Sources */,
 				4E107053253476EE009EABDA /* PostsFrontPageViewController.swift in Sources */,
 				4E0A8E2F255BFC0000B06AF6 /* UIApplication+Ext.swift in Sources */,
 				4E10707E2534F5EC009EABDA /* LemmyCheckLogin.swift in Sources */,
@@ -2644,6 +2665,7 @@
 				4EFA81D0256165B1008AF535 /* CommunityScreenViewModel.swift in Sources */,
 				4E886C73253CD4270076B162 /* CreateDismissTransitionDriver.swift in Sources */,
 				4E87C63C258C04BB0007FE5E /* CommunityScreenCoordinator.swift in Sources */,
+				4E405B4225F156D500057F77 /* OnboardingView.swift in Sources */,
 				4EE0279E25AF93EE00D2952D /* LemmyCommunityMention.swift in Sources */,
 				4E6E66AE25B3393600AF2F48 /* LemmyContentType.swift in Sources */,
 				4EF31453258166680032B58D /* WriteCommentViewController.swift in Sources */,
@@ -2669,6 +2691,7 @@
 				4EDDFFEA25A5CFAC006FCB9F /* WriteMessageAssembly.swift in Sources */,
 				4E004E2925DC736C006B81CF /* Actionable.swift in Sources */,
 				4EBB2258255AE6E600B88079 /* ProfileScreenPostsViewController.swift in Sources */,
+				4E405B3825F1568000057F77 /* ContentView+Onboarding.swift in Sources */,
 				4E91850C256E9EAA00702F04 /* AbstractComment.swift in Sources */,
 				4E87C6A4258E68560007FE5E /* InstancesAssembly.swift in Sources */,
 				4EDD004D25A5F318006FCB9F /* InboxRepliesViewModel.swift in Sources */,
@@ -2728,6 +2751,7 @@
 				4EDD001725A5E20B006FCB9F /* InboxNotificationSubmoduleProtocol.swift in Sources */,
 				4ECCEEF2250C03A40075F921 /* LemmyTabBarCoordinator.swift in Sources */,
 				4EBB2251255ADFC900B88079 /* ScrollableStackView.swift in Sources */,
+				4E405B4725F156F600057F77 /* OnboardingButton.swift in Sources */,
 				4EF3AD052550908D00BEC9F1 /* ResizableButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

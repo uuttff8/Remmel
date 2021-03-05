@@ -21,6 +21,7 @@ class LemmyShareData {
         static let userdata = "userdata"
         static let currentInstanceUrl = "currentInstanceUrl"
         static let blockedUsersId = "blockedUsersId"
+        static let needsAppOnboarding = "needsAppOnboarding"
     }
     
     let userDefaults = UserDefaults.appShared
@@ -63,5 +64,10 @@ class LemmyShareData {
     var blockedUsersId: [Int] {
         get { self.userDefaults.array(forKey: Key.blockedUsersId) as? [Int] ?? [] }
         set { self.userDefaults.setValue(newValue, forKey: Key.blockedUsersId) }
+    }
+    
+    var needsAppOnboarding: Bool {
+        get { self.userDefaults.bool(forKey: Key.needsAppOnboarding) }
+        set { self.userDefaults.setValue(newValue, forKey: Key.needsAppOnboarding) }
     }
 }
