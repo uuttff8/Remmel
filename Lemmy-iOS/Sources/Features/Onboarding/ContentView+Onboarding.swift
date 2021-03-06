@@ -11,13 +11,10 @@ import SwiftUI
 struct ContentView_Onboarding: View {
     @State var appSetupState = "App NOT setup ☹️"
     
-    // #1
     @AppStorage("needsAppOnboarding", store: LemmyShareData.shared.userDefaults)
     var needsAppOnboarding: Bool = true
     
     var body: some View {
-        
-        // #2
         mainView.onAppear {
             
             if !needsAppOnboarding {

@@ -10,10 +10,25 @@ import Foundation
 import KeychainSwift
 
 extension UserDefaults {
+    enum Key {
+        static let jwt = "jwt"
+        static let userId = "userId"
+        static let userdata = "userdata"
+        static let currentInstanceUrl = "currentInstanceUrl"
+        static let blockedUsersId = "blockedUsersId"
+        static let needsAppOnboarding = "needsAppOnboarding"
+    }
+    
     static let appSuiteName = "userDefaults.uuttff8.LemmyiOS"
 
     static var appShared: UserDefaults {
-        UserDefaults(suiteName: UserDefaults.appSuiteName)!
+        let userDefaults = UserDefaults(suiteName: UserDefaults.appSuiteName)!
+        
+        userDefaults.register(defaults: [
+            Key.needsAppOnboarding: true
+        ])
+        
+        return userDefaults
     }
 }
 
@@ -21,7 +36,7 @@ class LoginData {
     static let shared = LoginData()
 
     private let keychain = KeychainSwift()
-    private let userDefaults = UserDefaults.appShared
+    let userDefaults = UserDefaults.appShared
 
     func login(jwt: String) {
         self.jwtToken = jwt
@@ -48,13 +63,13 @@ class LoginData {
     }
 
     var jwtToken: String? {
-        get { keychain.get(LemmyShareData.Key.jwt) }
-        set { keychain.set(newValue!, forKey: LemmyShareData.Key.jwt) }
+        get { keychain.get(UserDefaults.Key.jwt) }
+        set { keychain.set(newValue!, forKey: UserDefaults.Key.jwt) }
     }
 
     var userId: LMModels.Source.UserSafeSettings.ID? {
-        get { userDefaults.integer(forKey: LemmyShareData.Key.userId) }
-        set { userDefaults.set(newValue, forKey: LemmyShareData.Key.userId) }
+        get { userDefaults.integer(forKey: UserDefaults.Key.userId) }
+        set { userDefaults.set(newValue, forKey: UserDefaults.Key.userId) }
     }
 
     func clear() {

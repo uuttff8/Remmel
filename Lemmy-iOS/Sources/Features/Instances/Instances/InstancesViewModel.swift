@@ -11,6 +11,7 @@ import Combine
 
 protocol InstancesViewModelProtocol {
     func doInstancesRefresh(request: InstancesDataFlow.InstancesLoad.Request)
+    func doAddInstance(request: InstancesDataFlow.AddInstance.Request)
     func doInstanceDelete(request: InstancesDataFlow.DeleteInstance.Request)
 }
 
@@ -42,6 +43,15 @@ class InstancesViewModel: InstancesViewModelProtocol {
         
     }
     
+    func doAddInstance(request: InstancesDataFlow.AddInstance.Request) {
+        self.provider.addNewInstance(link: request.link)
+            .sink(receiveValue: { _ in
+                // as a new instance created, take it from db
+                self.doInstancesRefresh(request: .init())
+            })
+            .store(in: &cancellable)
+    }
+    
     func doInstanceDelete(request: InstancesDataFlow.DeleteInstance.Request) {
         
         self.provider.delete(request.instance)
@@ -57,6 +67,16 @@ enum InstancesDataFlow {
         
         struct ViewModel {
             let state: ViewControllerState
+        }
+    }
+    
+    enum AddInstance {
+        struct Request {
+            let link: String
+        }
+        
+        struct ViewModel {
+            let instance: Instance
         }
     }
     

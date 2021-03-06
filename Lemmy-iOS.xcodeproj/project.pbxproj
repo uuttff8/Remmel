@@ -63,6 +63,7 @@
 		4E2A0FD0259BC1CB00BF0841 /* UIWindow+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A0FCF259BC1CB00BF0841 /* UIWindow+Ext.swift */; };
 		4E2A0FD9259C877700BF0841 /* Drawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A0FD8259C877700BF0841 /* Drawable.swift */; };
 		4E2A0FDE259C879B00BF0841 /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A0FDD259C879B00BF0841 /* RouterProtocol.swift */; };
+		4E2A5CAE25F3C0DD00537E38 /* OnboardingHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A5CAD25F3C0DD00537E38 /* OnboardingHostingController.swift */; };
 		4E3D44D62595D3B300108DA3 /* ChainedWSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3D44D52595D3B300108DA3 /* ChainedWSClient.swift */; };
 		4E3D44E42596143A00108DA3 /* SettingsInputWithImageCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3D44E32596143A00108DA3 /* SettingsInputWithImageCellView.swift */; };
 		4E3D44E92596203A00108DA3 /* SettingsInputWithImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3D44E82596203A00108DA3 /* SettingsInputWithImageTableViewCell.swift */; };
@@ -448,6 +449,7 @@
 		4E2A0FCF259BC1CB00BF0841 /* UIWindow+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Ext.swift"; sourceTree = "<group>"; };
 		4E2A0FD8259C877700BF0841 /* Drawable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawable.swift; sourceTree = "<group>"; };
 		4E2A0FDD259C879B00BF0841 /* RouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
+		4E2A5CAD25F3C0DD00537E38 /* OnboardingHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingHostingController.swift; sourceTree = "<group>"; };
 		4E3D44D52595D3B300108DA3 /* ChainedWSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainedWSClient.swift; sourceTree = "<group>"; };
 		4E3D44E32596143A00108DA3 /* SettingsInputWithImageCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInputWithImageCellView.swift; sourceTree = "<group>"; };
 		4E3D44E82596203A00108DA3 /* SettingsInputWithImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInputWithImageTableViewCell.swift; sourceTree = "<group>"; };
@@ -976,6 +978,7 @@
 				4E405B3C25F156BF00057F77 /* ContentView+Ext.swift */,
 				4E405B4125F156D500057F77 /* OnboardingView.swift */,
 				4E405B4625F156F600057F77 /* OnboardingButton.swift */,
+				4E2A5CAD25F3C0DD00537E38 /* OnboardingHostingController.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -2666,6 +2669,7 @@
 				4E886C73253CD4270076B162 /* CreateDismissTransitionDriver.swift in Sources */,
 				4E87C63C258C04BB0007FE5E /* CommunityScreenCoordinator.swift in Sources */,
 				4E405B4225F156D500057F77 /* OnboardingView.swift in Sources */,
+				4E2A5CAE25F3C0DD00537E38 /* OnboardingHostingController.swift in Sources */,
 				4EE0279E25AF93EE00D2952D /* LemmyCommunityMention.swift in Sources */,
 				4E6E66AE25B3393600AF2F48 /* LemmyContentType.swift in Sources */,
 				4EF31453258166680032B58D /* WriteCommentViewController.swift in Sources */,

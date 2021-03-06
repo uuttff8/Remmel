@@ -68,6 +68,7 @@ final class AddInstanceViewController: UIViewController {
             Logger.commonLog.error("Entered instance url is nil, cannot save to CoreData")
             return
         }
+        
         let instance = Instance(entity: Instance.entity(), insertInto: CoreDataHelper.shared.context)
         instance.label = instanceUrl
         CoreDataHelper.shared.save()

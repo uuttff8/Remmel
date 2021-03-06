@@ -11,6 +11,7 @@ import Combine
 
 protocol InstancesProviderProtocol {
     func fetchCachedInstances() -> AnyPublisher<[Instance], Never>
+    func addNewInstance(link: String) -> AnyPublisher<Instance, Never>
     
     func delete(_ instance: Instance) -> AnyPublisher<(), Never>
 }
@@ -27,6 +28,10 @@ class InstancesProvider: InstancesProviderProtocol {
     
     func fetchCachedInstances() -> AnyPublisher<[Instance], Never> {
         instancesPersistenceService.getAllInstances()
+    }
+    
+    func addNewInstance(link: String) -> AnyPublisher<Instance, Never> {
+        self.instancesPersistenceService.addNew(with: link)
     }
     
     func delete(_ instance: Instance) -> AnyPublisher<(), Never> {

@@ -11,6 +11,7 @@ import Foundation
 import Combine
 
 protocol InstancePersistenceServiceProtocol: AnyObject {
+    func addNew(with link: String) -> AnyPublisher<Instance, Never>
     func fetch(ids: [Instance.ID]) -> AnyPublisher<[Instance], Never>
     func fetch(id: Instance.ID) -> AnyPublisher<Instance?, Never>
     
@@ -22,6 +23,16 @@ final class InstancePersistenceService: InstancePersistenceServiceProtocol {
 
     init(managedObjectContext: NSManagedObjectContext = CoreDataHelper.shared.context) {
         self.managedObjectContext = managedObjectContext
+    }
+    
+    func addNew(with link: String) -> AnyPublisher<Instance, Never> {
+        Future<Instance, Never> { promise in
+            let instance = Instance(entity: Instance.entity(), insertInto: CoreDataHelper.shared.context)
+            instance.label = link
+            CoreDataHelper.shared.save()
+            
+            promise(.success(instance))
+        }.eraseToAnyPublisher()
     }
     
     func getAllInstances() ->  AnyPublisher<[Instance], Never> {

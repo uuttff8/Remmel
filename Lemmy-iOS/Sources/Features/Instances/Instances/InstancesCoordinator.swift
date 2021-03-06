@@ -48,8 +48,13 @@ final class InstancesCoordinator: BaseCoordinator {
         }
     }
     
-    func goToOnboarding() {
-        let onboarding = UIHostingController(rootView: OnboardingView())
+    func goToOnboarding(
+        onUserOwnInstance: @escaping () -> Void,
+        onLemmyMlInstance: @escaping () -> Void
+    ) {
+        let onboarding = OnboardingHostingController(rootView: OnboardingView())
+        onboarding.onLemmyMlInstance = onLemmyMlInstance
+        onboarding.onUserOwnInstance = onUserOwnInstance
         
         self.router.present(onboarding, animated: true)
     }

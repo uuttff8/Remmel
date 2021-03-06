@@ -10,31 +10,80 @@ import SwiftUI
 
 struct OnboardingView: View {
     
+    var dismiss: (() -> Void)?
+    
+    var onUserOwnInstance: (() -> Void)?
+    var onLemmyMlInstance: (() -> Void)?
+    
     var body: some View {
-        
-        // #1
         VStack {
-            Spacer(minLength: 150)
-            Image(systemName: "wand.and.stars")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 80, height: 80, alignment: .center)
-            Text("Welcome To My App")
-                .font(Font.title2.bold().lowercaseSmallCaps())
-                .multilineTextAlignment(.center)
-            Spacer(minLength: 60)
-            Text("Something something this app 🤪")
-            Spacer(minLength: 30)
-            Text("And another something!")
-            Spacer(minLength: 90)
-            Text("And finally 🥳...some...thing")
+            Spacer()
             
-            // #2
-            OnboardingButton()
+            Text("Welcome to Remmel!")
+                .fontWeight(.heavy)
+                .font(.system(size: 50))
+                .frame(width: 300, alignment: .center)
+                .multilineTextAlignment(.center)
+            
+            //            Image("Icon-transparent")
+            //                .resizable()
+            //                .aspectRatio(contentMode: .fit)
+            //                .frame(width: 80, height: 80, alignment: .center)
+             
+            VStack(alignment: .leading) {
+                NewDetail(image: "person.2.fill",
+                          imageColor: .pink,
+                          title: "Multi account & instance",
+                          description: "You can add multiple instances and accounts to it.")
+                NewDetail(image: "doc.text.magnifyingglass",
+                          imageColor: .orange,
+                          title: "Most features",
+                          description: "Discovering content from lemmy's federation now easier.")
+                NewDetail(image: "network",
+                          imageColor: .blue,
+                          title: "Latest API",
+                          description: "Remmel will support only latest version of lemmy.")
+            }
+            
+            Spacer()
+            
+            OnboardingButton(text: "Continue with my instance") {
+                self.dismiss?()
+                self.onUserOwnInstance?()
+            }
+            
+            OnboardingButton(text: "Continue with lemmy.ml") {
+                self.dismiss?()
+                self.onLemmyMlInstance?()
+            }
         }
-        .background(Color.gray)
-        .foregroundColor(.white)
-        .ignoresSafeArea(.all, edges: .all)
+        .background(Color(UIColor.systemBackground))
+    }
+}
+
+struct NewDetail: View {
+    var image: String
+    var imageColor: Color
+    var title: String
+    var description: String
+    
+    var body: some View {
+        HStack(alignment: .center) {
+            HStack {
+                Image(systemName: image)
+                    .font(.system(size: 50))
+                    .frame(width: 50)
+                    .foregroundColor(imageColor)
+                    .padding()
+                
+                VStack(alignment: .leading) {
+                    Text(title).bold()
+                    
+                    Text(description)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }.frame(width: 340, height: 100)
+        }
     }
 }
 

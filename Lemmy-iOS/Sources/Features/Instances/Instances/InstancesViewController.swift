@@ -12,7 +12,15 @@ protocol InstancesViewControllerProtocol: AnyObject {
     func displayInstances(viewModel: InstancesDataFlow.InstancesLoad.ViewModel)
 }
 
+extension InstancesViewController {
+    struct Appearance {
+        let mainLemmyInstance = "https://lemmy.ml/"
+    }
+}
+
 class InstancesViewController: UIViewController {
+    
+    private let appearance: Appearance
     
     weak var coordinator: InstancesCoordinator?
     private let viewModel: InstancesViewModelProtocol
@@ -33,10 +41,12 @@ class InstancesViewController: UIViewController {
     
     init(
         viewModel: InstancesViewModelProtocol,
-        state: InstancesDataFlow.ViewControllerState = .loading
+        state: InstancesDataFlow.ViewControllerState = .loading,
+        appearance: Appearance = Appearance()
     ) {
         self.viewModel = viewModel
         self.state = state
+        self.appearance = appearance
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -56,7 +66,14 @@ class InstancesViewController: UIViewController {
         self.viewModel.doInstancesRefresh(request: .init())
         
         if LemmyShareData.shared.needsAppOnboarding {
-            self.coordinator?.goToOnboarding()
+            self.coordinator?.goToOnboarding(
+                onUserOwnInstance: {
+                    self._goToInstance()
+                },
+                onLemmyMlInstance: {
+                    self.viewModel.doAddInstance(request: .init(link: self.appearance.mainLemmyInstance))
+                }
+            )
         }
     }
     
@@ -88,13 +105,17 @@ class InstancesViewController: UIViewController {
     }
     
     @objc func createInstanceButtonTapped(_ action: UIBarButtonItem) {
-        self.coordinator?.goToAddInstance {
-            self.viewModel.doInstancesRefresh(request: .init())
-        }
+        self._goToInstance()
     }
     
     private func setupNavigationItem() {
         navigationItem.rightBarButtonItem = createInstanceBarButton
+    }
+    
+    private func _goToInstance() {
+        self.coordinator?.goToAddInstance {
+            self.viewModel.doInstancesRefresh(request: .init())
+        }
     }
 }
 

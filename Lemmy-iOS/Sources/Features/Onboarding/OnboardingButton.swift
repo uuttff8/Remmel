@@ -13,29 +13,29 @@ struct OnboardingButton: View {
     @AppStorage("needsAppOnboarding", store: LemmyShareData.shared.userDefaults)
     var needsAppOnboarding: Bool = true
     
+    var text: String
+    var action: (() -> Void)?
+    
     var body: some View {
-        GeometryReader { proxy in
-            LazyHStack {
-                Button(action: {
-                    needsAppOnboarding = false
-                }) {
-                    Text("Finish Setup")
-                    .padding(.horizontal, 40)
-                    .padding(.vertical, 15)
-                    .font(Font.title2.bold().lowercaseSmallCaps())
-                }
-                .background(Color.white)
-                .foregroundColor(.black)
-                .cornerRadius(40)
-                .frame(minWidth: 0, maxWidth: proxy.size.width-40)
-            }
-            .frame(width: proxy.size.width, height: proxy.size.height/1.5)
-        }
+        Button(action: {
+            self.needsAppOnboarding = false
+            
+            action?()
+        }, label: {
+            Text(text)
+                .foregroundColor(.white)
+                .font(.headline)
+                .frame(width: 350, height: 60.0)
+                .background(Color.blue)
+                .cornerRadius(15)
+                .padding(.top)
+        })
+        .background(Color(UIColor.systemBackground))
     }
 }
 
 struct OnboardingButton_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingButton()
+        OnboardingButton(text: "Haha")
     }
 }
