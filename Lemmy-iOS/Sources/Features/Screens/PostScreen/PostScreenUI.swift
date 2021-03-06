@@ -60,7 +60,7 @@ extension PostScreenViewController {
             if let url = viewData.post.url {
                 
                 headerView.postOutlineEmbedView.addAction(for: .touchUpInside) { (_) in
-                    self.delegate?.postView(didEmbedTappedWith: URL(string: url)!)
+                    self.delegate?.postView(didEmbedTappedWith: URL(string: url.trim())!)
                 }
                 
             }
@@ -130,18 +130,16 @@ class PostScreenHeaderView: UIView {
     func bind(with postInfo: LMModels.Views.PostView) {
         postHeaderView.bind(with: postInfo, config: .fullPost)
         
-        postOutlineEmbedView.bindData(
-            .init(
-                title: postInfo.post.embedTitle,
-                description: postInfo.post.embedDescription,
-                url: URL(string: postInfo.post.url ?? "")
+        if let url = URL(string: postInfo.post.url?.trim() ?? "") {
+            postOutlineEmbedView.bindData(
+                .init(
+                    title: postInfo.post.embedTitle,
+                    description: postInfo.post.embedDescription,
+                    url: url
+                )
             )
-        )
-        
-        if postInfo.post.embedTitle == nil
-            && postInfo.post.embedDescription == nil
-            && postInfo.post.url == nil {
-            self.postOutlineEmbedView.isHidden = true
+        } else {
+            postOutlineEmbedView.isHidden = true
         }
     }
 }
