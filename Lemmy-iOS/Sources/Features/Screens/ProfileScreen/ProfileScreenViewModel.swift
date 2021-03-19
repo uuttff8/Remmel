@@ -26,7 +26,7 @@ extension ProfileScreenViewModel {
     struct ProfileData: Identifiable {
         let id: Int
         let viewData: ProfileScreenHeaderView.ViewData
-        let userDetails: LMModels.Api.User.GetUserDetailsResponse
+        let userDetails: LMModels.Api.Person.GetPersonDetailsResponse
     }
 }
 
@@ -70,7 +70,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
             switch operation {
             case LMMUserOperation.GetUserDetails.rawValue:
                 guard let userDetails = self.wsClient?.decodeWsType(
-                    LMModels.Api.User.GetUserDetailsResponse.self,
+                    LMModels.Api.Person.GetPersonDetailsResponse.self,
                     data: data
                 ) else { return }
                 
@@ -86,14 +86,14 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     func doProfileFetch() {
         self.viewController?.displayNotBlockingActivityIndicator(viewModel: .init(shouldDismiss: false))
         
-        let parameters = LMModels.Api.User.GetUserDetails(userId: profileId,
-                                                          username: profileUsername,
-                                                          sort: .active,
-                                                          page: 1,
-                                                          limit: 50,
-                                                          communityId: nil,
-                                                          savedOnly: false,
-                                                          auth: LemmyShareData.shared.jwtToken)
+        let parameters = LMModels.Api.Person.GetPersonDetails(personId: profileId,
+                                                              username: profileUsername,
+                                                              sort: .active,
+                                                              page: 1,
+                                                              limit: 50,
+                                                              communityId: nil,
+                                                              savedOnly: false,
+                                                              auth: LemmyShareData.shared.jwtToken)
         
         self.wsClient?.send(LMMUserOperation.GetUserDetails, parameters: parameters)
     }
@@ -112,7 +112,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
             viewModel: .init(isCurrentProfile: isCurrent,
                              isBlocked: isBlocked,
                              userId: userId,
-                             actorId: profile.userDetails.userView.user.actorId)
+                             actorId: profile.userDetails.personView.person.actorId)
         )
     }
     
@@ -132,7 +132,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
         self.pushCurrentCourseToSubmodules(submodules: Array(self.submodules.values))
     }
     
-    private func fetchProfile(with response: LMModels.Api.User.GetUserDetailsResponse) {
+    private func fetchProfile(with response: LMModels.Api.Person.GetPersonDetailsResponse) {
         self.viewController?.displayNotBlockingActivityIndicator(viewModel: .init(shouldDismiss: true))
         
         let loadedProfile = self.initializeProfileData(with: response)
@@ -170,7 +170,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
             default:
                 break
             }
-
+            
         }
     }
     
@@ -197,18 +197,18 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
         }
     }
     
-    private func initializeProfileData(with response: LMModels.Api.User.GetUserDetailsResponse) -> ProfileData {
-        let userView = response.userView
+    private func initializeProfileData(with response: LMModels.Api.Person.GetPersonDetailsResponse) -> ProfileData {
+        let userView = response.personView
         
         return ProfileData(
-            id: userView.user.id,
+            id: userView.person.id,
             viewData: .init(
-                name: userView.user.name,
-                avatarUrl: userView.user.avatar,
-                bannerUrl: userView.user.banner,
+                name: userView.person.name,
+                avatarUrl: userView.person.avatar,
+                bannerUrl: userView.person.banner,
                 numberOfComments: userView.counts.commentCount,
                 numberOfPosts: userView.counts.postCount,
-                published: userView.user.published.toLocalTime()
+                published: userView.person.published.toLocalTime()
             ),
             userDetails: response
         )

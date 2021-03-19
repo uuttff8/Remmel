@@ -28,11 +28,11 @@ enum WSEndpoint {
     enum User {
         case userJoin
         
-        case getUserDetails
+        case getPersonDetails
         case saveUserSettings
         case getReplies         // Get Replies / Inbox
-        case getUserMentions
-        case markUserMentionAsRead
+        case getPersonMentions
+        case markPersonMentionAsRead
 
         case getPrivateMessages
         case createPrivateMessage
@@ -46,11 +46,11 @@ enum WSEndpoint {
         var endpoint: String {
             switch self {
             case .userJoin: return "UserJoin"
-            case .getUserDetails: return "GetUserDetails"
+            case .getPersonDetails: return "GetPersonDetails"
             case .saveUserSettings: return "SaveUserSettings"
             case .getReplies: return "GetReplies"
-            case .getUserMentions: return "GetUserMentions"
-            case .markUserMentionAsRead: return "MarkUserMentionAsRead"
+            case .getPersonMentions: return "GetPersonMentions"
+            case .markPersonMentionAsRead: return "MarkPersonMentionAsRead"
             case .getPrivateMessages: return "GetPrivateMessages"
             case .createPrivateMessage: return "CreatePrivateMessage"
             case .editPrivateMessage: return "EditPrivateMessage"
@@ -65,19 +65,19 @@ enum WSEndpoint {
 
     enum AdminActions {
         case addAdmin
-        case banUser
+        case banPerson
 
         var endpoint: String {
             switch self {
             case .addAdmin: return "AddAdmin"
-            case .banUser: return "BanUser"
+            case .banPerson: return "BanPerson"
             }
         }
     }
 
     enum Site {
         case listCategories
-        case search // All, Comments, Posts, Communities, Users, Url
+        case search // All, Comments, Posts, Communities, Persons, Url
         case getModlog
         case createSite
         case editSite

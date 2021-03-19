@@ -60,7 +60,7 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
             return
         }
         
-        let params = LMModels.Api.User.GetReplies(sort: .active,
+        let params = LMModels.Api.Person.GetReplies(sort: .active,
                                                   page: paginationState,
                                                   limit: 50,
                                                   unreadOnly: false,
@@ -83,7 +83,7 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
             return
         }
         
-        let params = LMModels.Api.User.GetReplies(sort: .active,
+        let params = LMModels.Api.Person.GetReplies(sort: .active,
                                                        page: paginationState,
                                                        limit: 50,
                                                        unreadOnly: false,

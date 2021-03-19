@@ -35,7 +35,7 @@ protocol ContentScoreServiceProtocol {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        userMention: LMModels.Views.UserMentionView
+        userMention: LMModels.Views.PersonMentionView
     )
 }
 
@@ -103,7 +103,7 @@ class ContentScoreService: ContentScoreServiceProtocol {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        userMention: LMModels.Views.UserMentionView
+        userMention: LMModels.Views.PersonMentionView
     ) {
         
         self.createCommentLike(contentId: userMention.id, vote: newVote, scoreView: scoreView, voteButton: voteButton)

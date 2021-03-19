@@ -12,46 +12,46 @@ import Combine
 extension RequestsManager {
         
     func asyncGetUserDetails(
-        parameters: LMModels.Api.User.GetUserDetails
-    ) -> AnyPublisher<LMModels.Api.User.GetUserDetailsResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Person.GetPersonDetails
+    ) -> AnyPublisher<LMModels.Api.Person.GetPersonDetailsResponse, LemmyGenericError> {
         
-        asyncRequestDecodable(path: WSEndpoint.User.getUserDetails.endpoint,
+        asyncRequestDecodable(path: WSEndpoint.User.getPersonDetails.endpoint,
                               parameters: parameters)
     }
     
     func asyncSaveUserSettings(
-        parameters: LMModels.Api.User.SaveUserSettings
-    ) -> AnyPublisher<LMModels.Api.User.LoginResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Person.SaveUserSettings
+    ) -> AnyPublisher<LMModels.Api.Person.LoginResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.User.saveUserSettings.endpoint, parameters: parameters)
     }
     
     func asyncGetReplies(
-        parameters: LMModels.Api.User.GetReplies
-    ) -> AnyPublisher<LMModels.Api.User.GetRepliesResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Person.GetReplies
+    ) -> AnyPublisher<LMModels.Api.Person.GetRepliesResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.User.getReplies.endpoint, parameters: parameters)
     }
     
-    func asyncGetUserMentions(
-        parameters: LMModels.Api.User.GetUserMentions
-    ) -> AnyPublisher<LMModels.Api.User.GetUserMentionsResponse, LemmyGenericError> {
-        asyncRequestDecodable(path: WSEndpoint.User.getUserMentions.endpoint, parameters: parameters)
+    func asyncGetPersonMentions(
+        parameters: LMModels.Api.Person.GetPersonMentions
+    ) -> AnyPublisher<LMModels.Api.Person.GetPersonMentionsResponse, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.User.getPersonMentions.endpoint, parameters: parameters)
     }
     
-    func asyncMarkUserMentionAsRead<Req: Codable, Res: Codable>(
+    func asyncMarkPersonMentionAsRead<Req: Codable, Res: Codable>(
         parameters: Req
     ) -> AnyPublisher<Res, LemmyGenericError> {
-        asyncRequestDecodable(path: WSEndpoint.User.markUserMentionAsRead.endpoint, parameters: parameters)
+        asyncRequestDecodable(path: WSEndpoint.User.markPersonMentionAsRead.endpoint, parameters: parameters)
     }
     
     func asyncCreatePrivateMessage(
-        parameters: LMModels.Api.User.CreatePrivateMessage
-    ) -> AnyPublisher<LMModels.Api.User.PrivateMessageResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Person.CreatePrivateMessage
+    ) -> AnyPublisher<LMModels.Api.Person.PrivateMessageResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.User.createPrivateMessage.endpoint, parameters: parameters)
     }
     
     func asyncGetPrivateMessages(
-        parameters: LMModels.Api.User.GetPrivateMessages
-    ) -> AnyPublisher<LMModels.Api.User.PrivateMessagesResponse, LemmyGenericError> {
+        parameters: LMModels.Api.Person.GetPrivateMessages
+    ) -> AnyPublisher<LMModels.Api.Person.PrivateMessagesResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.User.getPrivateMessages.endpoint, parameters: parameters)
     }
 }

@@ -38,7 +38,7 @@ extension LMModels.Api {
             let comments: [LMModels.Views.CommentView]
             let posts: [LMModels.Views.PostView]
             let communities: [LMModels.Views.CommunityView]
-            let users: [LMModels.Views.UserViewSafe]
+            let users: [LMModels.Views.PersonViewSafe]
             
             enum CodingKeys: String, CodingKey {
                 case type = "type_"
@@ -47,13 +47,13 @@ extension LMModels.Api {
         }
         
         struct GetModlog: Codable {
-            let modUserId: Int?
+            let modPersonId: Int?
             let communityId: Int?
             let page: Int?
             let limit: Int?
             
             enum CodingKeys: String, CodingKey {
-                case modUserId = "mod_user_id"
+                case modPersonId = "mod_person_id"
                 case communityId = "community_id"
                 case page, limit
             }
@@ -135,11 +135,11 @@ extension LMModels.Api {
         
         struct GetSiteResponse: Codable {
             let siteView: LMModels.Views.SiteView? // Because the site might not be set up y,
-            let admins: [LMModels.Views.UserViewSafe]
-            let banned: [LMModels.Views.UserViewSafe]
+            let admins: [LMModels.Views.PersonViewSafe]
+            let banned: [LMModels.Views.PersonViewSafe]
             let online: Int
             let version: String
-            let myUser: LMModels.Source.UserSafeSettings? // Gives back your user and settings if logged
+            let myUser: LMModels.Views.LocalUserSettingsView? // Gives back your local user and settings if logged
             let federatedInstances: FederatedInstances?
             
             enum CodingKeys: String, CodingKey {

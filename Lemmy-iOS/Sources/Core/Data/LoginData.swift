@@ -67,7 +67,7 @@ class LoginData {
         set { keychain.set(newValue!, forKey: UserDefaults.Key.jwt) }
     }
 
-    var userId: LMModels.Source.UserSafeSettings.ID? {
+    var userId: LMModels.Source.LocalUserSettings.ID? {
         get { userDefaults.integer(forKey: UserDefaults.Key.userId) }
         set { userDefaults.set(newValue, forKey: UserDefaults.Key.userId) }
     }

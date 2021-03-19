@@ -32,7 +32,7 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
     }
     
     func doRemoteAuthentication(request: AddAccountDataFlow.Authentication.AuthRequest) {
-        let parameters = LMModels.Api.User.Login(
+        let parameters = LMModels.Api.Person.Login(
             usernameOrEmail: request.emailOrUsername,
             password: request.password
         )
@@ -55,7 +55,7 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
     }
     
     func doRemoteRegister(request: AddAccountDataFlow.Authentication.RegisterRequest) {
-        let parameters = LMModels.Api.User.Register(
+        let parameters = LMModels.Api.Person.Register(
             username: request.username,
             email: request.email,
             password: request.password,
@@ -82,7 +82,7 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
     }
     
     private func fetchUser(with jwtToken: String) {
-        self.loadUserOnSuccessResponse(jwt: jwtToken) { (currentUser: LMModels.Source.UserSafeSettings) in
+        self.loadUserOnSuccessResponse(jwt: jwtToken) { (currentUser: LMModels.Source.PersonSafe) in
             
             guard let password = self.authPassword,
                   let login = self.authLogin
@@ -104,10 +104,10 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
             )
         }
     }
-    
+        
     private func loadUserOnSuccessResponse(
         jwt: String,
-        completion: @escaping ((LMModels.Source.UserSafeSettings) -> Void)
+        completion: @escaping ((LMModels.Source.PersonSafe) -> Void)
     ) {
         
         let params = LMModels.Api.Site.GetSite(auth: jwt)
@@ -117,7 +117,7 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
             .sink(receiveCompletion: { (completion) in
                 Logger.logCombineCompletion(completion)
             }, receiveValue: { (response) in
-                guard let myUser = response.myUser else { return }
+                guard let myUser = response.myUser?.person else { return }
                 completion(myUser)
             }).store(in: &cancellables)
     }
@@ -148,7 +148,7 @@ enum AddAccountDataFlow {
         }
         
         struct ViewModel {
-            let currentUser: LMModels.Source.UserSafeSettings
+            let currentUser: LMModels.Source.PersonSafe
         }
     }
     

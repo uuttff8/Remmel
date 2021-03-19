@@ -73,7 +73,7 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
     }
     
     private func sendReplyToAPrivateMessageRequest(auth: String, text: String, recipientId: Int) {
-        let params = LMModels.Api.User.CreatePrivateMessage(
+        let params = LMModels.Api.Person.CreatePrivateMessage(
             content: text,
             recipientId: recipientId,
             auth: auth

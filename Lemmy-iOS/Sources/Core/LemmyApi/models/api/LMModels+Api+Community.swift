@@ -70,7 +70,7 @@ extension LMModels.Api {
         
         struct BanFromCommunity: Codable {
             let communityId: Int
-            let userId: Int
+            let personId: Int
             let ban: Bool
             let removeData: Bool // Removes/Restores their comments and posts for that community
             let reason: String?
@@ -79,7 +79,7 @@ extension LMModels.Api {
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
-                case userId = "user_id"
+                case personId = "person_id"
                 case ban
                 case removeData = "remove_data"
                 case reason, expires, auth
@@ -87,7 +87,7 @@ extension LMModels.Api {
         }
         
         struct BanFromCommunityResponse: Codable {
-            let userView: LMModels.Views.UserViewSafe
+            let userView: LMModels.Views.PersonViewSafe
             let banned: Bool
             
             enum CodingKeys: String, CodingKey {

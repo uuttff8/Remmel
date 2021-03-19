@@ -9,7 +9,7 @@
 import Foundation
 
 extension LMModels.Api {
-    enum User {
+    enum Person {
         
         struct Login: Codable {
             let usernameOrEmail: String
@@ -97,10 +97,10 @@ extension LMModels.Api {
         }
         
         /**
-        * `username` can only be used for local users. To get details for a federated user, pass `user_id` instead.
+        * `username` can only be used for local users. To get details for a federated user, pass `personId` instead.
         */
-        struct GetUserDetails: Codable {
-            let userId: Int?
+        struct GetPersonDetails: Codable {
+            let personId: Int?
             let username: String?
             let sort: LMModels.Others.SortType
             let page: Int?
@@ -110,7 +110,7 @@ extension LMModels.Api {
             let auth: String?
             
             enum CodingKeys: String, CodingKey {
-                case userId = "user_id"
+                case personId = "person_id"
                 case username
                 case sort
                 case page
@@ -121,15 +121,15 @@ extension LMModels.Api {
             }
         }
         
-        struct GetUserDetailsResponse: Codable {
-            let userView: LMModels.Views.UserViewSafe
+        struct GetPersonDetailsResponse: Codable {
+            let personView: LMModels.Views.PersonViewSafe
             let follows: [LMModels.Views.CommunityFollowerView]
             let moderates: [LMModels.Views.CommunityModeratorView]
             let comments: [LMModels.Views.CommentView]
             let posts: [LMModels.Views.PostView]
             
             enum CodingKeys: String, CodingKey {
-                case userView = "user_view"
+                case personView = "person_view"
                 case follows
                 case moderates
                 case comments
@@ -141,8 +141,8 @@ extension LMModels.Api {
             let replies: [LMModels.Views.CommentView]
         }
         
-        struct GetUserMentionsResponse: Codable {
-            let mentions: [LMModels.Views.UserMentionView]
+        struct GetPersonMentionsResponse: Codable {
+            let mentions: [LMModels.Views.PersonMentionView]
         }
         
         struct MarkAllAsRead: Codable {
@@ -150,23 +150,23 @@ extension LMModels.Api {
         }
         
         struct AddAdmin: Codable {
-            let userId: Int
+            let personId: Int
             let added: Bool
             let auth: String
             
             enum CodingKeys: String, CodingKey {
-                case userId = "user_id"
+                case personId = "person_id"
                 case added
                 case auth
             }
         }
         
         struct AddAdminResponse: Codable {
-            let admins: [LMModels.Views.UserViewSafe]
+            let admins: [LMModels.Views.PersonViewSafe]
         }
         
-        struct BanUser: Codable {
-            let userId: Int
+        struct BanPerson: Codable {
+            let personId: Int
             let ban: Bool
             let removeData: Bool // Removes/Restores their comments, posts, and communities
             let reason: String?
@@ -174,7 +174,7 @@ extension LMModels.Api {
             let auth: String
             
             enum CodingKeys: String, CodingKey {
-                case userId = "user_id"
+                case personId = "person_id"
                 case ban
                 case removeData = "remove_data"
                 case reason
@@ -183,12 +183,12 @@ extension LMModels.Api {
             }
         }
         
-        struct BanUserResponse: Codable {
-            let userView: LMModels.Views.UserViewSafe
+        struct BanPersonResponse: Codable {
+            let personView: LMModels.Views.PersonViewSafe
             let banned: Bool
             
             enum CodingKeys: String, CodingKey {
-                case userView = "user_view"
+                case personView = "person_view"
                 case banned
             }
         }
@@ -209,7 +209,7 @@ extension LMModels.Api {
             }
         }
         
-        struct GetUserMentions: Codable {
+        struct GetPersonMentions: Codable {
             let sort: LMModels.Others.SortType
             let page: Int?
             let limit: Int?
@@ -225,23 +225,23 @@ extension LMModels.Api {
             }
         }
         
-        struct MarkUserMentionAsRead: Codable {
-            let userMentionId: Int
+        struct MarkPersonMentionAsRead: Codable {
+            let personMentionId: Int
             let read: Bool
             let auth: String
             
             enum CodingKeys: String, CodingKey {
-                case userMentionId = "user_mention_id"
+                case personMentionId = "person_mention_id"
                 case read
                 case auth
             }
         }
         
-        struct UserMentionResponse: Codable {
-            let userMentionView: LMModels.Views.UserMentionView
+        struct PersonMentionResponse: Codable {
+            let personMentionView: LMModels.Views.PersonMentionView
             
             enum CodingKeys: String, CodingKey {
-                case userMentionView = "user_mention_view"
+                case personMentionView = "person_mention_view"
             }
         }
         

@@ -125,14 +125,14 @@ final class SearchResultsTableDataSource: NSObject {
     }
     
     private func createUserPreviewCell(
-        user: LMModels.Views.UserViewSafe,
+        user: LMModels.Views.PersonViewSafe,
         tableView: UITableView,
         indexPath: IndexPath
     ) -> UITableViewCell {
         let cell: UserPreviewCell = tableView.cell(forRowAt: indexPath)
-        cell.configure(with: .init(name: user.user.name,
+        cell.configure(with: .init(name: user.person.name,
                                    numberOfComments: user.counts.commentCount,
-                                   thumbailUrl: user.user.avatar))
+                                   thumbailUrl: user.person.avatar))
         return cell
     }
 }

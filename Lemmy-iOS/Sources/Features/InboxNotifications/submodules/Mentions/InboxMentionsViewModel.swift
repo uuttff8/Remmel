@@ -60,13 +60,13 @@ final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
             return
         }
         
-        let params = LMModels.Api.User.GetUserMentions(sort: .active,
-                                                            page: paginationState,
-                                                            limit: 50,
-                                                            unreadOnly: false,
-                                                            auth: jwt)
+        let params = LMModels.Api.Person.GetPersonMentions(sort: .active,
+                                                           page: paginationState,
+                                                           limit: 50,
+                                                           unreadOnly: false,
+                                                           auth: jwt)
         
-        ApiManager.requests.asyncGetUserMentions(parameters: params)
+        ApiManager.requests.asyncGetPersonMentions(parameters: params)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
@@ -83,13 +83,13 @@ final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
             return
         }
         
-        let params = LMModels.Api.User.GetUserMentions(sort: .active,
-                                                            page: paginationState,
-                                                            limit: 50,
-                                                            unreadOnly: false,
-                                                            auth: jwt)
+        let params = LMModels.Api.Person.GetPersonMentions(sort: .active,
+                                                           page: paginationState,
+                                                           limit: 50,
+                                                           unreadOnly: false,
+                                                           auth: jwt)
         
-        ApiManager.requests.asyncGetUserMentions(parameters: params)
+        ApiManager.requests.asyncGetPersonMentions(parameters: params)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 Logger.logCombineCompletion(completion)
@@ -122,7 +122,7 @@ enum InboxMentions {
     }
     
     enum ViewControllerState {
-        case result([LMModels.Views.UserMentionView])
+        case result([LMModels.Views.PersonMentionView])
         case loading
     }
 }

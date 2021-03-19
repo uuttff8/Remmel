@@ -49,24 +49,24 @@ class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
                 }
             } receiveValue: { (response) in
                 
-                guard let user = response.myUser else {
+                guard let myUser = response.myUser else {
                     self.viewController?.displayError(
                         viewModel: .init(error: "Some error happened when loading user",
                                          exitImmediately: true))
                     return
                 }
                 
-                self.userAccountService.currentUser = user
+                self.userAccountService.currentUser = myUser
                 
                 self.viewController?.displayLoadingIndicator(viewModel: .init(isLoading: false))
                 
                 self.viewController?.displayProfileSettingsForm(
-                    viewModel: .init(displayName: user.preferredUsername,
-                                     bio: user.bio,
-                                     email: user.email,
-                                     matrix: user.matrixUserId,
-                                     nsfwContent: user.showNsfw,
-                                     notifToEmail: user.sendNotificationsToEmail)
+                    viewModel: .init(displayName: myUser.person.preferredUsername,
+                                     bio: myUser.person.bio,
+                                     email: myUser.localUser.email,
+                                     matrix: myUser.localUser.matrixUserId,
+                                     nsfwContent: myUser.localUser.showNsfw,
+                                     notifToEmail: myUser.localUser.sendNotificationsToEmail)
                 )
             }.store(in: &cancellables)
     }
@@ -79,23 +79,23 @@ class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
         }
         let newData = request.data
         
-        let params = LMModels.Api.User.SaveUserSettings(showNsfw: newData.showNsfwContent,
-                                                        theme: prevData.theme,
-                                                        defaultSortType: prevData.defaultSortType.index,
-                                                        defaultListingType: prevData.defaultListingType.index,
-                                                        lang: prevData.lang,
-                                                        avatar: prevData.avatar,
-                                                        banner: prevData.banner,
-                                                        preferredUsername: newData.displayName,
-                                                        email: newData.email,
-                                                        bio: newData.bio,
-                                                        matrixUserId: newData.matrix,
-                                                        newPassword: newData.newPassword,
-                                                        newPasswordVerify: newData.verifyPassword,
-                                                        oldPassword: newData.oldPassword,
-                                                        showAvatars: prevData.showAvatars,
-                                                        sendNotificationsToEmail: newData.sendNotificationsToEmail,
-                                                        auth: currentUserJwt)        
+        let params = LMModels.Api.Person.SaveUserSettings(showNsfw: newData.showNsfwContent,
+                                                          theme: prevData.localUser.theme,
+                                                          defaultSortType: prevData.localUser.defaultSortType.index,
+                                                          defaultListingType: prevData.localUser.defaultListingType.index,
+                                                          lang: prevData.localUser.lang,
+                                                          avatar: prevData.person.avatar?.absoluteString,
+                                                          banner: prevData.person.banner?.absoluteString,
+                                                          preferredUsername: newData.displayName,
+                                                          email: newData.email,
+                                                          bio: newData.bio,
+                                                          matrixUserId: newData.matrix,
+                                                          newPassword: newData.newPassword,
+                                                          newPasswordVerify: newData.verifyPassword,
+                                                          oldPassword: newData.oldPassword,
+                                                          showAvatars: prevData.localUser.showAvatars,
+                                                          sendNotificationsToEmail: newData.sendNotificationsToEmail,
+                                                          auth: currentUserJwt)
         
         ApiManager.requests
             .asyncSaveUserSettings(parameters: params)
@@ -111,7 +111,7 @@ class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
                 self.userAccountService.jwtToken = response.jwt
                 self.viewController?.displaySuccessUpdatingSetting()
             }.store(in: &cancellables)
-
+        
     }
 }
 

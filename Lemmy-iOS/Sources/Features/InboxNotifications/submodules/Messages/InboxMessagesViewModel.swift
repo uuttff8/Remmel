@@ -37,7 +37,7 @@ final class InboxMessagesViewModel: InboxMessagesViewModelProtocol {
             return
         }
         
-        let params = LMModels.Api.User.GetPrivateMessages(unreadOnly: false,
+        let params = LMModels.Api.Person.GetPrivateMessages(unreadOnly: false,
                                                           page: paginationState,
                                                           limit: 50,
                                                           auth: jwt)
@@ -61,7 +61,7 @@ final class InboxMessagesViewModel: InboxMessagesViewModelProtocol {
             return
         }
         
-        let params = LMModels.Api.User.GetPrivateMessages(unreadOnly: false,
+        let params = LMModels.Api.Person.GetPrivateMessages(unreadOnly: false,
                                                           page: paginationState,
                                                           limit: 50,
                                                           auth: jwt)

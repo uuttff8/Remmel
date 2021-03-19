@@ -22,21 +22,21 @@ class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
     private var paginationState = PaginationState(page: 1, hasNext: true)
     
     private var loadedProfile: ProfileScreenViewModel.ProfileData?
-
+    
     var cancellable = Set<AnyCancellable>()
     
     func doProfileCommentsFetch(request: ProfileScreenComments.CommentsLoad.Request) {
         self.paginationState.page = 1
         
-        let params = LMModels.Api.User.GetUserDetails(userId: loadedProfile?.id,
-                                                           username: loadedProfile?.viewData.name,
-                                                           sort: request.sortType,
-                                                           page: paginationState.page,
-                                                           limit: 50,
-                                                           communityId: nil,
-                                                           savedOnly: false,
-                                                           auth: LemmyShareData.shared.jwtToken)
-
+        let params = LMModels.Api.Person.GetPersonDetails(personId: loadedProfile?.id,
+                                                          username: loadedProfile?.viewData.name,
+                                                          sort: request.sortType,
+                                                          page: paginationState.page,
+                                                          limit: 50,
+                                                          communityId: nil,
+                                                          savedOnly: false,
+                                                          auth: LemmyShareData.shared.jwtToken)
+        
         ApiManager.requests.asyncGetUserDetails(parameters: params)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
@@ -55,15 +55,15 @@ class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
     func doNextCommentsFetch(request: ProfileScreenComments.NextProfileCommentsLoad.Request) {
         self.paginationState.page += 1
         
-        let params = LMModels.Api.User.GetUserDetails(userId: loadedProfile?.id,
-                                                      username: loadedProfile?.viewData.name,
-                                                           sort: request.sortType,
-                                                           page: paginationState.page,
-                                                           limit: 50,
-                                                           communityId: nil,
-                                                           savedOnly: false,
-                                                           auth: LemmyShareData.shared.jwtToken)
-
+        let params = LMModels.Api.Person.GetPersonDetails(personId: loadedProfile?.id,
+                                                          username: loadedProfile?.viewData.name,
+                                                          sort: request.sortType,
+                                                          page: paginationState.page,
+                                                          limit: 50,
+                                                          communityId: nil,
+                                                          savedOnly: false,
+                                                          auth: LemmyShareData.shared.jwtToken)
+        
         ApiManager.requests.asyncGetUserDetails(parameters: params)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in

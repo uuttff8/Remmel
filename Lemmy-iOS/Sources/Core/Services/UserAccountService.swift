@@ -9,8 +9,8 @@
 import UIKit
 
 protocol UserAccountSerivceProtocol {
-    var currentUser: LMModels.Source.UserSafeSettings? { get set }
-    var currentUserID: LMModels.Source.UserSafeSettings.ID? { get }
+    var currentUser: LMModels.Views.LocalUserSettingsView? { get set }
+    var currentUserID: LMModels.Views.LocalUserSettingsView.ID? { get }
     var isAuthorized: Bool { get }
     var jwtToken: String? { get set }
 
@@ -20,12 +20,12 @@ protocol UserAccountSerivceProtocol {
 
 // wrapper 
 final class UserAccountService: UserAccountSerivceProtocol {
-    var currentUser: LMModels.Source.UserSafeSettings? {
+    var currentUser: LMModels.Views.LocalUserSettingsView? {
         get { LemmyShareData.shared.userdata }
         set { LemmyShareData.shared.userdata = newValue }
     }
     
-    var currentUserID: LMModels.Source.UserSafeSettings.ID? { LemmyShareData.shared.userdata?.id }
+    var currentUserID: LMModels.Views.LocalUserSettingsView.ID? { LemmyShareData.shared.userdata?.id }
     
     var jwtToken: String? {
         get { LemmyShareData.shared.jwtToken }

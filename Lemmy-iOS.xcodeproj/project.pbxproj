@@ -87,7 +87,7 @@
 		4E6E663025B1F52E00AF2F48 /* LMModels+Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E662F25B1F52E00AF2F48 /* LMModels+Source.swift */; };
 		4E6E663525B1F93B00AF2F48 /* LMModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E663425B1F93B00AF2F48 /* LMModels.swift */; };
 		4E6E664025B1F9A100AF2F48 /* LMModels+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E663F25B1F9A100AF2F48 /* LMModels+Views.swift */; };
-		4E6E664825B1FD3C00AF2F48 /* LMModels+Api+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E664725B1FD3C00AF2F48 /* LMModels+Api+User.swift */; };
+		4E6E664825B1FD3C00AF2F48 /* LMModels+Api+Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E664725B1FD3C00AF2F48 /* LMModels+Api+Person.swift */; };
 		4E6E665425B2035900AF2F48 /* LMModels+Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E665325B2035900AF2F48 /* LMModels+Api.swift */; };
 		4E6E665C25B203C700AF2F48 /* LMModels+Api+Site.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E665B25B203C700AF2F48 /* LMModels+Api+Site.swift */; };
 		4E6E666125B208E100AF2F48 /* LMModels+Api+Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E666025B208E100AF2F48 /* LMModels+Api+Post.swift */; };
@@ -474,7 +474,7 @@
 		4E6E662F25B1F52E00AF2F48 /* LMModels+Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Source.swift"; sourceTree = "<group>"; };
 		4E6E663425B1F93B00AF2F48 /* LMModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMModels.swift; sourceTree = "<group>"; };
 		4E6E663F25B1F9A100AF2F48 /* LMModels+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Views.swift"; sourceTree = "<group>"; };
-		4E6E664725B1FD3C00AF2F48 /* LMModels+Api+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Api+User.swift"; sourceTree = "<group>"; };
+		4E6E664725B1FD3C00AF2F48 /* LMModels+Api+Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Api+Person.swift"; sourceTree = "<group>"; };
 		4E6E665325B2035900AF2F48 /* LMModels+Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Api.swift"; sourceTree = "<group>"; };
 		4E6E665B25B203C700AF2F48 /* LMModels+Api+Site.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Api+Site.swift"; sourceTree = "<group>"; };
 		4E6E666025B208E100AF2F48 /* LMModels+Api+Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Api+Post.swift"; sourceTree = "<group>"; };
@@ -1004,7 +1004,7 @@
 			isa = PBXGroup;
 			children = (
 				4E6E665325B2035900AF2F48 /* LMModels+Api.swift */,
-				4E6E664725B1FD3C00AF2F48 /* LMModels+Api+User.swift */,
+				4E6E664725B1FD3C00AF2F48 /* LMModels+Api+Person.swift */,
 				4E6E665B25B203C700AF2F48 /* LMModels+Api+Site.swift */,
 				4E6E666025B208E100AF2F48 /* LMModels+Api+Post.swift */,
 				4E6E666525B20D4A00AF2F48 /* LMModels+Api+Community.swift */,
@@ -2439,7 +2439,7 @@
 				4E98C01625BCA76B009DA520 /* CommentContentImpl.swift in Sources */,
 				4ECCEEB4250B8B6B0075F921 /* LemmyCoreData.xcdatamodeld in Sources */,
 				4E6E664025B1F9A100AF2F48 /* LMModels+Views.swift in Sources */,
-				4E6E664825B1FD3C00AF2F48 /* LMModels+Api+User.swift in Sources */,
+				4E6E664825B1FD3C00AF2F48 /* LMModels+Api+Person.swift in Sources */,
 				4ECCEEEF250BE89B0075F921 /* FrontPageCoordinator.swift in Sources */,
 				4EBB226D255AF4F900B88079 /* ProfileScreenPostsAssembly.swift in Sources */,
 				4E2A0FD9259C877700BF0841 /* Drawable.swift in Sources */,

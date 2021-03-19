@@ -27,14 +27,14 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
     func doPostFetch(request: ProfileScreenPosts.NextProfilePostsLoad.Request) {
         self.paginationState.page = 1
         
-        let params = LMModels.Api.User.GetUserDetails(userId: loadedProfile?.id,
-                                                      username: loadedProfile?.viewData.name,
-                                                      sort: request.sortType,
-                                                      page: paginationState.page,
-                                                      limit: 50,
-                                                      communityId: nil,
-                                                      savedOnly: false,
-                                                      auth: LemmyShareData.shared.jwtToken)
+        let params = LMModels.Api.Person.GetPersonDetails(personId: loadedProfile?.id,
+                                                          username: loadedProfile?.viewData.name,
+                                                          sort: request.sortType,
+                                                          page: paginationState.page,
+                                                          limit: 50,
+                                                          communityId: nil,
+                                                          savedOnly: false,
+                                                          auth: LemmyShareData.shared.jwtToken)
         
         ApiManager.requests.asyncGetUserDetails(parameters: params)
             .receive(on: DispatchQueue.main)
@@ -52,14 +52,14 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
     func doNextPostsFetch(request: ProfileScreenPosts.NextProfilePostsLoad.Request) {
         self.paginationState.page += 1
         
-        let params = LMModels.Api.User.GetUserDetails(userId: loadedProfile?.id,
-                                                      username: loadedProfile?.viewData.name,
-                                                      sort: request.sortType,
-                                                      page: paginationState.page,
-                                                      limit: 50,
-                                                      communityId: nil,
-                                                      savedOnly: false,
-                                                      auth: LemmyShareData.shared.jwtToken)
+        let params = LMModels.Api.Person.GetPersonDetails(personId: loadedProfile?.id,
+                                                          username: loadedProfile?.viewData.name,
+                                                          sort: request.sortType,
+                                                          page: paginationState.page,
+                                                          limit: 50,
+                                                          communityId: nil,
+                                                          savedOnly: false,
+                                                          auth: LemmyShareData.shared.jwtToken)
         
         ApiManager.requests.asyncGetUserDetails(parameters: params)
             .receive(on: DispatchQueue.main)

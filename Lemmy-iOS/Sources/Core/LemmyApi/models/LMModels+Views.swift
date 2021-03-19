@@ -11,23 +11,23 @@ import Foundation
 extension LMModels {
     enum Views {
         
-        struct UserViewSafe: Codable {
-            let user: LMModels.Source.UserSafe
-            let counts: LMModels.Aggregates.UserAggregates
+        struct PersonViewSafe: Codable {
+            let person: LMModels.Source.PersonSafe
+            let counts: LMModels.Aggregates.PersonAggregates
         }        
         
-        struct UserMentionView: Identifiable, Codable, VoteGettable {
+        struct PersonMentionView: Identifiable, Codable, VoteGettable {
             
             var id: Int {
                 comment.id
             }
             
-            let userMention: LMModels.Source.UserMention
+            let personMention: LMModels.Source.PersonMention
             var comment: LMModels.Source.Comment
-            let creator: LMModels.Source.UserSafe
+            let creator: LMModels.Source.PersonSafe
             let post: LMModels.Source.Post
             let community: LMModels.Source.CommunitySafe
-            let recipient: LMModels.Source.UserSafe
+            let recipient: LMModels.Source.PersonSafe
             let counts: LMModels.Aggregates.CommentAggregates
             let creatorBannedFromCommunity: Bool
             let subscribed: Bool
@@ -35,7 +35,7 @@ extension LMModels {
             let myVote: Int?
             
             enum CodingKeys: String, CodingKey {
-                case userMention = "user_mention"
+                case personMention = "person_mention"
                 case comment, creator, post, community
                 case recipient, counts
                 case creatorBannedFromCommunity = "creator_banned_from_community"
@@ -44,16 +44,32 @@ extension LMModels {
             }
         }
         
+        struct LocalUserSettingsView: Codable, Identifiable {
+            
+            var id: Int {
+                localUser.id
+            }
+            
+            let localUser: LMModels.Source.LocalUserSettings
+            let person: LMModels.Source.PersonSafe
+            let counts: LMModels.Aggregates.SiteAggregates
+            
+            enum CodingKeys: String, CodingKey {
+                case localUser = "local_user"
+                case person, counts
+            }
+        }
+        
         struct SiteView: Codable {
             let site: LMModels.Source.Site
-            let creator: LMModels.Source.UserSafe
+            let creator: LMModels.Source.PersonSafe
             let counts: LMModels.Aggregates.SiteAggregates
         }
         
         struct PrivateMessageView: Codable {
             let privateMessage: LMModels.Source.PrivateMessage
-            let creator: LMModels.Source.UserSafe
-            let recipient: LMModels.Source.UserSafe
+            let creator: LMModels.Source.PersonSafe
+            let recipient: LMModels.Source.PersonSafe
             
             enum CodingKeys: String, CodingKey {
                 case privateMessage = "private_message"
@@ -70,7 +86,7 @@ extension LMModels {
             }
             
             let post: LMModels.Source.Post
-            let creator: LMModels.Source.UserSafe
+            let creator: LMModels.Source.PersonSafe
             let community: LMModels.Source.CommunitySafe
             let creatorBannedFromCommunity: Bool
             var counts: LMModels.Aggregates.PostAggregates
@@ -91,9 +107,9 @@ extension LMModels {
             let postReport: LMModels.Source.PostReport
             let post: LMModels.Source.Post
             let community: LMModels.Source.CommunitySafe
-            let creator: LMModels.Source.UserSafe
-            let postCreator: LMModels.Source.UserSafe
-            let resolver: LMModels.Source.UserSafe?
+            let creator: LMModels.Source.PersonSafe
+            let postCreator: LMModels.Source.PersonSafe
+            let resolver: LMModels.Source.PersonSafe?
             
             enum CodingKeys: String, CodingKey {
                 case postReport = "post_report"
@@ -111,8 +127,8 @@ extension LMModels {
             }
             
             let comment: LMModels.Source.Comment
-            let creator: LMModels.Source.UserSafe
-            let recipient: LMModels.Source.UserSafe?
+            let creator: LMModels.Source.PersonSafe
+            let recipient: LMModels.Source.PersonSafe?
             let post: LMModels.Source.Post
             let community: LMModels.Source.CommunitySafe
             var counts: LMModels.Aggregates.CommentAggregates
@@ -135,9 +151,9 @@ extension LMModels {
             let comment: LMModels.Source.Comment
             let post: LMModels.Source.Post
             let community: LMModels.Source.CommunitySafe
-            let creator: LMModels.Source.UserSafe
-            let commentCreator: LMModels.Source.UserSafe
-            let resolver: LMModels.Source.UserSafe?
+            let creator: LMModels.Source.PersonSafe
+            let commentCreator: LMModels.Source.PersonSafe
+            let resolver: LMModels.Source.PersonSafe?
             
             enum CodingKeys: String, CodingKey {
                 case commentReport = "post_report"
@@ -148,57 +164,57 @@ extension LMModels {
         
         struct ModAddCommunityView: Codable {
             let modAddCommunity: LMModels.Source.ModAddCommunity
-            let moderator: LMModels.Source.UserSafe
+            let moderator: LMModels.Source.PersonSafe
             let community: LMModels.Source.CommunitySafe
-            let moddedUser: LMModels.Source.UserSafe
+            let moddedPerson: LMModels.Source.PersonSafe
             
             enum CodingKeys: String, CodingKey {
                 case modAddCommunity = "mod_add_community"
-                case moddedUser = "modded_user"
+                case moddedPerson = "modded_person"
                 case moderator, community
             }
         }
         
         struct ModAddView: Codable {
             let modAdd: LMModels.Source.ModAdd
-            let moderator: LMModels.Source.UserSafe
-            let moddedUser: LMModels.Source.UserSafe
+            let moderator: LMModels.Source.PersonSafe
+            let moddedPerson: LMModels.Source.PersonSafe
             
             enum CodingKeys: String, CodingKey {
                 case modAdd = "mod_add"
-                case moddedUser = "modded_user"
+                case moddedPerson = "modded_person"
                 case moderator
             }
         }
         
         struct ModBanFromCommunityView: Codable {
             let modBanFromCommunity: LMModels.Source.ModBanFromCommunity
-            let moderator: LMModels.Source.UserSafe
+            let moderator: LMModels.Source.PersonSafe
             let community: LMModels.Source.CommunitySafe
-            let bannedUser: LMModels.Source.UserSafe
+            let bannedPerson: LMModels.Source.PersonSafe
             
             enum CodingKeys: String, CodingKey {
                 case modBanFromCommunity = "mod_ban_from_community"
-                case bannedUser = "bannedUser"
+                case bannedPerson = "banned_person"
                 case community, moderator
             }
         }
         
         struct ModBanView: Codable {
             let modBan: LMModels.Source.ModBan
-            let moderator: LMModels.Source.UserSafe
-            let bannedUser: LMModels.Source.UserSafe
+            let moderator: LMModels.Source.PersonSafe
+            let bannedPerson: LMModels.Source.PersonSafe
             
             enum CodingKeys: String, CodingKey {
                 case modBan = "modBan"
-                case bannedUser = "banned_user"
+                case bannedPerson = "banned_person"
                 case moderator
             }
         }
         
         struct ModLockPostView: Codable {
             let modLockPost: LMModels.Source.ModLockPost
-            let moderator: LMModels.Source.UserSafe
+            let moderator: LMModels.Source.PersonSafe
             let post: LMModels.Source.Post
             let community: LMModels.Source.CommunitySafe
             
@@ -210,9 +226,9 @@ extension LMModels {
         
         struct ModRemoveCommentView: Codable {
             let modRemoveComment: LMModels.Source.ModRemoveComment
-            let moderator: LMModels.Source.UserSafe
+            let moderator: LMModels.Source.PersonSafe
             let comment: LMModels.Source.Comment
-            let commenter: LMModels.Source.UserSafe
+            let commenter: LMModels.Source.PersonSafe
             let post: LMModels.Source.Post
             let community: LMModels.Source.CommunitySafe
             
@@ -224,7 +240,7 @@ extension LMModels {
         
         struct ModRemoveCommunityView: Codable {
             let modRemoveCommunity: LMModels.Source.ModRemoveCommunity
-            let moderator: LMModels.Source.UserSafe
+            let moderator: LMModels.Source.PersonSafe
             let community: LMModels.Source.CommunitySafe
             
             enum CodingKeys: String, CodingKey {
@@ -235,7 +251,7 @@ extension LMModels {
         
         struct ModRemovePostView: Codable {
             let modRemovePost: LMModels.Source.ModRemovePost
-            let moderator: LMModels.Source.UserSafe
+            let moderator: LMModels.Source.PersonSafe
             let post: LMModels.Source.Post
             let community: LMModels.Source.CommunitySafe
             
@@ -247,7 +263,7 @@ extension LMModels {
         
         struct ModStickyPostView: Codable {
             let modStickyPost: LMModels.Source.ModStickyPost
-            let moderator: LMModels.Source.UserSafe
+            let moderator: LMModels.Source.PersonSafe
             let post: LMModels.Source.Post
             let community: LMModels.Source.CommunitySafe
             
@@ -259,17 +275,17 @@ extension LMModels {
         
         struct CommunityFollowerView: Codable {
             let community: LMModels.Source.CommunitySafe
-            let follower: LMModels.Source.UserSafe
+            let follower: LMModels.Source.PersonSafe
         }
         
         struct CommunityModeratorView: Codable {
             let community: LMModels.Source.CommunitySafe
-            let moderator: LMModels.Source.UserSafe
+            let moderator: LMModels.Source.PersonSafe
         }
         
-        struct CommunityUserBanView: Codable {
+        struct CommunityPersonBanView: Codable {
             let community: LMModels.Source.CommunitySafe
-            let user: LMModels.Source.UserSafe
+            let person: LMModels.Source.PersonSafe
         }
         
         struct CommunityView: Identifiable, Codable {
@@ -279,7 +295,7 @@ extension LMModels {
             }
             
             let community: LMModels.Source.CommunitySafe
-            let creator: LMModels.Source.UserSafe
+            let creator: LMModels.Source.PersonSafe
             let subscribed: Bool
             let counts: LMModels.Aggregates.CommunityAggregates
         }

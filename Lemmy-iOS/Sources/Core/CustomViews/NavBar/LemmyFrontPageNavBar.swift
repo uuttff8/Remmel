@@ -30,15 +30,14 @@ class LemmyFrontPageNavBar: UIView {
     }
 
     @objc private func updateProfileIcon() {
-        guard let photoStr = LemmyShareData.shared.userdata?.avatar,
-              let photoUrl = URL(string: photoStr)
+        guard let photoStr = LemmyShareData.shared.userdata?.person.avatar
         else {
             self.profileIcon.imageButton.setImage(UIImage(systemName: "person"), for: .normal)
             return
         }
 
         ImagePipeline.shared.loadImage(
-            with: photoUrl,
+            with: photoStr.asImageRequest(),
             completion: { (result: Result<ImageResponse, ImagePipeline.Error>) in
                 switch result {
                 case let .success(response):
