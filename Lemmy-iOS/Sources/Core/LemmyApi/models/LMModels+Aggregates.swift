@@ -20,7 +20,7 @@ extension LMModels {
             
             enum CodingKeys: String, CodingKey {
                 case id
-                case personId = "user_id"
+                case personId = "person_id"
                 case postCount = "post_count"
                 case postScore = "post_score"
                 case commentCount = "comment_count"

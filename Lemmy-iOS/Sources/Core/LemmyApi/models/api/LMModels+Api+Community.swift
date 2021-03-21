@@ -87,24 +87,24 @@ extension LMModels.Api {
         }
         
         struct BanFromCommunityResponse: Codable {
-            let userView: LMModels.Views.PersonViewSafe
+            let personView: LMModels.Views.PersonViewSafe
             let banned: Bool
             
             enum CodingKeys: String, CodingKey {
-                case userView = "user_view"
+                case personView = "person_view"
                 case banned
             }
         }
         
         struct AddModToCommunity: Codable {
             let communityId: Int
-            let userId: Int
+            let personId: Int
             let added: Bool
             let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
-                case userId = "user_id"
+                case personId = "person_id"
                 case added, auth
             }
         }
@@ -176,12 +176,12 @@ extension LMModels.Api {
         
         struct TransferCommunity: Codable {
             let communityId: Int
-            let userId: Int
+            let personId: Int
             let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
-                case userId = "user_id"
+                case personId = "person_id"
                 case auth
             }
         }

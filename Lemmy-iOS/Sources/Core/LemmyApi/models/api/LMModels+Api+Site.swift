@@ -151,18 +151,18 @@ extension LMModels.Api {
         }
         
         struct TransferSite: Codable {
-            let userId: Int
+            let personId: Int
             let auth: String
             
             enum CodingKeys: String, CodingKey {
-                case userId = "user_id"
+                case personId = "person_id"
                 case auth
             }
         }
         
         struct FederatedInstances: Codable {
             let linked: [String]
-            let allowed: [String]
+            let allowed: String?
             let blocked: [String]
          }
         

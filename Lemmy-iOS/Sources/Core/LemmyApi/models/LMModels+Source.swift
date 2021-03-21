@@ -16,7 +16,6 @@ extension LMModels {
             let name: String
             let preferredUsername: String?
             let avatar: URL?
-            let admin: Bool
             let banned: Bool
             let published: Date
             let updated: Date?
@@ -32,7 +31,7 @@ extension LMModels {
             enum CodingKeys: String, CodingKey {
                 case id, name
                 case preferredUsername = "preferred_username"
-                case avatar, admin, banned, published, updated
+                case avatar, banned, published, updated
                 case matrixUserId = "matrix_user_id"
                 case actorId = "actor_id"
                 case bio, local, banner, deleted

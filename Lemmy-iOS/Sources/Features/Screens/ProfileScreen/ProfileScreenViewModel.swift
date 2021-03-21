@@ -68,7 +68,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
             guard let self = self else { return }
             
             switch operation {
-            case LMMUserOperation.GetUserDetails.rawValue:
+            case LMMUserOperation.GetPersonDetails.rawValue:
                 guard let userDetails = self.wsClient?.decodeWsType(
                     LMModels.Api.Person.GetPersonDetailsResponse.self,
                     data: data
@@ -95,7 +95,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
                                                               savedOnly: false,
                                                               auth: LemmyShareData.shared.jwtToken)
         
-        self.wsClient?.send(LMMUserOperation.GetUserDetails, parameters: parameters)
+        self.wsClient?.send(LMMUserOperation.GetPersonDetails, parameters: parameters)
     }
     
     func doIdentifyProfile() {

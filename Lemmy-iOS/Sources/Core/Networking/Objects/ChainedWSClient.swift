@@ -42,7 +42,7 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
     private let decoder = LemmyDecoder()
     
     private let reconnecting: Bool
-    private let nwMonitor = NWPathMonitor()
+    private var isConnected = false
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -87,7 +87,7 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
     
     func reconnectIfNeeded() {
                 
-        if self.webSocketTask?.state != .running  {
+        if self.webSocketTask?.state != .running &&  !self.isConnected {
         
             if self.reconnecting {
                 Logger.commonLog.info("Trying to reconnect at \(LemmyShareData.shared.currentInstanceUrl)")
@@ -190,9 +190,23 @@ extension ChainedWSClient: URLSessionWebSocketDelegate {
     func urlSession(
         _ session: URLSession,
         webSocketTask: URLSessionWebSocketTask,
+        didOpenWithProtocol protocol: String?
+    ) {
+        self.isConnected = true
+    }
+    func urlSession(
+        _ session: URLSession,
+        webSocketTask: URLSessionWebSocketTask,
         didCloseWith closeCode: URLSessionWebSocketTask.CloseCode,
         reason: Data?
     ) {
-        self.reconnectIfNeeded()
+        self.isConnected = false
+    }
+    func urlSession(
+        _ session: URLSession,
+        task: URLSessionTask,
+        didCompleteWithError: Error?
+    ) {
+        self.isConnected = false
     }
 }

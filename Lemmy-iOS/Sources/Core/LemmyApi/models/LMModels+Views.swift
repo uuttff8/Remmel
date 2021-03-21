@@ -52,7 +52,7 @@ extension LMModels {
             
             let localUser: LMModels.Source.LocalUserSettings
             let person: LMModels.Source.PersonSafe
-            let counts: LMModels.Aggregates.SiteAggregates
+            let counts: LMModels.Aggregates.PersonAggregates
             
             enum CodingKeys: String, CodingKey {
                 case localUser = "local_user"
