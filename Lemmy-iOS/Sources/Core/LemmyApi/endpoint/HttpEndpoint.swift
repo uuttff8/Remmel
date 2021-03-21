@@ -16,8 +16,10 @@ enum HttpEndpoint {
         case image
 
         var endpoint: String {
+            let inst = String.cleanupInstance(LemmyShareData.shared.currentInstanceUrl)
+            
             switch self {
-            case .image: return "https://lemmy.ml\(Self.pictrs)/image"
+            case .image: return "https://\(inst)\(Self.pictrs)/image"
             }
         }
     }

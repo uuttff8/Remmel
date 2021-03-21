@@ -132,6 +132,17 @@ extension String: Error {
 
 extension String {
     static func createInstanceFullUrl(instanceUrl: String) -> URL? {
+        let link = String.cleanupInstance(instanceUrl)
+                
+        guard let url = URL(string: "wss://" + link + "/api/v2/ws") else {
+            Logger.commonLog.error("Could not create instance url from \(instanceUrl), transformed url: \(link) ")
+            return nil
+        }
+        
+        return url
+    }
+    
+    static func cleanupInstance(_ instanceUrl: String) -> String {
         var link = instanceUrl
         
         if link.hasPrefix("https://") {
@@ -142,12 +153,13 @@ extension String {
             link.removeLast()
         }
         
-        guard let url = URL(string: "wss://" + link + "/api/v2/ws") else {
-            Logger.commonLog.error("Could not create instance url from \(instanceUrl), transformed url: \(link) ")
-            return nil
-        }
+        return link
+    }
+    
+    static func makePathToPictrs(_ pic: String) -> String {
+        let inst = String.cleanupInstance(LemmyShareData.shared.currentInstanceUrl)
         
-        return url
+        return "https://\(inst)/pictrs/image/\(pic)"
     }
 }
 
