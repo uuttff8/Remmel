@@ -67,7 +67,7 @@ class CommunitiesPreviewViewModel: CommunitiesPreviewViewModelProtocol {
     }
 }
 
-class CommunitiesPreview {
+enum CommunitiesPreview {
     
     enum CommunitiesLoad {
         struct Request {}
