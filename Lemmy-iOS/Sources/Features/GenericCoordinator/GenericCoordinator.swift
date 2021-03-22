@@ -14,6 +14,8 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
     
     var router: RouterProtocol?
     
+    private let userAccountService: UserAccountSerivceProtocol = UserAccountService()
+    
     init(router: RouterProtocol?) {
         self.router = router
         super.init()
@@ -120,7 +122,7 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
     func goToInstances() {
         LemmyShareData.shared.loginData.logout()
         
-        if !LemmyShareData.shared.isLoggedIn {
+        if !userAccountService.isAuthorized {
             self.childCoordinators.removeAll()
             
             NotificationCenter.default.post(name: .didLogin, object: nil)

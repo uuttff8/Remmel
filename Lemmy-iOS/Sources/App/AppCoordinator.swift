@@ -13,7 +13,7 @@ class AppCoordinator: BaseCoordinator {
     private let window: UIWindow
     private let windowScene: UIWindowScene
     
-    private let userAccountService = UserAccountService()
+    private let userAccountService: UserAccountSerivceProtocol = UserAccountService()
     
     init(window: UIWindow, windowScene: UIWindowScene) {
         self.window = window
@@ -22,7 +22,7 @@ class AppCoordinator: BaseCoordinator {
     
     override func start() {
         
-        if LemmyShareData.shared.isLoggedIn {
+        if userAccountService.isAuthorized {
             let myCoordinator = LemmyTabBarCoordinator()
             self.store(coordinator: myCoordinator)
             myCoordinator.start()

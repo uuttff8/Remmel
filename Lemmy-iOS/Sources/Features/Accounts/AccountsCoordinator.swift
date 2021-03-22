@@ -13,6 +13,8 @@ final class AccountsCoordinator: BaseCoordinator {
     var rootViewController: AccountsViewController
     let router: RouterProtocol
     
+    private let userAccountService: UserAccountSerivceProtocol = UserAccountService()
+    
     init(router: RouterProtocol, instance: Instance) {
         let assembly = AccountsAssembly(instance: instance)
         self.rootViewController = assembly.makeModule()
@@ -41,7 +43,7 @@ final class AccountsCoordinator: BaseCoordinator {
     
     func goToFrontPage() {
         
-        if LemmyShareData.shared.isLoggedIn {
+        if userAccountService.isAuthorized {
             Logger.commonLog.info("Enter to instance with account")
             
             transitionToFrontPage()
