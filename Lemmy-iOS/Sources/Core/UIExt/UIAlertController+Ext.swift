@@ -37,7 +37,11 @@ extension UIAlertAction {
         UIAlertAction(title: "alert-cancel".localized, style: .cancel)
     }
     
-    static func createShareAction(title: String, on viewController: UIViewController, toEndpoint endpoint: String) -> UIAlertAction {
+    static func createShareAction(
+        title: String,
+        on viewController: UIViewController,
+        toEndpoint endpoint: String
+    ) -> UIAlertAction {
         return UIAlertAction(title: title, style: .default, handler: { (_) in
             
             if let url = URL(string: endpoint) {
