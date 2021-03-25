@@ -162,8 +162,8 @@ extension LMModels.Api {
         
         struct FederatedInstances: Codable {
             let linked: [String]
-            let allowed: String?
-            let blocked: [String]
+            let allowed: [String]?
+            let blocked: [String]?
          }
         
         struct GetSiteConfig: Codable {

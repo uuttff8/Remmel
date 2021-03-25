@@ -27,9 +27,9 @@ class SettingsViewModel: SettingsViewModelProtocol {
     }
     
     func doSettingsForm(request: SettingsDataFlow.SettingsForm.Request) {
-        let info = appInfo()
+        let (appVersion, appBuild) = appInfo()
         self.viewController?.displaySettingsForm(
-            viewModel: .init(appVersion: info.0, appBuild: info.1, apiVersion: API_VERSION)
+            viewModel: .init(appVersion: appVersion, appBuild: appBuild, apiVersion: API_VERSION)
         )
     }
     

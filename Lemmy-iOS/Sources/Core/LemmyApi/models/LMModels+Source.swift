@@ -19,7 +19,6 @@ extension LMModels {
             let banned: Bool
             let published: Date
             let updated: Date?
-            let matrixUserId: String?
             let actorId: URL
             let bio: String?
             let local: Bool
@@ -27,16 +26,19 @@ extension LMModels {
             let deleted: Bool
             let inboxUrl: URL
             let sharedInboxURL: URL
+            let admin: Bool
+            let matrixUserId: String?
             
             enum CodingKeys: String, CodingKey {
                 case id, name
                 case preferredUsername = "preferred_username"
                 case avatar, banned, published, updated
-                case matrixUserId = "matrix_user_id"
                 case actorId = "actor_id"
                 case bio, local, banner, deleted
                 case inboxUrl = "inbox_url"
                 case sharedInboxURL = "shared_inbox_url"
+                case admin
+                case matrixUserId = "matrix_user_id"
             }
         }
         
@@ -44,7 +46,6 @@ extension LMModels {
             let id: Int
             let personId: Int
             let email: String?
-            let admin: Bool
             let showNsfw: Bool
             let theme: String
             let defaultSortType: LMModels.Others.SortType
@@ -52,16 +53,14 @@ extension LMModels {
             let lang: String
             let showAvatars: Bool
             let sendNotificationsToEmail: Bool
-            let matrixUserId: String?
             
             enum CodingKeys: String, CodingKey {
                 case id, personId = "person_id", email
-                case admin, showNsfw = "show_nsfw", theme
+                case showNsfw = "show_nsfw", theme
                 case defaultSortType = "default_sort_type"
                 case defaultListingType = "default_listing_type"
                 case lang, showAvatars = "show_avatars"
                 case sendNotificationsToEmail = "send_notifications_to_email"
-                case matrixUserId = "matrix_user_id"
             }
         }
 

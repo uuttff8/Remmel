@@ -15,6 +15,7 @@ extension UIImageView {
     func loadImage(urlString: URL?, imageSize: CGSize, blur: Bool = false) {
         
         if let url = urlString {
+            self.isHidden = false
             
             var processors: [ImageProcessing] = [ImageProcessors.Resize(size: imageSize)]
             

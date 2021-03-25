@@ -34,7 +34,7 @@ extension LMModels.Api {
             let description: String?
             let icon: String?
             let banner: String?
-            let nsfw: Bool
+            let nsfw: Bool?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
@@ -122,7 +122,7 @@ extension LMModels.Api {
             let description: String?
             let icon: String?
             let banner: String?
-            let nsfw: Bool
+            let nsfw: Bool?
             let auth: String
             
             enum CodingKeys: String, CodingKey {

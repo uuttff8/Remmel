@@ -64,7 +64,7 @@ class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
                     viewModel: .init(displayName: myUser.person.preferredUsername,
                                      bio: myUser.person.bio,
                                      email: myUser.localUser.email,
-                                     matrix: myUser.localUser.matrixUserId,
+                                     matrix: myUser.person.matrixUserId,
                                      nsfwContent: myUser.localUser.showNsfw,
                                      notifToEmail: myUser.localUser.sendNotificationsToEmail)
                 )

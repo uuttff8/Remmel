@@ -108,6 +108,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
                                                     limit: 50,
                                                     communityId: self.communityId,
                                                     communityName: self.communityName,
+                                                    savedOnly: false,
                                                     auth: LoginData.shared.jwtToken)
         
         ApiManager.requests.asyncGetPosts(parameters: parameters)
@@ -132,6 +133,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
                                                     limit: 50,
                                                     communityId: self.communityId,
                                                     communityName: self.communityName,
+                                                    savedOnly: false,
                                                     auth: LoginData.shared.jwtToken)
         
         ApiManager.requests.asyncGetPosts(parameters: parameters)
