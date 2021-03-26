@@ -10,7 +10,7 @@ import SwiftUI
 
 struct OnboardingButton: View {
     
-    @AppStorage("needsAppOnboarding", store: LemmyShareData.shared.userDefaults)
+    @AppStorage("needsAppOnboarding", store: LemmyShareData.shared.appUserDefaults)
     var needsAppOnboarding: Bool = true
     
     var text: String

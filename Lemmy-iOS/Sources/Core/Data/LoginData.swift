@@ -16,11 +16,19 @@ extension UserDefaults {
         static let userdata = "userdata"
         static let currentInstanceUrl = "currentInstanceUrl"
         static let blockedUsersId = "blockedUsersId"
+        
         static let needsAppOnboarding = "needsAppOnboarding"
     }
     
-    static let appSuiteName = "userDefaults.uuttff8.LemmyiOS"
-
+    static let userSuiteName = "userDefaults.uuttff8.LemmyiOS"
+    static let appSuiteName = "userDefaults.uuttff8.LemmyiOS.user"
+    
+    static var userShared: UserDefaults {
+        let userDefaults = UserDefaults(suiteName: UserDefaults.userSuiteName)!
+        
+        return userDefaults
+    }
+    
     static var appShared: UserDefaults {
         let userDefaults = UserDefaults(suiteName: UserDefaults.appSuiteName)!
         
@@ -36,7 +44,9 @@ class LoginData {
     static let shared = LoginData()
 
     private let keychain = KeychainSwift()
-    let userDefaults = UserDefaults.appShared
+    
+    let userUserDefaults = UserDefaults.userShared
+    let appUserDefaults = UserDefaults.appShared
 
     func login(jwt: String) {
         self.jwtToken = jwt
@@ -45,7 +55,7 @@ class LoginData {
     func logout() {
         ApiManager.chainedWsCLient.close()
         self.clear()
-        userDefaults.resetDefaults()
+        userUserDefaults.resetDefaults()
         URLCache.shared.removeAllCachedResponses()
     }
     
@@ -53,7 +63,7 @@ class LoginData {
     func userLogout() {
         let currInstance = LemmyShareData.shared.currentInstanceUrl
         self.clear()
-        userDefaults.resetDefaults()
+        userUserDefaults.resetDefaults()
         URLCache.shared.removeAllCachedResponses()
         LemmyShareData.shared.currentInstanceUrl = currInstance
     }
@@ -68,12 +78,12 @@ class LoginData {
     }
 
     var userId: LMModels.Source.LocalUserSettings.ID? {
-        get { userDefaults.integer(forKey: UserDefaults.Key.userId) }
-        set { userDefaults.set(newValue, forKey: UserDefaults.Key.userId) }
+        get { userUserDefaults.integer(forKey: UserDefaults.Key.userId) }
+        set { userUserDefaults.set(newValue, forKey: UserDefaults.Key.userId) }
     }
 
     func clear() {
-        userDefaults.removeSuite(named: UserDefaults.appSuiteName)
+        userUserDefaults.removeSuite(named: UserDefaults.userSuiteName)
         keychain.clear()
     }
 }

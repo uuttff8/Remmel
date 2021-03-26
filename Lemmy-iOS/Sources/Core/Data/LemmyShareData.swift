@@ -15,13 +15,17 @@ class LemmyShareData {
     
     let loginData = LoginData.shared
     
-    var userDefaults: UserDefaults {
-        loginData.userDefaults
+    var userUserDefaults: UserDefaults {
+        loginData.userUserDefaults
+    }
+    
+    var appUserDefaults: UserDefaults {
+        loginData.appUserDefaults
     }
     
     var userdata: LMModels.Views.LocalUserSettingsView? {
         get {
-            guard let data = userDefaults.data(forKey: UserDefaults.Key.userdata)
+            guard let data = userUserDefaults.data(forKey: UserDefaults.Key.userdata)
             else {
                 return nil
             }
@@ -36,7 +40,7 @@ class LemmyShareData {
             encoder.dateEncodingStrategy = .formatted(dateFormatter)
             
             let data = try? encoder.encode(newValue)
-            userDefaults.set(data, forKey: UserDefaults.Key.userdata)
+            userUserDefaults.set(data, forKey: UserDefaults.Key.userdata)
         }
     }
     
@@ -50,17 +54,17 @@ class LemmyShareData {
     }
     
     var currentInstanceUrl: String {
-        get { self.userDefaults.string(forKey: UserDefaults.Key.currentInstanceUrl)?.lowercased() ?? "" }
-        set { self.userDefaults.setValue(newValue, forKey: UserDefaults.Key.currentInstanceUrl) }
+        get { self.userUserDefaults.string(forKey: UserDefaults.Key.currentInstanceUrl)?.lowercased() ?? "" }
+        set { self.userUserDefaults.setValue(newValue, forKey: UserDefaults.Key.currentInstanceUrl) }
     }
     
     var blockedUsersId: [Int] {
-        get { self.userDefaults.array(forKey: UserDefaults.Key.blockedUsersId) as? [Int] ?? [] }
-        set { self.userDefaults.setValue(newValue, forKey: UserDefaults.Key.blockedUsersId) }
+        get { self.userUserDefaults.array(forKey: UserDefaults.Key.blockedUsersId) as? [Int] ?? [] }
+        set { self.userUserDefaults.setValue(newValue, forKey: UserDefaults.Key.blockedUsersId) }
     }
     
     var needsAppOnboarding: Bool {
-        get { self.userDefaults.bool(forKey: UserDefaults.Key.needsAppOnboarding) }
-        set { self.userDefaults.setValue(newValue, forKey: UserDefaults.Key.needsAppOnboarding) }
+        get { self.appUserDefaults.bool(forKey: UserDefaults.Key.needsAppOnboarding) }
+        set { self.appUserDefaults.setValue(newValue, forKey: UserDefaults.Key.needsAppOnboarding) }
     }
 }

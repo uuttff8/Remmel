@@ -11,6 +11,9 @@ import SwiftUI
 
 final class OnboardingHostingController: UIHostingController<OnboardingView> {
     
+    @AppStorage("needsAppOnboarding", store: LemmyShareData.shared.appUserDefaults)
+    var needsAppOnboarding: Bool = true
+
     var onUserOwnInstance: (() -> Void)?
     var onLemmyMlInstance: (() -> Void)?
     
@@ -36,4 +39,12 @@ final class OnboardingHostingController: UIHostingController<OnboardingView> {
     func dismiss() {
         dismiss(animated: true, completion: nil)
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        if isBeingDismissed {
+            needsAppOnboarding = false
+        }
+    }
+    
 }
