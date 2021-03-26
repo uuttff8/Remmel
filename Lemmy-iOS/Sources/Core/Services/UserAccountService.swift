@@ -6,7 +6,7 @@
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 protocol UserAccountSerivceProtocol {
     var currentUser: LMModels.Views.LocalUserSettingsView? { get set }
