@@ -155,7 +155,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
         if let community = loadedCommunity {
             self.viewController?.displayCommunityShowMore(viewModel: .init(community: community))
         } else {
-            Logger.commonLog.alert("Show More bar button in CommunityScreen called on nil community data")
+            Logger.common.alert("Show More bar button in CommunityScreen called on nil community data")
         }
     }
 }

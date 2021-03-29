@@ -30,7 +30,7 @@ final class AccountsPersistenceService: AccountsPersistenceServiceProtocol {
                 let results = try self.managedObjectContext.fetch(request) as! [Account]
                 promise(.success(results))
             } catch {
-                Logger.commonLog.error("Error while getting all accounts from CoreData")
+                Logger.common.error("Error while getting all accounts from CoreData")
                 return promise(.success([]))
             }
         }.eraseToAnyPublisher()

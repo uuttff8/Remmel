@@ -56,7 +56,7 @@ final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
         self.paginationState = 1
         
         guard let jwt = userAccountService.jwtToken else {
-            Logger.commonLog.error("No jwt token found")
+            Logger.common.error("No jwt token found")
             return
         }
         
@@ -79,7 +79,7 @@ final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
         self.paginationState += 1
         
         guard let jwt = userAccountService.jwtToken else {
-            Logger.commonLog.error("No jwt token found")
+            Logger.common.error("No jwt token found")
             return
         }
         

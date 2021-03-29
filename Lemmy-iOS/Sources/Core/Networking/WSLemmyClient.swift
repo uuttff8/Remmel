@@ -23,7 +23,7 @@ class WSLemmyClient {
         self.urlSession = URLSession(configuration: .default)
         self.webSocketTask = urlSession.webSocketTask(with: url)
 
-        Logger.commonLog.info("URLSession webSocketTask opened to \(url)")
+        Logger.common.info("URLSession webSocketTask opened to \(url)")
     }
 
     @available(*, deprecated, message: "Legacy method, use use full-flow connect()")
@@ -38,7 +38,7 @@ class WSLemmyClient {
             guard let reqStr = makeRequestString(url: url, data: data) else {
                 return promise(.failure("Can't make request string".toLemmyError))
             }
-            Logger.commonLog.info(reqStr)
+            Logger.common.info(reqStr)
             
             let wsMessage = createWebsocketMessage(request: reqStr)
             
@@ -75,7 +75,7 @@ class WSLemmyClient {
             encoder.outputFormatting = .prettyPrinted
             guard let orderJsonData = try? encoder.encode(data)
             else {
-                Logger.commonLog.error("failed to encode data \(#file) \(#line)")
+                Logger.common.error("failed to encode data \(#file) \(#line)")
                 return nil
             }
             let parameters = String(data: orderJsonData, encoding: .utf8)!

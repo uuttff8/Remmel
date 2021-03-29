@@ -44,7 +44,7 @@ final class InstancePersistenceService: InstancePersistenceServiceProtocol {
                 let results = try self.managedObjectContext.fetch(request) as! [Instance]
                 promise(.success(results))
             } catch {
-                Logger.commonLog.error("Error while getting all instances from CoreData")
+                Logger.common.error("Error while getting all instances from CoreData")
                 return promise(.success([]))
             }
         }.eraseToAnyPublisher()
@@ -78,7 +78,7 @@ final class InstancePersistenceService: InstancePersistenceServiceProtocol {
                     let users = try self.managedObjectContext.fetch(request)
                     promise(.success(users))
                 } catch {
-                    Logger.commonLog.info("Error while fetching users = \(ids)")
+                    Logger.common.info("Error while fetching users = \(ids)")
                     promise(.success([]))
                 }
             }

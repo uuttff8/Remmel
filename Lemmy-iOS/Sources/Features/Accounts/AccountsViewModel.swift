@@ -94,7 +94,7 @@ final class AccountsViewModel: AccountsViewModelProtocol {
             }, receiveValue: { (response) in
                 guard let myUser = response.myUser
                 else {
-                    Logger.commonLog.error("There is no current user in response")
+                    Logger.common.error("There is no current user in response")
                     return
                 }
                 

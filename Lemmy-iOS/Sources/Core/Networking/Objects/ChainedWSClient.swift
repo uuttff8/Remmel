@@ -51,12 +51,12 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
         super.init()
         
         self.webSocketTask = self.getNewWsTask()
-        Logger.commonLog.info("URLSession webSocketTask opened to \(wsEndpoint)")
+        Logger.common.info("URLSession webSocketTask opened to \(wsEndpoint)")
     }
     
     @discardableResult
     func connect() -> WSClientProtocol {
-        Logger.commonLog.info("Open connection at \(LemmyShareData.shared.currentInstanceUrl)")
+        Logger.common.info("Open connection at \(LemmyShareData.shared.currentInstanceUrl)")
         self.webSocketTask?.resume()
         self.onConnected?()
         receiveMessages()
@@ -67,12 +67,12 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
     func send<T: Codable>(_ op: String, parameters: T) {
         guard let message = self.makeRequestString(url: op, data: parameters) else { return }
         
-        Logger.commonLog.info(message)
+        Logger.common.info(message)
         self.reconnectIfNeeded()
         
         self.webSocketTask?.send(.string(message)) { (error) in
             guard let error = error else { return }
-            Logger.commonLog.error("Socket send failure: \(error)")
+            Logger.common.error("Socket send failure: \(error)")
             self.reconnectIfNeeded()
         }
     }
@@ -90,7 +90,7 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
         if self.webSocketTask?.state != .running &&  !self.isConnected {
         
             if self.reconnecting {
-                Logger.commonLog.info("Trying to reconnect at \(LemmyShareData.shared.currentInstanceUrl)")
+                Logger.common.info("Trying to reconnect at \(LemmyShareData.shared.currentInstanceUrl)")
 
                 //            if self.nwMonitor.currentPath.status == .satisfied {
                 self.webSocketTask = getNewWsTask()
@@ -112,7 +112,7 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
             
             return data.data
         } catch {
-            Logger.commonLog.error("Failed to parse \(RequestsManager.ApiResponse<T>.self)")
+            Logger.common.error("Failed to parse \(RequestsManager.ApiResponse<T>.self)")
             debugPrint(error)
             return nil
         }
@@ -123,7 +123,7 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
             switch result {
             case .failure(let error):
                 self?.onError.value = error
-                Logger.commonLog.error("SocketReceiveFailure: \(error.localizedDescription)")
+                Logger.common.error("SocketReceiveFailure: \(error.localizedDescription)")
                 self?.webSocketTask?.cancel(with: .goingAway, reason: nil)
                 
                 self?.reconnectIfNeeded()
@@ -137,21 +137,21 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
                     case .success(let operation):
                         self?.onTextMessage.value = (operation, messageData)
                     case .failure(let error):
-                        Logger.commonLog.error(error.localizedDescription)
+                        Logger.common.error(error.localizedDescription)
                     }
                 }
                 
-                Logger.commonLog.info("WebSocket task received message \(message)")
+                Logger.common.info("WebSocket task received message \(message)")
                 self?.receiveMessages()
             }
         }
     }
     
     private func ping() {
-        Logger.commonLog.info("PING Websocket")
+        Logger.common.info("PING Websocket")
         webSocketTask?.sendPing { [weak self] error in
             if let error = error {
-                Logger.commonLog.error("SocketPingFailure: \(error.localizedDescription)")
+                Logger.common.error("SocketPingFailure: \(error.localizedDescription)")
                 self?.reconnectIfNeeded()
                 return
             }
@@ -168,7 +168,7 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
             encoder.outputFormatting = .prettyPrinted
             guard let orderJsonData = try? encoder.encode(data)
             else {
-                Logger.commonLog.error("failed to encode data \(#file) \(#line)")
+                Logger.common.error("failed to encode data \(#file) \(#line)")
                 return nil
             }
             let parameters = String(data: orderJsonData, encoding: .utf8)!

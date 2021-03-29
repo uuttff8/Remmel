@@ -61,7 +61,7 @@ class ContentScoreService: ContentScoreServiceProtocol {
         post: LMModels.Views.PostView
     ) {
         guard let jwtToken = self.userAccountService.jwtToken else {
-            Logger.commonLog.emergency("Cannot get jwt token"); return
+            Logger.common.emergency("Cannot get jwt token"); return
         }
         
         scoreView.setVoted(voteButton: voteButton, to: newVote)
@@ -79,7 +79,7 @@ class ContentScoreService: ContentScoreServiceProtocol {
         comment: LMModels.Views.CommentView
     ) {
         guard let jwtToken = self.userAccountService.jwtToken else {
-            Logger.commonLog.emergency("Cannot get jwt token"); return
+            Logger.common.emergency("Cannot get jwt token"); return
         }
         
         scoreView.setVoted(voteButton: voteButton, to: newVote)
@@ -116,7 +116,7 @@ class ContentScoreService: ContentScoreServiceProtocol {
         voteButton: VoteButton
     ) {
         guard let jwtToken = self.userAccountService.jwtToken else {
-            Logger.commonLog.emergency("Cannot get jwt token"); return
+            Logger.common.emergency("Cannot get jwt token"); return
         }
         
         scoreView.setVoted(voteButton: voteButton, to: vote)

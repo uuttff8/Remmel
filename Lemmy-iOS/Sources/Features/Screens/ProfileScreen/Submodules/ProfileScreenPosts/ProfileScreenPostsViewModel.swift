@@ -39,7 +39,7 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
         ApiManager.requests.asyncGetUserDetails(parameters: params)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
-                Logger.commonLog.info(completion)
+                Logger.common.info(completion)
             } receiveValue: { [weak self] (response) in
                 
                 self?.viewController?.displayProfilePosts(
@@ -64,7 +64,7 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
         ApiManager.requests.asyncGetUserDetails(parameters: params)
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
-                Logger.commonLog.info(completion)
+                Logger.common.info(completion)
             } receiveValue: { [weak self] (response) in
                 
                 self?.viewController?.displayNextPosts(

@@ -1474,7 +1474,6 @@
 		4EB89B3925220DB0007129BF /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				4EF3135E257A7B2E0032B58D /* ViewModels */,
 				4E918510256E9EEF00702F04 /* Comments */,
 				4E3E0F792555F5BC0086CE0C /* LemmyJSONDecoder.swift */,
 				4EBB222D2559EEFF00B88079 /* MilticastDelegate.swift */,
@@ -1918,13 +1917,6 @@
 				4EF31346257839CF0032B58D /* SearchResultsTableDataSource.swift */,
 			);
 			path = SearchResults;
-			sourceTree = "<group>";
-		};
-		4EF3135E257A7B2E0032B58D /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		4EF3136A257A7F860032B58D /* Controls */ = {

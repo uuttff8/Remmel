@@ -28,7 +28,7 @@ class Logger {
         return $0
     }(AppleSystemLogDestination(identifier: appleLogDestination))
     
-    static let commonLog: XCGLogger = {
+    static let common: XCGLogger = {
         $0.add(destination: systemDestination)
         $0.logAppDetails()
         return $0
@@ -42,9 +42,9 @@ class Logger {
     ) {
         switch completion {
         case .finished:
-            commonLog.verbose(completion, functionName: functionName, fileName: fileName, lineNumber: lineNumber)
+            common.verbose(completion, functionName: functionName, fileName: fileName, lineNumber: lineNumber)
         case .failure(let error):
-            commonLog.error(error, functionName: functionName, fileName: fileName, lineNumber: lineNumber)
+            common.error(error, functionName: functionName, fileName: fileName, lineNumber: lineNumber)
         }
     }
     
@@ -73,7 +73,7 @@ class Logger {
         }
         
         requestLog += "\n------------------------->\n"
-        Logger.commonLog.info(requestLog)
+        Logger.common.info(requestLog)
     }
     
     class func log(data: Data?, response: HTTPURLResponse?, error: Error?) {
@@ -109,6 +109,6 @@ class Logger {
         }
         
         responseLog += "<------------------------\n"
-        Logger.commonLog.info(response)
+        Logger.common.info(response)
     }
 }

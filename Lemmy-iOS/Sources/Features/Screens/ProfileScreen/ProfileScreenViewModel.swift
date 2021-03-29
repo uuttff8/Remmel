@@ -176,7 +176,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     
     func doSubmodulesDataFilling(request: ProfileScreenDataFlow.SubmoduleDataFilling.Request) {
         guard let profileData = loadedProfile else {
-            Logger.commonLog.error("Profile is not initialized")
+            Logger.common.error("Profile is not initialized")
             return
         }
         

@@ -53,7 +53,7 @@ class RequestsManager {
                 instanceUrl: LemmyShareData.shared.currentInstanceUrl
             )!
         }
-        Logger.commonLog.info("Trying to connect to \(self.wsClient.instanceUrl) instace")
+        Logger.common.info("Trying to connect to \(self.wsClient.instanceUrl) instace")
         
         return wsClient.asyncSend(on: path, data: parameters)
             .receive(on: requestQueue)
@@ -135,7 +135,7 @@ extension String {
         let link = String.cleanupInstance(instanceUrl)
                 
         guard let url = URL(string: "wss://" + link + "/api/v2/ws") else {
-            Logger.commonLog.error("Could not create instance url from \(instanceUrl), transformed url: \(link) ")
+            Logger.common.error("Could not create instance url from \(instanceUrl), transformed url: \(link) ")
             return nil
         }
         

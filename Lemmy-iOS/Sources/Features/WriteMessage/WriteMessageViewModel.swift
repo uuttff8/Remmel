@@ -55,7 +55,7 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
         
     func doRemoteCreateMessage(request: WriteMessage.RemoteCreateMessage.Request) {
         guard let jwtToken = userAccountService.jwtToken else {
-            Logger.commonLog.error("JWT Token not found: User should not be able to write message when not authed")
+            Logger.common.error("JWT Token not found: User should not be able to write message when not authed")
             return
         }
         

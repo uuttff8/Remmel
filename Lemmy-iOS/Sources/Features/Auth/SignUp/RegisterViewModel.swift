@@ -61,7 +61,7 @@ class RegisterViewModel {
             player.play()
 
         } catch {
-            Logger.commonLog.error("Error while playing audio: \(error)")
+            Logger.common.error("Error while playing audio: \(error)")
         }
     }
 }

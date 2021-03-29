@@ -33,7 +33,7 @@ final class InboxMessagesViewModel: InboxMessagesViewModelProtocol {
         self.paginationState = 1
         
         guard let jwt = userAccountService.jwtToken else {
-            Logger.commonLog.error("No jwt token is found")
+            Logger.common.error("No jwt token is found")
             return
         }
         
@@ -57,7 +57,7 @@ final class InboxMessagesViewModel: InboxMessagesViewModelProtocol {
         self.paginationState += 1
         
         guard let jwt = userAccountService.jwtToken else {
-            Logger.commonLog.error("No jwt token is found")
+            Logger.common.error("No jwt token is found")
             return
         }
         

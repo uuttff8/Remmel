@@ -26,7 +26,7 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
     
     func doAddInstanceCheck(request: AddInstanceDataFlow.InstanceCheck.Request) {
         guard let api = ApiManager(instanceUrl: request.query).requestsManager else {
-            Logger.commonLog.error("Not valid instance url")
+            Logger.common.error("Not valid instance url")
             self.viewController?.displayAddInstanceCheck(
                 viewModel: .init(state: .noResult)
             )
@@ -38,12 +38,12 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
             .receive(on: DispatchQueue.main)
             .sink { (completion) in
                 if case .failure = completion {
-                    Logger.commonLog.error("GetSite request with \(request) completion: \(completion)")
+                    Logger.common.error("GetSite request with \(request) completion: \(completion)")
                     self.viewController?.displayAddInstanceCheck(
                         viewModel: .init(state: .noResult)
                     )
                 } else {
-                    Logger.commonLog.verbose(completion)
+                    Logger.common.verbose(completion)
                 }
             } receiveValue: { (response) in
                 
