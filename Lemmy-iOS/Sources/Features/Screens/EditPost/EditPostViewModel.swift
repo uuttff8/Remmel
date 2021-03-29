@@ -66,7 +66,7 @@ class EditPostViewModel: EditPostViewModelProtocol {
     
     func doRemoteEditPost(request: EditPost.RemoteEditPost.Request) {
         guard let jwtToken = userAccountService.jwtToken else {
-            Logger.commonLog.error("JWT Token not found: User should not be able to edit post when not authed")
+            Logger.common.error("JWT Token not found: User should not be able to edit post when not authed")
             return
         }
         
@@ -103,10 +103,10 @@ class EditPostViewModel: EditPostViewModelProtocol {
             switch result {
             case .success(let response):
                 self.viewController?.displayUrlLoadImage(
-                    viewModel: .init(url: response.files.first!.file)
+                    viewModel: .init(url: String.makePathToPictrs(response.files.first!.file))
                 )
             case .failure(let error):
-                Logger.commonLog.error(error)
+                Logger.common.error(error)
                 self.viewController?.displayErrorUrlLoadImage(viewModel: .init())
             }
         }

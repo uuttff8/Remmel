@@ -50,7 +50,7 @@ class WriteCommentViewModel: WriteCommentViewModelProtocol {
     
     func doRemoveCreateComment(request: WriteComment.RemoteCreateComment.Request) {
         guard let jwtToken = userAccountService.jwtToken else {
-            Logger.commonLog.error("JWT Token not found: User should not be able to write comment when not authed")
+            Logger.common.error("JWT Token not found: User should not be able to write comment when not authed")
             return
         }
         

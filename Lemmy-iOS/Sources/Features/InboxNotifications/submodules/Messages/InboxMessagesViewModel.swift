@@ -33,11 +33,11 @@ final class InboxMessagesViewModel: InboxMessagesViewModelProtocol {
         self.paginationState = 1
         
         guard let jwt = userAccountService.jwtToken else {
-            Logger.commonLog.error("No jwt token is found")
+            Logger.common.error("No jwt token is found")
             return
         }
         
-        let params = LMModels.Api.User.GetPrivateMessages(unreadOnly: false,
+        let params = LMModels.Api.Person.GetPrivateMessages(unreadOnly: false,
                                                           page: paginationState,
                                                           limit: 50,
                                                           auth: jwt)
@@ -57,11 +57,11 @@ final class InboxMessagesViewModel: InboxMessagesViewModelProtocol {
         self.paginationState += 1
         
         guard let jwt = userAccountService.jwtToken else {
-            Logger.commonLog.error("No jwt token is found")
+            Logger.common.error("No jwt token is found")
             return
         }
         
-        let params = LMModels.Api.User.GetPrivateMessages(unreadOnly: false,
+        let params = LMModels.Api.Person.GetPrivateMessages(unreadOnly: false,
                                                           page: paginationState,
                                                           limit: 50,
                                                           auth: jwt)

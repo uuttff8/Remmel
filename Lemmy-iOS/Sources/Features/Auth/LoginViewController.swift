@@ -73,7 +73,7 @@ class LoginViewController: UIViewController {
         }
     }
         
-    private func checkRegisterData() -> LMModels.Api.User.Register? {
+    private func checkRegisterData() -> LMModels.Api.Person.Register? {
         guard let signUpView = signUpView else { return nil }
         
         guard (signUpView.passwordTextField.hasText)
@@ -110,7 +110,7 @@ class LoginViewController: UIViewController {
             email = nil
         }
         
-        return LMModels.Api.User.Register(username: username,
+        return LMModels.Api.Person.Register(username: username,
                                           email: email,
                                           password: password,
                                           passwordVerify: passwordVerify,
@@ -154,7 +154,7 @@ class LoginViewController: UIViewController {
               let password = signInView.passwordTextField.text
         else { return }
         
-        let parameters = LMModels.Api.User.Login(
+        let parameters = LMModels.Api.Person.Login(
             usernameOrEmail: emailOrUsername,
             password: password
         )
@@ -181,7 +181,7 @@ class LoginViewController: UIViewController {
         
     private func loadUserOnSuccessResponse(
         jwt: String,
-        completion: @escaping ((LMModels.Source.UserSafeSettings) -> Void)
+        completion: @escaping ((LMModels.Views.LocalUserSettingsView) -> Void)
     ) {
         
         let params = LMModels.Api.Site.GetSite(auth: jwt)

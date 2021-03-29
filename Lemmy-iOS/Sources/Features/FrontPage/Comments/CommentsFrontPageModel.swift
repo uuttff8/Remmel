@@ -50,6 +50,7 @@ class CommentsFrontPageModel: NSObject {
                                                           limit: 50,
                                                           communityId: nil,
                                                           communityName: nil,
+                                                          savedOnly: false,
                                                           auth: LemmyShareData.shared.jwtToken)
         
         ApiManager.requests.asyncGetComments(parameters: parameters)
@@ -69,6 +70,7 @@ class CommentsFrontPageModel: NSObject {
                                                           limit: 50,
                                                           communityId: nil,
                                                           communityName: nil,
+                                                          savedOnly: false,
                                                           auth: LemmyShareData.shared.jwtToken)
         
         ApiManager.requests.asyncGetComments(parameters: parameters)

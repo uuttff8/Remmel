@@ -89,7 +89,7 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         DispatchQueue.main.async {
             if let cell = self.tableView.cellForRow(at: indexPath) as? SwipingCommentContentTableCell {
                 guard let commentContent = self.commentDataSource[index].commentContent else {
-                    Logger.commonLog.error("commentContent for comment is not found, so not updating comment like")
+                    Logger.common.error("commentContent for comment is not found, so not updating comment like")
                     return
                 }
                 
@@ -109,7 +109,7 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         if let cell = self.tableView.cellForRow(at: indexPath) as? SwipingCommentContentTableCell {
             cell.focusOnContent()
         } else {
-            Logger.commonLog
+            Logger.common
                 .error("Not found cell in FoldableLemmyComments \(type(of: SwipingCommentContentTableCell.self))")
         }
     }

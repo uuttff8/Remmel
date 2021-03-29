@@ -218,7 +218,7 @@ enum SearchResults {
         case comments([LMModels.Views.CommentView])
         case posts([LMModels.Views.PostView])
         case communities([LMModels.Views.CommunityView])
-        case users([LMModels.Views.UserViewSafe])
+        case users([LMModels.Views.PersonViewSafe])
     }
     
     enum ViewControllerState {

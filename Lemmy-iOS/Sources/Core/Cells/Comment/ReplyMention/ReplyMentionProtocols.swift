@@ -27,15 +27,15 @@ protocol ReplyCellViewDelegate: AnyObject {
 protocol UserMentionCellViewDelegate: AnyObject {
     func usernameTapped(with userMention: LemmyUserMention)
     func communityTapped(with userMention: LemmyCommunityMention)
-    func postNameTapped(in userMention: LMModels.Views.UserMentionView)
+    func postNameTapped(in userMention: LMModels.Views.PersonMentionView)
     func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        userMention: LMModels.Views.UserMentionView
+        userMention: LMModels.Views.PersonMentionView
     )
-    func showContext(in userMention: LMModels.Views.UserMentionView)
-    func reply(to userMention: LMModels.Views.UserMentionView)
-    func onLinkTap(in userMention: LMModels.Views.UserMentionView, url: URL)
-    func showMoreAction(in userMention: LMModels.Views.UserMentionView)
+    func showContext(in userMention: LMModels.Views.PersonMentionView)
+    func reply(to userMention: LMModels.Views.PersonMentionView)
+    func onLinkTap(in userMention: LMModels.Views.PersonMentionView, url: URL)
+    func showMoreAction(in userMention: LMModels.Views.PersonMentionView)
 }

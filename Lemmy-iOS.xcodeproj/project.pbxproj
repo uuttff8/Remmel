@@ -63,6 +63,7 @@
 		4E2A0FD0259BC1CB00BF0841 /* UIWindow+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A0FCF259BC1CB00BF0841 /* UIWindow+Ext.swift */; };
 		4E2A0FD9259C877700BF0841 /* Drawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A0FD8259C877700BF0841 /* Drawable.swift */; };
 		4E2A0FDE259C879B00BF0841 /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A0FDD259C879B00BF0841 /* RouterProtocol.swift */; };
+		4E2A5CAE25F3C0DD00537E38 /* OnboardingHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A5CAD25F3C0DD00537E38 /* OnboardingHostingController.swift */; };
 		4E3D44D62595D3B300108DA3 /* ChainedWSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3D44D52595D3B300108DA3 /* ChainedWSClient.swift */; };
 		4E3D44E42596143A00108DA3 /* SettingsInputWithImageCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3D44E32596143A00108DA3 /* SettingsInputWithImageCellView.swift */; };
 		4E3D44E92596203A00108DA3 /* SettingsInputWithImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3D44E82596203A00108DA3 /* SettingsInputWithImageTableViewCell.swift */; };
@@ -74,6 +75,10 @@
 		4E3FBC51258A82B100F97671 /* CommunitiesPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC50258A82B100F97671 /* CommunitiesPreviewView.swift */; };
 		4E3FBC59258A857600F97671 /* CommunitiesPreviewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSource.swift */; };
 		4E405AC825EC1F0500057F77 /* CenterBackSwipeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E405AC725EC1F0500057F77 /* CenterBackSwipeable.swift */; };
+		4E405B3825F1568000057F77 /* ContentView+Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E405B3725F1568000057F77 /* ContentView+Onboarding.swift */; };
+		4E405B3D25F156BF00057F77 /* ContentView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E405B3C25F156BF00057F77 /* ContentView+Ext.swift */; };
+		4E405B4225F156D500057F77 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E405B4125F156D500057F77 /* OnboardingView.swift */; };
+		4E405B4725F156F600057F77 /* OnboardingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E405B4625F156F600057F77 /* OnboardingButton.swift */; };
 		4E50674D25D085CF003F1AB4 /* CatalystDismissProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E50674C25D085CF003F1AB4 /* CatalystDismissProtocol.swift */; };
 		4E5A677125C1A3D700BAA536 /* LemmyDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5A677025C1A3D700BAA536 /* LemmyDecoder.swift */; };
 		4E66428725BCC20100E11E20 /* LMModels+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E66428625BCC20100E11E20 /* LMModels+Ext.swift */; };
@@ -82,7 +87,7 @@
 		4E6E663025B1F52E00AF2F48 /* LMModels+Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E662F25B1F52E00AF2F48 /* LMModels+Source.swift */; };
 		4E6E663525B1F93B00AF2F48 /* LMModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E663425B1F93B00AF2F48 /* LMModels.swift */; };
 		4E6E664025B1F9A100AF2F48 /* LMModels+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E663F25B1F9A100AF2F48 /* LMModels+Views.swift */; };
-		4E6E664825B1FD3C00AF2F48 /* LMModels+Api+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E664725B1FD3C00AF2F48 /* LMModels+Api+User.swift */; };
+		4E6E664825B1FD3C00AF2F48 /* LMModels+Api+Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E664725B1FD3C00AF2F48 /* LMModels+Api+Person.swift */; };
 		4E6E665425B2035900AF2F48 /* LMModels+Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E665325B2035900AF2F48 /* LMModels+Api.swift */; };
 		4E6E665C25B203C700AF2F48 /* LMModels+Api+Site.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E665B25B203C700AF2F48 /* LMModels+Api+Site.swift */; };
 		4E6E666125B208E100AF2F48 /* LMModels+Api+Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E666025B208E100AF2F48 /* LMModels+Api+Post.swift */; };
@@ -166,7 +171,6 @@
 		4E9183AF25696EAA00702F04 /* ChooseCommunityAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183AE25696EAA00702F04 /* ChooseCommunityAssembly.swift */; };
 		4E9183C3256AFB1200702F04 /* CreateCommunityDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183C2256AFB1200702F04 /* CreateCommunityDataFlow.swift */; };
 		4E9183C8256AFD8800702F04 /* CreateCommunityAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183C7256AFD8800702F04 /* CreateCommunityAssembly.swift */; };
-		4E9183D0256C011200702F04 /* ChooseCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183CF256C011200702F04 /* ChooseCategoryViewModel.swift */; };
 		4E9184FC256E9E4E00702F04 /* SwipeCellKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4E9184FB256E9E4E00702F04 /* SwipeCellKit */; };
 		4E918509256E9EAA00702F04 /* CommentsViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E918505256E9EAA00702F04 /* CommentsViewDelegate.swift */; };
 		4E91850A256E9EAA00702F04 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E918506256E9EAA00702F04 /* CommentCell.swift */; };
@@ -334,8 +338,6 @@
 		4EF3AC7B254AE12800BEC9F1 /* CreateCommunityNamesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC7A254AE12800BEC9F1 /* CreateCommunityNamesCell.swift */; };
 		4EF3AC80254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC7F254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift */; };
 		4EF3AC85254B456400BEC9F1 /* CreateCommunityChooseCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC84254B456400BEC9F1 /* CreateCommunityChooseCategoryCell.swift */; };
-		4EF3AC8B254B469F00BEC9F1 /* ChooseCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC8A254B469F00BEC9F1 /* ChooseCategoryViewController.swift */; };
-		4EF3AC90254B46BD00BEC9F1 /* ChooseCategoryUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC8F254B46BD00BEC9F1 /* ChooseCategoryUI.swift */; };
 		4EF3AC95254B60F000BEC9F1 /* CreateCommunityImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC94254B60F000BEC9F1 /* CreateCommunityImagesCell.swift */; };
 		4EF3AC9A254C690400BEC9F1 /* CreateCommunitySidebarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3AC99254C690400BEC9F1 /* CreateCommunitySidebarCell.swift */; };
 		4EF3ACD1254EF82C00BEC9F1 /* CommunityScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3ACD0254EF82C00BEC9F1 /* CommunityScreenViewController.swift */; };
@@ -447,6 +449,7 @@
 		4E2A0FCF259BC1CB00BF0841 /* UIWindow+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Ext.swift"; sourceTree = "<group>"; };
 		4E2A0FD8259C877700BF0841 /* Drawable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawable.swift; sourceTree = "<group>"; };
 		4E2A0FDD259C879B00BF0841 /* RouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
+		4E2A5CAD25F3C0DD00537E38 /* OnboardingHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingHostingController.swift; sourceTree = "<group>"; };
 		4E3D44D52595D3B300108DA3 /* ChainedWSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainedWSClient.swift; sourceTree = "<group>"; };
 		4E3D44E32596143A00108DA3 /* SettingsInputWithImageCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInputWithImageCellView.swift; sourceTree = "<group>"; };
 		4E3D44E82596203A00108DA3 /* SettingsInputWithImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInputWithImageTableViewCell.swift; sourceTree = "<group>"; };
@@ -458,6 +461,10 @@
 		4E3FBC50258A82B100F97671 /* CommunitiesPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewView.swift; sourceTree = "<group>"; };
 		4E3FBC58258A857600F97671 /* CommunitiesPreviewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesPreviewDataSource.swift; sourceTree = "<group>"; };
 		4E405AC725EC1F0500057F77 /* CenterBackSwipeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterBackSwipeable.swift; sourceTree = "<group>"; };
+		4E405B3725F1568000057F77 /* ContentView+Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView+Onboarding.swift"; sourceTree = "<group>"; };
+		4E405B3C25F156BF00057F77 /* ContentView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView+Ext.swift"; sourceTree = "<group>"; };
+		4E405B4125F156D500057F77 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		4E405B4625F156F600057F77 /* OnboardingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingButton.swift; sourceTree = "<group>"; };
 		4E50674125D07EB1003F1AB4 /* Lemmy-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Lemmy-iOS.entitlements"; sourceTree = "<group>"; };
 		4E50674C25D085CF003F1AB4 /* CatalystDismissProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalystDismissProtocol.swift; sourceTree = "<group>"; };
 		4E5A677025C1A3D700BAA536 /* LemmyDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyDecoder.swift; sourceTree = "<group>"; };
@@ -467,7 +474,7 @@
 		4E6E662F25B1F52E00AF2F48 /* LMModels+Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Source.swift"; sourceTree = "<group>"; };
 		4E6E663425B1F93B00AF2F48 /* LMModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMModels.swift; sourceTree = "<group>"; };
 		4E6E663F25B1F9A100AF2F48 /* LMModels+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Views.swift"; sourceTree = "<group>"; };
-		4E6E664725B1FD3C00AF2F48 /* LMModels+Api+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Api+User.swift"; sourceTree = "<group>"; };
+		4E6E664725B1FD3C00AF2F48 /* LMModels+Api+Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Api+Person.swift"; sourceTree = "<group>"; };
 		4E6E665325B2035900AF2F48 /* LMModels+Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Api.swift"; sourceTree = "<group>"; };
 		4E6E665B25B203C700AF2F48 /* LMModels+Api+Site.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Api+Site.swift"; sourceTree = "<group>"; };
 		4E6E666025B208E100AF2F48 /* LMModels+Api+Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LMModels+Api+Post.swift"; sourceTree = "<group>"; };
@@ -551,7 +558,6 @@
 		4E9183AE25696EAA00702F04 /* ChooseCommunityAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCommunityAssembly.swift; sourceTree = "<group>"; };
 		4E9183C2256AFB1200702F04 /* CreateCommunityDataFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityDataFlow.swift; sourceTree = "<group>"; };
 		4E9183C7256AFD8800702F04 /* CreateCommunityAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityAssembly.swift; sourceTree = "<group>"; };
-		4E9183CF256C011200702F04 /* ChooseCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCategoryViewModel.swift; sourceTree = "<group>"; };
 		4E918505256E9EAA00702F04 /* CommentsViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewDelegate.swift; sourceTree = "<group>"; };
 		4E918506256E9EAA00702F04 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		4E918507256E9EAA00702F04 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
@@ -723,8 +729,6 @@
 		4EF3AC7A254AE12800BEC9F1 /* CreateCommunityNamesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityNamesCell.swift; sourceTree = "<group>"; };
 		4EF3AC7F254AE25000BEC9F1 /* CreateCommunityDisplayNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityDisplayNameCell.swift; sourceTree = "<group>"; };
 		4EF3AC84254B456400BEC9F1 /* CreateCommunityChooseCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityChooseCategoryCell.swift; sourceTree = "<group>"; };
-		4EF3AC8A254B469F00BEC9F1 /* ChooseCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCategoryViewController.swift; sourceTree = "<group>"; };
-		4EF3AC8F254B46BD00BEC9F1 /* ChooseCategoryUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCategoryUI.swift; sourceTree = "<group>"; };
 		4EF3AC94254B60F000BEC9F1 /* CreateCommunityImagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunityImagesCell.swift; sourceTree = "<group>"; };
 		4EF3AC99254C690400BEC9F1 /* CreateCommunitySidebarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommunitySidebarCell.swift; sourceTree = "<group>"; };
 		4EF3ACD0254EF82C00BEC9F1 /* CommunityScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityScreenViewController.swift; sourceTree = "<group>"; };
@@ -967,6 +971,18 @@
 			path = ProfileScreen;
 			sourceTree = "<group>";
 		};
+		4E405B3625F1561900057F77 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				4E405B3725F1568000057F77 /* ContentView+Onboarding.swift */,
+				4E405B3C25F156BF00057F77 /* ContentView+Ext.swift */,
+				4E405B4125F156D500057F77 /* OnboardingView.swift */,
+				4E405B4625F156F600057F77 /* OnboardingButton.swift */,
+				4E2A5CAD25F3C0DD00537E38 /* OnboardingHostingController.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		4E66428525BCC1F700E11E20 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -988,7 +1004,7 @@
 			isa = PBXGroup;
 			children = (
 				4E6E665325B2035900AF2F48 /* LMModels+Api.swift */,
-				4E6E664725B1FD3C00AF2F48 /* LMModels+Api+User.swift */,
+				4E6E664725B1FD3C00AF2F48 /* LMModels+Api+Person.swift */,
 				4E6E665B25B203C700AF2F48 /* LMModels+Api+Site.swift */,
 				4E6E666025B208E100AF2F48 /* LMModels+Api+Post.swift */,
 				4E6E666525B20D4A00AF2F48 /* LMModels+Api+Community.swift */,
@@ -1458,7 +1474,6 @@
 		4EB89B3925220DB0007129BF /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				4EF3135E257A7B2E0032B58D /* ViewModels */,
 				4E918510256E9EEF00702F04 /* Comments */,
 				4E3E0F792555F5BC0086CE0C /* LemmyJSONDecoder.swift */,
 				4EBB222D2559EEFF00B88079 /* MilticastDelegate.swift */,
@@ -1630,6 +1645,7 @@
 				4EDDFFFD25A5DBEA006FCB9F /* InboxNotifications */,
 				4E87C698258E67A50007FE5E /* Instances */,
 				4ECCEEF0250C03910075F921 /* LemmyTabBar */,
+				4E405B3625F1561900057F77 /* Onboarding */,
 				4E110D4825CB403A00A06306 /* ProfileSettings */,
 				4EB89AF5251F4783007129BF /* Screens */,
 				4EF3131E25782BA90032B58D /* SearchResults */,
@@ -1903,13 +1919,6 @@
 			path = SearchResults;
 			sourceTree = "<group>";
 		};
-		4EF3135E257A7B2E0032B58D /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
 		4EF3136A257A7F860032B58D /* Controls */ = {
 			isa = PBXGroup;
 			children = (
@@ -1978,7 +1987,6 @@
 		4EF3AC5B254A019800BEC9F1 /* CreateCommunity */ = {
 			isa = PBXGroup;
 			children = (
-				4EF3AC89254B468B00BEC9F1 /* ChooseCategory */,
 				4EF3AC79254AE11200BEC9F1 /* cells */,
 				4E9183C7256AFD8800702F04 /* CreateCommunityAssembly.swift */,
 				4E9183C2256AFB1200702F04 /* CreateCommunityDataFlow.swift */,
@@ -2000,16 +2008,6 @@
 				4EF3AC99254C690400BEC9F1 /* CreateCommunitySidebarCell.swift */,
 			);
 			path = cells;
-			sourceTree = "<group>";
-		};
-		4EF3AC89254B468B00BEC9F1 /* ChooseCategory */ = {
-			isa = PBXGroup;
-			children = (
-				4EF3AC8A254B469F00BEC9F1 /* ChooseCategoryViewController.swift */,
-				4E9183CF256C011200702F04 /* ChooseCategoryViewModel.swift */,
-				4EF3AC8F254B46BD00BEC9F1 /* ChooseCategoryUI.swift */,
-			);
-			path = ChooseCategory;
 			sourceTree = "<group>";
 		};
 		4EF3ACCF254EF82000BEC9F1 /* CommunityScreen */ = {
@@ -2411,7 +2409,6 @@
 				4E6E666125B208E100AF2F48 /* LMModels+Api+Post.swift in Sources */,
 				4EB4F689259024C40057BDCC /* InstancesViewModel.swift in Sources */,
 				4E9183C8256AFD8800702F04 /* CreateCommunityAssembly.swift in Sources */,
-				4EF3AC8B254B469F00BEC9F1 /* ChooseCategoryViewController.swift in Sources */,
 				4EDD00A125A64C71006FCB9F /* InboxRepliesTableManager.swift in Sources */,
 				4E9183902567DBE200702F04 /* PushRouterSourceProtocol.swift in Sources */,
 				4EFAB5C72552F85D00B32780 /* UIView+Ext.swift in Sources */,
@@ -2434,7 +2431,7 @@
 				4E98C01625BCA76B009DA520 /* CommentContentImpl.swift in Sources */,
 				4ECCEEB4250B8B6B0075F921 /* LemmyCoreData.xcdatamodeld in Sources */,
 				4E6E664025B1F9A100AF2F48 /* LMModels+Views.swift in Sources */,
-				4E6E664825B1FD3C00AF2F48 /* LMModels+Api+User.swift in Sources */,
+				4E6E664825B1FD3C00AF2F48 /* LMModels+Api+Person.swift in Sources */,
 				4ECCEEEF250BE89B0075F921 /* FrontPageCoordinator.swift in Sources */,
 				4EBB226D255AF4F900B88079 /* ProfileScreenPostsAssembly.swift in Sources */,
 				4E2A0FD9259C877700BF0841 /* Drawable.swift in Sources */,
@@ -2500,7 +2497,6 @@
 				4E2A0FD0259BC1CB00BF0841 /* UIWindow+Ext.swift in Sources */,
 				4E91837B2566F60600702F04 /* TableInputTextView.swift in Sources */,
 				4E3FBC51258A82B100F97671 /* CommunitiesPreviewView.swift in Sources */,
-				4EF3AC90254B46BD00BEC9F1 /* ChooseCategoryUI.swift in Sources */,
 				4E5A677125C1A3D700BAA536 /* LemmyDecoder.swift in Sources */,
 				4EB4F6AA2590C6320057BDCC /* AddInstanceView.swift in Sources */,
 				4E73DF4F258BDBF2001608F2 /* Array+Ext.swift in Sources */,
@@ -2513,6 +2509,7 @@
 				4E886C3B2538BE830076B162 /* LemmyTextWithSwitch.swift in Sources */,
 				4EF31360257A7B530032B58D /* ContentScoreService.swift in Sources */,
 				4EB4F684259024B40057BDCC /* InstancesProvider.swift in Sources */,
+				4E405B3D25F156BF00057F77 /* ContentView+Ext.swift in Sources */,
 				4E107053253476EE009EABDA /* PostsFrontPageViewController.swift in Sources */,
 				4E0A8E2F255BFC0000B06AF6 /* UIApplication+Ext.swift in Sources */,
 				4E10707E2534F5EC009EABDA /* LemmyCheckLogin.swift in Sources */,
@@ -2663,6 +2660,8 @@
 				4EFA81D0256165B1008AF535 /* CommunityScreenViewModel.swift in Sources */,
 				4E886C73253CD4270076B162 /* CreateDismissTransitionDriver.swift in Sources */,
 				4E87C63C258C04BB0007FE5E /* CommunityScreenCoordinator.swift in Sources */,
+				4E405B4225F156D500057F77 /* OnboardingView.swift in Sources */,
+				4E2A5CAE25F3C0DD00537E38 /* OnboardingHostingController.swift in Sources */,
 				4EE0279E25AF93EE00D2952D /* LemmyCommunityMention.swift in Sources */,
 				4E6E66AE25B3393600AF2F48 /* LemmyContentType.swift in Sources */,
 				4EF31453258166680032B58D /* WriteCommentViewController.swift in Sources */,
@@ -2688,6 +2687,7 @@
 				4EDDFFEA25A5CFAC006FCB9F /* WriteMessageAssembly.swift in Sources */,
 				4E004E2925DC736C006B81CF /* Actionable.swift in Sources */,
 				4EBB2258255AE6E600B88079 /* ProfileScreenPostsViewController.swift in Sources */,
+				4E405B3825F1568000057F77 /* ContentView+Onboarding.swift in Sources */,
 				4E91850C256E9EAA00702F04 /* AbstractComment.swift in Sources */,
 				4E87C6A4258E68560007FE5E /* InstancesAssembly.swift in Sources */,
 				4EDD004D25A5F318006FCB9F /* InboxRepliesViewModel.swift in Sources */,
@@ -2715,7 +2715,6 @@
 				4EBB22342559EF2100B88079 /* WeakBox.swift in Sources */,
 				4E6E667525B224F600AF2F48 /* VoteGettable.swift in Sources */,
 				4EBB22192559EB3600B88079 /* StyledNavigationController.swift in Sources */,
-				4E9183D0256C011200702F04 /* ChooseCategoryViewModel.swift in Sources */,
 				4E918383256726A400702F04 /* CreatePostDataFlow.swift in Sources */,
 				650B3F402596731B00A3CB17 /* AccountsTableDataSource.swift in Sources */,
 				4EF3ACEA25502D5600BEC9F1 /* CommunityHeaderView.swift in Sources */,
@@ -2748,6 +2747,7 @@
 				4EDD001725A5E20B006FCB9F /* InboxNotificationSubmoduleProtocol.swift in Sources */,
 				4ECCEEF2250C03A40075F921 /* LemmyTabBarCoordinator.swift in Sources */,
 				4EBB2251255ADFC900B88079 /* ScrollableStackView.swift in Sources */,
+				4E405B4725F156F600057F77 /* OnboardingButton.swift in Sources */,
 				4EF3AD052550908D00BEC9F1 /* ResizableButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2930,7 +2930,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Lemmy-iOS/Lemmy-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -2955,7 +2955,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Lemmy-iOS/Lemmy-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;

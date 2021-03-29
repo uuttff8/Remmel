@@ -11,6 +11,7 @@ import Foundation
 import Combine
 
 protocol InstancePersistenceServiceProtocol: AnyObject {
+    func addNew(with link: String) -> AnyPublisher<Instance, Never>
     func fetch(ids: [Instance.ID]) -> AnyPublisher<[Instance], Never>
     func fetch(id: Instance.ID) -> AnyPublisher<Instance?, Never>
     
@@ -24,6 +25,16 @@ final class InstancePersistenceService: InstancePersistenceServiceProtocol {
         self.managedObjectContext = managedObjectContext
     }
     
+    func addNew(with link: String) -> AnyPublisher<Instance, Never> {
+        Future<Instance, Never> { promise in
+            let instance = Instance(entity: Instance.entity(), insertInto: CoreDataHelper.shared.context)
+            instance.label = link
+            CoreDataHelper.shared.save()
+            
+            promise(.success(instance))
+        }.eraseToAnyPublisher()
+    }
+    
     func getAllInstances() ->  AnyPublisher<[Instance], Never> {
         Future<[Instance], Never> { promise in
             let request = Instance.fetchRequest()
@@ -33,7 +44,7 @@ final class InstancePersistenceService: InstancePersistenceServiceProtocol {
                 let results = try self.managedObjectContext.fetch(request) as! [Instance]
                 promise(.success(results))
             } catch {
-                Logger.commonLog.error("Error while getting all instances from CoreData")
+                Logger.common.error("Error while getting all instances from CoreData")
                 return promise(.success([]))
             }
         }.eraseToAnyPublisher()
@@ -67,7 +78,7 @@ final class InstancePersistenceService: InstancePersistenceServiceProtocol {
                     let users = try self.managedObjectContext.fetch(request)
                     promise(.success(users))
                 } catch {
-                    Logger.commonLog.info("Error while fetching users = \(ids)")
+                    Logger.common.info("Error while fetching users = \(ids)")
                     promise(.success([]))
                 }
             }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 final class InstancesCoordinator: BaseCoordinator {
     
@@ -45,6 +46,17 @@ final class InstancesCoordinator: BaseCoordinator {
         accCoordinator.router.push(accCoordinator.rootViewController, isAnimated: true) {
             self.free(coordinator: accCoordinator)
         }
+    }
+    
+    func goToOnboarding(
+        onUserOwnInstance: @escaping () -> Void,
+        onLemmyMlInstance: @escaping () -> Void
+    ) {
+        let onboarding = OnboardingHostingController(rootView: OnboardingView())
+        onboarding.onLemmyMlInstance = onLemmyMlInstance
+        onboarding.onUserOwnInstance = onUserOwnInstance
+        
+        self.router.present(onboarding, animated: true)
     }
 }
 

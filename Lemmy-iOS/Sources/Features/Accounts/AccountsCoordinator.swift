@@ -44,11 +44,11 @@ final class AccountsCoordinator: BaseCoordinator {
     func goToFrontPage() {
         
         if userAccountService.isAuthorized {
-            Logger.commonLog.info("Enter to instance with account")
+            Logger.common.info("Enter to instance with account")
             
             transitionToFrontPage()
         } else {
-            Logger.commonLog.info("Enter to instance as guest")
+            Logger.common.info("Enter to instance as guest")
             
             transitionToFrontPage()
         }

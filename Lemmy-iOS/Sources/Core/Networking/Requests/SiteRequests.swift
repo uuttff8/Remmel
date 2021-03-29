@@ -15,11 +15,5 @@ extension RequestsManager {
     ) -> AnyPublisher<LMModels.Api.Site.GetSiteResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Site.getSite.endpoint,
                               parameters: parameters)
-    }
-    
-    func asyncListCategories(
-        parameters: LMModels.Api.Site.ListCategories
-    ) -> AnyPublisher<LMModels.Api.Site.ListCategoriesResponse, LemmyGenericError> {
-        asyncRequestDecodable(path: WSEndpoint.Site.listCategories.endpoint, parameters: parameters)
-    }
+    }    
 }

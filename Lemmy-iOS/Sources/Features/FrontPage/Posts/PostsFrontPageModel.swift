@@ -85,6 +85,7 @@ class PostsFrontPageModel: NSObject {
                                                     limit: 50,
                                                     communityId: nil,
                                                     communityName: nil,
+                                                    savedOnly: false,
                                                     auth: LemmyShareData.shared.jwtToken)
         
         ApiManager.requests.asyncGetPosts(parameters: parameters)
@@ -104,6 +105,7 @@ class PostsFrontPageModel: NSObject {
                                                     limit: 50,
                                                     communityId: nil,
                                                     communityName: nil,
+                                                    savedOnly: false,
                                                     auth: LemmyShareData.shared.jwtToken)
         
         ApiManager.requests.asyncGetPosts(parameters: parameters)

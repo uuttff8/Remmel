@@ -10,9 +10,9 @@ import Foundation
 
 extension LMModels {
     enum Aggregates {
-        struct UserAggregates: Identifiable, Codable {
+        struct PersonAggregates: Identifiable, Codable {
             let id: Int
-            let userId: Int
+            let personId: Int
             let postCount: Int
             let postScore: Int
             let commentCount: Int
@@ -20,7 +20,7 @@ extension LMModels {
             
             enum CodingKeys: String, CodingKey {
                 case id
-                case userId = "user_id"
+                case personId = "person_id"
                 case postCount = "post_count"
                 case postScore = "post_score"
                 case commentCount = "comment_count"

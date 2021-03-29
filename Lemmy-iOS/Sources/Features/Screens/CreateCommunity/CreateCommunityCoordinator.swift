@@ -27,12 +27,6 @@ class CreateCommunityCoordinator: Coordinator {
         navigationController?.presentationController?.delegate = rootViewController
     }
 
-    func goToChoosingCommunity(choosed: @escaping ((LMModels.Source.Category) -> Void)) {
-        let choosingVc = ChooseCategoryViewController()
-        choosingVc.selectedCategory = choosed
-        navigationController?.pushViewController(choosingVc, animated: true)
-    }
-
     func goToCommunity(comm: LMModels.Views.CommunityView) {
         self.rootViewController.dismiss(animated: true)
         

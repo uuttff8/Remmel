@@ -129,6 +129,7 @@ extension LMModels.Api {
             let limit: Int?
             let communityId: Int?
             let communityName: String?
+            let savedOnly: Bool
             let auth: String?
             
             enum CodingKeys: String, CodingKey {
@@ -136,6 +137,7 @@ extension LMModels.Api {
                 case sort, page, limit, auth
                 case communityId = "community_id"
                 case communityName = "community_name"
+                case savedOnly = "saved_only"
             }
         }
         

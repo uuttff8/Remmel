@@ -72,7 +72,7 @@ class CommentContentView: UIView {
     
     func updateForCreateCommentLike(comment: LMModels.Views.CommentView) {
         guard let setting = currentSetting else {
-            Logger.commonLog.error("Could not determine comment cell setting, so not updating comment like")
+            Logger.common.error("Could not determine comment cell setting, so not updating comment like")
             return
         }
         

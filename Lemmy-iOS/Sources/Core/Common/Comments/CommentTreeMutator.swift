@@ -41,7 +41,7 @@ class CommentTreeMutator {
                 // do nothing, because:
                 // creatorComment not appear in prebuild for some reason like internet issues
                 // so dont show reply, user will this comment if he/she reloads it
-                Logger.commonLog.info("New comment created with creatorId, but that parent comment is not found")
+                Logger.common.info("New comment created with creatorId, but that parent comment is not found")
                 return // no insert happen
             }
             

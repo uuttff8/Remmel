@@ -11,42 +11,41 @@ import Foundation
 extension LMModels {
     
     enum Source {
-        struct UserSafe: Identifiable, Codable, Hashable, Equatable {
+        struct PersonSafe: Identifiable, Codable, Hashable, Equatable {
             let id: Int
             let name: String
             let preferredUsername: String?
             let avatar: URL?
-            let admin: Bool
             let banned: Bool
             let published: Date
             let updated: Date?
-            let matrixUserId: String?
             let actorId: URL
             let bio: String?
             let local: Bool
             let banner: URL?
             let deleted: Bool
+            let inboxUrl: URL
+            let sharedInboxURL: URL
+            let admin: Bool
+            let matrixUserId: String?
             
             enum CodingKeys: String, CodingKey {
                 case id, name
                 case preferredUsername = "preferred_username"
-                case avatar, admin, banned, published, updated
-                case matrixUserId = "matrix_user_id"
+                case avatar, banned, published, updated
                 case actorId = "actor_id"
                 case bio, local, banner, deleted
+                case inboxUrl = "inbox_url"
+                case sharedInboxURL = "shared_inbox_url"
+                case admin
+                case matrixUserId = "matrix_user_id"
             }
         }
         
-        struct UserSafeSettings: Identifiable, Codable {
+        struct LocalUserSettings: Identifiable, Codable, Hashable, Equatable {
             let id: Int
-            let name: String
-            let preferredUsername: String?
+            let personId: Int
             let email: String?
-            let avatar: String?
-            let admin: Bool
-            let banned: Bool
-            let published: Date
-            let updated: Date?
             let showNsfw: Bool
             let theme: String
             let defaultSortType: LMModels.Others.SortType
@@ -54,35 +53,17 @@ extension LMModels {
             let lang: String
             let showAvatars: Bool
             let sendNotificationsToEmail: Bool
-            let matrixUserId: String?
-            let actorId: URL
-            let bio: String?
-            let local: Bool
-            let lastRefreshedAt: String
-            let banner: String?
-            let deleted: Bool
             
             enum CodingKeys: String, CodingKey {
-                case id, name
-                case preferredUsername = "preferred_username"
-                case email, avatar, admin, banned
-                case published, updated
-                case showNsfw = "show_nsfw"
-                case theme
+                case id, personId = "person_id", email
+                case showNsfw = "show_nsfw", theme
                 case defaultSortType = "default_sort_type"
                 case defaultListingType = "default_listing_type"
-                case lang
-                case showAvatars = "show_avatars"
+                case lang, showAvatars = "show_avatars"
                 case sendNotificationsToEmail = "send_notifications_to_email"
-                case matrixUserId = "matrix_user_id"
-                case actorId = "actor_id"
-                case bio, local
-                case lastRefreshedAt = "last_refreshed_at"
-                case banner
-                case deleted
             }
         }
-        
+
         struct Site: Identifiable, Codable {
             let id: Int
             let name: String
@@ -195,13 +176,13 @@ extension LMModels {
         
         struct PasswordResetRequest: Identifiable, Codable {
             let id: Int
-            let userId: Int
+            let localPersonId: Int
             let tokenEncrypted: String
             let published: Date
             
             enum CodingKeys: String, CodingKey {
                 case id
-                case userId = "user_id"
+                case localPersonId = "local_person_id"
                 case tokenEncrypted = "token_encrypted"
                 case published
             }
@@ -209,7 +190,7 @@ extension LMModels {
         
         struct ModRemovePost: Identifiable, Codable {
             let id: Int
-            let modUserId: Int
+            let modPersonId: Int
             let postId: Int
             let reason: String?
             let removed: Bool
@@ -217,7 +198,7 @@ extension LMModels {
             
             enum CodingKeys: String, CodingKey {
                 case id
-                case modUserId = "mod_user_id"
+                case modPersonId = "mod_person_id"
                 case postId = "post_id"
                 case reason, removed
                 case when = "when_"
@@ -226,14 +207,14 @@ extension LMModels {
         
         struct ModLockPost: Identifiable, Codable {
             let id: Int
-            let modUserId: Int
+            let modPersonId: Int
             let postId: Int
             let locked: Bool?
             let when: String
             
             enum CodingKeys: String, CodingKey {
                 case id
-                case modUserId = "mod_user_id"
+                case modPersonId = "mod_person_id"
                 case postId = "post_id"
                 case locked
                 case when = "when_"
@@ -242,14 +223,14 @@ extension LMModels {
         
         struct ModStickyPost: Identifiable, Codable {
             let id: Int
-            let modUserId: Int
+            let modPersonId: Int
             let postId: Int
             let stickied: Bool
             let when: String
             
             enum CodingKeys: String, CodingKey {
                 case id
-                case modUserId = "mod_user_id"
+                case modPersonId = "mod_person_id"
                 case postId = "post_id"
                 case stickied
                 case when = "when_"
@@ -258,7 +239,7 @@ extension LMModels {
         
         struct ModRemoveComment: Identifiable, Codable {
             let id: Int
-            let modUserId: Int
+            let modPersonId: Int
             let commentId: Int
             let reason: String?
             let removed: Bool?
@@ -266,7 +247,7 @@ extension LMModels {
             
             enum CodingKeys: String, CodingKey {
                 case id
-                case modUserId = "mod_user_id"
+                case modPersonId = "mod_person_id"
                 case commentId = "comment_id"
                 case removed, reason
                 case when = "when_"
@@ -275,7 +256,7 @@ extension LMModels {
         
         struct ModRemoveCommunity: Identifiable, Codable {
             let id: Int
-            let modUserId: Int
+            let modPersonId: Int
             let communityId: Int
             let reason: String?
             let removed: Bool?
@@ -284,7 +265,7 @@ extension LMModels {
             
             enum CodingKeys: String, CodingKey {
                 case id
-                case modUserId = "mod_user_id"
+                case modPersonId = "mod_person_id"
                 case communityId = "community_id"
                 case expires, removed, reason
                 case when = "when_"
@@ -293,8 +274,8 @@ extension LMModels {
         
         struct ModBanFromCommunity: Identifiable, Codable {
             let id: Int
-            let modUserId: Int
-            let otherUserId: Int
+            let modPersonId: Int
+            let otherPersonId: Int
             let communityId: Int
             let reason: String?
             let banned: Bool?
@@ -303,8 +284,8 @@ extension LMModels {
             
             enum CodingKeys: String, CodingKey {
                 case id
-                case modUserId = "mod_user_id"
-                case otherUserId = "other_user_id"
+                case modPersonId = "mod_person_id"
+                case otherPersonId = "other_person_id"
                 case communityId = "community_id"
                 case expires, banned, reason
                 case when = "when_"
@@ -313,8 +294,8 @@ extension LMModels {
         
         struct ModBan: Identifiable, Codable {
             let id: Int
-            let modUserId: Int
-            let otherUserId: Int
+            let modPersonId: Int
+            let otherPersonId: Int
             let reason: String?
             let banned: Bool?
             let expires: String?
@@ -322,8 +303,8 @@ extension LMModels {
             
             enum CodingKeys: String, CodingKey {
                 case id
-                case modUserId = "mod_user_id"
-                case otherUserId = "other_user_id"
+                case modPersonId = "mod_person_id"
+                case otherPersonId = "other_person_id"
                 case expires, banned, reason
                 case when = "when_"
             }
@@ -331,16 +312,16 @@ extension LMModels {
         
         struct ModAddCommunity: Identifiable, Codable {
             let id: Int
-            let modUserId: Int
-            let otherUserId: Int
+            let modPersonId: Int
+            let otherPersonId: Int
             let communityId: Int
             let removed: Bool?
             let when: String
             
             enum CodingKeys: String, CodingKey {
                 case id
-                case modUserId = "mod_user_id"
-                case otherUserId = "other_user_id"
+                case modPersonId = "mod_person_id"
+                case otherPersonId = "other_person_id"
                 case communityId = "community_id"
                 case removed
                 case when = "when_"
@@ -349,15 +330,15 @@ extension LMModels {
         
         struct ModAdd: Identifiable, Codable {
             let id: Int
-            let modUserId: Int
-            let otherUserId: Int
+            let modPersonId: Int
+            let otherPersonId: Int
             let removed: Bool?
             let when: String
             
             enum CodingKeys: String, CodingKey {
                 case id
-                case modUserId = "mod_user_id"
-                case otherUserId = "other_user_id"
+                case modPersonId = "mod_person_id"
+                case otherPersonId = "other_person_id"
                 case removed
                 case when = "when_"
             }
@@ -368,7 +349,6 @@ extension LMModels {
             let name: String
             let title: String
             let description: String?
-            let categoryId: Int
             let creatorId: Int
             let removed: Bool
             let published: Date
@@ -383,7 +363,6 @@ extension LMModels {
             enum CodingKeys: String, CodingKey {
                 case id
                 case name, title, description
-                case categoryId = "category_id"
                 case creatorId = "creator_id"
                 case removed, published, updated, deleted
                 case nsfw
@@ -440,13 +419,8 @@ extension LMModels {
                 case local
             }
         }
-        
-        struct Category: Identifiable, Codable, Equatable, Hashable {
-            let id: Int
-            let name: String
-        }
-        
-        struct UserMention: Identifiable, Codable {
+                
+        struct PersonMention: Identifiable, Codable {
             let id: Int
             let recipientId: Int
             let commentId: Int

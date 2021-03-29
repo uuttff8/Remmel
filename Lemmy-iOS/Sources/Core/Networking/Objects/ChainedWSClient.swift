@@ -42,7 +42,7 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
     private let decoder = LemmyDecoder()
     
     private let reconnecting: Bool
-    private let nwMonitor = NWPathMonitor()
+    private var isConnected = false
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -51,12 +51,12 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
         super.init()
         
         self.webSocketTask = self.getNewWsTask()
-        Logger.commonLog.info("URLSession webSocketTask opened to \(wsEndpoint)")
+        Logger.common.info("URLSession webSocketTask opened to \(wsEndpoint)")
     }
     
     @discardableResult
     func connect() -> WSClientProtocol {
-        Logger.commonLog.info("Open connection at \(LemmyShareData.shared.currentInstanceUrl)")
+        Logger.common.info("Open connection at \(LemmyShareData.shared.currentInstanceUrl)")
         self.webSocketTask?.resume()
         self.onConnected?()
         receiveMessages()
@@ -67,12 +67,12 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
     func send<T: Codable>(_ op: String, parameters: T) {
         guard let message = self.makeRequestString(url: op, data: parameters) else { return }
         
-        Logger.commonLog.info(message)
+        Logger.common.info(message)
         self.reconnectIfNeeded()
         
         self.webSocketTask?.send(.string(message)) { (error) in
             guard let error = error else { return }
-            Logger.commonLog.error("Socket send failure: \(error)")
+            Logger.common.error("Socket send failure: \(error)")
             self.reconnectIfNeeded()
         }
     }
@@ -87,10 +87,10 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
     
     func reconnectIfNeeded() {
                 
-        if self.webSocketTask?.state != .running  {
+        if self.webSocketTask?.state != .running &&  !self.isConnected {
         
             if self.reconnecting {
-                Logger.commonLog.info("Trying to reconnect at \(LemmyShareData.shared.currentInstanceUrl)")
+                Logger.common.info("Trying to reconnect at \(LemmyShareData.shared.currentInstanceUrl)")
 
                 //            if self.nwMonitor.currentPath.status == .satisfied {
                 self.webSocketTask = getNewWsTask()
@@ -104,12 +104,18 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
     }
     
     func decodeWsType<T: Codable>(_ type: T.Type, data: Data) -> T? {
-        guard let data = try? LemmyJSONDecoder().decode(
-            RequestsManager.ApiResponse<T>.self,
-            from: data
-        ) else { return nil }
-        
-        return data.data
+        do {
+            let data = try LemmyJSONDecoder().decode(
+               RequestsManager.ApiResponse<T>.self,
+               from: data
+           )
+            
+            return data.data
+        } catch {
+            Logger.common.error("Failed to parse \(RequestsManager.ApiResponse<T>.self)")
+            debugPrint(error)
+            return nil
+        }
     }
     
     private func receiveMessages() {
@@ -117,7 +123,7 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
             switch result {
             case .failure(let error):
                 self?.onError.value = error
-                Logger.commonLog.error("SocketReceiveFailure: \(error.localizedDescription)")
+                Logger.common.error("SocketReceiveFailure: \(error.localizedDescription)")
                 self?.webSocketTask?.cancel(with: .goingAway, reason: nil)
                 
                 self?.reconnectIfNeeded()
@@ -131,21 +137,21 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
                     case .success(let operation):
                         self?.onTextMessage.value = (operation, messageData)
                     case .failure(let error):
-                        Logger.commonLog.error(error.localizedDescription)
+                        Logger.common.error(error.localizedDescription)
                     }
                 }
                 
-                Logger.commonLog.info("WebSocket task received message \(message)")
+                Logger.common.info("WebSocket task received message \(message)")
                 self?.receiveMessages()
             }
         }
     }
     
     private func ping() {
-        Logger.commonLog.info("PING Websocket")
+        Logger.common.info("PING Websocket")
         webSocketTask?.sendPing { [weak self] error in
             if let error = error {
-                Logger.commonLog.error("SocketPingFailure: \(error.localizedDescription)")
+                Logger.common.error("SocketPingFailure: \(error.localizedDescription)")
                 self?.reconnectIfNeeded()
                 return
             }
@@ -162,7 +168,7 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
             encoder.outputFormatting = .prettyPrinted
             guard let orderJsonData = try? encoder.encode(data)
             else {
-                Logger.commonLog.error("failed to encode data \(#file) \(#line)")
+                Logger.common.error("failed to encode data \(#file) \(#line)")
                 return nil
             }
             let parameters = String(data: orderJsonData, encoding: .utf8)!
@@ -190,9 +196,23 @@ extension ChainedWSClient: URLSessionWebSocketDelegate {
     func urlSession(
         _ session: URLSession,
         webSocketTask: URLSessionWebSocketTask,
+        didOpenWithProtocol protocol: String?
+    ) {
+        self.isConnected = true
+    }
+    func urlSession(
+        _ session: URLSession,
+        webSocketTask: URLSessionWebSocketTask,
         didCloseWith closeCode: URLSessionWebSocketTask.CloseCode,
         reason: Data?
     ) {
-        self.reconnectIfNeeded()
+        self.isConnected = false
+    }
+    func urlSession(
+        _ session: URLSession,
+        task: URLSessionTask,
+        didCompleteWithError: Error?
+    ) {
+        self.isConnected = false
     }
 }

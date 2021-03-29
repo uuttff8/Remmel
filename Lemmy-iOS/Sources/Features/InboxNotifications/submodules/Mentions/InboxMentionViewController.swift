@@ -127,7 +127,7 @@ extension InboxMentionsViewController: UserMentionCellViewDelegate {
         self.coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
-    func postNameTapped(in userMention: LMModels.Views.UserMentionView) {
+    func postNameTapped(in userMention: LMModels.Views.PersonMentionView) {
         
     }
     
@@ -135,7 +135,7 @@ extension InboxMentionsViewController: UserMentionCellViewDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        userMention: LMModels.Views.UserMentionView
+        userMention: LMModels.Views.PersonMentionView
     ) {
         self.contentScoreService.voteUserMention(
             scoreView: scoreView,
@@ -145,21 +145,21 @@ extension InboxMentionsViewController: UserMentionCellViewDelegate {
         )
     }
     
-    func showContext(in comment: LMModels.Views.UserMentionView) {
+    func showContext(in comment: LMModels.Views.PersonMentionView) {
         
     }
     
-    func reply(to userMention: LMModels.Views.UserMentionView) {
+    func reply(to userMention: LMModels.Views.PersonMentionView) {
         self.coordinator?.goToWriteComment(postSource: userMention.post, parrentComment: userMention.comment) {
             LMMMessagesToast.showSuccessCreateComment()
         }
     }
     
-    func onLinkTap(in userMention: LMModels.Views.UserMentionView, url: URL) {
+    func onLinkTap(in userMention: LMModels.Views.PersonMentionView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }
         
-    func showMoreAction(in userMention: LMModels.Views.UserMentionView) {
+    func showMoreAction(in userMention: LMModels.Views.PersonMentionView) {
         
         if let userMention = self.tableManager.viewModels.getElement(by: userMention.id) {
             guard let coordinator = coordinator else { return }

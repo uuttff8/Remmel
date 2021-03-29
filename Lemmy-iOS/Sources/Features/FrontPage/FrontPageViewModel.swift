@@ -36,7 +36,7 @@ class FrontPageViewModel: FrontPageViewModelProtocol {
         )
         
         guard let jwtToken = LemmyShareData.shared.jwtToken else {
-            Logger.commonLog.info("No token at UserJoin")
+            Logger.common.info("No token at UserJoin")
             return
         }
         
@@ -58,7 +58,7 @@ enum FrontPage {
     enum ProfileAction {
         
         struct ViewModel {
-            let user: LMModels.Source.UserSafeSettings
+            let user: LMModels.Views.LocalUserSettingsView
         }
     }
 }

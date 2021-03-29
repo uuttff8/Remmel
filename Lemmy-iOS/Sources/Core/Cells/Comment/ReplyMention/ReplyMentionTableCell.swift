@@ -48,7 +48,7 @@ class ReplyMentionTableCell: UITableViewCell, ContentFocusable {
         commentContentView.configure(reply: reply)
     }
     
-    func configure(with mention: LMModels.Views.UserMentionView, level: Int, appearance: Appearance = Appearance()) {
+    func configure(with mention: LMModels.Views.PersonMentionView, level: Int, appearance: Appearance = Appearance()) {
         self.appearance = appearance
         
         commentContentView.configure(mention: mention)

@@ -34,7 +34,7 @@ protocol ShowMoreHandlerServiceProtocol {
     func showMoreInUserMention(
         on viewController: InboxMentionsViewController,
         coordinator: BaseCoordinator,
-        mention: LMModels.Views.UserMentionView
+        mention: LMModels.Views.PersonMentionView
 //        updateCompletion: @escaping ((LMModels.Views.CommentView) -> Void)
     )
 }
@@ -151,7 +151,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
     func showMoreInUserMention(
         on viewController: InboxMentionsViewController,
         coordinator: BaseCoordinator,
-        mention: LMModels.Views.UserMentionView
+        mention: LMModels.Views.PersonMentionView
 //        updateCompletion: @escaping ((LMModels.Views.CommentView) -> Void)
     ) {
         let alertController = createActionSheetController(vc: viewController)

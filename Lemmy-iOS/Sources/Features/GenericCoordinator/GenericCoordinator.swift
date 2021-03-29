@@ -133,7 +133,7 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
             myCoordinator.router.setRoot(myCoordinator, isAnimated: true)
             
             guard let appWindow = UIApplication.shared.windows.first else {
-                Logger.commonLog.emergency("App must have only one `root` window")
+                Logger.common.emergency("App must have only one `root` window")
                 return
             }
             
@@ -142,7 +142,7 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
                 animated: true
             )
         } else {
-            Logger.commonLog.emergency("At going to instances, we must logout user!")
+            Logger.common.emergency("At going to instances, we must logout user!")
             fatalError("Unexpexted error, must not be happen")
         }
     }

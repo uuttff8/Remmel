@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-private let log = Logger.commonLog
+private let log = Logger.common
 
 @objc(Instance)
 public class Instance: NSManagedObject, Codable, Identifiable {

@@ -161,7 +161,7 @@ class ProfileScreenViewController: UIViewController {
         }
         
         guard let coordinator = coordinator else {
-            Logger.commonLog.error("Coordinator not found")
+            Logger.common.error("Coordinator not found")
             return
         }
         

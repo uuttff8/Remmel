@@ -93,7 +93,7 @@ final class HttpLemmyClient: HTTPClientProvider {
     ) {
         guard let url = URL(string: url) else { return }
         guard let jwt = LoginData.shared.jwtToken else {
-            Logger.commonLog.error("JWT token is not provided")
+            Logger.common.error("JWT token is not provided")
             return
         }
         
@@ -119,7 +119,7 @@ final class HttpLemmyClient: HTTPClientProvider {
                 Logger.log(data: data, response: (response as? HTTPURLResponse), error: error)
                 
                 if let data = data {
-                    Logger.commonLog.info(String(data: data, encoding: .utf8))
+                    Logger.common.info(String(data: data, encoding: .utf8))
                     completion(.success(data))
                 } else if let error = error {
                     completion(.failure(.string(error as! String)))

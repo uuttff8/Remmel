@@ -67,7 +67,7 @@ class ReplyMentionCellView: UIView {
         )
     }
     
-    func configure(mention: LMModels.Views.UserMentionView) {
+    func configure(mention: LMModels.Views.PersonMentionView) {
         setupTargets(with: mention)
 
         headerView.bind(
@@ -158,7 +158,7 @@ class ReplyMentionCellView: UIView {
         }
     }
     
-    private func setupTargets(with mention: LMModels.Views.UserMentionView) {
+    private func setupTargets(with mention: LMModels.Views.PersonMentionView) {
         
         // header view
         headerView.communityButtonTap = { [weak self] in

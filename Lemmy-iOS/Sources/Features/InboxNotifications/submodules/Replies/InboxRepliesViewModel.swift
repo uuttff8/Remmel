@@ -56,11 +56,11 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
         self.paginationState = 1
         
         guard let jwt = userAccountService.jwtToken else {
-            Logger.commonLog.error("No jwt token found")
+            Logger.common.error("No jwt token found")
             return
         }
         
-        let params = LMModels.Api.User.GetReplies(sort: .active,
+        let params = LMModels.Api.Person.GetReplies(sort: .active,
                                                   page: paginationState,
                                                   limit: 50,
                                                   unreadOnly: false,
@@ -79,11 +79,11 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
         self.paginationState += 1
         
         guard let jwt = userAccountService.jwtToken else {
-            Logger.commonLog.error("No jwt token found")
+            Logger.common.error("No jwt token found")
             return
         }
         
-        let params = LMModels.Api.User.GetReplies(sort: .active,
+        let params = LMModels.Api.Person.GetReplies(sort: .active,
                                                        page: paginationState,
                                                        limit: 50,
                                                        unreadOnly: false,

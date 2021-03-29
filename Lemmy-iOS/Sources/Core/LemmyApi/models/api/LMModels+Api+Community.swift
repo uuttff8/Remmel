@@ -34,13 +34,11 @@ extension LMModels.Api {
             let description: String?
             let icon: String?
             let banner: String?
-            let categoryId: Int
-            let nsfw: Bool
+            let nsfw: Bool?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case name, title, description, icon, banner
-                case categoryId = "category_id"
                 case nsfw, auth
             }
         }
@@ -72,7 +70,7 @@ extension LMModels.Api {
         
         struct BanFromCommunity: Codable {
             let communityId: Int
-            let userId: Int
+            let personId: Int
             let ban: Bool
             let removeData: Bool // Removes/Restores their comments and posts for that community
             let reason: String?
@@ -81,7 +79,7 @@ extension LMModels.Api {
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
-                case userId = "user_id"
+                case personId = "person_id"
                 case ban
                 case removeData = "remove_data"
                 case reason, expires, auth
@@ -89,24 +87,24 @@ extension LMModels.Api {
         }
         
         struct BanFromCommunityResponse: Codable {
-            let userView: LMModels.Views.UserViewSafe
+            let personView: LMModels.Views.PersonViewSafe
             let banned: Bool
             
             enum CodingKeys: String, CodingKey {
-                case userView = "user_view"
+                case personView = "person_view"
                 case banned
             }
         }
         
         struct AddModToCommunity: Codable {
             let communityId: Int
-            let userId: Int
+            let personId: Int
             let added: Bool
             let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
-                case userId = "user_id"
+                case personId = "person_id"
                 case added, auth
             }
         }
@@ -124,13 +122,11 @@ extension LMModels.Api {
             let description: String?
             let icon: String?
             let banner: String?
-            let categoryId: Int
-            let nsfw: Bool
+            let nsfw: Bool?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
-                case categoryId = "category_id"
                 case title, description, icon, banner, nsfw, auth
             }
         }
@@ -180,12 +176,12 @@ extension LMModels.Api {
         
         struct TransferCommunity: Codable {
             let communityId: Int
-            let userId: Int
+            let personId: Int
             let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
-                case userId = "user_id"
+                case personId = "person_id"
                 case auth
             }
         }

@@ -65,9 +65,10 @@ final class AddInstanceViewController: UIViewController {
     @objc
     func addBarButtonTapped(_ sender: UIBarButtonItem) {
         guard let instanceUrl = enteredInstanceUrl else {
-            Logger.commonLog.error("Entered instance url is nil, cannot save to CoreData")
+            Logger.common.error("Entered instance url is nil, cannot save to CoreData")
             return
         }
+        
         let instance = Instance(entity: Instance.entity(), insertInto: CoreDataHelper.shared.context)
         instance.label = instanceUrl
         CoreDataHelper.shared.save()

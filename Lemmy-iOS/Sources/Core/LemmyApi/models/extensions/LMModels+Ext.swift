@@ -30,7 +30,7 @@ extension LMModels.Views.CommentView {
     }
 }
 
-extension LMModels.Source.UserSafe {
+extension LMModels.Source.PersonSafe {
     var originalInstance: String {
         extractInstance(instance: self.actorId)
     }
@@ -42,10 +42,10 @@ extension LMModels.Source.CommunitySafe {
     }
 }
 
-extension LMModels.Source.UserSafeSettings {
-    var originalInstance: String {
-        extractInstance(instance: self.actorId)
-    }
+extension LMModels.Source.LocalUserSettings {
+//    var originalInstance: String {
+//        extractInstance(instance: self.actorId)
+//    }
 }
 
 private func extractInstance(instance url: URL) -> String {

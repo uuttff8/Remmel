@@ -10,10 +10,33 @@ import Foundation
 import KeychainSwift
 
 extension UserDefaults {
-    static let appSuiteName = "userDefaults.uuttff8.LemmyiOS"
-
+    enum Key {
+        static let jwt = "jwt"
+        static let userId = "userId"
+        static let userdata = "userdata"
+        static let currentInstanceUrl = "currentInstanceUrl"
+        static let blockedUsersId = "blockedUsersId"
+        
+        static let needsAppOnboarding = "needsAppOnboarding"
+    }
+    
+    static let userSuiteName = "userDefaults.uuttff8.LemmyiOS"
+    static let appSuiteName = "userDefaults.uuttff8.LemmyiOS.user"
+    
+    static var userShared: UserDefaults {
+        let userDefaults = UserDefaults(suiteName: UserDefaults.userSuiteName)!
+        
+        return userDefaults
+    }
+    
     static var appShared: UserDefaults {
-        UserDefaults(suiteName: UserDefaults.appSuiteName)!
+        let userDefaults = UserDefaults(suiteName: UserDefaults.appSuiteName)!
+        
+        userDefaults.register(defaults: [
+            Key.needsAppOnboarding: true
+        ])
+        
+        return userDefaults
     }
 }
 
@@ -21,7 +44,9 @@ class LoginData {
     static let shared = LoginData()
 
     private let keychain = KeychainSwift()
-    private let userDefaults = UserDefaults.appShared
+    
+    let userUserDefaults = UserDefaults.userShared
+    let appUserDefaults = UserDefaults.appShared
 
     func login(jwt: String) {
         self.jwtToken = jwt
@@ -30,7 +55,7 @@ class LoginData {
     func logout() {
         ApiManager.chainedWsCLient.close()
         self.clear()
-        userDefaults.resetDefaults()
+        userUserDefaults.resetDefaults()
         URLCache.shared.removeAllCachedResponses()
     }
     
@@ -38,7 +63,7 @@ class LoginData {
     func userLogout() {
         let currInstance = LemmyShareData.shared.currentInstanceUrl
         self.clear()
-        userDefaults.resetDefaults()
+        userUserDefaults.resetDefaults()
         URLCache.shared.removeAllCachedResponses()
         LemmyShareData.shared.currentInstanceUrl = currInstance
     }
@@ -48,17 +73,17 @@ class LoginData {
     }
 
     var jwtToken: String? {
-        get { keychain.get(LemmyShareData.Key.jwt) }
-        set { keychain.set(newValue!, forKey: LemmyShareData.Key.jwt) }
+        get { keychain.get(UserDefaults.Key.jwt) }
+        set { keychain.set(newValue!, forKey: UserDefaults.Key.jwt) }
     }
 
-    var userId: LMModels.Source.UserSafeSettings.ID? {
-        get { userDefaults.integer(forKey: LemmyShareData.Key.userId) }
-        set { userDefaults.set(newValue, forKey: LemmyShareData.Key.userId) }
+    var userId: LMModels.Source.LocalUserSettings.ID? {
+        get { userUserDefaults.integer(forKey: UserDefaults.Key.userId) }
+        set { userUserDefaults.set(newValue, forKey: UserDefaults.Key.userId) }
     }
 
     func clear() {
-        userDefaults.removeSuite(named: UserDefaults.appSuiteName)
+        userUserDefaults.removeSuite(named: UserDefaults.userSuiteName)
         keychain.clear()
     }
 }

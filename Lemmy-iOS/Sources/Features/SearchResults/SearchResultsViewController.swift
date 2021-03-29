@@ -258,7 +258,7 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
             let community = data[indexPath.row].community
             self.coordinator?.goToCommunityScreen(communityId: community.id, communityName: community.name)
         case .users(let data):
-            let user = data[indexPath.row].user
+            let user = data[indexPath.row].person
             self.coordinator?.goToProfileScreen(userId: user.id, username: user.name)
         }
     }

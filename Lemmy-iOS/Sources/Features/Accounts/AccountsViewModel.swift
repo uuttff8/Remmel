@@ -50,7 +50,7 @@ final class AccountsViewModel: AccountsViewModelProtocol {
     }
     
     func doAccountUserSelect(request: AccountsDataFlow.AccountSelected.Request) {
-        let parameters = LMModels.Api.User.Login(
+        let parameters = LMModels.Api.Person.Login(
             usernameOrEmail: request.account.login,
             password: request.account.password
         )
@@ -73,15 +73,15 @@ final class AccountsViewModel: AccountsViewModelProtocol {
     }
         
     private func fetchUser(with jwtToken: String) {
-        self.loadUserOnSuccessResponse(jwt: jwtToken) { (currentUser: LMModels.Source.UserSafeSettings) in
+        self.loadUserOnSuccessResponse(jwt: jwtToken) { (currentUser: LMModels.Views.LocalUserSettingsView) in
             self.shareData.userdata = currentUser
             self.viewController?.displayAccountSelected(viewModel: .init(myUser: currentUser))
         }
     }
-    
+        
     private func loadUserOnSuccessResponse(
         jwt: String,
-        completion: @escaping ((LMModels.Source.UserSafeSettings) -> Void)
+        completion: @escaping ((LMModels.Views.LocalUserSettingsView) -> Void)
     ) {
         self.shareData.loginData.login(jwt: jwt)
         
@@ -94,7 +94,7 @@ final class AccountsViewModel: AccountsViewModelProtocol {
             }, receiveValue: { (response) in
                 guard let myUser = response.myUser
                 else {
-                    Logger.commonLog.error("There is no current user in response")
+                    Logger.common.error("There is no current user in response")
                     return
                 }
                 
@@ -126,7 +126,7 @@ enum AccountsDataFlow {
         }
         
         struct ViewModel {
-            let myUser: LMModels.Source.UserSafeSettings
+            let myUser: LMModels.Views.LocalUserSettingsView
         }
     }
     

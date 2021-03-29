@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let log = Logger.commonLog
+private let log = Logger.common
 
 protocol InstancesTableDataSourceDelegate: AnyObject {
     func tableDidRequestDelete(_ instance: Instance)
