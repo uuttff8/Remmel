@@ -131,7 +131,8 @@ enum ProfileSettings {
     
     enum UpdateProfileSettings {
         struct Request {
-            let data: ProfileSettingsViewController.TableFormData // FIXME: this type should be out of ViewController, by arch
+            // FIXME: this type should be out of ViewController, by arch
+            let data: ProfileSettingsViewController.TableFormData
         }
         
         struct ViewModel {

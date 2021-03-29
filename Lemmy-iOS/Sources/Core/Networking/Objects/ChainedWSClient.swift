@@ -104,12 +104,18 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
     }
     
     func decodeWsType<T: Codable>(_ type: T.Type, data: Data) -> T? {
-        guard let data = try? LemmyJSONDecoder().decode(
-            RequestsManager.ApiResponse<T>.self,
-            from: data
-        ) else { return nil }
-        
-        return data.data
+        do {
+            let data = try LemmyJSONDecoder().decode(
+               RequestsManager.ApiResponse<T>.self,
+               from: data
+           )
+            
+            return data.data
+        } catch {
+            Logger.commonLog.error("Failed to parse \(RequestsManager.ApiResponse<T>.self)")
+            debugPrint(error)
+            return nil
+        }
     }
     
     private func receiveMessages() {
