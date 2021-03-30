@@ -38,7 +38,7 @@ class LemmyiOSTests: XCTestCase {
         self.measure {
             for _ in (0..<numberOfIterations) {
                 let urlSession = URLSession(configuration: .default)
-                let ws = urlSession.webSocketTask(with: URL(string: "wss://dev.lemmy.ml/api/v1/ws")!)
+                let ws = urlSession.webSocketTask(with: URL(string: "wss://dev.lemmy.ml/api/v3/ws")!)
                 
                 ws.sendPing { _ in }
                 
