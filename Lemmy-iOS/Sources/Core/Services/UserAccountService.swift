@@ -10,7 +10,7 @@ import Foundation
 
 protocol UserAccountSerivceProtocol {
     var currentUser: LMModels.Views.LocalUserSettingsView? { get set }
-    var currentUserID: LMModels.Views.LocalUserSettingsView.ID? { get }
+    var currentUserID: LMModels.Source.LocalUserSettings.ID? { get }
     var isAuthorized: Bool { get }
     var jwtToken: String? { get set }
 
@@ -25,7 +25,7 @@ final class UserAccountService: UserAccountSerivceProtocol {
         set { LemmyShareData.shared.userdata = newValue }
     }
     
-    var currentUserID: LMModels.Views.LocalUserSettingsView.ID? { LemmyShareData.shared.userdata?.id }
+    var currentUserID: LMModels.Source.LocalUserSettings.ID? { LemmyShareData.shared.userdata?.localUser.id }
     
     var jwtToken: String? {
         get { LemmyShareData.shared.jwtToken }

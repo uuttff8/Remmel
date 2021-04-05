@@ -146,7 +146,7 @@ extension FrontPageViewController: FrontPageViewControllerProtocol {
     }
     
     func displayProfileScreen(viewModel: FrontPage.ProfileAction.ViewModel) {
-        self.coordinator?.goToProfileScreen(userId: viewModel.user.id, username: viewModel.user.person.name)
+        self.coordinator?.goToProfileScreen(userId: viewModel.user.person.id, username: viewModel.user.person.name)
     }
 }
 

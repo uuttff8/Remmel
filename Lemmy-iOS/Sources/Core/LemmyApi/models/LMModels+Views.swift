@@ -44,11 +44,7 @@ extension LMModels {
             }
         }
         
-        struct LocalUserSettingsView: Codable, Identifiable {
-            
-            var id: Int {
-                localUser.id
-            }
+        struct LocalUserSettingsView: Codable {
             
             let localUser: LMModels.Source.LocalUserSettings
             let person: LMModels.Source.PersonSafe
