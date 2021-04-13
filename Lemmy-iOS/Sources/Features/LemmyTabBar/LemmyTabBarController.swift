@@ -26,7 +26,7 @@ class LemmyTabBarController: UITabBarController {
         self.delegate = self
     }
     
-    //swiftlint:disable function_body_length
+    // swiftlint:disable function_body_length
     func createTabs() {
         
         frontPageCoordinator = FrontPageCoordinator(router: nil)

@@ -53,7 +53,7 @@ open class CommentCell: SwipeTableViewCell {
         }
     }
     /// Color of the space above an indented comment
-    open var indentationColor: UIColor! {//= DefaultValues.identationColor {
+    open var indentationColor: UIColor! {// = DefaultValues.identationColor {
         get {
             return backgroundColor
         } set(value) {

@@ -257,7 +257,7 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
         self.updateUrlState(for: inputWithImageCell, state: .error)
     }
     
-    //swiftlint:disable function_body_length
+    // swiftlint:disable function_body_length
     func displayCreatingPost(viewModel: CreatePost.CreatePostLoad.ViewModel) {
         let sectionsViewModel = getTableViewSections()
         

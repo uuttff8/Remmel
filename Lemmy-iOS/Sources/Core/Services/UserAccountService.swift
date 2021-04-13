@@ -9,8 +9,8 @@
 import Foundation
 
 protocol UserAccountSerivceProtocol {
-    var currentUser: LMModels.Views.LocalUserSettingsView? { get set }
-    var currentUserID: LMModels.Source.LocalUserSettings.ID? { get }
+    var currentLocalUser: LMModels.Views.LocalUserSettingsView? { get set }
+    var currentUserPersonID: LMModels.Source.LocalUserSettings.ID? { get }
     var isAuthorized: Bool { get }
     var jwtToken: String? { get set }
 
@@ -20,12 +20,12 @@ protocol UserAccountSerivceProtocol {
 
 // wrapper 
 final class UserAccountService: UserAccountSerivceProtocol {
-    var currentUser: LMModels.Views.LocalUserSettingsView? {
+    var currentLocalUser: LMModels.Views.LocalUserSettingsView? {
         get { LemmyShareData.shared.userdata }
         set { LemmyShareData.shared.userdata = newValue }
     }
     
-    var currentUserID: LMModels.Source.LocalUserSettings.ID? { LemmyShareData.shared.userdata?.localUser.id }
+    var currentUserPersonID: LMModels.Source.LocalUserSettings.ID? { LemmyShareData.shared.userdata?.person.id }
     
     var jwtToken: String? {
         get { LemmyShareData.shared.jwtToken }

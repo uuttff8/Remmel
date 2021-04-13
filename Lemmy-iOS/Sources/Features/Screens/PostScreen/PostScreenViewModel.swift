@@ -41,7 +41,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
         self.wsClient?.send(LMMUserOperation.GetPost, parameters: parameters)
     }
     
-    //swiftlint:disable:next function_body_length
+    // swiftlint:disable:next function_body_length
     func doReceiveMessages() {
         sendPostJoin()
         

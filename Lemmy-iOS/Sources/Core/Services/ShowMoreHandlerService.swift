@@ -406,7 +406,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
     }
     
     private func isMineUser(creatorId: Int) -> Bool {
-        if userAccountService.currentUserID == creatorId {
+        if userAccountService.currentUserPersonID == creatorId {
             return true
         }
         

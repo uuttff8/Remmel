@@ -56,7 +56,7 @@ class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
                     return
                 }
                 
-                self.userAccountService.currentUser = myUser
+                self.userAccountService.currentLocalUser = myUser
                 
                 self.viewController?.displayLoadingIndicator(viewModel: .init(isLoading: false))
                 
@@ -73,7 +73,7 @@ class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
     
     func doRemoteProfileSettingsUpdate(request: ProfileSettings.UpdateProfileSettings.Request) {
         
-        guard let prevData = userAccountService.currentUser,
+        guard let prevData = userAccountService.currentLocalUser,
               let currentUserJwt = userAccountService.jwtToken else {
             return
         }

@@ -186,7 +186,7 @@ extension EditPostViewController: EditPostViewControllerProtocol {
         self.editPostView.updateViewModel(viewModel)
     }
     
-    //swiftlint:disable:next function_body_length
+    // swiftlint:disable:next function_body_length
     private func getSections() -> [SettingsTableSectionViewModel] {
         let headerCell = SettingsTableSectionViewModel.Cell(
             uniqueIdentifier: TableForm.headerCell.rawValue,

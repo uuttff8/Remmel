@@ -71,7 +71,7 @@ open class CommentsViewController: UITableViewController, SwipeTableViewCellDele
     public weak var delegate: CommentsViewDelegate?
     
     deinit {
-        //print("CommentsVC deinited!")
+        // print("CommentsVC deinited!")
     }
     override open func viewDidLoad() {
         super.viewDidLoad()

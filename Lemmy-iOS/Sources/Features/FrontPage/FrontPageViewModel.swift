@@ -45,7 +45,7 @@ class FrontPageViewModel: FrontPageViewModelProtocol {
     }
     
     func doNavBarProfileAction() {
-        if let user = self.userAccountService.currentUser {
+        if let user = self.userAccountService.currentLocalUser {
             self.viewController?.displayProfileScreen(viewModel: .init(user: user))
         } else {
             self.viewController?.displayAutorizationAlert()

@@ -99,7 +99,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     }
     
     func doIdentifyProfile() {
-        let isCurrent = loadedProfile?.id == userAccountService.currentUser?.person.id
+        let isCurrent = loadedProfile?.id == userAccountService.currentLocalUser?.person.id
             ? true
             : false
         guard let profile = loadedProfile else { return }
