@@ -16,10 +16,12 @@ extension LMModels.Api {
         */
         struct Search: Codable {
             let query: String
-            let type: LMModels.Others.SearchType
+            let type: LMModels.Others.SearchType?
             let communityId: Int?
             let communityName: String?
-            let sort: LMModels.Others.SortType
+            let creatorId: String?
+            let sort: LMModels.Others.SortType?
+            let listingType: LMModels.Others.ListingType?
             let page: Int?
             let limit: Int?
             let auth: String?
@@ -29,6 +31,8 @@ extension LMModels.Api {
                 case type = "type_"
                 case communityId = "community_id"
                 case communityName = "community_name"
+                case creatorId = "creator_id"
+                case listingType = "listing_type"
                 case sort, page, limit, auth
             }
         }
@@ -85,16 +89,17 @@ extension LMModels.Api {
         
         struct CreateSite: Codable {
             let name: String
+            let sidebar: String?
             let description: String?
             let icon: String?
-            let banner: String
-            let enableDownvotes: Bool
-            let openRegistration: Bool
-            let enableNsfw: Bool
+            let banner: String?
+            let enableDownvotes: Bool?
+            let openRegistration: Bool?
+            let enableNsfw: Bool?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
-                case name, description, icon, banner
+                case name, description, icon, banner, sidebar
                 case enableDownvotes = "enable_downvotes"
                 case openRegistration = "open_registration"
                 case enableNsfw = "enable_nsfw"
@@ -103,17 +108,18 @@ extension LMModels.Api {
         }
         
         struct EditSite: Codable {
-            let name: String
-            let description: String
-            let icon: String
-            let banner: String
-            let enableDownvotes: Bool
-            let openRegistration: Bool
-            let enableNsfw: Bool
+            let name: String?
+            let sidebar: String?
+            let description: String?
+            let icon: String?
+            let banner: String?
+            let enableDownvotes: Bool?
+            let openRegistration: Bool?
+            let enableNsfw: Bool?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
-                case name, description, icon, banner
+                case name, description, icon, banner, sidebar
                 case enableDownvotes = "enable_downvotes"
                 case openRegistration = "open_registration"
                 case enableNsfw = "enable_nsfw"

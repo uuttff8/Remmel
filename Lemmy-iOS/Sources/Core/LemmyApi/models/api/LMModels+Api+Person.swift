@@ -53,22 +53,23 @@ extension LMModels.Api {
         }
         
         struct SaveUserSettings: Codable {
-            let showNsfw: Bool
-            let theme: String // Default 'browser'
-            let defaultSortType: Int // The Sort types from above, zero indexed as a number
-            let defaultListingType: Int // Post listing types are `All, Subscribed, Community`, number
-            let lang: String
+            let showNsfw: Bool?
+            let theme: String? // Default 'browser'
+            let defaultSortType: Int? // The Sort types from above, zero indexed as a number
+            let defaultListingType: Int? // Post listing types are `All, Subscribed, Community`, number
+            let lang: String?
             let avatar: String?
             let banner: String?
-            let preferredUsername: String? // The display name
+            let displayName: String? // The display name
             let email: String?
             let bio: String?
             let matrixUserId: String?
-            let newPassword: String? // If setting a new password, you need all 3 password fields
-            let newPasswordVerify: String?
-            let oldPassword: String? // SHOULD BE NON NULL BUT WE CANT UPDATE USER DATA WITHOUT PASSWORD 
-            let showAvatars: Bool
-            let sendNotificationsToEmail: Bool
+            let showAvatars: Bool?
+            let showScores: Bool?
+            let sendNotificationsToEmail: Bool?
+            let botAccount: Bool?
+            let showBotAccounts: Bool?
+            let showReadPosts: Bool?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
@@ -77,17 +78,32 @@ extension LMModels.Api {
                 case defaultSortType = "default_sort_type"
                 case defaultListingType = "default_listing_type"
                 case lang, avatar, banner
-                case preferredUsername = "preferred_username"
+                case displayName = "display_name"
                 case email, bio
                 case matrixUserId = "matrix_user_id"
-                case newPassword = "new_password"
-                case newPasswordVerify = "new_password_verify"
-                case oldPassword = "old_password"
                 case showAvatars = "show_avatars"
+                case showReadPosts = "show_read_posts"
                 case sendNotificationsToEmail = "send_notifications_to_email"
+                case showScores = "show_scores"
+                case botAccount = "bot_account"
+                case showBotAccounts = "show_bot_accounts"
                 case auth
             }
         }
+        
+        struct ChangePassword: Codable {
+            let newPassword: String
+            let newPasswordVerify: String
+            let oldPassword: String
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case newPassword = "new_password"
+                case newPasswordVerify = "new_password_verify"
+                case oldPassword = "old_password"
+                case auth
+            }
+       }
         
         /**
          * The `jwt` string should be stored and used anywhere `auth` is called for.
@@ -102,11 +118,11 @@ extension LMModels.Api {
         struct GetPersonDetails: Codable {
             let personId: Int?
             let username: String?
-            let sort: LMModels.Others.SortType
+            let sort: LMModels.Others.SortType?
             let page: Int?
             let limit: Int?
             let communityId: Int?
-            let savedOnly: Bool
+            let savedOnly: Bool?
             let auth: String?
             
             enum CodingKeys: String, CodingKey {
@@ -168,7 +184,7 @@ extension LMModels.Api {
         struct BanPerson: Codable {
             let personId: Int
             let ban: Bool
-            let removeData: Bool // Removes/Restores their comments, posts, and communities
+            let removeData: Bool? // Removes/Restores their comments, posts, and communities
             let reason: String?
             let expires: Int?
             let auth: String
@@ -194,10 +210,10 @@ extension LMModels.Api {
         }
         
         struct GetReplies: Codable {
-            let sort: LMModels.Others.SortType
+            let sort: LMModels.Others.SortType?
             let page: Int?
             let limit: Int?
-            let unreadOnly: Bool
+            let unreadOnly: Bool?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
@@ -210,10 +226,10 @@ extension LMModels.Api {
         }
         
         struct GetPersonMentions: Codable {
-            let sort: LMModels.Others.SortType
+            let sort: LMModels.Others.SortType?
             let page: Int?
             let limit: Int?
-            let unreadOnly: Bool
+            let unreadOnly: Bool?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
@@ -320,7 +336,7 @@ extension LMModels.Api {
         }
         
         struct GetPrivateMessages: Codable {
-            let unreadOnly: Bool
+            let unreadOnly: Bool?
             let page: Int?
             let limit: Int?
             let auth: String

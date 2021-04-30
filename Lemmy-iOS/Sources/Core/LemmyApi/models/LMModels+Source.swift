@@ -14,7 +14,7 @@ extension LMModels {
         struct PersonSafe: Identifiable, Codable, Hashable, Equatable {
             let id: Int
             let name: String
-            let preferredUsername: String?
+            let displayName: String?
             let avatar: URL?
             let banned: Bool
             let published: Date
@@ -28,10 +28,11 @@ extension LMModels {
             let sharedInboxURL: URL
             let admin: Bool
             let matrixUserId: String?
+            let botAccount: Bool
             
             enum CodingKeys: String, CodingKey {
                 case id, name
-                case preferredUsername = "preferred_username"
+                case displayName = "display_name"
                 case avatar, banned, published, updated
                 case actorId = "actor_id"
                 case bio, local, banner, deleted
@@ -39,6 +40,7 @@ extension LMModels {
                 case sharedInboxURL = "shared_inbox_url"
                 case admin
                 case matrixUserId = "matrix_user_id"
+                case botAccount = "bot_account"
             }
         }
         
@@ -53,6 +55,9 @@ extension LMModels {
             let lang: String
             let showAvatars: Bool
             let sendNotificationsToEmail: Bool
+            let showBotAccounts: Bool?
+            let showScores: Bool?
+            let showReadPosts: Bool?
             
             enum CodingKeys: String, CodingKey {
                 case id, personId = "person_id", email
@@ -61,11 +66,15 @@ extension LMModels {
                 case defaultListingType = "default_listing_type"
                 case lang, showAvatars = "show_avatars"
                 case sendNotificationsToEmail = "send_notifications_to_email"
+                case showBotAccounts = "show_bot_accounts"
+                case showScores = "show_scores"
+                case showReadPosts = "show_read_posts"
             }
         }
 
         struct Site: Identifiable, Codable {
             let id: Int
+            let sidebar: String?
             let name: String
             let description: String
             let creatorId: Int
@@ -74,17 +83,19 @@ extension LMModels {
             let enableDownvotes: Bool
             let openRegistration: Bool
             let enableNsfw: Bool
+            let communityCreationAdminOnly: Bool?
             let icon: URL?
             let banner: URL?
             
             enum CodingKeys: String, CodingKey {
                 case id
-                case name, description
+                case name, description, sidebar
                 case creatorId = "creator_id"
                 case published, updated
                 case enableDownvotes = "enable_downvotes"
                 case openRegistration = "open_registration"
                 case enableNsfw = "enable_nsfw"
+                case communityCreationAdminOnly = "community_creation_admin_only"
                 case icon, banner
             }
         }
@@ -349,7 +360,6 @@ extension LMModels {
             let name: String
             let title: String
             let description: String?
-            let creatorId: Int
             let removed: Bool
             let published: Date
             let updated: Date?
@@ -363,7 +373,6 @@ extension LMModels {
             enum CodingKeys: String, CodingKey {
                 case id
                 case name, title, description
-                case creatorId = "creator_id"
                 case removed, published, updated, deleted
                 case nsfw
                 case actorId = "actor_id"

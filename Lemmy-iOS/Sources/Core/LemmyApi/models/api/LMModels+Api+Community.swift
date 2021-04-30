@@ -52,8 +52,8 @@ extension LMModels.Api {
         }
         
         struct ListCommunities: Codable {
-            let type: LMModels.Others.ListingType
-            let sort: LMModels.Others.SortType
+            let type: LMModels.Others.ListingType?
+            let sort: LMModels.Others.SortType?
             let page: Int?
             let limit: Int?
             let auth: String?
@@ -72,7 +72,7 @@ extension LMModels.Api {
             let communityId: Int
             let personId: Int
             let ban: Bool
-            let removeData: Bool // Removes/Restores their comments and posts for that community
+            let removeData: Bool? // Removes/Restores their comments and posts for that community
             let reason: String?
             let expires: Int?
             let auth: String
@@ -118,7 +118,7 @@ extension LMModels.Api {
         */
         struct EditCommunity: Codable {
             let communityId: Int
-            let title: String
+            let title: String?
             let description: String?
             let icon: String?
             let banner: String?

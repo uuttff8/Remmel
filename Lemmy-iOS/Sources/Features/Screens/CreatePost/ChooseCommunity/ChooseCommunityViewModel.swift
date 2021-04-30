@@ -46,7 +46,9 @@ class ChooseCommunityViewModel: ChooseCommunityViewModelProtocol {
                                               type: .communities,
                                               communityId: nil,
                                               communityName: nil,
+                                              creatorId: nil,
                                               sort: .topAll,
+                                              listingType: nil,
                                               page: 1,
                                               limit: 100,
                                               auth: LemmyShareData.shared.jwtToken)

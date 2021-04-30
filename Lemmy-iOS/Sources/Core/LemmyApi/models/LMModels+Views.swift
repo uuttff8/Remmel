@@ -291,7 +291,6 @@ extension LMModels {
             }
             
             let community: LMModels.Source.CommunitySafe
-            let creator: LMModels.Source.PersonSafe
             let subscribed: Bool
             let counts: LMModels.Aggregates.CommunityAggregates
         }

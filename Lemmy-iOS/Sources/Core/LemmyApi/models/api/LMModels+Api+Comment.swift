@@ -123,13 +123,13 @@ extension LMModels.Api {
         * To get posts for a federated community, pass `community_id` instead.
         */
         struct GetComments: Codable {
-            let type: LMModels.Others.ListingType
-            let sort: LMModels.Others.SortType
+            let type: LMModels.Others.ListingType?
+            let sort: LMModels.Others.SortType?
             let page: Int?
             let limit: Int?
             let communityId: Int?
             let communityName: String?
-            let savedOnly: Bool
+            let savedOnly: Bool?
             let auth: String?
             
             enum CodingKeys: String, CodingKey {

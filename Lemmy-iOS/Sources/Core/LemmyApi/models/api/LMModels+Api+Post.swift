@@ -15,7 +15,7 @@ extension LMModels.Api {
             let name: String
             let url: String?
             let body: String?
-            let nsfw: Bool
+            let nsfw: Bool?
             let communityId: Int
             let auth: String
             
@@ -60,13 +60,13 @@ extension LMModels.Api {
         * To get posts for a federated community, pass `community_id` instead.
         */
         struct GetPosts: Codable {
-            let type: LMModels.Others.ListingType
-            let sort: LMModels.Others.SortType
+            let type: LMModels.Others.ListingType?
+            let sort: LMModels.Others.SortType?
             let page: Int?
             let limit: Int?
             let communityId: Int?
             let communityName: String?
-            let savedOnly: Bool
+            let savedOnly: Bool?
             let auth: String?
             
             enum CodingKeys: String, CodingKey {
@@ -99,10 +99,10 @@ extension LMModels.Api {
         
         struct EditPost: Codable {
             let postId: Int
-            let name: String
+            let name: String?
             let url: String?
             let body: String?
-            let nsfw: Bool
+            let nsfw: Bool?
             let auth: String
             
             enum CodingKeys: String, CodingKey {

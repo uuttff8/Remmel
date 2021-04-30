@@ -61,7 +61,7 @@ class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
                 self.viewController?.displayLoadingIndicator(viewModel: .init(isLoading: false))
                 
                 self.viewController?.displayProfileSettingsForm(
-                    viewModel: .init(displayName: myUser.person.preferredUsername,
+                    viewModel: .init(displayName: myUser.person.displayName,
                                      bio: myUser.person.bio,
                                      email: myUser.localUser.email,
                                      matrix: myUser.person.matrixUserId,
@@ -86,15 +86,19 @@ class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
                                                           lang: prevData.localUser.lang,
                                                           avatar: prevData.person.avatar?.absoluteString,
                                                           banner: prevData.person.banner?.absoluteString,
-                                                          preferredUsername: newData.displayName,
+                                                          displayName: newData.displayName,
                                                           email: newData.email,
                                                           bio: newData.bio,
                                                           matrixUserId: newData.matrix,
-                                                          newPassword: newData.newPassword,
-                                                          newPasswordVerify: newData.verifyPassword,
-                                                          oldPassword: newData.oldPassword,
+//                                                          newPassword: newData.newPassword,
+//                                                          newPasswordVerify: newData.verifyPassword,
+//                                                          oldPassword: newData.oldPassword,
                                                           showAvatars: prevData.localUser.showAvatars,
+                                                          showScores: nil,
                                                           sendNotificationsToEmail: newData.sendNotificationsToEmail,
+                                                          botAccount: nil,
+                                                          showBotAccounts: nil,
+                                                          showReadPosts: nil,
                                                           auth: currentUserJwt)
         
         ApiManager.requests

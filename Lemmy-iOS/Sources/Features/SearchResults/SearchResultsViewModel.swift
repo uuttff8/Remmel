@@ -57,7 +57,9 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
                                               type: self.searchType,
                                               communityId: nil,
                                               communityName: nil,
+                                              creatorId: nil,
                                               sort: .topAll,
+                                              listingType: nil,
                                               page: request.page,
                                               limit: 20,
                                               auth: userAccountService.jwtToken)
@@ -81,7 +83,9 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
                                               type: self.searchType,
                                               communityId: nil,
                                               communityName: nil,
+                                              creatorId: nil,
                                               sort: .topAll,
+                                              listingType: nil,
                                               page: self.paginationState,
                                               limit: 20,
                                               auth: userAccountService.jwtToken)
