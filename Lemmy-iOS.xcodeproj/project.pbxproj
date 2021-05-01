@@ -302,6 +302,10 @@
 		4EE0279025AF82D800D2952D /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0278F25AF82D800D2952D /* Date+Ext.swift */; };
 		4EE0279E25AF93EE00D2952D /* LemmyCommunityMention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0279D25AF93EE00D2952D /* LemmyCommunityMention.swift */; };
 		4EE26859255972590009D2BC /* ProfileScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE26858255972590009D2BC /* ProfileScreenAssembly.swift */; };
+		4EEA73A0263D5CF000413B0B /* ProfileChangePasswordAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA739F263D5CF000413B0B /* ProfileChangePasswordAssembly.swift */; };
+		4EEA73A5263D5D0A00413B0B /* ProfileChangePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA73A4263D5D0A00413B0B /* ProfileChangePasswordViewModel.swift */; };
+		4EEA73AA263D5D1B00413B0B /* ProfileChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA73A9263D5D1B00413B0B /* ProfileChangePasswordView.swift */; };
+		4EEA73AF263D5D3C00413B0B /* ProfileChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA73AE263D5D3C00413B0B /* ProfileChangePasswordViewController.swift */; };
 		4EF312E52576D2D10032B58D /* PostContentFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312E42576D2D10032B58D /* PostContentFooterView.swift */; };
 		4EF312ED2576D2EA0032B58D /* PostContentCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312EC2576D2EA0032B58D /* PostContentCenterView.swift */; };
 		4EF312F22576D3230032B58D /* PostContentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312F12576D3230032B58D /* PostContentHeaderView.swift */; };
@@ -693,6 +697,10 @@
 		4EE0278F25AF82D800D2952D /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		4EE0279D25AF93EE00D2952D /* LemmyCommunityMention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyCommunityMention.swift; sourceTree = "<group>"; };
 		4EE26858255972590009D2BC /* ProfileScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenAssembly.swift; sourceTree = "<group>"; };
+		4EEA739F263D5CF000413B0B /* ProfileChangePasswordAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileChangePasswordAssembly.swift; sourceTree = "<group>"; };
+		4EEA73A4263D5D0A00413B0B /* ProfileChangePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileChangePasswordViewModel.swift; sourceTree = "<group>"; };
+		4EEA73A9263D5D1B00413B0B /* ProfileChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileChangePasswordView.swift; sourceTree = "<group>"; };
+		4EEA73AE263D5D3C00413B0B /* ProfileChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileChangePasswordViewController.swift; sourceTree = "<group>"; };
 		4EF312E42576D2D10032B58D /* PostContentFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentFooterView.swift; sourceTree = "<group>"; };
 		4EF312EC2576D2EA0032B58D /* PostContentCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentCenterView.swift; sourceTree = "<group>"; };
 		4EF312F12576D3230032B58D /* PostContentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentHeaderView.swift; sourceTree = "<group>"; };
@@ -929,6 +937,7 @@
 		4E110D4825CB403A00A06306 /* ProfileSettings */ = {
 			isa = PBXGroup;
 			children = (
+				4EEA738F263D5B1B00413B0B /* ChangePassword */,
 				4E110D4925CB406E00A06306 /* ProfileSettingsAssembly.swift */,
 				4E110D4D25CB407800A06306 /* ProfileSettingsViewController.swift */,
 				4E110D5125CB407E00A06306 /* ProfileSettingsView.swift */,
@@ -1447,12 +1456,13 @@
 		4EB89AF5251F4783007129BF /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				4E004F7D25DFF857006B81CF /* EditPost */,
 				4E3E0F702555BCE70086CE0C /* ProfileScreen */,
+				4E110D4825CB403A00A06306 /* ProfileSettings */,
 				4EF3ACFD2550755700BEC9F1 /* MarkdownParsedViewController */,
 				4EF3ACCF254EF82000BEC9F1 /* CommunityScreen */,
 				4EB89AF6251F478F007129BF /* PostScreen */,
 				4E886C82253F4F3A0076B162 /* CreatePost */,
+				4E004F7D25DFF857006B81CF /* EditPost */,
 				4EF3AC5B254A019800BEC9F1 /* CreateCommunity */,
 			);
 			path = Screens;
@@ -1646,7 +1656,6 @@
 				4E87C698258E67A50007FE5E /* Instances */,
 				4ECCEEF0250C03910075F921 /* LemmyTabBar */,
 				4E405B3625F1561900057F77 /* Onboarding */,
-				4E110D4825CB403A00A06306 /* ProfileSettings */,
 				4EB89AF5251F4783007129BF /* Screens */,
 				4EF3131E25782BA90032B58D /* SearchResults */,
 				4E98BF9B25B8DE27009DA520 /* Settings */,
@@ -1886,6 +1895,17 @@
 				4EDD000D25A5DC29006FCB9F /* submodules */,
 			);
 			path = InboxNotifications;
+			sourceTree = "<group>";
+		};
+		4EEA738F263D5B1B00413B0B /* ChangePassword */ = {
+			isa = PBXGroup;
+			children = (
+				4EEA739F263D5CF000413B0B /* ProfileChangePasswordAssembly.swift */,
+				4EEA73AE263D5D3C00413B0B /* ProfileChangePasswordViewController.swift */,
+				4EEA73A4263D5D0A00413B0B /* ProfileChangePasswordViewModel.swift */,
+				4EEA73A9263D5D1B00413B0B /* ProfileChangePasswordView.swift */,
+			);
+			path = ChangePassword;
 			sourceTree = "<group>";
 		};
 		4EF312E32576D2B90032B58D /* Post */ = {
@@ -2404,6 +2424,7 @@
 				4EBB22392559FC3000B88079 /* Collection+SafeSubscript.swift in Sources */,
 				4E9183AA2567FF4200702F04 /* ChooseCommunityTableDataSource.swift in Sources */,
 				4E0A8E52255C0BEC00B06AF6 /* ProfileScreenCommentsAssembly.swift in Sources */,
+				4EEA73A5263D5D0A00413B0B /* ProfileChangePasswordViewModel.swift in Sources */,
 				4EBF1D4A25920AC1004068CD /* Instance+CoreDataProperties.swift in Sources */,
 				6569A2272594E906005A4C54 /* AccountsCoordinator.swift in Sources */,
 				4E6E666125B208E100AF2F48 /* LMModels+Api+Post.swift in Sources */,
@@ -2618,6 +2639,7 @@
 				4EE0279025AF82D800D2952D /* Date+Ext.swift in Sources */,
 				4EDD00C025A73A55006FCB9F /* ReplyMentionCellView.swift in Sources */,
 				4EBF1D662593A692004068CD /* ShowContextCommentService.swift in Sources */,
+				4EEA73AA263D5D1B00413B0B /* ProfileChangePasswordView.swift in Sources */,
 				4EB4F69A2590C33F0057BDCC /* AddInstanceAssembly.swift in Sources */,
 				4E6E662825B1F33300AF2F48 /* LMModels+Aggregates.swift in Sources */,
 				4E004F8A25DFF8A9006B81CF /* EditPostViewController.swift in Sources */,
@@ -2708,6 +2730,7 @@
 				6569A21A2594E8F2005A4C54 /* AccountsViewModel.swift in Sources */,
 				4E3FBC59258A857600F97671 /* CommunitiesPreviewDataSource.swift in Sources */,
 				4E9BBA592555560C004FF2F9 /* LemmyImageTextPickerView.swift in Sources */,
+				4EEA73A0263D5CF000413B0B /* ProfileChangePasswordAssembly.swift in Sources */,
 				4E0A8E3F255C01F400B06AF6 /* ProfileScreenCommentsTableDataSource.swift in Sources */,
 				4E918512256E9EFD00702F04 /* CommentTypes.swift in Sources */,
 				4EBF1D6E2593EFCA004068CD /* ContentFocusable.swift in Sources */,
@@ -2729,6 +2752,7 @@
 				4E886C17253626950076B162 /* RegisterView.swift in Sources */,
 				4E8165632562B6FC00907D31 /* PostsTableDataSource.swift in Sources */,
 				4E918518256ECBC700702F04 /* FoldableLemmyCommentsViewController.swift in Sources */,
+				4EEA73AF263D5D3C00413B0B /* ProfileChangePasswordViewController.swift in Sources */,
 				4E004F8225DFF86F006B81CF /* EditPostAssembly.swift in Sources */,
 				4E91839D2567DCC500702F04 /* SelectItemTableViewController.swift in Sources */,
 				4E886C4B253C95D20076B162 /* CreatePresentAnimator.swift in Sources */,

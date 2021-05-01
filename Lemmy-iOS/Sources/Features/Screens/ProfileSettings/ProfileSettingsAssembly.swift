@@ -9,7 +9,7 @@
 import UIKit
 
 class ProfileSettingsAssembly: Assembly {
-        
+    
     func makeModule() -> ProfileSettingsViewController {
         let viewModel = ProfileSettingsViewModel(
             userAccountService: UserAccountService()

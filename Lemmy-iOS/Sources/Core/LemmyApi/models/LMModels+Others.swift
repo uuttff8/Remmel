@@ -74,7 +74,8 @@ extension LMModels {
                 GetSiteConfig,
                 SaveSiteConfig,
                 PostJoin,
-                CommunityJoin
+                CommunityJoin,
+                ChangePassword
         }
         
         enum SortType: String, Codable, CaseIterable, LemmyTypePickable {

@@ -22,9 +22,7 @@ final class ProfileSettingsViewController: UIViewController, CatalystDismissProt
         case bio
         case email
         case matrix
-        case newPassword
-        case verifyPassword
-        case oldPassword
+        case changePassword
         case showNsfwContent
         case sendNotificationsToEmail
         
@@ -42,12 +40,11 @@ final class ProfileSettingsViewController: UIViewController, CatalystDismissProt
         var bio: String?
         var email: String?
         var matrix: String?
-        var newPassword: String?
-        var verifyPassword: String?
-        var oldPassword: String?
         var showNsfwContent: Bool = true
         var sendNotificationsToEmail: Bool = true
     }
+    
+    weak var coordinator: ProfileScreenCoordinator?
     
     private let viewModel: ProfileSettingsViewModelProtocol
     
@@ -99,17 +96,10 @@ final class ProfileSettingsViewController: UIViewController, CatalystDismissProt
     }
     
     @objc private func updateBarButtonTapped() {
-        self.nullifyEmptyPasswords()
         self.setNewBarButton(loading: true)
         self.viewModel.doRemoteProfileSettingsUpdate(request: .init(data: tableFormData))
     }
-    
-    private func nullifyEmptyPasswords() {
-        if tableFormData.newPassword == "" { tableFormData.newPassword = nil }
-        if tableFormData.oldPassword == "" { tableFormData.oldPassword = nil }
-        if tableFormData.verifyPassword == "" { tableFormData.verifyPassword = nil }
-    }
-    
+        
     private func dismissSelf() {
         self.dismiss(animated: true)
     }
@@ -211,36 +201,12 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
                 ))
         )
         
-        let newPasswordCell = SettingsTableSectionViewModel.Cell(
-            uniqueIdentifier: TableFormType.newPassword.rawValue,
-            type: .input(
+        let changePasswordCell = SettingsTableSectionViewModel.Cell(
+            uniqueIdentifier: TableFormType.changePassword.rawValue,
+            type: .rightDetail(
                 options: .init(
-                    valueText: self.tableFormData.newPassword,
-                    placeholderText: "profile-new-password-hint".localized,
-                    isEnabled: true,
-                    capitalization: .none
-                ))
-        )
-        
-        let verifyPasswordCell = SettingsTableSectionViewModel.Cell(
-            uniqueIdentifier: TableFormType.verifyPassword.rawValue,
-            type: .input(
-                options: .init(
-                    valueText: self.tableFormData.verifyPassword,
-                    placeholderText: "profile-verify-password-hint".localized,
-                    isEnabled: true,
-                    capitalization: .none
-                ))
-        )
-        
-        let oldPasswordCell = SettingsTableSectionViewModel.Cell(
-            uniqueIdentifier: TableFormType.oldPassword.rawValue,
-            type: .input(
-                options: .init(
-                    valueText: self.tableFormData.oldPassword,
-                    placeholderText: "profile-old-password-hint".localized,
-                    isEnabled: true,
-                    capitalization: .none
+                    title: .init(text: "profile-new-password-hint".localized),
+                    detailType: .label(text: "")
                 ))
         )
         
@@ -280,7 +246,7 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
             ),
             .init(
                 header: .init(title: "profile-password".localized),
-                cells: [newPasswordCell, verifyPasswordCell, oldPasswordCell],
+                cells: [changePasswordCell],
                 footer: .init(description: "profile-password-footer".localized)
             ),
             .init(
@@ -295,6 +261,7 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
 }
 
 extension ProfileSettingsViewController: ProfileSettingsViewDelegate {
+    
     func settingsCell(
         elementView: UITextField,
         didReportTextChange text: String?,
@@ -309,6 +276,18 @@ extension ProfileSettingsViewController: ProfileSettingsViewDelegate {
         identifiedBy uniqueIdentifier: UniqueIdentifierType?
     ) {
         self.handleTextField(uniqueIdentifier: uniqueIdentifier, text: text)
+    }
+    
+    func settingsTableView(
+        _ tableView: SettingsTableView,
+        didSelectCell cell: SettingsTableSectionViewModel.Cell,
+        at indexPath: IndexPath
+    ) {
+        if cell.uniqueIdentifier == TableFormType.changePassword.rawValue {
+            let assembly = ProfileChangePasswordAssembly()
+            let module = assembly.makeModule()
+            navigationController?.pushViewController(module, animated: true)
+        }
     }
     
     func settingsCell(_ cell: SettingsRightDetailSwitchTableViewCell, switchValueChanged isOn: Bool) {
@@ -342,13 +321,6 @@ extension ProfileSettingsViewController: ProfileSettingsViewDelegate {
             self.tableFormData.email = text
         case .matrix:
             self.tableFormData.matrix = text
-        case .newPassword:
-            self.tableFormData.newPassword = text
-        case .verifyPassword:
-            self.tableFormData.verifyPassword = text
-        case .oldPassword:
-            self.tableFormData.oldPassword = text
-
         default: break
         }
         

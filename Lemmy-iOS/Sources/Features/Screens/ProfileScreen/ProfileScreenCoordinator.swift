@@ -26,6 +26,7 @@ final class ProfileScreenCoordinator: GenericCoordinator<ProfileScreenViewContro
     func goToProfileSettings() {
         let assembly = ProfileSettingsAssembly()
         let module = assembly.makeModule()
+        module.coordinator = self
         let navController = StyledNavigationController(rootViewController: module)
         
         router?.present(navController, animated: true)
