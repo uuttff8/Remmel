@@ -26,8 +26,10 @@ extension RequestsManager {
     }
     
     func asyncChangePassword(
-        parameters: LMModels.Api.Person.SaveUserSettings
-    ) -> 
+        parameters: LMModels.Api.Person.ChangePassword
+    ) -> AnyPublisher<LMModels.Api.Person.LoginResponse, LemmyGenericError> {
+        asyncRequestDecodable(path: WSEndpoint.User.changePassword.endpoint, parameters: parameters)
+    }
     
     func asyncGetReplies(
         parameters: LMModels.Api.Person.GetReplies

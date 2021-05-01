@@ -41,6 +41,7 @@ enum WSEndpoint {
         case markPrivateMessageAsRead
         case markAllAsRead
 
+        case changePassword
         case deleteAccount // Permananently deletes your posts and comments
 
         var endpoint: String {
@@ -57,6 +58,7 @@ enum WSEndpoint {
             case .deletePrivateMessage: return "DeletePrivateMessage"
             case .markPrivateMessageAsRead: return "MarkPrivateMessageAsRead"
             case .markAllAsRead: return "MarkAllAsRead"
+            case .changePassword: return "ChangePassword"
             case .deleteAccount: return "DeleteAccount"
             }
         }
