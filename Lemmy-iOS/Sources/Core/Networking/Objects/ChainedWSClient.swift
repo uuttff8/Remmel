@@ -113,7 +113,7 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
             return data.data
         } catch {
             Logger.common.error("Failed to parse \(RequestsManager.ApiResponse<T>.self)")
-            debugPrint(error)
+            Logger.common.error(error)
             return nil
         }
     }
