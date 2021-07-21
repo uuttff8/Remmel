@@ -69,6 +69,7 @@ final class AccountsViewModel: AccountsViewModelProtocol {
     }
     
     func doAccountGuestSelect(request: AccountsDataFlow.GuestSelected.Request) {
+        self.shareData.loginData.userLogout()
         self.viewController?.displayGuestSelected(viewModel: .init())
     }
         
