@@ -97,9 +97,9 @@ class RequestsManager {
                     promise(.success(normalResponse))
                 } catch {
                     
-                    debugPrint(error)
+                    Logger.common.error(error)
                     
-                    // idk how to extract this and line 96 to function
+                    // idk how to extract this to a  function
                     do {
                         let errorResponse = try self.decoder.decode(ApiErrorResponse.self, from: data)
                         promise(.failure(.string(errorResponse.error)))
