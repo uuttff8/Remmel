@@ -5,7 +5,7 @@ PODS:
     - Cache (~> 6.0.0)
   - Lightbox (2.5.0):
     - Imaginary (~> 5.0.0)
-  - Nuke (9.2.0)
+  - Nuke (9.5.0)
   - Pageboy (3.6.2)
 
 DEPENDENCIES:
@@ -28,9 +28,9 @@ SPEC CHECKSUMS:
   DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
   Imaginary: cf5e3a7dd6ab1dcbd47ba8ce5edf2307c4e99eb3
   Lightbox: cc3d5124f024fa8197fd23f913160db1c61a1852
-  Nuke: 1394e48b0940e01dd20f52ac56b121ab154e370d
+  Nuke: 6f400a4ea957e09149ec335a3c6acdcc814d89e4
   Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
 
 PODFILE CHECKSUM: 2da1faebaee6a04b574e1139627683c1bca5e5c9
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1
