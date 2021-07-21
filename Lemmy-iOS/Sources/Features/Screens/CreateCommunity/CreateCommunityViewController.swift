@@ -63,6 +63,13 @@ class CreateCommunityViewController: UIViewController, CatalystDismissProtocol {
         action: #selector(createBarButtonTapped(_:))
     )
     
+    @available(macCatalyst 11.3, *)
+    private lazy var closeBarButton = UIBarButtonItem(
+        barButtonSystemItem: .close,
+        target: self,
+        action: #selector(dismissSelf)
+    )
+    
     private var currentImagePick: CreateCommunityImagesCell.ImagePick?
     
     private var createComminityData: FormData = {
@@ -119,8 +126,16 @@ class CreateCommunityViewController: UIViewController, CatalystDismissProtocol {
     // MARK: - Actions
     
     private func setupNavigationItem() {
-        navigationItem.rightBarButtonItem = createBarButton
         title = "create-content-create-community".localized
+        navigationItem.rightBarButtonItem = createBarButton
+        if #available(macCatalyst 11.3, *) {
+            navigationItem.leftBarButtonItem = closeBarButton
+        }
+    }
+    
+    @available(macCatalyst 11.3, *)
+    @objc private func dismissSelf() {
+        self.dismiss(animated: true)
     }
     
     @objc private func createBarButtonTapped(_ sender: UIBarButtonItem) {

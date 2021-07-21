@@ -55,7 +55,7 @@ class CreatePostScreenViewController: UIViewController, CatalystDismissProtocol 
             nsfwOption: false
         )
     }()
-        
+            
     private lazy var postBarButton = UIBarButtonItem(
         title: "action-create".localized.uppercased(),
         style: .done,
@@ -63,6 +63,13 @@ class CreatePostScreenViewController: UIViewController, CatalystDismissProtocol 
         action: #selector(postBarButtonTapped(_:))
     )
     
+    @available(macCatalyst 11.3, *)
+    private lazy var closeBarButton = UIBarButtonItem(
+        barButtonSystemItem: .close,
+        target: self,
+        action: #selector(dismissSelf)
+    )
+        
     private lazy var imagePickerController: UIImagePickerController = {
         $0.delegate = self
         $0.allowsEditing = false
@@ -125,6 +132,9 @@ class CreatePostScreenViewController: UIViewController, CatalystDismissProtocol 
     private func setupNavigationItem() {
         self.title = "create-content-create-post".localized
         navigationItem.rightBarButtonItem = postBarButton
+        if #available(macCatalyst 11.3, *) {
+            navigationItem.leftBarButtonItem = closeBarButton
+        }
     }
     
     // MARK: - Inner Types
@@ -159,6 +169,11 @@ class CreatePostScreenViewController: UIViewController, CatalystDismissProtocol 
     }
     
     // MARK: - Action
+    @available(macCatalyst 11.3, *)
+    @objc func dismissSelf() {
+        self.dismiss(animated: true)
+    }
+    
     @objc private func postBarButtonTapped(_ sender: UIBarButtonItem) {
         guard let communityId = self.createPostData.communityView?.id else {
             self.displayCreatePostError(viewModel: .init(error: "Community not specified"))

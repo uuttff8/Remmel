@@ -64,6 +64,13 @@ final class ProfileSettingsViewController: UIViewController, CatalystDismissProt
         action: #selector(updateBarButtonTapped)
     )
     
+    @available(macCatalyst 11.3, *)
+    private lazy var closeBarButton = UIBarButtonItem(
+        barButtonSystemItem: .close,
+        target: self,
+        action: #selector(dismissSelf)
+    )
+    
     init(viewModel: ProfileSettingsViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -88,6 +95,10 @@ final class ProfileSettingsViewController: UIViewController, CatalystDismissProt
         
         title = "profile-settings-title".localized
         self.navigationItem.rightBarButtonItem = updateBarButton
+        if #available(macCatalyst 11.3, *) {
+            self.navigationItem.leftBarButtonItem = closeBarButton
+        }
+
         self.viewModel.doProfileSettingsForm(request: .init())
     }
     
@@ -100,7 +111,7 @@ final class ProfileSettingsViewController: UIViewController, CatalystDismissProt
         self.viewModel.doRemoteProfileSettingsUpdate(request: .init(data: tableFormData))
     }
         
-    private func dismissSelf() {
+    @objc private func dismissSelf() {
         self.dismiss(animated: true)
     }
     
