@@ -74,9 +74,9 @@ class CommunityScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.doCommunityFetch()
         
         viewModel.doReceiveMessages()
-        viewModel.doCommunityFetch()
         viewModel.doPostsFetch(request: .init(contentType: communityView.contentType))
         self.updateState(newState: state)
         

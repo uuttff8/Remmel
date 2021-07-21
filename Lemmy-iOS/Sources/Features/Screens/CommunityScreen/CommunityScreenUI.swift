@@ -104,6 +104,7 @@ extension CommunityScreenViewController {
             
             self.tableView.dataSource = dataSource
             self.tableView.reloadData()
+            self.tableView.layoutTableHeaderView()
         }
         
         func appendNew(data: [LMModels.Views.PostView]) {
