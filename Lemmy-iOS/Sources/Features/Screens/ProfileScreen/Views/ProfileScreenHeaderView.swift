@@ -103,7 +103,7 @@ class ProfileScreenHeaderView: UIView {
             .systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         
         return mainStackViewContentSize.height
-            + (self.appearance.defaultSpacing * 2) //imageTitle
+            + (self.appearance.defaultSpacing * 2) // imageTitle
             + (self.appearance.defaultSpacing) // comments, posts, published titles
     }
     

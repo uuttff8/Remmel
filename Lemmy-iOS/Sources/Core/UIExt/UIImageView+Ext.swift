@@ -45,7 +45,7 @@ extension UIImageView {
     }
     
     // load image or hide the view if it is not
-    func loadImage(urlString: URL?, completion: ImageTask.Completion? = nil) {
+    func loadImage(urlString: URL?, completion: ((Result<ImageResponse, ImagePipeline.Error>) -> Void)? = nil) {
         
         if let url = urlString {
 

@@ -163,9 +163,9 @@ extension ProfileChangePasswordViewController: ProfileChangePasswordViewControll
     
     func displaySucessChangingPassword(viewModel: ProfileChangePassword.ChangePasswordResult) {
         switch viewModel {
-        case .success(jwt: let jwt):
+        case .success:
             UIAlertController.createOkAlert(message: "Your password is changed!")
-        case .failed(error: let error):
+        case .failed:
             break
         }
     }
@@ -200,12 +200,9 @@ extension ProfileChangePasswordViewController: ProfileChangePasswordViewDelegate
             self.tableFormData.verifyPassword = text
         case .oldPassword:
             self.tableFormData.oldPassword = text
-
-        default: break
         }
     }
 }
-
 
 extension ProfileChangePasswordViewController: StyledNavigationControllerPresentable {
     var navigationBarAppearanceOnFirstPresentation: StyledNavigationController.NavigationBarAppearanceState {

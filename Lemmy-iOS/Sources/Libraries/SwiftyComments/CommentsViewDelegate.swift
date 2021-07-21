@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol CommentsViewDelegate: class {
+public protocol CommentsViewDelegate: AnyObject {
     func commentCellExpanded(atIndex index: Int)
     func commentCellFolded(atIndex index: Int)
 }
