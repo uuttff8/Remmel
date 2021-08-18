@@ -29,11 +29,13 @@ class RegisterView: UIView {
     lazy var usernameTextField = UITextField().then {
         $0.placeholder = "sign-up-username".localized
         $0.textContentType = .username
+        $0.autocorrectionType = .no
     }
 
     lazy var emailTextField = UITextField().then {
         $0.placeholder = "sign-up-email".localized
         $0.textContentType = .emailAddress
+        $0.autocorrectionType = .no
     }
 
     lazy var emailDescription = UILabel().then {
@@ -47,11 +49,13 @@ class RegisterView: UIView {
     lazy var passwordTextField = UITextField().then {
         $0.isSecureTextEntry = true
         $0.placeholder = "sign-up-password".localized
+        $0.autocorrectionType = .no
     }
 
     lazy var passwordVerifyTextField = UITextField().then {
         $0.isSecureTextEntry = true
         $0.placeholder = "sign-up-password-verify".localized
+        $0.autocorrectionType = .no
     }
 
     lazy var captchaImageView = UIImageView()
@@ -60,13 +64,15 @@ class RegisterView: UIView {
         $0.placeholder = "sign-up-code".localized
         $0.autocapitalizationType = .none
         $0.textContentType = .oneTimeCode
+        $0.autocorrectionType = .no
     }
 
-    lazy var showNsfwSwitch: LemmyLabelWithSwitch = {
-        let switcher = LemmyLabelWithSwitch()
-        switcher.checkText = "sign-up-show-nsfw".localized
-        return switcher
-    }()
+    // Apple rejects apps when user can choose to show nsfw content
+//    lazy var showNsfwSwitch: LemmyLabelWithSwitch = {
+//        let switcher = LemmyLabelWithSwitch()
+//        switcher.checkText = "sign-up-show-nsfw".localized
+//        return switcher
+//    }()
 
     init() {
         super.init(frame: .zero)

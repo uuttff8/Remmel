@@ -31,7 +31,7 @@ final class SettingsInputWithImageCellView: UIView {
     
     let appearance: Appearance
     
-    private(set) lazy var textField = TableInputTextField()
+    lazy var textField = TableInputTextField()
     
     private lazy var imageIconView = ImageControl()
 

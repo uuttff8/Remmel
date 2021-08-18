@@ -119,6 +119,7 @@ final class SettingsTableView: UIView {
         cell.elementView.shouldAlwaysShowPlaceholder = options.shouldAlwaysShowPlaceholder
         cell.elementView.isEnabled = options.isEnabled
         cell.elementView.autocapitalizationType = options.capitalization
+        cell.elementView.autocorrectionType = options.autocorrection
         cell.delegate = self.delegate
         self.inputCellGroups.first { $0.uniqueIdentifier == options.inputGroup }?.addInputCell(cell)
     }
@@ -132,6 +133,8 @@ final class SettingsTableView: UIView {
         cell.elementView.text = options.valueText
         cell.elementView.maxTextLength = options.maxLength
         cell.noNewline = options.noNewline
+        cell.elementView.autocapitalizationType = options.capitalization
+        cell.elementView.autocorrectionType = options.autocorrection
         cell.delegate = self.delegate
         cell.uniqueIdentifier = viewModel.uniqueIdentifier
         cell.onHeightUpdate = { [weak self] in
@@ -184,6 +187,7 @@ final class SettingsTableView: UIView {
         cell.elementView.placeholderText = options.placeholderText
         cell.elementView.title = options.valueText
         cell.elementView.imageIcon = options.imageIcon
+        cell.elementView.textField.autocorrectionType = options.autocorrection
         cell.delegate = self.delegate
     }
 

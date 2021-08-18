@@ -119,7 +119,8 @@ final class AddAccountViewController: UIViewController {
         
         guard let captchaUuid = registerView.model.uuid else { return }
         
-        let showNsfw = registerView.showNsfwSwitch.switcher.isOn
+        // Apple rejects apps when user can choose to show nsfw content
+        let showNsfw = true /* registerView.showNsfwSwitch.switcher.isOn */
         var email = registerView.emailTextField.text
         if email == "" {
             email = nil

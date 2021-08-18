@@ -181,7 +181,8 @@ extension CreateCommunityViewController: CreateCommunityViewControllerProtocol {
                     placeholderText: "johnappleseed",
                     shouldAlwaysShowPlaceholder: false,
                     inputGroup: "name",
-                    capitalization: .none
+                    capitalization: .none,
+                    autocorrection: .no
                 )
             )
         )
@@ -193,7 +194,8 @@ extension CreateCommunityViewController: CreateCommunityViewControllerProtocol {
                     valueText: createComminityData.displayName,
                     placeholderText: "John Appleseed",
                     shouldAlwaysShowPlaceholder: false,
-                    inputGroup: "displayName"
+                    inputGroup: "displayName",
+                    autocorrection: .no
                 )
             )
         )

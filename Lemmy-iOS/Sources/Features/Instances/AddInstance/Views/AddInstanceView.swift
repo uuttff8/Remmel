@@ -33,6 +33,7 @@ final class AddInstanceView: UIView {
         $0.placeholder = "instances-new-instance".localized
         $0.keyboardType = .URL
         $0.autocapitalizationType = .none
+        $0.autocorrectionType = .no
         $0.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     

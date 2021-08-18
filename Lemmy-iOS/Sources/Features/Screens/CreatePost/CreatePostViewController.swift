@@ -305,7 +305,8 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
                 options: .init(
                     placeholderText: "create-content-create-url-placeholder".localized,
                     valueText: self.createPostData.url ?? nil,
-                    imageIcon: Config.Image.addImage
+                    imageIcon: Config.Image.addImage,
+                    autocorrection: .no
                 )
             )
         )

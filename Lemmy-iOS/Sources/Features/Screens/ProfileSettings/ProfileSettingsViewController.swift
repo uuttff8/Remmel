@@ -177,7 +177,8 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
                     valueText: viewModel.displayName,
                     placeholderText: "profile-display-name-hint".localized,
                     isEnabled: true,
-                    capitalization: .none
+                    capitalization: .none,
+                    autocorrection: .no
                 ))
         )
         
@@ -197,7 +198,8 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
                     valueText: viewModel.email,
                     placeholderText: "profile-email-hint".localized,
                     isEnabled: true,
-                    capitalization: .none
+                    capitalization: .none,
+                    autocorrection: .no
                 ))
         )
         
@@ -208,7 +210,8 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
                     valueText: viewModel.matrix,
                     placeholderText: "profile-matrix-hint".localized,
                     isEnabled: true,
-                    capitalization: .none
+                    capitalization: .none,
+                    autocorrection: .no
                 ))
         )
         

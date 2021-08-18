@@ -53,6 +53,7 @@ struct InputCellOptions {
     let inputGroup: UniqueIdentifierType?
     let isEnabled: Bool
     let capitalization: UITextAutocapitalizationType
+    let autocorrection: UITextAutocorrectionType
 
     init(
         valueText: String? = nil,
@@ -60,7 +61,8 @@ struct InputCellOptions {
         shouldAlwaysShowPlaceholder: Bool = false,
         inputGroup: UniqueIdentifierType? = nil,
         isEnabled: Bool = true,
-        capitalization: UITextAutocapitalizationType = .sentences
+        capitalization: UITextAutocapitalizationType = .sentences,
+        autocorrection: UITextAutocorrectionType = .default
     ) {
         self.valueText = valueText
         self.placeholderText = placeholderText
@@ -68,6 +70,7 @@ struct InputCellOptions {
         self.inputGroup = inputGroup
         self.isEnabled = isEnabled
         self.capitalization = capitalization
+        self.autocorrection = autocorrection
     }
 }
 
@@ -76,17 +79,23 @@ struct LargeInputCellOptions {
     let valueText: String?
     let maxLength: Int?
     let noNewline: Bool
+    let capitalization: UITextAutocapitalizationType
+    let autocorrection: UITextAutocorrectionType
 
     init(
         valueText: String? = nil,
         placeholderText: String? = nil,
         maxLength: Int? = nil,
-        noNewline: Bool = false
+        noNewline: Bool = false,
+        capitalization: UITextAutocapitalizationType = .sentences,
+        autocorrect: UITextAutocorrectionType = .default
     ) {
         self.valueText = valueText
         self.placeholderText = placeholderText
         self.maxLength = maxLength
         self.noNewline = noNewline
+        self.capitalization = capitalization
+        self.autocorrection = autocorrect
     }
 }
 
@@ -150,14 +159,17 @@ struct InputWithImageOptions {
     let placeholderText: String?
     let valueText: String?
     let imageIcon: UIImage
+    let autocorrection: UITextAutocorrectionType
     
     init(
         placeholderText: String? = nil,
         valueText: String? = nil,
-        imageIcon: UIImage
+        imageIcon: UIImage,
+        autocorrection: UITextAutocorrectionType = .default
     ) {
         self.placeholderText = placeholderText
         self.valueText = valueText
         self.imageIcon = imageIcon
+        self.autocorrection = autocorrection
     }
 }

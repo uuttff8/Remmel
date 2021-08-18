@@ -20,12 +20,14 @@ class AuthenticationView: UIView {
         $0.placeholder = "sign-in-email-username".localized
         $0.autocapitalizationType = .none
         $0.textContentType = .username
+        $0.autocorrectionType = .no
     }
 
     lazy var passwordTextField = UITextField().then {
         $0.placeholder = "sign-in-password".localized
         $0.isSecureTextEntry = true
         $0.textContentType = .password
+        $0.autocorrectionType = .no
     }
 
     init() {
