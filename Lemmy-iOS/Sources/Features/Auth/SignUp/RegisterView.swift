@@ -81,15 +81,20 @@ class RegisterView: UIView {
         [
             signUpLabel,
             usernameTextField,
-            emailTextField, emailDescription,
-            passwordTextField, passwordVerifyTextField,
-            captchaImageView, captchaTextField,
-            showNsfwSwitch
+            emailTextField,
+            emailDescription,
+            passwordTextField,
+            passwordVerifyTextField,
+            captchaImageView,
+            captchaTextField,
+//            showNsfwSwitch, // Apple rejects apps when user can choose to show nsfw content
         ].forEach { [self] (view) in
             self.addSubview(view)
         }
+        
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -157,9 +162,10 @@ class RegisterView: UIView {
             make.height.equalTo(35)
         }
 
-        showNsfwSwitch.snp.makeConstraints { (make) in
-            make.top.equalTo(captchaTextField.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(20)
-        }
+        // Apple rejects apps when user can choose to show nsfw content
+//        showNsfwSwitch.snp.makeConstraints { (make) in
+//            make.top.equalTo(captchaTextField.snp.bottom).offset(10)
+//            make.leading.trailing.equalToSuperview().inset(20)
+//        }
     }
 }
