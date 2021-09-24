@@ -76,7 +76,7 @@ final class AddInstanceView: UIView {
         NSObject.cancelPreviousPerformRequests(withTarget: self,
                                                selector: #selector(reload(_:)),
                                                object: textField)
-        self.perform(#selector(reload(_:)), with: textField, afterDelay: 0.5)
+        self.perform(#selector(reload(_:)), with: textField, afterDelay: 1.0)
     }
 }
 

@@ -14,7 +14,7 @@ protocol InstancesViewControllerProtocol: AnyObject {
 
 extension InstancesViewController {
     struct Appearance {
-        let mainLemmyInstance = "https://lemmy.ml/"
+        let mainLemmyInstance = InstanceUrl(string: "https://lemmy.ml/")!
     }
 }
 

@@ -19,10 +19,10 @@ class LemmyShareData {
     
     var authUserDefaults: UserDefaults { loginData.unauthUserDefaults }
     
-    var userdata: LMModels.Views.LocalUserSettingsView? {
+    var userdata: LMModels.Api.Site.MyUserInfo? {
         get {
             guard let data = unauthUserDefaults.data(forKey: UserDefaults.Key.userdata) else { return nil }
-            return try? LemmyJSONDecoder().decode(LMModels.Views.LocalUserSettingsView.self, from: data)
+            return try? LemmyJSONDecoder().decode(LMModels.Api.Site.MyUserInfo.self, from: data)
         } set {
             let data = try? LMMJSONEncoder().encode(newValue)
             unauthUserDefaults.set(data, forKey: UserDefaults.Key.userdata)
@@ -35,7 +35,7 @@ class LemmyShareData {
     }
     
     var isLoggedIn: Bool {
-        self.userdata != nil && self.jwtToken != nil
+        self.userdata != nil && self.jwtToken != nil && self.currentInstanceUrl != nil
     }
     
     var currentInstanceUrl: InstanceUrl? {
@@ -43,20 +43,22 @@ class LemmyShareData {
             // support for old versions
             let supportUrl = self.unauthUserDefaults.string(forKey: UserDefaults.Key.currentInstanceUrlOld)
             
-            guard supportUrl == nil, supportUrl?.isEmpty == true else {
+            guard supportUrl == nil else {
                 
                 // if found old fashioned currentInstanceUrl (haha)
                 // then nullify this old value
                 // and try to create a new fashioned InstanceUrl
+                
+                self.unauthUserDefaults.removeObject(forKey: UserDefaults.Key.currentInstanceUrlOld)
 
-                guard let correctNewUrl = supportUrl,
-                        correctNewUrl.contains(".")
+                guard let newUrl = supportUrl,
+                      let newInstanceUrl = InstanceUrl(string: newUrl)
                 else { return nil }
+                                
+                let data = try? LMMJSONEncoder().encode(newInstanceUrl)
+                unauthUserDefaults.set(data, forKey: UserDefaults.Key.currentInstanceUrlLast)
                 
-                self.unauthUserDefaults.setNilValueForKey(UserDefaults.Key.currentInstanceUrlOld)
-                self.unauthUserDefaults.set(InstanceUrl(string: correctNewUrl), forKey: UserDefaults.Key.currentInstanceUrlLast)
-                
-                return InstanceUrl(string: correctNewUrl)
+                return newInstanceUrl
             }
             
             guard let data = unauthUserDefaults.data(forKey: UserDefaults.Key.currentInstanceUrlLast) else {
@@ -101,8 +103,16 @@ struct InstanceUrl: Codable {
     /// Parameters:
     /// - baseUrl: The base url that should be handled
     init?(string: String) {
-        guard let host = Self.isLinkCorrect(string) else { return nil }
-        self.rawHost = host
+        var link = string
+            .replacingOccurrences(of: "https://", with: "")
+            .replacingOccurrences(of: "http://", with: "")
+            .replacingOccurrences(of: "wss://", with: "")
+        
+        if link.contains("/") {
+            link.removeSubrange(link.firstIndex(of: "/")!..<link.endIndex)
+        }
+        
+        self.rawHost = link
     }
     
     var wssLink: String {
@@ -115,15 +125,5 @@ struct InstanceUrl: Codable {
     
     var withoutSchemeLink: String {
         rawHost + "/"
-    }
-    
-    static func isLinkCorrect(_ str: String) -> String? {
-        guard let url = URL(string: str) else { return nil }
-        return Self.isLinkCorrect(url)
-    }
-    
-    static func isLinkCorrect(_ url: URL) -> String? {
-        guard url.host?.contains(".") == true else { return nil }
-        return url.host?.lowercased()
     }
 }

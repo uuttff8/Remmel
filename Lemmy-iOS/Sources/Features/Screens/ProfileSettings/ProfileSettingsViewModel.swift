@@ -56,36 +56,36 @@ class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
                     return
                 }
                 
-                self.userAccountService.currentLocalUser = myUser
+                self.userAccountService.currentUserInfo = myUser
                 
                 self.viewController?.displayLoadingIndicator(viewModel: .init(isLoading: false))
                 
                 self.viewController?.displayProfileSettingsForm(
-                    viewModel: .init(displayName: myUser.person.displayName,
-                                     bio: myUser.person.bio,
-                                     email: myUser.localUser.email,
-                                     matrix: myUser.person.matrixUserId,
-                                     nsfwContent: myUser.localUser.showNsfw,
-                                     notifToEmail: myUser.localUser.sendNotificationsToEmail)
+                    viewModel: .init(displayName: myUser.localUserView.person.displayName,
+                                     bio: myUser.localUserView.person.bio,
+                                     email: myUser.localUserView.localUser.email,
+                                     matrix: myUser.localUserView.person.matrixUserId,
+                                     nsfwContent: myUser.localUserView.localUser.showNsfw,
+                                     notifToEmail: myUser.localUserView.localUser.sendNotificationsToEmail)
                 )
             }.store(in: &cancellables)
     }
     
     func doRemoteProfileSettingsUpdate(request: ProfileSettings.UpdateProfileSettings.Request) {
         
-        guard let prevData = userAccountService.currentLocalUser,
+        guard let prevData = userAccountService.currentUserInfo,
               let currentUserJwt = userAccountService.jwtToken else {
             return
         }
         let newData = request.data
         
         let params = LMModels.Api.Person.SaveUserSettings(showNsfw: newData.showNsfwContent,
-                                                          theme: prevData.localUser.theme,
-                                                          defaultSortType: prevData.localUser.defaultSortType.index,
-                                                          defaultListingType: prevData.localUser.defaultListingType.index,
-                                                          lang: prevData.localUser.lang,
-                                                          avatar: prevData.person.avatar?.absoluteString,
-                                                          banner: prevData.person.banner?.absoluteString,
+                                                          theme: prevData.localUserView.localUser.theme,
+                                                          defaultSortType: prevData.localUserView.localUser.defaultSortType.index,
+                                                          defaultListingType: prevData.localUserView.localUser.defaultListingType.index,
+                                                          lang: prevData.localUserView.localUser.lang,
+                                                          avatar: prevData.localUserView.person.avatar?.absoluteString,
+                                                          banner: prevData.localUserView.person.banner?.absoluteString,
                                                           displayName: newData.displayName,
                                                           email: newData.email,
                                                           bio: newData.bio,
@@ -93,7 +93,7 @@ class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
 //                                                          newPassword: newData.newPassword,
 //                                                          newPasswordVerify: newData.verifyPassword,
 //                                                          oldPassword: newData.oldPassword,
-                                                          showAvatars: prevData.localUser.showAvatars,
+                                                          showAvatars: prevData.localUserView.localUser.showAvatars,
                                                           showScores: nil,
                                                           sendNotificationsToEmail: newData.sendNotificationsToEmail,
                                                           botAccount: nil,

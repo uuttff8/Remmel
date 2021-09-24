@@ -14,7 +14,8 @@ class InstancesAssembly: Assembly {
             instancesPersistenceService: InstancePersistenceService()
         )
         let viewModel = InstancesViewModel(
-            provider: provider
+            provider: provider,
+            userAccountService: UserAccountService()
         )
         
         let vc = InstancesViewController(viewModel: viewModel)

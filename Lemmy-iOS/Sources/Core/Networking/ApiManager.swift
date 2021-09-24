@@ -12,15 +12,6 @@ final class ApiManager {
     
     static var requests = RequestsManager()
     
-    static var chainedWsCLient = ChainedWSClient().connect()
-    
-    private let instanceUrl: String
-    
-    let requestsManager: RequestsManager?
-    
-    /// Use init?(instanceUrl:) if you want to create a new websocket connection with new instance
-    init(instanceUrl: String) {
-        self.instanceUrl = instanceUrl
-        self.requestsManager = RequestsManager(instanceUrl: instanceUrl, isNewInstance: true)
-    }
+    static var chainedWsCLient = ChainedWSClient()
+
 }

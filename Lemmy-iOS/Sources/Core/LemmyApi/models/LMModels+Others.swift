@@ -278,16 +278,49 @@ extension LMModels {
             }
         }
         
+        /**
+        * A websocket response. Includes the return type.
+        * Can be used like:
+        *
+        * ```ts
+        * if (op == UserOperation.Search) {
+        *   let data = wsJsonToRes<SearchResponse>(msg).data;
+        * }
+        * ```
+        */
         struct WebSocketResponse<ResponseType: Codable> {
             let op: String
+            /**
+            * This contains the data for a websocket response.
+            *
+            * The correct response type if given is in [[LemmyHttp]].
+            */
             let data: ResponseType
         }
         
+        /**
+        * A websocket JSON response that includes the errors.
+        */
         struct WebSocketJsonResponse<ResponseType: Codable> {
             let op: String?
+            /**
+            * This contains the data for a websocket response.
+            *
+            * The correct response type if given is in [[LemmyHttp]].
+            */
             let data: ResponseType?
             let error: String?
             let reconnect: Bool?
         }
+        
+        /**
+        * A holder for a site's metadata ( such as opengraph tags ), used for post links.
+        */
+        struct SiteMetadata: Codable {
+            let title: String?
+            let description: String?
+            let image: String?
+            let html: String?
+       }
     }
 }

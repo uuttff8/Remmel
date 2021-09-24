@@ -30,8 +30,8 @@ protocol WSClientProtocol: AnyObject {
 final class ChainedWSClient: NSObject, WSClientProtocol {
         
     private var webSocketTask: URLSessionWebSocketTask?
-    private var wsEndpoint: URL {
-        URL(string: LemmyShareData.shared.currentInstanceUrl!.wssLink)!
+    private var wsEndpoint: URL? {
+        URL(string: LemmyShareData.shared.currentInstanceUrl?.wssLink ?? "")
     }
     
     var onConnected: (() -> Void)?
@@ -51,7 +51,7 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
         super.init()
         
         self.webSocketTask = self.getNewWsTask()
-        Logger.common.info("URLSession webSocketTask opened to \(wsEndpoint)")
+        Logger.common.info("URLSession webSocketTask opened to \(wsEndpoint as Any)")
     }
     
     @discardableResult
@@ -92,7 +92,7 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
             && !self.isConnected
             && self.reconnecting {
             
-            Logger.common.info("Trying to reconnect at \(LemmyShareData.shared.currentInstanceUrl?.httpLink ?? "NOT FOUND")")
+            Logger.common.info("Trying to reconnect at \(LemmyShareData.shared.currentInstanceUrl?.wssLink ?? "NOT FOUND")")
             
             self.webSocketTask = getNewWsTask()
             self.webSocketTask?.resume()
@@ -180,12 +180,16 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
         }
     }
     
-    private func getNewWsTask() -> URLSessionWebSocketTask {
+    private func getNewWsTask() -> URLSessionWebSocketTask? {
+        guard let endpoint = wsEndpoint else {
+            Logger.common.alert("Endpoint for WebSocket not found")
+            return nil
+        }
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForResource = 300
         config.waitsForConnectivity = true
         let sess = URLSession(configuration: config, delegate: self, delegateQueue: OperationQueue.current)
-        return sess.webSocketTask(with: self.wsEndpoint)
+        return sess.webSocketTask(with: endpoint)
     }
 }
 

@@ -103,7 +103,7 @@ extension LMModels.Api {
                 case oldPassword = "old_password"
                 case auth
             }
-       }
+        }
         
         /**
          * The `jwt` string should be stored and used anywhere `auth` is called for.
@@ -113,8 +113,8 @@ extension LMModels.Api {
         }
         
         /**
-        * `username` can only be used for local users. To get details for a federated user, pass `personId` instead.
-        */
+         * `username` can only be used for local users. To get details for a federated user, pass `personId` instead.
+         */
         struct GetPersonDetails: Codable {
             let personId: Int?
             let username: String?
@@ -139,14 +139,12 @@ extension LMModels.Api {
         
         struct GetPersonDetailsResponse: Codable {
             let personView: LMModels.Views.PersonViewSafe
-            let follows: [LMModels.Views.CommunityFollowerView]
             let moderates: [LMModels.Views.CommunityModeratorView]
             let comments: [LMModels.Views.CommentView]
             let posts: [LMModels.Views.PostView]
             
             enum CodingKeys: String, CodingKey {
                 case personView = "person_view"
-                case follows
                 case moderates
                 case comments
                 case posts
@@ -262,8 +260,8 @@ extension LMModels.Api {
         }
         
         /**
-        * Permanently deletes your posts and comments
-        */
+         * Permanently deletes your posts and comments
+         */
         struct DeleteAccount: Codable {
             let password: String
             let auth: String
@@ -364,7 +362,7 @@ extension LMModels.Api {
                 case privateMessageView = "private_message_view"
             }
         }
-                
+        
         /**
          * If a community is supplied, returns the report count for only that community,
          * otherwise returns the report count for all communities the user moderates.
@@ -383,6 +381,27 @@ extension LMModels.Api {
                 case community
                 case commentReports = "comment_reports"
                 case postReports = "post_reports"
+            }
+        }
+        
+        struct BlockPerson: Codable {
+            let personId: Int
+            let block: Bool
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case personId = "person_id"
+                case block, auth
+            }
+        }
+        
+        struct BlockPersonResponse: Codable {
+            let personView: LMModels.Views.PersonViewSafe
+            let blocked: Bool
+            
+            enum CodingKeys: String, CodingKey {
+                case personView = "person_view"
+                case blocked
             }
         }
         

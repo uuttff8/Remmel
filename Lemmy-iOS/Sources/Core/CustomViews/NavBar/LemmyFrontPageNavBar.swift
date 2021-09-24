@@ -30,7 +30,7 @@ class LemmyFrontPageNavBar: UIView {
     }
 
     @objc private func updateProfileIcon() {
-        guard let photoStr = LemmyShareData.shared.userdata?.person.avatar
+        guard let photoStr = LemmyShareData.shared.userdata?.localUserView.person.avatar
         else {
             self.profileIcon.imageButton.setImage(UIImage(systemName: "person"), for: .normal)
             return

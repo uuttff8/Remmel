@@ -13,6 +13,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     private var appCoordinator: AppCoordinator!
 
+    private let userAccountService: UserAccountSerivceProtocol = UserAccountService()
+
     func scene(
         _ scene: UIScene,
         willConnectTo session: UISceneSession,
@@ -21,7 +23,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: UIScreen.main.bounds)
 
-        let appCoordinator = AppCoordinator(window: window!, windowScene: windowScene)
+        let appCoordinator = AppCoordinator(
+            window: window!,
+            windowScene: windowScene,
+            userAccountService: userAccountService
+        )
         self.appCoordinator = appCoordinator
         appCoordinator.start()
     }
@@ -40,7 +46,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
-        ApiManager.chainedWsCLient.reconnectIfNeeded()
+        if userAccountService.isAuthorized {
+            ApiManager.chainedWsCLient.reconnectIfNeeded()
+        }
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {

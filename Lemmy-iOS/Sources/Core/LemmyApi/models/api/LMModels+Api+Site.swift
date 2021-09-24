@@ -43,10 +43,12 @@ extension LMModels.Api {
             let posts: [LMModels.Views.PostView]
             let communities: [LMModels.Views.CommunityView]
             let users: [LMModels.Views.PersonViewSafe]
+            let transferredToCommunity: [LMModels.Views.ModTransferCommunityView]
             
             enum CodingKeys: String, CodingKey {
                 case type = "type_"
                 case comments, posts, communities, users
+                case transferredToCommunity = "transferred_to_community"
             }
         }
         
@@ -140,12 +142,12 @@ extension LMModels.Api {
         }
         
         struct GetSiteResponse: Codable {
-            let siteView: LMModels.Views.SiteView? // Because the site might not be set up y,
+            let siteView: LMModels.Views.SiteView? // Because the site might not be set up yet.
             let admins: [LMModels.Views.PersonViewSafe]
             let banned: [LMModels.Views.PersonViewSafe]
             let online: Int
             let version: String
-            let myUser: LMModels.Views.LocalUserSettingsView? // Gives back your local user and settings if logged
+            let myUser: MyUserInfo? // Gives back your local user and settings if logged
             let federatedInstances: FederatedInstances?
             
             enum CodingKeys: String, CodingKey {
@@ -156,6 +158,25 @@ extension LMModels.Api {
             }
         }
         
+        /**
+        * Your user info, such as blocks, follows, etc.
+        */
+        struct MyUserInfo: Codable {
+            let localUserView: LMModels.Views.LocalUserSettingsView
+            let follows: [LMModels.Views.CommunityFollowerView]
+            let moderates: [LMModels.Views.CommunityModeratorView]
+            let communityBlocks: [LMModels.Views.CommunityBlockView]
+            let personBlocks: [LMModels.Views.PersonBlockView]
+            
+            enum CodingKeys: String, CodingKey {
+                case localUserView = "local_user_view"
+                case follows, moderates
+                case communityBlocks = "community_blocks"
+                case personBlocks = "person_blocks"
+            }
+
+       }
+        
         struct TransferSite: Codable {
             let personId: Int
             let auth: String
@@ -165,6 +186,18 @@ extension LMModels.Api {
                 case auth
             }
         }
+        
+        struct ResolveObject: Codable {
+            let q: String
+            let auth: String?
+       }
+
+        struct ResolveObjectResponse: Codable {
+           let comment: LMModels.Views.CommentView?
+           let post: LMModels.Views.PostView?
+           let community: LMModels.Views.CommunityView?
+           let person: LMModels.Views.PersonViewSafe?
+       }
         
         struct FederatedInstances: Codable {
             let linked: [String]

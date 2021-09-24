@@ -225,5 +225,13 @@ extension LMModels.Api {
             let posts: [LMModels.Views.PostReportView]
         }
         
+        struct GetSiteMetadata: Codable {
+            let url: String
+       }
+
+        struct GetSiteMetadataResponse: Codable {
+            let metadata: LMModels.Others.SiteMetadata
+        }
+        
     }
 }

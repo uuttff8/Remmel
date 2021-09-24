@@ -74,9 +74,9 @@ extension LMModels {
 
         struct Site: Identifiable, Codable {
             let id: Int
-            let sidebar: String?
             let name: String
-            let description: String
+            let sidebar: String?
+            let description: String?
             let creatorId: Int
             let published: Date
             let updated: Date
@@ -338,6 +338,24 @@ extension LMModels {
                 case when = "when_"
             }
         }
+        
+        struct ModTransferCommunity: Codable {
+            let id: Int
+            let modPersonId: Int
+            let otherPersonId: Int
+            let communityId: Int
+            let removed: Bool?
+            let when: String
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case modPersonId = "mod_person_id"
+                case otherPersonId = "other_person_id"
+                case communityId = "community_id"
+                case removed
+                case when = "when_"
+            }
+       }
         
         struct ModAdd: Identifiable, Codable {
             let id: Int

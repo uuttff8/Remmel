@@ -20,29 +20,20 @@ class RequestsManager {
         let op: String
         let data: T
     }
-    
-    open var isNewInstanceConnection: Bool
-    
+        
     let wsClient: WSLemmyClient
     let httpClient = HttpLemmyClient()
     let decoder = LemmyJSONDecoder()
     
     private let requestQueue = DispatchQueue(label: "Lemmy-iOS.RequestQueue")
         
-    init?(instanceUrl: String, isNewInstance: Bool) {
-        self.isNewInstanceConnection = isNewInstance
-        guard let url = String.createInstanceFullUrl(instanceUrl: instanceUrl) else {
-            return nil
-        }
-        self.wsClient = WSLemmyClient(url: url)
+    init(instanceUrl: InstanceUrl) {
+        self.wsClient = WSLemmyClient(url: URL(string: instanceUrl.wssLink)!)
     }
     
     /// use only when auth
     convenience init() {
-        self.init(
-            instanceUrl: LemmyShareData.shared.currentInstanceUrl!.httpLink,
-            isNewInstance: false
-        )!
+        self.init(instanceUrl: LemmyShareData.shared.authedInstanceUrl)
     }
     
     func asyncRequestDecodable<Req: Codable, Res: Codable>(
@@ -51,9 +42,6 @@ class RequestsManager {
         parsingFromDataKey rootKey: Bool = true
     ) -> AnyPublisher<Res, LemmyGenericError> {
         
-        if !isNewInstanceConnection {
-            self.wsClient.instanceUrl = URL(string: LemmyShareData.shared.authedInstanceUrl.wssLink)!
-        }
         Logger.common.info("Trying to connect to \(self.wsClient.instanceUrl) instance")
         
         return wsClient.asyncSend(on: path, data: parameters)
@@ -93,7 +81,8 @@ class RequestsManager {
         Future { promise in
             if parsingFromData {
                 do {
-                    let apiResponse = try self.decoder.decode(ApiResponse<D>.self, from: data)
+                    print(D.self)
+                    let apiResponse = try! self.decoder.decode(ApiResponse<D>.self, from: data) // swiftlint:disable:this force_try
                     let normalResponse = apiResponse.data
                     promise(.success(normalResponse))
                 } catch {
@@ -112,7 +101,7 @@ class RequestsManager {
             } else {
                 
                 do {
-                    let apiResponse = try self.decoder.decode(D.self, from: data)
+                    let apiResponse = try! self.decoder.decode(D.self, from: data) // swiftlint:disable:this force_try
                     promise(.success(apiResponse))
                 } catch {
                     do {
@@ -132,30 +121,6 @@ extension String: Error {
 }
 
 extension String {
-    static func createInstanceFullUrl(instanceUrl: String) -> URL? {
-        let link = String.cleanupInstance(instanceUrl)
-                
-        guard let url = URL(string: "wss://" + link + "/api/v3/ws") else {
-            Logger.common.error("Could not create instance url from \(instanceUrl), transformed url: \(link) ")
-            return nil
-        }
-        
-        return url
-    }
-    
-    static func cleanupInstance(_ instanceUrl: String) -> String {
-        var link = instanceUrl
-        
-        if link.hasPrefix("https://") {
-            link.removeFirst(8)
-        }
-        
-        if link.hasSuffix("/") {
-            link.removeLast()
-        }
-        
-        return link
-    }
     
     static func makePathToPictrs(_ pic: String) -> String {
         let host = LemmyShareData.shared.authedInstanceUrl.rawHost
@@ -173,3 +138,4 @@ extension Data {
         return prettyPrintedString
     }
 }
+

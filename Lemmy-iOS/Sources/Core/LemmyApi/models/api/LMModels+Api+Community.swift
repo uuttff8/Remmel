@@ -165,15 +165,7 @@ extension LMModels.Api {
                 case follow, auth
             }
         }
-        
-        struct GetFollowedCommunities: Codable {
-            let auth: String
-        }
-        
-        struct GetFollowedCommunitiesResponse: Codable {
-            let communities: [LMModels.Views.CommunityFollowerView]
-        }
-        
+                
         struct TransferCommunity: Codable {
             let communityId: Int
             let personId: Int

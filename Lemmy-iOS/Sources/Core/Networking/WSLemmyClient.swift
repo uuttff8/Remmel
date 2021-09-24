@@ -80,13 +80,9 @@ class WSLemmyClient {
             }
             let parameters = String(data: orderJsonData, encoding: .utf8)!
             
-            return """
-            {"op": "\(url)","data": \(parameters)}
-            """
+            return #"{"op": "\#(url)","data": \#(parameters)}"#
         } else {
-            return """
-            {"op":"\(url)","data":{}}
-            """
+            return #"{"op":"\#(url)","data":{}}"#
         }
     }
     

@@ -13,11 +13,12 @@ class AppCoordinator: BaseCoordinator {
     private let window: UIWindow
     private let windowScene: UIWindowScene
     
-    private let userAccountService: UserAccountSerivceProtocol = UserAccountService()
+    private let userAccountService: UserAccountSerivceProtocol
     
-    init(window: UIWindow, windowScene: UIWindowScene) {
+    init(window: UIWindow, windowScene: UIWindowScene, userAccountService: UserAccountSerivceProtocol) {
         self.window = window
         self.windowScene = windowScene
+        self.userAccountService = userAccountService
     }
     
     override func start() {

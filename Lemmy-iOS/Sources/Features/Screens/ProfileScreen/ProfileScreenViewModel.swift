@@ -99,7 +99,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     }
     
     func doIdentifyProfile() {
-        let isCurrent = loadedProfile?.id == userAccountService.currentLocalUser?.person.id
+        let isCurrent = loadedProfile?.id == userAccountService.currentUserInfo?.localUserView.person.id
             ? true
             : false
         guard let profile = loadedProfile else { return }
@@ -150,8 +150,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
         self.viewController?.displayProfile(
             viewModel: .init(state: .result(profile: loadedProfile.viewData,
                                             posts: response.posts,
-                                            comments: response.comments,
-                                            subscribers: response.follows))
+                                            comments: response.comments))
         )
     }
     
@@ -164,8 +163,6 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
                 submodule.updatePostsData(profile: profileData, posts: profileData.userDetails.posts)
             case ProfileScreenDataFlow.Tab.comments.rawValue:
                 submodule.updateCommentsData(profile: profileData, comments: profileData.userDetails.comments)
-            case ProfileScreenDataFlow.Tab.subscribed.rawValue:
-                submodule.updateFollowersData(profile: profileData, subscribers: profileData.userDetails.follows)
                 
             default:
                 break
@@ -188,8 +185,6 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
                 submodule.updatePostsData(profile: profileData, posts: request.posts)
             case ProfileScreenDataFlow.Tab.comments.rawValue:
                 submodule.updateCommentsData(profile: profileData, comments: request.comments)
-            case ProfileScreenDataFlow.Tab.subscribed.rawValue:
-                submodule.updateFollowersData(profile: profileData, subscribers: request.subscribers)
                 
             default:
                 break
@@ -227,11 +222,9 @@ enum ProfileScreenDataFlow {
     enum Tab: Int, CaseIterable {
         case posts
         case comments
-        case subscribed
         
         var title: String {
             switch self {
-            case .subscribed: return "content-subscribed".localized
             case .comments: return "content-comments".localized
             case .posts: return "content-posts".localized
             }
@@ -266,7 +259,6 @@ enum ProfileScreenDataFlow {
             let submodules: [Int: ProfileScreenSubmoduleProtocol]
             let posts: [LMModels.Views.PostView]
             let comments: [LMModels.Views.CommentView]
-            let subscribers: [LMModels.Views.CommunityFollowerView]
         }
     }
     
@@ -301,8 +293,7 @@ enum ProfileScreenDataFlow {
         case loading
         case result(profile: ProfileScreenHeaderView.ViewData,
                     posts: [LMModels.Views.PostView],
-                    comments: [LMModels.Views.CommentView],
-                    subscribers: [LMModels.Views.CommunityFollowerView])
+                    comments: [LMModels.Views.CommentView])
         case blockedUser
     }
 }

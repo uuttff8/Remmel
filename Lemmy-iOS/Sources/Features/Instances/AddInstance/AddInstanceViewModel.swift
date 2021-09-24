@@ -25,13 +25,15 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
     }
     
     func doAddInstanceCheck(request: AddInstanceDataFlow.InstanceCheck.Request) {
-        guard let api = ApiManager(instanceUrl: request.query).requestsManager else {
+        guard let instanceUrl = InstanceUrl(string: request.query) else {
             Logger.common.error("Not valid instance url")
             self.viewController?.displayAddInstanceCheck(
                 viewModel: .init(state: .noResult)
             )
             return
         }
+        
+        let api = RequestsManager(instanceUrl: instanceUrl)
         
         api
             .asyncGetSite(parameters: .init(auth: nil))
@@ -47,13 +49,9 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
                 }
             } receiveValue: { (response) in
                 
-                guard let instanceUrl =
-                        String.createInstanceFullUrl(instanceUrl: request.query)?.host
-                else { return }
-                
                 self.viewController?.displayAddInstanceCheck(
                     viewModel: .init(
-                        state: .result(iconUrl: response.siteView?.site.icon, instanceUrl: instanceUrl)
+                        state: .result(iconUrl: response.siteView?.site.icon, instanceUrl: instanceUrl.rawHost)
                     )
                 )
             }.store(in: &self.cancellable)
@@ -78,7 +76,7 @@ enum AddInstanceDataFlow {
         }
     }
     
-    enum ViewControllerState {
+    enum ViewControllerState: Equatable {
         case result(iconUrl: URL?, instanceUrl: String)
         case noResult
     }

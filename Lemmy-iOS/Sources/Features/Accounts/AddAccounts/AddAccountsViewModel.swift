@@ -117,7 +117,7 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
             .sink(receiveCompletion: { (completion) in
                 Logger.logCombineCompletion(completion)
             }, receiveValue: { (response) in
-                guard let myUser = response.myUser?.person else { return }
+                guard let myUser = response.myUser?.localUserView.person else { return }
                 completion(myUser)
             }).store(in: &cancellables)
     }

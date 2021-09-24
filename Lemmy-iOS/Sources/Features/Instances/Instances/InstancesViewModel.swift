@@ -19,14 +19,21 @@ class InstancesViewModel: InstancesViewModelProtocol {
     
     weak var viewController: InstancesViewControllerProtocol?
     
+    private let userAccountService: UserAccountSerivceProtocol
     private let provider: InstancesProviderProtocol
     
     private var cancellable = Set<AnyCancellable>()
     
     init(
-        provider: InstancesProviderProtocol
+        provider: InstancesProviderProtocol,
+        userAccountService: UserAccountSerivceProtocol
     ) {
         self.provider = provider
+        self.userAccountService = userAccountService
+    }
+    
+    func doUnauthState() {
+        userAccountService.logOut()
     }
     
     func doInstancesRefresh(request: InstancesDataFlow.InstancesLoad.Request) {
@@ -44,7 +51,7 @@ class InstancesViewModel: InstancesViewModelProtocol {
     }
     
     func doAddInstance(request: InstancesDataFlow.AddInstance.Request) {
-        self.provider.addNewInstance(link: request.link)
+        self.provider.addNewInstance(link: request.link.rawHost)
             .sink(receiveValue: { _ in
                 // as a new instance created, take it from db
                 self.doInstancesRefresh(request: .init())
@@ -72,7 +79,7 @@ enum InstancesDataFlow {
     
     enum AddInstance {
         struct Request {
-            let link: String
+            let link: InstanceUrl
         }
         
         struct ViewModel {

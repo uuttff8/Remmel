@@ -33,6 +33,7 @@ extension LMModels {
             let subscribed: Bool
             let saved: Bool
             let myVote: Int?
+            let creatorBlocked: Bool
             
             enum CodingKeys: String, CodingKey {
                 case personMention = "person_mention"
@@ -41,6 +42,7 @@ extension LMModels {
                 case creatorBannedFromCommunity = "creator_banned_from_community"
                 case subscribed, saved
                 case myVote = "my_vote"
+                case creatorBlocked = "creator_blocked"
             }
         }
         
@@ -89,13 +91,16 @@ extension LMModels {
             let subscribed: Bool
             let saved: Bool
             let read: Bool
+            let creatorBlocked: Bool
             var myVote: Int?
             
             enum CodingKeys: String, CodingKey {
                 case creator, post, community, counts
                 case creatorBannedFromCommunity = "creator_banned_from_community"
                 case subscribed, saved, read
+                case creatorBlocked = "creator_blocked"
                 case myVote = "my_vote"
+                
             }
         }
         
@@ -131,6 +136,7 @@ extension LMModels {
             let creatorBannedFromCommunity: Bool
             let subscribed: Bool
             let saved: Bool
+            let creatorBlocked: Bool
             var myVote: Int? 
             
             enum CodingKeys: String, CodingKey {
@@ -138,6 +144,7 @@ extension LMModels {
                 case community, counts
                 case creatorBannedFromCommunity = "creator_banned_from_community"
                 case subscribed, saved
+                case creatorBlocked = "creator_blocked"
                 case myVote = "my_vote"
             }
         }
@@ -170,6 +177,19 @@ extension LMModels {
                 case moderator, community
             }
         }
+        
+        struct ModTransferCommunityView: Codable {
+            let modTransferCommunity: LMModels.Source.ModTransferCommunity
+            let moderator: LMModels.Source.PersonSafe
+            let community: LMModels.Source.CommunitySafe
+            let moddedPerson: LMModels.Source.PersonSafe
+            
+            enum CodingKeys: String, CodingKey {
+                case modTransferCommunity = "mod_transfer_community"
+                case moderator, community
+                case moddedPerson = "modded_person"
+            }
+       }
         
         struct ModAddView: Codable {
             let modAdd: LMModels.Source.ModAdd
@@ -274,6 +294,11 @@ extension LMModels {
             let follower: LMModels.Source.PersonSafe
         }
         
+        struct CommunityBlockView: Codable {
+            let person: LMModels.Source.PersonSafe
+            let community: LMModels.Source.CommunitySafe
+       }
+        
         struct CommunityModeratorView: Codable {
             let community: LMModels.Source.CommunitySafe
             let moderator: LMModels.Source.PersonSafe
@@ -284,6 +309,11 @@ extension LMModels {
             let person: LMModels.Source.PersonSafe
         }
         
+        struct PersonBlockView: Codable {
+            let person: LMModels.Source.PersonSafe
+            let target: LMModels.Source.PersonSafe
+       }
+        
         struct CommunityView: Identifiable, Codable {
             
             var id: Int {
@@ -292,6 +322,7 @@ extension LMModels {
             
             let community: LMModels.Source.CommunitySafe
             let subscribed: Bool
+            let blocked: Bool
             let counts: LMModels.Aggregates.CommunityAggregates
         }
         

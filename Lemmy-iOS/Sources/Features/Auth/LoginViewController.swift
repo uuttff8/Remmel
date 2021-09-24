@@ -182,7 +182,7 @@ class LoginViewController: UIViewController {
         
     private func loadUserOnSuccessResponse(
         jwt: String,
-        completion: @escaping ((LMModels.Views.LocalUserSettingsView) -> Void)
+        completion: @escaping ((LMModels.Api.Site.MyUserInfo) -> Void)
     ) {
         
         let params = LMModels.Api.Site.GetSite(auth: jwt)

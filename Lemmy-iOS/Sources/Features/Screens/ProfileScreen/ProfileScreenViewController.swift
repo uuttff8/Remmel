@@ -29,7 +29,7 @@ class ProfileScreenViewController: UIViewController {
     
     private let viewModel: ProfileScreenViewModelProtocol
 
-    private var availableTabs: [ProfileScreenDataFlow.Tab] = [.posts, .comments, .subscribed]
+    private var availableTabs: [ProfileScreenDataFlow.Tab] = [.posts, .comments]
     private lazy var pageViewController = PageboyViewController()
     
     // Due to lazy initializing we should know actual values to update inset/offset of new scrollview
@@ -177,10 +177,6 @@ class ProfileScreenViewController: UIViewController {
             let assembly = ProfileScreenCommentsAssembly(coordinator: WeakBox(coordinator))
             controller = assembly.makeModule()
             moduleInput = assembly.moduleInput!
-        case .subscribed:
-            let assembly = ProfileScreenSubscribedAssembly(coordinator: WeakBox(coordinator))
-            controller = assembly.makeModule()
-            moduleInput = assembly.moduleInput!
         }
         
         self.submodulesControllers[index] = controller
@@ -192,8 +188,7 @@ class ProfileScreenViewController: UIViewController {
             guard let profile = self.viewModel.loadedProfile else { return }
             self.viewModel.doSubmodulesDataFilling(request: .init(submodules: [index: submodule],
                                                                   posts: profile.userDetails.posts,
-                                                                  comments: profile.userDetails.comments,
-                                                                  subscribers: profile.userDetails.follows))
+                                                                  comments: profile.userDetails.comments))
         }
     }
     
@@ -343,7 +338,7 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
         navigationItem.rightBarButtonItem = showMoreBarButton
         
         switch viewModel.state {
-        case let .result(headerData, posts, comments, subscribers):
+        case let .result(headerData, posts, comments):
             self.title = "@" + headerData.name
             self.storedViewModel = headerData
             profileScreenView.configure(viewData: headerData)
@@ -351,8 +346,7 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
             self.submoduleInputs.compactMap({$0}).enumerated().forEach { (key, module) in
                 self.viewModel.doSubmodulesDataFilling(request: .init(submodules: [key: module],
                                                                       posts: posts,
-                                                                      comments: comments,
-                                                                      subscribers: subscribers))
+                                                                      comments: comments))
 
             }
             
@@ -362,8 +356,7 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
             self.submoduleInputs.compactMap({$0}).enumerated().forEach { (key, module) in
                 self.viewModel.doSubmodulesDataFilling(request: .init(submodules: [key: module],
                                                                       posts: [],
-                                                                      comments: [],
-                                                                      subscribers: []))
+                                                                      comments: []))
 
             }
         case .loading:
