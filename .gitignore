@@ -46,3 +46,4 @@ Carthage/Build
 .idea/
 Lemmy-iOS.app.dSYM.zip
 Pods
+Lemmy-iOS.xcworkspace/xcuserdata
