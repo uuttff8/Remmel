@@ -37,9 +37,12 @@ class RequestsManager {
         self.wsClient = WSLemmyClient(url: url)
     }
     
+    /// use only when auth
     convenience init() {
-        self.init(instanceUrl: LemmyShareData.shared.currentInstanceUrl,
-                  isNewInstance: false)!
+        self.init(
+            instanceUrl: LemmyShareData.shared.currentInstanceUrl!.httpLink,
+            isNewInstance: false
+        )!
     }
     
     func asyncRequestDecodable<Req: Codable, Res: Codable>(
@@ -49,9 +52,7 @@ class RequestsManager {
     ) -> AnyPublisher<Res, LemmyGenericError> {
         
         if !isNewInstanceConnection {
-            self.wsClient.instanceUrl = String.createInstanceFullUrl(
-                instanceUrl: LemmyShareData.shared.currentInstanceUrl
-            )!
+            self.wsClient.instanceUrl = URL(string: LemmyShareData.shared.authedInstanceUrl.wssLink)!
         }
         Logger.common.info("Trying to connect to \(self.wsClient.instanceUrl) instance")
         
@@ -157,9 +158,8 @@ extension String {
     }
     
     static func makePathToPictrs(_ pic: String) -> String {
-        let inst = String.cleanupInstance(LemmyShareData.shared.currentInstanceUrl)
-        
-        return "https://\(inst)/pictrs/image/\(pic)"
+        let host = LemmyShareData.shared.authedInstanceUrl.rawHost
+        return "https://\(host)/pictrs/image/\(pic)"
     }
 }
 

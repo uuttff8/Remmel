@@ -21,7 +21,7 @@ final class ContentPreferencesStorageManager: ContentPreferencesStorageManagerPr
     
     var contentSortType: LMModels.Others.SortType {
         get {
-            if let stringValue = UserDefaults.userShared.string(forKey: Key.contentSortType.rawValue),
+            if let stringValue = UserDefaults.authShared.string(forKey: Key.contentSortType.rawValue),
                let sortType = LMModels.Others.SortType(fromStr: stringValue) {
                 return sortType
             } else {
@@ -29,13 +29,13 @@ final class ContentPreferencesStorageManager: ContentPreferencesStorageManagerPr
             }
         }
         set {
-            UserDefaults.userShared.set(newValue.rawValue, forKey: Key.contentSortType.rawValue)
+            UserDefaults.authShared.set(newValue.rawValue, forKey: Key.contentSortType.rawValue)
         }
     }
     
     var listingType: LMModels.Others.ListingType {
         get {
-            if let stringValue = UserDefaults.userShared.string(forKey: Key.listingType.rawValue),
+            if let stringValue = UserDefaults.authShared.string(forKey: Key.listingType.rawValue),
                let listingType = LMModels.Others.ListingType(rawValue: stringValue) {
                 return listingType
             }
@@ -43,7 +43,7 @@ final class ContentPreferencesStorageManager: ContentPreferencesStorageManagerPr
             return .all
         }
         set {
-            UserDefaults.userShared.set(newValue.rawValue, forKey: Key.listingType.rawValue)
+            UserDefaults.authShared.set(newValue.rawValue, forKey: Key.listingType.rawValue)
         }
     }
 }

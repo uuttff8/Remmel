@@ -9,28 +9,25 @@
 import Foundation
 import KeychainSwift
 
+private let authSuiteName = "userDefaults.uuttff8.LemmyiOS"
+private let unauthSuiteName = "userDefaults.uuttff8.LemmyiOS.user"
+
 extension UserDefaults {
     enum Key {
         static let jwt = "jwt"
         static let userId = "userId"
         static let userdata = "userdata"
-        static let currentInstanceUrl = "currentInstanceUrl"
+        static let currentInstanceUrlOld = "currentInstanceUrl"
+        static let currentInstanceUrlLast = "currentInstanceUrlTwo"
         static let blockedUsersId = "blockedUsersId"
         
         static let needsAppOnboarding = "needsAppOnboarding"
     }
-    
-    static let userSuiteName = "userDefaults.uuttff8.LemmyiOS"
-    static let appSuiteName = "userDefaults.uuttff8.LemmyiOS.user"
-    
-    static var userShared: UserDefaults {
-        let userDefaults = UserDefaults(suiteName: UserDefaults.userSuiteName)!
         
-        return userDefaults
-    }
+    static var authShared = UserDefaults(suiteName: authSuiteName)!
     
-    static var appShared: UserDefaults {
-        let userDefaults = UserDefaults(suiteName: UserDefaults.appSuiteName)!
+    static var unauthShared: UserDefaults {
+        let userDefaults = UserDefaults(suiteName: unauthSuiteName)!
         
         userDefaults.register(defaults: [
             Key.needsAppOnboarding: true
@@ -45,8 +42,8 @@ class LoginData {
 
     private let keychain = KeychainSwift()
     
-    let userUserDefaults = UserDefaults.userShared
-    let appUserDefaults = UserDefaults.appShared
+    let authUserDefaults = UserDefaults.authShared
+    let unauthUserDefaults = UserDefaults.unauthShared
 
     func login(jwt: String) {
         self.jwtToken = jwt
@@ -55,7 +52,7 @@ class LoginData {
     func logout() {
         ApiManager.chainedWsCLient.close()
         self.clear()
-        userUserDefaults.resetDefaults()
+        authUserDefaults.resetDefaults()
         URLCache.shared.removeAllCachedResponses()
     }
     
@@ -63,7 +60,7 @@ class LoginData {
     func userLogout() {
         let currInstance = LemmyShareData.shared.currentInstanceUrl
         self.clear()
-        userUserDefaults.resetDefaults()
+        authUserDefaults.resetDefaults()
         URLCache.shared.removeAllCachedResponses()
         LemmyShareData.shared.currentInstanceUrl = currInstance
     }
@@ -78,12 +75,12 @@ class LoginData {
     }
 
     var userId: LMModels.Source.LocalUserSettings.ID? {
-        get { userUserDefaults.integer(forKey: UserDefaults.Key.userId) }
-        set { userUserDefaults.set(newValue, forKey: UserDefaults.Key.userId) }
+        get { authUserDefaults.integer(forKey: UserDefaults.Key.userId) }
+        set { authUserDefaults.set(newValue, forKey: UserDefaults.Key.userId) }
     }
 
     func clear() {
-        userUserDefaults.removeSuite(named: UserDefaults.userSuiteName)
+        authUserDefaults.removeSuite(named: authSuiteName)
         keychain.clear()
     }
 }

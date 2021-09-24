@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView_Onboarding: View {
     @State var appSetupState = "App NOT setup ☹️"
     
-    @AppStorage("needsAppOnboarding", store: LemmyShareData.shared.appUserDefaults)
+    @AppStorage("needsAppOnboarding", store: LemmyShareData.shared.authUserDefaults)
     var needsAppOnboarding: Bool = true
     
     var body: some View {

@@ -11,7 +11,7 @@ import SwiftUI
 
 final class OnboardingHostingController: UIHostingController<OnboardingView> {
     
-    @AppStorage("needsAppOnboarding", store: LemmyShareData.shared.appUserDefaults)
+    @AppStorage("needsAppOnboarding", store: LemmyShareData.shared.authUserDefaults)
     var needsAppOnboarding: Bool = true
 
     var onUserOwnInstance: (() -> Void)?

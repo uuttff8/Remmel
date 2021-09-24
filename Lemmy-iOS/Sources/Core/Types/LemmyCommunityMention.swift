@@ -48,10 +48,9 @@ class LemmyCommunityMention {
 private func parseCommunity(passedUrl: URL) -> String? {
     
     // community hostname MUST match current instance
-    if let host = passedUrl.host,
-       !host.contains(LemmyShareData.shared.currentInstanceUrl.lowercased()) {
-        return nil
-    }
+    guard let host = passedUrl.host,
+          !host.contains(LemmyShareData.shared.authedInstanceUrl.rawHost)
+    else { return nil }
     
     if passedUrl.absoluteString.hasPrefix("!") {
         var retString = passedUrl.absoluteString

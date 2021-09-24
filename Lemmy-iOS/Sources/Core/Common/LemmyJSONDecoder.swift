@@ -20,3 +20,15 @@ class LemmyJSONDecoder: JSONDecoder {
         return try decoder.decode(T.self, from: data)
     }
 }
+
+class LMMJSONEncoder: JSONEncoder {
+    override init() {
+        super.init()
+        
+        let dateFmt = DateFormatter()
+        dateFmt.dateFormat = Date.lemmyDateFormat
+        dateFmt.locale = Locale(identifier: "en_US_POSIX")
+        
+        self.dateEncodingStrategy = .formatted(dateFmt)
+    }
+}

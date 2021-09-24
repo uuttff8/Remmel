@@ -31,7 +31,7 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
         
     private var webSocketTask: URLSessionWebSocketTask?
     private var wsEndpoint: URL {
-        String.createInstanceFullUrl(instanceUrl: LemmyShareData.shared.currentInstanceUrl)!
+        URL(string: LemmyShareData.shared.currentInstanceUrl!.wssLink)!
     }
     
     var onConnected: (() -> Void)?
@@ -56,7 +56,7 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
     
     @discardableResult
     func connect() -> WSClientProtocol {
-        Logger.common.info("Open connection at \(LemmyShareData.shared.currentInstanceUrl)")
+        Logger.common.info("Open connection at \(LemmyShareData.shared.currentInstanceUrl?.httpLink ?? "NOT FOUND")")
         self.webSocketTask?.resume()
         self.onConnected?()
         receiveMessages()
@@ -67,6 +67,7 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
     func send<T: Codable>(_ op: String, parameters: T) {
         guard let message = self.makeRequestString(url: op, data: parameters) else { return }
         
+        Logger.common.info("ws request to \(LemmyShareData.shared.currentInstanceUrl?.httpLink ?? "NOT FOUND")")
         Logger.common.info(message)
         self.reconnectIfNeeded()
         
@@ -87,19 +88,15 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
     
     func reconnectIfNeeded() {
                 
-        if self.webSocketTask?.state != .running &&  !self.isConnected {
-        
-            if self.reconnecting {
-                Logger.common.info("Trying to reconnect at \(LemmyShareData.shared.currentInstanceUrl)")
-
-                //            if self.nwMonitor.currentPath.status == .satisfied {
-                self.webSocketTask = getNewWsTask()
-                self.webSocketTask?.resume()
-                receiveMessages()
-                //            } else {
-                //                self._onError?("No internet")
-                //            }
-            }
+        if self.webSocketTask?.state != .running
+            && !self.isConnected
+            && self.reconnecting {
+            
+            Logger.common.info("Trying to reconnect at \(LemmyShareData.shared.currentInstanceUrl?.httpLink ?? "NOT FOUND")")
+            
+            self.webSocketTask = getNewWsTask()
+            self.webSocketTask?.resume()
+            receiveMessages()
         }
     }
     
