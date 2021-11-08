@@ -11,15 +11,9 @@ import SafariServices
 
 class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
     
-    lazy var postsViewController: PostsFrontPageViewController = {
-        let vc = PostsFrontPageViewController()
-        return vc
-    }()
+    lazy var postsViewController = PostsFrontPageViewController()
     
-    lazy var commentsViewController: CommentsFrontPageViewController = {
-        let vc = CommentsFrontPageViewController()
-        return vc
-    }()
+    lazy var commentsViewController = CommentsFrontPageViewController()
     
     lazy var searchViewController = FrontPageSearchViewController()
     
@@ -38,10 +32,10 @@ class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
     }
     
     func switchViewController() {
-        self.commentsViewController.view.isHidden =
+        commentsViewController.view.isHidden =
             rootViewController.currentViewController != self.commentsViewController
         
-        self.postsViewController.view.isHidden =
+        postsViewController.view.isHidden =
             rootViewController.currentViewController != self.postsViewController
     }
     

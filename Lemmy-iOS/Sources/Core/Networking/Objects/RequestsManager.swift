@@ -81,8 +81,7 @@ class RequestsManager {
         Future { promise in
             if parsingFromData {
                 do {
-                    print(D.self)
-                    let apiResponse = try! self.decoder.decode(ApiResponse<D>.self, from: data) // swiftlint:disable:this force_try
+                    let apiResponse = try self.decoder.decode(ApiResponse<D>.self, from: data)
                     let normalResponse = apiResponse.data
                     promise(.success(normalResponse))
                 } catch {
@@ -101,7 +100,7 @@ class RequestsManager {
             } else {
                 
                 do {
-                    let apiResponse = try! self.decoder.decode(D.self, from: data) // swiftlint:disable:this force_try
+                    let apiResponse = try self.decoder.decode(D.self, from: data)
                     promise(.success(apiResponse))
                 } catch {
                     do {

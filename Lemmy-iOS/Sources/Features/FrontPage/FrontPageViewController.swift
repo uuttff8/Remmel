@@ -68,29 +68,29 @@ class FrontPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.viewModel.receiveMessages()
+        viewModel.receiveMessages()
         
-        self.view.backgroundColor = UIColor.systemBackground
-        self.headerSegmentView.delegate = self
+        view.backgroundColor = UIColor.systemBackground
+        headerSegmentView.delegate = self
         
-        self.currentViewController = coordinator?.postsViewController
+        currentViewController = coordinator?.postsViewController
         
         setupToolbar()
         setupNavigationItem()
         setupContainered()
         
-        self.hideKeyboardWhenTappedAround()
+        hideKeyboardWhenTappedAround()
     }
 
     func configureSearchView(_ searchView: UIView) {
-        self.view.addSubview(searchView)
+        view.addSubview(searchView)
         searchView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
 
     private func setupToolbar() {
-        self.view.addSubview(headerSegmentView)
+        view.addSubview(headerSegmentView)
     }
 
     private func setupContainered() {
@@ -100,11 +100,11 @@ class FrontPageViewController: UIViewController {
     }
 
     private func setupContaineredView(for viewController: UIViewController) {
-        self.view.insertSubview(viewController.view, belowSubview: self.headerSegmentView)
-        self.addChild(viewController)
+        view.insertSubview(viewController.view, belowSubview: headerSegmentView)
+        addChild(viewController)
         viewController.didMove(toParent: self)
 
-        self.addContainerViewConstraints(viewController: viewController, containerView: self.view)
+        addContainerViewConstraints(viewController: viewController, containerView: self.view)
     }
 
     private func addContainerViewConstraints(viewController: UIViewController, containerView: UIView) {
@@ -146,7 +146,7 @@ extension FrontPageViewController: FrontPageViewControllerProtocol {
     }
     
     func displayProfileScreen(viewModel: FrontPage.ProfileAction.ViewModel) {
-        self.coordinator?.goToProfileScreen(userId: viewModel.user.person.id, username: viewModel.user.person.name)
+        coordinator?.goToProfileScreen(userId: viewModel.user.person.id, username: viewModel.user.person.name)
     }
 }
 

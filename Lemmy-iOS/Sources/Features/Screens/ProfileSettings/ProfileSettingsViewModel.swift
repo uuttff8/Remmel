@@ -79,27 +79,29 @@ class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
         }
         let newData = request.data
         
-        let params = LMModels.Api.Person.SaveUserSettings(showNsfw: newData.showNsfwContent,
-                                                          theme: prevData.localUserView.localUser.theme,
-                                                          defaultSortType: prevData.localUserView.localUser.defaultSortType.index,
-                                                          defaultListingType: prevData.localUserView.localUser.defaultListingType.index,
-                                                          lang: prevData.localUserView.localUser.lang,
-                                                          avatar: prevData.localUserView.person.avatar?.absoluteString,
-                                                          banner: prevData.localUserView.person.banner?.absoluteString,
-                                                          displayName: newData.displayName,
-                                                          email: newData.email,
-                                                          bio: newData.bio,
-                                                          matrixUserId: newData.matrix,
-//                                                          newPassword: newData.newPassword,
-//                                                          newPasswordVerify: newData.verifyPassword,
-//                                                          oldPassword: newData.oldPassword,
-                                                          showAvatars: prevData.localUserView.localUser.showAvatars,
-                                                          showScores: nil,
-                                                          sendNotificationsToEmail: newData.sendNotificationsToEmail,
-                                                          botAccount: nil,
-                                                          showBotAccounts: nil,
-                                                          showReadPosts: nil,
-                                                          auth: currentUserJwt)
+        let params = LMModels.Api.Person.SaveUserSettings(
+            showNsfw: newData.showNsfwContent,
+            theme: prevData.localUserView.localUser.theme,
+            defaultSortType: prevData.localUserView.localUser.defaultSortType.index,
+            defaultListingType: prevData.localUserView.localUser.defaultListingType.index,
+            lang: prevData.localUserView.localUser.lang,
+            avatar: prevData.localUserView.person.avatar?.absoluteString,
+            banner: prevData.localUserView.person.banner?.absoluteString,
+            displayName: newData.displayName,
+            email: newData.email,
+            bio: newData.bio,
+            matrixUserId: newData.matrix,
+        //  newPassword: newData.newPassword,
+        //  newPasswordVerify: newData.verifyPassword,
+        //  oldPassword: newData.oldPassword,
+            showAvatars: prevData.localUserView.localUser.showAvatars,
+            showScores: nil,
+            sendNotificationsToEmail: newData.sendNotificationsToEmail,
+            botAccount: nil,
+            showBotAccounts: nil,
+            showReadPosts: nil,
+            auth: currentUserJwt
+        )
         
         ApiManager.requests
             .asyncSaveUserSettings(parameters: params)
@@ -135,7 +137,6 @@ enum ProfileSettings {
     
     enum UpdateProfileSettings {
         struct Request {
-            // FIXME: this type should be out of ViewController, by arch
             let data: ProfileSettingsViewController.TableFormData
         }
         
