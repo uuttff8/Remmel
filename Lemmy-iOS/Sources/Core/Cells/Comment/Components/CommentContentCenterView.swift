@@ -55,8 +55,10 @@ class CommentCenterView: UIView {
         
         commentTextView.onDidPreconfigureTextView = { tv in
             tv.linkTextAttributes = [.foregroundColor: UIColor.lemmyBlue,
-                                                   .underlineStyle: 0,
-                                                   .underlineColor: UIColor.clear]
+                                     .underlineStyle: 0,
+                                     .underlineColor: UIColor.clear]
+            
+            self.setupImageTap(in: tv)
         }
         commentTextView.text = commentText
     }
@@ -65,10 +67,18 @@ class CommentCenterView: UIView {
         commentTextView.text = nil
     }
     
+    private func setupImageTap(in textView: UITextView) {
+        let attachmentGesture = AttachmentTapGestureRecognizer(
+            target: self, action: #selector(handleAttachmentInTextView(_:))
+        )
+        
+        textView.addGestureRecognizer(attachmentGesture)
+    }
+    
     @objc private func handleAttachmentInTextView(_ recognizer: AttachmentTapGestureRecognizer) {
         if let image = recognizer.tappedState?.attachment.image {
             let image = [LightboxImage(image: image)]
-            let imageController = LightboxController(images: image)
+            let imageController = LemmyLightboxController(images: image)
             imageController.dynamicBackground = true
             
             self.onImagePresent?(imageController)
@@ -79,12 +89,6 @@ class CommentCenterView: UIView {
 extension CommentCenterView: ProgrammaticallyViewProtocol {
     func setupView() {
         commentTextView.backgroundColor = .clear
-        
-        let attachmentGesture = AttachmentTapGestureRecognizer(
-            target: self, action: #selector(handleAttachmentInTextView(_:))
-        )
-        
-        self.commentTextView.addGestureRecognizer(attachmentGesture)
     }
     
     func addSubviews() {

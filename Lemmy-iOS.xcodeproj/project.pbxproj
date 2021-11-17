@@ -306,6 +306,7 @@
 		4EEA73A5263D5D0A00413B0B /* ProfileChangePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA73A4263D5D0A00413B0B /* ProfileChangePasswordViewModel.swift */; };
 		4EEA73AA263D5D1B00413B0B /* ProfileChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA73A9263D5D1B00413B0B /* ProfileChangePasswordView.swift */; };
 		4EEA73AF263D5D3C00413B0B /* ProfileChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA73AE263D5D3C00413B0B /* ProfileChangePasswordViewController.swift */; };
+		4EED871A2744B2C600DB15A8 /* LemmyLightboxController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EED87192744B2C600DB15A8 /* LemmyLightboxController.swift */; };
 		4EF312E52576D2D10032B58D /* PostContentFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312E42576D2D10032B58D /* PostContentFooterView.swift */; };
 		4EF312ED2576D2EA0032B58D /* PostContentCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312EC2576D2EA0032B58D /* PostContentCenterView.swift */; };
 		4EF312F22576D3230032B58D /* PostContentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF312F12576D3230032B58D /* PostContentHeaderView.swift */; };
@@ -701,6 +702,7 @@
 		4EEA73A4263D5D0A00413B0B /* ProfileChangePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileChangePasswordViewModel.swift; sourceTree = "<group>"; };
 		4EEA73A9263D5D1B00413B0B /* ProfileChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileChangePasswordView.swift; sourceTree = "<group>"; };
 		4EEA73AE263D5D3C00413B0B /* ProfileChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileChangePasswordViewController.swift; sourceTree = "<group>"; };
+		4EED87192744B2C600DB15A8 /* LemmyLightboxController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyLightboxController.swift; sourceTree = "<group>"; };
 		4EF312E42576D2D10032B58D /* PostContentFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentFooterView.swift; sourceTree = "<group>"; };
 		4EF312EC2576D2EA0032B58D /* PostContentCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentCenterView.swift; sourceTree = "<group>"; };
 		4EF312F12576D3230032B58D /* PostContentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentHeaderView.swift; sourceTree = "<group>"; };
@@ -1917,11 +1919,20 @@
 		4EED8717274497D500DB15A8 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				4EED87182744B28E00DB15A8 /* LemmyLightboxController */,
 				4EBB22172559EB0E00B88079 /* StyledNavigationController */,
 				4ECCEEF0250C03910075F921 /* LemmyTabBar */,
 				4EF3142A25811F0C0032B58D /* GenericCoordinator */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		4EED87182744B28E00DB15A8 /* LemmyLightboxController */ = {
+			isa = PBXGroup;
+			children = (
+				4EED87192744B2C600DB15A8 /* LemmyLightboxController.swift */,
+			);
+			path = LemmyLightboxController;
 			sourceTree = "<group>";
 		};
 		4EF312E32576D2B90032B58D /* Post */ = {
@@ -2581,6 +2592,7 @@
 				4E9BBA2C25553516004FF2F9 /* Error.swift in Sources */,
 				4EFA8157255F3215008AF535 /* FrontPageSearchViewController.swift in Sources */,
 				4E87C637258BF2AB0007FE5E /* CommunityFollowService.swift in Sources */,
+				4EED871A2744B2C600DB15A8 /* LemmyLightboxController.swift in Sources */,
 				4ECCEEED250BE8870075F921 /* FrontPageViewController.swift in Sources */,
 				4EFAB5D82552FA1100B32780 /* UILabel+Ext.swift in Sources */,
 				657DF46A25968EAA00831B0F /* AddAccountViewController.swift in Sources */,
@@ -2970,7 +2982,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Lemmy-iOS/Lemmy-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -2978,7 +2990,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.8;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.Lemmer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -2995,7 +3007,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Lemmy-iOS/Lemmy-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -3003,7 +3015,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.8;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.Lemmer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -3144,7 +3156,7 @@
 			repositoryURL = "https://github.com/uuttff8/Marky-Mark.git";
 			requirement = {
 				kind = revision;
-				revision = 2d3b574d481c5671fb6d82e1b43ec885b36364e9;
+				revision = 303eeeaaa9a41f5aa40379e3e35462afaa6e9a42;
 			};
 		};
 		4E004F5F25DFA81B006B81CF /* XCRemoteSwiftPackageReference "SwiftMessages" */ = {

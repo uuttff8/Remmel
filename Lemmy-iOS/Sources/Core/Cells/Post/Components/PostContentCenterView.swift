@@ -130,7 +130,7 @@ class PostContentCenterView: UIView {
     func setupImageViewForFullPostViewer(image: UIImage, text: String) {
         self.thumbailImageView.addTap {
             let image = [LightboxImage(image: image, text: text)]
-            let imageController = LightboxController(images: image)
+            let imageController = LemmyLightboxController(images: image)
             imageController.dynamicBackground = true
             
             self.onImagePresent?(imageController)
