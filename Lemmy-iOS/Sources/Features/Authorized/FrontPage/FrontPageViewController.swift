@@ -36,8 +36,6 @@ class FrontPageViewController: UIViewController {
     // at init always posts
     var currentContentType: LemmyContentType = LemmyContentType.posts {
         didSet {
-            print(currentContentType)
-
             switch currentContentType {
             case .comments:
                 currentViewController = coordinator?.commentsViewController

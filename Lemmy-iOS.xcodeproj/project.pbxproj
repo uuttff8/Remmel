@@ -1453,21 +1453,6 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		4EB89AF5251F4783007129BF /* Screens */ = {
-			isa = PBXGroup;
-			children = (
-				4E3E0F702555BCE70086CE0C /* ProfileScreen */,
-				4E110D4825CB403A00A06306 /* ProfileSettings */,
-				4EF3ACFD2550755700BEC9F1 /* MarkdownParsedViewController */,
-				4EF3ACCF254EF82000BEC9F1 /* CommunityScreen */,
-				4EB89AF6251F478F007129BF /* PostScreen */,
-				4E886C82253F4F3A0076B162 /* CreatePost */,
-				4E004F7D25DFF857006B81CF /* EditPost */,
-				4EF3AC5B254A019800BEC9F1 /* CreateCommunity */,
-			);
-			path = Screens;
-			sourceTree = "<group>";
-		};
 		4EB89AF6251F478F007129BF /* PostScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -1646,22 +1631,9 @@
 		4ECCEEE2250B8F4A0075F921 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				6569A2152594E8C7005A4C54 /* Accounts */,
-				4ECCEEE3250B8F690075F921 /* Auth */,
-				4ECCEEF5250C0E230075F921 /* CommunitiesPreview */,
-				4E10706F2534E942009EABDA /* CreatePostOrCommunity */,
-				4ECCEEEB250BE85B0075F921 /* FrontPage */,
-				4EF3142A25811F0C0032B58D /* GenericCoordinator */,
-				4EDDFFFD25A5DBEA006FCB9F /* InboxNotifications */,
-				4E87C698258E67A50007FE5E /* Instances */,
-				4ECCEEF0250C03910075F921 /* LemmyTabBar */,
-				4E405B3625F1561900057F77 /* Onboarding */,
-				4EB89AF5251F4783007129BF /* Screens */,
-				4EF3131E25782BA90032B58D /* SearchResults */,
-				4E98BF9B25B8DE27009DA520 /* Settings */,
-				4EBB22172559EB0E00B88079 /* StyledNavigationController */,
-				4EF31449258166480032B58D /* WriteComment */,
-				4EDDFFE825A5CF90006FCB9F /* WriteMessage */,
+				4EED8717274497D500DB15A8 /* Base */,
+				4EED87152744973500DB15A8 /* Unauthorized */,
+				4EED87142744972300DB15A8 /* Authorized */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -1906,6 +1878,50 @@
 				4EEA73A9263D5D1B00413B0B /* ProfileChangePasswordView.swift */,
 			);
 			path = ChangePassword;
+			sourceTree = "<group>";
+		};
+		4EED87142744972300DB15A8 /* Authorized */ = {
+			isa = PBXGroup;
+			children = (
+				4ECCEEEB250BE85B0075F921 /* FrontPage */,
+				4ECCEEE3250B8F690075F921 /* Auth */,
+				4E10706F2534E942009EABDA /* CreatePostOrCommunity */,
+				4ECCEEF5250C0E230075F921 /* CommunitiesPreview */,
+				4E3E0F702555BCE70086CE0C /* ProfileScreen */,
+				4E110D4825CB403A00A06306 /* ProfileSettings */,
+				4EF3ACFD2550755700BEC9F1 /* MarkdownParsedViewController */,
+				4EF3ACCF254EF82000BEC9F1 /* CommunityScreen */,
+				4EB89AF6251F478F007129BF /* PostScreen */,
+				4E886C82253F4F3A0076B162 /* CreatePost */,
+				4E004F7D25DFF857006B81CF /* EditPost */,
+				4EF3AC5B254A019800BEC9F1 /* CreateCommunity */,
+				4EF3131E25782BA90032B58D /* SearchResults */,
+				4E98BF9B25B8DE27009DA520 /* Settings */,
+				4EDDFFFD25A5DBEA006FCB9F /* InboxNotifications */,
+				4EF31449258166480032B58D /* WriteComment */,
+				4EDDFFE825A5CF90006FCB9F /* WriteMessage */,
+			);
+			path = Authorized;
+			sourceTree = "<group>";
+		};
+		4EED87152744973500DB15A8 /* Unauthorized */ = {
+			isa = PBXGroup;
+			children = (
+				4E405B3625F1561900057F77 /* Onboarding */,
+				4E87C698258E67A50007FE5E /* Instances */,
+				6569A2152594E8C7005A4C54 /* Accounts */,
+			);
+			path = Unauthorized;
+			sourceTree = "<group>";
+		};
+		4EED8717274497D500DB15A8 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				4EBB22172559EB0E00B88079 /* StyledNavigationController */,
+				4ECCEEF0250C03910075F921 /* LemmyTabBar */,
+				4EF3142A25811F0C0032B58D /* GenericCoordinator */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		4EF312E32576D2B90032B58D /* Post */ = {
