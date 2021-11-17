@@ -124,11 +124,13 @@ extension WriteMessageViewController: WriteMessageViewControllerProtocol {
         let headerCell = SettingsTableSectionViewModel.Cell(
             uniqueIdentifier: TableForm.headerCell.rawValue,
             type: .rightDetail(
-                options: .init(title: .init(text: self.formData.headerText ?? ""),
-                               detailType: .label(text: self.formData.text),
-                               accessoryType: .none
+                options: .init(
+                    title: .init(text: self.formData.headerText ?? ""),
+                    detailType: .label(text: nil),
+                    accessoryType: .none
                 )
-            )
+            ),
+            appearance: .init(selectionStyle: .none)
         )
         
         let textFieldCell = SettingsTableSectionViewModel.Cell(

@@ -257,7 +257,8 @@ extension SettingsTableView: UITableViewDataSource {
             self.updateInputCell(cell, viewModel: cellViewModel, options: options)
             cell.appearance = .init(
                 unselectedBackgroundColor: cellViewModel.appearance.backgroundColor,
-                selectedBackgroundColor: cellViewModel.appearance.selectedBackgroundColor
+                selectedBackgroundColor: cellViewModel.appearance.selectedBackgroundColor,
+                selectionStyle: cellViewModel.appearance.selectionStyle
             )
             return cell
         case .largeInput(let options):
@@ -265,7 +266,8 @@ extension SettingsTableView: UITableViewDataSource {
             self.updateLargeInputCell(cell, viewModel: cellViewModel, options: options)
             cell.appearance = .init(
                 unselectedBackgroundColor: cellViewModel.appearance.backgroundColor,
-                selectedBackgroundColor: cellViewModel.appearance.selectedBackgroundColor
+                selectedBackgroundColor: cellViewModel.appearance.selectedBackgroundColor,
+                selectionStyle: cellViewModel.appearance.selectionStyle
             )
             return cell
         case .rightDetail(let options):
@@ -275,7 +277,8 @@ extension SettingsTableView: UITableViewDataSource {
                 self.updateRightDetailCell(cell, viewModel: cellViewModel, options: options)
                 cell.appearance = .init(
                     unselectedBackgroundColor: cellViewModel.appearance.backgroundColor,
-                    selectedBackgroundColor: cellViewModel.appearance.selectedBackgroundColor
+                    selectedBackgroundColor: cellViewModel.appearance.selectedBackgroundColor,
+                    selectionStyle: cellViewModel.appearance.selectionStyle
                 )
                 return cell
             case .switch:
@@ -283,7 +286,8 @@ extension SettingsTableView: UITableViewDataSource {
                 self.updateRightDetailSwitchCell(cell, viewModel: cellViewModel, options: options)
                 cell.appearance = .init(
                     unselectedBackgroundColor: cellViewModel.appearance.backgroundColor,
-                    selectedBackgroundColor: cellViewModel.appearance.selectedBackgroundColor
+                    selectedBackgroundColor: cellViewModel.appearance.selectedBackgroundColor,
+                    selectionStyle: cellViewModel.appearance.selectionStyle
                 )
                 return cell
             }

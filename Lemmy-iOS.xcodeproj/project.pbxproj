@@ -325,10 +325,6 @@
 		4EF313BC257BEDC20032B58D /* UserPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF313BB257BEDC20032B58D /* UserPreviewCell.swift */; };
 		4EF3142F25811F880032B58D /* GenericCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3142E25811F870032B58D /* GenericCoordinator.swift */; };
 		4EF314352581534C0032B58D /* ProfileScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF314342581534C0032B58D /* ProfileScreenCoordinator.swift */; };
-		4EF3144B2581665D0032B58D /* WriteCommentAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3144A2581665D0032B58D /* WriteCommentAssembly.swift */; };
-		4EF31453258166680032B58D /* WriteCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF31452258166680032B58D /* WriteCommentViewController.swift */; };
-		4EF31458258166700032B58D /* WriteCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF31457258166700032B58D /* WriteCommentView.swift */; };
-		4EF314602581667E0032B58D /* WriteCommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3145F2581667E0032B58D /* WriteCommentViewModel.swift */; };
 		4EF3414025C1FBED00CEF6D6 /* IconWhite@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF3413A25C1FBED00CEF6D6 /* IconWhite@3x.png */; };
 		4EF3414125C1FBED00CEF6D6 /* IconBlack@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF3413B25C1FBED00CEF6D6 /* IconBlack@3x.png */; };
 		4EF3414225C1FBED00CEF6D6 /* IconBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF3413C25C1FBED00CEF6D6 /* IconBlack@2x.png */; };
@@ -721,10 +717,6 @@
 		4EF313BB257BEDC20032B58D /* UserPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreviewCell.swift; sourceTree = "<group>"; };
 		4EF3142E25811F870032B58D /* GenericCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericCoordinator.swift; sourceTree = "<group>"; };
 		4EF314342581534C0032B58D /* ProfileScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenCoordinator.swift; sourceTree = "<group>"; };
-		4EF3144A2581665D0032B58D /* WriteCommentAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteCommentAssembly.swift; sourceTree = "<group>"; };
-		4EF31452258166680032B58D /* WriteCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteCommentViewController.swift; sourceTree = "<group>"; };
-		4EF31457258166700032B58D /* WriteCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteCommentView.swift; sourceTree = "<group>"; };
-		4EF3145F2581667E0032B58D /* WriteCommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteCommentViewModel.swift; sourceTree = "<group>"; };
 		4EF3413A25C1FBED00CEF6D6 /* IconWhite@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconWhite@3x.png"; sourceTree = "<group>"; };
 		4EF3413B25C1FBED00CEF6D6 /* IconBlack@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconBlack@3x.png"; sourceTree = "<group>"; };
 		4EF3413C25C1FBED00CEF6D6 /* IconBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconBlack@2x.png"; sourceTree = "<group>"; };
@@ -1900,7 +1892,6 @@
 				4EF3131E25782BA90032B58D /* SearchResults */,
 				4E98BF9B25B8DE27009DA520 /* Settings */,
 				4EDDFFFD25A5DBEA006FCB9F /* InboxNotifications */,
-				4EF31449258166480032B58D /* WriteComment */,
 				4EDDFFE825A5CF90006FCB9F /* WriteMessage */,
 			);
 			path = Authorized;
@@ -2005,17 +1996,6 @@
 				4EF3142E25811F870032B58D /* GenericCoordinator.swift */,
 			);
 			path = GenericCoordinator;
-			sourceTree = "<group>";
-		};
-		4EF31449258166480032B58D /* WriteComment */ = {
-			isa = PBXGroup;
-			children = (
-				4EF3144A2581665D0032B58D /* WriteCommentAssembly.swift */,
-				4EF31452258166680032B58D /* WriteCommentViewController.swift */,
-				4EF31457258166700032B58D /* WriteCommentView.swift */,
-				4EF3145F2581667E0032B58D /* WriteCommentViewModel.swift */,
-			);
-			path = WriteComment;
 			sourceTree = "<group>";
 		};
 		4EF3413925C1FBE000CEF6D6 /* AlternateIcons */ = {
@@ -2564,7 +2544,6 @@
 				4E91834D2566C16C00702F04 /* SettingsRightDetailTableViewCell.swift in Sources */,
 				4EF314352581534C0032B58D /* ProfileScreenCoordinator.swift in Sources */,
 				4E98BFA225B8DEC3009DA520 /* SettingsViewController.swift in Sources */,
-				4EF31458258166700032B58D /* WriteCommentView.swift in Sources */,
 				4ECCEEDD250B8D930075F921 /* AppCoordinator.swift in Sources */,
 				4EF3AC6F254A021400BEC9F1 /* CreateCommunityViewModel.swift in Sources */,
 				4E004E7C25DE7A5F006B81CF /* ControlContainableScrollView.swift in Sources */,
@@ -2623,7 +2602,6 @@
 				4E87C683258E1B970007FE5E /* PostContentPreviewView.swift in Sources */,
 				4E886CA1254093050076B162 /* CreatePostCommunityCell.swift in Sources */,
 				4EFA81D525617580008AF535 /* CommunityScreenUI.swift in Sources */,
-				4EF3144B2581665D0032B58D /* WriteCommentAssembly.swift in Sources */,
 				4EDD001225A5DC88006FCB9F /* InboxNotificationsViewModel.swift in Sources */,
 				4EBB2276255AF77400B88079 /* ProfileScreenPostsInputOutput.swift in Sources */,
 				4EF3AD0A25510D1900BEC9F1 /* CommunityContentTypePickerCell.swift in Sources */,
@@ -2714,7 +2692,6 @@
 				4E2A5CAE25F3C0DD00537E38 /* OnboardingHostingController.swift in Sources */,
 				4EE0279E25AF93EE00D2952D /* LemmyCommunityMention.swift in Sources */,
 				4E6E66AE25B3393600AF2F48 /* LemmyContentType.swift in Sources */,
-				4EF31453258166680032B58D /* WriteCommentViewController.swift in Sources */,
 				4E87C6A9258E68C20007FE5E /* InstancesView.swift in Sources */,
 				4E6E66A425B338DD00AF2F48 /* PostType.swift in Sources */,
 				657DF45725968B9900831B0F /* Account.swift in Sources */,
@@ -2728,7 +2705,6 @@
 				4E1070652534771C009EABDA /* CommentsFrontPageModel.swift in Sources */,
 				4EBB227E255AF7A600B88079 /* ProfileScreenSubmoduleProtocol.swift in Sources */,
 				4E91834A2566C16C00702F04 /* SettingsLargeInputTableViewCell.swift in Sources */,
-				4EF314602581667E0032B58D /* WriteCommentViewModel.swift in Sources */,
 				4EFAB5EC2552FC5000B32780 /* UIStackView+Ext.swift in Sources */,
 				4E9183A52567FE5500702F04 /* ChooseCommunityViewModel.swift in Sources */,
 				4E8165722562D08B00907D31 /* ProfileScreenTableHeaderView.swift in Sources */,
@@ -2982,7 +2958,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Lemmy-iOS/Lemmy-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 65;
+				CURRENT_PROJECT_VERSION = 67;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -3007,7 +2983,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Lemmy-iOS/Lemmy-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 65;
+				CURRENT_PROJECT_VERSION = 67;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = "Lemmy-iOS/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;

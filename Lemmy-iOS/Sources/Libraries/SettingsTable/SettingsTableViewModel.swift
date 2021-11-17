@@ -13,6 +13,7 @@ struct SettingsTableSectionViewModel {
         struct Appearance {
             var backgroundColor: UIColor?
             var selectedBackgroundColor: UIColor?
+            var selectionStyle: UITableViewCell.SelectionStyle = .default
         }
 
         let uniqueIdentifier: UniqueIdentifierType

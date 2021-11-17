@@ -5,6 +5,7 @@ extension SettingsTableViewCell {
     struct Appearance {
         var unselectedBackgroundColor: UIColor?
         var selectedBackgroundColor: UIColor?
+        var selectionStyle: UITableViewCell.SelectionStyle = .default
     }
 }
 
@@ -16,7 +17,8 @@ class SettingsTableViewCell<T: UIView>: UITableViewCell {
     var appearance = Appearance() {
         didSet {
             self.contentView.backgroundColor = self.appearance.unselectedBackgroundColor
-
+            self.selectionStyle = self.appearance.selectionStyle
+            
             if let selectedBackgroundColor = self.appearance.selectedBackgroundColor {
                 let backgroundView = UIView()
                 backgroundView.backgroundColor = selectedBackgroundColor
