@@ -9,6 +9,10 @@
 import UIKit
 import SnapKit
 
+protocol FrontPageViewControllerDelegate: AnyObject {
+    
+}
+
 protocol FrontPageViewControllerProtocol: AnyObject {
     func displayAutorizationAlert()
     func displayProfileScreen(viewModel: FrontPage.ProfileAction.ViewModel)
@@ -31,9 +35,9 @@ class FrontPageViewController: UIViewController {
         }
         return bar
     }()
+    
     private let headerSegmentView = FrontPageHeaderView(contentSelected: LemmyContentType.posts)
     
-    // at init always posts
     var currentContentType: LemmyContentType = LemmyContentType.posts {
         didSet {
             switch currentContentType {
@@ -140,7 +144,8 @@ extension FrontPageViewController: FrontPageViewControllerProtocol {
                 self.coordinator?.goToLoginScreen(authMethod: .register)
             }, onInstances: {
                 self.coordinator?.goToInstances()
-            })
+            }
+        )
     }
     
     func displayProfileScreen(viewModel: FrontPage.ProfileAction.ViewModel) {

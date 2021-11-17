@@ -43,12 +43,10 @@ extension LMModels.Api {
             let posts: [LMModels.Views.PostView]
             let communities: [LMModels.Views.CommunityView]
             let users: [LMModels.Views.PersonViewSafe]
-            let transferredToCommunity: [LMModels.Views.ModTransferCommunityView]
             
             enum CodingKeys: String, CodingKey {
                 case type = "type_"
                 case comments, posts, communities, users
-                case transferredToCommunity = "transferred_to_community"
             }
         }
         

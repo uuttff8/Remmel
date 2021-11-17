@@ -405,5 +405,20 @@ extension LMModels.Api {
             }
         }
         
+        struct GetUnreadCount: Codable {
+            let auth: String
+        }
+
+        struct GetUnreadCountResponse: Codable {
+            let replies: Int
+            let mentions: Int
+            let privateMessages: Int
+            
+            enum CodingKeys: String, CodingKey {
+                case replies, mentions
+                case privateMessages = "private_messages"
+            }
+        }
+        
     }
 }

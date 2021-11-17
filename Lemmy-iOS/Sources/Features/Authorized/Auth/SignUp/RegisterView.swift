@@ -92,7 +92,7 @@ class RegisterView: UIView {
             passwordTextField,
             passwordVerifyTextField,
             captchaImageView,
-            captchaTextField,
+            captchaTextField
 //            showNsfwSwitch, // Apple rejects apps when user can choose to show nsfw content
         ].forEach { [self] (view) in
             self.addSubview(view)
