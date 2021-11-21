@@ -16,7 +16,26 @@ class LemmyJSONDecoder: JSONDecoder {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = Date.lemmyDateFormat
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        decoder.dateDecodingStrategy = .custom({ (decoder) -> Date in
+            let container = try decoder.singleValueContainer()
+            let dateStr = try container.decode(String.self)
+            
+            let formatters = [Date.lemmyDateFormat, Date.lemmyDateFormatZero].map { (format: String) -> DateFormatter in
+                let formatter = DateFormatter()
+                formatter.locale = Locale(identifier: "en_US_POSIX")
+                formatter.dateFormat = format
+                return formatter
+            }
+            
+            for formatter in formatters {
+                
+                if let date = formatter.date(from: dateStr) {
+                    return date
+                }
+            }
+            
+            throw DateError.invalidDate
+        })
         return try decoder.decode(T.self, from: data)
     }
 }
@@ -31,4 +50,8 @@ class LMMJSONEncoder: JSONEncoder {
         
         self.dateEncodingStrategy = .formatted(dateFmt)
     }
+}
+
+enum DateError: Error {
+    case invalidDate
 }
