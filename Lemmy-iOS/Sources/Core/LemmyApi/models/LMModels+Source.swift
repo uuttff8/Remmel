@@ -29,6 +29,7 @@ extension LMModels {
             let admin: Bool
             let matrixUserId: String?
             let botAccount: Bool
+            let banExpires: String?
             
             enum CodingKeys: String, CodingKey {
                 case id, name
@@ -41,6 +42,7 @@ extension LMModels {
                 case admin
                 case matrixUserId = "matrix_user_id"
                 case botAccount = "bot_account"
+                case banExpires = "ban_expires"
             }
         }
         
@@ -58,6 +60,9 @@ extension LMModels {
             let showBotAccounts: Bool?
             let showScores: Bool?
             let showReadPosts: Bool?
+            let showNewPostNotifs: Bool?
+            let emailVerified: Bool
+            let acceptedApplication: Bool
             
             enum CodingKeys: String, CodingKey {
                 case id, personId = "person_id", email
@@ -69,6 +74,9 @@ extension LMModels {
                 case showBotAccounts = "show_bot_accounts"
                 case showScores = "show_scores"
                 case showReadPosts = "show_read_posts"
+                case showNewPostNotifs = "show_new_post_notifs"
+                case emailVerified = "email_verified"
+                case acceptedApplication = "accepted_application"
             }
         }
 
@@ -76,27 +84,36 @@ extension LMModels {
             let id: Int
             let name: String
             let sidebar: String?
-            let description: String?
             let creatorId: Int
             let published: Date
             let updated: Date
             let enableDownvotes: Bool
             let openRegistration: Bool
             let enableNsfw: Bool
-            let communityCreationAdminOnly: Bool?
             let icon: URL?
             let banner: URL?
+            let description: String?
+            let communityCreationAdminOnly: Bool
+            let requireEmailVerification: Bool
+            let requireApplication: Bool
+            let applicationQuestion: String?
+            let privateInstance: Bool
             
             enum CodingKeys: String, CodingKey {
                 case id
-                case name, description, sidebar
+                case name, sidebar
                 case creatorId = "creator_id"
                 case published, updated
                 case enableDownvotes = "enable_downvotes"
                 case openRegistration = "open_registration"
                 case enableNsfw = "enable_nsfw"
+                case icon, banner, description
                 case communityCreationAdminOnly = "community_creation_admin_only"
-                case icon, banner
+                case requireEmailVerification = "require_email_verification"
+                case requireApplication = "require_application"
+                case applicationQuestion = "application_question"
+                case privateInstance = "private_instance"
+                
             }
         }
         
@@ -459,6 +476,24 @@ extension LMModels {
                 case recipientId = "recipient_id"
                 case commentId = "comment_id"
                 case read, published
+            }
+        }
+        
+        struct RegistrationApplication: Identifiable, Codable {
+            let id: Int
+            let localUserId: Int
+            let answer: Int
+            let adminId: Int?
+            let denyReason: String
+            let published: String
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case localUserId = "local_user_id"
+                case answer
+                case adminId = "admin_id"
+                case denyReason = "deny_reason"
+                case published
             }
         }
     }

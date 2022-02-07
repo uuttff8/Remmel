@@ -58,13 +58,13 @@ extension RequestsManager {
     
     func asyncCreatePostReport(
         parameters: LMModels.Api.Post.CreatePostReport
-    ) -> AnyPublisher<LMModels.Api.Post.CreatePostReportResponse, LemmyGenericError> {
+    ) -> AnyPublisher<LMModels.Api.Post.PostReportResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Post.createPostReport.endpoint, parameters: parameters)
     }
     
     func asyncResolvePostReport(
         parameters: LMModels.Api.Post.ResolvePostReport
-    ) -> AnyPublisher<LMModels.Api.Post.ResolvePostReportResponse, LemmyGenericError> {
+    ) -> AnyPublisher<LMModels.Api.Post.PostReportResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Post.resolvePostReport.endpoint, parameters: parameters)
     }
     

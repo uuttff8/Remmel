@@ -49,7 +49,12 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
                     self.viewController?.displayErrorAuth(viewModel: .init(error: why.description))
                 }
             }, receiveValue: { (response) in
-                self.fetchUser(with: response.jwt)
+                
+                guard let jwt = response.jwt else {
+                    return
+                }
+                
+                self.fetchUser(with: jwt)
             }).store(in: &cancellables)
 
     }
@@ -62,7 +67,9 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
             passwordVerify: request.passwordVerify,
             showNsfw: request.showNsfw,
             captchaUuid: request.captchaUuid,
-            captchaAnswer: request.captchaAnswer
+            captchaAnswer: request.captchaAnswer,
+            honeypot: nil,
+            answer: nil
         )
         
         self.saveCredentials(login: request.username, password: authPassword)
@@ -77,7 +84,12 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
                     self.viewController?.displayErrorAuth(viewModel: .init(error: why.description))
                 }
             }, receiveValue: { (response) in
-                self.fetchUser(with: response.jwt)
+                
+                guard let jwt = response.jwt else {
+                    return
+                }
+                
+                self.fetchUser(with: jwt)
             }).store(in: &cancellables)
     }
     

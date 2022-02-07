@@ -28,12 +28,15 @@ class CreatePostViewModel: CreatePostViewModelProtocol {
     func doRemoteCreatePost(request: CreatePost.RemoteCreatePost.Request) {
         guard let jwtToken = LemmyShareData.shared.jwtToken else { return }
         
-        let params = LMModels.Api.Post.CreatePost(name: request.title,
-                                                  url: request.url,
-                                                  body: request.body,
-                                                  nsfw: request.nsfw,
-                                                  communityId: request.communityId,
-                                                  auth: jwtToken)
+        let params = LMModels.Api.Post.CreatePost(
+            name: request.title,
+            url: request.url,
+            body: request.body,
+            nsfw: request.nsfw,
+            communityId: request.communityId,
+            auth: jwtToken,
+            honeypot: nil
+        )
         
         ApiManager.requests.asyncCreatePost(parameters: params)
             .receive(on: DispatchQueue.main)

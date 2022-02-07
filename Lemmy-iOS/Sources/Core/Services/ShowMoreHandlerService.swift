@@ -311,12 +311,8 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
                 .receive(on: DispatchQueue.main)
                 .sink { (completion) in
                     Logger.logCombineCompletion(completion)
-                } receiveValue: { (response) in
-                    
-                    if response.success {
-                        self.showWasReportedAlert(over: viewController)
-                    }
-                    
+                } receiveValue: { _ in
+                    self.showWasReportedAlert(over: viewController)
                 }.store(in: &self.cancellables)
         }
     }

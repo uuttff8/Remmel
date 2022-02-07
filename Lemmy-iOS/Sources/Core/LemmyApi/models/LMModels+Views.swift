@@ -110,12 +110,19 @@ extension LMModels {
             let community: LMModels.Source.CommunitySafe
             let creator: LMModels.Source.PersonSafe
             let postCreator: LMModels.Source.PersonSafe
+            let creatorBannedFromCommunity: Bool
+            let myVote: Int?
+            let counts: LMModels.Aggregates.PostAggregates
             let resolver: LMModels.Source.PersonSafe?
             
             enum CodingKeys: String, CodingKey {
                 case postReport = "post_report"
                 case postCreator = "post_creator"
-                case post, community, creator, resolver
+                case post, community, creator
+                case creatorBannedFromCommunity = "creator_banned_from_community"
+                case myVote = "my_vote"
+                case counts
+                case resolver
             }
         }
         
@@ -156,12 +163,19 @@ extension LMModels {
             let community: LMModels.Source.CommunitySafe
             let creator: LMModels.Source.PersonSafe
             let commentCreator: LMModels.Source.PersonSafe
+            let creatorBannedFromCommunity: Bool
+            let myVote: Int?
+            let counts: LMModels.Aggregates.PostAggregates
             let resolver: LMModels.Source.PersonSafe?
             
             enum CodingKeys: String, CodingKey {
                 case commentReport = "post_report"
                 case commentCreator = "post_creator"
-                case post, comment, community, creator, resolver
+                case post, comment, community, creator
+                case creatorBannedFromCommunity = "creator_banned_from_community"
+                case myVote = "my_vote"
+                case counts
+                case resolver
             }
         }
         
@@ -326,6 +340,12 @@ extension LMModels {
             let counts: LMModels.Aggregates.CommunityAggregates
         }
         
+        struct RegistrationApplicationView: Codable {
+            let registration_application: LMModels.Source.RegistrationApplication
+            let creator_local_user: LMModels.Source.LocalUserSettings
+            let creator: LMModels.Source.PersonSafe
+            let admin: LMModels.Source.PersonSafe?
+       }
     }
 }
 

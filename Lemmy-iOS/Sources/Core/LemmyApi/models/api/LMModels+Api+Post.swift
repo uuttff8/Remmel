@@ -18,11 +18,13 @@ extension LMModels.Api {
             let nsfw: Bool?
             let communityId: Int
             let auth: String
+            let honeypot: String?
             
             enum CodingKeys: String, CodingKey {
                 case name, url, body, nsfw
                 case communityId = "community_id"
                 case auth
+                case honeypot
             }
         }
         
@@ -189,12 +191,15 @@ extension LMModels.Api {
             }
         }
         
-        struct CreatePostReportResponse: Codable {
-            let success: Bool
+        struct PostReportResponse: Codable {
+            let postReportView: LMModels.Views.PostReportView
         }
         
         struct ResolvePostReport: Codable {
             let reportId: Int
+            /**
+            * Either resolve or unresolve a report.
+            */
             let resolved: Bool
             let auth: Bool
             
@@ -203,26 +208,34 @@ extension LMModels.Api {
                 case resolved, auth
             }
         }
-        
-        struct ResolvePostReportResponse: Codable {
-            let reportId: Int
-            let resolved: Bool
-            
-            enum CodingKeys: String, CodingKey {
-                case reportId = "report_id"
-                case resolved
-            }
-        }
-        
+                
         struct ListPostReports: Codable {
             let page: Int?
             let limit: Int?
-            let community: Int?
+            /**
+            * if no community is given, it returns reports for all communities moderated by the auth user.
+            */
+            let communityId: Int?
+            /**
+             * Only shows the unresolved reports.
+             */
+            let unresolvedOnly: Bool?
             let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case page, limit
+                case communityId = "community_id"
+                case unresolvedOnly = "unresolved_only"
+                case auth
+            }
         }
         
         struct ListPostReportsResponse: Codable {
-            let posts: [LMModels.Views.PostReportView]
+            let postReports: [LMModels.Views.PostReportView]
+            
+            enum CodingKeys: String, CodingKey {
+                case postReports = "post_reports"
+            }
         }
         
         struct GetSiteMetadata: Codable {

@@ -111,13 +111,17 @@ class LoginViewController: UIViewController {
             email = nil
         }
         
-        return LMModels.Api.Person.Register(username: username,
-                                          email: email,
-                                          password: password,
-                                          passwordVerify: passwordVerify,
-                                          showNsfw: showNsfw,
-                                          captchaUuid: uuid,
-                                          captchaAnswer: captchaCode)
+        return LMModels.Api.Person.Register(
+            username: username,
+            email: email,
+            password: password,
+            passwordVerify: passwordVerify,
+            showNsfw: showNsfw,
+            captchaUuid: uuid,
+            captchaAnswer: captchaCode,
+            honeypot: nil,
+            answer: nil
+        )
     }
     
     private func onSignUp() {
@@ -133,8 +137,13 @@ class LoginViewController: UIViewController {
                     self.signUpView?.updateCaptcha()
                 }
             }, receiveValue: { (response) in
-                self.shareData.loginData.login(jwt: response.jwt)
-                self.loadUserOnSuccessResponse(jwt: response.jwt) { (myUser) in
+                
+                guard let jwt = response.jwt else {
+                    return
+                }
+                
+                self.shareData.loginData.login(jwt: jwt)
+                self.loadUserOnSuccessResponse(jwt: jwt) { (myUser) in
                     LemmyShareData.shared.userdata = myUser
                     
                     DispatchQueue.main.async {
@@ -169,8 +178,13 @@ class LoginViewController: UIViewController {
                     UIAlertController.createOkAlert(message: why.description)
                 }
             }, receiveValue: { (response) in
-                self.shareData.loginData.login(jwt: response.jwt)
-                self.loadUserOnSuccessResponse(jwt: response.jwt) { (myUser) in
+                
+                guard let jwt = response.jwt else {
+                    return
+                }
+                
+                self.shareData.loginData.login(jwt: jwt)
+                self.loadUserOnSuccessResponse(jwt: jwt) { (myUser) in
                     LemmyShareData.shared.userdata = myUser
                     
                     DispatchQueue.main.async {

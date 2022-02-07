@@ -64,7 +64,12 @@ final class AccountsViewModel: AccountsViewModelProtocol {
                     self.viewController?.displayUnexpectedError(viewModel: .init(error: why.description))
                 }
             }, receiveValue: { (response) in
-                self.fetchUser(with: response.jwt)
+                
+                guard let jwt = response.jwt else {
+                    return
+                }
+                
+                self.fetchUser(with: jwt)
             }).store(in: &cancellables)
     }
     

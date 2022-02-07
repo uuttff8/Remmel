@@ -37,8 +37,12 @@ final class ProfileChangePasswordViewModel: ProfileChangePasswordViewModelProtoc
                     data: data
                 ) else { return }
                 
+                guard let jwt = login.jwt else {
+                    return
+                }
+                
                 DispatchQueue.main.async {
-                    self.viewContoller?.displaySucessChangingPassword(viewModel: .success(jwt: login.jwt))
+                    self.viewContoller?.displaySucessChangingPassword(viewModel: .success(jwt: jwt))
                 }
                 
             default: break

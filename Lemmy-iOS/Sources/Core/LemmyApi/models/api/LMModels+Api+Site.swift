@@ -55,11 +55,12 @@ extension LMModels.Api {
             let communityId: Int?
             let page: Int?
             let limit: Int?
+            let auth: String?
             
             enum CodingKeys: String, CodingKey {
                 case modPersonId = "mod_person_id"
                 case communityId = "community_id"
-                case page, limit
+                case page, limit, auth
             }
         }
         
@@ -96,6 +97,10 @@ extension LMModels.Api {
             let enableDownvotes: Bool?
             let openRegistration: Bool?
             let enableNsfw: Bool?
+            let requireEmailVerification: Bool?
+            let requireApplication: Bool?
+            let applicationQuestion: Bool?
+            let privateInstance: Bool?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
@@ -103,6 +108,10 @@ extension LMModels.Api {
                 case enableDownvotes = "enable_downvotes"
                 case openRegistration = "open_registration"
                 case enableNsfw = "enable_nsfw"
+                case requireEmailVerification = "require_email_verification"
+                case requireApplication = "require_application"
+                case applicationQuestion = "application_question"
+                case privateInstance = "private_instance"
                 case auth
             }
         }
@@ -116,6 +125,10 @@ extension LMModels.Api {
             let enableDownvotes: Bool?
             let openRegistration: Bool?
             let enableNsfw: Bool?
+            let requireEmailVerification: Bool?
+            let requireApplication: Bool?
+            let applicationQuestion: Bool?
+            let privateInstance: Bool?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
@@ -123,6 +136,10 @@ extension LMModels.Api {
                 case enableDownvotes = "enable_downvotes"
                 case openRegistration = "open_registration"
                 case enableNsfw = "enable_nsfw"
+                case requireEmailVerification = "require_email_verification"
+                case requireApplication = "require_application"
+                case applicationQuestion = "application_question"
+                case privateInstance = "private_instance"
                 case auth
             }
         }
@@ -142,7 +159,6 @@ extension LMModels.Api {
         struct GetSiteResponse: Codable {
             let siteView: LMModels.Views.SiteView? // Because the site might not be set up yet.
             let admins: [LMModels.Views.PersonViewSafe]
-            let banned: [LMModels.Views.PersonViewSafe]
             let online: Int
             let version: String
             let myUser: MyUserInfo? // Gives back your local user and settings if logged
@@ -150,7 +166,7 @@ extension LMModels.Api {
             
             enum CodingKeys: String, CodingKey {
                 case siteView = "site_view"
-                case admins, banned, online, version
+                case admins, online, version
                 case myUser = "my_user"
                 case federatedInstances = "federated_instances"
             }
@@ -185,24 +201,6 @@ extension LMModels.Api {
             }
         }
         
-        struct ResolveObject: Codable {
-            let q: String
-            let auth: String?
-       }
-
-        struct ResolveObjectResponse: Codable {
-           let comment: LMModels.Views.CommentView?
-           let post: LMModels.Views.PostView?
-           let community: LMModels.Views.CommunityView?
-           let person: LMModels.Views.PersonViewSafe?
-       }
-        
-        struct FederatedInstances: Codable {
-            let linked: [String]
-            let allowed: [String]?
-            let blocked: [String]?
-         }
-        
         struct GetSiteConfig: Codable {
             let auth: String
         }
@@ -225,5 +223,75 @@ extension LMModels.Api {
             }
         }
                 
+        struct FederatedInstances: Codable {
+            let linked: [String]
+            let allowed: [String]?
+            let blocked: [String]?
+         }
+        
+        
+        struct ResolveObject: Codable {
+            let q: String
+            let auth: String?
+       }
+
+        struct ResolveObjectResponse: Codable {
+           let comment: LMModels.Views.CommentView?
+           let post: LMModels.Views.PostView?
+           let community: LMModels.Views.CommunityView?
+           let person: LMModels.Views.PersonViewSafe?
+        }
+        
+        struct ListRegistrationApplications: Codable {
+          /**
+           * Only shows the unread applications (IE those without an admin actor)
+           */
+            let unreadOnly: Bool
+            let page: Int?
+            let limit: Int?
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case unreadOnly = "unread_only"
+                case page
+                case limit
+                case auth
+            }
+        }
+
+        struct ListRegistrationApplicationsResponse: Codable {
+            let registrationApplications: [LMModels.Views.RegistrationApplicationView]
+            
+            enum CodingKeys: String, CodingKey {
+                case registrationApplications = "registration_applications"
+            }
+        }
+        
+        struct ApproveRegistrationApplication {
+            let id: Int
+            let approve: Bool
+            let deny_reason: String?
+            let auth: String
+        }
+        
+        struct RegistrationApplicationResponse: Codable {
+            let registrationApplications: LMModels.Views.RegistrationApplicationView
+            
+            enum CodingKeys: String, CodingKey {
+                case registrationApplications = "registration_applications"
+            }
+        }
+        
+        struct GetUnreadRegistrationApplicationCount {
+            let auth: String
+        }
+        
+        struct GetUnreadRegistrationApplicationCountResponse: Codable {
+            let registrationApplications: Int
+            
+            enum CodingKeys: String, CodingKey {
+                case registrationApplications = "registration_applications"
+            }
+        }
     }
 }

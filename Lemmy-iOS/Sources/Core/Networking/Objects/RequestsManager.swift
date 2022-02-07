@@ -84,16 +84,15 @@ class RequestsManager {
                     let apiResponse = try self.decoder.decode(ApiResponse<D>.self, from: data)
                     let normalResponse = apiResponse.data
                     promise(.success(normalResponse))
-                } catch {
+                } catch let responseError {
                     
-                    Logger.common.error(error)
+                    Logger.common.error(String(describing: D.self) + " "  + responseError.localizedDescription)
                     
-                    // idk how to extract this to a  function
                     do {
                         let errorResponse = try self.decoder.decode(ApiErrorResponse.self, from: data)
                         promise(.failure(.string(errorResponse.error)))
                     } catch {
-                        promise(.failure("Can't decode api response: \n \(error)".toLemmyError))
+                        promise(.failure("Can't decode api response: \n \(responseError)".toLemmyError))
                     }
                 }
                 

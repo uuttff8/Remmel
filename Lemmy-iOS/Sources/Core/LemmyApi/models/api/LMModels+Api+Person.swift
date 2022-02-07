@@ -21,14 +21,30 @@ extension LMModels.Api {
             }
         }
         
+        /**
+         * Register a new user.
+         *
+         * Only the first user to register will be able to be the admin.
+         */
         struct Register: Codable {
             let username: String
+            /**
+             * Email is mandatory if email verification is enabled on the server
+             */
             let email: String?
             let password: String
             let passwordVerify: String
             let showNsfw: Bool
+            /**
+             * Captcha is only checked if these are enabled in the server.
+             */
             let captchaUuid: String? // Only checked if these are enabled in the server
             let captchaAnswer: String?
+            let honeypot: String?
+            /**
+             * An answer is mandatory if require application is enabled on the server
+             */
+            let answer: String?
             
             enum CodingKeys: String, CodingKey {
                 case username, email
@@ -37,6 +53,7 @@ extension LMModels.Api {
                 case showNsfw = "show_nsfw"
                 case captchaUuid = "captcha_uuid"
                 case captchaAnswer = "captcha_answer"
+                case honeypot, answer
             }
         }
         
@@ -109,14 +126,26 @@ extension LMModels.Api {
          * The `jwt` string should be stored and used anywhere `auth` is called for.
          */
         struct LoginResponse: Codable {
-            let jwt: String
+            /**
+             * This is None in response to `Register` if email verification is enabled, or the server requires registration applications.
+             */
+            let jwt: String?
+            let verifyEmailSent: Bool
+            let registrationCreated: Bool
+            
+            enum CodingKeys: String, CodingKey {
+                case jwt
+                case verifyEmailSent = "verify_email_sent"
+                case registrationCreated = "registration_created"
+            }
+            
         }
         
-        /**
-         * `username` can only be used for local users. To get details for a federated user, pass `personId` instead.
-         */
         struct GetPersonDetails: Codable {
             let personId: Int?
+            /**
+             * To get details for a federated user, use `person@instance.tld`.
+             */
             let username: String?
             let sort: LMModels.Others.SortType?
             let page: Int?
@@ -184,6 +213,9 @@ extension LMModels.Api {
             let ban: Bool
             let removeData: Bool? // Removes/Restores their comments, posts, and communities
             let reason: String?
+            /**
+            * The expire time in Unix seconds
+            */
             let expires: Int?
             let auth: String
             
@@ -266,6 +298,8 @@ extension LMModels.Api {
             let password: String
             let auth: String
         }
+        
+        struct DeleteAccountResponse: Codable {}
         
         struct PasswordReset: Codable {
             let email: String
@@ -363,27 +397,47 @@ extension LMModels.Api {
             }
         }
         
-        /**
-         * If a community is supplied, returns the report count for only that community,
-         * otherwise returns the report count for all communities the user moderates.
-         */
         struct GetReportCount: Codable {
-            let community: Int?
+            /**
+            * If a community is supplied, returns the report count for only that community, otherwise returns the report count for all communities the user moderates.
+            */
+            let communityId: Int?
             let auth: String
         }
         
         struct GetReportCountResponse: Codable {
-            let community: Int?
+            let communityId: Int?
             let commentReports: Int
             let postReports: Int
             
             enum CodingKeys: String, CodingKey {
-                case community
+                case communityId = "community_id"
                 case commentReports = "comment_reports"
                 case postReports = "post_reports"
             }
         }
         
+        struct GetUnreadCount: Codable {
+            let auth: String
+        }
+
+        struct GetUnreadCountResponse: Codable {
+            let replies: Int
+            let mentions: Int
+            let privateMessages: Int
+            
+            enum CodingKeys: String, CodingKey {
+                case replies, mentions
+                case privateMessages = "private_messages"
+            }
+        }
+
+        struct VerifyEmail: Codable {
+            let token: String
+        }
+        
+        struct VerifyEmailResponse: Codable {}
+
         struct BlockPerson: Codable {
             let personId: Int
             let block: Bool
@@ -405,20 +459,12 @@ extension LMModels.Api {
             }
         }
         
-        struct GetUnreadCount: Codable {
+        struct GetBannedPersons: Codable {
             let auth: String
         }
-
-        struct GetUnreadCountResponse: Codable {
-            let replies: Int
-            let mentions: Int
-            let privateMessages: Int
-            
-            enum CodingKeys: String, CodingKey {
-                case replies, mentions
-                case privateMessages = "private_messages"
-            }
-        }
         
+        struct BannedPersonsResponse: Codable {
+            let banned: [LMModels.Views.PersonViewSafe]
+        }
     }
 }
