@@ -194,6 +194,7 @@
 		4E9BBA2C25553516004FF2F9 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA2B25553516004FF2F9 /* Error.swift */; };
 		4E9BBA5425555571004FF2F9 /* LemmySortListingPickersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA5325555571004FF2F9 /* LemmySortListingPickersView.swift */; };
 		4E9BBA592555560C004FF2F9 /* LemmyImageTextPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA582555560C004FF2F9 /* LemmyImageTextPickerView.swift */; };
+		4EA3CCC627F0944800737A45 /* MainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3CCC527F0944800737A45 /* MainThread.swift */; };
 		4EB2641325AC8A03003D5183 /* TermsOfUseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB2641225AC8A03003D5183 /* TermsOfUseView.swift */; };
 		4EB4F67F258FF0EF0057BDCC /* InstancePersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4F67E258FF0EF0057BDCC /* InstancePersistenceService.swift */; };
 		4EB4F684259024B40057BDCC /* InstancesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4F683259024B40057BDCC /* InstancesProvider.swift */; };
@@ -582,6 +583,7 @@
 		4E9BBA2B25553516004FF2F9 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		4E9BBA5325555571004FF2F9 /* LemmySortListingPickersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmySortListingPickersView.swift; sourceTree = "<group>"; };
 		4E9BBA582555560C004FF2F9 /* LemmyImageTextPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyImageTextPickerView.swift; sourceTree = "<group>"; };
+		4EA3CCC527F0944800737A45 /* MainThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainThread.swift; sourceTree = "<group>"; };
 		4EB2641225AC8A03003D5183 /* TermsOfUseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseView.swift; sourceTree = "<group>"; };
 		4EB4F67E258FF0EF0057BDCC /* InstancePersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancePersistenceService.swift; sourceTree = "<group>"; };
 		4EB4F683259024B40057BDCC /* InstancesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancesProvider.swift; sourceTree = "<group>"; };
@@ -1443,6 +1445,7 @@
 			children = (
 				4EB5C76725C20ED3004B2349 /* FormatterHelper.swift */,
 				4E50674C25D085CF003F1AB4 /* CatalystDismissProtocol.swift */,
+				4EA3CCC527F0944800737A45 /* MainThread.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2562,6 +2565,7 @@
 				4E0A8E5C255D586F00B06AF6 /* ProfileScreenAboutInputProtocol.swift in Sources */,
 				4E24395D259DE2200006C742 /* IncreasedTapAreaButton.swift in Sources */,
 				4EF3AC5D254A01CA00BEC9F1 /* CreateCommunityCoordinator.swift in Sources */,
+				4EA3CCC627F0944800737A45 /* MainThread.swift in Sources */,
 				4E004F6925DFAA2E006B81CF /* CommentTreeMutator.swift in Sources */,
 				4E3D450225964EA800108DA3 /* ImageControl.swift in Sources */,
 				4EF312F22576D3230032B58D /* PostContentHeaderView.swift in Sources */,

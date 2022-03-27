@@ -18,17 +18,17 @@ struct OnboardingButton: View {
     
     var body: some View {
         Button(action: {
-            self.needsAppOnboarding = false
+            self.needsAppOnboarding = true
             
             action?()
         }, label: {
             Text(text)
                 .foregroundColor(.white)
                 .font(.headline)
-                .frame(width: 350, height: 60.0)
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 60)
                 .background(Color.blue)
                 .cornerRadius(15)
-                .padding(.top)
+                .padding(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
         })
         .background(Color(UIColor.systemBackground))
     }

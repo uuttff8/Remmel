@@ -20,16 +20,12 @@ struct OnboardingView: View {
             Spacer()
             
             Text("Welcome to Remmel!")
-                .fontWeight(.heavy)
                 .font(.system(size: 50))
-                .frame(width: 300, alignment: .center)
-                .multilineTextAlignment(.center)
+                .fontWeight(.heavy)
+                .minimumScaleFactor(0.5)
+                .scaledToFit()
+                .padding(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
             
-            //            Image("Icon-transparent")
-            //                .resizable()
-            //                .aspectRatio(contentMode: .fit)
-            //                .frame(width: 80, height: 80, alignment: .center)
-             
             VStack(alignment: .leading) {
                 NewDetail(image: "person.2.fill",
                           imageColor: .pink,
@@ -56,6 +52,7 @@ struct OnboardingView: View {
                 self.dismiss?()
                 self.onLemmyMlInstance?()
             }
+            .padding(.init(top: 0, leading: 0, bottom: 16, trailing: 0))
         }
         .background(Color(UIColor.systemBackground))
     }
@@ -71,18 +68,17 @@ struct NewDetail: View {
         HStack(alignment: .center) {
             HStack {
                 Image(systemName: image)
-                    .font(.system(size: 50))
+                    .font(.system(size: 35))
                     .frame(width: 50)
                     .foregroundColor(imageColor)
                     .padding()
                 
                 VStack(alignment: .leading) {
                     Text(title).bold()
-                    
                     Text(description)
-                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 16))
                 }
-            }.frame(width: 340, height: 100)
+            }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: 100)
         }
     }
 }

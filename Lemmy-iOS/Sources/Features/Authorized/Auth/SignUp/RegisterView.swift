@@ -67,13 +67,6 @@ class RegisterView: UIView {
         $0.autocorrectionType = .no
     }
 
-    // Apple rejects apps when user can choose to show nsfw content
-//    lazy var showNsfwSwitch: LemmyLabelWithSwitch = {
-//        let switcher = LemmyLabelWithSwitch()
-//        switcher.checkText = "sign-up-show-nsfw".localized
-//        return switcher
-//    }()
-
     init() {
         super.init(frame: .zero)
         self.backgroundColor = UIColor.systemBackground
@@ -93,7 +86,6 @@ class RegisterView: UIView {
             passwordVerifyTextField,
             captchaImageView,
             captchaTextField
-//            showNsfwSwitch, // Apple rejects apps when user can choose to show nsfw content
         ].forEach { [self] (view) in
             self.addSubview(view)
         }
@@ -106,15 +98,9 @@ class RegisterView: UIView {
     }
 
     func updateCaptcha() {
-        model.getCaptcha { [self] (res) in
-            switch res {
-            case .success(let image):
-                DispatchQueue.main.async {
-                    captchaImageView.image = image
-                }
-            default: break
-            }
-        }
+        model.getCaptcha(completion: onMainThread { [weak captchaImageView] res in
+            captchaImageView?.image = try? res.get()
+        })
     }
 
     override func layoutSubviews() {
@@ -168,10 +154,5 @@ class RegisterView: UIView {
             make.height.equalTo(35)
         }
 
-        // Apple rejects apps when user can choose to show nsfw content
-//        showNsfwSwitch.snp.makeConstraints { (make) in
-//            make.top.equalTo(captchaTextField.snp.bottom).offset(10)
-//            make.leading.trailing.equalToSuperview().inset(20)
-//        }
     }
 }

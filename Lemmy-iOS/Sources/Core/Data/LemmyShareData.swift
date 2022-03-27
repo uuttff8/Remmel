@@ -15,9 +15,9 @@ class LemmyShareData {
     
     let loginData = LoginData.shared
     
-    var unauthUserDefaults: UserDefaults { loginData.authUserDefaults }
+    var authUserDefaults: UserDefaults { loginData.authUserDefaults }
     
-    var authUserDefaults: UserDefaults { loginData.unauthUserDefaults }
+    var unauthUserDefaults: UserDefaults { loginData.unauthUserDefaults }
     
     var userdata: LMModels.Api.Site.MyUserInfo? {
         get {

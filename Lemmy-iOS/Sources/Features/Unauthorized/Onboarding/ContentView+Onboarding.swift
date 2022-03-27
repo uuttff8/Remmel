@@ -16,9 +16,7 @@ struct ContentView_Onboarding: View {
     
     var body: some View {
         mainView.onAppear {
-            
             if !needsAppOnboarding {
-                // Scenario #2: User has completed app onboarding
                 appSetupState = "App setup 😀"
             }
         }
