@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let API_VERSION = "v0.15.0"
+private let API_VERSION = " v0.16.4-rc.3"
 
 protocol SettingsViewModelProtocol: AnyObject {
     func doSettingsForm(request: SettingsDataFlow.SettingsForm.Request)
