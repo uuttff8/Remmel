@@ -39,9 +39,9 @@ class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
         
         ApiManager.requests.asyncGetUserDetails(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
-            } receiveValue: { [weak self] (response) in
+            } receiveValue: { [weak self] response in
                 
                 self?.viewController?.displayNextComments(
                     viewModel: .init(
@@ -66,9 +66,9 @@ class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
         
         ApiManager.requests.asyncGetUserDetails(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
-            } receiveValue: { [weak self] (response) in
+            } receiveValue: { [weak self] response in
                 
                 self?.viewController?.displayNextComments(
                     viewModel: .init(

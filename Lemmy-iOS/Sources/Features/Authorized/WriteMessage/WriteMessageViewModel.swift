@@ -81,7 +81,7 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
         
         ApiManager.requests.asyncCreatePrivateMessage(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
                 
                 if case .failure(let error) = completion {
@@ -89,7 +89,7 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
                         viewModel: .init(error: error.description)
                     )
                 }
-            } receiveValue: { (_) in
+            } receiveValue: { _ in
                 self.viewController?.displaySuccessCreatingMessage(
                     viewModel: .init()
                 )
@@ -106,7 +106,7 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
         
         ApiManager.requests.asyncEditComment(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
                 
                 if case .failure(let error) = completion {
@@ -114,7 +114,7 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
                         viewModel: .init(error: error.description)
                     )
                 }
-            } receiveValue: { (_) in
+            } receiveValue: { _ in
                 self.viewController?.displaySuccessCreatingMessage(
                     viewModel: .init()
                 )
@@ -130,7 +130,7 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
         
         ApiManager.requests.asyncCreateComment(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
                 
                 if case .failure(let error) = completion {
@@ -138,7 +138,7 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
                         viewModel: .init(error: error.description)
                     )
                 }
-            } receiveValue: { (_) in
+            } receiveValue: { _ in
                 self.viewController?.displaySuccessCreatingMessage(viewModel: .init())
             }.store(in: &self.cancellable)
 

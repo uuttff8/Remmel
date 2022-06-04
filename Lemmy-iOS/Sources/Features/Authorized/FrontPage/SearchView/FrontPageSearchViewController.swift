@@ -12,11 +12,11 @@ class FrontPageSearchViewController: UIViewController {
     
     weak var coordinator: FrontPageCoordinator?
     
-    private lazy var searchView = self.view as! FrontPageSearchView
+    private lazy var searchView = self.view as? FrontPageSearchView
     
-    open var searchQuery: String = "" {
+    var searchQuery: String = "" {
         didSet {
-            searchView.configure(with: searchQuery)
+            searchView?.configure(with: searchQuery)
         }
     }
     
@@ -36,16 +36,16 @@ class FrontPageSearchViewController: UIViewController {
     }
     
     func showSearchIfNeeded() {
-        self.searchView.fadeInIfNeeded()
+        searchView?.fadeInIfNeeded()
     }
     
     func hideSearchIfNeeded() {
-        self.searchView.fadeOutIfNeeded()
+        searchView?.fadeOutIfNeeded()
     }
 }
 
 extension FrontPageSearchViewController: FrontPageSearchViewDelegate {
     func searchView(_ searchView: FrontPageSearchView, searchWith query: String, type: LMModels.Others.SearchType) {
-        self.coordinator?.goToSearchResults(searchQuery: query, searchType: type)
+        coordinator?.goToSearchResults(searchQuery: query, searchType: type)
     }
 }

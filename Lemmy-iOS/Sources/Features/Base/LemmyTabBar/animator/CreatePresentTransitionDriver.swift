@@ -15,6 +15,8 @@ extension CreatePresentTransitionDriver {
     }
 }
 
+// swiftlint:disable force_unwrapping
+// swiftlint:disable force_cast
 class CreatePresentTransitionDriver {
 
     // MARK: - Properties
@@ -53,7 +55,7 @@ class CreatePresentTransitionDriver {
         animator = UIViewPropertyAnimator(duration: CreateTransitionDelegateImpl.duration, curve: .easeIn, animations: {
             self.fromVC.view.alpha = self.appearance.backViewAlpha
 
-            self.createViewController.createView.snp.makeConstraints { (make) in
+            self.createViewController.createView.snp.makeConstraints { make in
                 make.height.equalTo(self.appearance.dropdownViewHeight)
             }
             self.createViewController.view.layoutIfNeeded()
@@ -61,7 +63,9 @@ class CreatePresentTransitionDriver {
 
         animator?.startAnimation()
 
-        animator?.addCompletion { [weak self] _ in
+        animator?.addCompletion {
+            [weak self] _ in
+            
             self?.completeAnimation()
         }
     }

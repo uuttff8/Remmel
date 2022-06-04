@@ -45,10 +45,8 @@ final class ProfileSettingsViewController: UIViewController, CatalystDismissProt
     }
     
     weak var coordinator: ProfileScreenCoordinator?
-    
     private let viewModel: ProfileSettingsViewModelProtocol
-    
-    private lazy var profileSettingsView = self.view as! ProfileSettingsView
+    private lazy var profileSettingsView = self.view as? ProfileSettingsView
     
     private var tableFormData = TableFormData()
     
@@ -78,7 +76,7 @@ final class ProfileSettingsViewController: UIViewController, CatalystDismissProt
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError()
+        fatalError("haah")
     }
     
     override func loadView() {
@@ -131,23 +129,25 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
         self.tableFormData.showNsfwContent = viewModel.nsfwContent
         self.tableFormData.sendNotificationsToEmail = viewModel.notifToEmail
         
-        self.profileSettingsView.configure(viewModel: getNewTableData(viewModel: viewModel))
+        self.profileSettingsView?.configure(viewModel: getNewTableData(viewModel: viewModel))
     }
     
     func displayLoadingIndicator(viewModel: ProfileSettings.LoadingIndicator.ViewModel) {
         viewModel.isLoading
-            ? self.profileSettingsView.showLoadingIndicator()
-            : self.profileSettingsView.hideLoadingIndicator()
+            ? self.profileSettingsView?.showLoadingIndicator()
+            : self.profileSettingsView?.hideLoadingIndicator()
     }
     
     func displayError(viewModel: ProfileSettings.SomeError.ViewModel) {
-        self.setNewBarButton(loading: false)
-        self.profileSettingsView.hideLoadingIndicator()
+        setNewBarButton(loading: false)
+        profileSettingsView?.hideLoadingIndicator()
         UIAlertController.createOkAlert(
             message: viewModel.error,
             completion: {
+                [weak self] in
+
                 if viewModel.exitImmediately {
-                    self.dismissSelf()
+                    self?.dismissSelf()
                 }
             }
         )
@@ -159,14 +159,19 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
     }
     
     private func updateTableViewModel() {
-        let viewModel = getNewTableData(viewModel: .init(displayName: tableFormData.displayName,
-                                                         bio: tableFormData.bio,
-                                                         email: tableFormData.email,
-                                                         matrix: tableFormData.matrix,
-                                                         nsfwContent: tableFormData.showNsfwContent,
-                                                         notifToEmail: tableFormData.sendNotificationsToEmail))
+        let viewModel = getNewTableData(
+            viewModel: .init(
+                displayName: tableFormData.displayName,
+                bio: tableFormData.bio,
+                email: tableFormData.email,
+                matrix: tableFormData.matrix,
+                nsfwContent: tableFormData.showNsfwContent,
+                notifToEmail: tableFormData.sendNotificationsToEmail
+
+            )
+        )
         
-        self.profileSettingsView.updateData(viewModel: viewModel)
+        profileSettingsView?.updateData(viewModel: viewModel)
     }
     
     private func getNewTableData(viewModel: ProfileSettings.ProfileSettingsForm.ViewModel) -> SettingsTableViewModel {

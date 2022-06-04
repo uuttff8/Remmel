@@ -18,7 +18,7 @@ final class InboxMessagesViewController: UIViewController {
     weak var coordinator: InboxNotificationsCoordinator?
     private let viewModel: InboxMessagesViewModel
     
-    private lazy var messagesView = self.view as! InboxMessagesView
+    private lazy var messagesView = self.view as? InboxMessagesView
     private lazy var tableManager = InboxMessagesTableManager().then {
         $0.delegate = self
     }
@@ -52,19 +52,19 @@ final class InboxMessagesViewController: UIViewController {
         }
 
         if case .loading = newState {
-            self.messagesView.showActivityIndicatorView()
+            messagesView?.showActivityIndicatorView()
             return
         }
 
         if case .loading = self.state {
-            self.messagesView.hideActivityIndicatorView()
+            messagesView?.hideActivityIndicatorView()
         }
 
         if case .result(let data) = newState {
             if data.isEmpty {
-                self.messagesView.displayNoData()
+                messagesView?.displayNoData()
             } else {
-                self.messagesView.updateTableViewData(dataSource: self.tableManager)
+                messagesView?.updateTableViewData(dataSource: self.tableManager)
             }
         }
     }
@@ -72,21 +72,26 @@ final class InboxMessagesViewController: UIViewController {
 
 extension InboxMessagesViewController: InboxMessagesViewControllerProtocol {
     func displayMessages(viewModel: InboxMessages.LoadMessages.ViewModel) {
-        guard case .result(let data) = viewModel.state else { return }
-        self.tableManager.viewModels = data
+        guard case .result(let data) = viewModel.state else {
+            return
+        }
+
+        tableManager.viewModels = data
         updateState(newState: viewModel.state)
     }
     
     func displayNextMessages(viewModel: InboxMessages.LoadMessages.ViewModel) {
-        guard case let .result(data) = viewModel.state else { return }
+        guard case let .result(data) = viewModel.state else {
+            return
+        }
         
-        self.tableManager.viewModels.append(contentsOf: data)
-        self.messagesView.appendNew(data: data)
+        tableManager.viewModels.append(contentsOf: data)
+        messagesView?.appendNew(data: data)
         
         if data.isEmpty {
-            self.canTriggerPagination = false
+            canTriggerPagination = false
         } else {
-            self.canTriggerPagination = true
+            canTriggerPagination = true
         }
     }
 }
@@ -100,7 +105,9 @@ extension InboxMessagesViewController: InboxMessagesTableManagerDelegate {
 extension InboxMessagesViewController: InboxMessagesViewDelegate {
     func inboxMessagesViewDidRequestRefresh() {
         // Small delay for pretty refresh
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            [weak self] in
+            
             self?.viewModel.doLoadMessages(request: .init())
         }
     }

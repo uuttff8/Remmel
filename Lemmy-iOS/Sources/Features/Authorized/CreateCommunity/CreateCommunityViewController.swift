@@ -44,9 +44,8 @@ class CreateCommunityViewController: UIViewController, CatalystDismissProtocol {
     weak var coordinator: CreateCommunityCoordinator?
     private let viewModel: CreateCommunityViewModelProtocol
     
-    lazy var createCommunityView = self.view as! CreateCommunityUI
-    
-    lazy var styledNavController = self.navigationController as! StyledNavigationController
+    lazy var createCommunityView = view as? CreateCommunityUI
+    lazy var styledNavController = navigationController as? StyledNavigationController
     
     lazy var imagePicker: UIImagePickerController = {
         let picker = UIImagePickerController()
@@ -73,7 +72,7 @@ class CreateCommunityViewController: UIViewController, CatalystDismissProtocol {
     private var currentImagePick: CreateCommunityImagesCell.ImagePick?
     
     private var createComminityData: FormData = {
-        .init(
+        FormData(
             name: nil,
             displayName: nil,
             sidebar: nil,
@@ -83,9 +82,7 @@ class CreateCommunityViewController: UIViewController, CatalystDismissProtocol {
         )
     }()
     
-    init(
-        viewModel: CreateCommunityViewModelProtocol
-    ) {
+    init(viewModel: CreateCommunityViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -104,23 +101,21 @@ class CreateCommunityViewController: UIViewController, CatalystDismissProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupNavigationItem()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.styledNavController.setNeedsNavigationBarAppearanceUpdate(sender: self)
+        styledNavController?.setNeedsNavigationBarAppearanceUpdate(sender: self)
     }
         
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.viewModel.doCreateCommunityFormLoad(request: .init())
+        viewModel.doCreateCommunityFormLoad(request: .init())
     }
     
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
-        self.dismissWithExitButton(presses: presses)
+        dismissWithExitButton(presses: presses)
     }
     
     // MARK: - Actions
@@ -152,21 +147,20 @@ class CreateCommunityViewController: UIViewController, CatalystDismissProtocol {
         let bannerText = createComminityData.banner
         let nsfwOption = createComminityData.nsfwOption
         
-        if descriptionText == "" {
+        if descriptionText?.isEmpty == true {
             descriptionText = nil
         }
         
         self.viewModel.doRemoteCreateCommunity(
-            request:
-                .init(
-                    name: nameText,
-                      displayName: displayNameText,
-                      sidebar: descriptionText,
-                      icon: iconText,
-                      banner: bannerText,
-                      nsfwOption: nsfwOption
-                )
+            request: .init(
+                name: nameText,
+                displayName: displayNameText,
+                sidebar: descriptionText,
+                icon: iconText,
+                banner: bannerText,
+                nsfwOption: nsfwOption
             )
+        )
     }
 }
 
@@ -249,7 +243,7 @@ extension CreateCommunityViewController: CreateCommunityViewControllerProtocol {
             )
         ]
         
-        self.createCommunityView.configure(
+        createCommunityView?.configure(
             viewModel: SettingsTableViewModel(sections: sectionsViewModel)
         )
     }
@@ -334,7 +328,7 @@ extension CreateCommunityViewController: CreateCommunityViewDelegate {
             self.createComminityData.sidebar = text
         default: break
         }
-    }    
+    }
 }
 
 // MARK: - CreateCommunityViewController: StyledNavigationControllerPresentable -

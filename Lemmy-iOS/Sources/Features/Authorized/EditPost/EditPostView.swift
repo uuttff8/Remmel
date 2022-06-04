@@ -24,9 +24,7 @@ class EditPostView: UIView {
     private lazy var tableView = SettingsTableView(appearance: .init(style: .insetGrouped))
     
     // MARK: - Init
-    override init(
-        frame: CGRect = .zero
-    ) {
+    override init(frame: CGRect = .zero) {
         super.init(frame: .zero)
         
         self.setupView()
@@ -40,11 +38,11 @@ class EditPostView: UIView {
     }
     
     func configure(viewModel: SettingsTableViewModel) {
-        self.tableView.configure(viewModel: viewModel)
+        tableView.configure(viewModel: viewModel)
     }
     
     func updateViewModel(_ viewModel: SettingsTableViewModel) {
-        self.tableView.updateViewModel(viewModel)
+        tableView.updateViewModel(viewModel)
     }
 }
 
@@ -54,11 +52,11 @@ extension EditPostView: ProgrammaticallyViewProtocol {
     }
     
     func addSubviews() {
-        self.addSubview(tableView)
+        addSubview(tableView)
     }
     
     func makeConstraints() {
-        self.tableView.snp.makeConstraints { (make) in
+        tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }

@@ -66,10 +66,13 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
         
         ApiManager.requests.asyncSearch(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
-            } receiveValue: { [weak self] (response) in
-                guard let self = self else { return }
+            } receiveValue: { [weak self] response in
+                guard let self = self else {
+                    return
+                }
+
                 self.makeViewModelAndPresent(type: self.searchType,
                                              response: response)
                 
@@ -77,7 +80,7 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
     }
     
     func doLoadMoreContent(request: SearchResults.LoadMoreContent.Request) {
-        self.paginationState += 1
+        paginationState += 1
         
         let params = LMModels.Api.Site.Search(query: self.searchQuery,
                                               type: self.searchType,
@@ -92,10 +95,13 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
         
         ApiManager.requests.asyncSearch(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
-            } receiveValue: { [weak self] (response) in
-                guard let self = self else { return }
+            } receiveValue: { [weak self] response in
+
+                guard let self = self else {
+                    return
+                }
                 self.makePaginationViewModelAndPresent(type: self.searchType,
                                                        response: response)
                 
@@ -108,7 +114,7 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
         for newVote: LemmyVoteType,
         post: LMModels.Views.PostView
     ) {
-        self.contentScoreService.votePost(
+        contentScoreService.votePost(
             scoreView: scoreView,
             voteButton: voteButton,
             for: newVote,
@@ -122,7 +128,7 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
         for newVote: LemmyVoteType,
         comment: LMModels.Views.CommentView
     ) {
-        self.contentScoreService.voteComment(
+        contentScoreService.voteComment(
             scoreView: scoreView,
             voteButton: voteButton,
             for: newVote,

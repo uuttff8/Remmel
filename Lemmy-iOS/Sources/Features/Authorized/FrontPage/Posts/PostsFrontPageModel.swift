@@ -44,7 +44,7 @@ class PostsFrontPageModel: NSObject {
     
     func receiveMessages() {
         
-        wsEvents?.onTextMessage.addObserver(self, completionHandler: { [weak self] (operation, data) in
+        wsEvents?.onTextMessage.addObserver(self, completionHandler: { [weak self] operation, data in
             switch operation {
             case LMMUserOperation.CreatePostLike.rawValue:
                 
@@ -90,9 +90,9 @@ class PostsFrontPageModel: NSObject {
         
         ApiManager.requests.asyncGetPosts(parameters: parameters)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
-            } receiveValue: { (response) in
+            } receiveValue: { response in
                 self.postsDataSource = response.posts
                 self.dataLoaded?()
             }.store(in: &cancellable)
@@ -110,9 +110,9 @@ class PostsFrontPageModel: NSObject {
         
         ApiManager.requests.asyncGetPosts(parameters: parameters)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
-            } receiveValue: { (response) in
+            } receiveValue: { response in
                 self.postsDataSource.append(contentsOf: response.posts)
                 self.newDataLoaded?()
                 completion()

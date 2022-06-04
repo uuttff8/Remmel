@@ -21,7 +21,7 @@ enum LMMMessagesToast {
         return config
     }
     
-    static func successBottomToast(title: String, body: String) ->  (SwiftMessages.Config, MessageView) {
+    static func successBottomToast(title: String, body: String) -> (SwiftMessages.Config, MessageView) {
         let config = LMMMessagesToast.bottomConfig()
         
         let view = MessageView.viewFromNib(layout: .cardView)

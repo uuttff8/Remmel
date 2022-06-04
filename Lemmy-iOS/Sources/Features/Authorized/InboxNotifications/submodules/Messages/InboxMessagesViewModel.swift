@@ -30,23 +30,25 @@ final class InboxMessagesViewModel: InboxMessagesViewModelProtocol {
     }
     
     func doLoadMessages(request: InboxMessages.LoadMessages.Request) {
-        self.paginationState = 1
+        paginationState = 1
         
         guard let jwt = userAccountService.jwtToken else {
             Logger.common.error("No jwt token is found")
             return
         }
         
-        let params = LMModels.Api.Person.GetPrivateMessages(unreadOnly: false,
-                                                          page: paginationState,
-                                                          limit: 50,
-                                                          auth: jwt)
+        let params = LMModels.Api.Person.GetPrivateMessages(
+            unreadOnly: false,
+            page: paginationState,
+            limit: 50,
+            auth: jwt
+        )
         
         ApiManager.requests.asyncGetPrivateMessages(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
-            } receiveValue: { (response) in
+            } receiveValue: { response in
                 self.viewController?.displayMessages(
                     viewModel: .init(state: .result(response.privateMessages))
                 )
@@ -61,16 +63,18 @@ final class InboxMessagesViewModel: InboxMessagesViewModelProtocol {
             return
         }
         
-        let params = LMModels.Api.Person.GetPrivateMessages(unreadOnly: false,
-                                                          page: paginationState,
-                                                          limit: 50,
-                                                          auth: jwt)
+        let params = LMModels.Api.Person.GetPrivateMessages(
+            unreadOnly: false,
+            page: paginationState,
+            limit: 50,
+            auth: jwt
+        )
         
         ApiManager.requests.asyncGetPrivateMessages(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
-            } receiveValue: { (response) in
+            } receiveValue: { response in
                 self.viewController?.displayNextMessages(
                     viewModel: .init(state: .result(response.privateMessages))
                 )
@@ -80,7 +84,7 @@ final class InboxMessagesViewModel: InboxMessagesViewModelProtocol {
 
 extension InboxMessagesViewModel: InboxMessagesInputProtocol {
     func update() {
-        self.doLoadMessages(request: .init())
+        doLoadMessages(request: .init())
     }
     
     func handleControllerAppearance() { }

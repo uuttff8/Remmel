@@ -49,11 +49,13 @@ extension UITableView {
     }
     
     func cell<T: ReusableCellIdentifiable>(forRowAt indexPath: IndexPath) -> T {
-        return dequeueReusableCell(withIdentifier: T.cellIdentifier, for: indexPath) as! T
+        // swiftlint:disable:next force_cast
+        dequeueReusableCell(withIdentifier: T.cellIdentifier, for: indexPath) as! T
     }
     
     func cell<T: ReusableCellIdentifiable>(forClass cellClass: T.Type) -> T {
-        return dequeueReusableCell(withIdentifier: T.cellIdentifier) as! T
+        // swiftlint:disable:next force_cast
+        dequeueReusableCell(withIdentifier: T.cellIdentifier) as! T
     }
     
     func dequeueReusableHeaderFooterView<T: UIView>() -> T where T: ReusableCellIdentifiable {

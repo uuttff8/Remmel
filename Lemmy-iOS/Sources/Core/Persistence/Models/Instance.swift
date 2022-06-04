@@ -25,11 +25,13 @@ public class Instance: NSManagedObject, Codable, Identifiable {
     }
     
     public required convenience init(from decoder: Decoder) throws {
-        guard let context = decoder.userInfo[.context] as? NSManagedObjectContext
-        else { fatalError() }
+        guard let context = decoder.userInfo[.context] as? NSManagedObjectContext else {
+            fatalError("zhest")
+        }
         
-        guard let entity = NSEntityDescription.entity(forEntityName: String(describing: Instance.self), in: context)
-        else { fatalError() }
+        guard let entity = NSEntityDescription.entity(forEntityName: String(describing: Instance.self), in: context) else {
+            fatalError("zhest")
+        }
 
         self.init(entity: entity, insertInto: context)
 
@@ -43,5 +45,5 @@ public class Instance: NSManagedObject, Codable, Identifiable {
         
         try container.encode(label, forKey: .label)
         try container.encode(iconUrl, forKey: .iconUrl)
-    }    
+    }
 }

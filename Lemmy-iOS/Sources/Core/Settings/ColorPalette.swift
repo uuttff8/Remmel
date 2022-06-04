@@ -12,7 +12,7 @@ extension UIColor {
     
     static var navControllerSeparator: UIColor {
         .dynamic(
-            light: UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1),
+            light: UIColor(red: 229 / 255, green: 229 / 255, blue: 229 / 255, alpha: 1),
             dark: .separator
         )
     }
@@ -40,8 +40,8 @@ extension UIColor {
     
     static var lemmySecondLabel: UIColor {
         .dynamic(
-            light: UIColor.init(red: 134/255, green: 142/255, blue: 150/255, alpha: 1),
-            dark: UIColor.init(red: 136/255, green: 136/255, blue: 136/255, alpha: 1)
+            light: UIColor(red: 134 / 255, green: 142 / 255, blue: 150 / 255, alpha: 1),
+            dark: UIColor(red: 136 / 255, green: 136 / 255, blue: 136 / 255, alpha: 1)
         )
     }
     

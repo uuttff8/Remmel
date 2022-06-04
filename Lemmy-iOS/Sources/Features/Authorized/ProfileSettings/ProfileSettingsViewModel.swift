@@ -41,13 +41,13 @@ class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
         ApiManager.requests
             .asyncGetSite(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
                 
                 if case .failure(let error) = completion {
                     self.viewController?.displayError(viewModel: .init(error: error.description, exitImmediately: true))
                 }
-            } receiveValue: { (response) in
+            } receiveValue: { response in
                 
                 guard let myUser = response.myUser else {
                     self.viewController?.displayError(
@@ -106,14 +106,14 @@ class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
         ApiManager.requests
             .asyncSaveUserSettings(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
                 
                 if case .failure(let error) = completion {
                     self.viewController?.displayError(viewModel: .init(error: error.description,
                                                                        exitImmediately: false))
                 }
-            } receiveValue: { (response) in
+            } receiveValue: { response in
                 self.userAccountService.jwtToken = response.jwt
                 self.viewController?.displaySuccessUpdatingSetting()
             }.store(in: &cancellables)

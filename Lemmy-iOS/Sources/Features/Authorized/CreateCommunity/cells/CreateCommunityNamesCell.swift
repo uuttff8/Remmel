@@ -29,7 +29,7 @@ class CreateCommunityNameCell: UITableViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        nameTextField.snp.makeConstraints { (make) in
+        nameTextField.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.height.equalTo(50)
             make.leading.trailing.equalToSuperview().inset(20)

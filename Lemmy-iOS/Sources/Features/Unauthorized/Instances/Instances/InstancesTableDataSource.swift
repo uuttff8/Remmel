@@ -62,7 +62,7 @@ extension InstancesTableDataSource: UITableViewDelegate {
         let deleteAction = UIContextualAction(
             style: .destructive,
             title: "Delete",
-            handler: { (_, _, completion) in
+            handler: { _, _, completion in
                 
                 if let index = self.viewModels.firstIndex(where: { $0.label == instance.label }) {
                     self.viewModels.remove(at: index)

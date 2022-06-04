@@ -17,7 +17,7 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
     weak var commentDelegate: CommentsViewControllerDelegate?
         
     var commentDataSource: [LemmyComment] {
-        get { currentlyDisplayed as! [LemmyComment] }
+        get { currentlyDisplayed as? [LemmyComment] ?? [] }
         set { currentlyDisplayed = newValue }
     }
     
@@ -35,10 +35,12 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         
         self.refreshControl = UIRefreshControl()
         if let refreshControl = self.refreshControl {
-            refreshControl.addTarget(self,
-                                     action: #selector(self.refreshControlValueChanged),
-                                     for: .valueChanged)
-            self.tableView.addSubview(refreshControl)
+            refreshControl.addTarget(
+                self,
+                action: #selector(self.refreshControlValueChanged),
+                for: .valueChanged
+            )
+            tableView.addSubview(refreshControl)
         }
         
         tableView.registerClass(SwipingCommentContentTableCell.self)
@@ -123,11 +125,14 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         _ tableView: UITableView,
         commentCellForModel commentModel: AbstractComment,
         atIndexPath indexPath: IndexPath
-    ) -> CommentCell {        
+    ) -> CommentCell {
         let commentCell: SwipingCommentContentTableCell = tableView.cell(forRowAt: indexPath)
         let comment = commentDataSource[indexPath.row]
+        guard let  commentContent = comment.commentContent else {
+            return CommentCell(style: .default, reuseIdentifier: "")
+        }
         
-        commentCell.bind(with: comment.commentContent!, level: comment.level, appearance: .init(config: .inPost))
+        commentCell.bind(with: commentContent, level: comment.level, appearance: .init(config: .inPost))
         commentCell.commentContentView.delegate = commentDelegate
         
         return commentCell
@@ -148,10 +153,15 @@ extension FoldableLemmyCommentsViewController: CommentsViewDelegate {
     }
     
     private func updateCellFoldState(_ folded: Bool, atIndex index: Int) {
-        let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as! SwipingCommentContentTableCell
+
+        guard let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? SwipingCommentContentTableCell,
+              let currentlyDisplayed = currentlyDisplayed as? [LemmyComment]
+        else {
+            return
+        }
         cell.animateIsFolded(fold: folded)
-        (self.currentlyDisplayed[index] as! LemmyComment).isFolded = folded
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
+        currentlyDisplayed[index].isFolded = folded
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
 }

@@ -63,7 +63,9 @@ class FrontPageSearchView: UIView {
     }
     
     func fadeInIfNeeded() {
-        guard self.alpha == 0 else { return }
+        guard alpha == 0 else {
+            return
+        }
         
         UIView.animate(withDuration: appearance.fadeAnimationDuratation, animations: {
             self.alpha = 1.0
@@ -71,7 +73,9 @@ class FrontPageSearchView: UIView {
     }
     
     func fadeOutIfNeeded() {
-        guard self.alpha == 1 else { return }
+        guard alpha == 1 else {
+            return
+        }
         
         UIView.animate(withDuration: appearance.fadeAnimationDuratation, animations: {
             self.alpha = 0.0

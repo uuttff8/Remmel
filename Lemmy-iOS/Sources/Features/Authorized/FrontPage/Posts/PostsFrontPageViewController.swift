@@ -23,7 +23,7 @@ class PostsFrontPageViewController: UIViewController {
         case posts
     }
     
-    weak var coordinator: FrontPageCoordinator?    
+    weak var coordinator: FrontPageCoordinator?
     
     private let appearance: Appearance
     
@@ -135,7 +135,7 @@ class PostsFrontPageViewController: UIViewController {
     private func makeDataSource() -> UITableViewDiffableDataSource<Section, LMModels.Views.PostView> {
         return UITableViewDiffableDataSource<Section, LMModels.Views.PostView>(
             tableView: tableView,
-            cellProvider: { (tableView, indexPath, _) -> UITableViewCell? in
+            cellProvider: { tableView, indexPath, _ -> UITableViewCell? in
                 let cell = tableView.cell(forClass: PostContentPreviewTableCell.self)
                 cell.postContentView.delegate = self
                 cell.bind(with: self.viewModel.postsDataSource[indexPath.row], isInsideCommunity: false)
@@ -164,7 +164,7 @@ extension PostsFrontPageViewController: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
-        tableView.snp.makeConstraints { (make) in
+        tableView.snp.makeConstraints { make in
             make.edges.equalTo(self.view.safeAreaLayoutGuide)
         }
     }
@@ -176,7 +176,9 @@ extension PostsFrontPageViewController: UITableViewDelegate {
         let bottomItems = self.viewModel.postsDataSource.count - 5
 
         if indexPathRow >= bottomItems {
-            guard !viewModel.isFetchingNewContent else { return }
+            guard !viewModel.isFetchingNewContent else {
+                return
+            }
 
             viewModel.isFetchingNewContent = true
             viewModel.currentPage += 1
@@ -210,7 +212,9 @@ extension PostsFrontPageViewController: PostContentPreviewTableCellDelegate {
         newVote: LemmyVoteType,
         post: LMModels.Views.PostView
     ) {
-        guard let coordinator = coordinator else { return }
+        guard let coordinator = coordinator else {
+            return
+        }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
             viewModel.createPostLike(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post)
@@ -228,7 +232,9 @@ extension PostsFrontPageViewController: PostContentPreviewTableCellDelegate {
     func showMore(in post: LMModels.Views.PostView) {
         
         if let post = self.viewModel.postsDataSource.getElement(by: post.id) {
-            guard let coordinator = coordinator else { return }
+            guard let coordinator = coordinator else {
+                return
+            }
             showMoreHandler.showMoreInPost(on: self, coordinator: coordinator, post: post) { updatedPost in
                 self.viewModel.postsDataSource.updateElementById(updatedPost)
             }

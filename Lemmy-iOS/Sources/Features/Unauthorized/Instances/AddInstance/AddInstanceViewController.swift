@@ -20,7 +20,7 @@ final class AddInstanceViewController: UIViewController {
     
     var completionHandler: (() -> Void)?
     
-    private lazy var addView = self.view as! AddInstanceView
+    private lazy var addView = self.view as? AddInstanceView
     
     private var validUrl: String?
     
@@ -58,7 +58,6 @@ final class AddInstanceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupNavigationItem()
     }
     
@@ -98,12 +97,12 @@ extension AddInstanceViewController: AddInstanceViewControllerProtocol {
     func displayAddInstanceCheck(viewModel: AddInstanceDataFlow.InstanceCheck.ViewModel) {
         switch viewModel.state {
         case let .result(iconUrl, instanceUrl):
-            self.enteredInstanceUrl = instanceUrl
-            self.setNewBarButton(loading: false, isEnabled: true)
-            self.addView.bindImage(with: iconUrl)
+            enteredInstanceUrl = instanceUrl
+            setNewBarButton(loading: false, isEnabled: true)
+            addView?.bindImage(with: iconUrl)
         case .noResult:
-            self.setNewBarButton(loading: false, isEnabled: false)
-            self.addView.unbindImage()
+            setNewBarButton(loading: false, isEnabled: false)
+            addView?.unbindImage()
         }
     }
 }
@@ -111,8 +110,8 @@ extension AddInstanceViewController: AddInstanceViewDelegate {
     func addInstanceView(_ view: AddInstanceView, didTyped text: String?) {
         
         if let text = text {
-            self.setNewBarButton(loading: true, isEnabled: false)
-            self.viewModel.doAddInstanceCheck(request: .init(query: text))
+            setNewBarButton(loading: true, isEnabled: false)
+            viewModel.doAddInstanceCheck(request: .init(query: text))
         }
     }
 }

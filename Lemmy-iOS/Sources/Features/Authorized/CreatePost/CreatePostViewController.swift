@@ -38,8 +38,8 @@ class CreatePostScreenViewController: UIViewController, CatalystDismissProtocol 
     weak var coordinator: CreatePostCoordinator?
     private let viewModel: CreatePostViewModelProtocol
     
-    lazy var createPostView = self.view as! CreatePostScreenUI
-    lazy var styledNavController = self.navigationController as! StyledNavigationController
+    lazy var createPostView = self.view as? CreatePostScreenUI
+    lazy var styledNavController = self.navigationController as? StyledNavigationController
     
     // TODO: refactor this
     private var inputWithImageCell: SettingsInputWithImageTableViewCell?
@@ -107,24 +107,23 @@ class CreatePostScreenViewController: UIViewController, CatalystDismissProtocol 
             createPostData.communityView = predefCommunity
         }
         
-        self.setupNavigationItem()
-        self.hideKeyboardWhenTappedAround()
+        setupNavigationItem()
+        hideKeyboardWhenTappedAround()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.viewModel.doCreatePostLoad(request: .init())
+        viewModel.doCreatePostLoad(request: .init())
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.styledNavController.setNeedsNavigationBarAppearanceUpdate(sender: self)
+        styledNavController?.setNeedsNavigationBarAppearanceUpdate(sender: self)
     }
     
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
-        self.dismissWithExitButton(presses: presses)
+        dismissWithExitButton(presses: presses)
     }
         
     // MARK: - Private API
@@ -189,9 +188,9 @@ class CreatePostScreenViewController: UIViewController, CatalystDismissProtocol 
             request: .init(
                 communityId: communityId,
                 title: title,
-                body: self.createPostData.body,
-                url: self.createPostData.url,
-                nsfw: self.createPostData.nsfwOption
+                body: createPostData.body,
+                url: createPostData.url,
+                nsfw: createPostData.nsfwOption
             )
         )
     }
@@ -203,11 +202,11 @@ class CreatePostScreenViewController: UIViewController, CatalystDismissProtocol 
         
         switch field {
         case .title:
-            self.createPostData.title = text
+            createPostData.title = text
         case .body:
-            self.createPostData.body = text
+            createPostData.body = text
         case .url:
-            self.createPostData.url = text
+            createPostData.url = text
         default: break
         }
         
@@ -261,28 +260,29 @@ class CreatePostScreenViewController: UIViewController, CatalystDismissProtocol 
 
 extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol {
     func displayUrlLoadImage(viewModel: CreatePost.RemoteLoadImage.ViewModel) {
-        guard let inputWithImageCell = inputWithImageCell else { return }
-        self.updateUrlState(for: inputWithImageCell, state: .addWithImage(text: viewModel.url))
+        guard let inputWithImageCell = inputWithImageCell else {
+            return
+        }
+        updateUrlState(for: inputWithImageCell, state: .addWithImage(text: viewModel.url))
     }
     
     func displayErrorUrlLoadImage(viewModel: CreatePost.ErrorRemoteLoadImage.ViewModel) {
-        guard let inputWithImageCell = inputWithImageCell else { return }
+        guard let inputWithImageCell = inputWithImageCell else {
+            return
+        }
         
         UIAlertController.createOkAlert(message: "Some error happened when uploading a picture")
-        self.updateUrlState(for: inputWithImageCell, state: .error)
+        updateUrlState(for: inputWithImageCell, state: .error)
     }
     
-    // swiftlint:disable function_body_length
     func displayCreatingPost(viewModel: CreatePost.CreatePostLoad.ViewModel) {
         let sectionsViewModel = getTableViewSections()
-        
-        self.createPostView.configure(viewModel: SettingsTableViewModel(sections: sectionsViewModel))
+        createPostView?.configure(viewModel: SettingsTableViewModel(sections: sectionsViewModel))
     }
     
     func updateTableViewModel() {
         let sectionsViewModel = getTableViewSections()
-        
-        self.createPostView.updateOnlyViewModel(viewModel: SettingsTableViewModel(sections: sectionsViewModel))
+        createPostView?.updateOnlyViewModel(viewModel: SettingsTableViewModel(sections: sectionsViewModel))
     }
     
     private func getTableViewSections() -> [SettingsTableSectionViewModel] {
@@ -304,7 +304,7 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
             type: .inputWithImage(
                 options: .init(
                     placeholderText: "create-content-create-url-placeholder".localized,
-                    valueText: self.createPostData.url ?? nil,
+                    valueText: self.createPostData.url,
                     imageIcon: Config.Image.addImage,
                     autocorrection: .no
                 )
@@ -315,7 +315,7 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
             uniqueIdentifier: FormField.title.rawValue,
             type: .largeInput(
                 options: .init(
-                    valueText: self.createPostData.title ?? nil,
+                    valueText: self.createPostData.title,
                     placeholderText: "create-content-create-title-placeholder".localized,
                     maxLength: nil,
                     noNewline: true
@@ -327,7 +327,7 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
             uniqueIdentifier: FormField.body.rawValue,
             type: .largeInput(
                 options: .init(
-                    valueText: self.createPostData.body ?? nil,
+                    valueText: self.createPostData.body,
                     placeholderText: "create-content-create-body-placeholder".localized,
                     maxLength: nil
                 )
@@ -375,8 +375,8 @@ extension CreatePostScreenViewController: CreatePostScreenViewControllerProtocol
     
     func displayBlockingActivityIndicator(viewModel: CreatePost.BlockingWaitingIndicatorUpdate.ViewModel) {
         viewModel.shouldDismiss
-            ? self.createPostView.hideActivityIndicatorView()
-            : self.createPostView.showActivityIndicatorView()
+            ? createPostView?.hideActivityIndicatorView()
+            : createPostView?.showActivityIndicatorView()
     }
     
     func displaySuccessCreatingPost(viewModel: CreatePost.RemoteCreatePost.ViewModel) {
@@ -396,7 +396,9 @@ extension CreatePostScreenViewController: UIImagePickerControllerDelegate, UINav
     ) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
            let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL {
-            guard let inputWithImageCell = inputWithImageCell else { return }
+            guard let inputWithImageCell = inputWithImageCell else {
+                return
+            }
             
             self.updateUrlState(for: inputWithImageCell, state: .loading)
             self.viewModel.doRemoteLoadImage(request: .init(image: image, filename: imageUrl.lastPathComponent))
@@ -424,7 +426,7 @@ extension CreatePostScreenViewController: UIAdaptivePresentationControllerDelega
     }
     
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
-        return false
+        false
     }
 }
 
@@ -440,8 +442,8 @@ extension CreatePostScreenViewController: CreatePostViewDelegate {
         
         switch selectedForm {
         case .community:
-            self.coordinator?.goToChoosingCommunity(
-                choosedCommunity: { (community) in
+            coordinator?.goToChoosingCommunity(
+                choosedCommunity: { community in
                     self.createPostData.communityView = community
                 }
             )
@@ -462,7 +464,7 @@ extension CreatePostScreenViewController: CreatePostViewDelegate {
         
         switch selectedForm {
         case .url:
-            self.createPostData.url = text
+            createPostData.url = text
         default:
             break
         }
@@ -483,14 +485,14 @@ extension CreatePostScreenViewController: CreatePostViewDelegate {
         didReportTextChange text: String?,
         identifiedBy uniqueIdentifier: UniqueIdentifierType?
     ) {
-        self.handleTextField(uniqueIdentifier: uniqueIdentifier, text: text)
+        handleTextField(uniqueIdentifier: uniqueIdentifier, text: text)
     }
     
     func settingsCell(
         _ cell: SettingsRightDetailSwitchTableViewCell,
         switchValueChanged isOn: Bool
     ) {
-        self.createPostData.nsfwOption = isOn
+        createPostData.nsfwOption = isOn
         updateTableViewModel()
     }
     
@@ -502,6 +504,6 @@ extension CreatePostScreenViewController: CreatePostViewDelegate {
 // MARK: - CreatePostScreenViewController: StyledNavigationControllerPresentable -
 extension CreatePostScreenViewController: StyledNavigationControllerPresentable {
     var navigationBarAppearanceOnFirstPresentation: StyledNavigationController.NavigationBarAppearanceState {
-        self.appearance.navBarAppearance
+        appearance.navBarAppearance
     }
 }

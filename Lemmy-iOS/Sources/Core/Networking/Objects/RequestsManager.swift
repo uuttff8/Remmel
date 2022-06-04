@@ -28,7 +28,8 @@ class RequestsManager {
     private let requestQueue = DispatchQueue(label: "Lemmy-iOS.RequestQueue")
         
     init(instanceUrl: InstanceUrl) {
-        self.wsClient = WSLemmyClient(url: URL(string: instanceUrl.wssLink)!)
+        // swiftlint:disable:next force_unwrapping
+        wsClient = WSLemmyClient(url: URL(string: instanceUrl.wssLink)!)
     }
     
     /// use only when auth
@@ -47,6 +48,7 @@ class RequestsManager {
         return wsClient.asyncSend(on: path, data: parameters)
             .receive(on: requestQueue)
             .flatMap { (outString: String) in
+                // swiftlint:disable:next force_unwrapping
                 self.asyncDecode(data: outString.data(using: .utf8)!)
             }.eraseToAnyPublisher()
     }
@@ -57,7 +59,7 @@ class RequestsManager {
         filename: String,
         completion: @escaping ((Result<Res, LemmyGenericError>) -> Void)
     ) {
-        httpClient.uploadImage(url: path, image: image, filename: filename) { (result) in
+        httpClient.uploadImage(url: path, image: image, filename: filename) { result in
             switch result {
             case .failure(let why):
                 completion(.failure(why))
@@ -86,7 +88,7 @@ class RequestsManager {
                     promise(.success(normalResponse))
                 } catch let responseError {
                     
-                    Logger.common.error(String(describing: D.self) + " "  + responseError.localizedDescription)
+                    Logger.common.error(String(describing: D.self) + " " + responseError.localizedDescription)
                     
                     do {
                         let errorResponse = try self.decoder.decode(ApiErrorResponse.self, from: data)

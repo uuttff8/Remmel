@@ -64,8 +64,10 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     }
     
     func doReceiveMessages() {
-        self.wsClient?.onTextMessage.addObserver(self, completionHandler: { [weak self] (operation, data) in
-            guard let self = self else { return }
+        self.wsClient?.onTextMessage.addObserver(self, completionHandler: { [weak self] operation, data in
+            guard let self = self else {
+                return
+            }
             
             switch operation {
             case LMMUserOperation.GetPersonDetails.rawValue:
@@ -102,7 +104,9 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
         let isCurrent = loadedProfile?.id == userAccountService.currentUserInfo?.localUserView.person.id
             ? true
             : false
-        guard let profile = loadedProfile else { return }
+        guard let profile = loadedProfile else {
+            return
+        }
         
         let userId = profile.id
         
@@ -155,9 +159,11 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     }
     
     private func pushCurrentCourseToSubmodules(submodules: [ProfileScreenSubmoduleProtocol]) {
-        guard let profileData = loadedProfile else { return }
+        guard let profileData = loadedProfile else {
+            return
+        }
         
-        self.submodules.forEach { (key, submodule) in
+        self.submodules.forEach { key, submodule in
             switch key {
             case ProfileScreenDataFlow.Tab.posts.rawValue:
                 submodule.updatePostsData(profile: profileData, posts: profileData.userDetails.posts)
@@ -179,7 +185,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
         
         self.submodules = request.submodules
         
-        request.submodules.forEach { (key, submodule) in
+        request.submodules.forEach { key, submodule in
             switch key {
             case ProfileScreenDataFlow.Tab.posts.rawValue:
                 submodule.updatePostsData(profile: profileData, posts: request.posts)

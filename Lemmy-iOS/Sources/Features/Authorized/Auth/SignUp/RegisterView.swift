@@ -86,7 +86,7 @@ class RegisterView: UIView {
             passwordVerifyTextField,
             captchaImageView,
             captchaTextField
-        ].forEach { [self] (view) in
+        ].forEach { [self] view in
             self.addSubview(view)
         }
         
@@ -106,41 +106,41 @@ class RegisterView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        signUpLabel.snp.makeConstraints { (make) in
+        signUpLabel.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide).offset(20)
             make.leading.trailing.equalToSuperview().inset(20)
         }
 
-        usernameTextField.snp.makeConstraints { (make) in
+        usernameTextField.snp.makeConstraints { make in
             make.top.equalTo(signUpLabel.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(35)
         }
 
-        emailTextField.snp.makeConstraints { (make) in
+        emailTextField.snp.makeConstraints { make in
             make.top.equalTo(usernameTextField.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(35)
         }
 
-        emailDescription.snp.makeConstraints { (make) in
+        emailDescription.snp.makeConstraints { make in
             make.top.equalTo(emailTextField.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)
         }
 
-        passwordTextField.snp.makeConstraints { (make) in
+        passwordTextField.snp.makeConstraints { make in
             make.top.equalTo(emailDescription.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(35)
         }
 
-        passwordVerifyTextField.snp.makeConstraints { (make) in
+        passwordVerifyTextField.snp.makeConstraints { make in
             make.top.equalTo(passwordTextField.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(35)
         }
 
-        captchaImageView.snp.makeConstraints { (make) in
+        captchaImageView.snp.makeConstraints { make in
             make.top.equalTo(passwordVerifyTextField.snp.bottom).offset(10)
             make.leading.equalToSuperview().inset(20)
             make.trailing.lessThanOrEqualToSuperview().inset(20)
@@ -148,7 +148,7 @@ class RegisterView: UIView {
             make.width.equalTo(200)
         }
 
-        captchaTextField.snp.makeConstraints { (make) in
+        captchaTextField.snp.makeConstraints { make in
             make.top.equalTo(captchaImageView.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(35)

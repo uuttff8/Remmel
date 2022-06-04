@@ -11,7 +11,7 @@ import Combine
 
 class WSLemmyClient {
     
-    public var instanceUrl: URL
+    var instanceUrl: URL
     
     private var webSocketTask: URLSessionWebSocketTask?
     private let urlSession: URLSession
@@ -46,13 +46,13 @@ class WSLemmyClient {
             self.webSocketTask = urlSession.webSocketTask(with: instanceUrl)
             webSocketTask?.resume()
             
-            webSocketTask?.send(wsMessage) { (error) in
+            webSocketTask?.send(wsMessage) { error in
                 if let error = error {
                     promise(.failure("WebSocket couldn’t send message because: \(error)".toLemmyError))
                 }
             }
             
-            webSocketTask?.receive { (res) in
+            webSocketTask?.receive { res in
                 switch res {
                 case let .success(messageType):
                     promise(.success(self.handleMessage(type: messageType)))
@@ -73,13 +73,13 @@ class WSLemmyClient {
         if let data = data {
             
             encoder.outputFormatting = .prettyPrinted
-            guard let orderJsonData = try? encoder.encode(data)
+            guard let orderJsonData = try? encoder.encode(data),
+                  let parameters = String(data: orderJsonData, encoding: .utf8)
             else {
                 Logger.common.error("failed to encode data \(#file) \(#line)")
                 return nil
             }
-            let parameters = String(data: orderJsonData, encoding: .utf8)!
-            
+
             return #"{"op": "\#(url)","data": \#(parameters)}"#
         } else {
             return #"{"op":"\#(url)","data":{}}"#

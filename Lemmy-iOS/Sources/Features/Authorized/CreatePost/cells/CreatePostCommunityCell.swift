@@ -49,7 +49,7 @@ class CreatePostCommunityCell: UITableViewCell {
         } else {
             self.communityImageView.isHidden = true
             
-            communityLabel.snp.remakeConstraints { (make) in
+            communityLabel.snp.remakeConstraints { make in
                 make.top.equalToSuperview().inset(10)
                 make.centerY.equalToSuperview()
                 make.leading.equalToSuperview().inset(16)
@@ -62,14 +62,14 @@ class CreatePostCommunityCell: UITableViewCell {
     
     // MARK: - Private
     private func layoutUI() {
-        communityImageView.snp.makeConstraints { (make) in
+        communityImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(5)
             make.leading.equalToSuperview().inset(16)
             make.size.equalTo(35)
             make.bottom.equalToSuperview().inset(5)
         }
         
-        communityLabel.snp.makeConstraints { (make) in
+        communityLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(communityImageView.snp.trailing).offset(10)
             make.trailing.equalToSuperview().offset(30)

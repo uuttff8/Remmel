@@ -58,12 +58,12 @@ class ChooseCategoryUI: UIView {
     // MARK: - Overrided
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.searchBar.snp.makeConstraints { (make) in
+        self.searchBar.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalToSuperview()
         }
 
-        self.tableView.snp.makeConstraints { (make) in
+        self.tableView.snp.makeConstraints { make in
             make.top.equalTo(self.searchBar.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
         }
@@ -77,13 +77,13 @@ class ChooseCategoryUI: UIView {
 
         model.categories
             .receive(on: DispatchQueue.main)
-            .sink { (_) in
+            .sink { _ in
                 self.tableView.reloadData()
             }.store(in: &cancellable)
 
         model.filteredCategories
             .receive(on: DispatchQueue.main)
-            .sink { (_) in
+            .sink { _ in
                 self.tableView.reloadData()
             }.store(in: &cancellable)
     }
@@ -96,7 +96,7 @@ class ChooseCategoryUI: UIView {
 
     // MARK: Actions
     @objc func reload(_ searchBar: UISearchBar) {
-        if let text = searchBar.text, text != "" {
+        if let text = searchBar.text, !text.isEmpty {
             // TODO: make search for communities
             self.shouldShowFiltered = true
             model.searchCategories(query: text)

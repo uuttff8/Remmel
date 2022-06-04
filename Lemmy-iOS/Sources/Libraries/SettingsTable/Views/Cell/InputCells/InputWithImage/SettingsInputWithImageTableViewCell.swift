@@ -32,15 +32,23 @@ final class SettingsInputWithImageTableViewCell: SettingsTableViewCell<SettingsI
         super.didMoveToSuperview()
 
         self.selectionStyle = .none
-        self.elementView.onIconImageTap = { [weak self] in
-            guard let self = self else { return }
+        self.elementView.onIconImageTap = {
+            [weak self] in
+
+            guard let self = self else {
+                return
+            }
 
             self.delegate?.settingsCellDidTappedToIcon(self)
         }
         
-        self.elementView.onEnteredText = { [weak self] text in
-            guard let self = self else { return }
-            
+        self.elementView.onEnteredText = {
+            [weak self] text in
+
+            guard let self = self else {
+                return
+            }
+
             self.delegate?.settingsCellWithImageDidEnterText(elementView: self, didReportTextChange: text)
         }
     }

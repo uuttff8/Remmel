@@ -36,7 +36,7 @@ final class ProfileChangePasswordViewController: UIViewController {
         var oldPassword: String?
     }
     
-    private lazy var profileChangePasswordView = self.view as! ProfileChangePasswordView
+    private lazy var profileChangePasswordView = self.view as? ProfileChangePasswordView
     
     private var tableFormData = TableFormData()
     
@@ -93,9 +93,9 @@ final class ProfileChangePasswordViewController: UIViewController {
     }
     
     private func validatePasswords() -> (String, String, String)? {
-        guard let oldP = tableFormData.oldPassword, oldP != "",
-              let newP = tableFormData.newPassword, newP != "",
-              let verP = tableFormData.verifyPassword, verP != "",
+        guard let oldP = tableFormData.oldPassword, !oldP.isEmpty,
+              let newP = tableFormData.newPassword, !newP.isEmpty,
+              let verP = tableFormData.verifyPassword, !verP.isEmpty,
               newP == verP else {
             return nil
         }
@@ -158,7 +158,7 @@ extension ProfileChangePasswordViewController: ProfileChangePasswordViewControll
             )
         ]
 
-        profileChangePasswordView.configure(viewModel: SettingsTableViewModel(sections: sectionsViewModel))
+        profileChangePasswordView?.configure(viewModel: SettingsTableViewModel(sections: sectionsViewModel))
     }
     
     func displaySucessChangingPassword(viewModel: ProfileChangePassword.ChangePasswordResult) {

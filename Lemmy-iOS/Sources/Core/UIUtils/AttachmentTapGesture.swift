@@ -42,7 +42,8 @@ class AttachmentTapGestureRecognizer: UITapGestureRecognizer {
     private func evaluateTouch(_ touch: UITouch, on textView: UITextView) -> TappedAttachment? {
         let point = touch.location(in: textView)
         let glyphIndex: Int = textView.layoutManager.glyphIndex(
-            for: point, in: textView.textContainer,
+            for: point,
+            in: textView.textContainer,
             fractionOfDistanceThroughGlyph: nil
         )
         let glyphRect = textView.layoutManager.boundingRect(forGlyphRange: NSRange(location: glyphIndex, length: 1),
@@ -59,11 +60,7 @@ class AttachmentTapGestureRecognizer: UITapGestureRecognizer {
                 .character(at: characterIndex) else {
             return nil
         }
-        guard let attachment = textView.textStorage.attribute(
-                .attachment,
-                at: characterIndex, effectiveRange: nil
-            
-        ) as? NSTextAttachment else {
+        guard let attachment = textView.textStorage.attribute(.attachment, at: characterIndex, effectiveRange: nil) as? NSTextAttachment else {
             return nil
         }
         return (attachment, characterIndex)

@@ -27,7 +27,7 @@ class CommunityScreenViewController: UIViewController {
         $0.delegate = self
     }
 
-    lazy var communityView = self.view as! CommunityScreenViewController.View
+    lazy var communityView = self.view as? CommunityScreenViewController.View
     
     private lazy var showMoreBarButton = UIBarButtonItem(
         image: Config.Image.ellipsis,
@@ -57,7 +57,7 @@ class CommunityScreenViewController: UIViewController {
         self.contentScoreService = contentScoreService
         self.showMoreService = showMoreService
         super.init(nibName: nil, bundle: nil)
-    }    
+    }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
@@ -77,7 +77,7 @@ class CommunityScreenViewController: UIViewController {
         viewModel.doCommunityFetch()
         
         viewModel.doReceiveMessages()
-        viewModel.doPostsFetch(request: .init(contentType: communityView.contentType))
+        viewModel.doPostsFetch(request: .init(contentType: communityView?.contentType ?? .active))
         self.updateState(newState: state)
         
         self.navigationItem.rightBarButtonItem = showMoreBarButton
@@ -93,54 +93,57 @@ class CommunityScreenViewController: UIViewController {
     
     private func updateState(newState: CommunityScreen.ViewControllerState) {
         defer {
-            self.state = newState
+            state = newState
         }
 
         if case .loading = newState {
-            self.communityView.showLoadingIndicator()
+            communityView?.showLoadingIndicator()
             return
         }
 
-        if case .loading = self.state {
-            self.communityView.hideLoadingIndicator()
+        if case .loading = state {
+            communityView?.hideLoadingIndicator()
         }
 
         if case let .result(data) = newState {
             if data.isEmpty {
-                self.communityView.displayNoData()
+                communityView?.displayNoData()
             } else {
-                self.communityView.updateTableViewData(dataSource: self.tableDataSource)
+                communityView?.updateTableViewData(dataSource: tableDataSource)
             }
         }
     }
     
     private func updatePagination(hasNextPage: Bool) {
-        self.canTriggerPagination = hasNextPage
+        canTriggerPagination = hasNextPage
     }
 }
 
 extension CommunityScreenViewController: CommunityScreenViewControllerProtocol {
     func displayCommunityHeader(viewModel: CommunityScreen.CommunityHeaderLoad.ViewModel) {
-        self.communityView.communityHeaderViewData = viewModel.data.communityView
-        self.title = "!" + viewModel.data.communityView.community.name
+        communityView?.communityHeaderViewData = viewModel.data.communityView
+        title = "!" + viewModel.data.communityView.community.name
     }
     
     func displayPosts(viewModel: CommunityScreen.CommunityPostsLoad.ViewModel) {
-        guard case let .result(data) = viewModel.state else { return }
-        self.tableDataSource.viewModels = data
-        self.updateState(newState: viewModel.state)
+        guard case let .result(data) = viewModel.state else {
+            return
+        }
+
+        tableDataSource.viewModels = data
+        updateState(newState: viewModel.state)
     }
     
     func displayNextPosts(viewModel: CommunityScreen.NextCommunityPostsLoad.ViewModel) {
         switch viewModel.state {
         case .result(let posts):
-            self.tableDataSource.viewModels.append(contentsOf: posts)
-            self.communityView.appendNew(data: posts)
+            tableDataSource.viewModels.append(contentsOf: posts)
+            communityView?.appendNew(data: posts)
             
             if posts.isEmpty {
-                self.updatePagination(hasNextPage: false)
+                updatePagination(hasNextPage: false)
             } else {
-                self.updatePagination(hasNextPage: true)
+                updatePagination(hasNextPage: true)
             }
         case .error:
             break
@@ -148,20 +151,22 @@ extension CommunityScreenViewController: CommunityScreenViewControllerProtocol {
     }
     
     func displayCreatePostLike(viewModel: CommunityScreen.CreateCommentLike.ViewModel) {
-        self.tableDataSource.viewModels.updateElementById(viewModel.postView)
+        tableDataSource.viewModels.updateElementById(viewModel.postView)
         guard let index = tableDataSource.viewModels.getElementIndex(by: viewModel.postView.id) else {
             return
         }
         
-        self.communityView.updateForPostLike(at: index)
+        communityView?.updateForPostLike(at: index)
     }
     
     func displayCommunityShowMore(viewModel: CommunityScreen.CommunityShowMore.ViewModel) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.popoverPresentationController?.barButtonItem = showMoreBarButton
         
-        let createPostAction = UIAlertAction(title: "community-create-post".localized, style: .default) { (_) in
-            self.coordinator?.goToCreatePost(predefinedCommunity: viewModel.community)
+        let createPostAction = UIAlertAction(title: "community-create-post".localized, style: .default) {
+            [weak self] _ in
+
+            self?.coordinator?.goToCreatePost(predefinedCommunity: viewModel.community)
         }
         
         let shareAction = UIAlertAction.createShareAction(
@@ -180,54 +185,60 @@ extension CommunityScreenViewController: CommunityScreenViewControllerProtocol {
     }
     
     func displayUpdatePost(viewModel: CommunityScreen.UpdatePost.ViewModel) {
-        self.tableDataSource.viewModels.updateElementById(viewModel.postView)
+        tableDataSource.viewModels.updateElementById(viewModel.postView)
     }
 }
 
 extension CommunityScreenViewController: CommunityScreenViewDelegate {
     func communityView(_ view: View, didPickedNewSort type: LMModels.Others.SortType) {
-        self.communityView.deleteAllContent()
-        self.communityView.showLoadingIndicator()
-        self.viewModel.doPostsFetch(request: .init(contentType: type))
+        communityView?.deleteAllContent()
+        communityView?.showLoadingIndicator()
+        viewModel.doPostsFetch(request: .init(contentType: type))
     }
     
     func headerViewDidTapped(followButton: FollowButton, in community: LMModels.Views.CommunityView) {
-        guard let coord = coordinator else { return }
+        guard let coord = coordinator else {
+            return
+        }
         
         ContinueIfLogined(on: self, coordinator: coord) {
             self.followService.followUi(followButton: followButton, to: community)
-                .sink { (community) in
-                    self.communityView.communityHeaderViewData = community
+                .sink { community in
+                    self.communityView?.communityHeaderViewData = community
                 }.store(in: &self.cancellable)
         }
     }
     
     func communityViewDidPickerTapped(_ communityView: View, toVc: UIViewController) {
-        self.present(toVc, animated: true)
+        present(toVc, animated: true)
     }
     
     func communityViewDidReadMoreTapped(_ communityView: View, toVc: UIViewController) {
-        self.present(toVc, animated: true)
+        present(toVc, animated: true)
     }
 }
 
 extension CommunityScreenViewController: CommunityScreenTableDataSourceDelegate {
     func tableDidRequestPagination(_ tableDataSource: CommunityScreenTableDataSource) {
-        guard self.canTriggerPagination else { return }
+        guard canTriggerPagination else {
+            return
+        }
         
-        self.canTriggerPagination = false
-        self.viewModel.doNextPostsFetch(request: .init(contentType: communityView.contentType))
-    }    
+        canTriggerPagination = false
+        viewModel.doNextPostsFetch(request: .init(contentType: communityView?.contentType ?? .active))
+    }
 }
 
-extension CommunityScreenViewController: PostContentPreviewTableCellDelegate {    
+extension CommunityScreenViewController: PostContentPreviewTableCellDelegate {
     func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
         post: LMModels.Views.PostView
     ) {
-        guard let coordinator = coordinator else { return }
+        guard let coordinator = coordinator else {
+            return
+        }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
             self.contentScoreService.votePost(
@@ -235,29 +246,31 @@ extension CommunityScreenViewController: PostContentPreviewTableCellDelegate {
                 voteButton: voteButton,
                 for: newVote,
                 post: post
-            ) 
+            )
         }
     }
     
     func usernameTapped(with mention: LemmyUserMention) {
-        self.coordinator?.goToProfileScreen(userId: mention.absoluteId, username: mention.absoluteUsername)
+        coordinator?.goToProfileScreen(userId: mention.absoluteId, username: mention.absoluteUsername)
     }
     
     func communityTapped(with mention: LemmyCommunityMention) {
-        self.coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
+        coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
     func showMore(in post: LMModels.Views.PostView) {
-        
         if let post = self.tableDataSource.viewModels.getElement(by: post.id) {
-            guard let coordinator = coordinator else { return }
-            self.showMoreService.showMoreInPost(on: self, coordinator: coordinator, post: post) { updatedPost in
+            guard let coordinator = coordinator else {
+                return
+            }
+
+            showMoreService.showMoreInPost(on: self, coordinator: coordinator, post: post) { updatedPost in
                 self.tableDataSource.viewModels.updateElementById(updatedPost)
             }
         }
     }
     
     func postCellDidSelected(postId: LMModels.Views.PostView.ID) {
-        self.coordinator?.goToPostScreen(postId: postId)
+        coordinator?.goToPostScreen(postId: postId)
     }
 }

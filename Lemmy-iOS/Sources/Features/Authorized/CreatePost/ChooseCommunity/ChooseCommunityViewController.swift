@@ -19,7 +19,7 @@ class ChooseCommunityViewController: UIViewController {
 
     var onCommunitySelected: ((LMModels.Views.CommunityView) -> Void)?
     
-    lazy var chooseCommunityView = self.view as! ChooseCommunityUI
+    lazy var chooseCommunityView = self.view as? ChooseCommunityUI
     
     let tableManager = ChooseCommunityTableDataSource()
 
@@ -48,34 +48,38 @@ class ChooseCommunityViewController: UIViewController {
 
 extension ChooseCommunityViewController: ChooseCommunityViewControllerProtocol {
     func displayCommunities(viewModel: ChooseCommunity.CommunitiesLoad.ViewModel) {
-        guard case let .result(data) = viewModel.state else { return }
+        guard case let .result(data) = viewModel.state else {
+            return
+        }
         
-        self.tableManager.viewModels = data
-        self.chooseCommunityView.updateTableViewData(dataSource: self.tableManager)
+        tableManager.viewModels = data
+        chooseCommunityView?.updateTableViewData(dataSource: tableManager)
     }
     
     func displaySearchResults(viewModel: ChooseCommunity.SearchCommunities.ViewModel) {
-        guard case let .result(data) = viewModel.state else { return }
+        guard case let .result(data) = viewModel.state else {
+            return
+        }
 
-        self.tableManager.filteredViewModels = data
-        self.chooseCommunityView.updateTableViewData(dataSource: self.tableManager)
+        tableManager.filteredViewModels = data
+        chooseCommunityView?.updateTableViewData(dataSource: tableManager)
     }
 }
 
 extension ChooseCommunityViewController: ChooseCommunityTableDataSourceDelegate {
     func tableDidSelect(community: LMModels.Views.CommunityView) {
         onCommunitySelected?(community)
-        self.navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     func tableShowNotFound() {
-        self.chooseCommunityView.hideNotFound()
+        chooseCommunityView?.hideNotFound()
     }
 }
 
 extension ChooseCommunityViewController: ChooseCommunityUIDelegate {
     func chooseView(_ chooseView: ChooseCommunityUI, didRequestSearch query: String) {
-        self.viewModel.doSearchCommunities(request: .init(query: query))
+        viewModel.doSearchCommunities(request: .init(query: query))
     }
 }
 

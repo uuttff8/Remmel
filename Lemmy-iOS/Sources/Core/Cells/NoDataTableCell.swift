@@ -33,25 +33,26 @@ class NoDataTableCell: UITableViewCell {
 
 extension NoDataTableCell: ProgrammaticallyViewProtocol {
     func addSubviews() {
-        guard let config = config else { return }
-        
-//            self.contentView.addSubview(errorLabel)
-            self.contentView.addSubview(activityIndicatorView)
+        guard let config = config else {
+            return
+        }
+
+        contentView.addSubview(activityIndicatorView)
     }
     
     func makeConstraints() {
-        guard let config = config else { return }
+        guard let config = config else {
+            return
+        }
         
         switch config {
         case .error:
-            
-            self.errorLabel.snp.makeConstraints {
+            errorLabel.snp.makeConstraints {
                 $0.center.equalToSuperview()
             }
             
         case .activityIndicator:
-            
-            self.activityIndicatorView.snp.makeConstraints {
+            activityIndicatorView.snp.makeConstraints {
                 $0.center.equalToSuperview()
             }
             

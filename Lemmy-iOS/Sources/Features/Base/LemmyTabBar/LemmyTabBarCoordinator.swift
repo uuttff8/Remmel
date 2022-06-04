@@ -44,7 +44,9 @@ final class LemmyTabBarCoordinator: GenericCoordinator<LemmyTabBarController> {
         self.store(coordinator: createCommCoord)
         createCommCoord.start()
 
-        guard let navController = createCommCoord.navigationController else { return }
+        guard let navController = createCommCoord.navigationController else {
+            return
+        }
 
         rootViewController.present(navController, animated: true)
     }

@@ -20,7 +20,9 @@ class LemmyImageTextTypePicker<T: LemmyTypePickable>: UIView {
     
     var currentPick: T {
         didSet {
-            if currentPick == oldValue { return }
+            if currentPick == oldValue {
+                return
+            }
             self.typeLabel.text = currentPick.label.uppercased()
             newCasePicked?(currentPick)
         }
@@ -29,7 +31,7 @@ class LemmyImageTextTypePicker<T: LemmyTypePickable>: UIView {
     lazy var configuredAlert: UIAlertController = {
         let control = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        caseArray.forEach { (enumCase) in
+        caseArray.forEach { enumCase in
             
             let action = UIAlertAction(
                 title: enumCase.label,

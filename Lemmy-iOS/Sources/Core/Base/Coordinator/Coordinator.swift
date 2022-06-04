@@ -25,7 +25,7 @@ extension Coordinator {
     }
 }
 
-class BaseCoordinator: NSObject, Coordinator {    
+class BaseCoordinator: NSObject, Coordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController?
     

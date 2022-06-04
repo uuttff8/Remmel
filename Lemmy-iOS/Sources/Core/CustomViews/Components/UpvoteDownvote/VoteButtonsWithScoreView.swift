@@ -55,14 +55,14 @@ class VoteButtonsWithScoreView: UIView {
     
     func bind(with viewData: ViewData) {
         self.viewData = viewData
-        self.initialViewData = viewData
+        initialViewData = viewData
         
         upvoteBtn.scoreValue = viewData.voteType
         downvoteBtn.scoreValue = viewData.voteType
         
-        self.lastKnownVoteType = viewData.voteType
-        self.lastKnownVoteScore = viewData.score
-        self.scoreLabel.text = String(viewData.score)
+        lastKnownVoteType = viewData.voteType
+        lastKnownVoteScore = viewData.score
+        scoreLabel.text = String(viewData.score)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -139,15 +139,19 @@ class VoteButtonsWithScoreView: UIView {
     }
     
     private func resetScoreToDefaults() {
-        guard let initialViewData = viewData else { return }
+        guard let initialViewData = viewData else {
+            return
+        }
         
-        self.scoreLabel.text = String(initialViewData.score)
-        self.lastKnownVoteScore = initialViewData.score
-        self.lastKnownVoteType = .none
+        scoreLabel.text = String(initialViewData.score)
+        lastKnownVoteScore = initialViewData.score
+        lastKnownVoteType = .none
     }
     
     private func resetScoreToNewVote(voteType: LemmyVoteType) {
-        guard let initialViewData = self.initialViewData else { return }
+        guard let initialViewData = self.initialViewData else {
+            return
+        }
         
         switch initialViewData.voteType {
         case .down:
@@ -163,7 +167,7 @@ class VoteButtonsWithScoreView: UIView {
             case .up:
                 updateScoreUp()
             case .none:
-                fatalError()
+                fatalError("blya")
             }
         }
         
@@ -173,8 +177,7 @@ class VoteButtonsWithScoreView: UIView {
 }
 
 extension VoteButtonsWithScoreView: ProgrammaticallyViewProtocol {
-    func setupView() {
-    }
+    func setupView() { }
     
     func addSubviews() {
         self.addSubview(stackView)
@@ -185,7 +188,7 @@ extension VoteButtonsWithScoreView: ProgrammaticallyViewProtocol {
         )
     }
     
-    func makeConstraints() {        
+    func makeConstraints() {
         stackView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }

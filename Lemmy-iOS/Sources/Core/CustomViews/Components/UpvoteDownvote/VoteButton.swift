@@ -70,9 +70,11 @@ final class VoteButton: ScaledButton {
     /// This action increase or decrease y value of this view
     private func animateVote() {
         // Reject button tap when animation is performing
-        guard isTransformAnimationEnded else { return }
+        guard isTransformAnimationEnded else {
+            return
+        }
         
-        self.isTransformAnimationEnded = false
+        isTransformAnimationEnded = false
         self.isEnabled = false
         
         let trDistance: CGFloat = voteType == .top
@@ -96,27 +98,27 @@ final class VoteButton: ScaledButton {
     private func handleForNoneCase() {
         switch voteType {
         case .top:
-            self.setImage(Config.Image.arrowUp, for: .normal)
+            setImage(Config.Image.arrowUp, for: .normal)
         case .down:
-            self.setImage(Config.Image.arrowDown, for: .normal)
+            setImage(Config.Image.arrowDown, for: .normal)
         }
     }
     
     private func handleForUpCase() {
         switch voteType {
         case .top:
-            self.setImage(self.appearance.upvotedImage, for: .normal)
+            setImage(self.appearance.upvotedImage, for: .normal)
         case .down:
-            self.setImage(Config.Image.arrowDown, for: .normal)
+            setImage(Config.Image.arrowDown, for: .normal)
         }
     }
     
     private func handleForDownCase() {
         switch voteType {
         case .top:
-            self.setImage(Config.Image.arrowUp, for: .normal)
+            setImage(Config.Image.arrowUp, for: .normal)
         case .down:
-            self.setImage(self.appearance.downvotedImage, for: .normal)
+            setImage(self.appearance.downvotedImage, for: .normal)
         }
     }
 }

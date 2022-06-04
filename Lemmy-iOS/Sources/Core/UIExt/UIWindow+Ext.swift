@@ -25,12 +25,15 @@ extension UIWindow {
             self.bringSubviewToFront(snapshotImageView)
             if animated {
                 
-                UIView.animate(withDuration: 0.4, animations: { () -> Void in
-                    snapshotImageView.alpha = 0
-                }, completion: { (_) -> Void in
-                    snapshotImageView.removeFromSuperview()
-                    completion?()
-                })
+                UIView.animate(
+                    withDuration: 0.4,
+                    animations: {
+                        snapshotImageView.alpha = 0
+                    }, completion: { _ in
+                        snapshotImageView.removeFromSuperview()
+                        completion?()
+                    }
+                )
                 
             } else {
                 snapshotImageView.removeFromSuperview()
@@ -38,8 +41,8 @@ extension UIWindow {
             }
         }
         
-        if self.rootViewController!.presentedViewController != nil {
-            self.rootViewController!.dismiss(animated: false, completion: dismissCompletion)
+        if let rootViewController = rootViewController, rootViewController.presentedViewController != nil {
+            rootViewController.dismiss(animated: false, completion: dismissCompletion)
         } else {
             dismissCompletion()
         }

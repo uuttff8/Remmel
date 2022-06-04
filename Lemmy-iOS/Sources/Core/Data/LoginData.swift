@@ -71,7 +71,7 @@ class LoginData {
 
     var jwtToken: String? {
         get { keychain.get(UserDefaults.Key.jwt) }
-        set { keychain.set(newValue!, forKey: UserDefaults.Key.jwt) }
+        set { keychain.set(newValue ?? "", forKey: UserDefaults.Key.jwt) }
     }
 
     var userId: LMModels.Source.LocalUserSettings.ID? {

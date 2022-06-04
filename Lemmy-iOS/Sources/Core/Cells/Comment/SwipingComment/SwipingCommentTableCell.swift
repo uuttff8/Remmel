@@ -70,14 +70,19 @@ class SwipingCommentContentTableCell: CommentCell, ContentFocusable {
     
     /// Change the value of the isFolded property. Add a color animation.
     func animateIsFolded(fold: Bool) {
-        UIView.animateKeyframes(withDuration: 0.3, delay: 0.0, options: [], animations: {
-            self.commentContentView.backgroundColor = UIColor.gray.withAlphaComponent(0.06)
-        }, completion: { _ in
-            
-            UIView.animateKeyframes(withDuration: 0.3, delay: 0.0, options: [], animations: {
-                self.commentContentView.backgroundColor = self.appearance.backgroundColor
-            })
-        })
+        UIView.animateKeyframes(
+            withDuration: 0.3,
+            delay: 0.0,
+            options: [],
+            animations: {
+                self.commentContentView.backgroundColor = UIColor.gray.withAlphaComponent(0.06)
+            }, completion: { _ in
+                
+                UIView.animateKeyframes(withDuration: 0.3, delay: 0.0, options: [], animations: {
+                    self.commentContentView.backgroundColor = self.appearance.backgroundColor
+                })
+            }
+        )
     }
 
     // MARK: - Overrided

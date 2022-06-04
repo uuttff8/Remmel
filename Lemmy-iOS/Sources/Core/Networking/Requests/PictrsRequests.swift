@@ -15,9 +15,11 @@ extension RequestsManager {
         completion: @escaping (Result<Pictrs.PictrsResponse, LemmyGenericError>) -> Void
     ) {
 
-        return _uploadImage(path: HttpEndpoint.Pictrs.image.endpoint,
-                           image: image,
-                           filename: filename,
-                           completion: completion)
+        return _uploadImage(
+            path: HttpEndpoint.Pictrs.image.endpoint,
+            image: image,
+            filename: filename,
+            completion: completion
+        )
     }
 }

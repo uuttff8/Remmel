@@ -34,7 +34,7 @@ class ProfileScreenCommentsTableDataSource: NSObject {
         
         let newIndexpaths =
             Array(startIndex ..< endIndex)
-            .map { (index) in
+            .map { index in
                 IndexPath(row: index, section: 0)
             }
         

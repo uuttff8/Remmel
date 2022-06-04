@@ -13,7 +13,7 @@ class CommentTreeMutator {
     
     // MARK: - Properties
     
-    public var buildedComments: [LemmyComment]
+    var buildedComments: [LemmyComment]
     
     // MARK: - Init
     

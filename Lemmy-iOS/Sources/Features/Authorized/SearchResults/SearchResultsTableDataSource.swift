@@ -37,19 +37,27 @@ final class SearchResultsTableDataSource: NSObject {
     func appendViewModels(viewModel: SearchResults.Results) {
         switch viewModel {
         case let .comments(response):
-            guard case let .comments(data) = self.viewModels else { return }
+            guard case let .comments(data) = viewModels else {
+                return
+            }
             
             viewModels = .comments(data + response)
         case let .posts(response):
-            guard case let .posts(data) = self.viewModels else { return }
+            guard case let .posts(data) = viewModels else {
+                return
+            }
             
             viewModels = .posts(data + response)
         case let .communities(response):
-            guard case let .communities(data) = self.viewModels else { return }
+            guard case let .communities(data) = viewModels else {
+                return
+            }
 
             viewModels = .communities(data + response)
         case let .users(response):
-            guard case let .users(data) = self.viewModels else { return }
+            guard case let .users(data) = self.viewModels else {
+                return
+            }
             
             viewModels = .users(data + response)
         }
@@ -65,7 +73,9 @@ final class SearchResultsTableDataSource: NSObject {
     }
         
     func saveNewPost(post: LMModels.Views.PostView) {
-        guard case .posts(var data) = viewModels else { return }
+        guard case .posts(var data) = viewModels else {
+            return
+        }
         
         if let index = data.firstIndex(where: { $0.id == post.id }) {
             data[index] = post
@@ -74,7 +84,9 @@ final class SearchResultsTableDataSource: NSObject {
     }
     
     func saveNewComment(comment: LMModels.Views.CommentView) {
-        guard case .comments(var data) = viewModels else { return }
+        guard case .comments(var data) = viewModels else {
+            return
+        }
         
         if let index = data.firstIndex(where: { $0.comment.id == comment.comment.id }) {
             data[index] = comment
@@ -83,7 +95,9 @@ final class SearchResultsTableDataSource: NSObject {
     }
     
     func saveNewCommunity(community: LMModels.Views.CommunityView) {
-        guard case .communities(var data) = viewModels else { return }
+        guard case .communities(var data) = viewModels else {
+            return
+        }
         
         if let index = data.firstIndex(where: { $0.id == community.id }) {
             data[index] = community
@@ -139,8 +153,9 @@ final class SearchResultsTableDataSource: NSObject {
 
 extension SearchResultsTableDataSource: CommunityPreviewCellViewDelegate {
     func communityCellView(_ cell: CommunityPreviewCellView, didTapped followButton: FollowButton) {
-        guard let communityCell = cell.viewData else { return }
-        guard case .communities(let viewModels) = viewModels else { return }
+        guard let communityCell = cell.viewData, case .communities(let viewModels) = viewModels else {
+            return
+        }
         
         if let index = viewModels.firstIndex(where: { $0.id == communityCell.id }) {
             self.delegate?.tableDidTapped(followButton: followButton, in: viewModels[index])

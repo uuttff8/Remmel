@@ -57,7 +57,7 @@ extension WriteMessageView: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
-        self.tableView.snp.makeConstraints { (make) in
+        self.tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }

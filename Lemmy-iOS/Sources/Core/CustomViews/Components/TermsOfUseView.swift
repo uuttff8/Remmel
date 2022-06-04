@@ -35,8 +35,7 @@ final class TermsOfUseView: UIView {
         
         let attributedLinkStringTerms = NSMutableAttributedString(
             string: "instances-terms-2".localized,
-            attributes: [NSAttributedString.Key.link:
-                            URL(string: "https://uuttff8.github.io/static/apps/Lemmer/terms")!,
+            attributes: [NSAttributedString.Key.link: URL(string: "https://uuttff8.github.io/static/apps/Lemmer/terms")!,
                          NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
         )
         
@@ -47,8 +46,7 @@ final class TermsOfUseView: UIView {
         )
         let attributedLinkStringPrivacy = NSMutableAttributedString(
             string: "instances-terms-4".localized,
-            attributes: [NSAttributedString.Key.link:
-                            URL(string: "https://uuttff8.github.io/static/apps/Lemmer/privacy")!,
+            attributes: [NSAttributedString.Key.link: URL(string: "https://uuttff8.github.io/static/apps/Lemmer/privacy")!,
                          NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
         )
         

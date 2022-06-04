@@ -19,7 +19,7 @@ class ProfileScreenSubscribedViewController: UIViewController {
 
     private lazy var tableDataSource = ProfileScreenSubscribedTableManager()
 
-    lazy var aboutView = self.view as? ProfileScreenSubscribedViewController.View
+    lazy var aboutView = view as? ProfileScreenSubscribedViewController.View
 
     private var tablePage = 1
     private var state: ProfileScreenAbout.ViewControllerState
@@ -52,23 +52,23 @@ class ProfileScreenSubscribedViewController: UIViewController {
 
     private func updateState(newState: ProfileScreenAbout.ViewControllerState) {
         defer {
-            self.state = newState
+            state = newState
         }
 
         if case .loading = newState {
-            self.aboutView?.showActivityIndicatorView()
+            aboutView?.showActivityIndicatorView()
             return
         }
 
         if case .loading = self.state {
-            self.aboutView?.hideActivityIndicatorView()
+            aboutView?.hideActivityIndicatorView()
         }
 
         if case let .result(data) = newState {
             if data.subscribers.isEmpty {
-                self.aboutView?.displayNoData()
+                aboutView?.displayNoData()
             } else {
-                self.aboutView?.updateTableViewData(dataSource: self.tableDataSource)
+                aboutView?.updateTableViewData(dataSource: self.tableDataSource)
             }
         }
     }
@@ -76,9 +76,12 @@ class ProfileScreenSubscribedViewController: UIViewController {
 
 extension ProfileScreenSubscribedViewController: ProfileScreenAboutViewControllerProtocol {
     func displayProfileSubscribers(viewModel: ProfileScreenAbout.SubscribersLoad.ViewModel) {
-        guard case let .result(data) = viewModel.state else { return }
-        self.tableDataSource.viewModels = data.subscribers
-        self.updateState(newState: viewModel.state)
+        guard case let .result(data) = viewModel.state else {
+            return
+        }
+
+        tableDataSource.viewModels = data.subscribers
+        updateState(newState: viewModel.state)
     }
 }
 

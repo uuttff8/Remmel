@@ -65,14 +65,19 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
     }
     
     func send<T: Codable>(_ op: String, parameters: T) {
-        guard let message = self.makeRequestString(url: op, data: parameters) else { return }
+        guard let message = makeRequestString(url: op, data: parameters) else {
+            return
+        }
         
         Logger.common.info("ws request to \(LemmyShareData.shared.currentInstanceUrl?.httpLink ?? "NOT FOUND")")
         Logger.common.info(message)
         self.reconnectIfNeeded()
         
-        self.webSocketTask?.send(.string(message)) { (error) in
-            guard let error = error else { return }
+        self.webSocketTask?.send(.string(message)) { error in
+            guard let error = error else {
+                return
+            }
+
             Logger.common.error("Socket send failure: \(error)")
             self.reconnectIfNeeded()
         }
@@ -88,7 +93,7 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
     
     func reconnectIfNeeded() {
                 
-        if self.webSocketTask?.state != .running
+        if webSocketTask?.state != .running
             && !self.isConnected
             && self.reconnecting {
             
@@ -125,11 +130,11 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
                 
                 self?.reconnectIfNeeded()
             case .success(let message):
+                guard case .string(let message) = message, let messageData = message.data(using: .utf8) else {
+                    return
+                }
                 
-                guard case .string(let message) = message else { return }
-                guard let messageData = message.data(using: .utf8) else { return }
-                
-                self?.decoder.decode(data: messageData) { (res) in
+                self?.decoder.decode(data: messageData) { res in
                     switch res {
                     case .success(let operation):
                         self?.onTextMessage.value = (operation, messageData)
@@ -146,7 +151,9 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
     
     private func ping() {
         Logger.common.info("PING Websocket")
-        webSocketTask?.sendPing { [weak self] error in
+        webSocketTask?.sendPing {
+            [weak self] error in
+
             if let error = error {
                 Logger.common.error("SocketPingFailure: \(error.localizedDescription)")
                 self?.reconnectIfNeeded()
@@ -163,12 +170,12 @@ final class ChainedWSClient: NSObject, WSClientProtocol {
         if let data = data {
             
             encoder.outputFormatting = .prettyPrinted
-            guard let orderJsonData = try? encoder.encode(data)
+            guard let orderJsonData = try? encoder.encode(data),
+                  let parameters = String(data: orderJsonData, encoding: .utf8)
             else {
                 Logger.common.error("failed to encode data \(#file) \(#line)")
                 return nil
             }
-            let parameters = String(data: orderJsonData, encoding: .utf8)!
             
             return """
             {"op": "\(url)","data": \(parameters)}

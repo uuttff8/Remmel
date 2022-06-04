@@ -32,7 +32,7 @@ final class MessageCellView: UIView {
         $0.clipsToBounds = true
     }
     private let usernameButton = ResizableButton().then {
-        $0.setTitleColor(UIColor(red: 0/255, green: 123/255, blue: 255/255, alpha: 1), for: .normal)
+        $0.setTitleColor(UIColor(red: 0 / 255, green: 123 / 255, blue: 255 / 255, alpha: 1), for: .normal)
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .regular)
     }
     private lazy var publishedLabel = UILabel().then {
@@ -94,13 +94,17 @@ final class MessageCellView: UIView {
     }
     
     @objc func usernameButtonTapped() {
-        guard let data = data else { return }
-        self.delegate?.messageCell(self, didTapUsername: data.nickname)
+        guard let data = data else {
+            return
+        }
+        delegate?.messageCell(self, didTapUsername: data.nickname)
     }
     
     @objc func replyButtonTapped() {
-        guard let data = data else { return }
-        self.delegate?.messageCell(self, didTapReplyButtonWith: data.id)
+        guard let data = data else {
+            return
+        }
+        delegate?.messageCell(self, didTapReplyButtonWith: data.id)
     }
 }
 

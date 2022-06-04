@@ -23,7 +23,7 @@ class LemmyNavSettingsView: UIView {
             $0.size.equalTo(34)
         }
         
-        imageButton.snp.makeConstraints { (make) in
+        imageButton.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()
         }
     }

@@ -52,7 +52,7 @@ class PostContentFooterView: UIView {
             .view(commentBtn)
         )
         
-        stackView.snp.makeConstraints { (make) in
+        stackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
@@ -69,7 +69,7 @@ class PostContentFooterView: UIView {
         self.viewData = data
         upvoteDownvoteButtons.bind(with: .init(score: data.score, voteType: data.voteType))
         commentBtn.setTitle(String(data.numberOfComments), for: .normal)
-    }    
+    }
     
     // MARK: - Overrided
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -92,5 +92,5 @@ class PostContentFooterView: UIView {
             self.hapticGenerator.impactOccurred()
             self.downvoteButtonTap?($0, $1, $2)
         }
-    }    
+    }
 }

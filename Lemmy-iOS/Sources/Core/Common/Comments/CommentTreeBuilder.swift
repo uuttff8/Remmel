@@ -40,7 +40,7 @@ class CommentTreeBuilder {
     // MARK: - Private API
     
     private func sortComments() -> [LMModels.Views.CommentView] {
-        let sortedArray = comments.sorted(by: { (comm1, comm2) in
+        let sortedArray = comments.sorted(by: { comm1, comm2 in
             let date1 = comm1.comment.published
             let date2 = comm2.comment.published
             

@@ -13,21 +13,16 @@ import Foundation
 class LemmyiOSTests: XCTestCase {
     
     let numberOfIterations = 50
-    
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-    
+
     func testHttpsCreation() throws {
         self.measure {
+            guard let url = URL(string: "wss://dev.lemmy.ml/api/v3/ws") else {
+                return
+            }
             for _ in (0..<numberOfIterations) {
-                
+
                 let urlSession = URLSession(configuration: .default)
-                let ws = urlSession.dataTask(with: URL(string: "https://dev.lemmy.ml/api/v1/")!)
+                let ws = urlSession.dataTask(with: url)
                 
                 ws.resume()
             }
@@ -36,9 +31,12 @@ class LemmyiOSTests: XCTestCase {
     
     func testWebsocketCreation() throws {
         self.measure {
+            guard let url = URL(string: "wss://dev.lemmy.ml/api/v3/ws") else {
+                return
+            }
             for _ in (0..<numberOfIterations) {
                 let urlSession = URLSession(configuration: .default)
-                let ws = urlSession.webSocketTask(with: URL(string: "wss://dev.lemmy.ml/api/v3/ws")!)
+                let ws = urlSession.webSocketTask(with: url)
                 
                 ws.sendPing { _ in }
                 

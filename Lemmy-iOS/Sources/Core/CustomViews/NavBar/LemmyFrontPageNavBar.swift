@@ -83,19 +83,19 @@ extension LemmyFrontPageNavBar: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
-        self.searchBar.snp.makeConstraints { (make) in
+        self.searchBar.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.leading.equalToSuperview().inset(50)  // left icon
             make.trailing.equalToSuperview().inset(50) // right icon
         }
 
-        self.profileIcon.snp.makeConstraints { (make) in
+        self.profileIcon.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.leading.equalTo(searchBar.snp.trailing)
             make.trailing.equalToSuperview()
         }
         
-        self.settingsIcon.snp.makeConstraints { (make) in
+        self.settingsIcon.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.trailing.equalTo(searchBar.snp.leading)
             make.leading.equalToSuperview()

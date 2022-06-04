@@ -96,7 +96,7 @@ extension CommentCenterView: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
-        commentTextView.snp.makeConstraints { (make) in
+        commentTextView.snp.makeConstraints { make in
             make.top.leading.trailing.bottom.equalToSuperview()
         }
     }

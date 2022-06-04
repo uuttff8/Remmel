@@ -48,23 +48,23 @@ class CreatePostContentCell: UITableViewCell {
         selectionStyle = .none
 
         bodyTextView.delegate = self
-        [titleTextView, bodyTextView, nsfwSwitch].forEach { (view) in
+        [titleTextView, bodyTextView, nsfwSwitch].forEach { view in
             contentView.addSubview(view)
         }
 
-        titleTextView.snp.makeConstraints { (make) in
+        titleTextView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(5)
             make.height.equalTo(100)
             make.leading.trailing.equalToSuperview().inset(16)
         }
 
-        bodyTextView.snp.makeConstraints { (make) in
+        bodyTextView.snp.makeConstraints { make in
             make.top.equalTo(titleTextView.snp.bottom).offset(5)
             make.height.equalTo(200)
             make.leading.trailing.equalToSuperview().inset(16)
         }
 
-        nsfwSwitch.snp.makeConstraints { (make) in
+        nsfwSwitch.snp.makeConstraints { make in
             make.top.equalTo(bodyTextView.snp.bottom).offset(10)
             make.leading.trailing.equalTo(bodyTextView)
             make.bottom.equalTo(contentView)

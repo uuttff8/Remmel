@@ -8,6 +8,8 @@
 
 import UIKit
 
+//swiftlint:disable force_cast
+//swiftlint:disable force_unwrapping
 class CreateDismissTransitionDriver {
     
     // MARK: - Properties
@@ -40,7 +42,7 @@ class CreateDismissTransitionDriver {
             curve: .easeOut,
             animations: {
                 self.toVC.view.alpha = 1.0
-                self.createViewController.createView.snp.updateConstraints { (make) in
+                self.createViewController.createView.snp.updateConstraints { make in
                     make.height.equalTo(0)
                 }
                 self.createViewController.view.layoutIfNeeded()

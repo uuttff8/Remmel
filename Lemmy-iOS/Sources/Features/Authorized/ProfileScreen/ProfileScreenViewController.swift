@@ -40,8 +40,8 @@ class ProfileScreenViewController: UIViewController {
     private var submodulesControllers: [UIViewController?]
     private var submoduleInputs: [ProfileScreenSubmoduleProtocol?] = []
     
-    private lazy var profileScreenView = self.view as! ProfileScreenViewController.View
-    lazy var styledNavigationController = self.navigationController as? StyledNavigationController
+    private lazy var profileScreenView = view as? ProfileScreenViewController.View
+    lazy var styledNavigationController = navigationController as? StyledNavigationController
     
     private lazy var showMoreBarButton = UIBarButtonItem(
         image: Config.Image.ellipsis,
@@ -91,11 +91,11 @@ class ProfileScreenViewController: UIViewController {
         viewModel.doReceiveMessages()
         viewModel.doProfileFetch()
         
-        self.addChild(self.pageViewController)
-        self.pageViewController.dataSource = self
-        self.pageViewController.delegate = self
+        addChild(self.pageViewController)
+        pageViewController.dataSource = self
+        pageViewController.delegate = self
         
-        self.profileScreenView.updateCurrentPageIndex(ProfileScreenDataFlow.Tab.posts.rawValue)
+        profileScreenView?.updateCurrentPageIndex(ProfileScreenDataFlow.Tab.posts.rawValue)
         
         styledNavigationController?.removeBackButtonTitleForTopController()
     }
@@ -152,11 +152,11 @@ class ProfileScreenViewController: UIViewController {
     
     private func loadSubmodulesIfNeeded(at index: Int) {
         
-        guard self.submodulesControllers[index] == nil else {
+        guard submodulesControllers[index] == nil else {
             return
         }
 
-        guard let tab = self.availableTabs[safe: index] else {
+        guard let tab = availableTabs[safe: index] else {
             return
         }
         
@@ -172,23 +172,30 @@ class ProfileScreenViewController: UIViewController {
         case .posts:
             let assembly = ProfileScreenPostsAssembly(coordinator: WeakBox(coordinator))
             controller = assembly.makeModule()
-            moduleInput = assembly.moduleInput!
+            moduleInput = assembly.moduleInput
         case .comments:
             let assembly = ProfileScreenCommentsAssembly(coordinator: WeakBox(coordinator))
             controller = assembly.makeModule()
-            moduleInput = assembly.moduleInput!
+            moduleInput = assembly.moduleInput
         }
         
-        self.submodulesControllers[index] = controller
+        submodulesControllers[index] = controller
 
         if let submodule = moduleInput {
-            self.viewModel.doSubmodulesRegistration(request: .init(submodules: [index: submodule]))
-            self.submoduleInputs[index] = submodule
+            viewModel.doSubmodulesRegistration(request: .init(submodules: [index: submodule]))
+            submoduleInputs[index] = submodule
             
-            guard let profile = self.viewModel.loadedProfile else { return }
-            self.viewModel.doSubmodulesDataFilling(request: .init(submodules: [index: submodule],
-                                                                  posts: profile.userDetails.posts,
-                                                                  comments: profile.userDetails.comments))
+            guard let profile = self.viewModel.loadedProfile else {
+                return
+            }
+
+            viewModel.doSubmodulesDataFilling(
+                request: .init(
+                    submodules: [index: submodule],
+                    posts: profile.userDetails.posts,
+                    comments: profile.userDetails.comments
+                )
+            )
         }
     }
     
@@ -196,9 +203,6 @@ class ProfileScreenViewController: UIViewController {
     private func updateContentInset(headerHeight: CGFloat) {
         // Update contentInset for each page
         for viewController in self.submodulesControllers {
-//            guard let viewController = viewController else {
-//                continue
-//            }
 
             let view = viewController?.view as? ProfileScreenScrollablePageViewProtocol
 
@@ -221,7 +225,10 @@ class ProfileScreenViewController: UIViewController {
 
     // Update content offset (to update appearance and offset on each tab)
     private func updateContentOffset(scrollOffset: CGFloat) {
-        
+        guard let profileScreenView = profileScreenView else {
+            return
+        }
+
         let navigationBarHeight = self.navigationController?.navigationBar.bounds.height
         let statusBarHeight = min(
             UIApplication.shared.lemmyStatusBarFrame.size.width,
@@ -235,7 +242,7 @@ class ProfileScreenViewController: UIViewController {
         let headerHeight = profileScreenView.headerHeight - topPadding
 
         let scrollingProgress = max(0, min(1, offsetWithHeader / headerHeight))
-        self.updateTopBar(alpha: scrollingProgress)
+        updateTopBar(alpha: scrollingProgress)
 
         // Pin segmented control
         let scrollViewOffset = min(offsetWithHeader, headerHeight)
@@ -243,7 +250,7 @@ class ProfileScreenViewController: UIViewController {
 
         // Arrange page views contentOffset
         let offsetWithHiddenHeader = -(topPadding + profileScreenView.appearance.segmentedControlHeight)
-        self.arrangePagesScrollOffset(
+        arrangePagesScrollOffset(
             topOffsetOfCurrentTab: scrollOffset,
             maxTopOffset: offsetWithHiddenHeader
         )
@@ -285,10 +292,10 @@ extension ProfileScreenViewController: PageboyViewControllerDataSource, PageboyV
         for pageboyViewController: PageboyViewController,
         at index: PageboyViewController.PageIndex
     ) -> UIViewController? {
-        self.loadSubmodulesIfNeeded(at: index)
-        self.updateContentOffset(scrollOffset: self.lastKnownScrollOffset)
-        self.updateContentInset(headerHeight: self.lastKnownHeaderHeight)
-        return self.submodulesControllers[index]
+        loadSubmodulesIfNeeded(at: index)
+        updateContentOffset(scrollOffset: self.lastKnownScrollOffset)
+        updateContentInset(headerHeight: self.lastKnownHeaderHeight)
+        return submodulesControllers[index]
     }
 
     func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
@@ -301,8 +308,8 @@ extension ProfileScreenViewController: PageboyViewControllerDataSource, PageboyV
         direction: PageboyViewController.NavigationDirection,
         animated: Bool
     ) {
-        self.profileScreenView.updateCurrentPageIndex(index)
-        self.viewModel.doSubmoduleControllerAppearanceUpdate(request: .init(submoduleIndex: index))
+        profileScreenView?.updateCurrentPageIndex(index)
+        viewModel.doSubmoduleControllerAppearanceUpdate(request: .init(submoduleIndex: index))
     }
 
     func pageboyViewController(
@@ -328,8 +335,8 @@ extension ProfileScreenViewController: PageboyViewControllerDataSource, PageboyV
 
 extension ProfileScreenViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.lastKnownScrollOffset = scrollView.contentOffset.y
-        self.updateContentOffset(scrollOffset: self.lastKnownScrollOffset)
+        lastKnownScrollOffset = scrollView.contentOffset.y
+        updateContentOffset(scrollOffset: self.lastKnownScrollOffset)
     }
 }
 
@@ -340,35 +347,47 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
         switch viewModel.state {
         case let .result(headerData, posts, comments):
             self.title = "@" + headerData.name
-            self.storedViewModel = headerData
-            profileScreenView.configure(viewData: headerData)
+            storedViewModel = headerData
+            profileScreenView?.configure(viewData: headerData)
             
-            self.submoduleInputs.compactMap({$0}).enumerated().forEach { (key, module) in
-                self.viewModel.doSubmodulesDataFilling(request: .init(submodules: [key: module],
-                                                                      posts: posts,
-                                                                      comments: comments))
+            submoduleInputs.compactMap({ $0 }).enumerated().forEach {
+                key, module in
+
+                self.viewModel.doSubmodulesDataFilling(
+                    request: .init(
+                        submodules: [key: module],
+                        posts: posts,
+                        comments: comments
+                    )
+                )
 
             }
             
         case .blockedUser:
             UIAlertController.createOkAlert(message: "alert-blocked-user".localized)
             
-            self.submoduleInputs.compactMap({$0}).enumerated().forEach { (key, module) in
-                self.viewModel.doSubmodulesDataFilling(request: .init(submodules: [key: module],
-                                                                      posts: [],
-                                                                      comments: []))
+            submoduleInputs.compactMap({ $0 }).enumerated().forEach {
+                key, module in
+
+                self.viewModel.doSubmodulesDataFilling(
+                    request: .init(
+                        submodules: [key: module],
+                        posts: [],
+                        comments: []
+                    )
+                )
 
             }
         case .loading:
-            fatalError()
+            fatalError("PIZDEC")
         }
 
     }
     
     func displayNotBlockingActivityIndicator( viewModel: ProfileScreenDataFlow.ShowingActivityIndicator.ViewModel) {
          viewModel.shouldDismiss
-            ? self.profileScreenView.hideActivityIndicatorView()
-            : self.profileScreenView.showActivityIndicatorView()
+            ? profileScreenView?.hideActivityIndicatorView()
+            : profileScreenView?.showActivityIndicatorView()
     }
     
     func displayMoreButtonAlert(viewModel: ProfileScreenDataFlow.IdentifyProfile.ViewModel) {
@@ -376,13 +395,17 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
         alert.popoverPresentationController?.barButtonItem = showMoreBarButton
                 
         if viewModel.isCurrentProfile {
-            let logoutAction = UIAlertAction(title: "alert-logout".localized, style: .destructive) { _ in
-                self.viewModel.doProfileLogout()
-                _ = self.styledNavigationController?.popViewController(animated: true)
+            let logoutAction = UIAlertAction(title: "alert-logout".localized, style: .destructive) {
+                [weak self] _ in
+
+                self?.viewModel.doProfileLogout()
+                self?.styledNavigationController?.popViewController(animated: true)
             }
             
-            let editProfileAction = UIAlertAction(title: "profile-edit".localized, style: .default) { (_) in
-                self.coordinator?.goToProfileSettings()
+            let editProfileAction = UIAlertAction(title: "profile-edit".localized, style: .default) {
+                [weak self] _ in
+
+                self?.coordinator?.goToProfileSettings()
             }
             
             alert.addAction(editProfileAction)
@@ -390,13 +413,17 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
             
         } else {
             
-            let sendMessageAction = UIAlertAction(title: "alert-send-message".localized, style: .default) { _ in
-                self.coordinator?.goToWriteMessage(recipientId: viewModel.userId)
+            let sendMessageAction = UIAlertAction(title: "alert-send-message".localized, style: .default) {
+                [weak self] _ in
+
+                self?.coordinator?.goToWriteMessage(recipientId: viewModel.userId)
             }
             
             let blockAction: UIAlertAction
             if viewModel.isBlocked {
-                blockAction = UIAlertAction(title: "alert-unblock".localized, style: .destructive) { _ in
+                blockAction = UIAlertAction(title: "alert-unblock".localized, style: .destructive) {
+                    _ in
+
                     let userId = viewModel.userId
                     if let index = LemmyShareData.shared.blockedUsersId.firstIndex(where: { $0 == userId }) {
                         LemmyShareData.shared.blockedUsersId.remove(at: index)
@@ -406,10 +433,11 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
                 }
 
             } else {
-                blockAction = UIAlertAction(title: "alert-block".localized, style: .destructive) { _ in
+                blockAction = UIAlertAction(title: "alert-block".localized, style: .destructive) {
+                    _ in
+
                     let userId = viewModel.userId
                     LemmyShareData.shared.blockedUsersId.append(userId)
-                    
                     UIAlertController.createOkAlert(message: "alert-block-done".localized)
                 }
 
@@ -425,8 +453,10 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
             toEndpoint: viewModel.actorId.absoluteString
         )
         
-        let chooseInstanceAction = UIAlertAction(title: "alert-choose-instance".localized, style: .default) { (_) in
-            self.coordinator?.goToInstances()
+        let chooseInstanceAction = UIAlertAction(title: "alert-choose-instance".localized, style: .default) {
+            [weak self] _ in
+
+            self?.coordinator?.goToInstances()
         }
         
         alert.addAction(chooseInstanceAction)
@@ -439,22 +469,22 @@ extension ProfileScreenViewController: ProfileScreenViewControllerProtocol {
 
 extension ProfileScreenViewController: ProfileScreenViewDelegate {
     func numberOfPages(in courseInfoView: ProfileScreenViewController.View) -> Int {
-        self.submodulesControllers.count
+        submodulesControllers.count
     }
     
     func profileView(_ profileView: View, didRequestScrollToPage index: Int) {
-        self.pageViewController.scrollToPage(.at(index: index), animated: true)
+        pageViewController.scrollToPage(.at(index: index), animated: true)
     }
 
     func profileView(_ profileView: View, didReportNewHeaderHeight height: CGFloat) {
-        self.lastKnownHeaderHeight = height
-        self.updateContentInset(headerHeight: self.lastKnownHeaderHeight)
+        lastKnownHeaderHeight = height
+        updateContentInset(headerHeight: self.lastKnownHeaderHeight)
     }
 }
 
 extension ProfileScreenViewController: StyledNavigationControllerPresentable {
     var navigationBarAppearanceOnFirstPresentation: StyledNavigationController.NavigationBarAppearanceState {
-        .init(
+        StyledNavigationController.NavigationBarAppearanceState(
             shadowViewAlpha: 0.0,
             backgroundColor: StyledNavigationController.Appearance.backgroundColor.withAlphaComponent(0.0),
             statusBarColor: StyledNavigationController.Appearance.statusBarColor.withAlphaComponent(0.0),

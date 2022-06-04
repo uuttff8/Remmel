@@ -75,7 +75,9 @@ class Router: NSObject, RouterProtocol {
     }
 
     private func executeClosure(_ viewController: UIViewController) {
-        guard let closure = closures.removeValue(forKey: viewController.description) else { return }
+        guard let closure = closures.removeValue(forKey: viewController.description) else {
+            return
+        }
         closure()
     }
 }

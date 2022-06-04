@@ -21,7 +21,9 @@ class LemmyShareData {
     
     var userdata: LMModels.Api.Site.MyUserInfo? {
         get {
-            guard let data = unauthUserDefaults.data(forKey: UserDefaults.Key.userdata) else { return nil }
+            guard let data = unauthUserDefaults.data(forKey: UserDefaults.Key.userdata) else {
+                return nil
+            }
             return try? LemmyJSONDecoder().decode(LMModels.Api.Site.MyUserInfo.self, from: data)
         } set {
             let data = try? LMMJSONEncoder().encode(newValue)

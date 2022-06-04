@@ -21,7 +21,7 @@ final class AddAccountViewController: UIViewController {
     weak var coordinator: AccountsCoordinator?
     let viewModel: AddAccountViewModel
     
-    private lazy var addAccountView = self.view as! AddAccountView
+    private lazy var addAccountView = self.view as? AddAccountView
     
     private lazy var addBarButton = UIBarButtonItem(
         title: "accounts-add".localized,
@@ -65,7 +65,9 @@ final class AddAccountViewController: UIViewController {
     }
     
     private func onAuth() {
-        let authView = addAccountView.authView
+        guard let authView = addAccountView?.authView else {
+            return
+        }
         
         guard authView.passwordTextField.hasText && authView.emailOrUsernameTextField.hasText else {
             UIAlertController.createOkAlert(message: "login-error-email-user".localized)
@@ -73,8 +75,8 @@ final class AddAccountViewController: UIViewController {
             return
         }
         
-        guard let login = authView.emailOrUsernameTextField.text, login != "",
-              let password = authView.passwordTextField.text, password != ""
+        guard let login = authView.emailOrUsernameTextField.text, login.isEmpty == false,
+              let password = authView.passwordTextField.text, password.isEmpty == false
         else {
             UIAlertController.createOkAlert(message: "login-error-email-user".localized)
             self.addBarButton.isEnabled = true
@@ -85,7 +87,9 @@ final class AddAccountViewController: UIViewController {
     }
     
     private func onRegister() {
-        let registerView = addAccountView.registerView
+        guard let registerView = addAccountView?.registerView else {
+            return
+        }
         
         guard registerView.passwordTextField.hasText ||
                 registerView.usernameTextField.hasText ||
@@ -117,12 +121,14 @@ final class AddAccountViewController: UIViewController {
             return
         }
         
-        guard let captchaUuid = registerView.model.uuid else { return }
+        guard let captchaUuid = registerView.model.uuid else {
+            return
+        }
         
         // Apple rejects apps when user can choose to show nsfw content
         let showNsfw = true /* registerView.showNsfwSwitch.switcher.isOn */
         var email = registerView.emailTextField.text
-        if email == "" {
+        if email?.isEmpty == true {
             email = nil
         }
         

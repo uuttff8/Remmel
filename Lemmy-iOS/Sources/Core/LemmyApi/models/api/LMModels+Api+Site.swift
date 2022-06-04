@@ -229,7 +229,6 @@ extension LMModels.Api {
             let blocked: [String]?
          }
         
-        
         struct ResolveObject: Codable {
             let q: String
             let auth: String?

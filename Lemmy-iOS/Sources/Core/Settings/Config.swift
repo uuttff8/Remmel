@@ -8,25 +8,26 @@
 
 import UIKit
 
-struct Config {  }
+// swiftlint:disable force_unwrapping
+
+enum Config {  }
 
 extension Config {
-    struct Color {
+    enum Color {
         static var separator: UIColor {
-            .dynamic(light: .separator,
-                     dark: .separator)
+            .dynamic(light: .separator, dark: .separator)
         }
 
         static var highlightCell: UIColor {
-            .dynamic(light: UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1),
-                    dark: .systemGray6)
+            .dynamic(light: UIColor(red: 229 / 255, green: 229 / 255, blue: 229 / 255, alpha: 1), dark: .systemGray6)
         }
     }
 
 }
 
+//swiftlint
 extension Config {
-    struct Image {
+    enum Image {
         static var arrowUp: UIImage {
             
             let config = UIImage.SymbolConfiguration(weight: .bold)
@@ -123,7 +124,7 @@ extension Config {
 }
 
 extension Config {
-    struct Nib {
+    enum Nib {
         static func loadNib(name: String?) -> UINib? {
             guard let name = name else {
                 return nil

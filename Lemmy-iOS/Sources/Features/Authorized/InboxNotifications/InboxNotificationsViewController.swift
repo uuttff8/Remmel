@@ -64,7 +64,9 @@ final class InboxNotificationsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        guard let coord = coordinator else { return }
+        guard let coord = coordinator else {
+            return
+        }
         ContinueIfLogined(on: self, coordinator: coord) { }
     }
     

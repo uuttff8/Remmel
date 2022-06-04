@@ -49,7 +49,7 @@ class ContentScoreService: ContentScoreServiceProtocol {
     init(
         userAccountService: UserAccountSerivceProtocol,
         wsClient: WSClientProtocol = ApiManager.chainedWsCLient
-    ) {        
+    ) {
         self.userAccountService = userAccountService
         self.wsClient = wsClient
     }

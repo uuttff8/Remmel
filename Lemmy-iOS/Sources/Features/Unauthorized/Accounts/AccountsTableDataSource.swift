@@ -86,7 +86,7 @@ extension AccountsTableDataSource: UITableViewDelegate {
         let deleteAction = UIContextualAction(
             style: .destructive,
             title: "Delete",
-            handler: { (_, _, completion) in
+            handler: { _, _, completion in
                 
                 if let index = self.viewModels.firstIndex(where: { $0.login == account.login }) {
                     self.viewModels.remove(at: index)

@@ -34,7 +34,7 @@ class CommunityMiniPreviewTableCell: UITableViewCell {
 
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)        
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         self.setupView()
         self.addSubviews()
@@ -74,15 +74,15 @@ extension CommunityMiniPreviewTableCell: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
-        self.commTitle.snp.makeConstraints { (make) in
+        self.commTitle.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
         }
 
-        self.commImageView.snp.makeConstraints { (make) in
+        self.commImageView.snp.makeConstraints { make in
             make.size.equalTo(imageSize)
         }
 
-        self.stackView.snp.makeConstraints { (make) in
+        self.stackView.snp.makeConstraints { make in
             make.centerY.equalToSuperview().inset(5)
             make.leading.trailing.equalToSuperview().inset(16)
         }

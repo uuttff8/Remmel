@@ -37,7 +37,7 @@ class LemmyLightboxController: LightboxController {
     }
 
     @objc func saveResult(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
-        if let _ = error {
+        if error != nil {
             // we got back an error!
             let alert = UIAlertController(
                 title: nil,
@@ -45,7 +45,9 @@ class LemmyLightboxController: LightboxController {
                 preferredStyle: .alert
             )
             alert.addAction(UIAlertAction(title: "Fix in settings", style: .default, handler: { _ in
-                guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+                guard let url = URL(string: UIApplication.openSettingsURLString) else {
+                    return
+                }
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }))
             alert.addAction(UIAlertAction(title: "OK", style: .default))

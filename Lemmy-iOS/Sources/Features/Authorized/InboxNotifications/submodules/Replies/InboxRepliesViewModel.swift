@@ -34,8 +34,12 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
     }
     
     func doReceiveMessages() {
-        self.wsClient?.onTextMessage.addObserver(self, completionHandler: { [weak self] (operation, data) in
-            guard let self = self else { return }
+        self.wsClient?.onTextMessage.addObserver(self, completionHandler: {
+            [weak self] operation, data in
+            
+            guard let self = self else {
+                return
+            }
             
             switch operation {
             case LMMUserOperation.CreateCommentLike.rawValue:
@@ -60,17 +64,19 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
             return
         }
         
-        let params = LMModels.Api.Person.GetReplies(sort: .active,
-                                                  page: paginationState,
-                                                  limit: 50,
-                                                  unreadOnly: false,
-                                                  auth: jwt)
+        let params = LMModels.Api.Person.GetReplies(
+            sort: .active,
+            page: paginationState,
+            limit: 50,
+            unreadOnly: false,
+            auth: jwt
+        )
         
         ApiManager.requests.asyncGetReplies(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
-            } receiveValue: { (response) in
+            } receiveValue: { response in
                 self.viewController?.displayReplies(viewModel: .init(state: .result(response.replies)))
             }.store(in: &cancellables)
     }
@@ -83,17 +89,19 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
             return
         }
         
-        let params = LMModels.Api.Person.GetReplies(sort: .active,
-                                                       page: paginationState,
-                                                       limit: 50,
-                                                       unreadOnly: false,
-                                                       auth: jwt)
+        let params = LMModels.Api.Person.GetReplies(
+            sort: .active,
+            page: paginationState,
+            limit: 50,
+            unreadOnly: false,
+            auth: jwt
+        )
         
         ApiManager.requests.asyncGetReplies(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
-            } receiveValue: { (response) in
+            } receiveValue: { response in
                 self.viewController?.displayNextReplies(viewModel: .init(state: .result(response.replies)))
             }.store(in: &cancellables)
     }

@@ -66,13 +66,13 @@ final class AddInstanceView: UIView {
     // MARK: Actions
     @objc
     private func reload(_ textField: UITextField) {
-        if let text = textField.text?.lowercased(), text != "" {
+        if let text = textField.text?.lowercased(), !text.isEmpty {
             self.delegate?.addInstanceView(self, didTyped: text)
         }
     }
 
     @objc
-    private func textFieldDidChange(_ textField: UITextField) {        
+    private func textFieldDidChange(_ textField: UITextField) {
         NSObject.cancelPreviousPerformRequests(withTarget: self,
                                                selector: #selector(reload(_:)),
                                                object: textField)

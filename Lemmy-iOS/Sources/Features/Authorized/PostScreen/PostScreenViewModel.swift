@@ -41,12 +41,13 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
         self.wsClient?.send(LMMUserOperation.GetPost, parameters: parameters)
     }
     
-    // swiftlint:disable:next function_body_length
     func doReceiveMessages() {
         sendPostJoin()
         
-        wsClient?.onTextMessage.addObserver(self, completionHandler: { [weak self] (operation, data) in
-            guard let self = self else { return }
+        wsClient?.onTextMessage.addObserver(self, completionHandler: { [weak self] operation, data in
+            guard let self = self else {
+                return
+            }
             
             switch operation {
             case LMMUserOperation.CreateComment.rawValue:
@@ -57,7 +58,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
                                 
                 DispatchQueue.main.async {
                     // Necessary since it might be a user reply, which has the recipients, to avoid double
-                    if newComment.recipientIds.count == 0 {
+                    if newComment.recipientIds.isEmpty {
                         self.viewController?.displayCreatedComment(viewModel: .init(comment: newComment.commentView))
                     }
                 }
@@ -127,8 +128,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     }
     
     private func sendPostJoin() {
-        let commJoin = LMModels.Api.Websocket.PostJoin(postId: self.postId)
-        
+        let commJoin = LMModels.Api.Websocket.PostJoin(postId: postId)
         wsClient?.send(
             LMMUserOperation.PostJoin.rawValue,
             parameters: commJoin
@@ -138,9 +138,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     private func makeViewData(
         from data: LMModels.Api.Post.GetPostResponse
     ) -> PostScreenViewController.View.ViewData {
-        let comments = CommentTreeBuilder(comments: data.comments)
-            .createCommentsTree()
-        
+        let comments = CommentTreeBuilder(comments: data.comments).createCommentsTree()
         return .init(post: data.postView, comments: comments)
     }
 }

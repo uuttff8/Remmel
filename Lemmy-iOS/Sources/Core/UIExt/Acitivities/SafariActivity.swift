@@ -35,11 +35,14 @@ final class SafariActivity: UIActivity {
     }
 
     override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
-        activityItems.contains { $0 is URL ? UIApplication.shared.canOpenURL($0 as! URL) : false }
+        guard activityItems.contains(where: { $0 is URL }) else {
+            return false
+        }
+        return true
     }
 
     override func perform() {
         UIApplication.shared.open(url)
-        self.activityDidFinish(true)
+        activityDidFinish(true)
     }
 }

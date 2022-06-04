@@ -14,11 +14,12 @@ protocol CenterBackSwipeable {
 
 extension CenterBackSwipeable where Self: UIViewController {
     func enableCenterBackSwipe() {
-        let popGestureRecognizer = self.navigationController!.interactivePopGestureRecognizer!
-        if let targets = popGestureRecognizer.value(forKey: "targets") as? NSMutableArray {
-            let gestureRecognizer = UIPanGestureRecognizer()
-            gestureRecognizer.setValue(targets, forKey: "targets")
-            self.view.addGestureRecognizer(gestureRecognizer)
+        guard let popGestureRecognizer = navigationController?.interactivePopGestureRecognizer,
+              let targets = popGestureRecognizer.value(forKey: "targets") as? NSMutableArray else {
+            return
         }
+        let gestureRecognizer = UIPanGestureRecognizer()
+        gestureRecognizer.setValue(targets, forKey: "targets")
+        self.view.addGestureRecognizer(gestureRecognizer)
     }
 }

@@ -34,8 +34,10 @@ final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
     }
     
     func doReceiveMessages() {
-        self.wsClient?.onTextMessage.addObserver(self, completionHandler: { [weak self] (operation, data) in
-            guard let self = self else { return }
+        self.wsClient?.onTextMessage.addObserver(self, completionHandler: { [weak self] operation, data in
+            guard let self = self else {
+                return
+            }
             
             switch operation {
             case LMMUserOperation.CreateCommentLike.rawValue:
@@ -68,9 +70,9 @@ final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
         
         ApiManager.requests.asyncGetPersonMentions(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
-            } receiveValue: { (response) in
+            } receiveValue: { response in
                 self.viewController?.displayMentions(viewModel: .init(state: .result(response.mentions)))
             }.store(in: &cancellables)
     }
@@ -91,9 +93,9 @@ final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
         
         ApiManager.requests.asyncGetPersonMentions(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
-            } receiveValue: { (response) in
+            } receiveValue: { response in
                 self.viewController?.displayNextMentions(viewModel: .init(state: .result(response.mentions)))
             }.store(in: &cancellables)
     }

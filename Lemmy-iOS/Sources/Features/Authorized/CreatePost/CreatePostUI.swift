@@ -34,7 +34,7 @@ class CreatePostScreenUI: UIView {
         appearance: Appearance = Appearance()
     ) {
         self.appearance = appearance
-        super.init(frame: frame)        
+        super.init(frame: frame)
         
         self.setupView()
         self.addSubviews()

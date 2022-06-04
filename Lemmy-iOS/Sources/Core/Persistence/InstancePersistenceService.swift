@@ -35,18 +35,16 @@ final class InstancePersistenceService: InstancePersistenceServiceProtocol {
         }.eraseToAnyPublisher()
     }
     
-    func getAllInstances() ->  AnyPublisher<[Instance], Never> {
+    func getAllInstances() -> AnyPublisher<[Instance], Never> {
         Future<[Instance], Never> { promise in
             let request = Instance.fetchRequest()
             let predicate = NSPredicate(value: true)
             request.predicate = predicate
-            do {
-                let results = try self.managedObjectContext.fetch(request) as! [Instance]
-                promise(.success(results))
-            } catch {
+            guard let results = try? self.managedObjectContext.fetch(request) as? [Instance] else {
                 Logger.common.error("Error while getting all instances from CoreData")
                 return promise(.success([]))
             }
+            promise(.success(results))
         }.eraseToAnyPublisher()
     }
     

@@ -79,7 +79,7 @@ class EditPostViewModel: EditPostViewModelProtocol {
         
         ApiManager.requests.asyncEditPost(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
                 
                 if case .failure(let error) = completion {
@@ -87,7 +87,7 @@ class EditPostViewModel: EditPostViewModelProtocol {
                         viewModel: .init(error: error.description)
                     )
                 }
-            } receiveValue: { (response) in
+            } receiveValue: { response in
                 self.viewController?.displaySuccessEditingPost(
                     viewModel: .init(postView: response.postView)
                 )
@@ -99,11 +99,15 @@ class EditPostViewModel: EditPostViewModelProtocol {
         ApiManager.requests.uploadPictrs(
             image: request.image,
             filename: request.filename
-        ) { (result) in
+        ) { result in
             switch result {
             case .success(let response):
+                guard let file = response.files.first?.file else {
+                    return
+                }
+
                 self.viewController?.displayUrlLoadImage(
-                    viewModel: .init(url: String.makePathToPictrs(response.files.first!.file))
+                    viewModel: .init(url: String.makePathToPictrs(file))
                 )
             case .failure(let error):
                 Logger.common.error(error)

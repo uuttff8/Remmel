@@ -23,7 +23,9 @@ protocol VoteGettable {
 
 extension VoteGettable {
     func getVoteType() -> LemmyVoteType {
-        guard let myVote = self.myVote, myVote != 0 else { return LemmyVoteType.none }
+        guard let myVote = self.myVote, myVote != 0 else {
+            return .none
+        }
         return myVote == 1 ? .up : .down
     }
     

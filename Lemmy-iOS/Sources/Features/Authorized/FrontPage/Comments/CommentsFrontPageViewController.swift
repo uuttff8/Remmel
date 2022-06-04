@@ -142,13 +142,13 @@ class CommentsFrontPageViewController: UIViewController {
     private func makeDataSource() -> UITableViewDiffableDataSource<Section, LMModels.Views.CommentView> {
         return UITableViewDiffableDataSource<Section, LMModels.Views.CommentView>(
             tableView: tableView,
-            cellProvider: { (tableView, indexPath, _) -> UITableViewCell? in
+            cellProvider: { tableView, indexPath, _ -> UITableViewCell? in
                 let cell = tableView.cell(forClass: CommentContentTableCell.self)
                 cell.commentContentView.delegate = self
                 cell.bind(with: self.viewModel.commentsDataSource[indexPath.row], level: 0)
 
                 return cell
-        })
+            })
     }
     
     private func updateTableData(immediately: Bool) {
@@ -172,13 +172,13 @@ extension CommentsFrontPageViewController: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
-        tableView.snp.makeConstraints { (make) in
+        tableView.snp.makeConstraints { make in
             make.edges.equalTo(self.view.safeAreaLayoutGuide)
         }
     }
 }
 
-extension CommentsFrontPageViewController: CommentContentTableCellDelegate {    
+extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
     func postNameTapped(in comment: LMModels.Views.CommentView) {
         self.coordinator?.goToPostScreen(postId: comment.post.id)
     }
@@ -197,7 +197,9 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
         newVote: LemmyVoteType,
         comment: LMModels.Views.CommentView
     ) {
-        guard let coordinator = coordinator else { return }
+        guard let coordinator = coordinator else {
+            return
+        }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
             viewModel.createCommentLike(scoreView: scoreView, voteButton: voteButton, for: newVote, comment: comment)
@@ -220,7 +222,9 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
     
     func showMoreAction(in comment: LMModels.Views.CommentView) {
         if let index = self.viewModel.commentsDataSource.getElementIndex(by: comment.id) {
-            guard let coordinator = coordinator else { return }
+            guard let coordinator = coordinator else {
+                return
+            }
             
             showMoreHandler.showMoreInComment(
                 on: self,

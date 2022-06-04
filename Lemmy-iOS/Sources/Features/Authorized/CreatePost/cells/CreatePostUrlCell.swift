@@ -38,11 +38,11 @@ class CreatePostUrlCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         selectionStyle = .none
-        [selectImageButton, urlTextField].forEach { (view) in
+        [selectImageButton, urlTextField].forEach { view in
             contentView.addSubview(view)
         }
 
-        urlTextField.snp.makeConstraints { (make) in
+        urlTextField.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalToSuperview().inset(16)
             make.trailing.equalTo(selectImageButton.snp.leading)
@@ -50,7 +50,7 @@ class CreatePostUrlCell: UITableViewCell {
             make.bottom.equalToSuperview()
         }
 
-        selectImageButton.snp.makeConstraints { (make) in
+        selectImageButton.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(5)
             make.trailing.equalToSuperview().inset(16)
             make.width.equalTo(30)

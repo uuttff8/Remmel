@@ -23,7 +23,7 @@ protocol ProfileScreenSubmoduleProtocol: AnyObject {
     func updateFollowersData(
         profile: ProfileScreenViewModel.ProfileData,
         subscribers: [LMModels.Views.CommunityFollowerView]
-    ) 
+    )
 
     func registerSubmodule()
 }

@@ -10,8 +10,8 @@ import UIKit
 import SwipeCellKit
 
 extension CommentCell {
-    struct Appearance {
-        static let rootCommentMarginColor = UIColor(red: 247/255, green: 247/255, blue: 245/255, alpha: 1)
+    enum Appearance {
+        static let rootCommentMarginColor = UIColor(red: 247 / 255, green: 247 / 255, blue: 245 / 255, alpha: 1)
         static let rootCommentMargin: CGFloat = 10
         static let commentMarginColor = UIColor.black
         static let commentMargin: CGFloat = 1
@@ -76,7 +76,7 @@ open class CommentCell: SwipeTableViewCell {
     }
     
     /// Indicates weither the vertical indentation indicators extends to the replies
-    open var isIndentationIndicatorsExtended: Bool! = false {
+    open var isIndentationIndicatorsExtended: Bool = false {
         didSet {
             updateIndentationIndicators()
         }
@@ -135,19 +135,19 @@ open class CommentCell: SwipeTableViewCell {
     /// This is the key element of the class. It's the actual view of a comment.
     open var commentViewContent: UIView? {
         get {
-            if self.commentView.subviews.count > 0 {
+            if self.commentView.subviews.isEmpty == false {
                 return self.commentView.subviews[0]
             }
             return nil
         } set(v) {
             commentView.subviews.forEach({ $0.removeFromSuperview() })
-            if v != nil {
-                commentView.addSubview(v!)
-                v!.translatesAutoresizingMaskIntoConstraints = false
-                v!.trailingAnchor.constraint(equalTo: commentView.trailingAnchor).isActive = true
-                v!.leadingAnchor.constraint(equalTo: commentView.leadingAnchor).isActive = true
-                v!.topAnchor.constraint(equalTo: commentView.topAnchor).isActive = true
-                v!.bottomAnchor.constraint(equalTo: commentView.bottomAnchor).isActive = true
+            if let v = v {
+                commentView.addSubview(v)
+                v.translatesAutoresizingMaskIntoConstraints = false
+                v.trailingAnchor.constraint(equalTo: commentView.trailingAnchor).isActive = true
+                v.leadingAnchor.constraint(equalTo: commentView.leadingAnchor).isActive = true
+                v.topAnchor.constraint(equalTo: commentView.topAnchor).isActive = true
+                v.bottomAnchor.constraint(equalTo: commentView.bottomAnchor).isActive = true
             }
         }
     }
@@ -157,13 +157,15 @@ open class CommentCell: SwipeTableViewCell {
     
     // Vertical indentation indicators
     private var vSeparators: [UIView] = []
+
     private func updateIndentationIndicators() {
         // Remove the eventual existing ones
-        vSeparators.forEach({(body) in
-            body.removeFromSuperview()
-        })
-        if self.level > 0 { // No indicators for root comments
-            let n = self.isIndentationIndicatorsExtended! ? self.level : 1 // number of indicators to draw
+        vSeparators.forEach {
+            $0.removeFromSuperview()
+        }
+
+        if level > 0 { // No indicators for root comments
+            let n = isIndentationIndicatorsExtended ? level : 1 // number of indicators to draw
             for i in 1...n {
                 let sep = UIView()
                 vSeparators.append(sep)
@@ -191,13 +193,14 @@ open class CommentCell: SwipeTableViewCell {
     private var hSeparator = UIView()
     private var hSepHeightConstraint: NSLayoutConstraint?
     private var hSepLeadingConstraint: NSLayoutConstraint?
+
     private func setupCommentMargin() {
         contentView.addSubview(hSeparator)
         hSeparator.translatesAutoresizingMaskIntoConstraints = false
         hSeparator.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         hSepHeightConstraint = hSeparator.leadingAnchor.constraint(
             equalTo: contentView.leadingAnchor,
-            constant: CGFloat(self.level*indentationUnit))
+            constant: CGFloat(self.level * indentationUnit))
         hSepHeightConstraint?.isActive = true
         hSeparator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         

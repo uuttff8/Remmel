@@ -73,19 +73,19 @@ class PostScreenViewController: UIViewController, Containered {
         }
 
         if case .loading = newState {
-            self.postScreenView.showLoadingView()
+            postScreenView.showLoadingView()
             return
         }
 
         if case .loading = self.state {
-            self.postScreenView.hideLoadingView()
+            postScreenView.hideLoadingView()
         }
 
         if case .result(let data) = newState {
-            self.state = .result(data: data)
-            self.postScreenView.bind(with: data.post)
-            self.commentsViewController.showComments(with: data.comments)
-            self.commentsViewController.setupHeaderView(postScreenView)
+            state = .result(data: data)
+            postScreenView.bind(with: data.post)
+            commentsViewController.showComments(with: data.comments)
+            commentsViewController.setupHeaderView(postScreenView)
             
             if let comment = self.scrollToComment {
                 self.commentsViewController.scrollTo(comment)
@@ -103,23 +103,23 @@ extension PostScreenViewController: PostScreenViewControllerProtocol {
     }
     
     func displayOnlyPost(viewModel: PostScreen.OnlyPostLoad.ViewModel) {
-        self.postScreenView.bind(with: viewModel.postView)
+        postScreenView.bind(with: viewModel.postView)
     }
     
     func displayUpdateComment(viewModel: PostScreen.UpdateComment.ViewModel) {
-        self.commentsViewController.updateExistingComment(viewModel.commentView)
+        commentsViewController.updateExistingComment(viewModel.commentView)
     }
     
     func displayCreateCommentLike(viewModel: PostScreen.CreateCommentLike.ViewModel) {
-        self.commentsViewController.displayCommentLike(commentView: viewModel.commentView)
+        commentsViewController.displayCommentLike(commentView: viewModel.commentView)
     }
     
     func displayCreatedComment(viewModel: PostScreen.CreateComment.ViewModel) {
-        self.commentsViewController.displayCreatedComment(comment: viewModel.comment)
+        commentsViewController.displayCreatedComment(comment: viewModel.comment)
     }
     
     func displayPostWithComments(viewModel: PostScreen.PostLoad.ViewModel) {
-        self.updateState(newState: viewModel.state)
+        updateState(newState: viewModel.state)
     }
 }
 
@@ -135,7 +135,9 @@ extension PostScreenViewController: PostContentTableCellDelegate {
         newVote: LemmyVoteType,
         post: LMModels.Views.PostView
     ) {
-        guard let coordinator = coordinator else { return }
+        guard let coordinator = coordinator else {
+            return
+        }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
             self.contentScoreService.votePost(
@@ -154,7 +156,9 @@ extension PostScreenViewController: PostContentTableCellDelegate {
     func showMore(in post: LMModels.Views.PostView) {
         
         if let post = postScreenView.postData {
-            guard let coordinator = coordinator else { return }
+            guard let coordinator = coordinator else {
+                return
+            }
             self.showMoreHandlerService.showMoreInPost(on: self, coordinator: coordinator, post: post) { updatedPost in
                 self.postScreenView.bind(with: updatedPost)
             }
@@ -166,17 +170,15 @@ extension PostScreenViewController: PostContentTableCellDelegate {
     }
 }
 
-extension PostScreenViewController: CommentsViewControllerDelegate {    
-    func postNameTapped(in comment: LMModels.Views.CommentView) {
-        // not using
-    }
+extension PostScreenViewController: CommentsViewControllerDelegate {
+    func postNameTapped(in comment: LMModels.Views.CommentView) { }
     
     func usernameTapped(with mention: LemmyUserMention) {
-        self.coordinator?.goToProfileScreen(userId: mention.absoluteId, username: mention.absoluteUsername)
+        coordinator?.goToProfileScreen(userId: mention.absoluteId, username: mention.absoluteUsername)
     }
     
     func communityTapped(with mention: LemmyCommunityMention) {
-        self.coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
+        coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
     func voteContent(
@@ -185,7 +187,9 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
         newVote: LemmyVoteType,
         comment: LMModels.Views.CommentView
     ) {
-        guard let coordinator = coordinator else { return }
+        guard let coordinator = coordinator else {
+            return
+        }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
             self.contentScoreService.voteComment(
@@ -211,7 +215,9 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
     
     func showMoreAction(in comment: LMModels.Views.CommentView) {
         if let index = commentsViewController.commentDataSource.getElementIndex(by: comment.id) {
-            guard let coordinator = coordinator else { return }
+            guard let coordinator = coordinator else {
+                return
+            }
             showMoreHandlerService.showMoreInComment(
                 on: self,
                 coordinator: coordinator,
@@ -231,12 +237,12 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
 
 extension PostScreenViewController: PostScreenViewDelegate {
     func postView(_ postView: View, didWriteCommentTappedWith post: LMModels.Views.PostView) {
-        self.coordinator?.goToWriteComment(postSource: post.post, parrentComment: nil) {
+        coordinator?.goToWriteComment(postSource: post.post, parrentComment: nil) {
             LMMMessagesToast.showSuccessCreateComment()
         }
     }
     
     func postView(didEmbedTappedWith url: URL) {
-        self.coordinator?.goToBrowser(with: url)
+        coordinator?.goToBrowser(with: url)
     }
 }

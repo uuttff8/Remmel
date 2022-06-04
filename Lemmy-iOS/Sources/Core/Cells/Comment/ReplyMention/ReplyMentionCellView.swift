@@ -145,11 +145,11 @@ class ReplyMentionCellView: UIView {
             self?.replyDelegate?.showContext(in: reply)
         }
 
-        footerView.downvoteTap = { [weak self] (scoreView, button, voteType) in
+        footerView.downvoteTap = { [weak self] scoreView, button, voteType in
             self?.replyDelegate?.voteContent(scoreView: scoreView, voteButton: button, newVote: voteType, reply: reply)
         }
         
-        footerView.upvoteTap = { [weak self] (scoreView, button, voteType) in
+        footerView.upvoteTap = { [weak self] scoreView, button, voteType in
             self?.replyDelegate?.voteContent(scoreView: scoreView, voteButton: button, newVote: voteType, reply: reply)
         }
 
@@ -197,14 +197,14 @@ class ReplyMentionCellView: UIView {
             self?.mentionDelegate?.showContext(in: mention)
         }
 
-        footerView.downvoteTap = { [weak self] (scoreView, button, voteType) in
+        footerView.downvoteTap = { [weak self] scoreView, button, voteType in
             self?.mentionDelegate?.voteContent(scoreView: scoreView,
                                                voteButton: button,
                                                newVote: voteType,
                                                userMention: mention)
         }
         
-        footerView.upvoteTap = { [weak self] (scoreView, button, voteType) in
+        footerView.upvoteTap = { [weak self] scoreView, button, voteType in
             self?.mentionDelegate?.voteContent(scoreView: scoreView,
                                                voteButton: button,
                                                newVote: voteType,
@@ -233,27 +233,27 @@ extension ReplyMentionCellView: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
-        paddingView.snp.makeConstraints { (make) in
+        paddingView.snp.makeConstraints { make in
             make.bottom.top.equalToSuperview().inset(5) // SELF-SIZE TOP HERE
             make.leading.trailing.equalToSuperview().inset(16) // SELF SIZE BOTTOM HERE
         }
-        separatorView.snp.makeConstraints { (make) in
+        separatorView.snp.makeConstraints { make in
             make.height.equalTo(1)
             make.bottom.equalToSuperview()
             make.trailing.equalToSuperview().inset(10)
             make.leading.equalToSuperview().offset(10)
         }
         
-        headerView.snp.makeConstraints { (make) in
+        headerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
         }
         
-        centerView.snp.makeConstraints { (make) in
+        centerView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom).offset(5)
             make.trailing.leading.equalToSuperview()
         }
         
-        footerView.snp.makeConstraints { (make) in
+        footerView.snp.makeConstraints { make in
             make.top.equalTo(centerView.snp.bottom).offset(10)
             make.leading.trailing.bottom.equalToSuperview()
         }

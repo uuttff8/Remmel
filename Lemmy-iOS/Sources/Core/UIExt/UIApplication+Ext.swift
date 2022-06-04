@@ -11,7 +11,8 @@ import UIKit
 extension UIApplication {
     var lemmyStatusBarFrame: CGRect {
         if #available(iOS 13, *) {
-            let windowScene = UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.windowScene
+            let windowScene = UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.windowScene
+            // swiftlint:disable:next force_unwrapping
             return windowScene!.statusBarManager!.statusBarFrame
         } else {
             return UIApplication.shared.statusBarFrame

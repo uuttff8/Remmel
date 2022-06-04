@@ -38,9 +38,9 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
         
         ApiManager.requests.asyncGetUserDetails(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.common.info(completion)
-            } receiveValue: { [weak self] (response) in
+            } receiveValue: { [weak self] response in
                 
                 self?.viewController?.displayProfilePosts(
                     viewModel: .init(state: .result(data: .init(posts: response.posts)))
@@ -63,9 +63,9 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
         
         ApiManager.requests.asyncGetUserDetails(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.common.info(completion)
-            } receiveValue: { [weak self] (response) in
+            } receiveValue: { [weak self] response in
                 
                 self?.viewController?.displayNextPosts(
                     viewModel: .init(
@@ -93,7 +93,7 @@ extension ProfileScreenPostsViewModel: ProfileScreenPostsInputProtocol {
     func handleControllerAppearance() { }
 }
 
-class ProfileScreenPosts {
+enum ProfileScreenPosts {
     enum PostsLoad {
         struct Request {
             let sortType: LMModels.Others.SortType

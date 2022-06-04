@@ -221,7 +221,7 @@ extension CommentHeaderView: ProgrammaticallyViewProtocol {
     
     func makeConstraints() {
         
-        avatarImageView.snp.makeConstraints { (make) in
+        avatarImageView.snp.makeConstraints { make in
             make.size.equalTo(imageSize.height)
         }
         
@@ -233,7 +233,7 @@ extension CommentHeaderView: ProgrammaticallyViewProtocol {
             $0.leading.trailing.equalToSuperview()
         }
         
-        mainStackView.snp.makeConstraints { (make) in
+        mainStackView.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()
         }
     }

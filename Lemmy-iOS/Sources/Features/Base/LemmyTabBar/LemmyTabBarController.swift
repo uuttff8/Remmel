@@ -72,7 +72,7 @@ class LemmyTabBarController: UITabBarController {
                                                                 tag: 2)
         
         inboxNotificationsCoordinator = InboxNotificationsCoordinator(router: nil)
-        self.coordinator?.store(coordinator: inboxNotificationsCoordinator)
+        coordinator?.store(coordinator: inboxNotificationsCoordinator)
         inboxNotificationsCoordinator.start()
         let inboxRouter = Router(
             navigationController: StyledNavigationController(
@@ -87,7 +87,8 @@ class LemmyTabBarController: UITabBarController {
         inboxNotificationsCoordinator.router = inboxRouter
         inboxNotificationsCoordinator.router?.viewController = inboxNotificationsCoordinator.rootViewController
         inboxNotificationsCoordinator.navigationController = inboxNotificationsCoordinator.router?.navigationController
-        
+
+        // swiftlint:disable:next force_unwrapping
         self.viewControllers = [ frontPageRouter.navigationController!,
                                  createPostOrCommentController,
                                  communitiesRouter.navigationController!,
@@ -105,7 +106,9 @@ extension LemmyTabBarController: UITabBarControllerDelegate {
         
         if viewController is CreatePostOrCommunityViewController {
             
-            guard let coord = self.coordinator else { return false }
+            guard let coord = self.coordinator else {
+                return false
+            }
             
             ContinueIfLogined(on: self, coordinator: coord) {
                 coordinator?.goToCreateOrPostScreen()

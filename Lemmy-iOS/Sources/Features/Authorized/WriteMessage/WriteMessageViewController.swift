@@ -38,7 +38,7 @@ class WriteMessageViewController: UIViewController {
     
     private var formData = FormData(headerText: nil, text: nil)
     
-    lazy var writeMessageView = self.view as! WriteMessageView
+    lazy var writeMessageView = self.view as? WriteMessageView
     
     private lazy var createBarButton = UIBarButtonItem(
         title: "action-create".localized.uppercased(),
@@ -110,14 +110,14 @@ extension WriteMessageViewController: WriteMessageViewControllerProtocol {
         let sections = getSections()
         
         let viewModel = SettingsTableViewModel(sections: sections)
-        self.writeMessageView.configure(viewModel: viewModel)
+        writeMessageView?.configure(viewModel: viewModel)
     }
     
     func updateViewModel() {
         let sections = getSections()
         
         let viewModel = SettingsTableViewModel(sections: sections)
-        self.writeMessageView.updateViewModel(viewModel: viewModel)
+        writeMessageView?.updateViewModel(viewModel: viewModel)
     }
     
     private func getSections() -> [SettingsTableSectionViewModel] {

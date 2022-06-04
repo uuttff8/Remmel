@@ -96,7 +96,9 @@ class FrontPageViewController: UIViewController {
     }
 
     private func setupContainered() {
-        guard let coordinator = coordinator else { return }
+        guard let coordinator = coordinator else {
+            return
+        }
         setupContaineredView(for: coordinator.postsViewController)
         setupContaineredView(for: coordinator.commentsViewController)
     }
@@ -110,7 +112,7 @@ class FrontPageViewController: UIViewController {
     }
 
     private func addContainerViewConstraints(viewController: UIViewController, containerView: UIView) {
-        viewController.view.snp.makeConstraints { (make) in
+        viewController.view.snp.makeConstraints { make in
             make.top.equalTo(self.headerSegmentView.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
             make.centerX.equalToSuperview()

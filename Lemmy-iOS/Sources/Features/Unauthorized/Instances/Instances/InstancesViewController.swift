@@ -28,7 +28,7 @@ class InstancesViewController: UIViewController {
     private lazy var tableManager = InstancesTableDataSource().then {
         $0.delegate = self
     }
-    private lazy var instancesView = self.view as! InstancesView
+    private lazy var instancesView = self.view as? InstancesView
     
     private lazy var createInstanceBarButton = UIBarButtonItem(
         image: UIImage(systemName: "plus.circle"),
@@ -91,21 +91,21 @@ class InstancesViewController: UIViewController {
         }
 
         if case .loading = newState {
-            self.instancesView.showLoadingView()
+            instancesView?.showLoadingView()
             return
         }
 
         if case .loading = self.state {
-            self.instancesView.hideLoadingView()
+            instancesView?.hideLoadingView()
         }
 
         if case .result = newState {
-            self.instancesView.updateTableViewData(dataSource: self.tableManager)
+            instancesView?.updateTableViewData(dataSource: self.tableManager)
         }
     }
     
     @objc func createInstanceButtonTapped(_ action: UIBarButtonItem) {
-        self._goToInstance()
+        _goToInstance()
     }
     
     private func setupNavigationItem() {
@@ -113,7 +113,7 @@ class InstancesViewController: UIViewController {
     }
     
     private func _goToInstance() {
-        self.coordinator?.goToAddInstance {
+        coordinator?.goToAddInstance {
             self.viewModel.doInstancesRefresh(request: .init())
         }
     }
@@ -121,16 +121,18 @@ class InstancesViewController: UIViewController {
 
 extension InstancesViewController: InstancesViewControllerProtocol {
     func displayInstances(viewModel: InstancesDataFlow.InstancesLoad.ViewModel) {
-        guard case .result(let instances) = viewModel.state else { return }
+        guard case .result(let instances) = viewModel.state else {
+            return
+        }
         
-        self.tableManager.viewModels = instances
-        self.updateState(newState: viewModel.state)
+        tableManager.viewModels = instances
+        updateState(newState: viewModel.state)
     }
 }
 
 extension InstancesViewController: InstancesTableDataSourceDelegate {
     func tableDidRequestDelete(_ instance: Instance) {
-        self.viewModel.doInstanceDelete(request: .init(instance: instance))
+        viewModel.doInstanceDelete(request: .init(instance: instance))
     }
     
     func tableDidRequestAddAccountsModule(_ instance: Instance) {

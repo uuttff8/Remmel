@@ -22,13 +22,13 @@ class RegisterViewModel {
     func getCaptcha(completion: @escaping ((Result<(UIImage), Error>) -> Void)) {
         ApiManager.requests.asyncGetCaptcha()
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { (combineCompletion) in
+            .sink(receiveCompletion: { combineCompletion in
                 if case let .failure(error) = combineCompletion {
                     completion(.failure(error))
                 }
                 
                 Logger.logCombineCompletion(combineCompletion)
-            }, receiveValue: { (response) in
+            }, receiveValue: { response in
                 
                 if let wavString = response.ok?.wav {
                     if let wavData = Data(base64Encoded: wavString) {
@@ -47,7 +47,9 @@ class RegisterViewModel {
     }
 
     func playWavSound() {
-        guard let wavData = wavDataFile else { return }
+        guard let wavData = wavDataFile else {
+            return
+        }
 
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
@@ -56,7 +58,9 @@ class RegisterViewModel {
             /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
             player = try AVAudioPlayer(data: wavData, fileTypeHint: AVFileType.wav.rawValue)
 
-            guard let player = player else { return }
+            guard let player = player else {
+                return
+            }
 
             player.play()
 

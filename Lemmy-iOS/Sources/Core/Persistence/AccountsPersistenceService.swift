@@ -26,13 +26,11 @@ final class AccountsPersistenceService: AccountsPersistenceServiceProtocol {
             let request = Account.fetchRequest()
             let predicate = NSPredicate(value: true)
             request.predicate = predicate
-            do {
-                let results = try self.managedObjectContext.fetch(request) as! [Account]
-                promise(.success(results))
-            } catch {
+            guard let results = try? self.managedObjectContext.fetch(request) as? [Account] else {
                 Logger.common.error("Error while getting all accounts from CoreData")
                 return promise(.success([]))
             }
+            promise(.success(results))
         }.eraseToAnyPublisher()
     }
     

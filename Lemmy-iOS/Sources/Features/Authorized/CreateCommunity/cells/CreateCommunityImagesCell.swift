@@ -31,17 +31,17 @@ class CreateCommunityImagesCell: UITableViewCell {
 
         let screenWidth = UIScreen.main.bounds.width
 
-        [iconView, bannerView].forEach { (view) in
+        [iconView, bannerView].forEach { view in
             contentView.addSubview(view)
         }
 
-        iconView.snp.makeConstraints { (make) in
+        iconView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(5)
             make.leading.equalToSuperview().inset(16)
             make.width.equalTo(screenWidth / 2.5)
         }
 
-        bannerView.snp.makeConstraints { (make) in
+        bannerView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(5)
             make.trailing.equalToSuperview().inset(16)
             make.width.equalTo(screenWidth / 2.5)
@@ -61,12 +61,12 @@ class CreateCommunityImagesCell: UITableViewCell {
             switch imagePick {
             case .icon:
                 self.iconView.iconImageView.image = image
-                self.loadImage(image: image) { (filename) in
+                self.loadImage(image: image) { filename in
                     self.iconImageString = filename
                 }
             case .banner:
                 self.bannerView.iconImageView.image = image
-                self.loadImage(image: image) { (filename) in
+                self.loadImage(image: image) { filename in
                     self.bannerImageString = filename
                 }
             }
@@ -115,16 +115,16 @@ class LemmyLabelDownerImageView: UIView {
         self.labelText = labelText
         super.init(frame: .zero)
 
-        [iconTitle, iconImageView].forEach { (view) in
+        [iconTitle, iconImageView].forEach { view in
             self.addSubview(view)
         }
 
-        iconTitle.snp.makeConstraints { (make) in
+        iconTitle.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(5)
             make.leading.equalTo(iconImageView.snp.leading)
         }
 
-        iconImageView.snp.makeConstraints { (make) in
+        iconImageView.snp.makeConstraints { make in
             make.top.equalTo(iconTitle.snp.bottom).offset(10)
             make.size.equalTo(100)
             make.centerX.equalToSuperview()

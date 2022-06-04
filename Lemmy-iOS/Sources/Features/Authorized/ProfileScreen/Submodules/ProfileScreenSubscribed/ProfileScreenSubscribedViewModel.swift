@@ -40,7 +40,7 @@ extension ProfileScreenSubscribedViewModel: ProfileScreenSubscribedInputProtocol
     func handleControllerAppearance() { }
 }
 
-class ProfileScreenAbout {
+enum ProfileScreenAbout {
     enum SubscribersLoad {
         struct Response {
             let subscribers: [LMModels.Views.CommunityFollowerView]

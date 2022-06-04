@@ -57,13 +57,13 @@ final class AccountsViewModel: AccountsViewModelProtocol {
         
         ApiManager.requests.asyncLogin(parameters: parameters)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { (completion) in
+            .sink(receiveCompletion: { completion in
                 Logger.logCombineCompletion(completion)
                 
                 if case let .failure(why) = completion {
                     self.viewController?.displayUnexpectedError(viewModel: .init(error: why.description))
                 }
-            }, receiveValue: { (response) in
+            }, receiveValue: { response in
                 
                 guard let jwt = response.jwt else {
                     return
@@ -95,9 +95,9 @@ final class AccountsViewModel: AccountsViewModelProtocol {
         
         ApiManager.requests.asyncGetSite(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { (completion) in
+            .sink(receiveCompletion: { completion in
                 Logger.logCombineCompletion(completion)
-            }, receiveValue: { (response) in
+            }, receiveValue: { response in
                 guard let myUser = response.myUser
                 else {
                     Logger.common.error("There is no current user in response")

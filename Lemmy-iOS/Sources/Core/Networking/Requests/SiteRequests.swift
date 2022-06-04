@@ -15,5 +15,5 @@ extension RequestsManager {
     ) -> AnyPublisher<LMModels.Api.Site.GetSiteResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Site.getSite.endpoint,
                               parameters: parameters)
-    }    
+    }
 }

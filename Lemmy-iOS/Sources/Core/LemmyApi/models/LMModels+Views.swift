@@ -14,7 +14,7 @@ extension LMModels {
         struct PersonViewSafe: Codable {
             let person: LMModels.Source.PersonSafe
             let counts: LMModels.Aggregates.PersonAggregates
-        }        
+        }
         
         struct PersonMentionView: Identifiable, Codable, VoteGettable {
             
@@ -144,7 +144,7 @@ extension LMModels {
             let subscribed: Bool
             let saved: Bool
             let creatorBlocked: Bool
-            var myVote: Int? 
+            var myVote: Int?
             
             enum CodingKeys: String, CodingKey {
                 case comment, creator, recipient, post
@@ -354,9 +354,10 @@ extension LMModels.Views.PostView {
     func getUrlDomain() -> String? {
         let type = PostType.getPostType(from: self)
         
-        guard !(.none == type) else { return nil }
-        guard let url = self.post.url else { return nil }
-        
+        guard type != .none, let url = post.url else {
+            return nil
+        }
+
         return URL(string: url)?.host
     }
 }

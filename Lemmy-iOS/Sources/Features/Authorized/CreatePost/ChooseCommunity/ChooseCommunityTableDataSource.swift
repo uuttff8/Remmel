@@ -68,7 +68,7 @@ extension ChooseCommunityTableDataSource: UITableViewDataSource {
         cell.bind(with: .init(title: data.community.title, icon: data.community.icon))
         cell.updateConstraintsIfNeeded()
         return cell
-    }        
+    }
 }
 
 extension ChooseCommunityTableDataSource: UITableViewDelegate {

@@ -103,9 +103,7 @@ open class CommentsViewController: UITableViewController, SwipeTableViewCellDele
         sort: ((inout [AbstractComment]) -> Void)? = nil
     ) {
         var coms = comments
-        if sort != nil {
-            sort!(&coms)
-        }
+        sort?(&coms)
         for c in coms {
             linearizedComments.append(c)
             linearizeComments(comments: c.replies, linearizedComments: &linearizedComments, sort: sort)
@@ -133,14 +131,14 @@ open class CommentsViewController: UITableViewController, SwipeTableViewCellDele
         let selectedCom: AbstractComment = _currentlyDisplayed[indexPath.row]
         let selectedIndex = indexPath.row
         
-        if selectedCom.replies.count > 0 { // if expandable
+        if selectedCom.replies.isEmpty == false { // if expandable
             if isCellExpanded(indexPath: indexPath) {
                 // collapse
                 var nCellsToDelete = 0
                 repeat {
                     nCellsToDelete += 1
-                } while (_currentlyDisplayed.count > selectedIndex+nCellsToDelete+1
-                            && _currentlyDisplayed[selectedIndex+nCellsToDelete+1].level > selectedCom.level)
+                } while (_currentlyDisplayed.count > selectedIndex + nCellsToDelete + 1
+                            && _currentlyDisplayed[selectedIndex + nCellsToDelete + 1].level > selectedCom.level)
                 
                 _currentlyDisplayed.removeSubrange(
                     Range(uncheckedBounds: (
@@ -152,7 +150,7 @@ open class CommentsViewController: UITableViewController, SwipeTableViewCellDele
                 var indexPaths: [IndexPath] = []
                 
                 for i in 0..<nCellsToDelete {
-                    indexPaths.append(IndexPath(row: selectedIndex+i+1, section: indexPath.section))
+                    indexPaths.append(IndexPath(row: selectedIndex + i + 1, section: indexPath.section))
                 }
                 
                 tableView.deleteRows(at: indexPaths, with: .bottom)
@@ -165,10 +163,10 @@ open class CommentsViewController: UITableViewController, SwipeTableViewCellDele
                 } else {
                     toShow = selectedCom.replies
                 }
-                _currentlyDisplayed.insert(contentsOf: toShow, at: selectedIndex+1)
+                _currentlyDisplayed.insert(contentsOf: toShow, at: selectedIndex + 1)
                 var indexPaths: [IndexPath] = []
                 for i in 0..<toShow.count {
-                    indexPaths.append(IndexPath(row: selectedIndex+i+1, section: indexPath.section))
+                    indexPaths.append(IndexPath(row: selectedIndex + i + 1, section: indexPath.section))
                 }
                 tableView.insertRows(at: indexPaths, with: .bottom)
                 
@@ -217,7 +215,10 @@ open class CommentsViewController: UITableViewController, SwipeTableViewCellDele
         for orientation: SwipeActionsOrientation
     ) -> [SwipeAction]? {
         
-        guard orientation == .right else { return nil }
+        guard orientation == .right else {
+            return nil
+        }
+
         guard commentsView(tableView,
                            isCommentExpandable: _currentlyDisplayed[indexPath.row],
                            atIndexPath: indexPath) else { return nil }
@@ -225,11 +226,14 @@ open class CommentsViewController: UITableViewController, SwipeTableViewCellDele
         let collapseAction = SwipeAction(
             style: .destructive,
             title: swipeActionAppearance.swipeActionText
-        ) { [weak self](action, indexPath) in
-            if self != nil {
-                self!.tableView(self!.tableView, didSelectRowAt: indexPath)
-                action.fulfill(with: .reset)
+        ) {
+            [weak self] action, indexPath in
+
+            guard let self = self else {
+                return
             }
+            self.tableView(self.tableView, didSelectRowAt: indexPath)
+            action.fulfill(with: .reset)
         }
         
         // customize the action appearance

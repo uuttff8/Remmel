@@ -127,12 +127,12 @@ extension CommentFooterView: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
-        stackView.snp.makeConstraints { (make) in
+        stackView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
         }
         
-        [showContextButton, replyButton].forEach { (btn) in
-            btn.snp.makeConstraints { (make) in
+        [showContextButton, replyButton].forEach { btn in
+            btn.snp.makeConstraints { make in
                 make.height.equalTo(22)
                 make.width.equalTo(22)
             }

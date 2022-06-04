@@ -38,7 +38,10 @@ final class FollowButton: LoadingButton {
     }
     
     func bind(isSubcribed: Bool?) {
-        guard let isSubcribed = isSubcribed else { followState = .follow; return }
+        guard let isSubcribed = isSubcribed else {
+            followState = .follow
+            return
+        }
         followState = isSubcribed ? .followed : .follow
     }
     

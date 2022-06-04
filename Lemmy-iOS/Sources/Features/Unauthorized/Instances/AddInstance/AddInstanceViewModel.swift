@@ -38,7 +38,7 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
         api
             .asyncGetSite(parameters: .init(auth: nil))
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 if case .failure = completion {
                     Logger.common.error("GetSite request with \(request) completion: \(completion)")
                     self.viewController?.displayAddInstanceCheck(
@@ -47,7 +47,7 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
                 } else {
                     Logger.common.verbose(completion)
                 }
-            } receiveValue: { (response) in
+            } receiveValue: { response in
                 
                 self.viewController?.displayAddInstanceCheck(
                     viewModel: .init(

@@ -59,7 +59,7 @@ extension PostScreenViewController {
             
             if let url = viewData.post.url {
                 
-                headerView.postOutlineEmbedView.addAction(for: .touchUpInside) { (_) in
+                headerView.postOutlineEmbedView.addAction(for: .touchUpInside) { _ in
                     self.delegate?.postView(didEmbedTappedWith: URL(string: url.trim())!)
                 }
                 
@@ -75,7 +75,9 @@ extension PostScreenViewController {
         }
         
         @objc func writeCommentButtonTapped(_ sender: WriteNewCommentButton) {
-            guard let post = postData else { return }
+            guard let post = postData else {
+                return
+            }
             
             self.delegate?.postView(self, didWriteCommentTappedWith: post)
         }

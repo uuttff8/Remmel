@@ -62,7 +62,7 @@ class LoginViewController: UIViewController {
             action: #selector(onLoginOrRegisterSelector(sender:))
         )
         navigationItem.rightBarButtonItem = barItem
-    }    
+    }
     
     @objc func onLoginOrRegisterSelector(sender: UIBarButtonItem!) {
         switch authMethod {
@@ -74,7 +74,9 @@ class LoginViewController: UIViewController {
     }
         
     private func checkRegisterData() -> LMModels.Api.Person.Register? {
-        guard let signUpView = signUpView else { return nil }
+        guard let signUpView = signUpView else {
+            return nil
+        }
         
         guard (signUpView.passwordTextField.hasText)
                 || (signUpView.usernameTextField.hasText)
@@ -102,12 +104,14 @@ class LoginViewController: UIViewController {
               let captchaCode = signUpView.captchaTextField.text
         else { return nil }
         
-        guard let uuid = signUpView.model.uuid else { return nil }
+        guard let uuid = signUpView.model.uuid else {
+            return nil
+        }
         
         // Apple rejects apps when user can choose to show nsfw content
         let showNsfw = true /* registerView.showNsfwSwitch.switcher.isOn */
         var email = signUpView.emailTextField.text
-        if email == "" {
+        if email?.isEmpty == true {
             email = nil
         }
         
@@ -125,25 +129,27 @@ class LoginViewController: UIViewController {
     }
     
     private func onSignUp() {
-        guard let params = checkRegisterData() else { return }
+        guard let params = checkRegisterData() else {
+            return
+        }
         
         ApiManager.requests.asyncRegister(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { (completion) in
+            .sink(receiveCompletion: { completion in
                 Logger.logCombineCompletion(completion)
                 
                 if case let .failure(why) = completion {
                     UIAlertController.createOkAlert(message: why.description)
                     self.signUpView?.updateCaptcha()
                 }
-            }, receiveValue: { (response) in
+            }, receiveValue: { response in
                 
                 guard let jwt = response.jwt else {
                     return
                 }
                 
                 self.shareData.loginData.login(jwt: jwt)
-                self.loadUserOnSuccessResponse(jwt: jwt) { (myUser) in
+                self.loadUserOnSuccessResponse(jwt: jwt) { myUser in
                     LemmyShareData.shared.userdata = myUser
                     
                     DispatchQueue.main.async {
@@ -154,7 +160,9 @@ class LoginViewController: UIViewController {
     }
     
     private func onSignIn() {
-        guard let signInView = signInView else { return }
+        guard let signInView = signInView else {
+            return
+        }
         
         if (!signInView.passwordTextField.hasText) || (!signInView.emailOrUsernameTextField.hasText) {
             UIAlertController.createOkAlert(message: "login-error-email-user".localized)
@@ -171,20 +179,20 @@ class LoginViewController: UIViewController {
         
         ApiManager.requests.asyncLogin(parameters: parameters)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { (completion) in
+            .sink(receiveCompletion: { completion in
                 Logger.logCombineCompletion(completion)
                 
                 if case let .failure(why) = completion {
                     UIAlertController.createOkAlert(message: why.description)
                 }
-            }, receiveValue: { (response) in
+            }, receiveValue: { response in
                 
                 guard let jwt = response.jwt else {
                     return
                 }
                 
                 self.shareData.loginData.login(jwt: jwt)
-                self.loadUserOnSuccessResponse(jwt: jwt) { (myUser) in
+                self.loadUserOnSuccessResponse(jwt: jwt) { myUser in
                     LemmyShareData.shared.userdata = myUser
                     
                     DispatchQueue.main.async {
@@ -203,10 +211,12 @@ class LoginViewController: UIViewController {
         
         ApiManager.requests.asyncGetSite(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { (completion) in
+            .sink(receiveCompletion: { completion in
                 Logger.logCombineCompletion(completion)
-            }, receiveValue: { (response) in
-                guard let myUser = response.myUser else { return }
+            }, receiveValue: { response in
+                guard let myUser = response.myUser else {
+                    return
+                }
                 completion(myUser)
             }).store(in: &cancellables)
     }

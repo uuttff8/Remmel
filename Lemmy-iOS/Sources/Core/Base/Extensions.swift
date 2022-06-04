@@ -19,8 +19,10 @@ extension UIImage {
                                  y: rotatedSize.height / 2.0)
             context.translateBy(x: origin.x, y: origin.y)
             context.rotate(by: radians)
-            draw(in: CGRect(x: -origin.y, y: -origin.x,
-                            width: size.width, height: size.height))
+            draw(in: CGRect(x: -origin.y,
+                            y: -origin.x,
+                            width: size.width,
+                            height: size.height))
             let rotatedImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             
@@ -110,8 +112,11 @@ extension Date {
     static let lemmyDateFormat     = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
     static let lemmyDateFormatZero = "yyyy-MM-dd'T'HH:mm:ss"
     
-    static func toLemmyDate(str: String?) -> Date {        
-        guard let str = str else { return Date() }
+    static func toLemmyDate(str: String?) -> Date {
+        guard let str = str else {
+            return Date()
+        }
+
         let dateFormatter = ISO8601DateFormatter()
         dateFormatter.formatOptions = [.withFullDate, .withFractionalSeconds, .withTime, .withColonSeparatorInTime]
         dateFormatter.timeZone = TimeZone.current
@@ -146,9 +151,11 @@ extension UIViewController {
 extension UIAlertController {
     static func createOkAlert(title: String? = nil, message: String, completion: (() -> Void)? = nil) {
         let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Ok", style: .default, handler: { _ in completion?()})
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: { _ in completion?() })
         controller.addAction(okAction)
-        guard let vc = UIApplication.getTopMostViewController() else { return }
+        guard let vc = UIApplication.getTopMostViewController() else {
+            return
+        }
         vc.present(controller, animated: true, completion: nil)
     }
     
@@ -172,13 +179,13 @@ extension UIAlertController {
             onRegister()
         }
         
-        let anotherInstanceAction = UIAlertAction(title: "alert-choose-instance".localized, style: .default) { (_) in
+        let anotherInstanceAction = UIAlertAction(title: "alert-choose-instance".localized, style: .default) { _ in
             onInstances()
         }
         
         let cancelAction = UIAlertAction.cancelAction
         
-        [loginAction, signUpAction, anotherInstanceAction, cancelAction].forEach { (action) in
+        [loginAction, signUpAction, anotherInstanceAction, cancelAction].forEach { action in
             alertController.addAction(action)
         }
         vc.present(alertController, animated: true, completion: nil)
@@ -188,7 +195,7 @@ extension UIAlertController {
 extension UIApplication {
     
     class func getTopMostViewController() -> UIViewController? {
-        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
         if var topController = keyWindow?.rootViewController {
             while let presentedViewController = topController.presentedViewController {
                 topController = presentedViewController
@@ -375,7 +382,9 @@ extension UIView {
 
 extension UITableView {
     func layoutTableHeaderView() {
-        guard let headerView = self.tableHeaderView else { return }
+        guard let headerView = self.tableHeaderView else {
+            return
+        }
         headerView.translatesAutoresizingMaskIntoConstraints = false
         
         let headerWidth = headerView.bounds.size.width

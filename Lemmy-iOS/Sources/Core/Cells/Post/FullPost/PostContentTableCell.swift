@@ -51,6 +51,7 @@ class PostContentTableCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         postContentView.prepareForReuse()
     }
 }
@@ -66,7 +67,7 @@ extension PostContentTableCell: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
-        self.postContentView.snp.makeConstraints { (make) in
+        self.postContentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }

@@ -34,6 +34,7 @@ class FrontPageSearchSubjectTableCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         textLabel?.text = nil
     }
 }

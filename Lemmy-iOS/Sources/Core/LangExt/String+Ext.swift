@@ -18,25 +18,28 @@ extension String {
     }
     
     var encodeUrl: String {
-        self.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+        // swiftlint:disable:next force_unwrapping
+        addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
     }
     
     var decodeUrl: String {
-        self.removingPercentEncoding!
+        // swiftlint:disable:next force_unwrapping
+        removingPercentEncoding!
     }
 }
 
 extension String {
     
     var localized: String {
-        return NSLocalizedString(self, comment: "\(self)_comment")
+        // swiftlint:disable:next nslocalizedstring_key
+        NSLocalizedString(self, comment: "\(self)_comment")
     }
     
     func localizedMany(_ args: [CVarArg]) -> String {
-        return localized(args)
+        localized(args)
     }
     
     func localized(_ args: CVarArg...) -> String {
-        return String(format: localized, args)
+        String(format: localized, args)
     }
 }

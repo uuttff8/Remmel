@@ -141,11 +141,11 @@ class CommentContentView: UIView {
             self?.delegate?.showContext(in: comment)
         }
 
-        footerView.downvoteTap = { [weak self] (scoreView, button, voteType) in
+        footerView.downvoteTap = { [weak self] scoreView, button, voteType in
             self?.delegate?.voteContent(scoreView: scoreView, voteButton: button, newVote: voteType, comment: comment)
         }
         
-        footerView.upvoteTap = { [weak self] (scoreView, button, voteType) in
+        footerView.upvoteTap = { [weak self] scoreView, button, voteType in
             self?.delegate?.voteContent(scoreView: scoreView, voteButton: button, newVote: voteType, comment: comment)
         }
 
@@ -170,26 +170,26 @@ extension CommentContentView: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
-        paddingView.snp.makeConstraints { (make) in
+        paddingView.snp.makeConstraints { make in
             make.bottom.top.equalToSuperview().inset(5)
             make.leading.trailing.equalToSuperview().inset(16)
         }
-        separatorView.snp.makeConstraints { (make) in
+        separatorView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
             make.trailing.equalToSuperview().inset(10)
             make.leading.equalToSuperview().offset(10)
         }
         
-        headerView.snp.makeConstraints { (make) in
+        headerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
         }
         
-        centerView.snp.makeConstraints { (make) in
+        centerView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom).offset(5)
             make.trailing.leading.equalToSuperview()
         }
         
-        footerView.snp.makeConstraints { (make) in
+        footerView.snp.makeConstraints { make in
             make.top.equalTo(centerView.snp.bottom).offset(10)
             make.leading.trailing.bottom.equalToSuperview()
         }

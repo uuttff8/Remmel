@@ -55,9 +55,9 @@ class CommentsFrontPageModel: NSObject {
         
         ApiManager.requests.asyncGetComments(parameters: parameters)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
-            } receiveValue: { (response) in
+            } receiveValue: { response in
                 self.commentsDataSource = response.comments
                 self.dataLoaded?()
             }.store(in: &cancellable)
@@ -75,9 +75,9 @@ class CommentsFrontPageModel: NSObject {
         
         ApiManager.requests.asyncGetComments(parameters: parameters)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
-            } receiveValue: { (response) in
+            } receiveValue: { response in
                 self.commentsDataSource.append(contentsOf: response.comments)
                 self.newDataLoaded?()
                 completion()
@@ -100,7 +100,7 @@ class CommentsFrontPageModel: NSObject {
     
     func receiveMessages() {
         
-        wsEvents.onTextMessage.addObserver(self, completionHandler: { (operation, data) in
+        wsEvents.onTextMessage.addObserver(self, completionHandler: { operation, data in
             switch operation {
             case LMMUserOperation.CreateCommentLike.rawValue:
                 
@@ -162,11 +162,13 @@ extension CommentsFrontPageModel: UITableViewDelegate {
         let bottomItems = self.commentsDataSource.count - 5
         
         if indexPathRow >= bottomItems {
-            guard !self.isFetchingNewContent else { return }
+            guard !isFetchingNewContent else {
+                return
+            }
             
-            self.isFetchingNewContent = true
-            self.currentPage += 1
-            self.loadMoreComments {
+            isFetchingNewContent = true
+            currentPage += 1
+            loadMoreComments {
                 self.isFetchingNewContent = false
             }
         }
@@ -174,7 +176,5 @@ extension CommentsFrontPageModel: UITableViewDelegate {
 }
 
 extension CommentsFrontPageModel: FrontPageHeaderCellDelegate {
-    func contentTypeChanged(to content: LemmyContentType) {
-        
-    }
+    func contentTypeChanged(to content: LemmyContentType) { }
 }

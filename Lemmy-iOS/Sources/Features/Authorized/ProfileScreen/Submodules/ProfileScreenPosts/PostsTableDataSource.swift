@@ -64,7 +64,7 @@ extension PostsTableDataSource: UITableViewDataSource {
     }
 }
 
-extension PostsTableDataSource: UITableViewDelegate {    
+extension PostsTableDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 5,
            tableView.numberOfSections == 1 {

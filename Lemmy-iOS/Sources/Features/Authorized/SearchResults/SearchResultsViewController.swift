@@ -33,7 +33,7 @@ class SearchResultsViewController: UIViewController {
     private lazy var tableManager = SearchResultsTableDataSource().then {
         $0.delegate = self
     }
-    private lazy var resultsView = self.view as! SearchResultsView
+    private lazy var resultsView = view as? SearchResultsView
     
     init(
         viewModel: SearchResultsViewModelProtocol,
@@ -72,24 +72,24 @@ class SearchResultsViewController: UIViewController {
     
     private func updateState(newState: SearchResults.ViewControllerState) {
         defer {
-            self.state = newState
+            state = newState
         }
 
         if case .loading = newState {
-            self.resultsView.showActivityIndicatorView()
+            resultsView?.showActivityIndicatorView()
         }
 
-        if case .loading = self.state {
-            self.resultsView.hideActivityIndicatorView()
+        if case .loading = state {
+            resultsView?.hideActivityIndicatorView()
         }
 
         if case .result(let data) = newState {
             let objects: [Any] = getObjects(from: data)
             
             if objects.isEmpty {
-                self.resultsView.displayNoData()
+                resultsView?.displayNoData()
             } else {
-                self.resultsView.updateTableViewData(delegate: tableManager)
+                resultsView?.updateTableViewData(delegate: tableManager)
             }
         }
     }
@@ -97,18 +97,22 @@ class SearchResultsViewController: UIViewController {
 
 extension SearchResultsViewController: SearchResultsViewControllerProtocol {
     func displayContent(viewModel: SearchResults.LoadContent.ViewModel) {
-        guard case let .result(data) = viewModel.state else { return }
+        guard case let .result(data) = viewModel.state else {
+            return
+        }
         
-        self.tableManager.viewModels = data
-        self.updateState(newState: viewModel.state)
+        tableManager.viewModels = data
+        updateState(newState: viewModel.state)
     }
     
     func displayMoreContent(viewModel: SearchResults.LoadMoreContent.ViewModel) {
-        guard case let .result(data) = viewModel.state else { return }
+        guard case let .result(data) = viewModel.state else {
+            return
+        }
                 
         let objects: [Any] = getObjects(from: data)
-        self.tableManager.appendViewModels(viewModel: data)
-        self.resultsView.appendNew(data: objects)
+        tableManager.appendViewModels(viewModel: data)
+        resultsView?.appendNew(data: objects)
         
         if objects.isEmpty {
             self.canTriggerPagination = false
@@ -141,23 +145,28 @@ extension SearchResultsViewController: SearchResultsViewControllerProtocol {
 
 extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
     func postCellDidSelected(postId: LMModels.Views.PostView.ID) {
-        guard case .posts(let posts) = tableManager.viewModels else { return }
+        guard case .posts(let posts) = tableManager.viewModels else {
+            return
+        }
         let post = posts.getElement(by: postId).require()
-        self.coordinator?.goToPostScreen(post: post)
+        coordinator?.goToPostScreen(post: post)
     }
     
     func tableDidTapped(followButton: FollowButton, in community: LMModels.Views.CommunityView) {
-        guard let coord = coordinator else { return }
+        guard let coord = coordinator else {
+            return
+        }
+        
         ContinueIfLogined(on: self, coordinator: coord) {
             self.followService.followUi(followButton: followButton, to: community)
-                .sink { (community) in
+                .sink { community in
                     self.tableManager.saveNewCommunity(community: community)
                 }.store(in: &self.cancellable)
         }
     }
         
     func onMentionTap(in post: LMModels.Views.CommentView, mention: LemmyUserMention) {
-        self.coordinator?.goToProfileScreen(userId: mention.absoluteId, username: mention.absoluteUsername)
+        coordinator?.goToProfileScreen(userId: mention.absoluteId, username: mention.absoluteUsername)
     }
     
     func voteContent(
@@ -166,7 +175,9 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
         newVote: LemmyVoteType,
         post: LMModels.Views.PostView
     ) {
-        guard let coordinator = coordinator else { return }
+        guard let coordinator = coordinator else {
+            return
+        }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
             self.viewModel.doPostLike(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post)
@@ -174,26 +185,28 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
     }
         
     func onLinkTap(in post: LMModels.Views.PostView, url: URL) {
-        self.coordinator?.goToBrowser(with: url)
+        coordinator?.goToBrowser(with: url)
     }
     
     func showMore(in post: LMModels.Views.PostView) {
-        guard let coordinator = coordinator else { return }
-        self.showMoreHandler.showMoreInPost(on: self, coordinator: coordinator, post: post) { updatedPost in
+        guard let coordinator = coordinator else {
+            return
+        }
+        showMoreHandler.showMoreInPost(on: self, coordinator: coordinator, post: post) { updatedPost in
             self.operateSaveNewPost(viewModel: .init(post: updatedPost))
         }
     }
     
     func usernameTapped(with mention: LemmyUserMention) {
-        self.coordinator?.goToProfileScreen(userId: mention.absoluteId, username: mention.absoluteUsername)
+        coordinator?.goToProfileScreen(userId: mention.absoluteId, username: mention.absoluteUsername)
     }
     
     func communityTapped(with mention: LemmyCommunityMention) {
-        self.coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
+        coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
     func postNameTapped(in comment: LMModels.Views.CommentView) {
-        self.coordinator?.goToPostScreen(postId: comment.post.id)
+        coordinator?.goToPostScreen(postId: comment.post.id)
     }
     
     func voteContent(
@@ -202,7 +215,9 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
         newVote: LemmyVoteType,
         comment: LMModels.Views.CommentView
     ) {
-        guard let coordinator = coordinator else { return }
+        guard let coordinator = coordinator else {
+            return
+        }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
             self.viewModel.doCommentLike(scoreView: scoreView, voteButton: voteButton, for: newVote, comment: comment)
@@ -210,7 +225,7 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
     }
     
     func showContext(in comment: LMModels.Views.CommentView) {
-        self.coordinator?.goToPostAndScroll(to: comment)
+        coordinator?.goToPostAndScroll(to: comment)
     }
     
     func reply(to comment: LMModels.Views.CommentView) {
@@ -220,16 +235,19 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
     }
     
     func onLinkTap(in comment: LMModels.Views.CommentView, url: URL) {
-        self.coordinator?.goToBrowser(with: url)
+        coordinator?.goToBrowser(with: url)
     }
     
     func showMoreAction(in comment: LMModels.Views.CommentView) {
+        guard let coordinator = coordinator else {
+            return
+        }
+
         if case .comments(let data) = tableManager.viewModels {
             
             if let comment = data.getElement(by: comment.id) {
                 
-                guard let coordinator = coordinator else { return }
-                self.showMoreHandler.showMoreInComment(
+                showMoreHandler.showMoreInComment(
                     on: self,
                     coordinator: coordinator,
                     comment: comment
@@ -241,10 +259,12 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
     }
     
     func tableDidRequestPagination(_ tableDataSource: SearchResultsTableDataSource) {
-        guard self.canTriggerPagination else { return }
+        guard canTriggerPagination else {
+            return
+        }
         
-        self.canTriggerPagination = false
-        self.viewModel.doLoadMoreContent(request: .init())
+        canTriggerPagination = false
+        viewModel.doLoadMoreContent(request: .init())
     }
     
     func tableDidSelect(viewModel: SearchResults.Results, indexPath: IndexPath) {

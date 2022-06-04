@@ -8,10 +8,8 @@
 
 import Foundation
 
-final class ApiManager {
-    
+enum ApiManager {
     static var requests = RequestsManager()
     
     static var chainedWsCLient = ChainedWSClient()
-
 }

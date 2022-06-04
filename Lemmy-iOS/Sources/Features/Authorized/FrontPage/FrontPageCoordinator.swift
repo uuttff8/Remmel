@@ -72,5 +72,5 @@ class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
         searchViewController.coordinator = nil
         searchViewController.hideSearchIfNeeded()
         searchViewController.searchQuery = ""
-    }    
+    }
 }

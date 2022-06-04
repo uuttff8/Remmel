@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIAlertController {
-    struct Configurations {
+    enum Configurations {
         
         static func reallyWantToExit(onYes: @escaping () -> Void) -> UIAlertController {
             let alertControl = UIAlertController(title: nil,
@@ -42,7 +42,7 @@ extension UIAlertAction {
         on viewController: UIViewController,
         toEndpoint endpoint: String
     ) -> UIAlertAction {
-        return UIAlertAction(title: title, style: .default, handler: { (_) in
+        return UIAlertAction(title: title, style: .default, handler: { _ in
             
             if let url = URL(string: endpoint) {
                 

@@ -88,7 +88,9 @@ extension CommunityScreenViewController {
         }
         
         func updateForPostLike(at index: Int) {
-            guard let tableManager = self.tableManager else { return }
+            guard let tableManager = tableManager else {
+                return
+            }
             
             let indexPath = IndexPath(row: index, section: 0)
             if let cell = self.tableView.cellForRow(at: indexPath) as? PostContentPreviewTableCell {
@@ -97,18 +99,18 @@ extension CommunityScreenViewController {
         }
         
         func updateTableViewData(dataSource: UITableViewDataSource) {
-            self.hideLoadingIndicator()
-            self.emptyStateLabel.isHidden = true
+            hideLoadingIndicator()
+            emptyStateLabel.isHidden = true
             _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
             //            self.emptyStateLabel.isHidden = numberOfRows != 0
             
-            self.tableView.dataSource = dataSource
-            self.tableView.reloadData()
-            self.tableView.layoutTableHeaderView()
+            tableView.dataSource = dataSource
+            tableView.reloadData()
+            tableView.layoutTableHeaderView()
         }
         
         func appendNew(data: [LMModels.Views.PostView]) {
-            self.tableManager?.appendNew(posts: data) { (newIndexpaths) in
+            self.tableManager?.appendNew(posts: data) { newIndexpaths in
                 tableView.performBatchUpdates {
                     tableView.insertRows(at: newIndexpaths, with: .none)
                 }
@@ -116,18 +118,18 @@ extension CommunityScreenViewController {
         }
         
         func deleteAllContent() {
-            self.tableManager?.viewModels = []
-            self.tableView.reloadData()
+            tableManager?.viewModels = []
+            tableView.reloadData()
         }
         
         func displayNoData() {
-            self.emptyStateLabel.isHidden = false
-            self.hideLoadingIndicator()
+            emptyStateLabel.isHidden = false
+            hideLoadingIndicator()
         }
         
         override func layoutSubviews() {
             super.layoutSubviews()
-            self.tableView.layoutTableHeaderView()
+            tableView.layoutTableHeaderView()
         }
         
         @objc func descriptionMoreButtonTapped(_ sender: UIButton) {
@@ -135,7 +137,7 @@ extension CommunityScreenViewController {
                 
                 let vc = MarkdownParsedViewController(mdString: desc)
                 let nc = StyledNavigationController(rootViewController: vc)
-                self.delegate?.communityViewDidReadMoreTapped(self, toVc: nc)
+                delegate?.communityViewDidReadMoreTapped(self, toVc: nc)
             }
         }
     }
@@ -157,8 +159,8 @@ extension CommunityScreenViewController.View: ProgrammaticallyViewProtocol {
             self.delegate?.communityView(self, didPickedNewSort: newCase)
         }
                 
-        self.emptyStateLabel.isHidden = true
-        self.tableView.estimatedRowHeight = self.appearance.estimatedRowHeight
+        emptyStateLabel.isHidden = true
+        tableView.estimatedRowHeight = self.appearance.estimatedRowHeight
     }
     
     func addSubviews() {
@@ -171,7 +173,7 @@ extension CommunityScreenViewController.View: ProgrammaticallyViewProtocol {
             $0.edges.equalToSuperview()
         }
         
-        self.emptyStateLabel.snp.makeConstraints {
+        emptyStateLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(350)
             $0.leading.trailing.equalToSuperview()
         }

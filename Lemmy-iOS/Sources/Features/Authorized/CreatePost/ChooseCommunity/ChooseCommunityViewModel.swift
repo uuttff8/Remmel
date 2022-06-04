@@ -28,9 +28,9 @@ class ChooseCommunityViewModel: ChooseCommunityViewModelProtocol {
         
         ApiManager.requests.asyncListCommunities(parameters: parameters)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
-            } receiveValue: { (response) in
+            } receiveValue: { response in
                 
                 self.viewController?.displayCommunities(
                     viewModel: .init(
@@ -55,9 +55,9 @@ class ChooseCommunityViewModel: ChooseCommunityViewModelProtocol {
         
         ApiManager.requests.asyncSearch(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
-            } receiveValue: { (response) in
+            } receiveValue: { response in
                 self.viewController?.displaySearchResults(
                     viewModel: .init(
                         state: .result(response.communities)

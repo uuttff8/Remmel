@@ -30,7 +30,7 @@ extension ContentView_Onboarding {
                 OnboardingView()
             }
             
-            .onChange(of: needsAppOnboarding) { needsAppOnboarding in                
+            .onChange(of: needsAppOnboarding) { needsAppOnboarding in
                 if !needsAppOnboarding {
                     appSetupState = "App setup 😀"
                 }

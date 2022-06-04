@@ -19,7 +19,7 @@ final class InboxRepliesViewController: UIViewController {
     weak var coordinator: InboxNotificationsCoordinator?
     private let viewModel: InboxRepliesViewModel
     
-    private lazy var repliesView = self.view as! InboxRepliesView
+    private lazy var repliesView = self.view as? InboxRepliesView
     private lazy var tableManager = InboxRepliesTableManager().then {
         $0.delegate = self
     }
@@ -66,19 +66,19 @@ final class InboxRepliesViewController: UIViewController {
         }
 
         if case .loading = newState {
-            self.repliesView.showActivityIndicatorView()
+            repliesView?.showActivityIndicatorView()
             return
         }
 
         if case .loading = self.state {
-            self.repliesView.hideActivityIndicatorView()
+            repliesView?.hideActivityIndicatorView()
         }
 
         if case .result(let data) = newState {
             if data.isEmpty {
-                self.repliesView.displayNoData()
+                repliesView?.displayNoData()
             } else {
-                self.repliesView.updateTableViewData(dataSource: self.tableManager)
+                repliesView?.updateTableViewData(dataSource: self.tableManager)
             }
         }
     }
@@ -86,21 +86,25 @@ final class InboxRepliesViewController: UIViewController {
 
 extension InboxRepliesViewController: InboxRepliesViewControllerProtocol {
     func displayReplies(viewModel: InboxReplies.LoadReplies.ViewModel) {
-        guard case .result(let data) = viewModel.state else { return }
-        self.tableManager.viewModels = data
+        guard case .result(let data) = viewModel.state else {
+            return
+        }
+        tableManager.viewModels = data
         updateState(newState: viewModel.state)
     }
     
     func displayNextReplies(viewModel: InboxReplies.LoadReplies.ViewModel) {
-        guard case let .result(data) = viewModel.state else { return }
+        guard case let .result(data) = viewModel.state else {
+            return
+        }
         
-        self.tableManager.viewModels.append(contentsOf: data)
-        self.repliesView.appendNew(data: data)
+        tableManager.viewModels.append(contentsOf: data)
+        repliesView?.appendNew(data: data)
         
         if data.isEmpty {
-            self.canTriggerPagination = false
+            canTriggerPagination = false
         } else {
-            self.canTriggerPagination = true
+            canTriggerPagination = true
         }
     }
     
@@ -111,10 +115,12 @@ extension InboxRepliesViewController: InboxRepliesViewControllerProtocol {
 
 extension InboxRepliesViewController: InboxRepliesTableManagerDelegate {
     func tableDidRequestPagination(_ tableManager: InboxRepliesTableManager) {
-        guard self.canTriggerPagination else { return }
+        guard canTriggerPagination else {
+            return
+        }
         
-        self.canTriggerPagination = false
-        self.viewModel.doNextLoadReplies(request: .init())
+        canTriggerPagination = false
+        viewModel.doNextLoadReplies(request: .init())
     }
 }
 
@@ -162,7 +168,9 @@ extension InboxRepliesViewController: ReplyCellViewDelegate {
     func showMoreAction(in reply: LMModels.Views.CommentView) {
         
         if let reply = self.tableManager.viewModels.getElement(by: reply.id) {
-            guard let coordinator = coordinator else { return }
+            guard let coordinator = coordinator else {
+                return
+            }
             self.showMoreService.showMoreInReply(on: self, coordinator: coordinator, reply: reply) { updatedReply in
                 self.tableManager.viewModels.updateElementById(updatedReply)
             }

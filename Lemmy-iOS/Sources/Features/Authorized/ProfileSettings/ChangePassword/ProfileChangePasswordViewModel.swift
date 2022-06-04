@@ -27,8 +27,10 @@ final class ProfileChangePasswordViewModel: ProfileChangePasswordViewModelProtoc
     }
 
     func doReceiveMessages() {
-        self.wsClient?.onTextMessage.addObserver(self, completionHandler: { [weak self] (operation, data) in
-            guard let self = self else { return }
+        self.wsClient?.onTextMessage.addObserver(self, completionHandler: { [weak self] operation, data in
+            guard let self = self else {
+                return
+            }
             
             switch operation {
             case LMMUserOperation.ChangePassword.rawValue:

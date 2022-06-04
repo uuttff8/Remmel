@@ -120,7 +120,7 @@ extension ProfileScreenPostsViewController {
         }
         
         func appendNew(data: [LMModels.Views.PostView]) {
-            self.tableManager?.appendNew(posts: data) { (newIndexpaths) in
+            self.tableManager?.appendNew(posts: data) { newIndexpaths in
                 tableView.performBatchUpdates {
                     tableView.insertRows(at: newIndexpaths, with: .none)
                 }

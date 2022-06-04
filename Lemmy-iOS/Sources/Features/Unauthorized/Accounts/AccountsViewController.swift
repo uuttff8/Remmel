@@ -20,8 +20,8 @@ final class AccountsViewController: UIViewController {
     weak var coordinator: AccountsCoordinator?
     let viewModel: AccountsViewModel
     
-    private lazy var accountsView = self.view as! AccountsView
-    
+    private lazy var accountsView = self.view as? AccountsView
+
     private lazy var tableManager = AccountsTableDataSource().then {
         $0.delegate = self
     }
@@ -69,7 +69,6 @@ final class AccountsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         title = "accounts".localized
         view.backgroundColor = .white
         
@@ -93,20 +92,20 @@ final class AccountsViewController: UIViewController {
         }
 
         if case .result = newState {
-            self.accountsView.updateTableViewData(dataSource: self.tableManager)
+            accountsView?.updateTableViewData(dataSource: self.tableManager)
         }
     }
     
     // MARK: - Actions
     
     @objc private func addAccountButtonTapped(_ sender: UIBarButtonItem) {
-        coordinator?.goToAddAccountModule(authMethod: .auth, with: self.viewModel.currentInstance) {
+        coordinator?.goToAddAccountModule(authMethod: .auth, with: viewModel.currentInstance) {
             self.viewModel.doAccountsRefresh(request: .init())
         }
     }
     
     @objc private func createAccountBarButtonTapped(_ sender: UIBarButtonItem) {
-        coordinator?.goToAddAccountModule(authMethod: .register, with: self.viewModel.currentInstance) {
+        coordinator?.goToAddAccountModule(authMethod: .register, with: viewModel.currentInstance) {
             self.viewModel.doAccountsRefresh(request: .init())
         }
     }
@@ -114,14 +113,16 @@ final class AccountsViewController: UIViewController {
 
 extension AccountsViewController: AccountsViewControllerProtocol {
     func displayAccounts(viewModel: AccountsDataFlow.AccountsRefresh.ViewModel) {
-        guard case .result(let instances) = viewModel.state else { return }
+        guard case .result(let instances) = viewModel.state else {
+            return
+        }
         
-        self.tableManager.viewModels = instances
-        self.updateState(newState: viewModel.state)
+        tableManager.viewModels = instances
+        updateState(newState: viewModel.state)
     }
     
     func displayAccountSelected(viewModel: AccountsDataFlow.AccountSelected.ViewModel) {
-        self.coordinator?.goToFrontPage()
+        coordinator?.goToFrontPage()
     }
     
     func displayUnexpectedError(viewModel: AccountsDataFlow.UnexpectedError.ViewModel) {
@@ -135,14 +136,14 @@ extension AccountsViewController: AccountsViewControllerProtocol {
 
 extension AccountsViewController: AccountsTableDataSourceDelegate {
     func tableDidRequestDelete(_ account: Account) {
-        self.viewModel.doAccountDelete(request: .init(account: account))
+        viewModel.doAccountDelete(request: .init(account: account))
     }
     
     func tableDidSelect(_ account: Account) {
-        self.viewModel.doAccountUserSelect(request: .init(account: account))
+        viewModel.doAccountUserSelect(request: .init(account: account))
     }
     
     func tableDidSelectGuestPreview() {
-        self.viewModel.doAccountGuestSelect(request: .init())
+        viewModel.doAccountGuestSelect(request: .init())
     }
 }

@@ -49,7 +49,9 @@ extension CommunitiesPreviewDataSource: UITableViewDelegate, UITableViewDataSour
 
 extension CommunitiesPreviewDataSource: CommunityPreviewCellViewDelegate {
     func communityCellView(_ cell: CommunityPreviewCellView, didTapped followButton: FollowButton) {
-        guard let communityCell = cell.viewData else { return }
+        guard let communityCell = cell.viewData else {
+            return
+        }
         
         if let index = viewModels.firstIndex(where: { $0.id == communityCell.id }) {
             self.delegate?.tableDidTapped(followButton: followButton, in: viewModels[index])

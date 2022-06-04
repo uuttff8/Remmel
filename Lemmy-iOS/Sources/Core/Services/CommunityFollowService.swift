@@ -42,9 +42,9 @@ class CommunityFollowService: CommunityFollowServiceProtocol {
             
             self.follow(to: community)
                 .receive(on: DispatchQueue.main)
-                .sink { (completion) in
+                .sink { completion in
                     Logger.logCombineCompletion(completion)
-                } receiveValue: { (respCommunity) in
+                } receiveValue: { respCommunity in
                     followButton.bind(isSubcribed: respCommunity.subscribed)
                     
                     promise(.success(respCommunity))

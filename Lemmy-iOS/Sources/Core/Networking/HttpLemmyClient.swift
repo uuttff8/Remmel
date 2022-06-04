@@ -56,7 +56,9 @@ final class HttpLemmyClient: HTTPClientProvider {
         bodyObject: Codable?,
         completion: @escaping (Result<Data, Error>) -> Void
     ) {
-        guard let url = URL(string: url) else { return }
+        guard let url = URL(string: url) else {
+            return
+        }
         guard let jwt = LoginData.shared.jwtToken else {
             print("JWT token is not provided")
             return
@@ -91,7 +93,9 @@ final class HttpLemmyClient: HTTPClientProvider {
         filename: String,
         completion: @escaping (Result<Data, LemmyGenericError>) -> Void
     ) {
-        guard let url = URL(string: url) else { return }
+        guard let url = URL(string: url) else {
+            return
+        }
         guard let jwt = LoginData.shared.jwtToken else {
             Logger.common.error("JWT token is not provided")
             return
@@ -122,7 +126,7 @@ final class HttpLemmyClient: HTTPClientProvider {
                     Logger.common.info(String(data: data, encoding: .utf8))
                     completion(.success(data))
                 } else if let error = error {
-                    completion(.failure(.string(error as! String)))
+                    completion(.failure(.string(error.localizedDescription)))
                 }
             }.resume()
     }
@@ -138,7 +142,9 @@ final class HttpLemmyClient: HTTPClientProvider {
         
         let mimetype = "image/\(filenameExt)"
         let filePathKey = "images[]"
-        guard let imageData = imageToUpload.jpegData(compressionQuality: 1) else { return Data() }
+        guard let imageData = imageToUpload.jpegData(compressionQuality: 1) else {
+            return Data()
+        }
 
         body.append("--\(boundary)\r\n")
         body.append("Content-Disposition: form-data; name=\"\(filePathKey)\"; filename=\"\(filename)\"\r\n")
@@ -189,7 +195,9 @@ private extension Data {
 
 private extension Encodable {
     var dictionary: [String: Any]? {
-        guard let data = try? JSONEncoder().encode(self) else { return nil }
+        guard let data = try? JSONEncoder().encode(self) else {
+            return nil
+        }
         return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments))
             .flatMap { $0 as? [String: Any] }
     }

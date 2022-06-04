@@ -155,7 +155,9 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
         self.store(coordinator: createPostCoord)
         createPostCoord.start()
 
-        guard let navController = createPostCoord.navigationController else { return }
+        guard let navController = createPostCoord.navigationController else {
+            return
+        }
 
         rootViewController.present(navController, animated: true)
     }

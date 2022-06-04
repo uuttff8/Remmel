@@ -19,7 +19,7 @@ final class InboxMentionsViewController: UIViewController {
     weak var coordinator: InboxNotificationsCoordinator?
     private let viewModel: InboxMentionsViewModel
     
-    private lazy var mentionsView = self.view as! InboxMentionsView
+    private lazy var mentionsView = self.view as? InboxMentionsView
     private lazy var tableManager = InboxMentionsTableManager().then {
         $0.delegate = self
     }
@@ -61,23 +61,23 @@ final class InboxMentionsViewController: UIViewController {
     
     private func updateState(newState: InboxMentions.ViewControllerState) {
         defer {
-            self.state = newState
+            state = newState
         }
 
         if case .loading = newState {
-            self.mentionsView.showActivityIndicatorView()
+            mentionsView?.showActivityIndicatorView()
             return
         }
 
-        if case .loading = self.state {
-            self.mentionsView.hideActivityIndicatorView()
+        if case .loading = state {
+            mentionsView?.hideActivityIndicatorView()
         }
 
         if case .result(let data) = newState {
             if data.isEmpty {
-                self.mentionsView.displayNoData()
+                mentionsView?.displayNoData()
             } else {
-                self.mentionsView.updateTableViewData(dataSource: self.tableManager)
+                mentionsView?.updateTableViewData(dataSource: self.tableManager)
             }
         }
     }
@@ -90,46 +90,51 @@ extension InboxMentionsViewController: InboxMentionsViewControllerProtocol {
     }
     
     func displayMentions(viewModel: InboxMentions.LoadMentions.ViewModel) {
-        guard case .result(let data) = viewModel.state else { return }
-        self.tableManager.viewModels = data
+        guard case .result(let data) = viewModel.state else {
+            return
+        }
+
+        tableManager.viewModels = data
         updateState(newState: viewModel.state)
     }
     
     func displayNextMentions(viewModel: InboxMentions.LoadMentions.ViewModel) {
-        guard case let .result(data) = viewModel.state else { return }
+        guard case let .result(data) = viewModel.state else {
+            return
+        }
         
-        self.tableManager.viewModels.append(contentsOf: data)
-        self.mentionsView.appendNew(data: data)
+        tableManager.viewModels.append(contentsOf: data)
+        mentionsView?.appendNew(data: data)
         
         if data.isEmpty {
-            self.canTriggerPagination = false
+            canTriggerPagination = false
         } else {
-            self.canTriggerPagination = true
+            canTriggerPagination = true
         }
     }
 }
 
 extension InboxMentionsViewController: InboxMentionsTableManagerDelegate {
     func tableDidRequestPagination(_ tableManager: InboxMentionsTableManager) {
-        guard self.canTriggerPagination else { return }
+        guard canTriggerPagination else {
+            return
+        }
         
-        self.canTriggerPagination = false
-        self.viewModel.doNextLoadMentions(request: .init())
+        canTriggerPagination = false
+        viewModel.doNextLoadMentions(request: .init())
     }
 }
 
-extension InboxMentionsViewController: UserMentionCellViewDelegate {    
+extension InboxMentionsViewController: UserMentionCellViewDelegate {
     func usernameTapped(with mention: LemmyUserMention) {
-        self.coordinator?.goToProfileScreen(userId: mention.absoluteId, username: mention.absoluteUsername)
+        coordinator?.goToProfileScreen(userId: mention.absoluteId, username: mention.absoluteUsername)
     }
     
     func communityTapped(with mention: LemmyCommunityMention) {
-        self.coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
+        coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
-    func postNameTapped(in userMention: LMModels.Views.PersonMentionView) {
-        
-    }
+    func postNameTapped(in userMention: LMModels.Views.PersonMentionView) { }
     
     func voteContent(
         scoreView: VoteButtonsWithScoreView,
@@ -137,7 +142,7 @@ extension InboxMentionsViewController: UserMentionCellViewDelegate {
         newVote: LemmyVoteType,
         userMention: LMModels.Views.PersonMentionView
     ) {
-        self.contentScoreService.voteUserMention(
+        contentScoreService.voteUserMention(
             scoreView: scoreView,
             voteButton: voteButton,
             for: newVote,
@@ -145,25 +150,25 @@ extension InboxMentionsViewController: UserMentionCellViewDelegate {
         )
     }
     
-    func showContext(in comment: LMModels.Views.PersonMentionView) {
-        
-    }
+    func showContext(in comment: LMModels.Views.PersonMentionView) { }
     
     func reply(to userMention: LMModels.Views.PersonMentionView) {
-        self.coordinator?.goToWriteComment(postSource: userMention.post, parrentComment: userMention.comment) {
+        coordinator?.goToWriteComment(postSource: userMention.post, parrentComment: userMention.comment) {
             LMMMessagesToast.showSuccessCreateComment()
         }
     }
     
     func onLinkTap(in userMention: LMModels.Views.PersonMentionView, url: URL) {
-        self.coordinator?.goToBrowser(with: url)
+        coordinator?.goToBrowser(with: url)
     }
         
     func showMoreAction(in userMention: LMModels.Views.PersonMentionView) {
-        
-        if let userMention = self.tableManager.viewModels.getElement(by: userMention.id) {
-            guard let coordinator = coordinator else { return }
-            self.showMoreService.showMoreInUserMention(on: self, coordinator: coordinator, mention: userMention)
+        guard let coordinator = coordinator else {
+            return
+        }
+
+        if let userMention = tableManager.viewModels.getElement(by: userMention.id) {
+            showMoreService.showMoreInUserMention(on: self, coordinator: coordinator, mention: userMention)
         }
     }
 }
@@ -171,7 +176,9 @@ extension InboxMentionsViewController: UserMentionCellViewDelegate {
 extension InboxMentionsViewController: InboxMentionsViewDelegate {
     func inboxMentionsViewDidRequestRefresh() {
         // Small delay for pretty refresh
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            [weak self] in
+
             self?.viewModel.doLoadMentions(request: .init())
         }
     }

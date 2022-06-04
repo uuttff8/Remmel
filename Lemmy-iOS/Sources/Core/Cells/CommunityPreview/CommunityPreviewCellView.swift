@@ -20,7 +20,7 @@ final class CommunityPreviewCellView: UIView {
         let subscribers: Int
     }
     
-    public var viewData: ViewData?
+    var viewData: ViewData?
     
     weak var delegate: CommunityPreviewCellViewDelegate?
     
@@ -85,7 +85,7 @@ final class CommunityPreviewCellView: UIView {
         
         self.communityImageView.loadImage(urlString: community.community.icon)
         
-        self.originalInstanceLabel.text =  "@" + community.community.originalInstance
+        self.originalInstanceLabel.text = "@" + community.community.originalInstance
         self.communityNameLabel.text = "!" + community.community.name
         self.subscribersLabel.text = String(community.counts.subscribers) + " " + "community-subscribers".localized
         self.commentsLabel.text = String(community.counts.comments) + " " + "community-users".localized
@@ -140,7 +140,7 @@ extension CommunityPreviewCellView: ProgrammaticallyViewProtocol {
             $0.bottom.equalToSuperview().inset(5)
         }
         
-        followButton.snp.makeConstraints { (make) in
+        followButton.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.trailing.equalToSuperview().inset(16)
         }

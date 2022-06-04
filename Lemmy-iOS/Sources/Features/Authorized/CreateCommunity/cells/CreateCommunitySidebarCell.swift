@@ -28,7 +28,7 @@ class CreateCommunitySidebarCell: UITableViewCell {
         contentView.addSubview(sidebarTextView)
 
         sidebarTextView.delegate = self
-        sidebarTextView.snp.makeConstraints { (make) in
+        sidebarTextView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(5)
             make.height.equalTo(100)
             make.leading.trailing.equalToSuperview().inset(16)

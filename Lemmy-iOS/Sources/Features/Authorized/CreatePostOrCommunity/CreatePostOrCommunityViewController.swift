@@ -65,7 +65,7 @@ class CreatePostOrCommunityViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        self.createView.snp.makeConstraints { (make) in
+        self.createView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview()
         }
@@ -88,7 +88,9 @@ class CreatePostOrCommunityViewController: UIViewController {
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first!
+        guard let touch = touches.first else {
+            return
+        }
 
         let point = touch.location(in: self.view)
 
@@ -133,13 +135,13 @@ private class ImageWithTextContainer: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        self.imageView.snp.makeConstraints { (make) in
+        self.imageView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.size.equalTo(30)
             make.centerX.equalToSuperview()
         }
 
-        self.titleLabel.snp.makeConstraints { (make) in
+        self.titleLabel.snp.makeConstraints { make in
             make.top.equalTo(self.imageView.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview()

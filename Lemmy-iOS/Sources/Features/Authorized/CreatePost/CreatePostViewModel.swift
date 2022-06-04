@@ -26,7 +26,9 @@ class CreatePostViewModel: CreatePostViewModelProtocol {
     }
     
     func doRemoteCreatePost(request: CreatePost.RemoteCreatePost.Request) {
-        guard let jwtToken = LemmyShareData.shared.jwtToken else { return }
+        guard let jwtToken = LemmyShareData.shared.jwtToken else {
+            return
+        }
         
         let params = LMModels.Api.Post.CreatePost(
             name: request.title,
@@ -40,7 +42,7 @@ class CreatePostViewModel: CreatePostViewModelProtocol {
         
         ApiManager.requests.asyncCreatePost(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
                 
                 if case .failure(let error) = completion {
@@ -48,7 +50,7 @@ class CreatePostViewModel: CreatePostViewModelProtocol {
                         viewModel: .init(error: error.description)
                     )
                 }
-            } receiveValue: { (response) in
+            } receiveValue: { response in
                 
                 self.viewController?.displaySuccessCreatingPost(
                     viewModel: .init(post: response.postView)
@@ -62,11 +64,14 @@ class CreatePostViewModel: CreatePostViewModelProtocol {
         ApiManager.requests.uploadPictrs(
             image: request.image,
             filename: request.filename
-        ) { (result) in
+        ) { result in
             switch result {
             case .success(let response):
+                guard let file = response.files.first?.file else {
+                    return
+                }
                 self.viewController?.displayUrlLoadImage(
-                    viewModel: .init(url: String.makePathToPictrs(response.files.first!.file))
+                    viewModel: .init(url: String.makePathToPictrs(file))
                 )
             case .failure(let error):
                 Logger.common.error(error)

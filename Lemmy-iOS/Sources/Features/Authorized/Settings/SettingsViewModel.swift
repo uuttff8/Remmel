@@ -57,7 +57,7 @@ class SettingsViewModel: SettingsViewModelProtocol {
     
     func doAppIconSettingsUpdate(request: SettingsDataFlow.AppIconSettingUpdate.Request) {
         let newAppIcon = LemmyAppIcon(rawValue: request.setting.uniqueIdentifier) ?? .white
-        self.appIconManager.setIcon(newAppIcon) { (completion) in
+        self.appIconManager.setIcon(newAppIcon) { completion in
             print(completion)
         }
     }
@@ -98,7 +98,7 @@ enum SettingsDataFlow {
     enum AppIconSettingUpdate {
         struct Request {
             let setting: SettingDescription.Setting
-        }        
+        }
     }
     
     struct SettingDescription {

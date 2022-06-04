@@ -108,7 +108,9 @@ extension ProfileScreenSubscribedViewController.View: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let manager = tableManager else { return }
+        guard let manager = tableManager else {
+            return
+        }
         
         let viewModel = manager.viewModels[indexPath.row]
         self.delegate?.tableDidSelect(self, communityFollower: viewModel)

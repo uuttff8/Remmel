@@ -44,7 +44,7 @@ class EditPostViewController: UIViewController {
         var nsfw: Bool
     }
     
-    lazy var editPostView = self.view as! EditPostView
+    lazy var editPostView = self.view as? EditPostView
     
     private lazy var createBarButton = UIBarButtonItem(
         title: "action-create".localized.uppercased(),
@@ -164,26 +164,30 @@ extension EditPostViewController: EditPostViewControllerProtocol {
         let sections = getSections()
         
         let viewModel = SettingsTableViewModel(sections: sections)
-        self.editPostView.configure(viewModel: viewModel)
+        editPostView?.configure(viewModel: viewModel)
     }
     
     func displayUrlLoadImage(viewModel: EditPost.RemoteLoadImage.ViewModel) {
-        guard let inputWithImageCell = inputWithImageCell else { return }
-        self.updateUrlState(for: inputWithImageCell, state: .addWithImage(text: viewModel.url))
+        guard let inputWithImageCell = inputWithImageCell else {
+            return
+        }
+        updateUrlState(for: inputWithImageCell, state: .addWithImage(text: viewModel.url))
     }
     
     func displayErrorUrlLoadImage(viewModel: EditPost.ErrorRemoteLoadImage.ViewModel) {
-        guard let inputWithImageCell = inputWithImageCell else { return }
+        guard let inputWithImageCell = inputWithImageCell else {
+            return
+        }
         
         UIAlertController.createOkAlert(message: "Some error happened when uploading a picture")
-        self.updateUrlState(for: inputWithImageCell, state: .error)
+        updateUrlState(for: inputWithImageCell, state: .error)
     }
     
     func updateTableViewModel() {
         let sections = getSections()
         
         let viewModel = SettingsTableViewModel(sections: sections)
-        self.editPostView.updateViewModel(viewModel)
+        editPostView?.updateViewModel(viewModel)
     }
     
     // swiftlint:disable:next function_body_length
@@ -202,7 +206,7 @@ extension EditPostViewController: EditPostViewControllerProtocol {
             type: .inputWithImage(
                 options: .init(
                     placeholderText: "create-content-create-url-placeholder".localized,
-                    valueText: self.formData.url ?? nil,
+                    valueText: self.formData.url,
                     imageIcon: Config.Image.addImage
                 )
             )
@@ -222,7 +226,7 @@ extension EditPostViewController: EditPostViewControllerProtocol {
             uniqueIdentifier: TableForm.body.rawValue,
             type: .largeInput(
                 options: .init(
-                    valueText: self.formData.body ?? nil,
+                    valueText: self.formData.body,
                     placeholderText: "create-content-create-body-placeholder".localized,
                     maxLength: nil
                 )
@@ -305,7 +309,9 @@ extension EditPostViewController: UIImagePickerControllerDelegate, UINavigationC
     ) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
            let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL {
-            guard let inputWithImageCell = inputWithImageCell else { return }
+            guard let inputWithImageCell = inputWithImageCell else {
+                return
+            }
             
             self.updateUrlState(for: inputWithImageCell, state: .loading)
             self.viewModel.doRemoteLoadImage(request: .init(image: image, filename: imageUrl.lastPathComponent))

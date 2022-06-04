@@ -10,7 +10,7 @@ import UIKit
 
 class ChooseCategoryViewController: UIViewController {
     
-    lazy var chooseCategoryView = self.view as! ChooseCategoryUI
+    lazy var chooseCategoryView = self.view as? ChooseCategoryUI
     let viewModel = ChooseCategoryViewModel()
     
     var selectedCategory: ((LMModels.Source.Category) -> Void)?
@@ -33,15 +33,15 @@ class ChooseCategoryViewController: UIViewController {
 
         viewModel.selectedCategory
             .compactMap { $0 }
-            .sink { (category) in
+            .sink { category in
                 self.selectedCategory?(category)
-            }.store(in: &chooseCategoryView.cancellable)
+            }.store(in: &chooseCategoryView?.cancellable)
         
-        if viewModel.categories.value == [] {
+        if viewModel.categories.value.isEmpty {
             viewModel.loadCategories()
         }
 
-        chooseCategoryView.dismissView = {
+        chooseCategoryView?.dismissView = {
             self.navigationController?.popViewController(animated: true)
         }
     }

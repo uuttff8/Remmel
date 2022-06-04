@@ -85,7 +85,7 @@ class PostContentView: UIView {
             self?.delegate?.showMore(in: post)
         }
         
-        centerView.onLinkTap = { [weak self] (url) in
+        centerView.onLinkTap = { [weak self] url in
             self?.delegate?.onLinkTap(in: post, url: url)
         }
         
@@ -101,11 +101,11 @@ class PostContentView: UIView {
             self?.delegate?.presentVc(viewController: imageVc)
         }
         
-        footerView.downvoteButtonTap = { [weak self] (scoreView, button, voteType) in
+        footerView.downvoteButtonTap = { [weak self] scoreView, button, voteType in
             self?.delegate?.voteContent(scoreView: scoreView, voteButton: button, newVote: voteType, post: post)
         }
         
-        footerView.upvoteButtonTap = { [weak self] (scoreView, button, voteType) in
+        footerView.upvoteButtonTap = { [weak self] scoreView, button, voteType in
             self?.delegate?.voteContent(scoreView: scoreView, voteButton: button, newVote: voteType, post: post)
         }
     }
@@ -117,7 +117,7 @@ class PostContentView: UIView {
     func prepareForReuse() {
         centerView.prepareForReuse()
         headerView.prepareForReuse()
-    }    
+    }
 }
 
 extension PostContentView: ProgrammaticallyViewProtocol {
@@ -136,28 +136,28 @@ extension PostContentView: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
-        paddingView.snp.makeConstraints { (make) in
+        paddingView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(5) // SELF SIZE TOP HERE
             make.bottom.equalToSuperview().inset(5)
             make.leading.trailing.equalToSuperview().inset(16)
         }
         
-        separatorView.snp.makeConstraints { (make) in
+        separatorView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
             make.trailing.equalToSuperview().inset(10)
             make.leading.equalToSuperview().offset(10)
         }
                 
-        headerView.snp.makeConstraints { (make) in
+        headerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
         }
                 
-        centerView.snp.makeConstraints { (make) in
+        centerView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom)
             make.leading.trailing.equalToSuperview()
         }
                 
-        footerView.snp.makeConstraints { (make) in
+        footerView.snp.makeConstraints { make in
             make.top.equalTo(centerView.snp.bottom).offset(15)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview() // SELF SIZE BOTTOM HERE

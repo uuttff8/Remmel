@@ -103,12 +103,12 @@ class ChooseCommunityUI: UIView {
     // MARK: Actions
     @objc private func reload(_ searchBar: UISearchBar) {
         self.hideActivityIndicatorView()
-        if let text = searchBar.text, text != "" {
-            self.hideActivityIndicatorView()
+        if let text = searchBar.text, !text.isEmpty {
+            hideActivityIndicatorView()
             tableManager.shouldShowFiltered = true
             tableManager.removeFilteredCommunities()
             tableView.reloadData()
-            self.delegate?.chooseView(self, didRequestSearch: text)
+            delegate?.chooseView(self, didRequestSearch: text)
         } else {
             tableManager.shouldShowFiltered = false
             tableManager.removeFilteredCommunities()
@@ -119,22 +119,22 @@ class ChooseCommunityUI: UIView {
 
 extension ChooseCommunityUI: ProgrammaticallyViewProtocol {
     func setupView() {
-        self.backgroundColor = .systemBackground
+        backgroundColor = .systemBackground
     }
     
     func addSubviews() {
-        self.addSubview(self.tableView)
-        self.addSubview(self.emptyStateLabel)
-        self.addSubview(self.loadingIndicator)
+        addSubview(self.tableView)
+        addSubview(self.emptyStateLabel)
+        addSubview(self.loadingIndicator)
     }
     
     func makeConstraints() {
-        self.searchBar.snp.makeConstraints { (make) in
+        self.searchBar.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalToSuperview()
         }
 
-        self.tableView.snp.makeConstraints { (make) in
+        self.tableView.snp.makeConstraints { make in
             make.top.equalTo(self.searchBar.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
         }

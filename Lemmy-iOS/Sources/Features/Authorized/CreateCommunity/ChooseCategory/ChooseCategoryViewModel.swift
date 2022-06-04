@@ -20,16 +20,16 @@ final class ChooseCategoryViewModel {
     func loadCategories() {
         ApiManager.requests.asyncListCategories(parameters: LMModels.Api.Site.ListCategories())
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
-            } receiveValue: { (response) in
+            } receiveValue: { response in
                 self.categories.send(response.categories)
             }.store(in: &cancellabes)
 
     }
 
     func searchCategories(query: String) {
-        let filtered = categories.value.filter { (categor) -> Bool in
+        let filtered = categories.value.filter { categor -> Bool in
             categor.name.contains(query)
         }
 

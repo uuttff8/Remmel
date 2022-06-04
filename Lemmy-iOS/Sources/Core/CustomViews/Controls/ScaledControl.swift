@@ -9,7 +9,7 @@
 import UIKit
 
 class ScaledButton: UIButton {
-    let scaleAnimationDuration: TimeInterval = 0.15    
+    let scaleAnimationDuration: TimeInterval = 0.15
     let scaleValue: CGFloat = 0.8
     
     var isTransformAnimationEnded = true
@@ -44,8 +44,10 @@ class ScaledButton: UIButton {
     }
     
     private func animateScaleButton(shouldDown: Bool) {
-        guard isTransformAnimationEnded else { return }
-        self.isTransformAnimationEnded = false
+        guard isTransformAnimationEnded else {
+            return
+        }
+        isTransformAnimationEnded = false
         self.isEnabled = false
         
         let transformed = shouldDown ?

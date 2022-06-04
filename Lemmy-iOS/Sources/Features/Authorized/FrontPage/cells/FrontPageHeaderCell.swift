@@ -35,7 +35,7 @@ class FrontPageHeaderView: UIView {
 
         self.addSubview(contentTypeSegment)
 
-        contentTypeSegment.snp.makeConstraints { (make) in
+        contentTypeSegment.snp.makeConstraints { make in
             make.top.bottom.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
@@ -62,10 +62,10 @@ class FrontPageHeaderCell: UITableViewCell {
         super.init(style: .default, reuseIdentifier: nil)
 
         self.contentView.addSubview(customView)
-        self.customView.snp.makeConstraints { (make) in
+        self.customView.snp.makeConstraints { make in
             make.top.leading.trailing.bottom.equalToSuperview()
         }
-        self.contentView.snp.remakeConstraints { (make) in
+        self.contentView.snp.remakeConstraints { make in
             make.height.equalTo(40)
             make.width.equalToSuperview()
         }
@@ -122,7 +122,7 @@ class FrontPageSwitcher: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        segmentControl.snp.makeConstraints { (make) in
+        segmentControl.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }

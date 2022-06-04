@@ -9,5 +9,6 @@
 import Foundation
 
 extension CodingUserInfoKey {
+    // swiftlint:disable:next force_unwrapping
    static let context = CodingUserInfoKey(rawValue: "context")!
 }

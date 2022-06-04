@@ -63,7 +63,7 @@ class Logger {
         requestLog += "\n\n"
         requestLog += "\(method) \(path)?\(query) HTTP/1.1\n"
         requestLog += "Host: \(host)\n"
-        for (key,value) in request.allHTTPHeaderFields ?? [:] {
+        for (key, value) in request.allHTTPHeaderFields ?? [:] {
             requestLog += "\(key): \(value)\n"
         }
         if let body = request.httpBody {
@@ -90,13 +90,13 @@ class Logger {
             responseLog += "\n\n"
         }
         
-        if let statusCode =  response?.statusCode {
+        if let statusCode = response?.statusCode {
             responseLog += "HTTP \(statusCode) \(path)?\(query)\n"
         }
         if let host = components?.host {
             responseLog += "Host: \(host)\n"
         }
-        for (key,value) in response?.allHeaderFields ?? [:] {
+        for (key, value) in response?.allHeaderFields ?? [:] {
             responseLog += "\(key): \(value)\n"
         }
         if let body = data {

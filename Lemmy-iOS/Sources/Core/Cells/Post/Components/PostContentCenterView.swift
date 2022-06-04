@@ -82,9 +82,12 @@ class PostContentCenterView: UIView {
         switch config {
         case .fullPost:
             titleLabel.numberOfLines = 0
-            thumbailImageView.loadImage(urlString: data.imageUrl) { [self] (res) in
-                guard case let .success(response) = res else { return }
-                self.setupImageViewForFullPostViewer(image: response.image, text: data.title)
+            thumbailImageView.loadImage(urlString: data.imageUrl) { [self] res in
+                guard case let .success(response) = res else {
+                    return
+                }
+
+                setupImageViewForFullPostViewer(image: response.image, text: data.title)
             }
             
             if let subtitle = data.subtitle {
@@ -92,9 +95,11 @@ class PostContentCenterView: UIView {
                     tv.textContainer.maximumNumberOfLines = 0
                     tv.textContainer.lineBreakMode = .byTruncatingTail
 
-                    tv.linkTextAttributes = [.foregroundColor: UIColor.lemmyBlue,
-                                                           .underlineStyle: 0,
-                                                           .underlineColor: UIColor.clear]
+                    tv.linkTextAttributes = [
+                        .foregroundColor: UIColor.lemmyBlue,
+                        .underlineStyle: 0,
+                        .underlineColor: UIColor.clear
+                    ]
                     self.setupImageTap(in: tv)
                 }
                 subtitleTextView.text = subtitle
@@ -138,10 +143,10 @@ class PostContentCenterView: UIView {
     }
     
     func relayoutForFullPost() {
-        self.titleImageStackView.axis = .vertical
-        self.titleImageStackView.setNeedsLayout()
+        titleImageStackView.axis = .vertical
+        titleImageStackView.setNeedsLayout()
         
-        thumbailImageView.snp.remakeConstraints { (make) in
+        thumbailImageView.snp.remakeConstraints { make in
             make.height.equalTo(fullPostImageHeight)
             make.leading.trailing.equalToSuperview()
         }
@@ -181,7 +186,7 @@ class PostContentCenterView: UIView {
 
 extension PostContentCenterView: ProgrammaticallyViewProtocol {
     func addSubviews() {
-        self.addSubview(mainStackView)
+        addSubview(mainStackView)
         
         titleImageStackView.addStackViewItems(
             .view(titleLabel),
@@ -195,11 +200,11 @@ extension PostContentCenterView: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
-        thumbailImageView.snp.makeConstraints { (make) in
+        thumbailImageView.snp.makeConstraints { make in
             make.size.equalTo(previewImageSize)
         }
         
-        mainStackView.snp.makeConstraints { (make) in
+        mainStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }

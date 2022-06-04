@@ -44,7 +44,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
     }
     
     func doReceiveMessages() {
-        wsClient?.onTextMessage.addObserver(self, completionHandler: { [weak self] (operation, data) in
+        wsClient?.onTextMessage.addObserver(self, completionHandler: { [weak self] operation, data in
             switch operation {
             case LMMUserOperation.EditPost.rawValue,
                  LMMUserOperation.DeletePost.rawValue,
@@ -77,7 +77,10 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
                     data: data
                 ) else { return }
                 
-                guard let self = self else { return }
+                guard let self = self else {
+                    return
+                }
+                
                 DispatchQueue.main.async {
                     self.loadedCommunity = newComm.communityView
                     
@@ -113,9 +116,9 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
         
         ApiManager.requests.asyncGetPosts(parameters: parameters)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
-            } receiveValue: { (response) in
+            } receiveValue: { response in
                 self.viewController?.displayPosts(
                     viewModel: .init(
                         state: .result(data: response.posts)
@@ -138,9 +141,9 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
         
         ApiManager.requests.asyncGetPosts(parameters: parameters)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.logCombineCompletion(completion)
-            } receiveValue: { (response) in
+            } receiveValue: { response in
                 
                 self.viewController?.displayNextPosts(
                     viewModel: .init(

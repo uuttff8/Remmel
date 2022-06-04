@@ -12,9 +12,11 @@ protocol CatalystDismissProtocol {
     func dismissWithExitButton(presses: Set<UIPress>)
 }
 
-extension CatalystDismissProtocol where Self: UIViewController {        
+extension CatalystDismissProtocol where Self: UIViewController {
     func dismissWithExitButton(presses: Set<UIPress>) {
-        guard let key = presses.first?.key else { return }
+        guard let key = presses.first?.key else {
+            return
+        }
         
         if key.keyCode == .keyboardEscape {
             self.dismiss(animated: true)

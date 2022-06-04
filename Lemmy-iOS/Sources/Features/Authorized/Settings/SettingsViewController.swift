@@ -32,7 +32,7 @@ class SettingsViewController: UIViewController, CatalystDismissProtocol {
     
     weak var coordinator: FrontPageCoordinator?
     private let viewModel: SettingsViewModel
-    private lazy var settingsView = self.view as! SettingsView
+    private lazy var settingsView = view as? SettingsView
     
     private lazy var closeBarButton = UIBarButtonItem(
         barButtonSystemItem: .close,
@@ -256,7 +256,7 @@ extension SettingsViewController: SettingsViewControllerProtocol {
             )
         ]
         
-        self.settingsView.configure(viewModel: SettingsTableViewModel(sections: sectionsViewModel))
+        settingsView?.configure(viewModel: SettingsTableViewModel(sections: sectionsViewModel))
 
     }
     
@@ -299,7 +299,7 @@ extension SettingsViewController: SettingsViewControllerProtocol {
 
         viewController.title = title
 
-        self.push(module: viewController)
+        push(module: viewController)
     }
 }
 
@@ -317,23 +317,38 @@ extension SettingsViewController: SettingsViewDelegate {
     ) {
         switch cell.uniqueIdentifier {
         case TableForm.authorGithub.rawValue:
-            guard let myGh = URL(string: "https://github.com/uuttff8/") else { return }
+            guard let myGh = URL(string: "https://github.com/uuttff8/") else {
+                return
+            }
+
             self.coordinator?.goToBrowser(with: myGh, inApp: false)
         case TableForm.authorTwitter.rawValue:
-            guard let myGh = URL(string: "https://twitter.com/babnikbezbab/") else { return }
+            guard let myGh = URL(string: "https://twitter.com/babnikbezbab/") else {
+                return
+            }
+
             self.coordinator?.goToBrowser(with: myGh, inApp: false)
         case TableForm.authorTelegram.rawValue:
-            guard let myGh = URL(string: "https://t.me/uuttff8/") else { return }
+            guard let myGh = URL(string: "https://t.me/uuttff8/") else {
+                return
+            }
+
             self.coordinator?.goToBrowser(with: myGh, inApp: false)
         case TableForm.contactEmail.rawValue:
             self.sendEmail(to: "uuttff8@gmail.com")
         case TableForm.contactMatrix.rawValue:
-            guard let url = URL(string: "https://matrix.to/#/%23lemmy:matrix.org") else { return }
+            guard let url = URL(string: "https://matrix.to/#/%23lemmy:matrix.org") else {
+                return
+            }
+
             self.coordinator?.goToBrowser(with: url, inApp: false)
         case TableForm.changeInstance.rawValue:
             self.coordinator?.goToInstances()
         case TableForm.openSource.rawValue:
-            guard let url = URL(string: "https://github.com/uuttff8/Lemmy-iOS") else { return }
+            guard let url = URL(string: "https://github.com/uuttff8/Lemmy-iOS") else {
+                return
+            }
+            
             self.coordinator?.goToBrowser(with: url, inApp: false)
         case TableForm.applicationIcon.rawValue:
             self.viewModel.doAppIconSettingsPresentation(request: .init())
@@ -344,10 +359,7 @@ extension SettingsViewController: SettingsViewDelegate {
 }
 
 extension SettingsViewController: MFMailComposeViewControllerDelegate {
-    func mailComposeController(
-        _ controller: MFMailComposeViewController,
-        didFinishWith result: MFMailComposeResult, error: Error?
-    ) {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
     }
 }

@@ -28,15 +28,15 @@ class CreateCommunityViewModel: CreateCommunityViewModelProtocol {
         }
         
         let params = LMModels.Api.Community.CreateCommunity(name: request.name,
-                                                                 title: request.displayName,
-                                                                 description: request.sidebar,
-                                                                 icon: request.icon,
-                                                                 banner: request.banner,
-                                                                 nsfw: request.nsfwOption,
-                                                                 auth: jwtToken)
+                                                            title: request.displayName,
+                                                            description: request.sidebar,
+                                                            icon: request.icon,
+                                                            banner: request.banner,
+                                                            nsfw: request.nsfwOption,
+                                                            auth: jwtToken)
         ApiManager.requests.asyncCreateCommunity(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { (completion) in
+            .sink { completion in
                 Logger.common.info(completion)
                 
                 if case .failure(let error) = completion {
@@ -45,7 +45,7 @@ class CreateCommunityViewModel: CreateCommunityViewModelProtocol {
                     )
                 }
                 
-            } receiveValue: { (response) in
+            } receiveValue: { response in
                 self.viewController?.displaySuccessCreatingCommunity(
                     viewModel: .init(community: response.communityView)
                 )

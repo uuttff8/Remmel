@@ -55,7 +55,7 @@ class StyledNavigationController: UINavigationController {
 
     override var delegate: UINavigationControllerDelegate? {
         didSet {
-            if self.delegate !== self {
+            if delegate !== self {
                 fatalError("To set a delegate use `addDelegate(_:)`")
             }
         }
@@ -72,7 +72,7 @@ class StyledNavigationController: UINavigationController {
     }
 
     private lazy var statusBarView: UIView = {
-        let windowScene = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.windowScene
+        let windowScene = UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.windowScene
         let view = UIView(frame: windowScene?.statusBarManager?.statusBarFrame ?? CGRect.zero)
         view.isUserInteractionEnabled = false
         return view
@@ -100,7 +100,7 @@ class StyledNavigationController: UINavigationController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        let windowScene = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.windowScene
+        let windowScene = UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.windowScene
         self.statusBarView.frame = windowScene?.statusBarManager?.statusBarFrame ?? CGRect.zero
     }
 
@@ -113,7 +113,7 @@ class StyledNavigationController: UINavigationController {
                     return
                 }
                 strongSelf.navigationBar.layoutIfNeeded()
-                let windowScene = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.windowScene
+                let windowScene = UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.windowScene
                 strongSelf.statusBarView.frame = windowScene?.statusBarManager?.statusBarFrame ?? CGRect.zero
             },
             completion: nil
@@ -372,8 +372,6 @@ class StyledNavigationController: UINavigationController {
         self.navigationBarAppearanceForController.removeValue(forKey: viewController.hashValue)
     }
 
-    // swiftlint:disable:next cyclomatic_complexity
-    // swiftlint:disable:next function_body_length
     private func animateShadowView(transitionCoordinator: UIViewControllerTransitionCoordinator) {
         guard let fromViewController = self.transitionCoordinator?.viewController(forKey: .from),
               let toViewController = self.transitionCoordinator?.viewController(forKey: .to) else {
@@ -459,7 +457,6 @@ class StyledNavigationController: UINavigationController {
 extension StyledNavigationController: UINavigationControllerDelegate {
     // MARK: Responding to a View Controller Being Shown
 
-    // swiftlint:disable:next function_body_length
     func navigationController(
         _ navigationController: UINavigationController,
         willShow viewController: UIViewController,

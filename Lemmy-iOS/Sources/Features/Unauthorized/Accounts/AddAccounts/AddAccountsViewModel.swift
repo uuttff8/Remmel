@@ -41,14 +41,14 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
         
         ApiManager.requests.asyncLogin(parameters: parameters)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { (completion) in
+            .sink(receiveCompletion: { completion in
                 Logger.logCombineCompletion(completion)
                 
                 if case let .failure(why) = completion {
                     self.saveCredentials(login: nil, password: nil)
                     self.viewController?.displayErrorAuth(viewModel: .init(error: why.description))
                 }
-            }, receiveValue: { (response) in
+            }, receiveValue: { response in
                 
                 guard let jwt = response.jwt else {
                     return
@@ -76,14 +76,14 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
         
         ApiManager.requests.asyncRegister(parameters: parameters)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { (completion) in
+            .sink(receiveCompletion: { completion in
                 Logger.logCombineCompletion(completion)
 
                 if case let .failure(why) = completion {
                     self.saveCredentials(login: nil, password: nil)
                     self.viewController?.displayErrorAuth(viewModel: .init(error: why.description))
                 }
-            }, receiveValue: { (response) in
+            }, receiveValue: { response in
                 
                 guard let jwt = response.jwt else {
                     return
@@ -126,10 +126,12 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
         
         ApiManager.requests.asyncGetSite(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { (completion) in
+            .sink(receiveCompletion: { completion in
                 Logger.logCombineCompletion(completion)
-            }, receiveValue: { (response) in
-                guard let myUser = response.myUser?.localUserView.person else { return }
+            }, receiveValue: { response in
+                guard let myUser = response.myUser?.localUserView.person else {
+                    return
+                }
                 completion(myUser)
             }).store(in: &cancellables)
     }

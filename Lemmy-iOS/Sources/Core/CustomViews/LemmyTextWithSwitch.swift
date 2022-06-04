@@ -17,7 +17,7 @@ class LemmyLabelWithSwitchCell: UITableViewCell {
 
         self.contentView.addSubview(customView)
 
-        customView.snp.makeConstraints { (make) in
+        customView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(10)
             make.leading.trailing.equalToSuperview().inset(16)
         }
@@ -56,11 +56,11 @@ class LemmyLabelWithSwitch: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        checkFieldStackView.snp.makeConstraints { (make) in
+        checkFieldStackView.snp.makeConstraints { make in
             make.top.leading.trailing.bottom.equalToSuperview()
         }
 
-        self.snp.makeConstraints { (make) in
+        self.snp.makeConstraints { make in
             make.height.equalTo(switcher.frame.height)
         }
     }

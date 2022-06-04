@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIView {
-    struct ViewPreConfigutations {
+    enum ViewPreConfigutations {
         /// Returns a line with height of 1pt. Used to imitate a separator line in custom views.
         static var separatorView: UIView {
             let view = UIView().then {
@@ -43,7 +43,7 @@ extension UIView {
      */
     static func findSubViewWithFirstResponder(_ view: UIView) -> UIView? {
         let subviews = view.subviews
-        if subviews.count == 0 {
+        if subviews.isEmpty {
             return nil
         }
         for subview: UIView in subviews {
@@ -134,7 +134,7 @@ extension UIView {
 }
 
 extension UIView {
-    static let loadingViewTag = 1938123987
+    static let loadingViewTag = 1_938_123_987
     
     func showActivityIndicatorView(style: UIActivityIndicatorView.Style = .large, color: UIColor? = nil) {
         var loading = viewWithTag(UIView.loadingViewTag) as? UIActivityIndicatorView
@@ -157,5 +157,5 @@ extension UIView {
         let loading = viewWithTag(UIView.loadingViewTag) as? UIActivityIndicatorView
         loading?.stopAnimating()
         loading?.removeFromSuperview()
-    }    
+    }
 }

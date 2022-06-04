@@ -18,7 +18,7 @@ class CommunitiesPreviewViewController: UIViewController {
     weak var coordinator: CommunitiesCoordinator?
     private let viewModel: CommunitiesPreviewViewModel
     
-    private lazy var previewView = self.view as! CommunitiesPreviewView
+    private lazy var previewView = self.view as? CommunitiesPreviewView
     
     private lazy var tableManager = CommunitiesPreviewDataSource().then {
         $0.delegate = self
@@ -61,27 +61,29 @@ class CommunitiesPreviewViewController: UIViewController {
     
     private func updateState(newState: CommunitiesPreview.ViewControllerState) {
         defer {
-            self.state = newState
+            state = newState
         }
 
         if case .loading = newState {
-            self.previewView.showLoadingView()
+            previewView?.showLoadingView()
             return
         }
 
         if case .loading = self.state {
-            self.previewView.hideLoadingView()
+            previewView?.hideLoadingView()
         }
 
         if case .result = newState {
-            self.previewView.updateTableViewData(dataSource: self.tableManager)
+            previewView?.updateTableViewData(dataSource: self.tableManager)
         }
     }
 }
 
 extension CommunitiesPreviewViewController: CommunitiesPreviewViewControllerProtocol {
     func displayCommunities(viewModel: CommunitiesPreview.CommunitiesLoad.ViewModel) {
-        guard case .result(let data) = viewModel.state else { return }
+        guard case .result(let data) = viewModel.state else {
+            return
+        }
         
         self.tableManager.viewModels = data
         self.updateState(newState: viewModel.state)
@@ -91,24 +93,29 @@ extension CommunitiesPreviewViewController: CommunitiesPreviewViewControllerProt
 extension CommunitiesPreviewViewController: CommunitiesPreviewTableDataSourceDelegate {
     func tableDidTapped(followButton: FollowButton, in community: LMModels.Views.CommunityView) {
         
-        guard let coord = coordinator else { return }
+        guard let coord = coordinator else {
+            return
+        }
+        
         ContinueIfLogined(on: self, coordinator: coord) {
             self.followService.followUi(followButton: followButton, to: community)
-                .sink { (community) in
+                .sink { community in
                     self.tableManager.viewModels.updateElementById(community)
                 }.store(in: &self.cancellable)
         }
     }
     
     func tableDidSelect(community: LMModels.Views.CommunityView) {
-        self.coordinator?.goToCommunityScreen(communityId: community.id)
+        coordinator?.goToCommunityScreen(communityId: community.id)
     }
 }
 
 extension CommunitiesPreviewViewController: CommunitiesPreviewViewDelagate {
     func previewViewDidRequestRefresh() {
         // Small delay for pretty refresh
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            [weak self] in
+
             self?.viewModel.doLoadCommunities(request: .init())
         }
     }
@@ -116,6 +123,6 @@ extension CommunitiesPreviewViewController: CommunitiesPreviewViewDelagate {
 
 extension CommunitiesPreviewViewController: TabBarReselectHandling {
     func handleReselect() {
-        self.previewView.scrollToTop()
+        previewView?.scrollToTop()
     }
 }

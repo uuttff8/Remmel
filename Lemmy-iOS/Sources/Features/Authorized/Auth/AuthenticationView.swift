@@ -34,7 +34,7 @@ class AuthenticationView: UIView {
         super.init(frame: .zero)
         self.backgroundColor = UIColor.systemBackground
 
-        [signInLabel, emailOrUsernameTextField, passwordTextField].forEach { [self] (view) in
+        [signInLabel, emailOrUsernameTextField, passwordTextField].forEach { [self] view in
             self.addSubview(view)
         }
     }
@@ -46,18 +46,18 @@ class AuthenticationView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        signInLabel.snp.makeConstraints { (make) in
+        signInLabel.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide).offset(20)
             make.leading.trailing.equalToSuperview().inset(20)
         }
 
-        emailOrUsernameTextField.snp.makeConstraints { (make) in
+        emailOrUsernameTextField.snp.makeConstraints { make in
             make.top.equalTo(signInLabel.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(35)
         }
 
-        passwordTextField.snp.makeConstraints { (make) in
+        passwordTextField.snp.makeConstraints { make in
             make.top.equalTo(emailOrUsernameTextField.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(35)

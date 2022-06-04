@@ -19,7 +19,7 @@ extension CommunityHeaderView {
     }
 }
 
-class CommunityHeaderView: UIView {    
+class CommunityHeaderView: UIView {
     
     weak var delegate: CommunityHeaderViewDelegate?
     
@@ -80,29 +80,29 @@ class CommunityHeaderView: UIView {
         self.addSubview(horizontalStackView)
         self.addSubview(verticalStackView)
         
-        [commImageView, commNameLabel, UIView(), followButton].forEach { (view) in
+        [commImageView, commNameLabel, UIView(), followButton].forEach { view in
             horizontalStackView.addArrangedSubview(view)
         }
         
-        [communityDescriptionLabel, subscribersLabel, postsCountLabel, categoryLabel].forEach { (view) in
+        [communityDescriptionLabel, subscribersLabel, postsCountLabel, categoryLabel].forEach { view in
             verticalStackView.addArrangedSubview(view)
         }
         
-        commImageView.snp.makeConstraints { (make) in
+        commImageView.snp.makeConstraints { make in
             make.size.equalTo(appearance.iconSize)
         }
         
-        horizontalStackView.snp.makeConstraints { (make) in
+        horizontalStackView.snp.makeConstraints { make in
             make.height.equalTo(commImageView)
             make.top.equalToSuperview().inset(5)
             make.leading.trailing.equalToSuperview()
         }
         
-        communityDescriptionLabel.snp.makeConstraints { (make) in
+        communityDescriptionLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
         }
         
-        verticalStackView.snp.makeConstraints { (make) in
+        verticalStackView.snp.makeConstraints { make in
             make.top.equalTo(horizontalStackView.snp.bottom).offset(10)
             make.leading.trailing.equalTo(horizontalStackView)
             make.bottom.equalTo(self.snp.bottom).inset(5)
@@ -137,13 +137,13 @@ class CommunityHeaderView: UIView {
         followButton.bind(isSubcribed: isSubscribed)
     }
     
-    fileprivate func showReadMoreButtonIfTruncated(mdString: String) {        
+    fileprivate func showReadMoreButtonIfTruncated(mdString: String) {
         if communityDescriptionLabel.isTruncated {
             
             self.addSubview(descriptionReadMoreButton)
             descriptionReadMoreButton.titleLabel?.textAlignment = .right
             
-            descriptionReadMoreButton.snp.makeConstraints { (make) in
+            descriptionReadMoreButton.snp.makeConstraints { make in
                 make.trailing.equalTo(communityDescriptionLabel.snp.trailing)
                 make.width.equalTo(descriptionReadMoreButton.intrinsicContentSize.width + 15)
                 make.bottom.equalTo(communityDescriptionLabel.snp.bottom)
@@ -152,7 +152,9 @@ class CommunityHeaderView: UIView {
     }
     
     @objc func followButtonDidTapped(_ sender: FollowButton) {
-        guard let community = communityData else { return }
+        guard let community = communityData else {
+            return
+        }
         self.delegate?.headerViewDidTapped(followButton: sender, in: community)
     }
 }
