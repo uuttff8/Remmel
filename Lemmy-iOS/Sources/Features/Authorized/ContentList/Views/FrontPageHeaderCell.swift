@@ -22,7 +22,6 @@ class FrontPageHeaderView: UIView {
             data: (LemmyContentType.posts.label, LemmyContentType.comments.label),
             selectedIndex: contentSelected.index
         )
-        
         super.init(frame: .zero)
 
         contentTypeSegment.segmentControl.addTarget(
@@ -33,15 +32,15 @@ class FrontPageHeaderView: UIView {
 
         contentTypeSegment.segmentControl.selectedSegmentIndex = 0
 
-        self.addSubview(contentTypeSegment)
+        addSubview(contentTypeSegment)
 
         contentTypeSegment.snp.makeConstraints { make in
             make.top.bottom.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
-
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -58,29 +57,26 @@ class FrontPageHeaderCell: UITableViewCell {
 
     init(contentSelected: LemmyContentType, postListing: LMModels.Others.ListingType) {
         self.customView = FrontPageHeaderView(contentSelected: contentSelected)
-
         super.init(style: .default, reuseIdentifier: nil)
 
-        self.contentView.addSubview(customView)
-        self.customView.snp.makeConstraints { make in
+        contentView.addSubview(customView)
+
+        customView.snp.makeConstraints { make in
             make.top.leading.trailing.bottom.equalToSuperview()
         }
-        self.contentView.snp.remakeConstraints { make in
+        contentView.snp.remakeConstraints { make in
             make.height.equalTo(40)
             make.width.equalToSuperview()
         }
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-
-    }
-
     override var intrinsicContentSize: CGSize {
-        CGSize(width: UIView.noIntrinsicMetric, height: 40)
+        CGSize(width: UIView.noIntrinsicMetric, height: Constants.frontPageHeight)
     }
 }
 
@@ -104,12 +100,13 @@ class FrontPageSwitcher: UIView {
         super.init(frame: .zero)
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     func setupView() {
-        self.addSubview(segmentControl)
+        addSubview(segmentControl)
         translatesAutoresizingMaskIntoConstraints = false
 
         segmentControl.insertSegment(withTitle: self.data.0, at: 0, animated: false)
@@ -126,4 +123,8 @@ class FrontPageSwitcher: UIView {
             make.edges.equalToSuperview()
         }
     }
+}
+
+private enum Constants {
+    static let frontPageHeight: CGFloat = 40
 }

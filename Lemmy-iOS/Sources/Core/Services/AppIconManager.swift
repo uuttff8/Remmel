@@ -8,47 +8,42 @@
 
 import UIKit
 
+protocol AppIconManagerProtocol: AnyObject {
+    var current: LemmyAppIcon { get }
+    var availableIcons: [LemmyAppIcon] { get }
+
+    func setIcon(_ appIcon: LemmyAppIcon, completion: ((Bool) -> Void)?)
+}
+
 enum LemmyAppIcon: String, CaseIterable {
-    static var `default` = "whiteIcon"
-    
     case white = "whiteIcon"
     case black = "blackIcon"
     
-    var name: String? {
+    var name: String {
         switch self {
-        case .white:
-            return nil
-        case .black:
-            return "blackIcon"
+        case .white: return "whiteIcon"
+        case .black: return "blackIcon"
         }
     }
 }
 
-protocol AppIconManagerProtocol: AnyObject {
-    var current: LemmyAppIcon { get }
-    
-    var availableIcons: [LemmyAppIcon] { get }
-    
-    func setIcon(_ appIcon: LemmyAppIcon, completion: ((Bool) -> Void)?)
-}
-
 class AppIconManager: AppIconManagerProtocol {
     var current: LemmyAppIcon {
-        LemmyAppIcon.allCases.first(where: {
-            $0.name == UIApplication.shared.alternateIconName
-        }) ?? .white
+        LemmyAppIcon.allCases.first(where: { $0.name == UIApplication.shared.alternateIconName }) ?? .white
     }
     
-    var availableIcons: [LemmyAppIcon] { LemmyAppIcon.allCases }
+    var availableIcons: [LemmyAppIcon] {
+        LemmyAppIcon.allCases
+    }
     
     func setIcon(_ appIcon: LemmyAppIcon, completion: ((Bool) -> Void)?) {
-        guard current != appIcon,
-              UIApplication.shared.supportsAlternateIcons
-        else { return }
+        guard current != appIcon, UIApplication.shared.supportsAlternateIcons else {
+            return
+        }
         
         UIApplication.shared.setAlternateIconName(appIcon.name) { error in
             if let error = error {
-                print("Error setting alternate icon \(appIcon.name ?? ""): \(error.localizedDescription)")
+                Logger.common.error("Error setting alternate icon \(appIcon.name): \(error.localizedDescription)")
             }
             completion?(error != nil)
         }

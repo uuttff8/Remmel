@@ -20,13 +20,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         willConnectTo session: UISceneSession,
         options connectionOptions: UIScene.ConnectionOptions
     ) {
-        guard let windowScene = (scene as? UIWindowScene) else {
+        window = UIWindow(frame: UIScreen.main.bounds)
+        guard let windowScene = (scene as? UIWindowScene), let window = window else {
             return
         }
-        window = UIWindow(frame: UIScreen.main.bounds)
 
         let appCoordinator = AppCoordinator(
-            window: window!,
+            window: window,
             windowScene: windowScene,
             userAccountService: userAccountService
         )

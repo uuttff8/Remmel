@@ -11,9 +11,7 @@ import UIKit
 class FrontPageAssembly: Assembly {
     
     func makeModule() -> FrontPageViewController {
-        let viewModel = FrontPageViewModel(
-            userAccountService: UserAccountService()
-        )
+        let viewModel = FrontPageViewModel(userAccountService: UserAccountService())
         let vc = FrontPageViewController(viewModel: viewModel)
         viewModel.viewController = vc
         

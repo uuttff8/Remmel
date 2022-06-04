@@ -96,13 +96,14 @@ extension SettingsViewController: SettingsViewControllerProtocol {
         self.displaySelectionList(
             settingDescription: viewModel.settingDescription,
             title: "settings-appicon".localized,
-            onSettingSelected: { [weak self] settingSelected in
+            onSettingSelected: {
+                [weak self] settingSelected in
+                
                 self?.viewModel.doAppIconSettingsUpdate(request: .init(setting: settingSelected))
             }
         )
     }
     
-    // swiftlint:disable function_body_length
     func displaySettingsForm(viewModel: SettingsDataFlow.SettingsForm.ViewModel) {
         let authorGhCell = SettingsTableSectionViewModel.Cell(
             uniqueIdentifier: TableForm.authorGithub.rawValue,

@@ -14,6 +14,7 @@ protocol InstancesViewControllerProtocol: AnyObject {
 
 extension InstancesViewController {
     struct Appearance {
+        // swiftlint:disable:next force_unwrapping
         let mainLemmyInstance = InstanceUrl(string: "https://lemmy.ml/")!
     }
 }

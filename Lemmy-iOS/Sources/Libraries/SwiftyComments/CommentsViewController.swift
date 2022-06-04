@@ -21,7 +21,8 @@ open class SwipeActionAppearance {
     open var swipeActionImage: UIImage = SwipeActionAppearance.getCollapseImage()
     open var swipeActionHighlightedImage: UIImage = SwipeActionAppearance.getCollapseImage()
     static func getCollapseImage() -> UIImage {
-        return UIImage(named: "collapse")!
+        // swiftlint:disable:next force_unwrapping
+        UIImage(named: "collapse")!
     }
 }
 
@@ -61,7 +62,7 @@ open class CommentsViewController: UITableViewController, SwipeTableViewCellDele
     open var fullyExpanded: Bool = false {
         didSet {
             if fullyExpanded {
-                self.linearizeCurrentlyDisplayedComs()
+                linearizeCurrentlyDisplayedComs()
             }
         }
     }
@@ -117,14 +118,14 @@ open class CommentsViewController: UITableViewController, SwipeTableViewCellDele
     }
     
     override open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currentlyDisplayed.count
+        currentlyDisplayed.count
     }
     
     override open func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        UITableView.automaticDimension
     }
     override open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        UITableView.automaticDimension
     }
     
     override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

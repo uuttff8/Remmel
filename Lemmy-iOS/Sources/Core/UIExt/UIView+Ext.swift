@@ -129,6 +129,7 @@ extension UIView {
         drawHierarchy(in: bounds, afterScreenUpdates: true)
         let result = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+        // swiftlint:disable:next force_unwrapping
         return result!
     }
 }
@@ -137,20 +138,17 @@ extension UIView {
     static let loadingViewTag = 1_938_123_987
     
     func showActivityIndicatorView(style: UIActivityIndicatorView.Style = .large, color: UIColor? = nil) {
-        var loading = viewWithTag(UIView.loadingViewTag) as? UIActivityIndicatorView
-        if loading == nil {
-            loading = UIActivityIndicatorView(style: style)
-        }
+        let loading = viewWithTag(UIView.loadingViewTag) as? UIActivityIndicatorView ?? UIActivityIndicatorView(style: style)
         if let color = color {
-            loading?.color = color
+            loading.color = color
         }
-        loading?.translatesAutoresizingMaskIntoConstraints = false
-        loading!.startAnimating()
-        loading!.hidesWhenStopped = true
-        loading?.tag = UIView.loadingViewTag
-        addSubview(loading!)
-        loading?.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        loading?.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        loading.translatesAutoresizingMaskIntoConstraints = false
+        loading.startAnimating()
+        loading.hidesWhenStopped = true
+        loading.tag = UIView.loadingViewTag
+        addSubview(loading)
+        loading.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        loading.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
 
     func hideActivityIndicatorView() {

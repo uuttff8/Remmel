@@ -38,17 +38,17 @@ class SettingsViewModel: SettingsViewModelProtocol {
         let settingDescription = SettingsDataFlow.SettingDescription(
             settings: appIconManager.availableIcons.map {
                 .init(
-                    uniqueIdentifier: $0.name ?? LemmyAppIcon.default,
+                    uniqueIdentifier: $0.name,
                     title: FormatterHelper.humanReadableAppIconName(appIcon: $0)
                 )
             },
             currentSetting: .init(
-                uniqueIdentifier: appIconManager.current.name ?? LemmyAppIcon.default,
+                uniqueIdentifier: appIconManager.current.name,
                 title: FormatterHelper.humanReadableAppIconName(appIcon: appIconManager.current)
             )
         )
         
-        self.viewController?.displayAppIconSetting(
+        viewController?.displayAppIconSetting(
             viewModel: .init(
                 settingDescription: settingDescription
             )
@@ -57,7 +57,7 @@ class SettingsViewModel: SettingsViewModelProtocol {
     
     func doAppIconSettingsUpdate(request: SettingsDataFlow.AppIconSettingUpdate.Request) {
         let newAppIcon = LemmyAppIcon(rawValue: request.setting.uniqueIdentifier) ?? .white
-        self.appIconManager.setIcon(newAppIcon) { completion in
+        appIconManager.setIcon(newAppIcon) { completion in
             print(completion)
         }
     }

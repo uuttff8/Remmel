@@ -89,15 +89,15 @@ final class ProfileSettingsViewController: UIViewController, CatalystDismissProt
         super.viewDidLoad()
         
         // https://stackoverflow.com/questions/32696615/warning-attempt-to-present-on-which-is-already-presenting-null
-        self.definesPresentationContext = true
+        definesPresentationContext = true
         
         title = "profile-settings-title".localized
-        self.navigationItem.rightBarButtonItem = updateBarButton
+        navigationItem.rightBarButtonItem = updateBarButton
         if #available(macCatalyst 11.3, *) {
-            self.navigationItem.leftBarButtonItem = closeBarButton
+            navigationItem.leftBarButtonItem = closeBarButton
         }
 
-        self.viewModel.doProfileSettingsForm(request: .init())
+        viewModel.doProfileSettingsForm(request: .init())
     }
     
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
@@ -105,37 +105,37 @@ final class ProfileSettingsViewController: UIViewController, CatalystDismissProt
     }
     
     @objc private func updateBarButtonTapped() {
-        self.setNewBarButton(loading: true)
-        self.viewModel.doRemoteProfileSettingsUpdate(request: .init(data: tableFormData))
+        setNewBarButton(loading: true)
+        viewModel.doRemoteProfileSettingsUpdate(request: .init(data: tableFormData))
     }
         
     @objc private func dismissSelf() {
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
     
     private func setNewBarButton(loading: Bool) {
         let button: UIBarButtonItem = loading ? loadingBarButton : updateBarButton
-        self.navigationItem.rightBarButtonItem = button
+        navigationItem.rightBarButtonItem = button
     }
 }
 
 extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
-    // swiftlint:disable function_body_length
+
     func displayProfileSettingsForm(viewModel: ProfileSettings.ProfileSettingsForm.ViewModel) {
-        self.tableFormData.bio = viewModel.bio
-        self.tableFormData.displayName = viewModel.displayName
-        self.tableFormData.email = viewModel.email
-        self.tableFormData.matrix = viewModel.matrix
-        self.tableFormData.showNsfwContent = viewModel.nsfwContent
-        self.tableFormData.sendNotificationsToEmail = viewModel.notifToEmail
+        tableFormData.bio = viewModel.bio
+        tableFormData.displayName = viewModel.displayName
+        tableFormData.email = viewModel.email
+        tableFormData.matrix = viewModel.matrix
+        tableFormData.showNsfwContent = viewModel.nsfwContent
+        tableFormData.sendNotificationsToEmail = viewModel.notifToEmail
         
-        self.profileSettingsView?.configure(viewModel: getNewTableData(viewModel: viewModel))
+        profileSettingsView?.configure(viewModel: getNewTableData(viewModel: viewModel))
     }
     
     func displayLoadingIndicator(viewModel: ProfileSettings.LoadingIndicator.ViewModel) {
         viewModel.isLoading
-            ? self.profileSettingsView?.showLoadingIndicator()
-            : self.profileSettingsView?.hideLoadingIndicator()
+            ? profileSettingsView?.showLoadingIndicator()
+            : profileSettingsView?.hideLoadingIndicator()
     }
     
     func displayError(viewModel: ProfileSettings.SomeError.ViewModel) {
@@ -154,8 +154,8 @@ extension ProfileSettingsViewController: ProfileSettingsViewControllerProtocol {
     }
     
     func displaySuccessUpdatingSetting() {
-        self.setNewBarButton(loading: false)
-        self.dismissSelf()
+        setNewBarButton(loading: false)
+        dismissSelf()
     }
     
     private func updateTableViewModel() {
@@ -286,7 +286,7 @@ extension ProfileSettingsViewController: ProfileSettingsViewDelegate {
         didReportTextChange text: String?,
         identifiedBy uniqueIdentifier: UniqueIdentifierType?
     ) {
-        self.handleTextField(uniqueIdentifier: uniqueIdentifier, text: text)
+        handleTextField(uniqueIdentifier: uniqueIdentifier, text: text)
     }
     
     func settingsCell(
@@ -294,7 +294,7 @@ extension ProfileSettingsViewController: ProfileSettingsViewDelegate {
         didReportTextChange text: String,
         identifiedBy uniqueIdentifier: UniqueIdentifierType?
     ) {
-        self.handleTextField(uniqueIdentifier: uniqueIdentifier, text: text)
+        handleTextField(uniqueIdentifier: uniqueIdentifier, text: text)
     }
     
     func settingsTableView(
@@ -344,7 +344,7 @@ extension ProfileSettingsViewController: ProfileSettingsViewDelegate {
         }
         
         // safe changes
-        self.updateTableViewModel()
+        updateTableViewModel()
     }
 }
 

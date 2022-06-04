@@ -10,11 +10,11 @@ import Foundation
 
 extension String {
     func removeNewLines() -> String {
-        return self.filter({ !("\n".contains($0)) })
+        trimmingCharacters(in: .newlines)
     }
     
     func trim() -> String {
-        return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
     
     var encodeUrl: String {

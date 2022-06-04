@@ -215,13 +215,13 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
     
     func showMoreAction(in comment: LMModels.Views.CommentView) {
         if let index = commentsViewController.commentDataSource.getElementIndex(by: comment.id) {
-            guard let coordinator = coordinator else {
+            guard let coordinator = coordinator, let commentContent = commentsViewController.commentDataSource[index].commentContent else {
                 return
             }
             showMoreHandlerService.showMoreInComment(
                 on: self,
                 coordinator: coordinator,
-                comment: commentsViewController.commentDataSource[index].commentContent!
+                comment: commentContent
             ) { updatedComment in
                 self.commentsViewController.updateExistingComment(updatedComment)
             }

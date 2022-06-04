@@ -10,31 +10,17 @@ import XCGLogger
 import Combine
 import Foundation
 
-class Logger {
+enum Logger {
     private static let appleLogDestination = "advancedLogger.systemDestination"
     private static let commonLogDestitation = "advancedLogger"
-    
-    private static let systemDestination: AppleSystemLogDestination = {
-        $0.outputLevel = .debug
-        $0.showLogIdentifier = false
-        $0.showFunctionName = true
-        $0.showThreadName = true
-        $0.showLevel = true
-        $0.showFileName = true
-        $0.showLineNumber = true
-        $0.showDate = true
-        
-        $0.logQueue = XCGLogger.logQueue
-        return $0
-    }(AppleSystemLogDestination(identifier: appleLogDestination))
-    
+
     static let common: XCGLogger = {
         $0.add(destination: systemDestination)
         $0.logAppDetails()
         return $0
     }(XCGLogger(identifier: commonLogDestitation, includeDefaultDestinations: false))
     
-    class func logCombineCompletion<T: Error>(
+    static func logCombineCompletion<T: Error>(
         _ completion: Subscribers.Completion<T>,
         functionName: StaticString = #function,
         fileName: StaticString = #file,
@@ -48,12 +34,12 @@ class Logger {
         }
     }
     
-    class func log(request: URLRequest) {
+    static func log(request: URLRequest) {
         
         let urlString = request.url?.absoluteString ?? ""
         let components = NSURLComponents(string: urlString)
         
-        let method = request.httpMethod != nil ? "\(request.httpMethod!)": ""
+        let method = request.httpMethod != nil ? "\(request.httpMethod ?? "")": ""
         let path = "\(components?.path ?? "")"
         let query = "\(components?.query ?? "")"
         let host = "\(components?.host ?? "")"
@@ -76,7 +62,7 @@ class Logger {
         Logger.common.info(requestLog)
     }
     
-    class func log(data: Data?, response: HTTPURLResponse?, error: Error?) {
+    static func log(data: Data?, response: HTTPURLResponse?, error: Error?) {
         
         let urlString = response?.url?.absoluteString
         let components = NSURLComponents(string: urlString ?? "")
@@ -111,4 +97,19 @@ class Logger {
         responseLog += "<------------------------\n"
         Logger.common.info(response)
     }
+
+    // MARK: - Private
+    private static let systemDestination: AppleSystemLogDestination = {
+        $0.outputLevel = .debug
+        $0.showLogIdentifier = false
+        $0.showFunctionName = true
+        $0.showThreadName = true
+        $0.showLevel = true
+        $0.showFileName = true
+        $0.showLineNumber = true
+        $0.showDate = true
+
+        $0.logQueue = XCGLogger.logQueue
+        return $0
+    }(AppleSystemLogDestination(identifier: appleLogDestination))
 }

@@ -185,12 +185,10 @@ extension EditPostViewController: EditPostViewControllerProtocol {
     
     func updateTableViewModel() {
         let sections = getSections()
-        
         let viewModel = SettingsTableViewModel(sections: sections)
         editPostView?.updateViewModel(viewModel)
     }
     
-    // swiftlint:disable:next function_body_length
     private func getSections() -> [SettingsTableSectionViewModel] {
         let headerCell = SettingsTableSectionViewModel.Cell(
             uniqueIdentifier: TableForm.headerCell.rawValue,
@@ -247,22 +245,22 @@ extension EditPostViewController: EditPostViewControllerProtocol {
         )
                 
         let sections: [SettingsTableSectionViewModel] = [
-            .init(
+            SettingsTableSectionViewModel(
                 header: nil,
                 cells: [headerCell],
                 footer: nil
             ),
-            .init(
+            SettingsTableSectionViewModel(
                 header: .init(title: "create-content-create-url".localized),
                 cells: [urlCell],
                 footer: nil
             ),
-            .init(
+            SettingsTableSectionViewModel(
                 header: nil,
                 cells: [nameCell, bodyCell],
                 footer: nil
             ),
-            .init(
+            SettingsTableSectionViewModel(
                 header: nil,
                 cells: [nsfwCell],
                 footer: nil

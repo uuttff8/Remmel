@@ -26,8 +26,8 @@ extension UserDefaults {
 
     // swiftlint:disable:next force_unwrapping
     static var authShared = UserDefaults(suiteName: authSuiteName)!
-    // swiftlint:disable:next force_unwrapping
     static var unauthShared: UserDefaults {
+        // swiftlint:disable:next force_unwrapping
         let userDefaults = UserDefaults(suiteName: unauthSuiteName)!
         
         userDefaults.register(defaults: [

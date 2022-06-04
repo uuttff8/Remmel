@@ -37,10 +37,11 @@ func ContinueIfLogined(
             coordinator.childCoordinators.append(myCoordinator)
             myCoordinator.router.setRoot(myCoordinator, isAnimated: true)
 
-            UIApplication.shared.windows.first!.replaceRootViewControllerWith(
-                myCoordinator.router.navigationController!,
-                animated: true
-            )
+            guard let navigationController = myCoordinator.router.navigationController else {
+                return
+            }
+
+            UIApplication.shared.windows.first?.replaceRootViewControllerWith(navigationController, animated: true)
         } else {
             fatalError("Unexpexted error, must not be happen")
         }

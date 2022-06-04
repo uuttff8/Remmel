@@ -63,7 +63,7 @@ final class AccountsCoordinator: BaseCoordinator {
         self.childCoordinators.append(myCoordinator)
         myCoordinator.start()
         
-        UIApplication.shared.windows.first!.replaceRootViewControllerWith(
+        UIApplication.shared.windows.first?.replaceRootViewControllerWith(
             myCoordinator.rootViewController,
             animated: true
         )

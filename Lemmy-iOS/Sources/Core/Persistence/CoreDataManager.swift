@@ -20,7 +20,9 @@ final class CoreDataHelper: NSObject {
     private let lockQueue = DispatchQueue(label: "com.test.LockQueue", attributes: [])
 
     override private init() {
+        // swiftlint:disable:next force_unwrapping
         let modelURL = Bundle.main.url(forResource: "LemmyCoreData", withExtension: "momd")!
+        // swiftlint:disable:next force_unwrapping
         self.model = NSManagedObjectModel(contentsOf: modelURL)!
 
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)

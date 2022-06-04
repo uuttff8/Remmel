@@ -110,8 +110,8 @@ struct InstanceUrl: Codable {
             .replacingOccurrences(of: "http://", with: "")
             .replacingOccurrences(of: "wss://", with: "")
         
-        if link.contains("/") {
-            link.removeSubrange(link.firstIndex(of: "/")!..<link.endIndex)
+        if link.contains("/"), let firstIndex = link.firstIndex(of: "/") {
+            link.removeSubrange(firstIndex..<link.endIndex)
         }
         
         self.rawHost = link

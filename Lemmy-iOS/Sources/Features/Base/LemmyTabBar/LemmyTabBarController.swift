@@ -26,11 +26,10 @@ class LemmyTabBarController: UITabBarController {
         self.delegate = self
     }
     
-    // swiftlint:disable function_body_length
     func createTabs() {
         
         frontPageCoordinator = FrontPageCoordinator(router: nil)
-        self.coordinator?.store(coordinator: frontPageCoordinator)
+        coordinator?.store(coordinator: frontPageCoordinator)
         frontPageCoordinator.start()
         let frontPageRouter = Router(
             navigationController: StyledNavigationController(
@@ -44,8 +43,8 @@ class LemmyTabBarController: UITabBarController {
         frontPageCoordinator.router?.viewController = frontPageCoordinator.rootViewController
         frontPageCoordinator.navigationController = frontPageCoordinator.router?.navigationController
         
-        self.communitiesCoordinator = CommunitiesCoordinator(router: nil)
-        self.coordinator?.store(coordinator: communitiesCoordinator)
+        communitiesCoordinator = CommunitiesCoordinator(router: nil)
+        coordinator?.store(coordinator: communitiesCoordinator)
         communitiesCoordinator.start()
         let communitiesRouter = Router(
             navigationController: StyledNavigationController(
@@ -58,14 +57,8 @@ class LemmyTabBarController: UITabBarController {
         communitiesCoordinator.router = communitiesRouter
         communitiesCoordinator.router?.viewController = communitiesCoordinator.rootViewController
         communitiesCoordinator.navigationController = communitiesCoordinator.router?.navigationController
-        
-        // its wrapper, real controller created in this method
-        // func tabBarController(
-        // _ tabBarController: UITabBarController,
-        // shouldSelect viewController: UIViewController
-        // ) -> Bool
-        
-        self.createPostOrCommunityCoordinator = CreatePostOrCommunityCoordinator(navigationController: nil)
+                
+        createPostOrCommunityCoordinator = CreatePostOrCommunityCoordinator(navigationController: nil)
         let createPostOrCommentController = CreatePostOrCommunityViewController()
         createPostOrCommentController.tabBarItem = UITabBarItem(title: "",
                                                                 image: UIImage(systemName: "plus.circle"),
@@ -88,11 +81,13 @@ class LemmyTabBarController: UITabBarController {
         inboxNotificationsCoordinator.router?.viewController = inboxNotificationsCoordinator.rootViewController
         inboxNotificationsCoordinator.navigationController = inboxNotificationsCoordinator.router?.navigationController
 
-        // swiftlint:disable:next force_unwrapping
-        self.viewControllers = [ frontPageRouter.navigationController!,
-                                 createPostOrCommentController,
-                                 communitiesRouter.navigationController!,
-                                 inboxRouter.navigationController! ]
+        // swiftlint:disable force_unwrapping
+        self.viewControllers = [
+            frontPageRouter.navigationController!,
+            createPostOrCommentController,
+            communitiesRouter.navigationController!,
+            inboxRouter.navigationController!
+        ]
         
         self.selectedIndex = 0
     }

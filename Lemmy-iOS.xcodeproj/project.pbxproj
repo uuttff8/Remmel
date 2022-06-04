@@ -1657,19 +1657,19 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		4ECCEEEB250BE85B0075F921 /* FrontPage */ = {
+		4ECCEEEB250BE85B0075F921 /* ContentList */ = {
 			isa = PBXGroup;
 			children = (
+				4ECCEEFC250C151A0075F921 /* Views */,
 				4E0A8E89255DD00700B06AF6 /* SearchView */,
 				4E107051253476D4009EABDA /* Comments */,
 				4E10704F253476C7009EABDA /* Posts */,
-				4ECCEEFC250C151A0075F921 /* cells */,
 				4EFA81BA255FFD14008AF535 /* FrontPageAssembly.swift */,
 				4ECCEEEC250BE8870075F921 /* FrontPageViewController.swift */,
 				4EFA81C225600056008AF535 /* FrontPageViewModel.swift */,
 				4ECCEEEE250BE89B0075F921 /* FrontPageCoordinator.swift */,
 			);
-			path = FrontPage;
+			path = ContentList;
 			sourceTree = "<group>";
 		};
 		4ECCEEF0250C03910075F921 /* LemmyTabBar */ = {
@@ -1695,12 +1695,12 @@
 			path = CommunitiesPreview;
 			sourceTree = "<group>";
 		};
-		4ECCEEFC250C151A0075F921 /* cells */ = {
+		4ECCEEFC250C151A0075F921 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				4ECCEEFD250CA30E0075F921 /* FrontPageHeaderCell.swift */,
 			);
-			path = cells;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		4ECCEF07250CC39A0075F921 /* Objects */ = {
@@ -1880,7 +1880,7 @@
 		4EED87142744972300DB15A8 /* Authorized */ = {
 			isa = PBXGroup;
 			children = (
-				4ECCEEEB250BE85B0075F921 /* FrontPage */,
+				4ECCEEEB250BE85B0075F921 /* ContentList */,
 				4ECCEEE3250B8F690075F921 /* Auth */,
 				4E10706F2534E942009EABDA /* CreatePostOrCommunity */,
 				4ECCEEF5250C0E230075F921 /* CommunitiesPreview */,

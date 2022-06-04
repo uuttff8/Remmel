@@ -19,8 +19,9 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
     init(router: RouterProtocol?) {
         self.router = router
         super.init()
-        self.navigationController = router?.navigationController
-        self.router?.viewController = self.rootViewController
+        
+        navigationController = router?.navigationController
+        router?.viewController = self.rootViewController
     }
     
     override func start() {
@@ -33,10 +34,12 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
             communityId: communityId,
             communityName: communityName
         )
-        self.store(coordinator: coordinator)
+        store(coordinator: coordinator)
         coordinator.start()
-        self.router?.push(coordinator.rootViewController, isAnimated: true, onNavigateBack: {
-            self.free(coordinator: coordinator)
+        router?.push(coordinator.rootViewController, isAnimated: true, onNavigateBack: {
+            [weak self] in
+
+            self?.free(coordinator: coordinator)
         })
     }
     
@@ -67,11 +70,11 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
     }
     
     func goToPostScreen(postId: Int) {
-        self.goToPostScreenWrapper(post: nil, postId: postId)
+        goToPostScreenWrapper(post: nil, postId: postId)
     }
     
     func goToPostScreen(post: LMModels.Views.PostView) {
-        self.goToPostScreenWrapper(post: post, postId: post.id)
+        goToPostScreenWrapper(post: post, postId: post.id)
     }
     
     private func goToPostScreenWrapper(post: LMModels.Views.PostView?, postId: Int) {
@@ -129,18 +132,15 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
             
             let myCoordinator = InstancesCoordinator(router: Router(navigationController: StyledNavigationController()))
             myCoordinator.start()
-            self.childCoordinators.append(myCoordinator)
+            childCoordinators.append(myCoordinator)
             myCoordinator.router.setRoot(myCoordinator, isAnimated: true)
             
-            guard let appWindow = UIApplication.shared.windows.first else {
+            guard let appWindow = UIApplication.shared.windows.first, let navController = myCoordinator.router.navigationController else {
                 Logger.common.emergency("App must have only one `root` window")
                 return
             }
             
-            appWindow.replaceRootViewControllerWith(
-                myCoordinator.router.navigationController!,
-                animated: true
-            )
+            appWindow.replaceRootViewControllerWith(navController, animated: true)
         } else {
             Logger.common.emergency("At going to instances, we must logout user!")
             fatalError("Unexpexted error, must not be happen")
@@ -152,7 +152,7 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
             navigationController: StyledNavigationController(),
             predefinedCommunity: predefinedCommunity
         )
-        self.store(coordinator: createPostCoord)
+        store(coordinator: createPostCoord)
         createPostCoord.start()
 
         guard let navController = createPostCoord.navigationController else {
@@ -173,12 +173,11 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
     }
     
     func goToEditComment(comment: LMModels.Source.Comment, completion: (() -> Void)? = nil) {
-        self.goToWriteMessageWrapper(action: .edit(comment: comment), completion: completion)
+        goToWriteMessageWrapper(action: .edit(comment: comment), completion: completion)
     }
     
     func goToWriteMessage(recipientId: Int, completion: (() -> Void)? = nil) {
-        self.goToWriteMessageWrapper(action: .replyToPrivateMessage(recipientId: recipientId),
-                                     completion: completion)
+        goToWriteMessageWrapper(action: .replyToPrivateMessage(recipientId: recipientId),  completion: completion)
     }
     
     private func goToWriteMessageWrapper(action: WriteMessageAssembly.Action, completion: (() -> Void)? = nil) {
@@ -194,6 +193,6 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
     
     // MARK: - SFSafariViewControllerDelegate -
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        self.rootViewController.dismiss(animated: true)
+        rootViewController.dismiss(animated: true)
     }
 }

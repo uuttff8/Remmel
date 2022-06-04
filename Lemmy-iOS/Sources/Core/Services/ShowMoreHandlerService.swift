@@ -35,7 +35,6 @@ protocol ShowMoreHandlerServiceProtocol {
         on viewController: InboxMentionsViewController,
         coordinator: BaseCoordinator,
         mention: LMModels.Views.PersonMentionView
-//        updateCompletion: @escaping ((LMModels.Views.CommentView) -> Void)
     )
 }
 
@@ -59,11 +58,11 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         post: LMModels.Views.PostView,
         updateCompletion: @escaping ((LMModels.Views.PostView) -> Void)
     ) {
-        let mineActions = self.minePostActions(post: post.post, coordinator: coordinator, completion: updateCompletion)
+        let mineActions = minePostActions(post: post.post, coordinator: coordinator, completion: updateCompletion)
         
         let alertController = createActionSheetController(vc: viewController)
-        let savePostAction = self.createSavePostAction(postId: post.id, saved: post.saved, completion: updateCompletion)
-        let shareAction = self.createShareAction(on: viewController, toEndpoint: post.post.apId)
+        let savePostAction = createSavePostAction(postId: post.id, saved: post.saved, completion: updateCompletion)
+        let shareAction = createShareAction(on: viewController, toEndpoint: post.post.apId)
         
         let reportAction = UIAlertAction(title: "alert-report".localized, style: .destructive) { _ in
             
@@ -92,11 +91,13 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
     ) {
         let alertController = createActionSheetController(vc: viewController)
         
-        let mineActions = self.mineCommentActions(comment: comment.comment, coordinator: coordinator)
-        let saveCommentAction = self.createSaveCommentAction(commentId: comment.id,
-                                                             saved: comment.saved,
-                                                             completion: updateCompletion)
-        let shareAction = self.createShareAction(on: viewController, toEndpoint: comment.getApIdRelatedToPost())
+        let mineActions = mineCommentActions(comment: comment.comment, coordinator: coordinator)
+        let saveCommentAction = createSaveCommentAction(
+            commentId: comment.id,
+            saved: comment.saved,
+            completion: updateCompletion
+        )
+        let shareAction = createShareAction(on: viewController, toEndpoint: comment.getApIdRelatedToPost())
         let reportAction = UIAlertAction(title: "alert-report".localized, style: .destructive) { _ in
             
             ContinueIfLogined(on: viewController, coordinator: coordinator) {
@@ -152,7 +153,6 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         on viewController: InboxMentionsViewController,
         coordinator: BaseCoordinator,
         mention: LMModels.Views.PersonMentionView
-//        updateCompletion: @escaping ((LMModels.Views.CommentView) -> Void)
     ) {
         let alertController = createActionSheetController(vc: viewController)
         
@@ -201,7 +201,7 @@ class ShowMoreHandlerService: ShowMoreHandlerServiceProtocol {
         controller.addActions([
             UIAlertAction(title: "alert-cancel".localized, style: .cancel),
             UIAlertAction(title: "alert-report".localized, style: .default, handler: { _ in
-                if let textFieldText = controller.textFields!.first!.text, !textFieldText.isEmpty {
+                if let textFieldText = controller.textFields?.first?.text, !textFieldText.isEmpty {
                     reportAction(textFieldText)
                 } else {
                     self.showAlertWithTextField(over: viewController, reportAction: reportAction)

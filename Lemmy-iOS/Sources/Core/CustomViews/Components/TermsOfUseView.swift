@@ -35,7 +35,7 @@ final class TermsOfUseView: UIView {
         
         let attributedLinkStringTerms = NSMutableAttributedString(
             string: "instances-terms-2".localized,
-            attributes: [NSAttributedString.Key.link: URL(string: "https://uuttff8.github.io/static/apps/Lemmer/terms")!,
+            attributes: [NSAttributedString.Key.link: TermUrls.terms.url,
                          NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
         )
         
@@ -46,7 +46,7 @@ final class TermsOfUseView: UIView {
         )
         let attributedLinkStringPrivacy = NSMutableAttributedString(
             string: "instances-terms-4".localized,
-            attributes: [NSAttributedString.Key.link: URL(string: "https://uuttff8.github.io/static/apps/Lemmer/privacy")!,
+            attributes: [NSAttributedString.Key.link: TermUrls.privacy.url,
                          NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
         )
         
@@ -91,5 +91,15 @@ extension TermsOfUseView: ProgrammaticallyViewProtocol {
         self.snp.makeConstraints {
             $0.height.equalTo(textView.snp.height)
         }
+    }
+}
+
+private enum TermUrls: String {
+    case privacy = "https://uuttff8.github.io/static/apps/Lemmer/privacy"
+    case terms = "https://uuttff8.github.io/static/apps/Lemmer/terms"
+
+    var url: URL {
+        // swiftlint:disable:next force_unwrapping
+        URL(string: self.rawValue)!
     }
 }

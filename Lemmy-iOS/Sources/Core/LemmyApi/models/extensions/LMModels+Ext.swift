@@ -32,16 +32,12 @@ extension LMModels.Views.CommentView {
 
 extension LMModels.Source.PersonSafe {
     var originalInstance: String {
-        extractInstance(instance: self.actorId)
+        actorId.host ?? ""
     }
 }
 
 extension LMModels.Source.CommunitySafe {
     var originalInstance: String {
-        extractInstance(instance: self.actorId)
+        actorId.host ?? ""
     }
-}
-
-private func extractInstance(instance url: URL) -> String {
-    return url.host!
 }
