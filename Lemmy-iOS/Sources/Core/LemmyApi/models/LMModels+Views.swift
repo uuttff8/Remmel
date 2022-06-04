@@ -32,8 +32,8 @@ extension LMModels {
             let creatorBannedFromCommunity: Bool
             let subscribed: Bool
             let saved: Bool
-            let myVote: Int?
             let creatorBlocked: Bool
+            let myVote: Int?
             
             enum CodingKeys: String, CodingKey {
                 case personMention = "person_mention"
@@ -41,13 +41,12 @@ extension LMModels {
                 case recipient, counts
                 case creatorBannedFromCommunity = "creator_banned_from_community"
                 case subscribed, saved
-                case myVote = "my_vote"
                 case creatorBlocked = "creator_blocked"
+                case myVote = "my_vote"
             }
         }
         
         struct LocalUserSettingsView: Codable {
-            
             let localUser: LMModels.Source.LocalUserSettings
             let person: LMModels.Source.PersonSafe
             let counts: LMModels.Aggregates.PersonAggregates
@@ -60,7 +59,6 @@ extension LMModels {
         
         struct SiteView: Codable {
             let site: LMModels.Source.Site
-            let creator: LMModels.Source.PersonSafe
             let counts: LMModels.Aggregates.SiteAggregates
         }
         
@@ -80,7 +78,7 @@ extension LMModels {
             let uuid = UUID()
             
             var id: Int {
-                self.post.id
+                post.id
             }
             
             let post: LMModels.Source.Post
@@ -163,18 +161,18 @@ extension LMModels {
             let community: LMModels.Source.CommunitySafe
             let creator: LMModels.Source.PersonSafe
             let commentCreator: LMModels.Source.PersonSafe
+            let counts: LMModels.Aggregates.CommentAggregates
             let creatorBannedFromCommunity: Bool
             let myVote: Int?
-            let counts: LMModels.Aggregates.PostAggregates
             let resolver: LMModels.Source.PersonSafe?
             
             enum CodingKeys: String, CodingKey {
-                case commentReport = "post_report"
-                case commentCreator = "post_creator"
+                case commentReport = "comment_report"
+                case commentCreator = "comment_creator"
+                case counts
                 case post, comment, community, creator
                 case creatorBannedFromCommunity = "creator_banned_from_community"
                 case myVote = "my_vote"
-                case counts
                 case resolver
             }
         }

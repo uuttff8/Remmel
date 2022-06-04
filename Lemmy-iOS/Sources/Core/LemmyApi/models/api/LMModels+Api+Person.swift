@@ -64,9 +64,9 @@ extension LMModels.Api {
         }
         
         struct CaptchaResponse: Codable {
-            let png: String // A Base64 encoded png
-            let wav: String // A Base64 encoded wav aud,
-            let uuid: String
+            let png: String  // A Base64 encoded png
+            let wav: String  // A Base64 encoded wav file
+            let uuid: String // A UUID to match the one given on request.
         }
         
         struct SaveUserSettings: Codable {
@@ -87,6 +87,7 @@ extension LMModels.Api {
             let botAccount: Bool?
             let showBotAccounts: Bool?
             let showReadPosts: Bool?
+            let showNewPostNotifs: Bool?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
@@ -104,6 +105,7 @@ extension LMModels.Api {
                 case showScores = "show_scores"
                 case botAccount = "bot_account"
                 case showBotAccounts = "show_bot_accounts"
+                case showNewPostNotifs = "show_new_post_notifs"
                 case auth
             }
         }
@@ -168,16 +170,20 @@ extension LMModels.Api {
         
         struct GetPersonDetailsResponse: Codable {
             let personView: LMModels.Views.PersonViewSafe
-            let moderates: [LMModels.Views.CommunityModeratorView]
             let comments: [LMModels.Views.CommentView]
             let posts: [LMModels.Views.PostView]
+            let moderates: [LMModels.Views.CommunityModeratorView]
             
             enum CodingKeys: String, CodingKey {
                 case personView = "person_view"
-                case moderates
                 case comments
                 case posts
+                case moderates
             }
+        }
+
+        struct MarkAllAsRead: Codable {
+            let auth: String
         }
         
         struct GetRepliesResponse: Codable {
@@ -187,11 +193,7 @@ extension LMModels.Api {
         struct GetPersonMentionsResponse: Codable {
             let mentions: [LMModels.Views.PersonMentionView]
         }
-        
-        struct MarkAllAsRead: Codable {
-            let auth: String
-        }
-        
+                
         struct AddAdmin: Codable {
             let personId: Int
             let added: Bool

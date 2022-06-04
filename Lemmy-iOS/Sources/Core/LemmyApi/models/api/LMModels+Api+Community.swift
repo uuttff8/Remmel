@@ -19,12 +19,13 @@ extension LMModels.Api {
         
         struct GetCommunityResponse: Codable {
             let communityView: LMModels.Views.CommunityView
+            let site: LMModels.Source.Site?
             let moderators: [LMModels.Views.CommunityModeratorView]
             let online: Int
             
             enum CodingKeys: String, CodingKey {
                 case communityView = "community_view"
-                case moderators, online
+                case site, moderators, online
             }
         }
         
@@ -35,10 +36,12 @@ extension LMModels.Api {
             let icon: String?
             let banner: String?
             let nsfw: Bool?
+            let postingRestrictedToMods: Bool?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case name, title, description, icon, banner
+                case postingRestrictedToMods = "posting_restricted_to_mods"
                 case nsfw, auth
             }
         }
@@ -123,11 +126,14 @@ extension LMModels.Api {
             let icon: String?
             let banner: String?
             let nsfw: Bool?
+            let postingRestrictedToMods: Bool?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
-                case title, description, icon, banner, nsfw, auth
+                case title, description, icon, banner, nsfw
+                case postingRestrictedToMods = "posting_restricted_to_mods"
+                case auth
             }
         }
         
@@ -146,7 +152,7 @@ extension LMModels.Api {
             let communityId: Int
             let removed: Bool
             let reason: String?
-            let expires: Int?
+            let expires: Int? /// The expire time in Unix seconds
             let auth: String
             
             enum CodingKeys: String, CodingKey {
@@ -175,6 +181,27 @@ extension LMModels.Api {
                 case communityId = "community_id"
                 case personId = "person_id"
                 case auth
+            }
+        }
+
+        struct BlockCommunity: Codable {
+            let communityId: Int
+            let block: Bool
+            let auth: String
+
+            enum CodingKeys: String, CodingKey {
+                case communityId = "community_id"
+                case block, auth
+            }
+        }
+
+        struct BlockCommunityResponse: Codable {
+            let communityView: LMModels.Views.CommunityView
+            let blocked: Bool
+
+            enum CodingKeys: String, CodingKey {
+                case communityView = "community_view"
+                case blocked
             }
         }
     }

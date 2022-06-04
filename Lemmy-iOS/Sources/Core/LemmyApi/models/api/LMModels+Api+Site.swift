@@ -73,6 +73,7 @@ extension LMModels.Api {
             let bannedFromCommunity: [LMModels.Views.ModBanFromCommunityView]
             let banned: [LMModels.Views.ModBanView]
             let addedToCommunity: [LMModels.Views.ModAddCommunityView]
+            let transferredToCommunity: [LMModels.Views.ModTransferCommunityView]
             let added: [LMModels.Views.ModAddView]
             
             enum CodingKeys: String, CodingKey {
@@ -84,6 +85,7 @@ extension LMModels.Api {
                 case bannedFromCommunity = "banned_from_community"
                 case banned
                 case addedToCommunity = "added_to_community"
+                case transferredToCommunity = "transferred_to_community"
                 case added
             }
         }
@@ -97,10 +99,13 @@ extension LMModels.Api {
             let enableDownvotes: Bool?
             let openRegistration: Bool?
             let enableNsfw: Bool?
+            let communityCreationAdminOnly: Bool?
             let requireEmailVerification: Bool?
             let requireApplication: Bool?
             let applicationQuestion: Bool?
             let privateInstance: Bool?
+            let defaultTheme: String?
+            let defaultPostListingType: String?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
@@ -108,10 +113,13 @@ extension LMModels.Api {
                 case enableDownvotes = "enable_downvotes"
                 case openRegistration = "open_registration"
                 case enableNsfw = "enable_nsfw"
+                case communityCreationAdminOnly = "community_creation_admin_only"
                 case requireEmailVerification = "require_email_verification"
                 case requireApplication = "require_application"
                 case applicationQuestion = "application_question"
                 case privateInstance = "private_instance"
+                case defaultTheme = "default_theme"
+                case defaultPostListingType = "default_post_listing_type"
                 case auth
             }
         }
@@ -125,10 +133,14 @@ extension LMModels.Api {
             let enableDownvotes: Bool?
             let openRegistration: Bool?
             let enableNsfw: Bool?
+            let communityCreationAdminOnly: Bool?
             let requireEmailVerification: Bool?
             let requireApplication: Bool?
             let applicationQuestion: Bool?
             let privateInstance: Bool?
+            let defaultTheme: String?
+            let legalInformation: String?
+            let defaultPostListingType: String?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
@@ -136,10 +148,14 @@ extension LMModels.Api {
                 case enableDownvotes = "enable_downvotes"
                 case openRegistration = "open_registration"
                 case enableNsfw = "enable_nsfw"
+                case communityCreationAdminOnly = "community_creation_admin_only"
                 case requireEmailVerification = "require_email_verification"
                 case requireApplication = "require_application"
                 case applicationQuestion = "application_question"
                 case privateInstance = "private_instance"
+                case defaultTheme = "default_theme"
+                case legalInformation = "legal_information"
+                case defaultPostListingType = "default_post_listing_type"
                 case auth
             }
         }
@@ -157,11 +173,11 @@ extension LMModels.Api {
         }
         
         struct GetSiteResponse: Codable {
-            let siteView: LMModels.Views.SiteView? // Because the site might not be set up yet.
+            let siteView: LMModels.Views.SiteView? // Optional, Because the site might not be set up yet.
             let admins: [LMModels.Views.PersonViewSafe]
             let online: Int
             let version: String
-            let myUser: MyUserInfo? // Gives back your local user and settings if logged
+            let myUser: MyUserInfo? // If you're logged in, you'll get back extra user info.
             let federatedInstances: FederatedInstances?
             
             enum CodingKeys: String, CodingKey {
@@ -190,17 +206,11 @@ extension LMModels.Api {
             }
 
        }
-        
-        struct TransferSite: Codable {
-            let personId: Int
+
+        struct LeaveAdmin: Codable {
             let auth: String
-            
-            enum CodingKeys: String, CodingKey {
-                case personId = "person_id"
-                case auth
-            }
         }
-        
+
         struct GetSiteConfig: Codable {
             let auth: String
         }
@@ -245,7 +255,7 @@ extension LMModels.Api {
           /**
            * Only shows the unread applications (IE those without an admin actor)
            */
-            let unreadOnly: Bool
+            let unreadOnly: Bool?
             let page: Int?
             let limit: Int?
             let auth: String

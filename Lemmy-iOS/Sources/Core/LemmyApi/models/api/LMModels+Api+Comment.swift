@@ -156,8 +156,12 @@ extension LMModels.Api {
             }
         }
         
-        struct CreateCommentReportResponse: Codable {
-            let success: Bool
+        struct CommentReportResponse: Codable {
+            let commentReportView: LMModels.Views.CommentReportView
+
+            enum CodingKeys: String, CodingKey {
+                case commentReportView = "comment_report_view"
+            }
         }
         
         struct ResolveCommentReport: Codable {
@@ -170,24 +174,21 @@ extension LMModels.Api {
                 case resolved, auth
             }
         }
-        
-        struct ResolveCommentReportResponse: Codable {
-            // TODO this should probably return the view
-            let reportId: Int
-            let resolved: Bool
-            
-            enum CodingKeys: String, CodingKey {
-                case reportId = "report_id"
-                case resolved
-            }
-        }
-        
+
         struct ListCommentReports: Codable {
             let page: Int?
             let limit: Int?
             /// if no community is given, it returns reports for all communities moderated by the auth user
-            let community: Int?
+            let communityId: Int?
+            let unresolvedOnly: Bool?
             let auth: String
+
+            enum CodingKeys: String, CodingKey {
+                case page, limit
+                case communityId = "community_id"
+                case unresolvedOnly = "unresolved_only"
+                case auth
+            }
         }
         
         struct ListCommentReportsResponse: Codable {

@@ -15,7 +15,7 @@ extension ContentView_Onboarding {
             Spacer()
             
             Button(action: {
-                needsAppOnboarding = true
+                needsAppOnboarding = false
             }, label: {
                 Text("Reset Onboarding")
                     .padding(.horizontal, 40)

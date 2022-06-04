@@ -1009,11 +1009,11 @@
 			isa = PBXGroup;
 			children = (
 				4E6E665325B2035900AF2F48 /* LMModels+Api.swift */,
-				4E6E664725B1FD3C00AF2F48 /* LMModels+Api+Person.swift */,
-				4E6E665B25B203C700AF2F48 /* LMModels+Api+Site.swift */,
-				4E6E666025B208E100AF2F48 /* LMModels+Api+Post.swift */,
-				4E6E666525B20D4A00AF2F48 /* LMModels+Api+Community.swift */,
 				4E6E666A25B214E900AF2F48 /* LMModels+Api+Comment.swift */,
+				4E6E666525B20D4A00AF2F48 /* LMModels+Api+Community.swift */,
+				4E6E664725B1FD3C00AF2F48 /* LMModels+Api+Person.swift */,
+				4E6E666025B208E100AF2F48 /* LMModels+Api+Post.swift */,
+				4E6E665B25B203C700AF2F48 /* LMModels+Api+Site.swift */,
 				4EC63EFF25C6001900F6D6F1 /* LMModels+Api+Websocket.swift */,
 			);
 			path = api;

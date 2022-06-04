@@ -11,41 +11,6 @@ import Foundation
 extension LMModels {
     
     enum Source {
-        struct PersonSafe: Identifiable, Codable, Hashable, Equatable {
-            let id: Int
-            let name: String
-            let displayName: String?
-            let avatar: URL?
-            let banned: Bool
-            let published: Date
-            let updated: Date?
-            let actorId: URL
-            let bio: String?
-            let local: Bool
-            let banner: URL?
-            let deleted: Bool
-            let inboxUrl: URL
-            let sharedInboxURL: URL
-            let admin: Bool
-            let matrixUserId: String?
-            let botAccount: Bool
-            let banExpires: String?
-            
-            enum CodingKeys: String, CodingKey {
-                case id, name
-                case displayName = "display_name"
-                case avatar, banned, published, updated
-                case actorId = "actor_id"
-                case bio, local, banner, deleted
-                case inboxUrl = "inbox_url"
-                case sharedInboxURL = "shared_inbox_url"
-                case admin
-                case matrixUserId = "matrix_user_id"
-                case botAccount = "bot_account"
-                case banExpires = "ban_expires"
-            }
-        }
-        
         struct LocalUserSettings: Identifiable, Codable, Hashable, Equatable {
             let id: Int
             let personId: Int
@@ -80,11 +45,45 @@ extension LMModels {
             }
         }
 
+        struct PersonSafe: Identifiable, Codable, Hashable, Equatable {
+            let id: Int
+            let name: String
+            let displayName: String?
+            let avatar: URL?
+            let banned: Bool
+            let published: Date
+            let updated: Date?
+            let actorId: URL
+            let bio: String?
+            let local: Bool
+            let banner: URL?
+            let deleted: Bool
+            let inboxUrl: URL
+            let sharedInboxURL: URL
+            let admin: Bool
+            let matrixUserId: String?
+            let botAccount: Bool
+            let banExpires: String?
+
+            enum CodingKeys: String, CodingKey {
+                case id, name
+                case displayName = "display_name"
+                case avatar, banned, published, updated
+                case actorId = "actor_id"
+                case bio, local, banner, deleted
+                case inboxUrl = "inbox_url"
+                case sharedInboxURL = "shared_inbox_url"
+                case admin
+                case matrixUserId = "matrix_user_id"
+                case botAccount = "bot_account"
+                case banExpires = "ban_expires"
+            }
+        }
+
         struct Site: Identifiable, Codable {
             let id: Int
             let name: String
             let sidebar: String?
-            let creatorId: Int
             let published: Date
             let updated: Date
             let enableDownvotes: Bool
@@ -98,11 +97,17 @@ extension LMModels {
             let requireApplication: Bool
             let applicationQuestion: String?
             let privateInstance: Bool
+            let defaultTheme: String
+            let defaultPostListingType: LMModels.Others.ListingType
+            let actorId: String
+            let lastRefreshedAt: String
+            let inboxUrl: String
+            let publicKey: String
+            let legalInformation: String?
             
             enum CodingKeys: String, CodingKey {
                 case id
                 case name, sidebar
-                case creatorId = "creator_id"
                 case published, updated
                 case enableDownvotes = "enable_downvotes"
                 case openRegistration = "open_registration"
@@ -113,7 +118,13 @@ extension LMModels {
                 case requireApplication = "require_application"
                 case applicationQuestion = "application_question"
                 case privateInstance = "private_instance"
-                
+                case defaultTheme = "default_theme"
+                case defaultPostListingType = "default_post_listing_type"
+                case actorId = "actor_id"
+                case lastRefreshedAt = "last_refreshed_at"
+                case inboxUrl = "inbox_url"
+                case publicKey = "public_key"
+                case legalInformation = "legal_information"
             }
         }
         
@@ -144,7 +155,7 @@ extension LMModels {
             let creatorId: Int
             let postId: Int
             let originalPostName: String
-            let originalPostUrl: URL
+            let originalPostUrl: URL?
             let originalPostBody: String
             let reason: String
             let resolved: Bool
@@ -204,13 +215,13 @@ extension LMModels {
         
         struct PasswordResetRequest: Identifiable, Codable {
             let id: Int
-            let localPersonId: Int
+            let localUserId: Int
             let tokenEncrypted: String
             let published: Date
             
             enum CodingKeys: String, CodingKey {
                 case id
-                case localPersonId = "local_person_id"
+                case localUserId = "local_user_id"
                 case tokenEncrypted = "token_encrypted"
                 case published
             }
@@ -404,6 +415,7 @@ extension LMModels {
             let local: Bool
             let icon: URL?
             let banner: URL?
+            let postingRestrictedToMods: Bool
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -412,6 +424,7 @@ extension LMModels {
                 case nsfw
                 case actorId = "actor_id"
                 case local, icon, banner
+                case postingRestrictedToMods = "posting_restricted_to_mods"
             }
         }
         
@@ -484,7 +497,7 @@ extension LMModels {
             let localUserId: Int
             let answer: Int
             let adminId: Int?
-            let denyReason: String
+            let denyReason: String?
             let published: String
             
             enum CodingKeys: String, CodingKey {

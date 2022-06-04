@@ -21,13 +21,13 @@ class LemmyShareData {
     
     var userdata: LMModels.Api.Site.MyUserInfo? {
         get {
-            guard let data = unauthUserDefaults.data(forKey: UserDefaults.Key.userdata) else {
+            guard let data = authUserDefaults.data(forKey: UserDefaults.Key.userdata) else {
                 return nil
             }
             return try? LemmyJSONDecoder().decode(LMModels.Api.Site.MyUserInfo.self, from: data)
         } set {
-            let data = try? LMMJSONEncoder().encode(newValue)
-            unauthUserDefaults.set(data, forKey: UserDefaults.Key.userdata)
+            let data = try? LemmyJSONEncoder().encode(newValue)
+            authUserDefaults.set(data, forKey: UserDefaults.Key.userdata)
         }
     }
     
@@ -57,7 +57,7 @@ class LemmyShareData {
                       let newInstanceUrl = InstanceUrl(string: newUrl)
                 else { return nil }
                                 
-                let data = try? LMMJSONEncoder().encode(newInstanceUrl)
+                let data = try? LemmyJSONEncoder().encode(newInstanceUrl)
                 unauthUserDefaults.set(data, forKey: UserDefaults.Key.currentInstanceUrlLast)
                 
                 return newInstanceUrl
@@ -70,7 +70,7 @@ class LemmyShareData {
             return try? LemmyJSONDecoder().decode(InstanceUrl.self, from: data)
         }
         set {
-            let data = try? LMMJSONEncoder().encode(newValue)
+            let data = try? LemmyJSONEncoder().encode(newValue)
             unauthUserDefaults.set(data, forKey: UserDefaults.Key.currentInstanceUrlLast)
         }
     }
@@ -85,13 +85,13 @@ class LemmyShareData {
     }
     
     var blockedUsersId: [Int] {
-        get { self.unauthUserDefaults.array(forKey: UserDefaults.Key.blockedUsersId) as? [Int] ?? [] }
-        set { self.unauthUserDefaults.setValue(newValue, forKey: UserDefaults.Key.blockedUsersId) }
+        get { self.authUserDefaults.array(forKey: UserDefaults.Key.blockedUsersId) as? [Int] ?? [] }
+        set { self.authUserDefaults.setValue(newValue, forKey: UserDefaults.Key.blockedUsersId) }
     }
     
     var needsAppOnboarding: Bool {
-        get { self.authUserDefaults.bool(forKey: UserDefaults.Key.needsAppOnboarding) }
-        set { self.authUserDefaults.setValue(newValue, forKey: UserDefaults.Key.needsAppOnboarding) }
+        get { self.unauthUserDefaults.bool(forKey: UserDefaults.Key.needsAppOnboarding) }
+        set { self.unauthUserDefaults.setValue(newValue, forKey: UserDefaults.Key.needsAppOnboarding) }
     }
 }
 

@@ -27,13 +27,16 @@ class CreateCommunityViewModel: CreateCommunityViewModelProtocol {
             return
         }
         
-        let params = LMModels.Api.Community.CreateCommunity(name: request.name,
-                                                            title: request.displayName,
-                                                            description: request.sidebar,
-                                                            icon: request.icon,
-                                                            banner: request.banner,
-                                                            nsfw: request.nsfwOption,
-                                                            auth: jwtToken)
+        let params = LMModels.Api.Community.CreateCommunity(
+            name: request.name,
+            title: request.displayName,
+            description: request.sidebar,
+            icon: request.icon,
+            banner: request.banner,
+            nsfw: request.nsfwOption,
+            postingRestrictedToMods: nil,
+            auth: jwtToken
+        )
         ApiManager.requests.asyncCreateCommunity(parameters: params)
             .receive(on: DispatchQueue.main)
             .sink { completion in

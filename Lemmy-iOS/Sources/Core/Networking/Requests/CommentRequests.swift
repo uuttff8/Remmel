@@ -60,7 +60,7 @@ extension RequestsManager {
     
     func asyncCreateCommentReport(
         parameters: LMModels.Api.Comment.CreateCommentReport
-    ) -> AnyPublisher<LMModels.Api.Comment.CreateCommentReportResponse, LemmyGenericError> {
+    ) -> AnyPublisher<LMModels.Api.Comment.CommentReportResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Comment.createCommentReport.endpoint, parameters: parameters)
     }
     

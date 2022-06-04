@@ -10,22 +10,22 @@ import Foundation
 
 extension LMModels.Views.PostView {
     mutating func updateForCreatePostLike(with newPost: LMModels.Views.PostView) {
-        self.counts.score = newPost.counts.score
-        self.counts.upvotes = newPost.counts.upvotes
-        self.counts.downvotes = newPost.counts.downvotes
+        counts.score = newPost.counts.score
+        counts.upvotes = newPost.counts.upvotes
+        counts.downvotes = newPost.counts.downvotes
         if newPost.myVote != nil {
-            self.myVote = newPost.myVote
+            myVote = newPost.myVote
         }
     }
 }
 
 extension LMModels.Views.CommentView {
     mutating func updateForCreatePostLike(with newComment: LMModels.Views.CommentView) {
-        self.counts.score = newComment.counts.score
-        self.counts.upvotes = newComment.counts.upvotes
-        self.counts.downvotes = newComment.counts.downvotes
+        counts.score = newComment.counts.score
+        counts.upvotes = newComment.counts.upvotes
+        counts.downvotes = newComment.counts.downvotes
         if newComment.myVote != nil {
-            self.myVote = newComment.myVote
+            myVote = newComment.myVote
         }
     }
 }
@@ -40,12 +40,6 @@ extension LMModels.Source.CommunitySafe {
     var originalInstance: String {
         extractInstance(instance: self.actorId)
     }
-}
-
-extension LMModels.Source.LocalUserSettings {
-//    var originalInstance: String {
-//        extractInstance(instance: self.actorId)
-//    }
 }
 
 private func extractInstance(instance url: URL) -> String {

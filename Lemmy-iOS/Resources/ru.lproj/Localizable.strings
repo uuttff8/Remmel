@@ -100,7 +100,7 @@
 "alert-share" = "Поделиться";
 "alert-report" = "Пожаловаться";
 "alert-logout" = "Выйти из аккаунта";
-"alert-choose-instance" = "Сменить инстанса";
+"alert-choose-instance" = "Сменить инстанс";
 "alert-block" = "Заблокировать";
 "alert-block-done" = "Вы заблокировали юзера!";
 "alert-unblock" = "Разблокировать";

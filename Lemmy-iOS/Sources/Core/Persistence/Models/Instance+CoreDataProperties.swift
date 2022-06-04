@@ -37,7 +37,7 @@ extension Instance {
     }
     
     var accounts: [Account] {
-        Array(self.managedAccounts!)
+        Array(managedAccounts ?? Set())
     }
     
     func addAccountItemsObject(value: Account) {

@@ -23,9 +23,10 @@ extension UserDefaults {
         
         static let needsAppOnboarding = "needsAppOnboarding"
     }
-        
+
+    // swiftlint:disable:next force_unwrapping
     static var authShared = UserDefaults(suiteName: authSuiteName)!
-    
+    // swiftlint:disable:next force_unwrapping
     static var unauthShared: UserDefaults {
         let userDefaults = UserDefaults(suiteName: unauthSuiteName)!
         

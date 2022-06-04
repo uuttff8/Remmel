@@ -67,7 +67,7 @@ extension LMModels.Api {
             let page: Int?
             let limit: Int?
             let communityId: Int?
-            let communityName: String?
+            let communityName: String? // To get posts for a federated community by name, use `name@instance.tld` .
             let savedOnly: Bool?
             let auth: String?
             
@@ -86,7 +86,7 @@ extension LMModels.Api {
         }
         
         /**
-        * `score` can be 0, -1, or 1
+        * `score` can be 0, -1, or 1. Anything else will be rejected.
         */
         struct CreatePostLike: Codable {
             let postId: Int
@@ -112,7 +112,10 @@ extension LMModels.Api {
                 case name, url, body, nsfw, auth
             }
         }
-        
+
+        /**
+         * Only admins and mods can remove a post.
+         */
         struct DeletePost: Codable {
             let postId: Int
             let deleted: Bool

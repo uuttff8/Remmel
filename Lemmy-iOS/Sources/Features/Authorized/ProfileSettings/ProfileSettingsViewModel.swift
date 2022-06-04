@@ -91,15 +91,13 @@ class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
             email: newData.email,
             bio: newData.bio,
             matrixUserId: newData.matrix,
-        //  newPassword: newData.newPassword,
-        //  newPasswordVerify: newData.verifyPassword,
-        //  oldPassword: newData.oldPassword,
             showAvatars: prevData.localUserView.localUser.showAvatars,
             showScores: nil,
             sendNotificationsToEmail: newData.sendNotificationsToEmail,
             botAccount: nil,
             showBotAccounts: nil,
             showReadPosts: nil,
+            showNewPostNotifs: nil,
             auth: currentUserJwt
         )
         
