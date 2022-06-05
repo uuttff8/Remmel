@@ -12,16 +12,17 @@ protocol AppIconManagerProtocol: AnyObject {
     var current: LemmyAppIcon { get }
     var availableIcons: [LemmyAppIcon] { get }
 
-    func setIcon(_ appIcon: LemmyAppIcon, completion: ((Bool) -> Void)?)
+    @MainActor
+    func setIcon(_ appIcon: LemmyAppIcon) async
 }
 
 enum LemmyAppIcon: String, CaseIterable {
     case white = "whiteIcon"
     case black = "blackIcon"
     
-    var name: String {
+    var name: String? {
         switch self {
-        case .white: return "whiteIcon"
+        case .white: return nil
         case .black: return "blackIcon"
         }
     }
@@ -35,17 +36,17 @@ class AppIconManager: AppIconManagerProtocol {
     var availableIcons: [LemmyAppIcon] {
         LemmyAppIcon.allCases
     }
-    
-    func setIcon(_ appIcon: LemmyAppIcon, completion: ((Bool) -> Void)?) {
+
+    @MainActor
+    func setIcon(_ appIcon: LemmyAppIcon) async {
         guard current != appIcon, UIApplication.shared.supportsAlternateIcons else {
             return
         }
-        
-        UIApplication.shared.setAlternateIconName(appIcon.name) { error in
-            if let error = error {
-                Logger.common.error("Error setting alternate icon \(appIcon.name): \(error.localizedDescription)")
-            }
-            completion?(error != nil)
+
+        do {
+            try await UIApplication.shared.setAlternateIconName(appIcon.name)
+        } catch {
+            Logger.common.error("Error setting alternate icon \(appIcon.name ?? "white"): \(error.localizedDescription)")
         }
     }
 }

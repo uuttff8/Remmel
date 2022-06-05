@@ -49,10 +49,12 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
             profileId: userId,
             profileUsername: username
         )
-        self.store(coordinator: coordinator)
+        store(coordinator: coordinator)
         coordinator.start()
         self.router?.push(coordinator.rootViewController, isAnimated: true, onNavigateBack: {
-            self.free(coordinator: coordinator)
+            [weak self] in
+
+            self?.free(coordinator: coordinator)
         })
     }
     
@@ -83,10 +85,12 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
             postId: postId,
             postInfo: post
         )
-        self.store(coordinator: coordinator)
+        store(coordinator: coordinator)
         coordinator.start()
         router?.push(coordinator.rootViewController, isAnimated: true, onNavigateBack: {
-            self.free(coordinator: coordinator)
+            [weak self] in
+
+            self?.free(coordinator: coordinator)
         })
     }
         
@@ -118,7 +122,9 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
         self.store(coordinator: coordinator)
         coordinator.start()
         coordinator.router?.push(coordinator.rootViewController, isAnimated: true, onNavigateBack: {
-            self.free(coordinator: coordinator)
+            [weak self] in
+
+            self?.free(coordinator: coordinator)
         })
     }
     
@@ -177,7 +183,7 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
     }
     
     func goToWriteMessage(recipientId: Int, completion: (() -> Void)? = nil) {
-        goToWriteMessageWrapper(action: .replyToPrivateMessage(recipientId: recipientId),  completion: completion)
+        goToWriteMessageWrapper(action: .replyToPrivateMessage(recipientId: recipientId), completion: completion)
     }
     
     private func goToWriteMessageWrapper(action: WriteMessageAssembly.Action, completion: (() -> Void)? = nil) {
@@ -191,7 +197,8 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
         rootViewController.present(navigationController, animated: true)
     }
     
-    // MARK: - SFSafariViewControllerDelegate -
+    // MARK: - SFSafariViewControllerDelegate
+
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         rootViewController.dismiss(animated: true)
     }
