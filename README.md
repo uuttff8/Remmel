@@ -2,8 +2,6 @@
 
 [![Lemmer](https://uuttff8.github.io/static/imgs/App_Store_Badge_135x40.svg)](https://apps.apple.com/us/app/lemmer-client-for-lemmy/id1547988171)
 
-TestFlight: https://testflight.apple.com/join/UBxeQU0l
-
 ![](/design/LemmerScreens-1.png  "")
 
 ## Compiling 
