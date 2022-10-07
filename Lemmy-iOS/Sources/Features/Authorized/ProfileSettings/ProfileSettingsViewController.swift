@@ -15,7 +15,7 @@ protocol ProfileSettingsViewControllerProtocol: AnyObject {
     func displaySuccessUpdatingSetting()
 }
 
-final class ProfileSettingsViewController: UIViewController, CatalystDismissProtocol {
+final class ProfileSettingsViewController: UIViewController, CatalystDismissable {
     
     enum TableFormType: String {
         case displayName

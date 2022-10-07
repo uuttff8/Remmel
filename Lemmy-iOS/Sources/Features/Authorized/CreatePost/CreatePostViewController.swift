@@ -30,7 +30,7 @@ extension CreatePostScreenViewController {
 
 // MARK: - CreatePostScreenViewController: UIViewController -
 
-class CreatePostScreenViewController: UIViewController, CatalystDismissProtocol {
+class CreatePostScreenViewController: UIViewController, CatalystDismissable {
     // MARK: - Properties
     
     let appearance: Appearance

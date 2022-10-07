@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol CatalystDismissProtocol {
+protocol CatalystDismissable {
     func dismissWithExitButton(presses: Set<UIPress>)
 }
 
-extension CatalystDismissProtocol where Self: UIViewController {
+extension CatalystDismissable where Self: UIViewController {
     func dismissWithExitButton(presses: Set<UIPress>) {
         guard let key = presses.first?.key else {
             return

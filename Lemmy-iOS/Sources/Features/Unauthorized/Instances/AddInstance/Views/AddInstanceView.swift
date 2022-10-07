@@ -56,18 +56,18 @@ final class AddInstanceView: UIView {
     }
     
     func bindImage(with url: URL?) {
-        self.instanceImageView.loadImage(urlString: url, imageSize: appearance.iconSize)
+        instanceImageView.loadImage(urlString: url, imageSize: appearance.iconSize)
     }
     
     func unbindImage() {
-        self.instanceImageView.image = nil
+        instanceImageView.image = nil
     }
     
     // MARK: Actions
     @objc
     private func reload(_ textField: UITextField) {
         if let text = textField.text?.lowercased(), !text.isEmpty {
-            self.delegate?.addInstanceView(self, didTyped: text)
+            delegate?.addInstanceView(self, didTyped: text)
         }
     }
 
@@ -76,18 +76,18 @@ final class AddInstanceView: UIView {
         NSObject.cancelPreviousPerformRequests(withTarget: self,
                                                selector: #selector(reload(_:)),
                                                object: textField)
-        self.perform(#selector(reload(_:)), with: textField, afterDelay: 1.0)
+        perform(#selector(reload(_:)), with: textField, afterDelay: 1.0)
     }
 }
 
 extension AddInstanceView: ProgrammaticallyViewProtocol {
     func setupView() {
-        self.backgroundColor = .systemBackground
-        self.scrollableStackView.contentInsets = .init(top: 30, left: 0, bottom: 0, right: 0)
+        backgroundColor = .systemBackground
+        scrollableStackView.contentInsets = .init(top: 30, left: 0, bottom: 0, right: 0)
     }
     
     func addSubviews() {
-        self.addSubview(scrollableStackView)
+        addSubview(scrollableStackView)
         scrollableStackView.addArrangedView(textField)
         
         let view = UIView()
@@ -97,11 +97,11 @@ extension AddInstanceView: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
-        self.instanceImageView.snp.makeConstraints {
+        instanceImageView.snp.makeConstraints {
             $0.size.equalTo(50)
         }
         
-        self.scrollableStackView.snp.makeConstraints {
+        scrollableStackView.snp.makeConstraints {
             $0.top.bottom.equalTo(self.safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview().inset(16)
         }

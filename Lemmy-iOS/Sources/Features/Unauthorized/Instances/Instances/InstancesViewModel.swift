@@ -24,10 +24,7 @@ class InstancesViewModel: InstancesViewModelProtocol {
     
     private var cancellable = Set<AnyCancellable>()
     
-    init(
-        provider: InstancesProviderProtocol,
-        userAccountService: UserAccountSerivceProtocol
-    ) {
+    init(provider: InstancesProviderProtocol, userAccountService: UserAccountSerivceProtocol) {
         self.provider = provider
         self.userAccountService = userAccountService
     }
@@ -38,7 +35,7 @@ class InstancesViewModel: InstancesViewModelProtocol {
     
     func doInstancesRefresh(request: InstancesDataFlow.InstancesLoad.Request) {
         
-        self.provider.fetchCachedInstances()
+        provider.fetchCachedInstances()
             .receive(on: DispatchQueue.main)
             .sink { instances in
                 
@@ -51,7 +48,7 @@ class InstancesViewModel: InstancesViewModelProtocol {
     }
     
     func doAddInstance(request: InstancesDataFlow.AddInstance.Request) {
-        self.provider.addNewInstance(link: request.link.rawHost)
+        provider.addNewInstance(link: request.link.rawHost)
             .sink(receiveValue: { _ in
                 // as a new instance created, take it from db
                 self.doInstancesRefresh(request: .init())
@@ -61,7 +58,7 @@ class InstancesViewModel: InstancesViewModelProtocol {
     
     func doInstanceDelete(request: InstancesDataFlow.DeleteInstance.Request) {
         
-        self.provider.delete(request.instance)
+        provider.delete(request.instance)
             .sink(receiveValue: {})
             .store(in: &cancellable)
     }

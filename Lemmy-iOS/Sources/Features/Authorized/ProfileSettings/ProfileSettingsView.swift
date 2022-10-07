@@ -23,9 +23,7 @@ class ProfileSettingsView: UIView {
     private lazy var tableView = SettingsTableView(appearance: .init(style: .insetGrouped))
 
     // MARK: - Init
-    override init(
-        frame: CGRect = .zero
-    ) {
+    override init(frame: CGRect = .zero) {
         super.init(frame: frame)
         
         self.setupView()
@@ -41,28 +39,28 @@ class ProfileSettingsView: UIView {
     // MARK: - Public API
     
     func configure(viewModel: SettingsTableViewModel) {
-        self.tableView.configure(viewModel: viewModel)
+        tableView.configure(viewModel: viewModel)
     }
     
     func updateData(viewModel: SettingsTableViewModel) {
-        self.tableView.updateViewModel(viewModel)
+        tableView.updateViewModel(viewModel)
     }
     
     func showLoadingIndicator() {
-        self.tableView.showActivityIndicatorView()
+        tableView.showActivityIndicatorView()
     }
     
     func hideLoadingIndicator() {
-        self.tableView.hideActivityIndicatorView()
+        tableView.hideActivityIndicatorView()
     }
 }
 extension ProfileSettingsView: ProgrammaticallyViewProtocol {
     func addSubviews() {
-        self.addSubview(self.tableView)
+        addSubview(self.tableView)
     }
 
     func makeConstraints() {
-        self.tableView.snp.makeConstraints {
+        tableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }

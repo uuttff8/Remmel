@@ -56,12 +56,12 @@ final class InstancesCoordinator: BaseCoordinator {
         onboarding.onLemmyMlInstance = onLemmyMlInstance
         onboarding.onUserOwnInstance = onUserOwnInstance
         
-        self.router.present(onboarding, animated: true)
+        router.present(onboarding, animated: true)
     }
 }
 
 extension InstancesCoordinator: Drawable {
     var viewController: UIViewController? {
-        self.rootViewController
+        rootViewController
     }
 }

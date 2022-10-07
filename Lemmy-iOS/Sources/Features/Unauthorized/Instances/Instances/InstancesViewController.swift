@@ -114,8 +114,8 @@ class InstancesViewController: UIViewController {
     }
     
     private func _goToInstance() {
-        coordinator?.goToAddInstance {
-            self.viewModel.doInstancesRefresh(request: .init())
+        coordinator?.goToAddInstance { [self] in
+            viewModel.doInstancesRefresh(request: .init())
         }
     }
 }

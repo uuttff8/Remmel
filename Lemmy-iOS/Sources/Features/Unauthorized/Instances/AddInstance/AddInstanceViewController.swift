@@ -38,9 +38,7 @@ final class AddInstanceViewController: UIViewController {
     
     private var enteredInstanceUrl: String?
     
-    init(
-        viewModel: AddInstanceViewModelProtocol
-    ) {
+    init(viewModel: AddInstanceViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -73,18 +71,18 @@ final class AddInstanceViewController: UIViewController {
         CoreDataHelper.shared.save()
         
         completionHandler?()
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
     
     private func setNewBarButton(loading: Bool, isEnabled: Bool) {
         let button: UIBarButtonItem = loading ? loadingBarButton : addBarButton
         button.isEnabled = isEnabled
-        self.navigationItem.rightBarButtonItem = button
+        navigationItem.rightBarButtonItem = button
     }
     
     private func setupNavigationItem() {
         title = "Create Instance"
-        self.navigationItem.rightBarButtonItem = addBarButton
+        navigationItem.rightBarButtonItem = addBarButton
         addBarButton.isEnabled = false
     }
 }

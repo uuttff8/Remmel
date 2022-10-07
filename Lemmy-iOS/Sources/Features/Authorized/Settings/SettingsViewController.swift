@@ -14,7 +14,7 @@ protocol SettingsViewControllerProtocol: AnyObject {
     func displayAppIconSetting(viewModel: SettingsDataFlow.AppIconSettingPresentation.ViewModel)
 }
 
-class SettingsViewController: UIViewController, CatalystDismissProtocol {
+class SettingsViewController: UIViewController, CatalystDismissable {
     
     enum TableForm: String {
         case authorTwitter

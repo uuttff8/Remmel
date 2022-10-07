@@ -20,9 +20,7 @@ class InstancesProvider: InstancesProviderProtocol {
     
     private let instancesPersistenceService: InstancePersistenceServiceProtocol
     
-    init(
-        instancesPersistenceService: InstancePersistenceServiceProtocol
-    ) {
+    init(instancesPersistenceService: InstancePersistenceServiceProtocol) {
         self.instancesPersistenceService = instancesPersistenceService
     }
     
@@ -31,7 +29,7 @@ class InstancesProvider: InstancesProviderProtocol {
     }
     
     func addNewInstance(link: String) -> AnyPublisher<Instance, Never> {
-        self.instancesPersistenceService.addNew(with: link)
+        instancesPersistenceService.addNew(with: link)
     }
     
     func delete(_ instance: Instance) -> AnyPublisher<(), Never> {

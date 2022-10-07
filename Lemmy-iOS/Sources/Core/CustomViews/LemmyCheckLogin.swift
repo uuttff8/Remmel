@@ -8,30 +8,38 @@
 
 import UIKit
 
+//protocol LoginContinuableInterface {
+//    
+//}
+//
+//final class LoginContinuable {
+//    
+//}
+
+
 func ContinueIfLogined(
     on viewController: UIViewController,
     coordinator: BaseCoordinator,
     doAction: () -> Void,
     elseAction: (() -> Void)? = nil
 ) {
-    
+
     func auth(authMethod: LemmyAuthMethod) {
-        
-        // I know, it's bad to access Feature/ classes from Core/
+
         let loginvc = LoginViewController(authMethod: authMethod)
         let navController = StyledNavigationController(rootViewController: loginvc)
-        
+
         viewController.present(navController, animated: true)
     }
-    
+
     func goToInstances() {
         LemmyShareData.shared.loginData.logout()
-        
+
         if !LemmyShareData.shared.isLoggedIn {
             coordinator.childCoordinators.removeAll()
-            
+
             NotificationCenter.default.post(name: .didLogin, object: nil)
-            
+
             let myCoordinator = InstancesCoordinator(router: Router(navigationController: StyledNavigationController()))
             myCoordinator.start()
             coordinator.childCoordinators.append(myCoordinator)
@@ -46,7 +54,7 @@ func ContinueIfLogined(
             fatalError("Unexpexted error, must not be happen")
         }
     }
-    
+
     if LemmyShareData.shared.isLoggedIn {
         doAction()
     } else {

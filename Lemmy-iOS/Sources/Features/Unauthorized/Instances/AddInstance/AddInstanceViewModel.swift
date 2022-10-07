@@ -21,13 +21,13 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
     private var cancellable = Set<AnyCancellable>()
     
     func doAddInstancePresentation(request: AddInstanceDataFlow.InstancePresentation.Request) {
-        self.viewController?.displayAddInstancePresentation(viewModel: .init())
+        viewController?.displayAddInstancePresentation(viewModel: .init())
     }
     
     func doAddInstanceCheck(request: AddInstanceDataFlow.InstanceCheck.Request) {
         guard let instanceUrl = InstanceUrl(string: request.query) else {
             Logger.common.error("Not valid instance url")
-            self.viewController?.displayAddInstanceCheck(
+            viewController?.displayAddInstanceCheck(
                 viewModel: .init(state: .noResult)
             )
             return
@@ -54,7 +54,7 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
                         state: .result(iconUrl: response.siteView?.site.icon, instanceUrl: instanceUrl.rawHost)
                     )
                 )
-            }.store(in: &self.cancellable)
+            }.store(in: &cancellable)
     }
 }
 

@@ -31,17 +31,17 @@ final class InstancesView: UIView {
         _ = dataSource.tableView(self.tableView, numberOfRowsInSection: 0)
         //            self.emptyStateLabel.isHidden = numberOfRows != 0
         
-        self.tableView.dataSource = dataSource
-        self.tableView.delegate = dataSource
-        self.tableView.reloadData()
+        tableView.dataSource = dataSource
+        tableView.delegate = dataSource
+        tableView.reloadData()
     }
     
     func showLoadingView() {
-        self.showActivityIndicatorView()
+        showActivityIndicatorView()
     }
 
     func hideLoadingView() {
-        self.hideActivityIndicatorView()
+        hideActivityIndicatorView()
     }
     
     override func layoutSubviews() {
@@ -57,11 +57,11 @@ extension InstancesView: ProgrammaticallyViewProtocol {
     }
     
     func addSubviews() {
-        self.addSubview(tableView)
+        addSubview(tableView)
     }
     
     func makeConstraints() {
-        self.tableView.snp.makeConstraints {
+        tableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }

@@ -38,7 +38,7 @@ extension CreateCommunityViewController {
     }
 }
 
-class CreateCommunityViewController: UIViewController, CatalystDismissProtocol {
+class CreateCommunityViewController: UIViewController, CatalystDismissable {
     
     // MARK: - Properties
     weak var coordinator: CreateCommunityCoordinator?

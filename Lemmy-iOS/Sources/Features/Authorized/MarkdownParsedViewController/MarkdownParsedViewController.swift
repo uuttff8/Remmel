@@ -9,7 +9,7 @@
 import UIKit
 import markymark
 
-final class MarkdownParsedViewController: UIViewController, CatalystDismissProtocol {
+final class MarkdownParsedViewController: UIViewController, CatalystDismissable {
     
     private lazy var closeBarButton = UIBarButtonItem(
         barButtonSystemItem: .close,
