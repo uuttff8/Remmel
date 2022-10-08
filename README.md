@@ -7,18 +7,13 @@
 ## Compiling 
 How to compile and generate .xcworkspace file
 
-1. Clone repo and cd
-
-	 `git clone https://github.com/uuttff8/Lemmy-iOS.git`
-    
-   `cd Lemmy-iOS`
-2. Run Pod Install
+ `git clone https://github.com/uuttff8/Lemmy-iOS.git`   
+ `cd Lemmy-iOS`
+   
+ Run Pod[https://cocoapods.org/] Install
  
- 	`pod install`
-  
-3. Open project and Build
-
-  `open Lemmy-iOS.xcworkspace/`
+ `pod install` 
+ `open Lemmy-iOS.xcworkspace/`
 
 
 And you are done!
