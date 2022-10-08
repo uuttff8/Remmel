@@ -11,7 +11,7 @@ How to compile and generate .xcworkspace file
  
  `cd Lemmy-iOS`
    
- Run Pod[https://cocoapods.org/] Install
+ Run [CocoaPods](https://cocoapods.org/) Install
  
  `pod install`
  
