@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LemmyOutlinePostEmbedView: UIControl {
+class LemmyOutlinePostEmbedView: UIView {
 
     struct Data {
         let title: String?
@@ -36,7 +36,7 @@ class LemmyOutlinePostEmbedView: UIControl {
         $0.spacing = 5
     }
     
-    let containerView = UIView().then {
+    private let containerView = UIView().then {
         $0.isUserInteractionEnabled = false
     }
 
@@ -52,7 +52,7 @@ class LemmyOutlinePostEmbedView: UIControl {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     func bindData(_ viewData: Data) {
         if let link = viewData.url {
             urlLabel.text = link.host
@@ -65,10 +65,16 @@ class LemmyOutlinePostEmbedView: UIControl {
         self.topTitleLabel.isHidden = viewData.title == nil ? true : false
     }
     
-    override var isHighlighted: Bool {
-        didSet {
-            alpha = self.isHighlighted ? 0.6 : 1.0
-        }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        alpha = 0.6
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        alpha =  1.0
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        alpha =  1.0
     }
 }
 

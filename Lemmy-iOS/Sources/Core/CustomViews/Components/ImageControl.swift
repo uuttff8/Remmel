@@ -8,7 +8,7 @@
 
 import UIKit
 
-// Drop-in replacement for button containing only image
+/// Drop-in replacement for button containing only image
 class ImageControl: UIControl {
 
     let innerImageView = UIImageView()
