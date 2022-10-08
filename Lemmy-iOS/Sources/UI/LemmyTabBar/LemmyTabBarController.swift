@@ -28,6 +28,7 @@ class LemmyTabBarController: UITabBarController {
     
     func createTabs() {
         
+        // FrontPage
         frontPageCoordinator = FrontPageCoordinator(router: nil)
         coordinator?.store(coordinator: frontPageCoordinator)
         frontPageCoordinator.start()
@@ -43,6 +44,7 @@ class LemmyTabBarController: UITabBarController {
         frontPageCoordinator.router?.viewController = frontPageCoordinator.rootViewController
         frontPageCoordinator.navigationController = frontPageCoordinator.router?.navigationController
         
+        // Communities
         communitiesCoordinator = CommunitiesCoordinator(router: nil)
         coordinator?.store(coordinator: communitiesCoordinator)
         communitiesCoordinator.start()
@@ -57,13 +59,15 @@ class LemmyTabBarController: UITabBarController {
         communitiesCoordinator.router = communitiesRouter
         communitiesCoordinator.router?.viewController = communitiesCoordinator.rootViewController
         communitiesCoordinator.navigationController = communitiesCoordinator.router?.navigationController
-                
+        
+        // CreatePostOrComment (create media)
         createPostOrCommunityCoordinator = CreatePostOrCommunityCoordinator(navigationController: nil)
         let createPostOrCommentController = CreatePostOrCommunityViewController()
         createPostOrCommentController.tabBarItem = UITabBarItem(title: "",
                                                                 image: UIImage(systemName: "plus.circle"),
                                                                 tag: 2)
         
+        // Inbox
         inboxNotificationsCoordinator = InboxNotificationsCoordinator(router: nil)
         coordinator?.store(coordinator: inboxNotificationsCoordinator)
         inboxNotificationsCoordinator.start()
@@ -100,8 +104,7 @@ extension LemmyTabBarController: UITabBarControllerDelegate {
     ) -> Bool {
         
         if viewController is CreatePostOrCommunityViewController {
-            
-            guard let coord = self.coordinator else {
+            guard let coord = coordinator else {
                 return false
             }
             

@@ -66,31 +66,37 @@ class LemmyOutlinePostEmbedView: UIView {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        alpha = 0.6
+        UIView.animate(withDuration: 0.3) {
+            self.alpha = 0.6
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        alpha =  1.0
+        UIView.animate(withDuration: 0.3) {
+            self.alpha = 1.0
+        }
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        alpha =  1.0
+        UIView.animate(withDuration: 0.3) {
+            self.alpha = 1.0
+        }
     }
 }
 
 extension LemmyOutlinePostEmbedView: ProgrammaticallyViewProtocol {
     func setupView() {
-        self.containerView.layer.cornerRadius = 10
-        self.containerView.layer.borderWidth = 2
-        self.containerView.layer.borderColor = UIColor.lemmyBlue.cgColor
-        self.containerView.backgroundColor = UIColor.systemGray6
+        containerView.layer.cornerRadius = 10
+        containerView.layer.borderWidth = 2
+        containerView.layer.borderColor = UIColor.lemmyBlue.cgColor
+        containerView.backgroundColor = UIColor.systemGray6
     }
     
     func addSubviews() {
-        self.addSubview(containerView)
+        addSubview(containerView)
         containerView.addSubview(mainStackView)
         
-        self.mainStackView.addStackViewItems(
+        mainStackView.addStackViewItems(
             .view(urlLabel),
             .customSpace(2),
             .view(topTitleLabel),
@@ -99,12 +105,12 @@ extension LemmyOutlinePostEmbedView: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
-        self.containerView.snp.makeConstraints {
+        containerView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(5)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
         
-        self.mainStackView.snp.makeConstraints {
+        mainStackView.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(10)
         }
     }

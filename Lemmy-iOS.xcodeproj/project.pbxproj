@@ -146,6 +146,12 @@
 		4E886CF1254430970076B162 /* HttpLemmyClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886CF0254430970076B162 /* HttpLemmyClient.swift */; };
 		4E886D4625447E350076B162 /* LemmyModel+Pictrs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886D4525447E350076B162 /* LemmyModel+Pictrs.swift */; };
 		4E886D4B2545B81A0076B162 /* PictrsRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E886D4A2545B81A0076B162 /* PictrsRequests.swift */; };
+		4E88B14028F1F45C0003D64F /* GenericCoordinator+Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E88B13F28F1F45C0003D64F /* GenericCoordinator+Profile.swift */; };
+		4E88B14228F1F48C0003D64F /* GenericCoordinator+Community.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E88B14128F1F48C0003D64F /* GenericCoordinator+Community.swift */; };
+		4E88B14428F1F4DC0003D64F /* GenericCoordinator+Browser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E88B14328F1F4DC0003D64F /* GenericCoordinator+Browser.swift */; };
+		4E88B14628F1F58E0003D64F /* GenericCoordinator+Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E88B14528F1F58E0003D64F /* GenericCoordinator+Post.swift */; };
+		4E88B14828F1F6450003D64F /* GenericCoordinator+Instances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E88B14728F1F6450003D64F /* GenericCoordinator+Instances.swift */; };
+		4E88B14A28F1F6D60003D64F /* GenericCoordinator+Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E88B14928F1F6D60003D64F /* GenericCoordinator+Comment.swift */; };
 		4E9182D32564151800702F04 /* VoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9182D22564151800702F04 /* VoteButton.swift */; };
 		4E9183452566C16C00702F04 /* SettingsTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183312566C16C00702F04 /* SettingsTableViewModel.swift */; };
 		4E9183462566C16C00702F04 /* SettingsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9183322566C16C00702F04 /* SettingsTableView.swift */; };
@@ -535,6 +541,12 @@
 		4E886CF0254430970076B162 /* HttpLemmyClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpLemmyClient.swift; sourceTree = "<group>"; };
 		4E886D4525447E350076B162 /* LemmyModel+Pictrs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LemmyModel+Pictrs.swift"; sourceTree = "<group>"; };
 		4E886D4A2545B81A0076B162 /* PictrsRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictrsRequests.swift; sourceTree = "<group>"; };
+		4E88B13F28F1F45C0003D64F /* GenericCoordinator+Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GenericCoordinator+Profile.swift"; sourceTree = "<group>"; };
+		4E88B14128F1F48C0003D64F /* GenericCoordinator+Community.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GenericCoordinator+Community.swift"; sourceTree = "<group>"; };
+		4E88B14328F1F4DC0003D64F /* GenericCoordinator+Browser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GenericCoordinator+Browser.swift"; sourceTree = "<group>"; };
+		4E88B14528F1F58E0003D64F /* GenericCoordinator+Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GenericCoordinator+Post.swift"; sourceTree = "<group>"; };
+		4E88B14728F1F6450003D64F /* GenericCoordinator+Instances.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GenericCoordinator+Instances.swift"; sourceTree = "<group>"; };
+		4E88B14928F1F6D60003D64F /* GenericCoordinator+Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GenericCoordinator+Comment.swift"; sourceTree = "<group>"; };
 		4E9182D22564151800702F04 /* VoteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteButton.swift; sourceTree = "<group>"; };
 		4E9183312566C16C00702F04 /* SettingsTableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewModel.swift; sourceTree = "<group>"; };
 		4E9183322566C16C00702F04 /* SettingsTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableView.swift; sourceTree = "<group>"; };
@@ -954,7 +966,10 @@
 		4E3AB31728718D2B00F6FBEC /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				4EED8717274497D500DB15A8 /* Common */,
+				4E88B13E28F1F42A0003D64F /* GenericCoordinator */,
+				4EED87192744B2C600DB15A8 /* LemmyLightboxController.swift */,
+				4EBB22182559EB3600B88079 /* StyledNavigationController.swift */,
+				4ECCEEF0250C03910075F921 /* LemmyTabBar */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1139,7 +1154,7 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		4E886C49253C95AA0076B162 /* animator */ = {
+		4E886C49253C95AA0076B162 /* Animator */ = {
 			isa = PBXGroup;
 			children = (
 				4E886C4A253C95D20076B162 /* CreatePresentAnimator.swift */,
@@ -1148,7 +1163,7 @@
 				4E886C72253CD4270076B162 /* CreateDismissTransitionDriver.swift */,
 				4E886C60253CAF650076B162 /* CreateTransitionDelegateImpl.swift */,
 			);
-			path = animator;
+			path = Animator;
 			sourceTree = "<group>";
 		};
 		4E886C82253F4F3A0076B162 /* CreatePost */ = {
@@ -1186,6 +1201,20 @@
 				4E886CAD2540A9820076B162 /* CreatePostContentCell.swift */,
 			);
 			path = cells;
+			sourceTree = "<group>";
+		};
+		4E88B13E28F1F42A0003D64F /* GenericCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				4EF3142E25811F870032B58D /* GenericCoordinator.swift */,
+				4E88B14328F1F4DC0003D64F /* GenericCoordinator+Browser.swift */,
+				4E88B14128F1F48C0003D64F /* GenericCoordinator+Community.swift */,
+				4E88B13F28F1F45C0003D64F /* GenericCoordinator+Profile.swift */,
+				4E88B14528F1F58E0003D64F /* GenericCoordinator+Post.swift */,
+				4E88B14728F1F6450003D64F /* GenericCoordinator+Instances.swift */,
+				4E88B14928F1F6D60003D64F /* GenericCoordinator+Comment.swift */,
+			);
+			path = GenericCoordinator;
 			sourceTree = "<group>";
 		};
 		4E91832F2566C12E00702F04 /* Libraries */ = {
@@ -1504,14 +1533,6 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		4EBB22172559EB0E00B88079 /* StyledNavigationController */ = {
-			isa = PBXGroup;
-			children = (
-				4EBB22182559EB3600B88079 /* StyledNavigationController.swift */,
-			);
-			path = StyledNavigationController;
-			sourceTree = "<group>";
-		};
 		4EBB22322559EF1800B88079 /* Concurrency */ = {
 			isa = PBXGroup;
 			children = (
@@ -1689,7 +1710,7 @@
 		4ECCEEF0250C03910075F921 /* LemmyTabBar */ = {
 			isa = PBXGroup;
 			children = (
-				4E886C49253C95AA0076B162 /* animator */,
+				4E886C49253C95AA0076B162 /* Animator */,
 				4ECCEEF3250C04280075F921 /* LemmyTabBarController.swift */,
 				4ECCEEF1250C03A40075F921 /* LemmyTabBarCoordinator.swift */,
 			);
@@ -1924,25 +1945,6 @@
 			path = Unauthorized;
 			sourceTree = "<group>";
 		};
-		4EED8717274497D500DB15A8 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				4EED87182744B28E00DB15A8 /* LemmyLightboxController */,
-				4EBB22172559EB0E00B88079 /* StyledNavigationController */,
-				4ECCEEF0250C03910075F921 /* LemmyTabBar */,
-				4EF3142A25811F0C0032B58D /* GenericCoordinator */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
-		4EED87182744B28E00DB15A8 /* LemmyLightboxController */ = {
-			isa = PBXGroup;
-			children = (
-				4EED87192744B2C600DB15A8 /* LemmyLightboxController.swift */,
-			);
-			path = LemmyLightboxController;
-			sourceTree = "<group>";
-		};
 		4EF312E32576D2B90032B58D /* Post */ = {
 			isa = PBXGroup;
 			children = (
@@ -2005,14 +2007,6 @@
 				4EF313B2257BE8670032B58D /* SafariActivity.swift */,
 			);
 			path = Acitivities;
-			sourceTree = "<group>";
-		};
-		4EF3142A25811F0C0032B58D /* GenericCoordinator */ = {
-			isa = PBXGroup;
-			children = (
-				4EF3142E25811F870032B58D /* GenericCoordinator.swift */,
-			);
-			path = GenericCoordinator;
 			sourceTree = "<group>";
 		};
 		4EF3413925C1FBE000CEF6D6 /* AlternateIcons */ = {
@@ -2513,11 +2507,13 @@
 				4E10705B253476FC009EABDA /* PostsFrontPageModel.swift in Sources */,
 				4EB4F67F258FF0EF0057BDCC /* InstancePersistenceService.swift in Sources */,
 				4EDD008625A60F1D006FCB9F /* InboxMentionsTableManager.swift in Sources */,
+				4E88B14428F1F4DC0003D64F /* GenericCoordinator+Browser.swift in Sources */,
 				4ECCEEFE250CA30E0075F921 /* FrontPageHeaderCell.swift in Sources */,
 				4E87C69F258E680F0007FE5E /* InstancesCoordinator.swift in Sources */,
 				4E91834F2566C16C00702F04 /* SettingsRightDetailSwitchCellView.swift in Sources */,
 				4E3D44E42596143A00108DA3 /* SettingsInputWithImageCellView.swift in Sources */,
 				4E9183762566F5B900702F04 /* TableInputTextField.swift in Sources */,
+				4E88B14028F1F45C0003D64F /* GenericCoordinator+Profile.swift in Sources */,
 				4E3D44E92596203A00108DA3 /* SettingsInputWithImageTableViewCell.swift in Sources */,
 				4E6E667025B217FA00AF2F48 /* LMModels+Others.swift in Sources */,
 				4E9185CA2570650400702F04 /* CommentContentCenterView.swift in Sources */,
@@ -2576,6 +2572,7 @@
 				4E1070602534770B009EABDA /* CommentsFrontPageViewController.swift in Sources */,
 				4EF3AC95254B60F000BEC9F1 /* CreateCommunityImagesCell.swift in Sources */,
 				4E0A8E4D255C0AF900B06AF6 /* ProfileScreenCommentsInputOutput.swift in Sources */,
+				4E88B14228F1F48C0003D64F /* GenericCoordinator+Community.swift in Sources */,
 				4ECCEEAA250B8B6B0075F921 /* AppDelegate.swift in Sources */,
 				4E004F6E25DFE258006B81CF /* LMMMessagesToast.swift in Sources */,
 				4E0A8E5C255D586F00B06AF6 /* ProfileScreenAboutInputProtocol.swift in Sources */,
@@ -2625,6 +2622,7 @@
 				4EDD001225A5DC88006FCB9F /* InboxNotificationsViewModel.swift in Sources */,
 				4EBB2276255AF77400B88079 /* ProfileScreenPostsInputOutput.swift in Sources */,
 				4EF3AD0A25510D1900BEC9F1 /* CommunityContentTypePickerCell.swift in Sources */,
+				4E88B14828F1F6450003D64F /* GenericCoordinator+Instances.swift in Sources */,
 				4EB2641325AC8A03003D5183 /* TermsOfUseView.swift in Sources */,
 				4EBB2244255AD50C00B88079 /* ProfileScreenHeaderView.swift in Sources */,
 				4EFAB5912551858C00B32780 /* UIAlertController+Ext.swift in Sources */,
@@ -2639,6 +2637,7 @@
 				4EF3136C257A7F910032B58D /* ScaledControl.swift in Sources */,
 				4EF3AC62254A01DA00BEC9F1 /* CreateCommunityViewController.swift in Sources */,
 				4E7CFCD52584215F0082AC3D /* UIImageView+Ext.swift in Sources */,
+				4E88B14A28F1F6D60003D64F /* GenericCoordinator+Comment.swift in Sources */,
 				4EBB221325598B0C00B88079 /* Assembly.swift in Sources */,
 				4E9183492566C16C00702F04 /* SettingsInputTableViewCell.swift in Sources */,
 				4E6E66A925B3392500AF2F48 /* LemmyVoteType.swift in Sources */,
@@ -2668,6 +2667,7 @@
 				4EEA73AA263D5D1B00413B0B /* ProfileChangePasswordView.swift in Sources */,
 				4EB4F69A2590C33F0057BDCC /* AddInstanceAssembly.swift in Sources */,
 				4E6E662825B1F33300AF2F48 /* LMModels+Aggregates.swift in Sources */,
+				4E88B14628F1F58E0003D64F /* GenericCoordinator+Post.swift in Sources */,
 				4E004F8A25DFF8A9006B81CF /* EditPostViewController.swift in Sources */,
 				4E106F6525274325009EABDA /* PostScreenViewModel.swift in Sources */,
 				4E918509256E9EAA00702F04 /* CommentsViewDelegate.swift in Sources */,

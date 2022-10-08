@@ -10,7 +10,7 @@ import UIKit
 
 class CreateTransitionDelegateImpl: NSObject, UIViewControllerTransitioningDelegate {
 
-    static let duration: TimeInterval = 0.2
+    static let duration: TimeInterval = 0.5
 
     func animationController(
         forPresented presented: UIViewController,
@@ -18,13 +18,13 @@ class CreateTransitionDelegateImpl: NSObject, UIViewControllerTransitioningDeleg
         source: UIViewController
     ) -> UIViewControllerAnimatedTransitioning? {
 
-        return CreatePresentAnimator()
+        CreatePresentAnimator()
     }
 
     func animationController(
         forDismissed dismissed: UIViewController
     ) -> UIViewControllerAnimatedTransitioning? {
 
-        return CreateDismissPresentAnimator()
+        CreateDismissAnimator()
     }
 }

@@ -9,13 +9,11 @@
 import UIKit
 
 final class CreatePresentAnimator: NSObject, UIViewControllerAnimatedTransitioning {
-
-    // MARK: - Properties
+    
     private var transitionDriver: CreatePresentTransitionDriver?
-
-    // MARK: - Methods
+    
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return CreateTransitionDelegateImpl.duration
+        CreateTransitionDelegateImpl.duration
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
