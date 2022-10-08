@@ -29,5 +29,5 @@ We use [Lemmy](https://github.com/LemmyNet/lemmy/) backend.
 or email uuttff8@gmail.com me.
 
 ### License 
-The Lemmer project is available for free use, as described by the LICENSE (MIT).
+The Remmel project is available for free use, as described by the LICENSE (MIT).
 
