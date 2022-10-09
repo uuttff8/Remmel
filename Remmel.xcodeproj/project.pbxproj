@@ -383,7 +383,7 @@
 		657DF46A25968EAA00831B0F /* AddAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DF46925968EAA00831B0F /* AddAccountViewController.swift */; };
 		657DF46F25968EB500831B0F /* AddAccountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DF46E25968EB500831B0F /* AddAccountsViewModel.swift */; };
 		657DF47425968EC200831B0F /* AddAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DF47325968EC200831B0F /* AddAccountView.swift */; };
-		921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */; };
+		C8065CA2CA40C826707D50E9 /* Pods_Remmel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A5F0BB9A3C7CCCF680DF745 /* Pods_Remmel.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -770,6 +770,8 @@
 		4EFAB5E62552FA9300B32780 /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		4EFAB5EB2552FC5000B32780 /* UIStackView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Ext.swift"; sourceTree = "<group>"; };
 		4EFAB6102553279700B32780 /* CommunityHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityHeaderCell.swift; sourceTree = "<group>"; };
+		5A5F0BB9A3C7CCCF680DF745 /* Pods_Remmel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Remmel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		618CC2621111B45C0C78E0A1 /* Pods-Remmel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Remmel.debug.xcconfig"; path = "Target Support Files/Pods-Remmel/Pods-Remmel.debug.xcconfig"; sourceTree = "<group>"; };
 		650B3F3F2596731B00A3CB17 /* AccountsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsTableDataSource.swift; sourceTree = "<group>"; };
 		6569A2192594E8F2005A4C54 /* AccountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsViewModel.swift; sourceTree = "<group>"; };
 		6569A2212594E8FC005A4C54 /* AccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
@@ -782,8 +784,8 @@
 		657DF46925968EAA00831B0F /* AddAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountViewController.swift; sourceTree = "<group>"; };
 		657DF46E25968EB500831B0F /* AddAccountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountsViewModel.swift; sourceTree = "<group>"; };
 		657DF47325968EC200831B0F /* AddAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountView.swift; sourceTree = "<group>"; };
+		7975AA98901992F235B87599 /* Pods-Remmel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Remmel.release.xcconfig"; path = "Target Support Files/Pods-Remmel/Pods-Remmel.release.xcconfig"; sourceTree = "<group>"; };
 		AF9E5291792018DE1B6050FA /* Pods-Lemmy-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.release.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.release.xcconfig"; sourceTree = "<group>"; };
-		B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lemmy_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8130B334E7F53B10E26E71F /* Pods-Lemmy-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -795,11 +797,11 @@
 				4E004F4025DEBC7C006B81CF /* markymark in Frameworks */,
 				4E004F6125DFA81B006B81CF /* SwiftMessages in Frameworks */,
 				4E1070842534F742009EABDA /* KeychainSwift in Frameworks */,
-				921D5D41A20BF0BD95B03486 /* Pods_Lemmy_iOS.framework in Frameworks */,
 				4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */,
 				4EBF1D5E25923723004068CD /* XCGLogger in Frameworks */,
 				4E98BFC125BB2438009DA520 /* IQKeyboardManagerSwift in Frameworks */,
 				4E9184FC256E9E4E00702F04 /* SwipeCellKit in Frameworks */,
+				C8065CA2CA40C826707D50E9 /* Pods_Remmel.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2191,7 +2193,7 @@
 		750E6997D470E00BE92AFA4E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B936F2A371355A780B2B5D1D /* Pods_Lemmy_iOS.framework */,
+				5A5F0BB9A3C7CCCF680DF745 /* Pods_Remmel.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2201,6 +2203,8 @@
 			children = (
 				F8130B334E7F53B10E26E71F /* Pods-Lemmy-iOS.debug.xcconfig */,
 				AF9E5291792018DE1B6050FA /* Pods-Lemmy-iOS.release.xcconfig */,
+				618CC2621111B45C0C78E0A1 /* Pods-Remmel.debug.xcconfig */,
+				7975AA98901992F235B87599 /* Pods-Remmel.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -2308,12 +2312,12 @@
 			mainGroup = 4ECCEE9D250B8B6B0075F921;
 			packageReferences = (
 				4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */,
-				4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
-				4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger" */,
-				4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
-				4E004F3E25DEBC7C006B81CF /* XCRemoteSwiftPackageReference "Marky-Mark" */,
-				4E004F5F25DFA81B006B81CF /* XCRemoteSwiftPackageReference "SwiftMessages" */,
+				4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift.git" */,
+				4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit.git" */,
+				4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger.git" */,
+				4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager.git" */,
+				4E004F3E25DEBC7C006B81CF /* XCRemoteSwiftPackageReference "Marky-Mark.git" */,
+				4E004F5F25DFA81B006B81CF /* XCRemoteSwiftPackageReference "SwiftMessages.git" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
@@ -2393,7 +2397,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Lemmy-iOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Remmel-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2406,15 +2410,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Remmel/Pods-Remmel-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Remmel/Pods-Remmel-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Remmel/Pods-Remmel-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2958,7 +2962,7 @@
 		};
 		4ECCEED4250B8B6F0075F921 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F8130B334E7F53B10E26E71F /* Pods-Lemmy-iOS.debug.xcconfig */;
+			baseConfigurationReference = 618CC2621111B45C0C78E0A1 /* Pods-Remmel.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Remmel/Remmel.entitlements;
@@ -2988,7 +2992,7 @@
 		};
 		4ECCEED5250B8B6F0075F921 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AF9E5291792018DE1B6050FA /* Pods-Lemmy-iOS.release.xcconfig */;
+			baseConfigurationReference = 7975AA98901992F235B87599 /* Pods-Remmel.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Remmel/Remmel.entitlements;
@@ -3142,7 +3146,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4E004F3E25DEBC7C006B81CF /* XCRemoteSwiftPackageReference "Marky-Mark" */ = {
+		4E004F3E25DEBC7C006B81CF /* XCRemoteSwiftPackageReference "Marky-Mark.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/uuttff8/Marky-Mark.git";
 			requirement = {
@@ -3150,7 +3154,7 @@
 				revision = 303eeeaaa9a41f5aa40379e3e35462afaa6e9a42;
 			};
 		};
-		4E004F5F25DFA81B006B81CF /* XCRemoteSwiftPackageReference "SwiftMessages" */ = {
+		4E004F5F25DFA81B006B81CF /* XCRemoteSwiftPackageReference "SwiftMessages.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftKickMobile/SwiftMessages.git";
 			requirement = {
@@ -3158,7 +3162,7 @@
 				minimumVersion = 9.0.0;
 			};
 		};
-		4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+		4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
 			requirement = {
@@ -3166,7 +3170,7 @@
 				minimumVersion = 19.0.0;
 			};
 		};
-		4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */ = {
+		4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwipeCellKit/SwipeCellKit.git";
 			requirement = {
@@ -3174,7 +3178,7 @@
 				minimumVersion = 2.7.1;
 			};
 		};
-		4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+		4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
 			requirement = {
@@ -3182,7 +3186,7 @@
 				minimumVersion = 6.5.6;
 			};
 		};
-		4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger" */ = {
+		4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/DaveWoodCom/XCGLogger.git";
 			requirement = {
@@ -3203,32 +3207,32 @@
 /* Begin XCSwiftPackageProductDependency section */
 		4E004F3F25DEBC7C006B81CF /* markymark */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E004F3E25DEBC7C006B81CF /* XCRemoteSwiftPackageReference "Marky-Mark" */;
+			package = 4E004F3E25DEBC7C006B81CF /* XCRemoteSwiftPackageReference "Marky-Mark.git" */;
 			productName = markymark;
 		};
 		4E004F6025DFA81B006B81CF /* SwiftMessages */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E004F5F25DFA81B006B81CF /* XCRemoteSwiftPackageReference "SwiftMessages" */;
+			package = 4E004F5F25DFA81B006B81CF /* XCRemoteSwiftPackageReference "SwiftMessages.git" */;
 			productName = SwiftMessages;
 		};
 		4E1070832534F742009EABDA /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			package = 4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift.git" */;
 			productName = KeychainSwift;
 		};
 		4E9184FB256E9E4E00702F04 /* SwipeCellKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */;
+			package = 4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit.git" */;
 			productName = SwipeCellKit;
 		};
 		4E98BFC025BB2438009DA520 /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			package = 4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager.git" */;
 			productName = IQKeyboardManagerSwift;
 		};
 		4EBF1D5D25923723004068CD /* XCGLogger */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger" */;
+			package = 4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger.git" */;
 			productName = XCGLogger;
 		};
 		4ECCEEFA250C13240075F921 /* SnapKit */ = {
