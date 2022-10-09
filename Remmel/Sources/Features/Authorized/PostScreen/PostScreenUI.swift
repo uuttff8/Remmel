@@ -30,18 +30,17 @@ extension PostScreenViewController {
         
         weak var delegate: PostScreenViewDelegate?
                 
-        let appearance = Appearance()
+        private let appearance = Appearance()
         
-        var headerView = PostScreenHeaderView()
-        
+        let headerView = PostScreenHeaderView()
         var postData: LMModels.Views.PostView?
-                
+                        
         init() {
             super.init(frame: .zero)
             
-            self.setupView()
-            self.addSubviews()
-            self.makeConstraints()
+            setupView()
+            addSubviews()
+            makeConstraints()
             
             headerView.writeNewCommentButton.addTarget(self,
                                                        action: #selector(writeCommentButtonTapped(_:)),
@@ -54,8 +53,8 @@ extension PostScreenViewController {
         }
         
         func bind(with viewData: LMModels.Views.PostView) {
-            self.postData = viewData
-            self.headerView.bind(with: viewData)
+            postData = viewData
+            headerView.bind(with: viewData)
             
             if let url = viewData.post.url, let url = URL(string: url.trimmingCharacters(in: .newlines)) {
                 headerView.postOutlineEmbedView.addTap {
@@ -77,18 +76,18 @@ extension PostScreenViewController {
                 return
             }
             
-            self.delegate?.postView(self, didWriteCommentTappedWith: post)
+            delegate?.postView(self, didWriteCommentTappedWith: post)
         }
     }
 }
 
 extension PostScreenViewController.View: ProgrammaticallyViewProtocol {
     func addSubviews() {
-        self.addSubview(headerView)
+        addSubview(headerView)
     }
     
     func makeConstraints() {
-        self.headerView.snp.makeConstraints {
+        headerView.snp.makeConstraints {
             $0.edges.equalTo(self.safeAreaLayoutGuide)
         }
     }
@@ -96,23 +95,32 @@ extension PostScreenViewController.View: ProgrammaticallyViewProtocol {
 
 class PostScreenHeaderView: UIView {
     
-    let postHeaderView = PostContentView().then {
+    // MARK: - UI Properties
+    
+    let postHeaderView: PostContentView = {
         $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
         $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-    }
-    let postOutlineEmbedView = LemmyOutlinePostEmbedView().then {
+        return $0
+    }(PostContentView())
+    
+    let postOutlineEmbedView: LemmyOutlinePostEmbedView = {
         $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
         $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-    }
-    let writeNewCommentButton = WriteNewCommentButton().then {
+        return $0
+    }(LemmyOutlinePostEmbedView())
+    
+    let writeNewCommentButton: WriteNewCommentButton = {
         $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
         $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-    }
+        return $0
+    }(WriteNewCommentButton())
     
     private let mainStackView = UIStackView().then {
         $0.axis = .vertical
         $0.spacing = 0
     }
+    
+    // MARK: - Init
     
     init() {
         super.init(frame: .zero)
@@ -126,6 +134,8 @@ class PostScreenHeaderView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Public API
     
     func bind(with postInfo: LMModels.Views.PostView) {
         postHeaderView.bind(with: postInfo, config: .fullPost)
@@ -144,15 +154,17 @@ class PostScreenHeaderView: UIView {
     }
 }
 
+// MARK: - ProgrammaticallyViewProtocol
+
 extension PostScreenHeaderView: ProgrammaticallyViewProtocol {
     func setupView() {
-        self.backgroundColor = UIColor.systemBackground
+        backgroundColor = UIColor.systemBackground
     }
     
     func addSubviews() {
-        self.addSubview(mainStackView)
+        addSubview(mainStackView)
 
-        self.mainStackView.addStackViewItems(
+        mainStackView.addStackViewItems(
             .view(postHeaderView),
             .view(postOutlineEmbedView),
             .view(writeNewCommentButton)
@@ -160,22 +172,26 @@ extension PostScreenHeaderView: ProgrammaticallyViewProtocol {
     }
     
     func makeConstraints() {
-        self.mainStackView.snp.makeConstraints {
+        mainStackView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }
 }
 
+// MARK: - WriteNewCommentButton -
+
 class WriteNewCommentButton: UIButton {
+    
+    // MARK: - Init
     
     init() {
         super.init(frame: .zero)
         
-        self.setTitle("Write Comment", for: .normal)
-        self.setTitleColor(.label, for: .normal)
-        self.setImage(Config.Image.writeComment, for: .normal)
+        setTitle("Write Comment", for: .normal)
+        setTitleColor(.label, for: .normal)
+        setImage(Config.Image.writeComment, for: .normal)
         
-        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
+        titleEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
     }
     
     @available(*, unavailable)
@@ -183,8 +199,10 @@ class WriteNewCommentButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Overrides
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        self.setImage(Config.Image.writeComment, for: .normal)
+        setImage(Config.Image.writeComment, for: .normal)
     }
     
     override var intrinsicContentSize: CGSize {
