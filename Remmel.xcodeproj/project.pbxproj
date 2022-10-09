@@ -1486,7 +1486,7 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		4EB89AF6251F478F007129BF /* PostScreen */ = {
+		4EB89AF6251F478F007129BF /* Post */ = {
 			isa = PBXGroup;
 			children = (
 				4E918516256ECBA300702F04 /* Comments */,
@@ -1496,7 +1496,7 @@
 				4E106F6425274325009EABDA /* PostScreenViewModel.swift */,
 				4E26FE9F2573E36C009DE4A7 /* PostScreenCoordinator.swift */,
 			);
-			path = PostScreen;
+			path = Post;
 			sourceTree = "<group>";
 		};
 		4EB89B3925220DB0007129BF /* Some */ = {
@@ -1653,14 +1653,14 @@
 			path = Features;
 			sourceTree = "<group>";
 		};
-		4ECCEEE3250B8F690075F921 /* Auth */ = {
+		4ECCEEE3250B8F690075F921 /* Authorization */ = {
 			isa = PBXGroup;
 			children = (
 				4E886C34253872B90076B162 /* SignUp */,
 				4E10709C25361846009EABDA /* AuthenticationView.swift */,
 				4ECCEEAD250B8B6B0075F921 /* LoginViewController.swift */,
 			);
-			path = Auth;
+			path = Authorization;
 			sourceTree = "<group>";
 		};
 		4ECCEEE8250BA6040075F921 /* Networking */ = {
@@ -1900,14 +1900,12 @@
 			isa = PBXGroup;
 			children = (
 				4ECCEEEB250BE85B0075F921 /* MainPage */,
-				4ECCEEE3250B8F690075F921 /* Auth */,
 				4E10706F2534E942009EABDA /* CreateMedia */,
 				4ECCEEF5250C0E230075F921 /* CommunitiesPreview */,
 				4E3E0F702555BCE70086CE0C /* ProfileScreen */,
 				4E110D4825CB403A00A06306 /* ProfileSettings */,
-				4EF3ACFD2550755700BEC9F1 /* MarkdownParsedViewController */,
-				4EF3ACCF254EF82000BEC9F1 /* CommunityScreen */,
-				4EB89AF6251F478F007129BF /* PostScreen */,
+				4EF3ACCF254EF82000BEC9F1 /* Community */,
+				4EB89AF6251F478F007129BF /* Post */,
 				4E886C82253F4F3A0076B162 /* CreatePost */,
 				4E004F7D25DFF857006B81CF /* EditPost */,
 				4EF3AC5B254A019800BEC9F1 /* CreateCommunity */,
@@ -1915,6 +1913,7 @@
 				4E98BF9B25B8DE27009DA520 /* Settings */,
 				4EDDFFFD25A5DBEA006FCB9F /* InboxNotifications */,
 				4EDDFFE825A5CF90006FCB9F /* WriteMessage */,
+				4EF3ACFD2550755700BEC9F1 /* MoreMarkdown */,
 			);
 			path = Authorized;
 			sourceTree = "<group>";
@@ -1922,6 +1921,7 @@
 		4EED87152744973500DB15A8 /* Unauthorized */ = {
 			isa = PBXGroup;
 			children = (
+				4ECCEEE3250B8F690075F921 /* Authorization */,
 				4E405B3625F1561900057F77 /* Onboarding */,
 				4E87C698258E67A50007FE5E /* Instances */,
 				6569A2152594E8C7005A4C54 /* Accounts */,
@@ -2032,7 +2032,7 @@
 			path = cells;
 			sourceTree = "<group>";
 		};
-		4EF3ACCF254EF82000BEC9F1 /* CommunityScreen */ = {
+		4EF3ACCF254EF82000BEC9F1 /* Community */ = {
 			isa = PBXGroup;
 			children = (
 				4EFA81EC2561EFD2008AF535 /* views */,
@@ -2044,7 +2044,7 @@
 				4EFA81D9256175B3008AF535 /* CommunityTableDataSource.swift */,
 				4E87C63B258C04BB0007FE5E /* CommunityScreenCoordinator.swift */,
 			);
-			path = CommunityScreen;
+			path = Community;
 			sourceTree = "<group>";
 		};
 		4EF3ACE5254EFB8C00BEC9F1 /* cells */ = {
@@ -2056,12 +2056,12 @@
 			path = cells;
 			sourceTree = "<group>";
 		};
-		4EF3ACFD2550755700BEC9F1 /* MarkdownParsedViewController */ = {
+		4EF3ACFD2550755700BEC9F1 /* MoreMarkdown */ = {
 			isa = PBXGroup;
 			children = (
 				4EF3ACFE2550757200BEC9F1 /* MarkdownParsedViewController.swift */,
 			);
-			path = MarkdownParsedViewController;
+			path = MoreMarkdown;
 			sourceTree = "<group>";
 		};
 		4EF3AD032550907D00BEC9F1 /* UIUtils */ = {
@@ -2312,12 +2312,12 @@
 			mainGroup = 4ECCEE9D250B8B6B0075F921;
 			packageReferences = (
 				4ECCEEF9250C13240075F921 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift.git" */,
-				4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit.git" */,
-				4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger.git" */,
-				4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager.git" */,
-				4E004F3E25DEBC7C006B81CF /* XCRemoteSwiftPackageReference "Marky-Mark.git" */,
-				4E004F5F25DFA81B006B81CF /* XCRemoteSwiftPackageReference "SwiftMessages.git" */,
+				4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */,
+				4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
+				4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger" */,
+				4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				4E004F3E25DEBC7C006B81CF /* XCRemoteSwiftPackageReference "Marky-Mark" */,
+				4E004F5F25DFA81B006B81CF /* XCRemoteSwiftPackageReference "SwiftMessages" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
@@ -3146,7 +3146,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4E004F3E25DEBC7C006B81CF /* XCRemoteSwiftPackageReference "Marky-Mark.git" */ = {
+		4E004F3E25DEBC7C006B81CF /* XCRemoteSwiftPackageReference "Marky-Mark" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/uuttff8/Marky-Mark.git";
 			requirement = {
@@ -3154,7 +3154,7 @@
 				revision = 303eeeaaa9a41f5aa40379e3e35462afaa6e9a42;
 			};
 		};
-		4E004F5F25DFA81B006B81CF /* XCRemoteSwiftPackageReference "SwiftMessages.git" */ = {
+		4E004F5F25DFA81B006B81CF /* XCRemoteSwiftPackageReference "SwiftMessages" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftKickMobile/SwiftMessages.git";
 			requirement = {
@@ -3162,7 +3162,7 @@
 				minimumVersion = 9.0.0;
 			};
 		};
-		4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift.git" */ = {
+		4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
 			requirement = {
@@ -3170,7 +3170,7 @@
 				minimumVersion = 19.0.0;
 			};
 		};
-		4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit.git" */ = {
+		4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwipeCellKit/SwipeCellKit.git";
 			requirement = {
@@ -3178,7 +3178,7 @@
 				minimumVersion = 2.7.1;
 			};
 		};
-		4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager.git" */ = {
+		4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
 			requirement = {
@@ -3186,7 +3186,7 @@
 				minimumVersion = 6.5.6;
 			};
 		};
-		4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger.git" */ = {
+		4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/DaveWoodCom/XCGLogger.git";
 			requirement = {
@@ -3207,32 +3207,32 @@
 /* Begin XCSwiftPackageProductDependency section */
 		4E004F3F25DEBC7C006B81CF /* markymark */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E004F3E25DEBC7C006B81CF /* XCRemoteSwiftPackageReference "Marky-Mark.git" */;
+			package = 4E004F3E25DEBC7C006B81CF /* XCRemoteSwiftPackageReference "Marky-Mark" */;
 			productName = markymark;
 		};
 		4E004F6025DFA81B006B81CF /* SwiftMessages */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E004F5F25DFA81B006B81CF /* XCRemoteSwiftPackageReference "SwiftMessages.git" */;
+			package = 4E004F5F25DFA81B006B81CF /* XCRemoteSwiftPackageReference "SwiftMessages" */;
 			productName = SwiftMessages;
 		};
 		4E1070832534F742009EABDA /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift.git" */;
+			package = 4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
 		};
 		4E9184FB256E9E4E00702F04 /* SwipeCellKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit.git" */;
+			package = 4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */;
 			productName = SwipeCellKit;
 		};
 		4E98BFC025BB2438009DA520 /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager.git" */;
+			package = 4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
 			productName = IQKeyboardManagerSwift;
 		};
 		4EBF1D5D25923723004068CD /* XCGLogger */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger.git" */;
+			package = 4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger" */;
 			productName = XCGLogger;
 		};
 		4ECCEEFA250C13240075F921 /* SnapKit */ = {

@@ -11,25 +11,29 @@ import markymark
 
 final class MarkdownParsedViewController: UIViewController, CatalystDismissable {
     
+    // MARK: - UI Properties
+    
     private lazy var closeBarButton = UIBarButtonItem(
         barButtonSystemItem: .close,
         target: self,
         action: #selector(dismissVc)
     )
     
-    private lazy var mdTextView = MarkDownTextView(
+    private lazy var mdTextView = {
+        $0.urlOpener = DefaultURLOpener()
+        return $0
+    }(MarkDownTextView(
         markDownConfiguration: .attributedString,
         flavor: ContentfulFlavor(),
         styling: .init()
-    ).then {
-        $0.urlOpener = DefaultURLOpener()
-    }
+    ))
 
+    // MARK: - Init
+    
     init(mdString: String) {
         super.init(nibName: nil, bundle: nil)
         
-        self.navigationItem.rightBarButtonItem = closeBarButton
-        
+        navigationItem.rightBarButtonItem = closeBarButton
         mdTextView.text = mdString
         
         setupView()
@@ -42,19 +46,25 @@ final class MarkdownParsedViewController: UIViewController, CatalystDismissable 
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Overrides
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "create-content-community-description".localized
     }
     
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
-        self.dismissWithExitButton(presses: presses)
+        dismissWithExitButton(presses: presses)
     }
     
+    // MARK: - @objc actions
+    
     @objc func dismissVc() {
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
 }
+
+// MARK: - ProgrammaticallyViewProtocol
 
 extension MarkdownParsedViewController: ProgrammaticallyViewProtocol {
     func setupView() {
@@ -71,6 +81,8 @@ extension MarkdownParsedViewController: ProgrammaticallyViewProtocol {
         }
     }
 }
+
+// MARK: - StyledNavigationControllerPresentable
 
 extension MarkdownParsedViewController: StyledNavigationControllerPresentable {
     var navigationBarAppearanceOnFirstPresentation: StyledNavigationController.NavigationBarAppearanceState {
