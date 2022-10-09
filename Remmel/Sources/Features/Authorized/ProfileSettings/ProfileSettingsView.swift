@@ -20,9 +20,12 @@ class ProfileSettingsView: UIView {
         }
     }
     
+    // MARK: - UI Properties
+    
     private lazy var tableView = SettingsTableView(appearance: .init(style: .insetGrouped))
 
     // MARK: - Init
+    
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
         
@@ -54,6 +57,9 @@ class ProfileSettingsView: UIView {
         tableView.hideActivityIndicatorView()
     }
 }
+
+// MARK: - ProgrammaticallyViewProtocol
+
 extension ProfileSettingsView: ProgrammaticallyViewProtocol {
     func addSubviews() {
         addSubview(self.tableView)

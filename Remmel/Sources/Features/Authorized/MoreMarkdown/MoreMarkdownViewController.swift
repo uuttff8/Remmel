@@ -9,7 +9,7 @@
 import UIKit
 import markymark
 
-final class MarkdownParsedViewController: UIViewController, CatalystDismissable {
+final class MoreMarkdownViewController: UIViewController, CatalystDismissable {
     
     // MARK: - UI Properties
     
@@ -19,7 +19,7 @@ final class MarkdownParsedViewController: UIViewController, CatalystDismissable 
         action: #selector(dismissVc)
     )
     
-    private lazy var mdTextView = {
+    private lazy var mdTextView: MarkDownTextView = {
         $0.urlOpener = DefaultURLOpener()
         return $0
     }(MarkDownTextView(
@@ -66,7 +66,7 @@ final class MarkdownParsedViewController: UIViewController, CatalystDismissable 
 
 // MARK: - ProgrammaticallyViewProtocol
 
-extension MarkdownParsedViewController: ProgrammaticallyViewProtocol {
+extension MoreMarkdownViewController: ProgrammaticallyViewProtocol {
     func setupView() {
         view.backgroundColor = .systemBackground
     }
@@ -84,7 +84,7 @@ extension MarkdownParsedViewController: ProgrammaticallyViewProtocol {
 
 // MARK: - StyledNavigationControllerPresentable
 
-extension MarkdownParsedViewController: StyledNavigationControllerPresentable {
+extension MoreMarkdownViewController: StyledNavigationControllerPresentable {
     var navigationBarAppearanceOnFirstPresentation: StyledNavigationController.NavigationBarAppearanceState {
         .pageSheetAppearance()
     }

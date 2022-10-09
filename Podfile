@@ -1,7 +1,7 @@
 platform :ios, '14.1'
+source 'https://github.com/CocoaPods/Specs.git'
 
 inhibit_all_warnings!
-
 use_frameworks!
 
 target 'Remmel' do

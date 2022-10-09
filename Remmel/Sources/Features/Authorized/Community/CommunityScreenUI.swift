@@ -135,7 +135,7 @@ extension CommunityScreenViewController {
         @objc func descriptionMoreButtonTapped(_ sender: UIButton) {
             if let desc = self.communityHeaderViewData.require().community.description {
                 
-                let vc = MarkdownParsedViewController(mdString: desc)
+                let vc = MoreMarkdownViewController(mdString: desc)
                 let nc = StyledNavigationController(rootViewController: vc)
                 delegate?.communityViewDidReadMoreTapped(self, toVc: nc)
             }

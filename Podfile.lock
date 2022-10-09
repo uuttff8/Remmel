@@ -15,7 +15,7 @@ DEPENDENCIES:
   - Pageboy (~> 3.6)
 
 SPEC REPOS:
-  trunk:
+  https://github.com/CocoaPods/Specs.git:
     - Cache
     - DateToolsSwift
     - Imaginary
@@ -31,6 +31,6 @@ SPEC CHECKSUMS:
   Nuke: 6f400a4ea957e09149ec335a3c6acdcc814d89e4
   Pageboy: fe646118f7168960058bea7a96038386aa7c0da8
 
-PODFILE CHECKSUM: 4f5cb4b00a01ef75728e7f571fc9897ddbe4f306
+PODFILE CHECKSUM: 0242ca0d5663a9a77acaa09be296eed8bee0cc03
 
 COCOAPODS: 1.11.3

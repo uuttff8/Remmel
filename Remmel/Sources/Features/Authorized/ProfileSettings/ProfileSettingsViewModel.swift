@@ -14,7 +14,9 @@ protocol ProfileSettingsViewModelProtocol: AnyObject {
     func doRemoteProfileSettingsUpdate(request: ProfileSettings.UpdateProfileSettings.Request)
 }
 
-class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
+// MARK: - ProfileSettingsViewModel -
+
+final class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
     
     weak var viewController: ProfileSettingsViewControllerProtocol?
     
@@ -22,17 +24,15 @@ class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(
-        userAccountService: UserAccountSerivceProtocol
-    ) {
+    init(userAccountService: UserAccountSerivceProtocol) {
         self.userAccountService = userAccountService
     }
     
     func doProfileSettingsForm(request: ProfileSettings.ProfileSettingsForm.Request) {
-        self.viewController?.displayLoadingIndicator(viewModel: .init(isLoading: true))
+        viewController?.displayLoadingIndicator(viewModel: .init(isLoading: true))
         
         guard let currentUserJwt = userAccountService.jwtToken else {
-            self.viewController?.displayLoadingIndicator(viewModel: .init(isLoading: false))
+            viewController?.displayLoadingIndicator(viewModel: .init(isLoading: false))
             return
         }
         
@@ -41,32 +41,30 @@ class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
         ApiManager.requests
             .asyncGetSite(parameters: params)
             .receive(on: DispatchQueue.main)
-            .sink { completion in
+            .sink { [weak self] completion in
                 Logger.logCombineCompletion(completion)
                 
                 if case .failure(let error) = completion {
-                    self.viewController?.displayError(viewModel: .init(error: error.description, exitImmediately: true))
+                    self?.viewController?.displayError(viewModel: .init(error: error.description, exitImmediately: true))
                 }
-            } receiveValue: { response in
-                
-                guard let myUser = response.myUser else {
-                    self.viewController?.displayError(
-                        viewModel: .init(error: "Some error happened when loading user",
-                                         exitImmediately: true))
+            } receiveValue: { [weak self] response in
+                guard let myUser = response.myUser, let self = self else {
+                    self?.displayError()
                     return
                 }
                 
                 self.userAccountService.currentUserInfo = myUser
                 
                 self.viewController?.displayLoadingIndicator(viewModel: .init(isLoading: false))
-                
                 self.viewController?.displayProfileSettingsForm(
-                    viewModel: .init(displayName: myUser.localUserView.person.displayName,
-                                     bio: myUser.localUserView.person.bio,
-                                     email: myUser.localUserView.localUser.email,
-                                     matrix: myUser.localUserView.person.matrixUserId,
-                                     nsfwContent: myUser.localUserView.localUser.showNsfw,
-                                     notifToEmail: myUser.localUserView.localUser.sendNotificationsToEmail)
+                    viewModel: .init(
+                        displayName: myUser.localUserView.person.displayName,
+                        bio: myUser.localUserView.person.bio,
+                        email: myUser.localUserView.localUser.email,
+                        matrix: myUser.localUserView.person.matrixUserId,
+                        nsfwContent: myUser.localUserView.localUser.showNsfw,
+                        notifToEmail: myUser.localUserView.localUser.sendNotificationsToEmail
+                    )
                 )
             }.store(in: &cancellables)
     }
@@ -115,9 +113,19 @@ class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
                 self.userAccountService.jwtToken = response.jwt
                 self.viewController?.displaySuccessUpdatingSetting()
             }.store(in: &cancellables)
-        
+    }
+    
+    private func displayError() {
+        viewController?.displayError(
+            viewModel: .init(
+                error: "Some error happened when loading user",
+                exitImmediately: true
+            )
+        )
     }
 }
+
+// MARK: - ProfileSettings -
 
 enum ProfileSettings {
     
