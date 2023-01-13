@@ -7,15 +7,15 @@
 ## Compiling 
 How to compile and generate .xcworkspace file
 
- `git clone https://github.com/uuttff8/Lemmy-iOS.git`   
+ `git clone https://github.com/uuttff8/Remmel.git`   
  
- `cd Lemmy-iOS`
+ `cd Remmel`
    
  Run [CocoaPods](https://cocoapods.org/) Install
  
  `pod install`
  
- `open Lemmy-iOS.xcworkspace/`
+ `open Remmel.xcworkspace/`
 
 
 And you are done!
