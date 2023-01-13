@@ -19,11 +19,38 @@
       }
     },
     {
+      "identity" : "lightbox",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/uuttff8/Lightbox.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "398ee143f00bfc070023c155e6d088ffb399c8cb"
+      }
+    },
+    {
       "identity" : "marky-mark",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/uuttff8/Marky-Mark.git",
       "state" : {
         "revision" : "303eeeaaa9a41f5aa40379e3e35462afaa6e9a42"
+      }
+    },
+    {
+      "identity" : "nuke",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kean/Nuke.git",
+      "state" : {
+        "revision" : "7f73ceaeacd5df75a7994cd82e165ad9ff1815db",
+        "version" : "9.6.1"
+      }
+    },
+    {
+      "identity" : "pageboy",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/uias/Pageboy.git",
+      "state" : {
+        "revision" : "af8fa81788b893205e1ff42ddd88c5b0b315d7c5",
+        "version" : "3.7.0"
       }
     },
     {

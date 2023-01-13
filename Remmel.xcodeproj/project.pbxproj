@@ -201,6 +201,9 @@
 		4E9BBA5425555571004FF2F9 /* LemmySortListingPickersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA5325555571004FF2F9 /* LemmySortListingPickersView.swift */; };
 		4E9BBA592555560C004FF2F9 /* LemmyImageTextPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA582555560C004FF2F9 /* LemmyImageTextPickerView.swift */; };
 		4EA3CCC627F0944800737A45 /* MainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3CCC527F0944800737A45 /* MainThread.swift */; };
+		4EAB0F322970772500B59AFE /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 4EAB0F312970772500B59AFE /* Nuke */; };
+		4EAB0F372971623800B59AFE /* Lightbox in Frameworks */ = {isa = PBXBuildFile; productRef = 4EAB0F362971623800B59AFE /* Lightbox */; };
+		4EAB0F3A297162B800B59AFE /* Pageboy in Frameworks */ = {isa = PBXBuildFile; productRef = 4EAB0F39297162B800B59AFE /* Pageboy */; };
 		4EB2641325AC8A03003D5183 /* TermsOfUseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB2641225AC8A03003D5183 /* TermsOfUseView.swift */; };
 		4EB4F67F258FF0EF0057BDCC /* InstancePersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4F67E258FF0EF0057BDCC /* InstancePersistenceService.swift */; };
 		4EB4F684259024B40057BDCC /* InstancesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4F683259024B40057BDCC /* InstancesProvider.swift */; };
@@ -383,7 +386,6 @@
 		657DF46A25968EAA00831B0F /* AddAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DF46925968EAA00831B0F /* AddAccountViewController.swift */; };
 		657DF46F25968EB500831B0F /* AddAccountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DF46E25968EB500831B0F /* AddAccountsViewModel.swift */; };
 		657DF47425968EC200831B0F /* AddAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DF47325968EC200831B0F /* AddAccountView.swift */; };
-		C8065CA2CA40C826707D50E9 /* Pods_Remmel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A5F0BB9A3C7CCCF680DF745 /* Pods_Remmel.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -770,8 +772,6 @@
 		4EFAB5E62552FA9300B32780 /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		4EFAB5EB2552FC5000B32780 /* UIStackView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Ext.swift"; sourceTree = "<group>"; };
 		4EFAB6102553279700B32780 /* CommunityHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityHeaderCell.swift; sourceTree = "<group>"; };
-		5A5F0BB9A3C7CCCF680DF745 /* Pods_Remmel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Remmel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		618CC2621111B45C0C78E0A1 /* Pods-Remmel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Remmel.debug.xcconfig"; path = "Target Support Files/Pods-Remmel/Pods-Remmel.debug.xcconfig"; sourceTree = "<group>"; };
 		650B3F3F2596731B00A3CB17 /* AccountsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsTableDataSource.swift; sourceTree = "<group>"; };
 		6569A2192594E8F2005A4C54 /* AccountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsViewModel.swift; sourceTree = "<group>"; };
 		6569A2212594E8FC005A4C54 /* AccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
@@ -784,9 +784,6 @@
 		657DF46925968EAA00831B0F /* AddAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountViewController.swift; sourceTree = "<group>"; };
 		657DF46E25968EB500831B0F /* AddAccountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountsViewModel.swift; sourceTree = "<group>"; };
 		657DF47325968EC200831B0F /* AddAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountView.swift; sourceTree = "<group>"; };
-		7975AA98901992F235B87599 /* Pods-Remmel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Remmel.release.xcconfig"; path = "Target Support Files/Pods-Remmel/Pods-Remmel.release.xcconfig"; sourceTree = "<group>"; };
-		AF9E5291792018DE1B6050FA /* Pods-Lemmy-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.release.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.release.xcconfig"; sourceTree = "<group>"; };
-		F8130B334E7F53B10E26E71F /* Pods-Lemmy-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lemmy-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Lemmy-iOS/Pods-Lemmy-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -794,14 +791,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EAB0F322970772500B59AFE /* Nuke in Frameworks */,
 				4E004F4025DEBC7C006B81CF /* markymark in Frameworks */,
 				4E004F6125DFA81B006B81CF /* SwiftMessages in Frameworks */,
+				4EAB0F372971623800B59AFE /* Lightbox in Frameworks */,
 				4E1070842534F742009EABDA /* KeychainSwift in Frameworks */,
 				4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */,
+				4EAB0F3A297162B800B59AFE /* Pageboy in Frameworks */,
 				4EBF1D5E25923723004068CD /* XCGLogger in Frameworks */,
 				4E98BFC125BB2438009DA520 /* IQKeyboardManagerSwift in Frameworks */,
 				4E9184FC256E9E4E00702F04 /* SwipeCellKit in Frameworks */,
-				C8065CA2CA40C826707D50E9 /* Pods_Remmel.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1576,8 +1575,6 @@
 				4ECCEEC2250B8B6F0075F921 /* Remmel-iOSTests */,
 				4ECCEECD250B8B6F0075F921 /* Remmel-iOSUITests */,
 				4ECCEEA7250B8B6B0075F921 /* Products */,
-				9295FD3B10BE5390706449EA /* Pods */,
-				750E6997D470E00BE92AFA4E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1595,8 +1592,8 @@
 			isa = PBXGroup;
 			children = (
 				4E50674125D07EB1003F1AB4 /* Remmel.entitlements */,
-				4EFA8149255F2E8D008AF535 /* Resources */,
 				4EFA8148255F2E5D008AF535 /* Sources */,
+				4EFA8149255F2E8D008AF535 /* Resources */,
 			);
 			path = Remmel;
 			sourceTree = "<group>";
@@ -2190,25 +2187,6 @@
 			path = AddAccounts;
 			sourceTree = "<group>";
 		};
-		750E6997D470E00BE92AFA4E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				5A5F0BB9A3C7CCCF680DF745 /* Pods_Remmel.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		9295FD3B10BE5390706449EA /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				F8130B334E7F53B10E26E71F /* Pods-Lemmy-iOS.debug.xcconfig */,
-				AF9E5291792018DE1B6050FA /* Pods-Lemmy-iOS.release.xcconfig */,
-				618CC2621111B45C0C78E0A1 /* Pods-Remmel.debug.xcconfig */,
-				7975AA98901992F235B87599 /* Pods-Remmel.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2216,11 +2194,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4ECCEED3250B8B6F0075F921 /* Build configuration list for PBXNativeTarget "Remmel" */;
 			buildPhases = (
-				A16D6AA48269C83E850CEE76 /* [CP] Check Pods Manifest.lock */,
 				4ECCEEA2250B8B6B0075F921 /* Sources */,
 				4ECCEEA3250B8B6B0075F921 /* Frameworks */,
 				4ECCEEA4250B8B6B0075F921 /* Resources */,
-				E11AFFA1835005D5587B3DED /* [CP] Embed Pods Frameworks */,
 				4EF3AC9E254D557A00BEC9F1 /* ShellScript */,
 			);
 			buildRules = (
@@ -2236,6 +2212,9 @@
 				4E98BFC025BB2438009DA520 /* IQKeyboardManagerSwift */,
 				4E004F3F25DEBC7C006B81CF /* markymark */,
 				4E004F6025DFA81B006B81CF /* SwiftMessages */,
+				4EAB0F312970772500B59AFE /* Nuke */,
+				4EAB0F362971623800B59AFE /* Lightbox */,
+				4EAB0F39297162B800B59AFE /* Pageboy */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Remmel.app */;
@@ -2318,6 +2297,9 @@
 				4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				4E004F3E25DEBC7C006B81CF /* XCRemoteSwiftPackageReference "Marky-Mark" */,
 				4E004F5F25DFA81B006B81CF /* XCRemoteSwiftPackageReference "SwiftMessages" */,
+				4EAB0F302970772500B59AFE /* XCRemoteSwiftPackageReference "Nuke" */,
+				4EAB0F352971623700B59AFE /* XCRemoteSwiftPackageReference "Lightbox" */,
+				4EAB0F38297162B800B59AFE /* XCRemoteSwiftPackageReference "Pageboy" */,
 			);
 			productRefGroup = 4ECCEEA7250B8B6B0075F921 /* Products */;
 			projectDirPath = "";
@@ -2381,45 +2363,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		A16D6AA48269C83E850CEE76 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Remmel-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E11AFFA1835005D5587B3DED /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Remmel/Pods-Remmel-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Remmel/Pods-Remmel-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Remmel/Pods-Remmel-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2962,7 +2905,6 @@
 		};
 		4ECCEED4250B8B6F0075F921 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 618CC2621111B45C0C78E0A1 /* Pods-Remmel.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Remmel/Remmel.entitlements;
@@ -2992,7 +2934,6 @@
 		};
 		4ECCEED5250B8B6F0075F921 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7975AA98901992F235B87599 /* Pods-Remmel.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Remmel/Remmel.entitlements;
@@ -3186,6 +3127,30 @@
 				minimumVersion = 6.5.6;
 			};
 		};
+		4EAB0F302970772500B59AFE /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+		4EAB0F352971623700B59AFE /* XCRemoteSwiftPackageReference "Lightbox" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/uuttff8/Lightbox.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		4EAB0F38297162B800B59AFE /* XCRemoteSwiftPackageReference "Pageboy" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/uias/Pageboy.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		4EBF1D5C25923723004068CD /* XCRemoteSwiftPackageReference "XCGLogger" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/DaveWoodCom/XCGLogger.git";
@@ -3229,6 +3194,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
 			productName = IQKeyboardManagerSwift;
+		};
+		4EAB0F312970772500B59AFE /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EAB0F302970772500B59AFE /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
+		4EAB0F362971623800B59AFE /* Lightbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EAB0F352971623700B59AFE /* XCRemoteSwiftPackageReference "Lightbox" */;
+			productName = Lightbox;
+		};
+		4EAB0F39297162B800B59AFE /* Pageboy */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EAB0F38297162B800B59AFE /* XCRemoteSwiftPackageReference "Pageboy" */;
+			productName = Pageboy;
 		};
 		4EBF1D5D25923723004068CD /* XCGLogger */ = {
 			isa = XCSwiftPackageProductDependency;
