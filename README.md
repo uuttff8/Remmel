@@ -4,22 +4,6 @@
 
 ![](/design/LemmerScreens-1.png  "")
 
-## Compiling 
-How to compile and generate .xcworkspace file
-
- `git clone https://github.com/uuttff8/Remmel.git`   
- 
- `cd Remmel`
-   
- Run [CocoaPods](https://cocoapods.org/) Install
- 
- `pod install`
- 
- `open Remmel.xcworkspace/`
-
-
-And you are done!
-
 ### Getting Help 
 We use [Lemmy](https://github.com/LemmyNet/lemmy/) backend. 
 
