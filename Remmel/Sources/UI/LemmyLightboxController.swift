@@ -6,7 +6,7 @@
 //  Copyright © 2021 Anton Kuzmin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import Lightbox
 
 class LemmyLightboxController: LightboxController {

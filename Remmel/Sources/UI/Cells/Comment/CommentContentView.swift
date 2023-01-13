@@ -52,7 +52,7 @@ class CommentContentView: UIView {
                 avatarImageUrl: comment.creator.avatar,
                 username: comment.creator.name,
                 community: comment.community.name,
-                published: comment.comment.published.toLocalTime().shortTimeAgoSinceNow,
+                published: comment.comment.published.toLocalTime().toRelativeDate(),
                 score: comment.counts.score,
                 postName: comment.post.name
             ),

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import DateToolsSwift
 
 class PostContentPreviewView: UIView {
     
@@ -40,7 +39,7 @@ class PostContentPreviewView: UIView {
                 avatarImageUrl: post.creator.avatar,
                 username: post.creator.name,
                 community: post.community.name,
-                published: post.post.published.toLocalTime().shortTimeAgoSinceNow,
+                published: post.post.published.toLocalTime().toRelativeDate() /*.shortTimeAgoSinceNow*/,
                 urlDomain: post.getUrlDomain()
             )
         )

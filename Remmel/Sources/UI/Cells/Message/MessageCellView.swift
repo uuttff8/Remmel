@@ -81,10 +81,10 @@ final class MessageCellView: UIView {
         }
         
         setupTargets(with: data)
-        self.avatarImageView.loadImage(urlString: data.avatar, imageSize: iconSize)
-        self.usernameButton.setTitle(data.nickname, for: .normal)
-        self.publishedLabel.text = data.published.toLocalTime().shortTimeAgoSinceNow
-        self.contentLabel.text = data.content
+        avatarImageView.loadImage(urlString: data.avatar, imageSize: iconSize)
+        usernameButton.setTitle(data.nickname, for: .normal)
+        publishedLabel.text = data.published.toLocalTime().toRelativeDate()
+        contentLabel.text = data.content
     }
     
     func setupTargets(with data: MentionViewData) {

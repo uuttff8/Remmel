@@ -123,10 +123,9 @@ extension Date {
         return dateFormatter.date(from: str) ?? Date()
     }
     
-    // legacy
     func toRelativeDate() -> String {
         let formatter = RelativeDateTimeFormatter()
-        formatter.unitsStyle = .short
+        formatter.unitsStyle = .full
         
         return formatter.localizedString(for: self, relativeTo: Date())
     }

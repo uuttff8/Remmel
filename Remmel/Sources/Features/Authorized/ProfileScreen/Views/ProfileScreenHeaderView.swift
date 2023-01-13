@@ -114,8 +114,8 @@ class ProfileScreenHeaderView: UIView {
         numberOfCommentsLabel.text = String(viewData.numberOfComments) + " " + "content-comments".localized
         numberOfPostsLabel.text = String(viewData.numberOfPosts) + " " + "community-posts".localized
         
-        pubslihedLabel.text = "community-joined".localized + " "
-            + String(viewData.published.shortTimeAgoSinceNow)
+        pubslihedLabel.text = "community-joined".localized
+            + " " + String(viewData.published.toRelativeDate())
             + " " + "community-ago".localized
     }
 }

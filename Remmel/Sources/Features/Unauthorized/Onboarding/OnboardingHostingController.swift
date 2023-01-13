@@ -46,5 +46,4 @@ final class OnboardingHostingController: UIHostingController<OnboardingView> {
             needsAppOnboarding = false
         }
     }
-    
 }

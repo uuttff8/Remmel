@@ -11,7 +11,6 @@ import Nuke
 
 extension UIImageView {
     
-    // load image or hide the view if it is not
     func loadImage(urlString: URL?, imageSize: CGSize, blur: Bool = false) {
         
         if let url = urlString {
@@ -44,7 +43,6 @@ extension UIImageView {
         }
     }
     
-    // load image or hide the view if it is not
     func loadImage(urlString: URL?, completion: ((Result<ImageResponse, ImagePipeline.Error>) -> Void)? = nil) {
         
         if let url = urlString {
