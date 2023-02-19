@@ -8,6 +8,10 @@
 
 import UIKit
 import Combine
+import RMModels
+import RMServices
+import RMFoundation
+import RMNetworking
 
 protocol InboxMessagesViewModelProtocol {
     func doLoadMessages(request: InboxMessages.LoadMessages.Request)
@@ -33,11 +37,11 @@ final class InboxMessagesViewModel: InboxMessagesViewModelProtocol {
         paginationState = 1
         
         guard let jwt = userAccountService.jwtToken else {
-            Logger.common.error("No jwt token is found")
+            debugPrint("No jwt token is found")
             return
         }
         
-        let params = LMModels.Api.Person.GetPrivateMessages(
+        let params = RMModel.Api.Person.GetPrivateMessages(
             unreadOnly: false,
             page: paginationState,
             limit: 50,
@@ -59,11 +63,11 @@ final class InboxMessagesViewModel: InboxMessagesViewModelProtocol {
         self.paginationState += 1
         
         guard let jwt = userAccountService.jwtToken else {
-            Logger.common.error("No jwt token is found")
+            debugPrint("No jwt token is found")
             return
         }
         
-        let params = LMModels.Api.Person.GetPrivateMessages(
+        let params = RMModel.Api.Person.GetPrivateMessages(
             unreadOnly: false,
             page: paginationState,
             limit: 50,
@@ -99,7 +103,7 @@ enum InboxMessages {
     }
     
     enum ViewControllerState {
-        case result([LMModels.Views.PrivateMessageView])
+        case result([RMModel.Views.PrivateMessageView])
         case loading
     }
 }

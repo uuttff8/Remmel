@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RMNetworking
 
 final class ProfileChangePasswordAssembly: Assembly {
     func makeModule() -> ProfileChangePasswordViewController {

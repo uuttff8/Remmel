@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RMFoundation
+import RMModels
 
 enum CreatePost {
     // Present CreatePost
@@ -26,7 +28,7 @@ enum CreatePost {
         }
         
         struct ViewModel {
-            let post: LMModels.Views.PostView
+            let post: RMModel.Views.PostView
         }
     }
     

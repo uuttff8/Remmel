@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMModels
 
 // MARK: - ReplyMentionCellView: UIView
 class ReplyMentionCellView: UIView {
@@ -41,7 +42,7 @@ class ReplyMentionCellView: UIView {
     }
 
     // MARK: - Public API
-    func configure(reply: LMModels.Views.CommentView) {
+    func configure(reply: RMModel.Views.CommentView) {
         setupTargets(with: reply)
 
         headerView.bind(
@@ -61,13 +62,13 @@ class ReplyMentionCellView: UIView {
             with: .init(
                 id: reply.comment.id,
                 score: reply.counts.score,
-                voteType: reply.getVoteType()
+                voteType: .down// reply.getVoteType()
             ),
             config: .list
         )
     }
     
-    func configure(mention: LMModels.Views.PersonMentionView) {
+    func configure(mention: RMModel.Views.PersonMentionView) {
         setupTargets(with: mention)
 
         headerView.bind(
@@ -87,7 +88,7 @@ class ReplyMentionCellView: UIView {
             with: .init(
                 id: mention.id,
                 score: mention.counts.score,
-                voteType: mention.getVoteType()
+                voteType: .down // mention.getVoteType()
             ),
             config: .list
         )
@@ -106,7 +107,7 @@ class ReplyMentionCellView: UIView {
     }
 
     // MARK: - Private
-    private func setupTargets(with reply: LMModels.Views.CommentView) {
+    private func setupTargets(with reply: RMModel.Views.CommentView) {
         
         // header view
         headerView.communityButtonTap = { [weak self] in
@@ -158,7 +159,7 @@ class ReplyMentionCellView: UIView {
         }
     }
     
-    private func setupTargets(with mention: LMModels.Views.PersonMentionView) {
+    private func setupTargets(with mention: RMModel.Views.PersonMentionView) {
         
         // header view
         headerView.communityButtonTap = { [weak self] in

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMModels
 
 protocol ProfileScreenAboutViewControllerProtocol: AnyObject {
     func displayProfileSubscribers(viewModel: ProfileScreenAbout.SubscribersLoad.ViewModel)
@@ -88,7 +89,7 @@ extension ProfileScreenSubscribedViewController: ProfileScreenAboutViewControlle
 extension ProfileScreenSubscribedViewController: ProfileScreenSubscribedViewDelegate {
     func tableDidSelect(
         _ manager: View,
-        communityFollower: LMModels.Views.CommunityFollowerView
+        communityFollower: RMModel.Views.CommunityFollowerView
     ) {
         self.coordinator?.goToCommunityScreen(
             communityId: communityFollower.community.id,

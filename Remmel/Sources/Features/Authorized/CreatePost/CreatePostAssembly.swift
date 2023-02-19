@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import RMModels
 
 final class CreatePostAssembly: Assembly {
     
-    private let predefinedCommunity: LMModels.Views.CommunityView?
+    private let predefinedCommunity: RMModel.Views.CommunityView?
     
-    init(predefinedCommunity: LMModels.Views.CommunityView? = nil) {
+    init(predefinedCommunity: RMModel.Views.CommunityView? = nil) {
         self.predefinedCommunity = predefinedCommunity
     }
     

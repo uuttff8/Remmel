@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RMModels
+import RMServices
 
 extension CommentsFrontPageViewController {
     struct Appearance {
@@ -16,7 +18,7 @@ extension CommentsFrontPageViewController {
 
 class CommentsFrontPageViewController: UIViewController {
 
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, LMModels.Views.CommentView>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, RMModel.Views.CommentView>
     
     enum Section {
         case comments
@@ -27,7 +29,7 @@ class CommentsFrontPageViewController: UIViewController {
     private let appearance: Appearance
 
     private let viewModel = CommentsFrontPageModel()
-    private let showMoreHandler = ShowMoreHandlerService()
+    private let showMoreHandler = ShowMoreHandlerServiceImp()
     
     private let refreshControl = UIRefreshControl()
 
@@ -110,37 +112,38 @@ class CommentsFrontPageViewController: UIViewController {
         dataSource.apply(snapshot, animatingDifferences: animating)
     }
 
-    @objc func refreshControlValueChanged() {
+    @objc
+    func refreshControlValueChanged() {
         updateTableData(immediately: false)
     }
     
     fileprivate func setupTableHeaderView() {
-        pickerView.listingFirstPick = viewModel.currentListingType
-        pickerView.sortFirstPick = viewModel.currentSortType
-        
-        pickerView.sortTypeView.addTap {
-            self.present(self.pickerView.sortTypeView.configuredAlert, animated: true)
-        }
-        
-        pickerView.listingTypeView.addTap {
-            self.present(self.pickerView.listingTypeView.configuredAlert, animated: true)
-        }
+//        pickerView.listingFirstPick = viewModel.currentListingType
+//        pickerView.sortFirstPick = viewModel.currentSortType
+//
+//        pickerView.sortTypeView.addTap {
+//            self.present(self.pickerView.sortTypeView.configuredAlert, animated: true)
+//        }
+//
+//        pickerView.listingTypeView.addTap {
+//            self.present(self.pickerView.listingTypeView.configuredAlert, animated: true)
+//        }
                 
-        pickerView.listingTypeView.newCasePicked = { [self] pickedValue in
-            self.viewModel.currentListingType = pickedValue
-            
-            updateTableData(immediately: true)
-        }
-        
-        pickerView.sortTypeView.newCasePicked = { [self] pickedValue in
-            self.viewModel.currentSortType = pickedValue
-            
-            updateTableData(immediately: true)
-        }
+//        pickerView.listingTypeView.newCasePicked = { [self] pickedValue in
+//            self.viewModel.currentListingType = pickedValue
+//
+//            updateTableData(immediately: true)
+//        }
+//
+//        pickerView.sortTypeView.newCasePicked = { [self] pickedValue in
+//            self.viewModel.currentSortType = pickedValue
+//
+//            updateTableData(immediately: true)
+//        }
     }
 
-    private func makeDataSource() -> UITableViewDiffableDataSource<Section, LMModels.Views.CommentView> {
-        return UITableViewDiffableDataSource<Section, LMModels.Views.CommentView>(
+    private func makeDataSource() -> UITableViewDiffableDataSource<Section, RMModel.Views.CommentView> {
+        return UITableViewDiffableDataSource<Section, RMModel.Views.CommentView>(
             tableView: tableView,
             cellProvider: { tableView, indexPath, _ -> UITableViewCell? in
                 let cell = tableView.cell(forClass: CommentContentTableCell.self)
@@ -179,7 +182,7 @@ extension CommentsFrontPageViewController: ProgrammaticallyViewProtocol {
 }
 
 extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
-    func postNameTapped(in comment: LMModels.Views.CommentView) {
+    func postNameTapped(in comment: RMModel.Views.CommentView) {
         self.coordinator?.goToPostScreen(postId: comment.post.id)
     }
     
@@ -195,7 +198,7 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        comment: LMModels.Views.CommentView
+        comment: RMModel.Views.CommentView
     ) {
         guard let coordinator = coordinator else {
             return
@@ -206,33 +209,33 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
         }
     }
     
-    func showContext(in comment: LMModels.Views.CommentView) {
+    func showContext(in comment: RMModel.Views.CommentView) {
         self.coordinator?.goToPostAndScroll(to: comment)
     }
     
-    func reply(to comment: LMModels.Views.CommentView) {
+    func reply(to comment: RMModel.Views.CommentView) {
         coordinator?.goToWriteComment(postSource: comment.post, parrentComment: comment.comment) {
-            LMMMessagesToast.showSuccessCreateComment()
+            RMMessagesToast.showSuccessCreateComment()
         }
     }
     
-    func onLinkTap(in comment: LMModels.Views.CommentView, url: URL) {
+    func onLinkTap(in comment: RMModel.Views.CommentView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }
     
-    func showMoreAction(in comment: LMModels.Views.CommentView) {
+    func showMoreAction(in comment: RMModel.Views.CommentView) {
         if let index = self.viewModel.commentsDataSource.getElementIndex(by: comment.id) {
             guard let coordinator = coordinator else {
                 return
             }
             
-            showMoreHandler.showMoreInComment(
-                on: self,
-                coordinator: coordinator,
-                comment: self.viewModel.commentsDataSource[index]
-            ) { updatedComment in
-                self.viewModel.commentsDataSource.updateElementById(updatedComment)
-            }
+//            showMoreHandler.showMoreInComment(
+//                on: self,
+//                coordinator: coordinator,
+//                comment: self.viewModel.commentsDataSource[index]
+//            ) { updatedComment in
+//                self.viewModel.commentsDataSource.updateElementById(updatedComment)
+//            }
         }
     }
 }

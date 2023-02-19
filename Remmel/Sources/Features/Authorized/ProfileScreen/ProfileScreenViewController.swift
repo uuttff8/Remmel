@@ -8,6 +8,7 @@
 
 import UIKit
 import Pageboy
+import RMFoundation
 
 protocol ProfileScreenScrollablePageViewProtocol: AnyObject {
     var scrollViewDelegate: UIScrollViewDelegate? { get set }
@@ -161,7 +162,7 @@ class ProfileScreenViewController: UIViewController {
         }
         
         guard let coordinator = coordinator else {
-            Logger.common.error("Coordinator not found")
+            debugPrint("Coordinator not found")
             return
         }
         

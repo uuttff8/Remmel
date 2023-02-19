@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMFoundation
 
 protocol WriteMessageViewControllerProtocol: AnyObject {
     func displayWriteMessageForm(viewModel: WriteMessage.FormLoad.ViewModel)

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMModels
 
 // MARK: - CommentContentView: UIView
 class CommentContentView: UIView {
@@ -42,7 +43,7 @@ class CommentContentView: UIView {
     }
 
     // MARK: - Public API
-    func bind(with comment: LMModels.Views.CommentView, setting: Setting) {
+    func bind(with comment: RMModel.Views.CommentView, setting: Setting) {
         self.currentSetting = setting
         
         setupTargets(with: comment)
@@ -64,15 +65,15 @@ class CommentContentView: UIView {
             with: .init(
                 id: comment.comment.id,
                 score: comment.counts.score,
-                voteType: comment.getVoteType()
+                voteType: .down// comment.getVoteType()
             ),
             config: setting
         )
     }
     
-    func updateForCreateCommentLike(comment: LMModels.Views.CommentView) {
+    func updateForCreateCommentLike(comment: RMModel.Views.CommentView) {
         guard let setting = currentSetting else {
-            Logger.common.error("Could not determine comment cell setting, so not updating comment like")
+            debugPrint("Could not determine comment cell setting, so not updating comment like")
             return
         }
         
@@ -80,7 +81,7 @@ class CommentContentView: UIView {
             with: .init(
                 id: comment.comment.id,
                 score: comment.counts.score,
-                voteType: comment.getVoteType()
+                voteType: .down //comment.getVoteType()
             ),
             config: setting
         )
@@ -98,7 +99,7 @@ class CommentContentView: UIView {
     }
 
     // MARK: - Private
-    private func setupTargets(with comment: LMModels.Views.CommentView) {
+    private func setupTargets(with comment: RMModel.Views.CommentView) {
         
         // header view
         headerView.communityButtonTap = { [weak self] in

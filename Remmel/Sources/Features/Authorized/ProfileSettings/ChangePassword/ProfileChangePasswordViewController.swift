@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import RMFoundation
 
 protocol ProfileChangePasswordViewControllerProtocol: AnyObject {
     func displayProfileChangePasswordForm(viewModel: ProfileChangePassword.Form.ViewModel)

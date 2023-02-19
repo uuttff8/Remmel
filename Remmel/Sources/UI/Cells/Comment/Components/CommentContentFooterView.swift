@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMModels
 
 // MARK: - CommentFooterView: UIView
 class CommentFooterView: UIView {

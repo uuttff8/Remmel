@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RMModels
+import RMServices
 
 protocol InboxMentionsViewControllerProtocol: AnyObject {
     func displayMentions(viewModel: InboxMentions.LoadMentions.ViewModel)
@@ -25,7 +27,7 @@ final class InboxMentionsViewController: UIViewController {
     }
     
     private let contentScoreService: ContentScoreServiceProtocol
-    private let showMoreService: ShowMoreHandlerServiceProtocol
+    private let showMoreService: ShowMoreHandlerService
     
     private var state: InboxMentions.ViewControllerState
     private var canTriggerPagination = true
@@ -33,7 +35,7 @@ final class InboxMentionsViewController: UIViewController {
     init(
         viewModel: InboxMentionsViewModel,
         contentScoreService: ContentScoreServiceProtocol,
-        showMoreService: ShowMoreHandlerServiceProtocol,
+        showMoreService: ShowMoreHandlerService,
         initialState: InboxMentions.ViewControllerState = .loading
     ) {
         self.viewModel = viewModel
@@ -134,41 +136,37 @@ extension InboxMentionsViewController: UserMentionCellViewDelegate {
         coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
-    func postNameTapped(in userMention: LMModels.Views.PersonMentionView) { }
+    func postNameTapped(in userMention: RMModel.Views.PersonMentionView) { }
     
     func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        userMention: LMModels.Views.PersonMentionView
+        userMention: RMModel.Views.PersonMentionView
     ) {
-        contentScoreService.voteUserMention(
-            scoreView: scoreView,
-            voteButton: voteButton,
-            for: newVote,
-            userMention: userMention
-        )
+        scoreView.setVoted(voteButton: voteButton, to: newVote)
+        contentScoreService.voteUserMention(for: newVote, userMention: userMention)
     }
     
-    func showContext(in comment: LMModels.Views.PersonMentionView) { }
+    func showContext(in comment: RMModel.Views.PersonMentionView) { }
     
-    func reply(to userMention: LMModels.Views.PersonMentionView) {
+    func reply(to userMention: RMModel.Views.PersonMentionView) {
         coordinator?.goToWriteComment(postSource: userMention.post, parrentComment: userMention.comment) {
-            LMMMessagesToast.showSuccessCreateComment()
+            RMMessagesToast.showSuccessCreateComment()
         }
     }
     
-    func onLinkTap(in userMention: LMModels.Views.PersonMentionView, url: URL) {
+    func onLinkTap(in userMention: RMModel.Views.PersonMentionView, url: URL) {
         coordinator?.goToBrowser(with: url)
     }
         
-    func showMoreAction(in userMention: LMModels.Views.PersonMentionView) {
+    func showMoreAction(in userMention: RMModel.Views.PersonMentionView) {
         guard let coordinator = coordinator else {
             return
         }
 
         if let userMention = tableManager.viewModels.getElement(by: userMention.id) {
-            showMoreService.showMoreInUserMention(on: self, coordinator: coordinator, mention: userMention)
+//            showMoreService.showMoreInUserMention(on: self, coordinator: coordinator, mention: userMention)
         }
     }
 }

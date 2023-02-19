@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+import RMFoundation
 
 final class OnboardingHostingController: UIHostingController<OnboardingView> {
     

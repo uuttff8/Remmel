@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMFoundation
 
 protocol SettingsInputWithImageCellDelegate: AnyObject {
     func settingsCellDidTappedToIcon(

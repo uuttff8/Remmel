@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import RMFoundation
 
 final class InstancesCoordinator: BaseCoordinator {
     

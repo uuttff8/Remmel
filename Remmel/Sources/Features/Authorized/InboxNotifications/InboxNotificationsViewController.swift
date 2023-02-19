@@ -8,6 +8,7 @@
 
 import UIKit
 import Pageboy
+import RMFoundation
 
 protocol InboxNotificationsViewControllerProtocol: AnyObject {
     
@@ -81,7 +82,7 @@ final class InboxNotificationsViewController: UIViewController {
         }
         
         guard let coordinator = coordinator else {
-            Logger.common.error("Coordinator not found")
+            debugPrint("Coordinator not found")
             return
         }
 

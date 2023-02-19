@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMModels
 
 enum CreateCommunity {
     
@@ -33,7 +34,7 @@ enum CreateCommunity {
         struct Request { }
         
         struct ViewModel {
-            let community: LMModels.Views.CommunityView
+            let community: RMModel.Views.CommunityView
         }
     }
     

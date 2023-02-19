@@ -113,6 +113,8 @@
 "alert-cancel" = "Отменить";
 "alert-yes" = "Да";
 "alert-no" = "Нет";
+"alert-save" = "Сохранить";
+"alert-unsave" = "Удалить из сохраненных";
 
 "create-comment" = "Новый комментарий";
 "create-comment-agree" = "Согласен!";

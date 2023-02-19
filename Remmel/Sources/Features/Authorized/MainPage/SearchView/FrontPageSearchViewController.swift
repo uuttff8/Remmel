@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMModels
 
 class FrontPageSearchViewController: UIViewController {
     
@@ -45,7 +46,7 @@ class FrontPageSearchViewController: UIViewController {
 }
 
 extension FrontPageSearchViewController: FrontPageSearchViewDelegate {
-    func searchView(_ searchView: FrontPageSearchView, searchWith query: String, type: LMModels.Others.SearchType) {
+    func searchView(_ searchView: FrontPageSearchView, searchWith query: String, type: RMModel.Others.SearchType) {
         coordinator?.goToSearchResults(searchQuery: query, searchType: type)
     }
 }

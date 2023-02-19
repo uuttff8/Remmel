@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMModels
 
 class PostContentPreviewView: UIView {
     
@@ -30,7 +31,7 @@ class PostContentPreviewView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind(with post: LMModels.Views.PostView, config: PostContentType) {
+    func bind(with post: RMModel.Views.PostView, config: PostContentType) {
         setupTargets(with: post)
         
         headerView.bind(
@@ -40,7 +41,7 @@ class PostContentPreviewView: UIView {
                 username: post.creator.name,
                 community: post.community.name,
                 published: post.post.published.toLocalTime().toRelativeDate() /*.shortTimeAgoSinceNow*/,
-                urlDomain: post.getUrlDomain()
+                urlDomain: ""  //post.getUrlDomain()
             )
         )
         
@@ -58,24 +59,24 @@ class PostContentPreviewView: UIView {
                 score: post.counts.score,
                 myVote: post.myVote,
                 numberOfComments: post.counts.comments,
-                voteType: post.getVoteType()
+                voteType: .down // post.getVoteType()
             )
         )
         
     }
     
-    func updateForCreatePostLike(post: LMModels.Views.PostView) {
+    func updateForCreatePostLike(post: RMModel.Views.PostView) {
         footerView.bind(
             with: .init(
                 score: post.counts.score,
                 myVote: post.myVote,
                 numberOfComments: post.counts.comments,
-                voteType: post.getVoteType()
+                voteType: .down //post.getVoteType()
             )
         )
     }
     
-    private func setupTargets(with post: LMModels.Views.PostView) {
+    private func setupTargets(with post: RMModel.Views.PostView) {
         headerView.communityButtonTap = { [weak self] in
             let mention = LemmyCommunityMention(name: post.community.name, id: post.community.id)
             self?.delegate?.communityTapped(with: mention)

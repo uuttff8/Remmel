@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMFoundation
 
 class RegisterView: UIView {
     struct ViewData {

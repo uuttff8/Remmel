@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RMFoundation
+import RMServices
 
 final class AccountsCoordinator: BaseCoordinator {
     
@@ -44,11 +46,11 @@ final class AccountsCoordinator: BaseCoordinator {
     func goToFrontPage() {
         
         if userAccountService.isAuthorized {
-            Logger.common.info("Enter to instance with account")
+            debugPrint("Enter to instance with account")
             
             transitionToFrontPage()
         } else {
-            Logger.common.info("Enter to instance as guest")
+            debugPrint("Enter to instance as guest")
             
             transitionToFrontPage()
         }

@@ -1,4 +1,5 @@
 import UIKit
+import RMFoundation
 
 final class SettingsRightDetailTableViewCell: SettingsTableViewCell<SettingsRightDetailCellView> {
     var uniqueIdentifier: UniqueIdentifierType?

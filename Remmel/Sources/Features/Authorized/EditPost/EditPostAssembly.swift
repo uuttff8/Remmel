@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import RMModels
+import RMServices
+import RMNetworking
 
 final class EditPostAssembly: Assembly {
         
-    private let postSource: LMModels.Source.Post
+    private let postSource: RMModel.Source.Post
     
-    init(postSource: LMModels.Source.Post) {
+    init(postSource: RMModel.Source.Post) {
         self.postSource = postSource
     }
     

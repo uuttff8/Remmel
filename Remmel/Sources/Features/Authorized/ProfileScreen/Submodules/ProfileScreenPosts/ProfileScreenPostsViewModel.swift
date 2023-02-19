@@ -8,6 +8,9 @@
 
 import UIKit
 import Combine
+import RMModels
+import RMFoundation
+import RMNetworking
 
 protocol ProfileScreenPostsViewModelProtocol {
     func doPostFetch(request: ProfileScreenPosts.NextProfilePostsLoad.Request)
@@ -27,7 +30,7 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
     func doPostFetch(request: ProfileScreenPosts.NextProfilePostsLoad.Request) {
         self.paginationState.page = 1
         
-        let params = LMModels.Api.Person.GetPersonDetails(personId: loadedProfile?.id,
+        let params = RMModel.Api.Person.GetPersonDetails(personId: loadedProfile?.id,
                                                           username: loadedProfile?.viewData.name,
                                                           sort: request.sortType,
                                                           page: paginationState.page,
@@ -39,7 +42,7 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
         ApiManager.requests.asyncGetUserDetails(parameters: params)
             .receive(on: DispatchQueue.main)
             .sink { completion in
-                Logger.common.info(completion)
+                debugPrint(completion)
             } receiveValue: { [weak self] response in
                 
                 self?.viewController?.displayProfilePosts(
@@ -52,7 +55,7 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
     func doNextPostsFetch(request: ProfileScreenPosts.NextProfilePostsLoad.Request) {
         self.paginationState.page += 1
         
-        let params = LMModels.Api.Person.GetPersonDetails(personId: loadedProfile?.id,
+        let params = RMModel.Api.Person.GetPersonDetails(personId: loadedProfile?.id,
                                                           username: loadedProfile?.viewData.name,
                                                           sort: request.sortType,
                                                           page: paginationState.page,
@@ -64,7 +67,7 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
         ApiManager.requests.asyncGetUserDetails(parameters: params)
             .receive(on: DispatchQueue.main)
             .sink { completion in
-                Logger.common.info(completion)
+                debugPrint(completion)
             } receiveValue: { [weak self] response in
                 
                 self?.viewController?.displayNextPosts(
@@ -80,7 +83,7 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
 extension ProfileScreenPostsViewModel: ProfileScreenPostsInputProtocol {
     func updatePostsData(
         profile: ProfileScreenViewModel.ProfileData,
-        posts: [LMModels.Views.PostView]
+        posts: [RMModel.Views.PostView]
     ) {
         self.loadedProfile = profile
         self.viewController?.displayProfilePosts(
@@ -96,7 +99,7 @@ extension ProfileScreenPostsViewModel: ProfileScreenPostsInputProtocol {
 enum ProfileScreenPosts {
     enum PostsLoad {
         struct Request {
-            let sortType: LMModels.Others.SortType
+            let sortType: RMModel.Others.SortType
         }
         
         struct ViewModel {
@@ -106,7 +109,7 @@ enum ProfileScreenPosts {
     
     enum NextProfilePostsLoad {
         struct Request {
-            let sortType: LMModels.Others.SortType
+            let sortType: RMModel.Others.SortType
         }
         
         struct ViewModel {
@@ -121,7 +124,7 @@ enum ProfileScreenPosts {
     }
     
     enum PaginationState {
-        case result(data: [LMModels.Views.PostView])
+        case result(data: [RMModel.Views.PostView])
         case error(message: String)
     }
 }

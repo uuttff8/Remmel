@@ -8,6 +8,7 @@
 
 import UIKit
 import Combine
+import RMModels
 
 protocol ProfileScreenAboutViewModelProtocol {
     // TODO do pagination
@@ -27,7 +28,7 @@ class ProfileScreenSubscribedViewModel: ProfileScreenAboutViewModelProtocol {
 extension ProfileScreenSubscribedViewModel: ProfileScreenSubscribedInputProtocol {
     func updateFollowersData(
         profile: ProfileScreenViewModel.ProfileData,
-        subscribers: [LMModels.Views.CommunityFollowerView]
+        subscribers: [RMModel.Views.CommunityFollowerView]
     ) {
         self.loadedProfile = profile
         self.viewController?.displayProfileSubscribers(
@@ -43,7 +44,7 @@ extension ProfileScreenSubscribedViewModel: ProfileScreenSubscribedInputProtocol
 enum ProfileScreenAbout {
     enum SubscribersLoad {
         struct Response {
-            let subscribers: [LMModels.Views.CommunityFollowerView]
+            let subscribers: [RMModel.Views.CommunityFollowerView]
         }
         
         struct ViewModel {

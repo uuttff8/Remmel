@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMFoundation
 
 protocol AccountsViewControllerProtocol: AnyObject {
     func displayAccounts(viewModel: AccountsDataFlow.AccountsRefresh.ViewModel)

@@ -8,6 +8,9 @@
 
 import UIKit
 import Combine
+import RMNetworking
+import RMModels
+import RMFoundation
 
 protocol CommunityScreenViewModelProtocol: AnyObject {
     func doReceiveMessages()
@@ -26,15 +29,15 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
     
     private var paginationState = 1
     
-    private let communityId: LMModels.Views.CommunityView.ID?
+    private let communityId: RMModel.Views.CommunityView.ID?
     private let communityName: String?
     
-    var loadedCommunity: LMModels.Views.CommunityView?
+    var loadedCommunity: RMModel.Views.CommunityView?
     
     private var cancellable = Set<AnyCancellable>()
     
     init(
-        communityId: LMModels.Views.CommunityView.ID?,
+        communityId: RMModel.Views.CommunityView.ID?,
         communityName: String?,
         wsClient: WSClientProtocol?
     ) {
@@ -46,24 +49,24 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
     func doReceiveMessages() {
         wsClient?.onTextMessage.addObserver(self, completionHandler: { [weak self] operation, data in
             switch operation {
-            case LMMUserOperation.EditPost.rawValue,
-                 LMMUserOperation.DeletePost.rawValue,
-                 LMMUserOperation.RemovePost.rawValue,
-                 LMMUserOperation.LockPost.rawValue,
-                 LMMUserOperation.StickyPost.rawValue,
-                 LMMUserOperation.SavePost.rawValue:
+            case RMUserOperation.EditPost.rawValue,
+                 RMUserOperation.DeletePost.rawValue,
+                 RMUserOperation.RemovePost.rawValue,
+                 RMUserOperation.LockPost.rawValue,
+                 RMUserOperation.StickyPost.rawValue,
+                 RMUserOperation.SavePost.rawValue:
                 
                 guard let newPost = self?.wsClient?.decodeWsType(
-                    LMModels.Api.Post.PostResponse.self,
+                    RMModel.Api.Post.PostResponse.self,
                     data: data
                 ) else { return }
                 
                 DispatchQueue.main.async {
                     self?.viewController?.displayUpdatePost(viewModel: .init(postView: newPost.postView))
                 }
-            case LMMUserOperation.CreatePostLike.rawValue:
+            case RMUserOperation.CreatePostLike.rawValue:
                 guard let newPost = self?.wsClient?.decodeWsType(
-                    LMModels.Api.Post.PostResponse.self,
+                    RMModel.Api.Post.PostResponse.self,
                     data: data
                 ) else { return }
                 
@@ -71,9 +74,9 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
                     self?.viewController?.displayCreatePostLike(viewModel: .init(postView: newPost.postView))
                 }
                 
-            case LMMUserOperation.GetCommunity.rawValue:
+            case RMUserOperation.GetCommunity.rawValue:
                 guard let newComm = self?.wsClient?.decodeWsType(
-                    LMModels.Api.Community.CommunityResponse.self,
+                    RMModel.Api.Community.CommunityResponse.self,
                     data: data
                 ) else { return }
                 
@@ -95,17 +98,17 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
     }
     
     func doCommunityFetch() {
-        let parameters = LMModels.Api.Community.GetCommunity(id: self.communityId,
+        let parameters = RMModel.Api.Community.GetCommunity(id: self.communityId,
                                                              name: self.communityName,
                                                              auth: LoginData.shared.jwtToken)
         
-        self.wsClient?.send(LMMUserOperation.GetCommunity, parameters: parameters)
+        self.wsClient?.send(RMUserOperation.GetCommunity, parameters: parameters)
     }
     
     func doPostsFetch(request: CommunityScreen.CommunityPostsLoad.Request) {
         self.paginationState = 1
         
-        let parameters = LMModels.Api.Post.GetPosts(type: .community,
+        let parameters = RMModel.Api.Post.GetPosts(type: .community,
                                                     sort: request.contentType,
                                                     page: self.paginationState,
                                                     limit: 50,
@@ -130,7 +133,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
     func doNextPostsFetch(request: CommunityScreen.NextCommunityPostsLoad.Request) {
         self.paginationState += 1
         
-        let parameters = LMModels.Api.Post.GetPosts(type: .community,
+        let parameters = RMModel.Api.Post.GetPosts(type: .community,
                                                     sort: request.contentType,
                                                     page: self.paginationState,
                                                     limit: 50,
@@ -158,7 +161,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
         if let community = loadedCommunity {
             self.viewController?.displayCommunityShowMore(viewModel: .init(community: community))
         } else {
-            Logger.common.alert("Show More bar button in CommunityScreen called on nil community data")
+            debugPrint("Show More bar button in CommunityScreen called on nil community data")
         }
     }
 }
@@ -166,7 +169,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
 enum CommunityScreen {
     enum CommunityPostsLoad {
         struct Request {
-            let contentType: LMModels.Others.SortType
+            let contentType: RMModel.Others.SortType
         }
         
         struct ViewModel {
@@ -176,7 +179,7 @@ enum CommunityScreen {
     
     enum NextCommunityPostsLoad {
         struct Request {
-            let contentType: LMModels.Others.SortType
+            let contentType: RMModel.Others.SortType
         }
         
         struct ViewModel {
@@ -193,19 +196,19 @@ enum CommunityScreen {
     enum CommunityShowMore {
         struct Request { }
         struct ViewModel {
-            let community: LMModels.Views.CommunityView
+            let community: RMModel.Views.CommunityView
         }
     }
     
     enum UpdatePost {
         struct ViewModel {
-            let postView: LMModels.Views.PostView
+            let postView: RMModel.Views.PostView
         }
     }
     
     enum CreateCommentLike {
         struct ViewModel {
-            let postView: LMModels.Views.PostView
+            let postView: RMModel.Views.PostView
         }
     }
     
@@ -213,11 +216,11 @@ enum CommunityScreen {
     
     enum ViewControllerState {
         case loading
-        case result(data: [LMModels.Views.PostView])
+        case result(data: [RMModel.Views.PostView])
     }
     
     enum PaginationState {
-        case result(data: [LMModels.Views.PostView])
+        case result(data: [RMModel.Views.PostView])
         case error(message: String)
     }
 }

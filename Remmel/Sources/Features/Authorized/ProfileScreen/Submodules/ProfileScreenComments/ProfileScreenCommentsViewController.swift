@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RMServices
+import RMModels
 
 protocol ProfileScreenCommentsViewControllerProtocol: AnyObject {
     func displayProfileComments(viewModel: ProfileScreenComments.CommentsLoad.ViewModel)
@@ -22,7 +24,7 @@ class ProfileScreenCommentsViewController: UIViewController {
     private lazy var tableDataSource = ProfileScreenCommentsTableDataSource().then {
         $0.delegate = self
     }
-    private let showMoreHandler: ShowMoreHandlerServiceProtocol
+    private let showMoreHandler: ShowMoreHandlerService
     private let contentScoreService: ContentScoreServiceProtocol
 
     lazy var commentsPostsView = view as? ProfileScreenCommentsViewController.View
@@ -34,7 +36,7 @@ class ProfileScreenCommentsViewController: UIViewController {
     init(
         viewModel: ProfileScreenCommentsViewModel,
         initialState: ProfileScreenComments.ViewControllerState = .loading,
-        showMoreHandler: ShowMoreHandlerServiceProtocol,
+        showMoreHandler: ShowMoreHandlerService,
         contentScoreService: ContentScoreServiceProtocol
     ) {
         self.viewModel = viewModel
@@ -127,7 +129,7 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
         coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
     
-    func postNameTapped(in comment: LMModels.Views.CommentView) {
+    func postNameTapped(in comment: RMModel.Views.CommentView) {
         coordinator?.goToPostScreen(postId: comment.post.id)
     }
         
@@ -135,59 +137,57 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        comment: LMModels.Views.CommentView
+        comment: RMModel.Views.CommentView
     ) {
         guard let coordinator = coordinator else {
             return
         }
         
-        ContinueIfLogined(on: self, coordinator: coordinator) {
-            [weak self] in
-
+        ContinueIfLogined(on: self, coordinator: coordinator) { [weak self] in
+            
+            scoreView.setVoted(voteButton: voteButton, to: newVote)
             self?.contentScoreService.voteComment(
-                scoreView: scoreView,
-                voteButton: voteButton,
                 for: newVote,
                 comment: comment
             )
         }
     }
     
-    func showContext(in comment: LMModels.Views.CommentView) {
+    func showContext(in comment: RMModel.Views.CommentView) {
         self.coordinator?.goToPostAndScroll(to: comment)
     }
     
-    func reply(to comment: LMModels.Views.CommentView) {
+    func reply(to comment: RMModel.Views.CommentView) {
         self.coordinator?.goToWriteComment(postSource: comment.post, parrentComment: comment.comment) {
-            LMMMessagesToast.showSuccessCreateComment()
+            RMMessagesToast.showSuccessCreateComment()
         }
     }
     
-    func onLinkTap(in comment: LMModels.Views.CommentView, url: URL) {
+    func onLinkTap(in comment: RMModel.Views.CommentView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }
     
-    func showMoreAction(in comment: LMModels.Views.CommentView) {
+    func showMoreAction(in comment: RMModel.Views.CommentView) {
         guard let coordinator = coordinator else {
             return
         }
 
         if let index = tableDataSource.viewModels.getElementIndex(by: comment.id) {
-            showMoreHandler.showMoreInComment(
-                on: self,
-                coordinator: coordinator,
-                comment: tableDataSource.viewModels[index]
-            ) { [weak self] updatedComment in
-
-                self?.tableDataSource.viewModels.updateElementById(updatedComment)
-            }
+//            showMoreHandler.showMoreInComment(
+//                on: self,
+//                coordinator: coordinator,
+//                comment: tableDataSource.viewModels[index]
+//            ) { [weak self] updatedComment in
+//
+//                self?.tableDataSource.viewModels.updateElementById(updatedComment)
+//            }
             
         }
     }
 }
 
 extension ProfileScreenCommentsViewController: ProfileScreenCommentsViewDelegate {
-    func profileScreenComments(_ view: View, didPickedNewSort type: LMModels.Others.SortType) {
+    func profileScreenComments(_ view: View, didPickedNewSort type: RMModel.Others.SortType) {
         commentsPostsView?.showLoadingIndicator()
         commentsPostsView?.deleteAllContent()
         viewModel.doProfileCommentsFetch(request: .init(sortType: type))

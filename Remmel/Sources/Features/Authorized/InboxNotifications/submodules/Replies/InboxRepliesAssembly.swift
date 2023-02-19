@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import RMServices
+import RMNetworking
+import RMFoundation
 
 protocol InboxRepliesInputProtocol: InboxNotificationSubmoduleProtocol { }
 
@@ -28,7 +31,7 @@ final class InboxRepliesAssembly: Assembly {
             contentScoreService: ContentScoreService(
                 userAccountService: userAccService
             ),
-            showMoreService: ShowMoreHandlerService()
+            showMoreService: ShowMoreHandlerServiceImp()
         )
         
         vc.coordinator = coordinator.value

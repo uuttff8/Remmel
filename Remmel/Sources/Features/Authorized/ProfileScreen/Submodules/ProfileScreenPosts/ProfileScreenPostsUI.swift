@@ -8,12 +8,13 @@
 
 import UIKit
 import SnapKit
+import RMModels
 
 protocol ProfileScreenPostsViewDelegate: AnyObject {
     func profileScreenPostsViewDidPickerTapped(toVc: UIViewController)
     func profileScreenPosts(
         _ view: ProfileScreenPostsViewController.View,
-        didPickedNewSort type: LMModels.Others.SortType
+        didPickedNewSort type: RMModel.Others.SortType
     )
 }
 
@@ -28,13 +29,13 @@ extension ProfileScreenPostsViewController {
     class View: UIView {
         
         struct ViewData {
-            let posts: [LMModels.Views.PostView]
+            let posts: [RMModel.Views.PostView]
         }
         
         weak var delegate: ProfileScreenPostsViewDelegate?
         
         let appearance: Appearance
-        var sortType: LMModels.Others.SortType = .active {
+        var sortType: RMModel.Others.SortType = .active {
             didSet {
                 self.delegate?.profileScreenPosts(self, didPickedNewSort: sortType)
             }
@@ -59,14 +60,14 @@ extension ProfileScreenPostsViewController {
         }
         
         private lazy var profileScreenHeader = ProfileScreenTableHeaderView().then { view in
-            view.contentTypeView.addTap {
-                let vc = view.contentTypeView.configuredAlert
-                self.delegate?.profileScreenPostsViewDidPickerTapped(toVc: vc)
-            }
-
-            view.contentTypeView.newCasePicked = { newCase in
-                self.sortType = newCase
-            }
+//            view.contentTypeView.addTap {
+//                let vc = view.contentTypeView.configuredAlert
+//                self.delegate?.profileScreenPostsViewDidPickerTapped(toVc: vc)
+//            }
+//
+//            view.contentTypeView.newCasePicked = { newCase in
+//                self.sortType = newCase
+//            }
         }
         
         init(
@@ -119,7 +120,7 @@ extension ProfileScreenPostsViewController {
             self.hideLoadingIndicator()
         }
         
-        func appendNew(data: [LMModels.Views.PostView]) {
+        func appendNew(data: [RMModel.Views.PostView]) {
             self.tableManager?.appendNew(posts: data) { newIndexpaths in
                 tableView.performBatchUpdates {
                     tableView.insertRows(at: newIndexpaths, with: .none)

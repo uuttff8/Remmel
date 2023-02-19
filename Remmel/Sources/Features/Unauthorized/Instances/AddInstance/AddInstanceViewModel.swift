@@ -8,6 +8,8 @@
 
 import Foundation
 import Combine
+import RMNetworking
+import RMFoundation
 
 protocol AddInstanceViewModelProtocol: AnyObject {
     func doAddInstancePresentation(request: AddInstanceDataFlow.InstancePresentation.Request)
@@ -26,7 +28,7 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
     
     func doAddInstanceCheck(request: AddInstanceDataFlow.InstanceCheck.Request) {
         guard let instanceUrl = InstanceUrl(string: request.query) else {
-            Logger.common.error("Not valid instance url")
+            debugPrint("Not valid instance url")
             viewController?.displayAddInstanceCheck(
                 viewModel: .init(state: .noResult)
             )
@@ -40,12 +42,12 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 if case .failure = completion {
-                    Logger.common.error("GetSite request with \(request) completion: \(completion)")
+                    debugPrint("GetSite request with \(request) completion: \(completion)")
                     self.viewController?.displayAddInstanceCheck(
                         viewModel: .init(state: .noResult)
                     )
                 } else {
-                    Logger.common.verbose(completion)
+                    debugPrint(completion)
                 }
             } receiveValue: { response in
                 

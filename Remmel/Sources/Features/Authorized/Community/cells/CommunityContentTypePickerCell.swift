@@ -7,20 +7,21 @@
 //
 
 import UIKit
+import RMModels
 
 class CommunityContentTypePickerCell: UITableViewCell {
-    let customView = LemmyImageTextTypePicker(cases: LMModels.Others.SortType.allCases,
-                                              firstPicked: .active,
-                                              image: Config.Image.sortType)
+//    let customView = LemmyImageTextTypePicker(cases: RMModel.Others.SortType.allCases,
+//                                              firstPicked: .active,
+//                                              image: Config.Image.sortType)
     
     init() {
         super.init(style: .default, reuseIdentifier: String(describing: Self.self))
         
-        self.contentView.addSubview(customView)
+//        self.contentView.addSubview(customView)
         
-        self.snp.makeConstraints {
-            $0.edges.equalTo(customView)
-        }
+//        self.snp.makeConstraints {
+//            $0.edges.equalTo(customView)
+//        }
     }
     
     @available(*, unavailable)

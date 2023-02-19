@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMFoundation
 
 protocol AddInstanceViewControllerProtocol: AnyObject {
     func displayAddInstancePresentation(viewModel: AddInstanceDataFlow.InstancePresentation.ViewModel)
@@ -62,7 +63,7 @@ final class AddInstanceViewController: UIViewController {
     @objc
     func addBarButtonTapped(_ sender: UIBarButtonItem) {
         guard let instanceUrl = enteredInstanceUrl else {
-            Logger.common.error("Entered instance url is nil, cannot save to CoreData")
+            debugPrint("Entered instance url is nil, cannot save to CoreData")
             return
         }
         

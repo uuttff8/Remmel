@@ -1,4 +1,5 @@
 import UIKit
+import RMFoundation
 
 protocol SettingsInputCellDelegate: AnyObject {
     func settingsCell(

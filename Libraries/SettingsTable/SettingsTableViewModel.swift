@@ -1,4 +1,5 @@
 import UIKit
+import RMFoundation
 
 struct SettingsTableViewModel {
     let sections: [SettingsTableSectionViewModel]

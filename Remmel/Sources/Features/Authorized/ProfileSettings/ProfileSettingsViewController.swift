@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMFoundation
 
 protocol ProfileSettingsViewControllerProtocol: AnyObject {
     func displayProfileSettingsForm(viewModel: ProfileSettings.ProfileSettingsForm.ViewModel)

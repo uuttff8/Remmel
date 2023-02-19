@@ -7,8 +7,7 @@
 //
 
 import UIKit
-
-private let log = Logger.common
+import RMFoundation
 
 protocol InstancesTableDataSourceDelegate: AnyObject {
     func tableDidRequestDelete(_ instance: Instance)
@@ -47,7 +46,7 @@ extension InstancesTableDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let instance = viewModels[indexPath.row]
         delegate?.tableDidRequestAddAccountsModule(instance)
-        log.info("Instance choosed: \(instance)")
+        debugPrint("Instance choosed: \(instance)")
       
         tableView.deselectRow(at: indexPath, animated: true)
     }

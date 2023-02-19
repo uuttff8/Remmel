@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RMServices
+import RMNetworking
 
 final class CommunitiesPreviewAssembly: Assembly {
     

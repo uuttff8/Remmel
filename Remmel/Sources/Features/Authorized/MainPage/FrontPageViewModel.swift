@@ -7,6 +7,10 @@
 //
 
 import Foundation
+import RMServices
+import RMModels
+import RMNetworking
+import RMFoundation
 
 protocol FrontPageViewModelProtocol {
     func receiveMessages()
@@ -28,7 +32,7 @@ class FrontPageViewModel: FrontPageViewModelProtocol {
     
     func receiveMessages() {
         
-        let commJoin = LMModels.Api.Websocket.CommunityJoin(communityId: 0)
+        let commJoin = RMModel.Api.Websocket.CommunityJoin(communityId: 0)
 
         wsEvents.send(
             WSEndpoint.Community.communityJoin.endpoint,
@@ -36,11 +40,11 @@ class FrontPageViewModel: FrontPageViewModelProtocol {
         )
         
         guard let jwtToken = LemmyShareData.shared.jwtToken else {
-            Logger.common.info("No token at UserJoin")
+            debugPrint("No token at UserJoin")
             return
         }
         
-        let userJoin = LMModels.Api.Websocket.UserJoin(auth: jwtToken)
+        let userJoin = RMModel.Api.Websocket.UserJoin(auth: jwtToken)
         wsEvents.send(WSEndpoint.User.userJoin.endpoint, parameters: userJoin)
     }
     
@@ -58,7 +62,7 @@ enum FrontPage {
     enum ProfileAction {
         
         struct ViewModel {
-            let user: LMModels.Views.LocalUserSettingsView
+            let user: RMModel.Views.LocalUserSettingsView
         }
     }
 }

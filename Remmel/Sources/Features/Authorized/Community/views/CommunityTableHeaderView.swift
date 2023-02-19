@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMModels
 
 protocol CommunityTableHeaderViewDelegate: CommunityHeaderViewDelegate {}
 
@@ -25,9 +26,9 @@ final class CommunityTableHeaderView: UIView {
     }
         
     let communityHeaderView = CommunityHeaderView()
-    let contentTypeView = LemmyImageTextTypePicker(cases: LMModels.Others.SortType.allCases,
-                                                   firstPicked: LMModels.Others.SortType.active,
-                                                   image: Config.Image.sortType)
+//    let contentTypeView = LemmyImageTextTypePicker(cases: RMModel.Others.SortType.allCases,
+//                                                   firstPicked: RMModel.Others.SortType.active,
+//                                                   image: Config.Image.sortType)
     
     init() {
         super.init(frame: .zero)
@@ -42,7 +43,7 @@ final class CommunityTableHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bindData(community: LMModels.Views.CommunityView) {
+    func bindData(community: RMModel.Views.CommunityView) {
         communityHeaderView.bind(with: community)
         communityHeaderView.delegate = delegate
     }
@@ -64,11 +65,11 @@ extension CommunityTableHeaderView: ProgrammaticallyViewProtocol {
             .view(horizontalStackView),
             .customSpace(10)
         )
-        
-        horizontalStackView.addStackViewItems(
-            .view(contentTypeView),
-            .view(UIView())
-        )
+//        
+//        horizontalStackView.addStackViewItems(
+//            .view(contentTypeView),
+//            .view(UIView())
+//        )
         
         mainStackView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(5)

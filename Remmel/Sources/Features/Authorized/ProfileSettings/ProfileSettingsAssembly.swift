@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMServices
 
 class ProfileSettingsAssembly: Assembly {
     

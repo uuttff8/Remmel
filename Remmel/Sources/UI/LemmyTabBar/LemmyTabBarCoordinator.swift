@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMModels
 
 final class LemmyTabBarCoordinator: GenericCoordinator<LemmyTabBarController> {
 
@@ -51,11 +52,11 @@ final class LemmyTabBarCoordinator: GenericCoordinator<LemmyTabBarController> {
         rootViewController.present(navController, animated: true)
     }
 
-    func goToPost(post: LMModels.Views.PostView) {
+    func goToPost(post: RMModel.Views.PostView) {
         rootViewController.frontPageCoordinator.goToPostScreen(post: post)
     }
     
-    func goToCommunity(community: LMModels.Views.CommunityView) {
+    func goToCommunity(community: RMModel.Views.CommunityView) {
         rootViewController.frontPageCoordinator.goToCommunityScreen(communityId: community.id)
     }
 }

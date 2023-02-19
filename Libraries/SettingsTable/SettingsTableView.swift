@@ -1,5 +1,6 @@
 import SnapKit
 import UIKit
+import RMFoundation
 
 protocol SettingsTableViewDelegate: SettingsInputCellDelegate,
                                     SettingsLargeInputCellDelegate,

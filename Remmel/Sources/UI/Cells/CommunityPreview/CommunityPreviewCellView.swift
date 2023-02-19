@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMModels
 
 protocol CommunityPreviewCellViewDelegate: AnyObject {
     func communityCellView(_ cell: CommunityPreviewCellView, didTapped followButton: FollowButton)
@@ -77,7 +78,7 @@ final class CommunityPreviewCellView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with community: LMModels.Views.CommunityView) {
+    func configure(with community: RMModel.Views.CommunityView) {
         self.viewData = ViewData(id: community.id,
                                  imageUrl: community.community.icon,
                                  name: community.community.name,

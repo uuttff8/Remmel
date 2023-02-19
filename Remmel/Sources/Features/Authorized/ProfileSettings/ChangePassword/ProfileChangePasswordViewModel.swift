@@ -8,6 +8,8 @@
 
 import Foundation
 import Combine
+import RMNetworking
+import RMModels
 
 protocol ProfileChangePasswordViewModelProtocol: AnyObject {
     func doReceiveMessages()
@@ -33,9 +35,9 @@ final class ProfileChangePasswordViewModel: ProfileChangePasswordViewModelProtoc
             }
             
             switch operation {
-            case LMMUserOperation.ChangePassword.rawValue:
+            case RMUserOperation.ChangePassword.rawValue:
                 guard let login = self.wsClient?.decodeWsType(
-                    LMModels.Api.Person.LoginResponse.self,
+                    RMModel.Api.Person.LoginResponse.self,
                     data: data
                 ) else { return }
                 

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMModels
 
 extension VoteButton {
     struct Appearance {

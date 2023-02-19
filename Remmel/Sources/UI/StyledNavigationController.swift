@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import RMFoundation
 
 class StyledNavigationController: UINavigationController {
     enum Appearance {

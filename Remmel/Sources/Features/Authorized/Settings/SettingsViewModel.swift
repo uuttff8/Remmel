@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RMServices
+import RMFoundation
 
 private let API_VERSION = " v0.16.4-rc.3"
 
@@ -39,12 +41,12 @@ class SettingsViewModel: SettingsViewModelProtocol {
             settings: appIconManager.availableIcons.map {
                 .init(
                     uniqueIdentifier: $0.rawValue,
-                    title: FormatterHelper.humanReadableAppIconName(appIcon: $0)
+                    title: "" //FormatterHelper.humanReadableAppIconName(appIcon: $0)
                 )
             },
             currentSetting: .init(
                 uniqueIdentifier: appIconManager.current.rawValue,
-                title: FormatterHelper.humanReadableAppIconName(appIcon: appIconManager.current)
+                title:""// FormatterHelper.humanReadableAppIconName(appIcon: appIconManager.current)
             )
         )
         

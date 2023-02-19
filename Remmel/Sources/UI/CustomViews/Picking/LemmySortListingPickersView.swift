@@ -7,32 +7,33 @@
 //
 
 import UIKit
+import RMModels
 
 class LemmySortListingPickersView: UIView {
+
+//    var sortFirstPick: RMModel.Others.SortType = .active {
+//        didSet {
+//            sortTypeView.currentPick = sortFirstPick
+//        }
+//    }
+//
+//    var listingFirstPick: RMModel.Others.ListingType = .all {
+//        didSet {
+//            listingTypeView.currentPick = listingFirstPick
+//        }
+//    }
     
-    var sortFirstPick: LMModels.Others.SortType = .active {
-        didSet {
-            sortTypeView.currentPick = sortFirstPick
-        }
-    }
-    
-    var listingFirstPick: LMModels.Others.ListingType = .all {
-        didSet {
-            listingTypeView.currentPick = listingFirstPick
-        }
-    }
-    
-    lazy var sortTypeView = LemmyImageTextTypePicker(
-        cases: LMModels.Others.SortType.allCases,
-        firstPicked: sortFirstPick,
-        image: Config.Image.sortType
-    )
-    
-    lazy var listingTypeView = LemmyImageTextTypePicker(
-        cases: [.all, .subscribed, .local],
-        firstPicked: listingFirstPick,
-        image: Config.Image.postListing
-    )
+//    lazy var sortTypeView = LemmyImageTextTypePicker(
+//        cases: RMModel.Others.SortType.allCases,
+//        firstPicked: sortFirstPick,
+//        image: Config.Image.sortType
+//    )
+//    
+//    lazy var listingTypeView = LemmyImageTextTypePicker(
+//        cases: [.all, .subscribed, .local],
+//        firstPicked: listingFirstPick,
+//        image: Config.Image.postListing
+//    )
     
     let stackView = UIStackView().then {
         $0.axis = .horizontal
@@ -45,10 +46,10 @@ class LemmySortListingPickersView: UIView {
         
         self.addSubview(stackView)
         
-        stackView.addStackViewItems(
-            .view(sortTypeView),
-            .view(listingTypeView)
-        )
+//        stackView.addStackViewItems(
+//            .view(sortTypeView),
+//            .view(listingTypeView)
+//        )
         
         stackView.snp.makeConstraints {
             $0.centerY.equalToSuperview()

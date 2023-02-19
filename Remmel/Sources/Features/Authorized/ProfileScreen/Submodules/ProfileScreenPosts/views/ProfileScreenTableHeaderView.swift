@@ -7,21 +7,23 @@
 //
 
 import UIKit
+import RMModels
 
 final class ProfileScreenTableHeaderView: UIView {
-    let mainStackView = UIStackView().then {
+    let mainStackView: UIStackView = {
         $0.axis = .vertical
         $0.spacing = 10
-    }
+        return $0
+    }(UIStackView())
     
     let horizontalStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.alignment = .leading
     }
         
-    let contentTypeView = LemmyImageTextTypePicker(cases: LMModels.Others.SortType.allCases,
-                                                   firstPicked: LMModels.Others.SortType.active,
-                                                   image: Config.Image.sortType)
+//    let contentTypeView = LemmyImageTextTypePicker(cases: RMModel.Others.SortType.allCases,
+//                                                   firstPicked: RMModel.Others.SortType.active,
+//                                                   image: Config.Image.sortType)
     
     init() {
         super.init(frame: .zero)
@@ -55,10 +57,10 @@ extension ProfileScreenTableHeaderView: ProgrammaticallyViewProtocol {
             .customSpace(10)
         )
         
-        horizontalStackView.addStackViewItems(
-            .view(contentTypeView),
-            .view(UIView())
-        )
+//        horizontalStackView.addStackViewItems(
+//            .view(contentTypeView),
+//            .view(UIView())
+//        )
         
         mainStackView.snp.makeConstraints {
             $0.centerY.equalToSuperview()

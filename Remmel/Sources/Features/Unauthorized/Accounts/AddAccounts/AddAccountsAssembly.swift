@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMFoundation
 
 enum LemmyAuthMethod {
     case auth // auth mean Authentication

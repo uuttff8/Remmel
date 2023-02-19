@@ -8,6 +8,9 @@
 
 import UIKit
 import Combine
+import RMModels
+import RMNetworking
+import RMFoundation
 
 protocol ProfileScreenCommentsViewModelProtocol {
     func doProfileCommentsFetch(request: ProfileScreenComments.CommentsLoad.Request)
@@ -28,7 +31,7 @@ class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
     func doProfileCommentsFetch(request: ProfileScreenComments.CommentsLoad.Request) {
         self.paginationState.page = 1
         
-        let params = LMModels.Api.Person.GetPersonDetails(personId: loadedProfile?.id,
+        let params = RMModel.Api.Person.GetPersonDetails(personId: loadedProfile?.id,
                                                           username: loadedProfile?.viewData.name,
                                                           sort: request.sortType,
                                                           page: paginationState.page,
@@ -55,7 +58,7 @@ class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
     func doNextCommentsFetch(request: ProfileScreenComments.NextProfileCommentsLoad.Request) {
         self.paginationState.page += 1
         
-        let params = LMModels.Api.Person.GetPersonDetails(personId: loadedProfile?.id,
+        let params = RMModel.Api.Person.GetPersonDetails(personId: loadedProfile?.id,
                                                           username: loadedProfile?.viewData.name,
                                                           sort: request.sortType,
                                                           page: paginationState.page,
@@ -83,7 +86,7 @@ class ProfileScreenCommentsViewModel: ProfileScreenCommentsViewModelProtocol {
 extension ProfileScreenCommentsViewModel: ProfileScreenCommentsInputProtocol {
     func updateCommentsData(
         profile: ProfileScreenViewModel.ProfileData,
-        comments: [LMModels.Views.CommentView]
+        comments: [RMModel.Views.CommentView]
     ) {
         self.loadedProfile = profile
         self.viewController?.displayProfileComments(
@@ -99,7 +102,7 @@ extension ProfileScreenCommentsViewModel: ProfileScreenCommentsInputProtocol {
 enum ProfileScreenComments {
     enum CommentsLoad {
         struct Request {
-            let sortType: LMModels.Others.SortType
+            let sortType: RMModel.Others.SortType
         }
         
         struct ViewModel {
@@ -109,7 +112,7 @@ enum ProfileScreenComments {
     
     enum NextProfileCommentsLoad {
         struct Request {
-            let sortType: LMModels.Others.SortType
+            let sortType: RMModel.Others.SortType
         }
         
         struct ViewModel {
@@ -124,7 +127,7 @@ enum ProfileScreenComments {
     }
     
     enum PaginationState {
-        case result(data: [LMModels.Views.CommentView])
+        case result(data: [RMModel.Views.CommentView])
         case error(message: String)
     }
 }

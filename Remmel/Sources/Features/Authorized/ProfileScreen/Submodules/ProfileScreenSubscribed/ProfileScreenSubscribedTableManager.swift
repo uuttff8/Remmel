@@ -7,17 +7,18 @@
 //
 
 import UIKit
+import RMModels
 
 class ProfileScreenSubscribedTableManager: NSObject {
     
-    var viewModels: [LMModels.Views.CommunityFollowerView]
+    var viewModels: [RMModel.Views.CommunityFollowerView]
 
-    init(viewModels: [LMModels.Views.CommunityFollowerView] = []) {
+    init(viewModels: [RMModel.Views.CommunityFollowerView] = []) {
         self.viewModels = viewModels
         super.init()
     }
     
-    func update(viewModel: LMModels.Views.CommunityFollowerView) {
+    func update(viewModel: RMModel.Views.CommunityFollowerView) {
         if let index = self.viewModels.firstIndex(where: { $0.community.id == viewModel.community.id }) {
             self.viewModels[index] = viewModel
         }

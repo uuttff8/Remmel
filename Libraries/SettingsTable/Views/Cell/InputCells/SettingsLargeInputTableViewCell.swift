@@ -1,4 +1,5 @@
 import UIKit
+import RMFoundation
 
 protocol SettingsLargeInputCellDelegate: AnyObject {
     func settingsCell(

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMFoundation
 
 protocol CreateCommunityViewControllerProtocol: AnyObject {
     func displayCreateCommunityForm(viewModel: CreateCommunity.CreateCommunityFormLoad.ViewModel)

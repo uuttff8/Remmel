@@ -8,6 +8,10 @@
 
 import UIKit
 import Combine
+import RMModels
+import RMServices
+import RMNetworking
+import RMFoundation
 
 protocol CommunitiesPreviewViewModelProtocol {
     func doReceiveMessages()
@@ -33,9 +37,9 @@ class CommunitiesPreviewViewModel: CommunitiesPreviewViewModelProtocol {
             }
             
             switch operation {
-            case LMMUserOperation.ListCommunities.rawValue:
+            case RMUserOperation.ListCommunities.rawValue:
                 guard let comms = self.wsClient?.decodeWsType(
-                        LMModels.Api.Community.ListCommunitiesResponse.self,
+                        RMModel.Api.Community.ListCommunitiesResponse.self,
                         data: data
                 ) else { return }
                 
@@ -48,18 +52,18 @@ class CommunitiesPreviewViewModel: CommunitiesPreviewViewModelProtocol {
     }
     
     func doLoadCommunities(request: CommunitiesPreview.CommunitiesLoad.Request) {
-        let parameters = LMModels.Api.Community.ListCommunities(
+        let parameters = RMModel.Api.Community.ListCommunities(
             type: .all,
-            sort: LMModels.Others.SortType.topAll,
+            sort: RMModel.Others.SortType.topAll,
             page: 1,
             limit: 100,
             auth: LemmyShareData.shared.jwtToken
         )
         
-        self.wsClient?.send(LMMUserOperation.ListCommunities, parameters: parameters)
+        self.wsClient?.send(RMUserOperation.ListCommunities, parameters: parameters)
     }
     
-    private func fetchCommunities(with response: LMModels.Api.Community.ListCommunitiesResponse) {
+    private func fetchCommunities(with response: RMModel.Api.Community.ListCommunitiesResponse) {
         let sortedCommunities = response.communities
             .sorted { $0.subscribed && !$1.subscribed }
         
@@ -81,6 +85,6 @@ enum CommunitiesPreview {
     
     enum ViewControllerState {
         case loading
-        case result([LMModels.Views.CommunityView])
+        case result([RMModel.Views.CommunityView])
     }
 }

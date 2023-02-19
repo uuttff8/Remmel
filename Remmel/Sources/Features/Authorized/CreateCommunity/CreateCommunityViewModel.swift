@@ -8,6 +8,9 @@
 
 import UIKit
 import Combine
+import RMModels
+import RMFoundation
+import RMNetworking
 
 protocol CreateCommunityViewModelProtocol: AnyObject {
     func doCreateCommunityFormLoad(request: CreateCommunity.CreateCommunityFormLoad.Request)
@@ -23,11 +26,11 @@ class CreateCommunityViewModel: CreateCommunityViewModelProtocol {
     func doRemoteCreateCommunity(request: CreateCommunity.RemoteCreateCommunity.Request) {
         guard let jwtToken = LemmyShareData.shared.jwtToken
         else {
-            Logger.common.emergency("Create Community should be unreachable when user is not authed")
+            debugPrint("Create Community should be unreachable when user is not authed")
             return
         }
         
-        let params = LMModels.Api.Community.CreateCommunity(
+        let params = RMModel.Api.Community.CreateCommunity(
             name: request.name,
             title: request.displayName,
             description: request.sidebar,
@@ -40,7 +43,7 @@ class CreateCommunityViewModel: CreateCommunityViewModelProtocol {
         ApiManager.requests.asyncCreateCommunity(parameters: params)
             .receive(on: DispatchQueue.main)
             .sink { completion in
-                Logger.common.info(completion)
+                debugPrint(completion)
                 
                 if case .failure(let error) = completion {
                     self.viewController?.displayErrorCreatingCommunity(

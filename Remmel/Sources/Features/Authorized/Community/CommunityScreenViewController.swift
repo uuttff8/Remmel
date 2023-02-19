@@ -8,6 +8,8 @@
 
 import UIKit
 import Combine
+import RMServices
+import RMModels
 
 protocol CommunityScreenViewControllerProtocol: AnyObject {
     func displayCommunityHeader(viewModel: CommunityScreen.CommunityHeaderLoad.ViewModel)
@@ -190,20 +192,22 @@ extension CommunityScreenViewController: CommunityScreenViewControllerProtocol {
 }
 
 extension CommunityScreenViewController: CommunityScreenViewDelegate {
-    func communityView(_ view: View, didPickedNewSort type: LMModels.Others.SortType) {
+    func communityView(_ view: View, didPickedNewSort type: RMModel.Others.SortType) {
         communityView?.deleteAllContent()
         communityView?.showLoadingIndicator()
         viewModel.doPostsFetch(request: .init(contentType: type))
     }
     
-    func headerViewDidTapped(followButton: FollowButton, in community: LMModels.Views.CommunityView) {
+    func headerViewDidTapped(followButton: FollowButton, in community: RMModel.Views.CommunityView) {
         guard let coord = coordinator else {
             return
         }
         
         ContinueIfLogined(on: self, coordinator: coord) {
-            self.followService.followUi(followButton: followButton, to: community)
+            followButton.followState = .pending
+            self.followService.followUi(to: community)
                 .sink { community in
+                    followButton.bind(isSubcribed: community.subscribed)
                     self.communityView?.communityHeaderViewData = community
                 }.store(in: &self.cancellable)
         }
@@ -234,19 +238,15 @@ extension CommunityScreenViewController: PostContentPreviewTableCellDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        post: LMModels.Views.PostView
+        post: RMModel.Views.PostView
     ) {
         guard let coordinator = coordinator else {
             return
         }
         
         ContinueIfLogined(on: self, coordinator: coordinator) {
-            self.contentScoreService.votePost(
-                scoreView: scoreView,
-                voteButton: voteButton,
-                for: newVote,
-                post: post
-            )
+            scoreView.setVoted(voteButton: voteButton, to: newVote)
+            self.contentScoreService.votePost(for: newVote, post: post)
         }
     }
     
@@ -258,19 +258,19 @@ extension CommunityScreenViewController: PostContentPreviewTableCellDelegate {
         coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
-    func showMore(in post: LMModels.Views.PostView) {
+    func showMore(in post: RMModel.Views.PostView) {
         if let post = self.tableDataSource.viewModels.getElement(by: post.id) {
             guard let coordinator = coordinator else {
                 return
             }
 
-            showMoreService.showMoreInPost(on: self, coordinator: coordinator, post: post) { updatedPost in
-                self.tableDataSource.viewModels.updateElementById(updatedPost)
-            }
+//            showMoreService.showMoreInPost(on: self, coordinator: coordinator, post: post) { updatedPost in
+//                self.tableDataSource.viewModels.updateElementById(updatedPost)
+//            }
         }
     }
     
-    func postCellDidSelected(postId: LMModels.Views.PostView.ID) {
+    func postCellDidSelected(postId: RMModel.Views.PostView.ID) {
         coordinator?.goToPostScreen(postId: postId)
     }
 }

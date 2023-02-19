@@ -121,6 +121,8 @@
 "alert-no" = "No";
 "alert-reason" = "Reason";
 "alert-thanks" = "Thank you!";
+"alert-save" = "Save";
+"alert-unsave" = "Unsave";
 
 "create-comment" = "New comment";
 "create-comment-agree" = "Agree!";

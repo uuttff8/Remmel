@@ -32,7 +32,6 @@ class LemmyImageTextTypePicker<T: LemmyTypePickable>: UIView {
         let control = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         caseArray.forEach { enumCase in
-            
             let action = UIAlertAction(
                 title: enumCase.label,
                 style: .default,
@@ -87,10 +86,5 @@ class LemmyImageTextTypePicker<T: LemmyTypePickable>: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
     }
 }

@@ -8,6 +8,10 @@
 
 import UIKit
 import Combine
+import RMModels
+import RMServices
+import RMNetworking
+import RMFoundation
 
 protocol SearchResultsViewModelProtocol: AnyObject {
     func doLoadContent(request: SearchResults.LoadContent.Request)
@@ -16,13 +20,13 @@ protocol SearchResultsViewModelProtocol: AnyObject {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        post: LMModels.Views.PostView
+        post: RMModel.Views.PostView
     ) // refactor
     func doCommentLike(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        comment: LMModels.Views.CommentView
+        comment: RMModel.Views.CommentView
     )
 }
 
@@ -32,7 +36,7 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
     private var cancellable = Set<AnyCancellable>()
     
     private let searchQuery: String
-    private let searchType: LMModels.Others.SearchType
+    private let searchType: RMModel.Others.SearchType
     
     private var paginationState = 1
     private var searchData: SearchResults.Results = .posts([])
@@ -42,7 +46,7 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
     
     init(
         searchQuery: String,
-        searchType: LMModels.Others.SearchType,
+        searchType: RMModel.Others.SearchType,
         userAccountService: UserAccountSerivceProtocol,
         contentScoreService: ContentScoreServiceProtocol
     ) {
@@ -53,7 +57,7 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
     }
     
     func doLoadContent(request: SearchResults.LoadContent.Request) {
-        let params = LMModels.Api.Site.Search(query: self.searchQuery,
+        let params = RMModel.Api.Site.Search(query: self.searchQuery,
                                               type: self.searchType,
                                               communityId: nil,
                                               communityName: nil,
@@ -82,7 +86,7 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
     func doLoadMoreContent(request: SearchResults.LoadMoreContent.Request) {
         paginationState += 1
         
-        let params = LMModels.Api.Site.Search(query: self.searchQuery,
+        let params = RMModel.Api.Site.Search(query: self.searchQuery,
                                               type: self.searchType,
                                               communityId: nil,
                                               communityName: nil,
@@ -112,33 +116,25 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        post: LMModels.Views.PostView
+        post: RMModel.Views.PostView
     ) {
-        contentScoreService.votePost(
-            scoreView: scoreView,
-            voteButton: voteButton,
-            for: newVote,
-            post: post
-        )
+        scoreView.setVoted(voteButton: voteButton, to: newVote)
+        contentScoreService.votePost(for: newVote, post: post)
     }
     
     func doCommentLike(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        comment: LMModels.Views.CommentView
+        comment: RMModel.Views.CommentView
     ) {
-        contentScoreService.voteComment(
-            scoreView: scoreView,
-            voteButton: voteButton,
-            for: newVote,
-            comment: comment
-        )
+        scoreView.setVoted(voteButton: voteButton, to: newVote)
+        contentScoreService.voteComment(for: newVote, comment: comment)
     }
     
     private func makeViewModelAndPresent(
-        type: LMModels.Others.SearchType,
-        response: LMModels.Api.Site.SearchResponse
+        type: RMModel.Others.SearchType,
+        response: RMModel.Api.Site.SearchResponse
     ) {
         
         let result: SearchResults.Results
@@ -163,8 +159,8 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
     }
     
     private func makePaginationViewModelAndPresent(
-        type: LMModels.Others.SearchType,
-        response: LMModels.Api.Site.SearchResponse
+        type: RMModel.Others.SearchType,
+        response: RMModel.Api.Site.SearchResponse
     ) {
         
         let result: SearchResults.Results
@@ -212,7 +208,7 @@ enum SearchResults {
         struct Request { }
         
         struct ViewModel {
-            let post: LMModels.Views.PostView
+            let post: RMModel.Views.PostView
         }
     }
     
@@ -220,15 +216,15 @@ enum SearchResults {
         struct Request { }
         
         struct ViewModel {
-            let comment: LMModels.Views.CommentView
+            let comment: RMModel.Views.CommentView
         }
     }
     
     enum Results {
-        case comments([LMModels.Views.CommentView])
-        case posts([LMModels.Views.PostView])
-        case communities([LMModels.Views.CommunityView])
-        case users([LMModels.Views.PersonViewSafe])
+        case comments([RMModel.Views.CommentView])
+        case posts([RMModel.Views.PostView])
+        case communities([RMModel.Views.CommunityView])
+        case users([RMModel.Views.PersonViewSafe])
     }
     
     enum ViewControllerState {

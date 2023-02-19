@@ -9,6 +9,8 @@
 import UIKit
 import AVFoundation
 import Combine
+import RMNetworking
+import RMFoundation
 
 class RegisterViewModel {
 
@@ -65,7 +67,7 @@ class RegisterViewModel {
             player.play()
 
         } catch {
-            Logger.common.error("Error while playing audio: \(error)")
+            debugPrint("Error while playing audio: \(error)")
         }
     }
 }

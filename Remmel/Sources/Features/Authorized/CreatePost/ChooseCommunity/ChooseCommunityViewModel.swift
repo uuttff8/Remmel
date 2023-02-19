@@ -8,6 +8,9 @@
 
 import UIKit
 import Combine
+import RMModels
+import RMFoundation
+import RMNetworking
 
 protocol ChooseCommunityViewModelProtocol: AnyObject {
     func doCommunitiesLoad(request: ChooseCommunity.CommunitiesLoad.Request)
@@ -20,8 +23,8 @@ class ChooseCommunityViewModel: ChooseCommunityViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     
     func doCommunitiesLoad(request: ChooseCommunity.CommunitiesLoad.Request) {
-        let parameters = LMModels.Api.Community.ListCommunities(type: .all,
-                                                                sort: LMModels.Others.SortType.topAll,
+        let parameters = RMModel.Api.Community.ListCommunities(type: .all,
+                                                                sort: RMModel.Others.SortType.topAll,
                                                                 page: nil,
                                                                 limit: 100,
                                                                 auth: LemmyShareData.shared.jwtToken)
@@ -42,7 +45,7 @@ class ChooseCommunityViewModel: ChooseCommunityViewModelProtocol {
     }
     
     func doSearchCommunities(request: ChooseCommunity.SearchCommunities.Request) {
-        let params = LMModels.Api.Site.Search(query: request.query,
+        let params = RMModel.Api.Site.Search(query: request.query,
                                               type: .communities,
                                               communityId: nil,
                                               communityName: nil,
@@ -90,6 +93,6 @@ enum ChooseCommunity {
     
     enum ViewControllerState {
         case loading
-        case result([LMModels.Views.CommunityView])
+        case result([RMModel.Views.CommunityView])
     }
 }

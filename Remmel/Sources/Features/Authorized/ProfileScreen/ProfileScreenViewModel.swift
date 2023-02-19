@@ -8,6 +8,10 @@
 
 import UIKit
 import Combine
+import RMModels
+import RMNetworking
+import RMServices
+import RMFoundation
 
 protocol ProfileScreenViewModelProtocol: AnyObject {
     var loadedProfile: ProfileScreenViewModel.ProfileData? { get }
@@ -26,7 +30,7 @@ extension ProfileScreenViewModel {
     struct ProfileData: Identifiable {
         let id: Int
         let viewData: ProfileScreenHeaderView.ViewData
-        let userDetails: LMModels.Api.Person.GetPersonDetailsResponse
+        let userDetails: RMModel.Api.Person.GetPersonDetailsResponse
     }
 }
 
@@ -70,9 +74,9 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
             }
             
             switch operation {
-            case LMMUserOperation.GetPersonDetails.rawValue:
+            case RMUserOperation.GetPersonDetails.rawValue:
                 guard let userDetails = self.wsClient?.decodeWsType(
-                    LMModels.Api.Person.GetPersonDetailsResponse.self,
+                    RMModel.Api.Person.GetPersonDetailsResponse.self,
                     data: data
                 ) else { return }
                 
@@ -88,7 +92,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     func doProfileFetch() {
         self.viewController?.displayNotBlockingActivityIndicator(viewModel: .init(shouldDismiss: false))
         
-        let parameters = LMModels.Api.Person.GetPersonDetails(personId: profileId,
+        let parameters = RMModel.Api.Person.GetPersonDetails(personId: profileId,
                                                               username: profileUsername,
                                                               sort: .active,
                                                               page: 1,
@@ -97,7 +101,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
                                                               savedOnly: false,
                                                               auth: LemmyShareData.shared.jwtToken)
         
-        self.wsClient?.send(LMMUserOperation.GetPersonDetails, parameters: parameters)
+        self.wsClient?.send(RMUserOperation.GetPersonDetails, parameters: parameters)
     }
     
     func doIdentifyProfile() {
@@ -136,7 +140,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
         self.pushCurrentCourseToSubmodules(submodules: Array(self.submodules.values))
     }
     
-    private func fetchProfile(with response: LMModels.Api.Person.GetPersonDetailsResponse) {
+    private func fetchProfile(with response: RMModel.Api.Person.GetPersonDetailsResponse) {
         self.viewController?.displayNotBlockingActivityIndicator(viewModel: .init(shouldDismiss: true))
         
         let loadedProfile = self.initializeProfileData(with: response)
@@ -179,7 +183,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     
     func doSubmodulesDataFilling(request: ProfileScreenDataFlow.SubmoduleDataFilling.Request) {
         guard let profileData = loadedProfile else {
-            Logger.common.error("Profile is not initialized")
+            debugPrint("Profile is not initialized")
             return
         }
         
@@ -198,7 +202,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
         }
     }
     
-    private func initializeProfileData(with response: LMModels.Api.Person.GetPersonDetailsResponse) -> ProfileData {
+    private func initializeProfileData(with response: RMModel.Api.Person.GetPersonDetailsResponse) -> ProfileData {
         let userView = response.personView
         
         return ProfileData(
@@ -263,8 +267,8 @@ enum ProfileScreenDataFlow {
     enum SubmoduleDataFilling {
         struct Request {
             let submodules: [Int: ProfileScreenSubmoduleProtocol]
-            let posts: [LMModels.Views.PostView]
-            let comments: [LMModels.Views.CommentView]
+            let posts: [RMModel.Views.PostView]
+            let comments: [RMModel.Views.CommentView]
         }
     }
     
@@ -298,8 +302,8 @@ enum ProfileScreenDataFlow {
     enum ViewControllerState {
         case loading
         case result(profile: ProfileScreenHeaderView.ViewData,
-                    posts: [LMModels.Views.PostView],
-                    comments: [LMModels.Views.CommentView])
+                    posts: [RMModel.Views.PostView],
+                    comments: [RMModel.Views.CommentView])
         case blockedUser
     }
 }

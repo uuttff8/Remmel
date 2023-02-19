@@ -9,10 +9,11 @@
 import UIKit
 import SafariServices
 import SnapKit
+import RMModels
 
 protocol PostScreenViewDelegate: AnyObject {
     func postView(didEmbedTappedWith url: URL)
-    func postView(_ postView: PostScreenViewController.View, didWriteCommentTappedWith post: LMModels.Views.PostView)
+    func postView(_ postView: PostScreenViewController.View, didWriteCommentTappedWith post: RMModel.Views.PostView)
 }
 
 extension PostScreenViewController.View {
@@ -24,7 +25,7 @@ extension PostScreenViewController {
     class View: UIView {
         
         struct ViewData {
-            let post: LMModels.Views.PostView
+            let post: RMModel.Views.PostView
             let comments: [LemmyComment]
         }
         
@@ -33,7 +34,7 @@ extension PostScreenViewController {
         private let appearance = Appearance()
         
         let headerView = PostScreenHeaderView()
-        var postData: LMModels.Views.PostView?
+        var postData: RMModel.Views.PostView?
                         
         init() {
             super.init(frame: .zero)
@@ -52,7 +53,7 @@ extension PostScreenViewController {
             fatalError("init(coder:) has not been implemented")
         }
         
-        func bind(with viewData: LMModels.Views.PostView) {
+        func bind(with viewData: RMModel.Views.PostView) {
             postData = viewData
             headerView.bind(with: viewData)
             
@@ -137,7 +138,7 @@ class PostScreenHeaderView: UIView {
     
     // MARK: - Public API
     
-    func bind(with postInfo: LMModels.Views.PostView) {
+    func bind(with postInfo: RMModel.Views.PostView) {
         postHeaderView.bind(with: postInfo, config: .fullPost)
         
         if let url = URL(string: postInfo.post.url?.trim() ?? "") {

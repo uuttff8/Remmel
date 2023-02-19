@@ -7,17 +7,20 @@
 //
 
 import UIKit
+import RMModels
+import RMNetworking
+import RMServices
 
 class PostScreenAssembly: Assembly {
     
     private let postId: Int
-    private let postInfo: LMModels.Views.PostView? // show post if have pre-generated
-    private let scrollToComment: LMModels.Views.CommentView?
+    private let postInfo: RMModel.Views.PostView? // show post if have pre-generated
+    private let scrollToComment: RMModel.Views.CommentView?
     
     init(
         postId: Int,
-        postInfo: LMModels.Views.PostView? = nil,
-        scrollToComment: LMModels.Views.CommentView? = nil
+        postInfo: RMModel.Views.PostView? = nil,
+        scrollToComment: RMModel.Views.CommentView? = nil
     ) {
         self.postId = postId
         self.postInfo = postInfo
@@ -32,10 +35,10 @@ class PostScreenAssembly: Assembly {
         )
         
         let vc = PostScreenViewController(
-            viewModel: viewModel,
+            viewModel: viewModel, 
             scrollToComment: scrollToComment,
             contentScoreService: ContentScoreService(userAccountService: UserAccountService()),
-            showMoreHandlerService: ShowMoreHandlerService()
+            showMoreHandlerService: ShowMoreHandlerServiceImp()
         )
         viewModel.viewController = vc
         

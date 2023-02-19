@@ -8,6 +8,10 @@
 
 import UIKit
 import Combine
+import RMModels
+import RMServices
+import RMNetworking
+import RMFoundation
 
 protocol EditPostViewModelProtocol: AnyObject {
     func doReceiveMessages()
@@ -21,14 +25,14 @@ class EditPostViewModel: EditPostViewModelProtocol {
     
     private weak var wsClient: WSClientProtocol?
     
-    private let postSource: LMModels.Source.Post
+    private let postSource: RMModel.Source.Post
     
     private let userAccountService: UserAccountSerivceProtocol
     
     private var cancellable = Set<AnyCancellable>()
     
     init(
-        postSource: LMModels.Source.Post,
+        postSource: RMModel.Source.Post,
         userAccountService: UserAccountSerivceProtocol,
         wsClient: WSClientProtocol
     ) {
@@ -42,7 +46,7 @@ class EditPostViewModel: EditPostViewModelProtocol {
 //            guard let self = self else { return }
 //            
 //            switch operation {
-//            case LMMUserOperation.EditPost.rawValue:
+//            case RMUserOperation.EditPost.rawValue:
 //                DispatchQueue.main.async {
 //                    <#code#>
 //                }
@@ -52,7 +56,6 @@ class EditPostViewModel: EditPostViewModelProtocol {
     }
     
     func doEditPostFormLoad(request: EditPost.FormLoad.Request) {
-        
         let headerText = FormatterHelper.newMessagePostHeaderText(name: postSource.name, body: postSource.body)
         
         self.viewController?.displayEditPostForm(
@@ -66,11 +69,11 @@ class EditPostViewModel: EditPostViewModelProtocol {
     
     func doRemoteEditPost(request: EditPost.RemoteEditPost.Request) {
         guard let jwtToken = userAccountService.jwtToken else {
-            Logger.common.error("JWT Token not found: User should not be able to edit post when not authed")
+            debugPrint("JWT Token not found: User should not be able to edit post when not authed")
             return
         }
         
-        let params = LMModels.Api.Post.EditPost(postId: self.postSource.id,
+        let params = RMModel.Api.Post.EditPost(postId: self.postSource.id,
                                                 name: request.name,
                                                 url: request.url,
                                                 body: request.body,
@@ -110,7 +113,7 @@ class EditPostViewModel: EditPostViewModelProtocol {
                     viewModel: .init(url: String.makePathToPictrs(file))
                 )
             case .failure(let error):
-                Logger.common.error(error)
+                debugPrint(error)
                 self.viewController?.displayErrorUrlLoadImage(viewModel: .init())
             }
         }
@@ -139,7 +142,7 @@ enum EditPost {
         }
         
         struct ViewModel {
-            let postView: LMModels.Views.PostView
+            let postView: RMModel.Views.PostView
         }
     }
     

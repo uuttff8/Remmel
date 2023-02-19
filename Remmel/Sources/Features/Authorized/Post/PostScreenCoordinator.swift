@@ -8,14 +8,15 @@
 
 import UIKit
 import SafariServices
+import RMModels
 
 class PostScreenCoordinator: GenericCoordinator<PostScreenViewController> {
     
     init(
         router: RouterProtocol?,
         postId: Int,
-        postInfo: LMModels.Views.PostView? = nil,
-        scrollToComment: LMModels.Views.CommentView? = nil
+        postInfo: RMModel.Views.PostView? = nil,
+        scrollToComment: RMModel.Views.CommentView? = nil
     ) {
         super.init(router: router)
         let assembly = PostScreenAssembly(postId: postId, postInfo: postInfo, scrollToComment: scrollToComment)

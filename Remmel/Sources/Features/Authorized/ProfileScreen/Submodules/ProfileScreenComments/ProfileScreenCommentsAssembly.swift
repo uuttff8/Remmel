@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RMFoundation
+import RMServices
 
 final class ProfileScreenCommentsAssembly: Assembly {
     
@@ -22,7 +24,7 @@ final class ProfileScreenCommentsAssembly: Assembly {
         let viewModel = ProfileScreenCommentsViewModel()
         let vc = ProfileScreenCommentsViewController(
             viewModel: viewModel,
-            showMoreHandler: ShowMoreHandlerService(),
+            showMoreHandler: ShowMoreHandlerServiceImp(),
             contentScoreService: ContentScoreService(
                 userAccountService: UserAccountService()
             )

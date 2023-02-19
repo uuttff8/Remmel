@@ -8,6 +8,8 @@
 
 import UIKit
 import Combine
+import RMServices
+import RMModels
 
 protocol CommunitiesPreviewViewControllerProtocol: AnyObject {
     func displayCommunities(viewModel: CommunitiesPreview.CommunitiesLoad.ViewModel)
@@ -91,21 +93,23 @@ extension CommunitiesPreviewViewController: CommunitiesPreviewViewControllerProt
 }
 
 extension CommunitiesPreviewViewController: CommunitiesPreviewTableDataSourceDelegate {
-    func tableDidTapped(followButton: FollowButton, in community: LMModels.Views.CommunityView) {
+    func tableDidTapped(followButton: FollowButton, in community: RMModel.Views.CommunityView) {
         
         guard let coord = coordinator else {
             return
         }
         
         ContinueIfLogined(on: self, coordinator: coord) {
-            self.followService.followUi(followButton: followButton, to: community)
+            followButton.followState = .pending
+            self.followService.followUi(to: community)
                 .sink { community in
+                    followButton.bind(isSubcribed: community.subscribed)
                     self.tableManager.viewModels.updateElementById(community)
                 }.store(in: &self.cancellable)
         }
     }
     
-    func tableDidSelect(community: LMModels.Views.CommunityView) {
+    func tableDidSelect(community: RMModel.Views.CommunityView) {
         coordinator?.goToCommunityScreen(communityId: community.id)
     }
 }

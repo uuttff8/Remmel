@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMFoundation
 
 protocol InstancesViewControllerProtocol: AnyObject {
     func displayInstances(viewModel: InstancesDataFlow.InstancesLoad.ViewModel)

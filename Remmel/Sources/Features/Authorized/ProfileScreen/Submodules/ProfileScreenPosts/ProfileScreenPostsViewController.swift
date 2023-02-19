@@ -8,13 +8,15 @@
 
 import UIKit
 import SafariServices
+import RMModels
+import RMServices
 
 protocol ProfileScreenPostViewControllerProtocol: AnyObject {
     func displayProfilePosts(viewModel: ProfileScreenPosts.PostsLoad.ViewModel)
     func displayNextPosts(viewModel: ProfileScreenPosts.NextProfilePostsLoad.ViewModel)
 }
 
-class ProfileScreenPostsViewController: UIViewController {
+class ProfileScreenPostsViewController: UIViewController, ShowMoreAlerting {
     private let viewModel: ProfileScreenPostsViewModel
     
     weak var coordinator: ProfileScreenCoordinator?
@@ -111,7 +113,7 @@ extension ProfileScreenPostsViewController: ProfileScreenPostViewControllerProto
 }
 
 extension ProfileScreenPostsViewController: ProfileScreenPostsViewDelegate {
-    func profileScreenPosts(_ view: View, didPickedNewSort type: LMModels.Others.SortType) {
+    func profileScreenPosts(_ view: View, didPickedNewSort type: RMModel.Others.SortType) {
         guard let profilePostsView = profilePostsView else {
             return
         }
@@ -127,7 +129,7 @@ extension ProfileScreenPostsViewController: ProfileScreenPostsViewDelegate {
 }
 
 extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
-    func postCellDidSelected(postId: LMModels.Views.PostView.ID) {
+    func postCellDidSelected(postId: RMModel.Views.PostView.ID) {
         let post = tableDataSource.viewModels.getElement(by: postId).require()
         self.coordinator?.goToPostScreen(post: post)
     }
@@ -136,35 +138,38 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        post: LMModels.Views.PostView
+        post: RMModel.Views.PostView
     ) {
         guard let coordinator = coordinator else {
             return
         }
         
-        ContinueIfLogined(on: self, coordinator: coordinator) {
-            [weak self] in
+        ContinueIfLogined(on: self, coordinator: coordinator) { [weak self] in
 
-            self?.contentScoreService.votePost(
-                scoreView: scoreView,
-                voteButton: voteButton,
-                for: newVote,
-                post: post
-            )
+            scoreView.setVoted(voteButton: voteButton, to: newVote)
+            self?.contentScoreService.votePost(for: newVote, post: post)
         }
     }
     
-    func showMore(in post: LMModels.Views.PostView) {
+    func showMore(in post: RMModel.Views.PostView) {
         guard let coordinator = coordinator else {
             return
         }
 
         if let post = self.tableDataSource.viewModels.getElement(by: post.id) {
-            showMoreHandlerService.showMoreInPost(on: self, coordinator: coordinator, post: post) {
-                [weak self] updatedPost in
-
-                self?.tableDataSource.viewModels.updateElementById(updatedPost)
-            }
+//            self.showMoreInPost(
+//                isDeleted: <#T##Bool#>,
+//                isMineActions: <#T##Bool#>,
+//                isSaved: <#T##Bool#>,
+//                editAction: <#T##() -> Void#>,
+//                deleteAction: <#T##() -> Void#>,
+//                saveAction: <#T##() -> Void#>,
+//                reportAction: <#T##() -> Void#>
+//            )
+//            showMoreHandlerService.showMoreInPost(on: self, coordinator: coordinator, post: post) { [weak self] updatedPost in
+//
+//                self?.tableDataSource.viewModels.updateElementById(updatedPost)
+//            }
         }
     }
     
@@ -176,7 +181,7 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
         coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
-    func onLinkTap(in post: LMModels.Views.PostView, url: URL) {
+    func onLinkTap(in post: RMModel.Views.PostView, url: URL) {
         coordinator?.goToBrowser(with: url)
     }
     
@@ -189,7 +194,7 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
         viewModel.doNextPostsFetch(request: .init(sortType: profilePostsView.sortType))
     }
     
-    func tableDidSelect(post: LMModels.Views.PostView) {
+    func tableDidSelect(post: RMModel.Views.PostView) {
         coordinator?.goToPostScreen(post: post)
     }
 }

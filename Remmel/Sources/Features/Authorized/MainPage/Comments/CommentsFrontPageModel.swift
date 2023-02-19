@@ -8,6 +8,10 @@
 
 import UIKit
 import Combine
+import RMModels
+import RMNetworking
+import RMFoundation
+import RMServices
 
 class CommentsFrontPageModel: NSObject {
     var dataLoaded: (() -> Void)?
@@ -19,7 +23,7 @@ class CommentsFrontPageModel: NSObject {
     private var isFetchingNewContent = false
     private var currentPage = 1
     
-    var commentsDataSource: [LMModels.Views.CommentView] = []
+    var commentsDataSource: [RMModel.Views.CommentView] = []
     
     private let contentScoreService = ContentScoreService(userAccountService: UserAccountService())
     
@@ -27,7 +31,7 @@ class CommentsFrontPageModel: NSObject {
     
     private var cancellable = Set<AnyCancellable>()
     
-    var currentSortType: LMModels.Others.SortType {
+    var currentSortType: RMModel.Others.SortType {
         get { contentPreferenceService.contentSortType }
         set {
             self.currentPage = 1
@@ -35,7 +39,7 @@ class CommentsFrontPageModel: NSObject {
         }
     }
     
-    var currentListingType: LMModels.Others.ListingType {
+    var currentListingType: RMModel.Others.ListingType {
         get { contentPreferenceService.listingType }
         set {
             self.currentPage = 1
@@ -44,7 +48,7 @@ class CommentsFrontPageModel: NSObject {
     }
     
     func loadComments() {
-        let parameters = LMModels.Api.Comment.GetComments(type: self.currentListingType,
+        let parameters = RMModel.Api.Comment.GetComments(type: self.currentListingType,
                                                           sort: self.currentSortType,
                                                           page: 1,
                                                           limit: 50,
@@ -64,7 +68,7 @@ class CommentsFrontPageModel: NSObject {
     }
     
     func loadMoreComments(completion: @escaping (() -> Void)) {
-        let parameters = LMModels.Api.Comment.GetComments(type: self.currentListingType,
+        let parameters = RMModel.Api.Comment.GetComments(type: self.currentListingType,
                                                           sort: self.currentSortType,
                                                           page: self.currentPage,
                                                           limit: 50,
@@ -88,11 +92,10 @@ class CommentsFrontPageModel: NSObject {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        comment: LMModels.Views.CommentView
+        comment: RMModel.Views.CommentView
     ) {
+        scoreView.setVoted(voteButton: voteButton, to: newVote)
         self.contentScoreService.voteComment(
-            scoreView: scoreView,
-            voteButton: voteButton,
             for: newVote,
             comment: comment
         )
@@ -102,10 +105,10 @@ class CommentsFrontPageModel: NSObject {
         
         wsEvents.onTextMessage.addObserver(self, completionHandler: { operation, data in
             switch operation {
-            case LMMUserOperation.CreateCommentLike.rawValue:
+            case RMUserOperation.CreateCommentLike.rawValue:
                 
                 guard let commentLike = self.wsEvents.decodeWsType(
-                    LMModels.Api.Comment.CommentResponse.self,
+                    RMModel.Api.Comment.CommentResponse.self,
                     data: data
                 ) else { return }
                 
@@ -113,12 +116,12 @@ class CommentsFrontPageModel: NSObject {
                     self.createPostLike(with: commentLike.commentView)
                 }
                 
-            case LMMUserOperation.EditComment.rawValue,
-                 LMMUserOperation.DeleteComment.rawValue,
-                 LMMUserOperation.RemoveComment.rawValue:
+            case RMUserOperation.EditComment.rawValue,
+                 RMUserOperation.DeleteComment.rawValue,
+                 RMUserOperation.RemoveComment.rawValue:
                 
                 guard let newComment = self.wsEvents.decodeWsType(
-                    LMModels.Api.Comment.CommentResponse.self,
+                    RMModel.Api.Comment.CommentResponse.self,
                     data: data
                 ) else { return }
                 
@@ -131,20 +134,20 @@ class CommentsFrontPageModel: NSObject {
         })
     }
     
-    private func createPostLike(with updatedComment: LMModels.Views.CommentView) {
+    private func createPostLike(with updatedComment: RMModel.Views.CommentView) {
         if let index = self.commentsDataSource.getElementIndex(by: updatedComment.id) {
             self.commentsDataSource[index].updateForCreatePostLike(with: updatedComment)
             self.createCommentLikeUpdate?(index)
         }
     }
     
-    private func updateComment(with updatedComment: LMModels.Views.CommentView) {
+    private func updateComment(with updatedComment: RMModel.Views.CommentView) {
         if let index = self.commentsDataSource.getElementIndex(by: updatedComment.id) {
             self.commentsDataSource[index] = updatedComment
         }
     }
     
-    private func saveNewComment(_ comment: LMModels.Views.CommentView) {
+    private func saveNewComment(_ comment: RMModel.Views.CommentView) {
         if let index = commentsDataSource.firstIndex(where: { $0.comment.id == comment.comment.id }) {
             commentsDataSource[index] = comment
         }

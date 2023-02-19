@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMModels
 
 protocol CommunityScreenViewDelegate: CommunityTableHeaderViewDelegate {
     func communityViewDidReadMoreTapped(
@@ -14,7 +15,7 @@ protocol CommunityScreenViewDelegate: CommunityTableHeaderViewDelegate {
         toVc: UIViewController
     )
     func communityViewDidPickerTapped(_ communityView: CommunityScreenViewController.View, toVc: UIViewController)
-    func communityView(_ view: CommunityScreenViewController.View, didPickedNewSort type: LMModels.Others.SortType)
+    func communityView(_ view: CommunityScreenViewController.View, didPickedNewSort type: RMModel.Others.SortType)
 }
 
 extension CommunityScreenViewController.View {
@@ -30,16 +31,16 @@ extension CommunityScreenViewController {
         private let appearance: Appearance
         
         struct HeaderViewData {
-            let communityView: LMModels.Views.CommunityView
+            let communityView: RMModel.Views.CommunityView
         }
         
         struct TableViewData {
-            let posts: [LMModels.Views.PostView]
+            let posts: [RMModel.Views.PostView]
         }
         
         weak var delegate: CommunityScreenViewDelegate?
         
-        open var contentType: LMModels.Others.SortType = .active
+        open var contentType: RMModel.Others.SortType = .active
         
         weak var tableManager: CommunityScreenTableDataSource?
         
@@ -56,7 +57,7 @@ extension CommunityScreenViewController {
             $0.textColor = .tertiaryLabel
         }
         
-        var communityHeaderViewData: LMModels.Views.CommunityView? {
+        var communityHeaderViewData: RMModel.Views.CommunityView? {
             didSet {
                 communityHeaderView.delegate = self.delegate
                 communityHeaderView.bindData(community: communityHeaderViewData.require())
@@ -109,7 +110,7 @@ extension CommunityScreenViewController {
             tableView.layoutTableHeaderView()
         }
         
-        func appendNew(data: [LMModels.Views.PostView]) {
+        func appendNew(data: [RMModel.Views.PostView]) {
             self.tableManager?.appendNew(posts: data) { newIndexpaths in
                 tableView.performBatchUpdates {
                     tableView.insertRows(at: newIndexpaths, with: .none)
@@ -149,15 +150,15 @@ extension CommunityScreenViewController.View: ProgrammaticallyViewProtocol {
         communityHeaderView.communityHeaderView.descriptionReadMoreButton
             .addTarget(self, action: #selector(descriptionMoreButtonTapped), for: .touchUpInside)
         
-        communityHeaderView.contentTypeView.addTap {
-            let vc = self.communityHeaderView.contentTypeView.configuredAlert
-            self.delegate?.communityViewDidPickerTapped(self, toVc: vc)
-        }
-
-        communityHeaderView.contentTypeView.newCasePicked = { newCase in
-            self.contentType = newCase
-            self.delegate?.communityView(self, didPickedNewSort: newCase)
-        }
+//        communityHeaderView.contentTypeView.addTap {
+//            let vc = self.communityHeaderView.contentTypeView.configuredAlert
+//            self.delegate?.communityViewDidPickerTapped(self, toVc: vc)
+//        }
+//
+//        communityHeaderView.contentTypeView.newCasePicked = { newCase in
+//            self.contentType = newCase
+//            self.delegate?.communityView(self, didPickedNewSort: newCase)
+//        }
                 
         emptyStateLabel.isHidden = true
         tableView.estimatedRowHeight = self.appearance.estimatedRowHeight

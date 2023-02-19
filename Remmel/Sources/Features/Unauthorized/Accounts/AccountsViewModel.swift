@@ -8,6 +8,10 @@
 
 import Combine
 import Foundation
+import RMModels
+import RMFoundation
+import RMServices
+import RMNetworking
 
 protocol AccountsViewModelProtocol: AnyObject {
     func doAccountsRefresh(request: AccountsDataFlow.AccountsRefresh.Request)
@@ -50,7 +54,7 @@ final class AccountsViewModel: AccountsViewModelProtocol {
     }
     
     func doAccountUserSelect(request: AccountsDataFlow.AccountSelected.Request) {
-        let parameters = LMModels.Api.Person.Login(
+        let parameters = RMModel.Api.Person.Login(
             usernameOrEmail: request.account.login,
             password: request.account.password
         )
@@ -79,7 +83,7 @@ final class AccountsViewModel: AccountsViewModelProtocol {
     }
         
     private func fetchUser(with jwtToken: String) {
-        self.loadUserOnSuccessResponse(jwt: jwtToken) { (currentUser: LMModels.Api.Site.MyUserInfo) in
+        self.loadUserOnSuccessResponse(jwt: jwtToken) { (currentUser: RMModel.Api.Site.MyUserInfo) in
             self.shareData.userdata = currentUser
             self.viewController?.displayAccountSelected(viewModel: .init(myUser: currentUser))
         }
@@ -87,11 +91,11 @@ final class AccountsViewModel: AccountsViewModelProtocol {
         
     private func loadUserOnSuccessResponse(
         jwt: String,
-        completion: @escaping ((LMModels.Api.Site.MyUserInfo) -> Void)
+        completion: @escaping ((RMModel.Api.Site.MyUserInfo) -> Void)
     ) {
         self.shareData.loginData.login(jwt: jwt)
         
-        let params = LMModels.Api.Site.GetSite(auth: jwt)
+        let params = RMModel.Api.Site.GetSite(auth: jwt)
         
         ApiManager.requests.asyncGetSite(parameters: params)
             .receive(on: DispatchQueue.main)
@@ -100,7 +104,7 @@ final class AccountsViewModel: AccountsViewModelProtocol {
             }, receiveValue: { response in
                 guard let myUser = response.myUser
                 else {
-                    Logger.common.error("There is no current user in response")
+                    debugPrint("There is no current user in response")
                     return
                 }
                 
@@ -132,7 +136,7 @@ enum AccountsDataFlow {
         }
         
         struct ViewModel {
-            let myUser: LMModels.Api.Site.MyUserInfo
+            let myUser: RMModel.Api.Site.MyUserInfo
         }
     }
     

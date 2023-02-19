@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RMFoundation
+import RMServices
 
 class InstancesAssembly: Assembly {
     func makeModule() -> InstancesViewController {

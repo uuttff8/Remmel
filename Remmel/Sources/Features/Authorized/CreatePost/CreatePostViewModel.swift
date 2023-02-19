@@ -8,6 +8,9 @@
 
 import UIKit
 import Combine
+import RMModels
+import RMNetworking
+import RMFoundation
 
 protocol CreatePostViewModelProtocol: AnyObject {
     func doCreatePostLoad(request: CreatePost.CreatePostLoad.Request)
@@ -30,7 +33,7 @@ class CreatePostViewModel: CreatePostViewModelProtocol {
             return
         }
         
-        let params = LMModels.Api.Post.CreatePost(
+        let params = RMModel.Api.Post.CreatePost(
             name: request.title,
             url: request.url,
             body: request.body,
@@ -74,7 +77,7 @@ class CreatePostViewModel: CreatePostViewModelProtocol {
                     viewModel: .init(url: String.makePathToPictrs(file))
                 )
             case .failure(let error):
-                Logger.common.error(error)
+                debugPrint(error)
                 self.viewController?.displayErrorUrlLoadImage(viewModel: .init())
             }
         }

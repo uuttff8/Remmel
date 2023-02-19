@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import RMModels
 
 class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
     
@@ -46,7 +47,7 @@ class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
         self.rootViewController.present(navController, animated: true)
     }
     
-    func goToSearchResults(searchQuery: String, searchType: LMModels.Others.SearchType) {
+    func goToSearchResults(searchQuery: String, searchType: RMModel.Others.SearchType) {
         let assembly = SearchResultsAssembly(searchQuery: searchQuery, type: searchType)
         let vc = assembly.makeModule()
         vc.coordinator = self

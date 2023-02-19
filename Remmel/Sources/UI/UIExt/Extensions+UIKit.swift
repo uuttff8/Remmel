@@ -97,49 +97,6 @@ extension UILabel {
     }
 }
 
-extension UIColor {
-    convenience init(rgb: UInt, alphaVal: CGFloat) {
-        self.init(
-            red: CGFloat((rgb & 0xFF0000) >> 16) / 255.0,
-            green: CGFloat((rgb & 0x00FF00) >> 8) / 255.0,
-            blue: CGFloat(rgb & 0x0000FF) / 255.0,
-            alpha: alphaVal
-        )
-    }
-}
-
-extension Date {
-    static let lemmyDateFormat     = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
-    static let lemmyDateFormatZero = "yyyy-MM-dd'T'HH:mm:ss"
-    
-    static func toLemmyDate(str: String?) -> Date {
-        guard let str = str else {
-            return Date()
-        }
-
-        let dateFormatter = ISO8601DateFormatter()
-        dateFormatter.formatOptions = [.withFullDate, .withFractionalSeconds, .withTime, .withColonSeparatorInTime]
-        dateFormatter.timeZone = TimeZone.current
-        return dateFormatter.date(from: str) ?? Date()
-    }
-    
-    func toRelativeDate() -> String {
-        let formatter = RelativeDateTimeFormatter()
-        formatter.unitsStyle = .full
-        
-        return formatter.localizedString(for: self, relativeTo: Date())
-    }
-}
-
-extension UserDefaults {
-    func resetDefaults() {
-        let dictionary = self.dictionaryRepresentation()
-        dictionary.keys.forEach { key in
-            self.removeObject(forKey: key)
-        }
-    }
-}
-
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
         self.view.hideKeyboardWhenTappedAround()
@@ -213,12 +170,6 @@ extension String {
         }
         
         return nil
-    }
-}
-
-extension UIScreen {
-    static var isDarkMode: Bool {
-        return UIScreen.main.traitCollection.userInterfaceStyle == .dark
     }
 }
 
@@ -337,12 +288,6 @@ public extension UITouch {
         }
     }
     
-}
-
-extension String {
-    var toLemmyError: LemmyGenericError {
-        LemmyGenericError.string(self)
-    }
 }
 
 extension UIView {

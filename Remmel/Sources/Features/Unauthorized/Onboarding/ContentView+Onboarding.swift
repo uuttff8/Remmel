@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import RMFoundation
 
 struct ContentView_Onboarding: View {
     @State var appSetupState = "App NOT setup ☹️"

@@ -8,6 +8,10 @@
 
 import UIKit
 import Combine
+import RMModels
+import RMServices
+import RMFoundation
+import RMNetworking
 
 protocol ProfileSettingsViewModelProtocol: AnyObject {
     func doProfileSettingsForm(request: ProfileSettings.ProfileSettingsForm.Request)
@@ -36,7 +40,7 @@ final class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
             return
         }
         
-        let params = LMModels.Api.Site.GetSite(auth: currentUserJwt)
+        let params = RMModel.Api.Site.GetSite(auth: currentUserJwt)
         
         ApiManager.requests
             .asyncGetSite(parameters: params)
@@ -77,7 +81,7 @@ final class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
         }
         let newData = request.data
         
-        let params = LMModels.Api.Person.SaveUserSettings(
+        let params = RMModel.Api.Person.SaveUserSettings(
             showNsfw: newData.showNsfwContent,
             theme: prevData.localUserView.localUser.theme,
             defaultSortType: prevData.localUserView.localUser.defaultSortType.index,

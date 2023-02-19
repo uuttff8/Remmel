@@ -9,6 +9,7 @@
 import UIKit
 import Lightbox
 import markymark
+import RMModels
 
 // MARK: - CommentCenterView: UIView -
 class CommentCenterView: UIView {

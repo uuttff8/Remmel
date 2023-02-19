@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RMModels
+import RMServices
 
 protocol InboxRepliesViewControllerProtocol: AnyObject {
     func displayReplies(viewModel: InboxReplies.LoadReplies.ViewModel)
@@ -14,7 +16,7 @@ protocol InboxRepliesViewControllerProtocol: AnyObject {
     func displayCreateCommentLike(viewModel: InboxReplies.CreateCommentLike.ViewModel)
 }
 
-final class InboxRepliesViewController: UIViewController {
+final class InboxRepliesViewController: UIViewController, ShowMoreAlerting {
     
     weak var coordinator: InboxNotificationsCoordinator?
     private let viewModel: InboxRepliesViewModel
@@ -25,7 +27,7 @@ final class InboxRepliesViewController: UIViewController {
     }
     
     private let contentScoreService: ContentScoreServiceProtocol
-    private let showMoreService: ShowMoreHandlerServiceProtocol
+    private let showMoreService: ShowMoreHandlerService
     
     private var state: InboxReplies.ViewControllerState
     private var canTriggerPagination = true
@@ -33,7 +35,7 @@ final class InboxRepliesViewController: UIViewController {
     init(
         viewModel: InboxRepliesViewModel,
         contentScoreService: ContentScoreServiceProtocol,
-        showMoreService: ShowMoreHandlerServiceProtocol,
+        showMoreService: ShowMoreHandlerService,
         initialState: InboxReplies.ViewControllerState = .loading
     ) {
         self.viewModel = viewModel
@@ -133,7 +135,7 @@ extension InboxRepliesViewController: ReplyCellViewDelegate {
         self.coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
-    func postNameTapped(in reply: LMModels.Views.CommentView) {
+    func postNameTapped(in reply: RMModel.Views.CommentView) {
         self.coordinator?.goToPostScreen(postId: reply.post.id)
     }
     
@@ -141,39 +143,37 @@ extension InboxRepliesViewController: ReplyCellViewDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        reply: LMModels.Views.CommentView
+        reply: RMModel.Views.CommentView
     ) {
-        self.contentScoreService.voteReply(
-            scoreView: scoreView,
-            voteButton: voteButton,
-            for: newVote,
-            reply: reply
-        )
+        scoreView.setVoted(voteButton: voteButton, to: newVote)
+        self.contentScoreService.voteReply(for: newVote, reply: reply)
     }
     
-    func showContext(in reply: LMModels.Views.CommentView) {
+    func showContext(in reply: RMModel.Views.CommentView) {
         self.coordinator?.goToPostAndScroll(to: reply)
     }
     
-    func reply(to reply: LMModels.Views.CommentView) {
+    func reply(to reply: RMModel.Views.CommentView) {
         self.coordinator?.goToWriteComment(postSource: reply.post, parrentComment: reply.comment) {
-            LMMMessagesToast.showSuccessCreateComment()
+            RMMessagesToast.showSuccessCreateComment()
         }
     }
     
-    func onLinkTap(in reply: LMModels.Views.CommentView, url: URL) {
+    func onLinkTap(in reply: RMModel.Views.CommentView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }
         
-    func showMoreAction(in reply: LMModels.Views.CommentView) {
+    func showMoreAction(in reply: RMModel.Views.CommentView) {
         
         if let reply = self.tableManager.viewModels.getElement(by: reply.id) {
             guard let coordinator = coordinator else {
                 return
             }
-            self.showMoreService.showMoreInReply(on: self, coordinator: coordinator, reply: reply) { updatedReply in
-                self.tableManager.viewModels.updateElementById(updatedReply)
-            }
+            
+            
+//            self.showMoreService.showMoreInReply(on: self, coordinator: coordinator, reply: reply) { updatedReply in
+//                self.tableManager.viewModels.updateElementById(updatedReply)
+//            }
         }
     }
 }

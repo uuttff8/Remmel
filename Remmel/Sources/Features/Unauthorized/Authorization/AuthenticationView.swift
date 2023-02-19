@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMFoundation
 
 class AuthenticationView: UIView {
     var onSignIn: ((_ emailOrUsername: String, _ password: String) -> Void)?

@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import RMServices
 
 class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewControllerDelegate {
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMModels
 
 final class MessageTableCell: UITableViewCell {
     private lazy var cellView = MessageCellView()
@@ -31,7 +32,7 @@ final class MessageTableCell: UITableViewCell {
         self.cellView.configure(with: nil)
     }
 
-    func configure(viewModel: LMModels.Views.PrivateMessageView) {
+    func configure(viewModel: RMModel.Views.PrivateMessageView) {
         self.cellView.configure(
             with: .init(
                 id: viewModel.recipient.id,

@@ -8,6 +8,7 @@
 
 import UIKit
 import Nuke
+import RMFoundation
 
 class LemmyFrontPageNavBar: UIView {
     var onProfileIconTap: (() -> Void)?

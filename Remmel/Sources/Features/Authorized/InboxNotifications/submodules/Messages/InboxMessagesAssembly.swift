@@ -6,6 +6,9 @@
 //  Copyright © 2021 Anton Kuzmin. All rights reserved.
 //
 
+import RMFoundation
+import RMServices
+
 protocol InboxMessagesInputProtocol: InboxNotificationSubmoduleProtocol { }
 
 final class InboxMessagesAssembly: Assembly {

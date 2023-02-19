@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import RMFoundation
+import RMServices
+import RMNetworking
 
 protocol InboxMentionsInputProtocol: InboxNotificationSubmoduleProtocol { }
 
@@ -28,7 +31,7 @@ final class InboxMentionsAssembly: Assembly {
             contentScoreService: ContentScoreService(
                 userAccountService: userAccService
             ),
-            showMoreService: ShowMoreHandlerService()
+            showMoreService: ShowMoreHandlerServiceImp()
         )
         
         vc.coordinator = coordinator.value

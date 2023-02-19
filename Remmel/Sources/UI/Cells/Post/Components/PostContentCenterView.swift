@@ -9,6 +9,8 @@
 import UIKit
 import Lightbox
 import markymark
+import RMModels
+import RMFoundation
 
 // MARK: - PostContentCenterView: UIView
 class PostContentCenterView: UIView {

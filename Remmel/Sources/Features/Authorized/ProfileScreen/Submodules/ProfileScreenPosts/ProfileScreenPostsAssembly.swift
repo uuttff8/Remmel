@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RMFoundation
+import RMServices
 
 final class ProfileScreenPostsAssembly: Assembly {
     
@@ -23,7 +25,7 @@ final class ProfileScreenPostsAssembly: Assembly {
         
         let vc = ProfileScreenPostsViewController(
             viewModel: viewModel,
-            showMoreHandlerService: ShowMoreHandlerService(),
+            showMoreHandlerService: ShowMoreHandlerServiceImp(),
             contentScoreService: ContentScoreService(
                 userAccountService: UserAccountService()
             )

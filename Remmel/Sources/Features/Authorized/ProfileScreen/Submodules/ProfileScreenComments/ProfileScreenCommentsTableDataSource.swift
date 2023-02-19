@@ -7,28 +7,29 @@
 //
 
 import UIKit
+import RMModels
 
 protocol ProfileScreenCommentsTableDataSourceDelegate: CommentContentTableCellDelegate {
     func tableDidRequestPagination(_ tableDataSource: ProfileScreenCommentsTableDataSource)
 }
 
 class ProfileScreenCommentsTableDataSource: NSObject {
-    var viewModels: [LMModels.Views.CommentView]
+    var viewModels: [RMModel.Views.CommentView]
 
     weak var delegate: ProfileScreenCommentsTableDataSourceDelegate?
     
-    init(viewModels: [LMModels.Views.CommentView] = []) {
+    init(viewModels: [RMModel.Views.CommentView] = []) {
         self.viewModels = viewModels
         super.init()
     }
     
-    func update(viewModel: LMModels.Views.CommentView) {
+    func update(viewModel: RMModel.Views.CommentView) {
         if let index = self.viewModels.firstIndex(where: { $0.id == viewModel.id }) {
             self.viewModels[index] = viewModel
         }
     }
     
-    func appendNew(comments: [LMModels.Views.CommentView], completion: (_ indexPaths: [IndexPath]) -> Void) {
+    func appendNew(comments: [RMModel.Views.CommentView], completion: (_ indexPaths: [IndexPath]) -> Void) {
         let startIndex = viewModels.count - comments.count
         let endIndex = startIndex + comments.count
         

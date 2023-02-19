@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMModels
 
 protocol InboxRepliesTableManagerDelegate: ReplyCellViewDelegate {
     func tableDidRequestPagination(_ tableManager: InboxRepliesTableManager)
@@ -15,22 +16,22 @@ protocol InboxRepliesTableManagerDelegate: ReplyCellViewDelegate {
 final class InboxRepliesTableManager: NSObject {
     weak var delegate: InboxRepliesTableManagerDelegate?
     
-    var viewModels: [LMModels.Views.CommentView]
+    var viewModels: [RMModel.Views.CommentView]
     
-    init(viewModels: [LMModels.Views.CommentView] = []) {
+    init(viewModels: [RMModel.Views.CommentView] = []) {
         self.viewModels = viewModels
         super.init()
     }
     
     // MARK: - Public API
     
-    func update(viewModel: LMModels.Views.CommentView) {
+    func update(viewModel: RMModel.Views.CommentView) {
         if let index = self.viewModels.firstIndex(where: { $0.id == viewModel.id }) {
             self.viewModels[index] = viewModel
         }
     }
     
-    func appendNew(posts: [LMModels.Views.CommentView], completion: (_ indexPaths: [IndexPath]) -> Void) {
+    func appendNew(posts: [RMModel.Views.CommentView], completion: (_ indexPaths: [IndexPath]) -> Void) {
         let startIndex = viewModels.count - posts.count
         let endIndex = startIndex + posts.count
         

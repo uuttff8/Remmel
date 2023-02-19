@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMModels
 
 // MARK: - PostContentFooterView: UIView
 class PostContentFooterView: UIView {

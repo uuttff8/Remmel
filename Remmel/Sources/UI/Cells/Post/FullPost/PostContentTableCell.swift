@@ -7,18 +7,19 @@
 //
 
 import UIKit
+import RMModels
 
 protocol PostContentTableCellDelegate: AnyObject {
     func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        post: LMModels.Views.PostView
+        post: RMModel.Views.PostView
     )
     func usernameTapped(with mention: LemmyUserMention)
     func communityTapped(with mention: LemmyCommunityMention)
-    func onLinkTap(in post: LMModels.Views.PostView, url: URL)
-    func showMore(in post: LMModels.Views.PostView)
+    func onLinkTap(in post: RMModel.Views.PostView, url: URL)
+    func showMore(in post: RMModel.Views.PostView)
     func presentVc(viewController: UIViewController)
 }
 
@@ -42,7 +43,7 @@ class PostContentTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind(with post: LMModels.Views.PostView, config: PostContentType) {
+    func bind(with post: RMModel.Views.PostView, config: PostContentType) {
         postContentView.bind(with: post, config: config)
     }
     

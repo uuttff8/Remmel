@@ -8,21 +8,23 @@
 
 import UIKit
 import Nuke
+import RMModels
+import RMFoundation
 
 protocol CommentContentTableCellDelegate: AnyObject {
     func usernameTapped(with mention: LemmyUserMention)
     func communityTapped(with mention: LemmyCommunityMention)
-    func postNameTapped(in comment: LMModels.Views.CommentView)
+    func postNameTapped(in comment: RMModel.Views.CommentView)
     func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        comment: LMModels.Views.CommentView
+        comment: RMModel.Views.CommentView
     )
-    func showContext(in comment: LMModels.Views.CommentView)
-    func reply(to comment: LMModels.Views.CommentView)
-    func onLinkTap(in comment: LMModels.Views.CommentView, url: URL)
-    func showMoreAction(in comment: LMModels.Views.CommentView)
+    func showContext(in comment: RMModel.Views.CommentView)
+    func reply(to comment: RMModel.Views.CommentView)
+    func onLinkTap(in comment: RMModel.Views.CommentView, url: URL)
+    func showMoreAction(in comment: RMModel.Views.CommentView)
     func presentVc(viewController: UIViewController)
 }
 
@@ -66,13 +68,13 @@ class CommentContentTableCell: UITableViewCell, ContentFocusable {
     }
 
     // MARK: - Public API
-    func bind(with comment: LMModels.Views.CommentView, level: Int, appearance: Appearance = Appearance()) {
+    func bind(with comment: RMModel.Views.CommentView, level: Int, appearance: Appearance = Appearance()) {
         self.appearance = appearance
         
         commentContentView.bind(with: comment, setting: appearance.config)
     }
     
-    func updateForCreateCommentLike(comment: LMModels.Views.CommentView) {
+    func updateForCreateCommentLike(comment: RMModel.Views.CommentView) {
         commentContentView.updateForCreateCommentLike(comment: comment)
     }
     

@@ -7,13 +7,15 @@
 //
 
 import UIKit
+import RMModels
+import RMServices
 
 final class WriteMessageAssembly: Assembly {
     
     enum Action {
         case replyToPrivateMessage(recipientId: Int)
-        case writeComment(parentComment: LMModels.Source.Comment?, postSource: LMModels.Source.Post)
-        case edit(comment: LMModels.Source.Comment)
+        case writeComment(parentComment: RMModel.Source.Comment?, postSource: RMModel.Source.Post)
+        case edit(comment: RMModel.Source.Comment)
     }
     
     private let action: Action

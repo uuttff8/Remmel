@@ -8,6 +8,10 @@
 
 import UIKit
 import Combine
+import RMModels
+import RMFoundation
+import RMNetworking
+import RMServices
 
 protocol InboxMentionsViewModelProtocol {
     func doReceiveMessages()
@@ -40,9 +44,9 @@ final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
             }
             
             switch operation {
-            case LMMUserOperation.CreateCommentLike.rawValue:
+            case RMUserOperation.CreateCommentLike.rawValue:
                 guard let like = self.wsClient?.decodeWsType(
-                    LMModels.Api.Comment.CommentResponse.self,
+                    RMModel.Api.Comment.CommentResponse.self,
                     data: data
                 ) else { return }
                 
@@ -58,11 +62,11 @@ final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
         self.paginationState = 1
         
         guard let jwt = userAccountService.jwtToken else {
-            Logger.common.error("No jwt token found")
+            debugPrint("No jwt token found")
             return
         }
         
-        let params = LMModels.Api.Person.GetPersonMentions(sort: .active,
+        let params = RMModel.Api.Person.GetPersonMentions(sort: .active,
                                                            page: paginationState,
                                                            limit: 50,
                                                            unreadOnly: false,
@@ -81,11 +85,11 @@ final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
         self.paginationState += 1
         
         guard let jwt = userAccountService.jwtToken else {
-            Logger.common.error("No jwt token found")
+            debugPrint("No jwt token found")
             return
         }
         
-        let params = LMModels.Api.Person.GetPersonMentions(sort: .active,
+        let params = RMModel.Api.Person.GetPersonMentions(sort: .active,
                                                            page: paginationState,
                                                            limit: 50,
                                                            unreadOnly: false,
@@ -119,12 +123,12 @@ enum InboxMentions {
     
     enum CreateCommentLike {
         struct ViewModel {
-            let commentView: LMModels.Views.CommentView
+            let commentView: RMModel.Views.CommentView
         }
     }
     
     enum ViewControllerState {
-        case result([LMModels.Views.PersonMentionView])
+        case result([RMModel.Views.PersonMentionView])
         case loading
     }
 }

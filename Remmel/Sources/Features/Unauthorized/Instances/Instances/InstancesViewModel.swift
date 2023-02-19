@@ -8,6 +8,8 @@
 
 import Foundation
 import Combine
+import RMFoundation
+import RMServices
 
 protocol InstancesViewModelProtocol {
     func doInstancesRefresh(request: InstancesDataFlow.InstancesLoad.Request)

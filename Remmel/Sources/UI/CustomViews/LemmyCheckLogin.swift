@@ -7,14 +7,7 @@
 //
 
 import UIKit
-
-//protocol LoginContinuableInterface {
-//    
-//}
-//
-//final class LoginContinuable {
-//    
-//}
+import RMFoundation
 
 func ContinueIfLogined(
     on viewController: UIViewController,

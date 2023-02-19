@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMModels
 
 protocol InboxMessagesViewDelegate: AnyObject {
     func inboxMessagesViewDidRequestRefresh()
@@ -83,7 +84,7 @@ final class InboxMessagesView: UIView {
         makeConstraints()
     }
     
-    func appendNew(data: [LMModels.Views.PrivateMessageView]) {
+    func appendNew(data: [RMModel.Views.PrivateMessageView]) {
         self.tableManager?.appendNew(posts: data) { newIndexpaths in
             tableView.performBatchUpdates {
                 tableView.insertRows(at: newIndexpaths, with: .none)

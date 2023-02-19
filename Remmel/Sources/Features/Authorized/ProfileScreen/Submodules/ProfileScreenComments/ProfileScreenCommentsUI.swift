@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import RMModels
 
 protocol ProfileScreenCommentsViewDelegate: AnyObject {
     func profileScreenPostsViewDidPickerTapped(toVc: UIViewController)
     func profileScreenComments(
         _ view: ProfileScreenCommentsViewController.View,
-        didPickedNewSort type: LMModels.Others.SortType
+        didPickedNewSort type: RMModel.Others.SortType
     )
 }
 
@@ -26,13 +27,13 @@ extension ProfileScreenCommentsViewController {
     
     class View: UIView {
         struct ViewData {
-            let comments: [LMModels.Views.CommentView]
+            let comments: [RMModel.Views.CommentView]
         }
         
         weak var delegate: ProfileScreenCommentsViewDelegate?
         
         let appearance: Appearance
-        var sortType: LMModels.Others.SortType = .active {
+        var sortType: RMModel.Others.SortType = .active {
             didSet {
                 self.delegate?.profileScreenComments(self, didPickedNewSort: sortType)
             }
@@ -52,14 +53,14 @@ extension ProfileScreenCommentsViewController {
         }
         
         private lazy var commentsHeaderView = ProfileScreenTableHeaderView().then { view in
-            view.contentTypeView.addTap {
-                let vc = view.contentTypeView.configuredAlert
-                self.delegate?.profileScreenPostsViewDidPickerTapped(toVc: vc)
-            }
+//            view.contentTypeView.addTap {
+////                let vc = view.contentTypeView.configuredAlert
+////                self.delegate?.profileScreenPostsViewDidPickerTapped(toVc: vc)
+//            }
 
-            view.contentTypeView.newCasePicked = { newCase in
-                self.sortType = newCase
-            }
+//            view.contentTypeView.newCasePicked = { newCase in
+//                self.sortType = newCase
+//            }
         }
         
         private lazy var emptyStateLabel = UILabel().then {
@@ -110,7 +111,7 @@ extension ProfileScreenCommentsViewController {
             self.hideLoadingIndicator()
         }
         
-        func appendNew(data: [LMModels.Views.CommentView]) {
+        func appendNew(data: [RMModel.Views.CommentView]) {
             self.tableManager?.appendNew(comments: data) { newIndexpaths in
                 tableView.performBatchUpdates {
                     tableView.insertRows(at: newIndexpaths, with: .none)

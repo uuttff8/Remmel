@@ -8,6 +8,10 @@
 
 import UIKit
 import Combine
+import RMModels
+import RMServices
+import RMNetworking
+import RMFoundation
 
 class PostsFrontPageModel: NSObject {
     var newDataLoaded: (() -> Void)?
@@ -24,9 +28,9 @@ class PostsFrontPageModel: NSObject {
     var isFetchingNewContent = false
     var currentPage = 1
     
-    var postsDataSource: [LMModels.Views.PostView] = []
+    var postsDataSource: [RMModel.Views.PostView] = []
     
-    var currentSortType: LMModels.Others.SortType {
+    var currentSortType: RMModel.Others.SortType {
         get { contentPreferenceService.contentSortType }
         set {
             self.currentPage = 1
@@ -34,7 +38,7 @@ class PostsFrontPageModel: NSObject {
         }
     }
     
-    var currentListingType: LMModels.Others.ListingType {
+    var currentListingType: RMModel.Others.ListingType {
         get { contentPreferenceService.listingType }
         set {
             self.currentPage = 1
@@ -46,10 +50,10 @@ class PostsFrontPageModel: NSObject {
         
         wsEvents?.onTextMessage.addObserver(self, completionHandler: { [weak self] operation, data in
             switch operation {
-            case LMMUserOperation.CreatePostLike.rawValue:
+            case RMUserOperation.CreatePostLike.rawValue:
                 
                 guard let postLike = self?.wsEvents?.decodeWsType(
-                    LMModels.Api.Post.PostResponse.self,
+                    RMModel.Api.Post.PostResponse.self,
                     data: data
                 ) else { return }
                 
@@ -57,15 +61,15 @@ class PostsFrontPageModel: NSObject {
                     self?.createPostLike(with: postLike.postView)
                 }
                 
-            case LMMUserOperation.EditPost.rawValue,
-                 LMMUserOperation.DeletePost.rawValue,
-                 LMMUserOperation.RemovePost.rawValue,
-                 LMMUserOperation.LockPost.rawValue,
-                 LMMUserOperation.StickyPost.rawValue,
-                 LMMUserOperation.SavePost.rawValue:
+            case RMUserOperation.EditPost.rawValue,
+                 RMUserOperation.DeletePost.rawValue,
+                 RMUserOperation.RemovePost.rawValue,
+                 RMUserOperation.LockPost.rawValue,
+                 RMUserOperation.StickyPost.rawValue,
+                 RMUserOperation.SavePost.rawValue:
                 
                 guard let newPost = self?.wsEvents?.decodeWsType(
-                    LMModels.Api.Post.PostResponse.self,
+                    RMModel.Api.Post.PostResponse.self,
                     data: data
                 ) else { return }
                 
@@ -79,7 +83,7 @@ class PostsFrontPageModel: NSObject {
     }
     
     func loadPosts() {
-        let parameters = LMModels.Api.Post.GetPosts(type: self.currentListingType,
+        let parameters = RMModel.Api.Post.GetPosts(type: self.currentListingType,
                                                     sort: self.currentSortType,
                                                     page: 1,
                                                     limit: 50,
@@ -99,7 +103,7 @@ class PostsFrontPageModel: NSObject {
     }
     
     func loadMorePosts(completion: @escaping (() -> Void)) {
-        let parameters = LMModels.Api.Post.GetPosts(type: self.currentListingType,
+        let parameters = RMModel.Api.Post.GetPosts(type: self.currentListingType,
                                                     sort: self.currentSortType,
                                                     page: self.currentPage,
                                                     limit: 50,
@@ -120,7 +124,7 @@ class PostsFrontPageModel: NSObject {
             }.store(in: &cancellable)
     }
     
-    private func saveNewPost(_ post: LMModels.Views.PostView) {
+    private func saveNewPost(_ post: RMModel.Views.PostView) {
         postsDataSource.updateElementById(post)
     }
     
@@ -128,19 +132,20 @@ class PostsFrontPageModel: NSObject {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        post: LMModels.Views.PostView
+        post: RMModel.Views.PostView
     ) {
-        self.contentScoreService.votePost(scoreView: scoreView, voteButton: voteButton, for: newVote, post: post)
+        scoreView.setVoted(voteButton: voteButton, to: newVote)
+        self.contentScoreService.votePost(for: newVote, post: post)
     }
     
-    private func createPostLike(with updatedPost: LMModels.Views.PostView) {
+    private func createPostLike(with updatedPost: RMModel.Views.PostView) {
         if let index = self.postsDataSource.getElementIndex(by: updatedPost.id) {
             self.postsDataSource[index].updateForCreatePostLike(with: updatedPost)
             self.createPostLikeUpdate?(index)
         }
     }
     
-    private func updatePost(with updatedPost: LMModels.Views.PostView) {
+    private func updatePost(with updatedPost: RMModel.Views.PostView) {
         if let index = self.postsDataSource.getElementIndex(by: updatedPost.id) {
             self.postsDataSource[index] = updatedPost
         }

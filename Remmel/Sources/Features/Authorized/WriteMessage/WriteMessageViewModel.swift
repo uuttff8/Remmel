@@ -8,6 +8,10 @@
 
 import UIKit
 import Combine
+import RMServices
+import RMFoundation
+import RMNetworking
+import RMModels
 
 protocol WriteMessageViewModelProtocol: AnyObject {
     
@@ -55,7 +59,7 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
         
     func doRemoteCreateMessage(request: WriteMessage.RemoteCreateMessage.Request) {
         guard let jwtToken = userAccountService.jwtToken else {
-            Logger.common.error("JWT Token not found: User should not be able to write message when not authed")
+            debugPrint("JWT Token not found: User should not be able to write message when not authed")
             return
         }
         
@@ -73,7 +77,7 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
     }
     
     private func sendReplyToAPrivateMessageRequest(auth: String, text: String, recipientId: Int) {
-        let params = LMModels.Api.Person.CreatePrivateMessage(
+        let params = RMModel.Api.Person.CreatePrivateMessage(
             content: text,
             recipientId: recipientId,
             auth: auth
@@ -97,7 +101,7 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
     }
     
     private func sendEditCommentRequest(auth: String, text: String, commentId: Int) {
-        let params = LMModels.Api.Comment.EditComment(
+        let params = RMModel.Api.Comment.EditComment(
             content: text,
             commentId: commentId,
             formId: nil,
@@ -122,7 +126,7 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
     }
     
     private func sendWriteCommentRequest(auth: String, parentId: Int?, postId: Int, text: String) {
-        let params = LMModels.Api.Comment.CreateComment(content: text,
+        let params = RMModel.Api.Comment.CreateComment(content: text,
                                                         parentId: parentId,
                                                         postId: postId,
                                                         formId: nil,

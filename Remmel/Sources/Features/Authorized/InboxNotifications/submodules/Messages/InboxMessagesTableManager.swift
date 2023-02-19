@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMModels
 
 protocol InboxMessagesTableManagerDelegate: MessageCellViewDelegate {
     func tableDidRequestPagination(_ tableManager: InboxMessagesTableManager)
@@ -15,22 +16,22 @@ protocol InboxMessagesTableManagerDelegate: MessageCellViewDelegate {
 final class InboxMessagesTableManager: NSObject {
     weak var delegate: InboxMessagesTableManagerDelegate?
     
-    var viewModels: [LMModels.Views.PrivateMessageView]
+    var viewModels: [RMModel.Views.PrivateMessageView]
     
-    init(viewModels: [LMModels.Views.PrivateMessageView] = []) {
+    init(viewModels: [RMModel.Views.PrivateMessageView] = []) {
         self.viewModels = viewModels
         super.init()
     }
     
     // MARK: - Public API
     
-    func update(viewModel: LMModels.Views.PrivateMessageView) {
+    func update(viewModel: RMModel.Views.PrivateMessageView) {
         if let index = self.viewModels.firstIndex(where: { $0.privateMessage.id == viewModel.privateMessage.id }) {
             self.viewModels[index] = viewModel
         }
     }
     
-    func appendNew(posts: [LMModels.Views.PrivateMessageView], completion: (_ indexPaths: [IndexPath]) -> Void) {
+    func appendNew(posts: [RMModel.Views.PrivateMessageView], completion: (_ indexPaths: [IndexPath]) -> Void) {
         let startIndex = viewModels.count - posts.count
         let endIndex = startIndex + posts.count
         

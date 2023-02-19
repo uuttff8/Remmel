@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMModels
 
 protocol InboxMentionsViewDelegate: AnyObject {
     func inboxMentionsViewDidRequestRefresh()
@@ -81,7 +82,7 @@ final class InboxMentionsView: UIView {
         makeConstraints()
     }
     
-    func appendNew(data: [LMModels.Views.PersonMentionView]) {
+    func appendNew(data: [RMModel.Views.PersonMentionView]) {
         self.tableManager?.appendNew(posts: data) { newIndexpaths in
             tableView.performBatchUpdates {
                 tableView.insertRows(at: newIndexpaths, with: .none)

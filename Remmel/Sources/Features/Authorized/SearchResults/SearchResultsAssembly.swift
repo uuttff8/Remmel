@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import RMModels
+import RMServices
 
 class SearchResultsAssembly: Assembly {
     private let searchQuery: String
-    private let searchType: LMModels.Others.SearchType
+    private let searchType: RMModel.Others.SearchType
     
-    init(searchQuery: String, type: LMModels.Others.SearchType) {
+    init(searchQuery: String, type: RMModel.Others.SearchType) {
         self.searchQuery = searchQuery
         self.searchType = type
     }
@@ -30,7 +32,7 @@ class SearchResultsAssembly: Assembly {
         )
         let vc = SearchResultsViewController(
             viewModel: viewModel,
-            showMoreHandler: ShowMoreHandlerService(),
+            showMoreHandler: ShowMoreHandlerServiceImp(),
             followService: CommunityFollowService(userAccountService: userAccountService)
         )
         viewModel.viewController = vc

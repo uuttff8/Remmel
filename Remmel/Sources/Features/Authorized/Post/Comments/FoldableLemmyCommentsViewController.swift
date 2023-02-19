@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMModels
 
 protocol CommentsViewControllerDelegate: CommentContentTableCellDelegate {
     func refreshControlDidRequestRefresh()
@@ -61,13 +62,13 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         self.tableView.reloadData()
     }
     
-    func updateExistingComment(_ comment: LMModels.Views.CommentView) {
+    func updateExistingComment(_ comment: RMModel.Views.CommentView) {
         if let index = self.commentDataSource.getElementIndex(by: comment.id) {
             commentDataSource[index].commentContent = comment
         }
     }
     
-    func displayCreatedComment(comment: LMModels.Views.CommentView) {
+    func displayCreatedComment(comment: RMModel.Views.CommentView) {
         self.updateExistingComment(comment)
         
         // TODO: just paste a new comment
@@ -80,7 +81,7 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
 //        }
     }
     
-    func displayCommentLike(commentView: LMModels.Views.CommentView) {
+    func displayCommentLike(commentView: RMModel.Views.CommentView) {
         self.updateExistingComment(commentView)
         
         guard let index = commentDataSource.firstIndex(where: { $0.commentContent?.comment.id == commentView.id })
@@ -91,7 +92,7 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         DispatchQueue.main.async {
             if let cell = self.tableView.cellForRow(at: indexPath) as? SwipingCommentContentTableCell {
                 guard let commentContent = self.commentDataSource[index].commentContent else {
-                    Logger.common.error("commentContent for comment is not found, so not updating comment like")
+                    debugPrint("commentContent for comment is not found, so not updating comment like")
                     return
                 }
                 
@@ -100,7 +101,7 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         }
     }
     
-    func scrollTo(_ comment: LMModels.Views.CommentView) {
+    func scrollTo(_ comment: RMModel.Views.CommentView) {
         guard let index = commentDataSource.firstIndex(where: { $0.commentContent?.comment.id == comment.id }) else {
             return
         }
@@ -111,8 +112,7 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         if let cell = self.tableView.cellForRow(at: indexPath) as? SwipingCommentContentTableCell {
             cell.focusOnContent()
         } else {
-            Logger.common
-                .error("Not found cell in FoldableLemmyComments \(type(of: SwipingCommentContentTableCell.self))")
+            debugPrint("Not found cell in FoldableLemmyComments \(type(of: SwipingCommentContentTableCell.self))")
         }
     }
     

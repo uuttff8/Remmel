@@ -8,6 +8,7 @@
 
 import UIKit
 import Nuke
+import RMModels
 
 extension ReplyMentionTableCell {
     struct Appearance {
@@ -42,13 +43,13 @@ class ReplyMentionTableCell: UITableViewCell, ContentFocusable {
     }
 
     // MARK: - Public API
-    func configure(with reply: LMModels.Views.CommentView, level: Int, appearance: Appearance = Appearance()) {
+    func configure(with reply: RMModel.Views.CommentView, level: Int, appearance: Appearance = Appearance()) {
         self.appearance = appearance
         
         commentContentView.configure(reply: reply)
     }
     
-    func configure(with mention: LMModels.Views.PersonMentionView, level: Int, appearance: Appearance = Appearance()) {
+    func configure(with mention: RMModel.Views.PersonMentionView, level: Int, appearance: Appearance = Appearance()) {
         self.appearance = appearance
         
         commentContentView.configure(mention: mention)

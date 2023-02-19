@@ -1,4 +1,5 @@
 import UIKit
+import RMFoundation
 
 protocol SettingsRightDetailSwitchCellDelegate: AnyObject {
     func settingsCell(

@@ -7,34 +7,35 @@
 //
 
 import UIKit
+import RMModels
 
 protocol ChooseCommunityTableDataSourceDelegate: AnyObject {
-    func tableDidSelect(community: LMModels.Views.CommunityView)
+    func tableDidSelect(community: RMModel.Views.CommunityView)
     func tableShowNotFound()
 }
 
 final class ChooseCommunityTableDataSource: NSObject {
     weak var delegate: ChooseCommunityTableDataSourceDelegate?
     
-    var viewModels: [LMModels.Views.CommunityView]
-    var filteredViewModels: [LMModels.Views.CommunityView] = []
+    var viewModels: [RMModel.Views.CommunityView]
+    var filteredViewModels: [RMModel.Views.CommunityView] = []
     
     var shouldShowFiltered = false
     
-    init(viewModels: [LMModels.Views.CommunityView] = []) {
+    init(viewModels: [RMModel.Views.CommunityView] = []) {
         self.viewModels = viewModels
         super.init()
     }
     
     // MARK: - Public API
     
-    func update(viewModel: LMModels.Views.CommunityView) {
+    func update(viewModel: RMModel.Views.CommunityView) {
         if let index = self.viewModels.firstIndex(where: { $0.community.id == viewModel.community.id }) {
             self.viewModels[index] = viewModel
         }
     }
     
-    func getCurrentCellData(indexPath: IndexPath) -> LMModels.Views.CommunityView {
+    func getCurrentCellData(indexPath: IndexPath) -> RMModel.Views.CommunityView {
         if !filteredViewModels.isEmpty {
             return self.filteredViewModels[indexPath.row]
         } else {

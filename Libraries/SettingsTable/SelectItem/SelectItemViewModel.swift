@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMFoundation
 
 struct SelectItemViewModel {
     let sections: [Section]

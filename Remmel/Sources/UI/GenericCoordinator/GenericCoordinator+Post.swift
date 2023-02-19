@@ -7,17 +7,18 @@
 //
 
 import UIKit
+import RMModels
 
 extension GenericCoordinator {
     func goToPostScreen(postId: Int) {
         goToPostScreenWrapper(post: nil, postId: postId)
     }
     
-    func goToPostScreen(post: LMModels.Views.PostView) {
+    func goToPostScreen(post: RMModel.Views.PostView) {
         goToPostScreenWrapper(post: post, postId: post.id)
     }
     
-    private func goToPostScreenWrapper(post: LMModels.Views.PostView?, postId: Int) {
+    private func goToPostScreenWrapper(post: RMModel.Views.PostView?, postId: Int) {
         let coordinator = PostScreenCoordinator(
             router: Router(navigationController: navigationController),
             postId: postId,
@@ -36,7 +37,7 @@ extension GenericCoordinator {
         )
     }
     
-    func goToPostAndScroll(to comment: LMModels.Views.CommentView) {
+    func goToPostAndScroll(to comment: RMModel.Views.CommentView) {
         let coordinator = PostScreenCoordinator(
             router: Router(navigationController: navigationController),
             postId: comment.post.id,
@@ -56,7 +57,7 @@ extension GenericCoordinator {
         )
     }
     
-    func goToCreatePost(predefinedCommunity: LMModels.Views.CommunityView? = nil) {
+    func goToCreatePost(predefinedCommunity: RMModel.Views.CommunityView? = nil) {
         let createPostCoord = CreatePostCoordinator(
             navigationController: StyledNavigationController(),
             predefinedCommunity: predefinedCommunity
@@ -72,7 +73,7 @@ extension GenericCoordinator {
         rootViewController.present(navController, animated: true)
     }
     
-    func goToEditPost(post: LMModels.Source.Post, completion: (() -> Void)? = nil) {
+    func goToEditPost(post: RMModel.Source.Post, completion: (() -> Void)? = nil) {
         let assembly = EditPostAssembly(postSource: post)
         let module = assembly.makeModule()
         

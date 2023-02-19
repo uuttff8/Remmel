@@ -8,6 +8,10 @@
 
 import UIKit
 import Combine
+import RMServices
+import RMFoundation
+import RMNetworking
+import RMModels
 
 protocol InboxRepliesViewModelProtocol {
     func doReceiveMessages()
@@ -42,9 +46,9 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
             }
             
             switch operation {
-            case LMMUserOperation.CreateCommentLike.rawValue:
+            case RMUserOperation.CreateCommentLike.rawValue:
                 guard let like = self.wsClient?.decodeWsType(
-                    LMModels.Api.Comment.CommentResponse.self,
+                    RMModel.Api.Comment.CommentResponse.self,
                     data: data
                 ) else { return }
                 
@@ -60,11 +64,11 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
         self.paginationState = 1
         
         guard let jwt = userAccountService.jwtToken else {
-            Logger.common.error("No jwt token found")
+            debugPrint("No jwt token found")
             return
         }
         
-        let params = LMModels.Api.Person.GetReplies(
+        let params = RMModel.Api.Person.GetReplies(
             sort: .active,
             page: paginationState,
             limit: 50,
@@ -85,11 +89,11 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
         self.paginationState += 1
         
         guard let jwt = userAccountService.jwtToken else {
-            Logger.common.error("No jwt token found")
+            debugPrint("No jwt token found")
             return
         }
         
-        let params = LMModels.Api.Person.GetReplies(
+        let params = RMModel.Api.Person.GetReplies(
             sort: .active,
             page: paginationState,
             limit: 50,
@@ -125,12 +129,12 @@ enum InboxReplies {
     
     enum CreateCommentLike {
         struct ViewModel {
-            let commentView: LMModels.Views.CommentView
+            let commentView: RMModel.Views.CommentView
         }
     }
     
     enum ViewControllerState {
-        case result([LMModels.Views.CommentView])
+        case result([RMModel.Views.CommentView])
         case loading
     }
 }

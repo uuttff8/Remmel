@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMModels
 
 class FrontPageSearchSubjectTableCell: UITableViewCell {
         
@@ -16,7 +17,7 @@ class FrontPageSearchSubjectTableCell: UITableViewCell {
         textLabel?.font = .systemFont(ofSize: 14)
     }
     
-    func configure(with query: String, type: LMModels.Others.SearchType) {
+    func configure(with query: String, type: RMModel.Others.SearchType) {
         
         switch type {
         case .comments:

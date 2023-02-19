@@ -8,6 +8,8 @@
 
 import Foundation
 import Combine
+import RMServices
+import RMFoundation
 
 protocol InstancesProviderProtocol {
     func fetchCachedInstances() -> AnyPublisher<[Instance], Never>

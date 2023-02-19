@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMFoundation
 
 class ProfileScreenSubscribedAssembly: Assembly {
     

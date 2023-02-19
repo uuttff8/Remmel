@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import RMModels
 
 extension PostsFrontPageViewController {
     struct Appearance {
@@ -17,7 +18,7 @@ extension PostsFrontPageViewController {
 
 class PostsFrontPageViewController: UIViewController {
     
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, LMModels.Views.PostView>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, RMModel.Views.PostView>
     
     enum Section: Hashable, CaseIterable {
         case posts
@@ -28,7 +29,7 @@ class PostsFrontPageViewController: UIViewController {
     private let appearance: Appearance
     
     let viewModel = PostsFrontPageModel()
-    let showMoreHandler = ShowMoreHandlerService()
+//    let showMoreHandler = ShowMoreHandlerService()
     
     let refreshControl = UIRefreshControl()
     
@@ -108,32 +109,32 @@ class PostsFrontPageViewController: UIViewController {
     }
     
     fileprivate func setupTableHeaderView() {
-        pickerView.listingFirstPick = viewModel.currentListingType
-        pickerView.sortFirstPick = viewModel.currentSortType
-        
-        pickerView.sortTypeView.addTap {
-            self.present(self.pickerView.sortTypeView.configuredAlert, animated: true)
-        }
-        
-        pickerView.listingTypeView.addTap {
-            self.present(self.pickerView.listingTypeView.configuredAlert, animated: true)
-        }
-                
-        pickerView.listingTypeView.newCasePicked = { [self] pickedValue in
-            self.viewModel.currentListingType = pickedValue
-            
-            updateTableData(immediately: true)
-        }
-        
-        pickerView.sortTypeView.newCasePicked = { [self] pickedValue in
-            self.viewModel.currentSortType = pickedValue
-            
-            updateTableData(immediately: true)
-        }
+//        pickerView.listingFirstPick = viewModel.currentListingType
+//        pickerView.sortFirstPick = viewModel.currentSortType
+//
+//        pickerView.sortTypeView.addTap {
+//            self.present(self.pickerView.sortTypeView.configuredAlert, animated: true)
+//        }
+//
+//        pickerView.listingTypeView.addTap {
+//            self.present(self.pickerView.listingTypeView.configuredAlert, animated: true)
+//        }
+//
+//        pickerView.listingTypeView.newCasePicked = { [self] pickedValue in
+//            self.viewModel.currentListingType = pickedValue
+//
+//            updateTableData(immediately: true)
+//        }
+//
+//        pickerView.sortTypeView.newCasePicked = { [self] pickedValue in
+//            self.viewModel.currentSortType = pickedValue
+//
+//            updateTableData(immediately: true)
+//        }
     }
     
-    private func makeDataSource() -> UITableViewDiffableDataSource<Section, LMModels.Views.PostView> {
-        return UITableViewDiffableDataSource<Section, LMModels.Views.PostView>(
+    private func makeDataSource() -> UITableViewDiffableDataSource<Section, RMModel.Views.PostView> {
+        return UITableViewDiffableDataSource<Section, RMModel.Views.PostView>(
             tableView: tableView,
             cellProvider: { tableView, indexPath, _ -> UITableViewCell? in
                 let cell = tableView.cell(forClass: PostContentPreviewTableCell.self)
@@ -201,7 +202,7 @@ extension PostsFrontPageViewController: SFSafariViewControllerDelegate {
 }
 
 extension PostsFrontPageViewController: PostContentPreviewTableCellDelegate {
-    func postCellDidSelected(postId: LMModels.Views.PostView.ID) {
+    func postCellDidSelected(postId: RMModel.Views.PostView.ID) {
         let post = viewModel.postsDataSource.getElement(by: postId).require()
         self.coordinator?.goToPostScreen(post: post)
     }
@@ -210,7 +211,7 @@ extension PostsFrontPageViewController: PostContentPreviewTableCellDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        post: LMModels.Views.PostView
+        post: RMModel.Views.PostView
     ) {
         guard let coordinator = coordinator else {
             return
@@ -229,15 +230,15 @@ extension PostsFrontPageViewController: PostContentPreviewTableCellDelegate {
         self.coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
-    func showMore(in post: LMModels.Views.PostView) {
+    func showMore(in post: RMModel.Views.PostView) {
         
         if let post = self.viewModel.postsDataSource.getElement(by: post.id) {
             guard let coordinator = coordinator else {
                 return
             }
-            showMoreHandler.showMoreInPost(on: self, coordinator: coordinator, post: post) { updatedPost in
-                self.viewModel.postsDataSource.updateElementById(updatedPost)
-            }
+//            showMoreHandler.showMoreInPost(on: self, coordinator: coordinator, post: post) { updatedPost in
+//                self.viewModel.postsDataSource.updateElementById(updatedPost)
+//            }
         }
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMModels
 
 protocol FrontPageHeaderCellDelegate: AnyObject {
     func contentTypeChanged(to content: LemmyContentType)
@@ -55,7 +56,7 @@ class FrontPageHeaderCell: UITableViewCell {
 
     let customView: FrontPageHeaderView
 
-    init(contentSelected: LemmyContentType, postListing: LMModels.Others.ListingType) {
+    init(contentSelected: LemmyContentType, postListing: RMModel.Others.ListingType) {
         self.customView = FrontPageHeaderView(contentSelected: contentSelected)
         super.init(style: .default, reuseIdentifier: nil)
 

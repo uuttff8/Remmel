@@ -8,6 +8,9 @@
 
 import UIKit
 import Combine
+import RMModels
+import RMNetworking
+import RMFoundation
 
 class LoginViewController: UIViewController {
         
@@ -73,7 +76,7 @@ class LoginViewController: UIViewController {
         }
     }
         
-    private func checkRegisterData() -> LMModels.Api.Person.Register? {
+    private func checkRegisterData() -> RMModel.Api.Person.Register? {
         guard let signUpView = signUpView else {
             return nil
         }
@@ -115,7 +118,7 @@ class LoginViewController: UIViewController {
             email = nil
         }
         
-        return LMModels.Api.Person.Register(
+        return RMModel.Api.Person.Register(
             username: username,
             email: email,
             password: password,
@@ -172,7 +175,7 @@ class LoginViewController: UIViewController {
               let password = signInView.passwordTextField.text
         else { return }
         
-        let parameters = LMModels.Api.Person.Login(
+        let parameters = RMModel.Api.Person.Login(
             usernameOrEmail: emailOrUsername,
             password: password
         )
@@ -204,10 +207,10 @@ class LoginViewController: UIViewController {
         
     private func loadUserOnSuccessResponse(
         jwt: String,
-        completion: @escaping ((LMModels.Api.Site.MyUserInfo) -> Void)
+        completion: @escaping ((RMModel.Api.Site.MyUserInfo) -> Void)
     ) {
         
-        let params = LMModels.Api.Site.GetSite(auth: jwt)
+        let params = RMModel.Api.Site.GetSite(auth: jwt)
         
         ApiManager.requests.asyncGetSite(parameters: params)
             .receive(on: DispatchQueue.main)

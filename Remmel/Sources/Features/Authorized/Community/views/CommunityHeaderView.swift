@@ -8,9 +8,10 @@
 
 import UIKit
 import Nuke
+import RMModels
 
 protocol CommunityHeaderViewDelegate: AnyObject {
-    func headerViewDidTapped(followButton: FollowButton, in community: LMModels.Views.CommunityView)
+    func headerViewDidTapped(followButton: FollowButton, in community: RMModel.Views.CommunityView)
 }
 
 extension CommunityHeaderView {
@@ -25,7 +26,7 @@ class CommunityHeaderView: UIView {
     
     let appearance = Appearance()
     
-    var communityData: LMModels.Views.CommunityView?
+    var communityData: RMModel.Views.CommunityView?
     
     let descriptionReadMoreButton = ResizableButton().then {
         $0.setTitle("readmore-text".localized, for: .normal)
@@ -113,7 +114,7 @@ class CommunityHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind(with data: LMModels.Views.CommunityView) {
+    func bind(with data: RMModel.Views.CommunityView) {
         self.communityData = data
         commImageView.loadImage(urlString: data.community.icon, imageSize: appearance.iconSize)
         

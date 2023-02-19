@@ -7,13 +7,16 @@
 //
 
 import UIKit
+import RMModels
+import RMServices
+import RMNetworking
 
 class CommunityScreenAssembly: Assembly {
-    private let communityId: LMModels.Views.CommunityView.ID?
+    private let communityId: RMModel.Views.CommunityView.ID?
     private let communityName: String?
     
     init(
-        communityId: LMModels.Views.CommunityView.ID?,
+        communityId: RMModel.Views.CommunityView.ID?,
         communityName: String?
     ) {
         self.communityId = communityId
@@ -35,7 +38,7 @@ class CommunityScreenAssembly: Assembly {
             contentScoreService: ContentScoreService(
                 userAccountService: userAccountService
             ),
-            showMoreService: ShowMoreHandlerService()
+            showMoreService: ShowMoreHandlerServiceImp()
             
         )
         viewModel.viewController = vc
