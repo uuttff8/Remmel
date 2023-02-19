@@ -35,7 +35,8 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     }
     
     func doPostFetch() {
-        let parameters = LMModels.Api.Post.GetPost(id: self.postId,
+        let parameters = LMModels.Api.Post.GetPost(id: postId,
+                                                   commentId: nil,
                                                    auth: LemmyShareData.shared.jwtToken)
         
         self.wsClient?.send(LMMUserOperation.GetPost, parameters: parameters)
@@ -138,8 +139,8 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     private func makeViewData(
         from data: LMModels.Api.Post.GetPostResponse
     ) -> PostScreenViewController.View.ViewData {
-        let comments = CommentTreeBuilder(comments: data.comments).createCommentsTree()
-        return .init(post: data.postView, comments: comments)
+//        let comments = CommentTreeBuilder(comments: data.comments).createCommentsTree()
+        return .init(post: data.postView, comments: [])
     }
 }
 

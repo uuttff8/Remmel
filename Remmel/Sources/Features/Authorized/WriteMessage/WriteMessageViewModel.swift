@@ -100,6 +100,8 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
         let params = LMModels.Api.Comment.EditComment(
             content: text,
             commentId: commentId,
+            distinguished: nil,
+            languageId: nil,
             formId: nil,
             auth: auth
         )
@@ -124,6 +126,7 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
     private func sendWriteCommentRequest(auth: String, parentId: Int?, postId: Int, text: String) {
         let params = LMModels.Api.Comment.CreateComment(content: text,
                                                         parentId: parentId,
+                                                        languageId: nil,
                                                         postId: postId,
                                                         formId: nil,
                                                         auth: auth)

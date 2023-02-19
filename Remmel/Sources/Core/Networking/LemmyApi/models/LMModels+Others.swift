@@ -78,6 +78,9 @@ extension LMModels {
                 ChangePassword
         }
         
+        /**
+         * Different post sort types used in lemmy.
+         */
         enum SortType: String, Codable, CaseIterable, LemmyTypePickable {
             case active = "Active"
             case hot = "Hot"
@@ -258,6 +261,29 @@ extension LMModels {
             }
         }
         
+        /**
+         * Different comment sort types used in lemmy.
+         */
+        enum CommentSortType: String, Codable {
+            /**
+             * Comments sorted by a decaying rank.
+             */
+            case hot = "Hot"
+            /**
+             * Comments sorted by top score.
+             */
+            case top = "Top"
+            /**
+             * Comments sorted by new.
+             */
+            case new = "New"
+            /**
+             * Comments sorted by old.
+             */
+            case old = "Old"
+        }
+        
+        
         enum SearchType: String, CaseIterable, Codable {
             case all = "All"
             case comments = "Comments"
@@ -313,6 +339,23 @@ extension LMModels {
             let reconnect: Bool?
         }
         
+        /**
+         * Different Subscribed states
+         */
+        enum SubscribedType: String, Codable {
+            case subscribed = "Subscribed"
+            case notSubscribed = "NotSubscribed"
+            case Pending = "Pending"
+        }
+        
+        /**
+         * Different Subscribed states
+         */
+        enum PostFeatureType: String, Codable {
+            case local = "Local"
+            case community = "Community"
+        }
+
         /**
         * A holder for a site's metadata ( such as opengraph tags ), used for post links.
         */

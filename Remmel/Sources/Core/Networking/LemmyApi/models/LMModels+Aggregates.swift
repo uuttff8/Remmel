@@ -60,12 +60,16 @@ extension LMModels {
             var downvotes: Int
             let newestCommentTime: String
             let newestCommentTimeNecro: String
+            let featuredCommunity: Bool
+            let featuredLocal: Bool
             
             enum CodingKeys: String, CodingKey {
                 case id
                 case postId = "post_id"
                 case newestCommentTime = "newest_comment_time"
                 case newestCommentTimeNecro = "newest_comment_time_necro"
+                case featuredCommunity = "featured_community"
+                case featuredLocal = "featured_local"
                 case comments, score, upvotes, downvotes
             }
         }
@@ -99,11 +103,13 @@ extension LMModels {
             var score: Int
             var upvotes: Int
             var downvotes: Int
+            let childCount: Int
             
             enum CodingKeys: String, CodingKey {
                 case id
                 case commentId = "comment_id"
                 case score, upvotes, downvotes
+                case childCount = "child_count"
             }
         }
     }

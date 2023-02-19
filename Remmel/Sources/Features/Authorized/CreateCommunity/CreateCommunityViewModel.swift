@@ -35,6 +35,7 @@ class CreateCommunityViewModel: CreateCommunityViewModelProtocol {
             banner: request.banner,
             nsfw: request.nsfwOption,
             postingRestrictedToMods: nil,
+            discussionLanguages: nil,
             auth: jwtToken
         )
         ApiManager.requests.asyncCreateCommunity(parameters: params)

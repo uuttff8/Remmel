@@ -918,7 +918,6 @@
 				4E87C6C7258EA91E0007FE5E /* Persistence */,
 				4E87C646258D33790007FE5E /* Types */,
 				4E918510256E9EEF00702F04 /* Comments */,
-				4EB89B3925220DB0007129BF /* Some */,
 				4EFAB5CE2552F97600B32780 /* LangExt */,
 				4E886C402538C3490076B162 /* Settings */,
 				4ECCEEDE250B8DDF0075F921 /* Base */,
@@ -1496,13 +1495,6 @@
 				4E26FE9F2573E36C009DE4A7 /* PostScreenCoordinator.swift */,
 			);
 			path = Post;
-			sourceTree = "<group>";
-		};
-		4EB89B3925220DB0007129BF /* Some */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Some;
 			sourceTree = "<group>";
 		};
 		4EBB220725598A9500B88079 /* Protocols */ = {

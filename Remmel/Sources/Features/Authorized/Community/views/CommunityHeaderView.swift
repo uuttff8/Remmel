@@ -120,7 +120,7 @@ class CommunityHeaderView: UIView {
         commNameLabel.text = data.community.name
         subscribersLabel.text = String(data.counts.subscribers) + " " + "community-subscribers".localized
         postsCountLabel.text = String(data.counts.posts) + " " + "content-posts".localized
-        self.followButton.bind(isSubcribed: data.subscribed)
+        self.followButton.bind(isSubcribed: data.subscribed == .subscribed)
         
         if let communityDesciption = data.community.description {
             communityDescriptionLabel.text = communityDesciption.removeNewLines()

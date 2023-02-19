@@ -14,6 +14,7 @@ extension LMModels.Api {
         struct CreateComment: Codable {
             let content: String
             let parentId: Int?
+            let languageId: Int?
             let postId: Int
             let formId: String? // An optional front end ID, to tell which is coming back
             let auth: String
@@ -21,6 +22,7 @@ extension LMModels.Api {
             enum CodingKeys: String, CodingKey {
                 case content
                 case parentId = "parent_id"
+                case languageId = "language_id"
                 case postId = "post_id"
                 case formId = "form_id"
                 case auth
@@ -28,14 +30,18 @@ extension LMModels.Api {
         }
         
         struct EditComment: Codable {
-            let content: String
+            let content: String?
             let commentId: Int
+            let distinguished: Bool?
+            let languageId: Int?
             let formId: String?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case content
                 case commentId = "comment_id"
+                case distinguished = "distinguished"
+                case languageId = "language_id"
                 case formId = "form_id"
                 case auth
             }
@@ -69,18 +75,7 @@ extension LMModels.Api {
                 case removed, reason, auth
             }
         }
-        
-        struct MarkCommentAsRead: Codable {
-            let commentId: Int
-            let read: Bool
-            let auth: String
-            
-            enum CodingKeys: String, CodingKey {
-                case commentId = "comment_id"
-                case read, auth
-            }
-        }
-        
+                
         struct SaveComment: Codable {
             let commentId: Int
             let save: Bool
@@ -125,18 +120,24 @@ extension LMModels.Api {
         struct GetComments: Codable {
             let type: LMModels.Others.ListingType?
             let sort: LMModels.Others.SortType?
+            let maxDepth: Int?
             let page: Int?
             let limit: Int?
             let communityId: Int?
             let communityName: String?
+            let postId: Int?
+            let parentId: Int?
             let savedOnly: Bool?
             let auth: String?
             
             enum CodingKeys: String, CodingKey {
                 case type = "type_"
                 case sort, page, limit, auth
+                case maxDepth = "max_depth"
                 case communityId = "community_id"
                 case communityName = "community_name"
+                case postId = "post_id"
+                case parentId = "parent_id"
                 case savedOnly = "saved_only"
             }
         }

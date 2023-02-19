@@ -74,7 +74,7 @@ extension LMModels.Api {
             let theme: String? // Default 'browser'
             let defaultSortType: Int? // The Sort types from above, zero indexed as a number
             let defaultListingType: Int? // Post listing types are `All, Subscribed, Community`, number
-            let lang: String?
+            let interfaceLanguage: String?
             let avatar: String?
             let banner: String?
             let displayName: String? // The display name
@@ -88,6 +88,7 @@ extension LMModels.Api {
             let showBotAccounts: Bool?
             let showReadPosts: Bool?
             let showNewPostNotifs: Bool?
+            let discussionLanguages: [Int]?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
@@ -95,7 +96,8 @@ extension LMModels.Api {
                 case theme
                 case defaultSortType = "default_sort_type"
                 case defaultListingType = "default_listing_type"
-                case lang, avatar, banner
+                case interfaceLanguage = "interface_language"
+                case avatar, banner
                 case displayName = "display_name"
                 case email, bio
                 case matrixUserId = "matrix_user_id"
@@ -106,6 +108,7 @@ extension LMModels.Api {
                 case botAccount = "bot_account"
                 case showBotAccounts = "show_bot_accounts"
                 case showNewPostNotifs = "show_new_post_notifs"
+                case discussionLanguages = "discussion_languages"
                 case auth
             }
         }
@@ -187,7 +190,7 @@ extension LMModels.Api {
         }
         
         struct GetRepliesResponse: Codable {
-            let replies: [LMModels.Views.CommentView]
+            let replies: [LMModels.Views.CommentReplyView]
         }
         
         struct GetPersonMentionsResponse: Codable {
@@ -242,7 +245,7 @@ extension LMModels.Api {
         }
         
         struct GetReplies: Codable {
-            let sort: LMModels.Others.SortType?
+            let sort: LMModels.Others.CommentSortType?
             let page: Int?
             let limit: Int?
             let unreadOnly: Bool?
@@ -258,7 +261,7 @@ extension LMModels.Api {
         }
         
         struct GetPersonMentions: Codable {
-            let sort: LMModels.Others.SortType?
+            let sort: LMModels.Others.CommentSortType?
             let page: Int?
             let limit: Int?
             let unreadOnly: Bool?
@@ -290,6 +293,25 @@ extension LMModels.Api {
             
             enum CodingKeys: String, CodingKey {
                 case personMentionView = "person_mention_view"
+            }
+        }
+        
+        struct MarkCommentReplyAsRead: Codable {
+            let commentReplyId: Int
+            let read: Bool
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case commentReplyId = "comment_reply_id"
+                case read, auth
+            }
+        }
+        
+        struct CommentReplyResponse: Codable {
+            let commentReplyView: LMModels.Views.CommentReplyView
+            
+            enum CodingKeys: String, CodingKey {
+                case commentReplyView = "comment_reply_view"
             }
         }
         
@@ -399,6 +421,58 @@ extension LMModels.Api {
             }
         }
         
+        struct CreatePrivateMessageReport: Codable {
+            let privateMessageId: Int
+            let reason: String
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case privateMessageId = "private_message_id"
+                case reason, auth
+            }
+        }
+        
+        struct PrivateMessageReportResponse: Codable {
+            let privateMessageReportView: LMModels.Views.PrivateMessageReportView
+            
+            enum CodingKeys: String, CodingKey {
+                case privateMessageReportView = "private_message_report_view"
+            }
+        }
+        
+        struct ResolvePrivateMessageReport: Codable {
+            let reportId: Int
+            let resolved: Bool
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case reportId = "report_id"
+                case resolved, auth
+            }
+        }
+        
+        struct ListPrivateMessageReports: Codable {
+            let page: Int
+            let limit: Int
+            /// Only shows the unresolved reports
+            let unresolvedOnly: Bool?
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case page, limit
+                case unresolvedOnly = "unresolved_only"
+                case auth
+            }
+        }
+        
+        struct ListPrivateMessageReportsResponse: Codable {
+            let privateMessageReports: [LMModels.Views.PrivateMessageReportView]
+            
+            enum CodingKeys: String, CodingKey {
+                case privateMessageReports = "private_message_reports"
+            }
+        }
+        
         struct GetReportCount: Codable {
             /**
             * If a community is supplied, returns the report count for only that community, otherwise returns the report count for all communities the user moderates.
@@ -411,11 +485,13 @@ extension LMModels.Api {
             let communityId: Int?
             let commentReports: Int
             let postReports: Int
+            let privateMessageReports: Int?
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
                 case commentReports = "comment_reports"
                 case postReports = "post_reports"
+                case privateMessageReports = "private_message_reports"
             }
         }
         

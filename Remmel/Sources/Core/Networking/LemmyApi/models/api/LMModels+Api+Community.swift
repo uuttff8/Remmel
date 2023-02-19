@@ -22,10 +22,14 @@ extension LMModels.Api {
             let site: LMModels.Source.Site?
             let moderators: [LMModels.Views.CommunityModeratorView]
             let online: Int
+            let discussionLanguages: [Int]
+            let defaultPostLanguage: Int?
             
             enum CodingKeys: String, CodingKey {
                 case communityView = "community_view"
                 case site, moderators, online
+                case discussionLanguages = "discussion_languages"
+                case defaultPostLanguage = "default_post_language"
             }
         }
         
@@ -37,11 +41,13 @@ extension LMModels.Api {
             let banner: String?
             let nsfw: Bool?
             let postingRestrictedToMods: Bool?
+            let discussionLanguages: [Int]?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case name, title, description, icon, banner
                 case postingRestrictedToMods = "posting_restricted_to_mods"
+                case discussionLanguages = "discussion_languages"
                 case nsfw, auth
             }
         }
@@ -127,12 +133,14 @@ extension LMModels.Api {
             let banner: String?
             let nsfw: Bool?
             let postingRestrictedToMods: Bool?
+            let discussionLanguages: [Int]?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
                 case title, description, icon, banner, nsfw
                 case postingRestrictedToMods = "posting_restricted_to_mods"
+                case discussionLanguages = "discussion_languages"
                 case auth
             }
         }

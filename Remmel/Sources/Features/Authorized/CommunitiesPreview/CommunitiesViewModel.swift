@@ -61,7 +61,7 @@ class CommunitiesPreviewViewModel: CommunitiesPreviewViewModelProtocol {
     
     private func fetchCommunities(with response: LMModels.Api.Community.ListCommunitiesResponse) {
         let sortedCommunities = response.communities
-            .sorted { $0.subscribed && !$1.subscribed }
+            .sorted { ($0.subscribed == .subscribed) && !($1.subscribed == .subscribed) }
         
         self.viewContoller?.displayCommunities(
             viewModel: .init(state: .result(sortedCommunities))

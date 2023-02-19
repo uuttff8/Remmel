@@ -51,7 +51,7 @@ final class AddInstanceViewModel: AddInstanceViewModelProtocol {
                 
                 self.viewController?.displayAddInstanceCheck(
                     viewModel: .init(
-                        state: .result(iconUrl: response.siteView?.site.icon, instanceUrl: instanceUrl.rawHost)
+                        state: .result(iconUrl: response.siteView.site.icon, instanceUrl: instanceUrl.rawHost)
                     )
                 )
             }.store(in: &cancellable)

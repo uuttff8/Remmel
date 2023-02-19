@@ -15,22 +15,22 @@ protocol InboxRepliesTableManagerDelegate: ReplyCellViewDelegate {
 final class InboxRepliesTableManager: NSObject {
     weak var delegate: InboxRepliesTableManagerDelegate?
     
-    var viewModels: [LMModels.Views.CommentView]
+    var viewModels: [LMModels.Views.CommentReplyView]
     
-    init(viewModels: [LMModels.Views.CommentView] = []) {
+    init(viewModels: [LMModels.Views.CommentReplyView] = []) {
         self.viewModels = viewModels
         super.init()
     }
     
     // MARK: - Public API
     
-    func update(viewModel: LMModels.Views.CommentView) {
+    func update(viewModel: LMModels.Views.CommentReplyView) {
         if let index = self.viewModels.firstIndex(where: { $0.id == viewModel.id }) {
             self.viewModels[index] = viewModel
         }
     }
     
-    func appendNew(posts: [LMModels.Views.CommentView], completion: (_ indexPaths: [IndexPath]) -> Void) {
+    func appendNew(posts: [LMModels.Views.CommentReplyView], completion: (_ indexPaths: [IndexPath]) -> Void) {
         let startIndex = viewModels.count - posts.count
         let endIndex = startIndex + posts.count
         
@@ -56,7 +56,7 @@ extension InboxRepliesTableManager: UITableViewDataSource {
         cell.updateConstraintsIfNeeded()
         
         let viewModel = self.viewModels[indexPath.row]
-        cell.configure(with: viewModel, level: 0)
+//        cell.configure(with: viewModel, level: 0)
         cell.commentContentView.replyDelegate = delegate
         
         return cell

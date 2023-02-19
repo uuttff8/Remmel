@@ -67,7 +67,7 @@ extension LMModels.Api {
         struct GetModlogResponse: Codable {
             let removedPosts: [LMModels.Views.ModRemovePostView]
             let lockedPosts: [LMModels.Views.ModLockPostView]
-            let stickiedPosts: [LMModels.Views.ModStickyPostView]
+            let featuredPosts: [LMModels.Views.ModFeaturePostView]
             let removedComments: [LMModels.Views.ModRemoveCommentView]
             let removedCommunities: [LMModels.Views.ModRemoveCommunityView]
             let bannedFromCommunity: [LMModels.Views.ModBanFromCommunityView]
@@ -79,7 +79,7 @@ extension LMModels.Api {
             enum CodingKeys: String, CodingKey {
                 case removedPosts = "removed_posts"
                 case lockedPosts = "locked_posts"
-                case stickiedPosts = "stickied_posts"
+                case featuredPosts = "featured_posts"
                 case removedComments = "removed_comments"
                 case removedCommunities = "removed_communities"
                 case bannedFromCommunity = "banned_from_community"
@@ -101,7 +101,7 @@ extension LMModels.Api {
             let enableNsfw: Bool?
             let communityCreationAdminOnly: Bool?
             let requireEmailVerification: Bool?
-            let requireApplication: Bool?
+            let registrationMode: LMModels.Source.RegistrationMode?
             let applicationQuestion: Bool?
             let privateInstance: Bool?
             let defaultTheme: String?
@@ -115,7 +115,7 @@ extension LMModels.Api {
                 case enableNsfw = "enable_nsfw"
                 case communityCreationAdminOnly = "community_creation_admin_only"
                 case requireEmailVerification = "require_email_verification"
-                case requireApplication = "require_application"
+                case registrationMode = "registration_mode"
                 case applicationQuestion = "application_question"
                 case privateInstance = "private_instance"
                 case defaultTheme = "default_theme"
@@ -173,18 +173,24 @@ extension LMModels.Api {
         }
         
         struct GetSiteResponse: Codable {
-            let siteView: LMModels.Views.SiteView? // Optional, Because the site might not be set up yet.
+            let siteView: LMModels.Views.SiteView
             let admins: [LMModels.Views.PersonViewSafe]
             let online: Int
             let version: String
             let myUser: MyUserInfo? // If you're logged in, you'll get back extra user info.
             let federatedInstances: FederatedInstances?
+            let allLanguages: [LMModels.Source.Language]
+            let discussionLanguages: [Int]
+            let taglines: [LMModels.Source.Tagline]?
             
             enum CodingKeys: String, CodingKey {
                 case siteView = "site_view"
                 case admins, online, version
                 case myUser = "my_user"
                 case federatedInstances = "federated_instances"
+                case allLanguages = "all_languages"
+                case discussionLanguages = "discussion_languages"
+                case taglines
             }
         }
         
@@ -197,40 +203,20 @@ extension LMModels.Api {
             let moderates: [LMModels.Views.CommunityModeratorView]
             let communityBlocks: [LMModels.Views.CommunityBlockView]
             let personBlocks: [LMModels.Views.PersonBlockView]
+            let discussionLanguages: [Int]
             
             enum CodingKeys: String, CodingKey {
                 case localUserView = "local_user_view"
                 case follows, moderates
                 case communityBlocks = "community_blocks"
                 case personBlocks = "person_blocks"
+                case discussionLanguages = "discussion_languages"
             }
 
        }
 
         struct LeaveAdmin: Codable {
             let auth: String
-        }
-
-        struct GetSiteConfig: Codable {
-            let auth: String
-        }
-        
-        struct GetSiteConfigResponse: Codable {
-            let configHJson: String
-            
-            enum CodingKeys: String, CodingKey {
-                case configHJson = "config_hjson"
-            }
-        }
-        
-        struct SaveSiteConfig: Codable {
-            let configHJson: String
-            let auth: String
-            
-            enum CodingKeys: String, CodingKey {
-                case configHJson = "config_hjson"
-                case auth
-            }
         }
                 
         struct FederatedInstances: Codable {
@@ -249,6 +235,54 @@ extension LMModels.Api {
            let post: LMModels.Views.PostView?
            let community: LMModels.Views.CommunityView?
            let person: LMModels.Views.PersonViewSafe?
+        }
+        
+        struct PurgePerson {
+            let personId: Int
+            let reason: String?
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case personId = "person_id"
+                case reason, auth
+            }
+        }
+        
+        struct PurgeCommunity {
+            let communityId: Int
+            let reason: String?
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case communityId = "community_id"
+                case reason, auth
+            }
+        }
+        
+        struct PurgePost {
+            let postId: Int
+            let reason: String?
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case postId = "post_id"
+                case reason, auth
+            }
+        }
+        
+        struct PurgeComment {
+            let commentId: Int
+            let reason: String?
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case commentId = "comment_id"
+                case reason, auth
+            }
+        }
+        
+        struct PurgeItemResponse {
+            let success: Bool
         }
         
         struct ListRegistrationApplications: Codable {

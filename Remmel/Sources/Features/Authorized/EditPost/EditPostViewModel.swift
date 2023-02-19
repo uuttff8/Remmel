@@ -75,6 +75,7 @@ class EditPostViewModel: EditPostViewModelProtocol {
                                                 url: request.url,
                                                 body: request.body,
                                                 nsfw: request.nsfw,
+                                                languageId: nil,
                                                 auth: jwtToken)
         
         ApiManager.requests.asyncEditPost(parameters: params)

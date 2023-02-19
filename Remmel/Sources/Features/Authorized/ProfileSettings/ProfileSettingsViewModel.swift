@@ -82,7 +82,7 @@ final class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
             theme: prevData.localUserView.localUser.theme,
             defaultSortType: prevData.localUserView.localUser.defaultSortType.index,
             defaultListingType: prevData.localUserView.localUser.defaultListingType.index,
-            lang: prevData.localUserView.localUser.lang,
+            interfaceLanguage: prevData.localUserView.localUser.interfaceLanguage,
             avatar: prevData.localUserView.person.avatar?.absoluteString,
             banner: prevData.localUserView.person.banner?.absoluteString,
             displayName: newData.displayName,
@@ -96,6 +96,7 @@ final class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
             showBotAccounts: nil,
             showReadPosts: nil,
             showNewPostNotifs: nil,
+            discussionLanguages: nil,
             auth: currentUserJwt
         )
         

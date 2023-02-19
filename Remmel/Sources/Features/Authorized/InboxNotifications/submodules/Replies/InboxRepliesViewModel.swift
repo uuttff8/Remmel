@@ -65,7 +65,7 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
         }
         
         let params = LMModels.Api.Person.GetReplies(
-            sort: .active,
+            sort: .hot,
             page: paginationState,
             limit: 50,
             unreadOnly: false,
@@ -90,7 +90,7 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
         }
         
         let params = LMModels.Api.Person.GetReplies(
-            sort: .active,
+            sort: .hot,
             page: paginationState,
             limit: 50,
             unreadOnly: false,
@@ -130,7 +130,7 @@ enum InboxReplies {
     }
     
     enum ViewControllerState {
-        case result([LMModels.Views.CommentView])
+        case result([LMModels.Views.CommentReplyView])
         case loading
     }
 }

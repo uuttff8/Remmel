@@ -109,7 +109,7 @@ extension InboxRepliesViewController: InboxRepliesViewControllerProtocol {
     }
     
     func displayCreateCommentLike(viewModel: InboxReplies.CreateCommentLike.ViewModel) {
-        self.tableManager.viewModels.updateElementById(viewModel.commentView)
+//        tableManager.viewModels.updateElementById(viewModel.commentView)
     }
 }
 
@@ -171,9 +171,9 @@ extension InboxRepliesViewController: ReplyCellViewDelegate {
             guard let coordinator = coordinator else {
                 return
             }
-            self.showMoreService.showMoreInReply(on: self, coordinator: coordinator, reply: reply) { updatedReply in
-                self.tableManager.viewModels.updateElementById(updatedReply)
-            }
+//            self.showMoreService.showMoreInReply(on: self, coordinator: coordinator, reply: reply) { updatedReply in
+//                self.tableManager.viewModels.updateElementById(updatedReply)
+//            }
         }
     }
 }

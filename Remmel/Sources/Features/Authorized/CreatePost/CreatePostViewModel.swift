@@ -35,9 +35,10 @@ class CreatePostViewModel: CreatePostViewModelProtocol {
             url: request.url,
             body: request.body,
             nsfw: request.nsfw,
+            languageId: nil,
             communityId: request.communityId,
-            auth: jwtToken,
-            honeypot: nil
+            honeypot: nil,
+            auth: jwtToken
         )
         
         ApiManager.requests.asyncCreatePost(parameters: params)

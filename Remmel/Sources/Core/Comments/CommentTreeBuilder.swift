@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: - CommentTreeBuilder -
-class CommentTreeBuilder {
+class CommentTreeBuilder: ParentIdProvider {
     
     // MARK: - Properties
     
@@ -53,7 +53,7 @@ class CommentTreeBuilder {
     private func findNotReplyComments(in comments: [LMModels.Views.CommentView]) -> [LMModels.Views.CommentView] {
         var notReply = [LMModels.Views.CommentView]()
         
-        for comm in comments where comm.comment.parentId == nil {
+        for comm in comments where parentId(comm.comment) == nil {
             notReply.append(comm)
         }
         
@@ -65,7 +65,7 @@ class CommentTreeBuilder {
     ) -> [LMModels.Views.CommentView] {
         var repliesOnly = [LMModels.Views.CommentView]()
         
-        for comm in comments where comm.comment.parentId != nil {
+        for comm in comments where parentId(comm.comment) != nil {
             repliesOnly.append(comm)
         }
         
@@ -75,8 +75,7 @@ class CommentTreeBuilder {
     private func createReplyTree(for parent: LemmyComment) -> LemmyComment {
         var replies = [LemmyComment]()
                 
-        for repliedComm in self.comments
-        where repliedComm.comment.parentId == parent.id {
+        for repliedComm in comments where parentId(repliedComm.comment) == parent.id {
             
             let child = LemmyComment(level: 0, replyTo: nil)
             
@@ -92,5 +91,17 @@ class CommentTreeBuilder {
         parent.replies = replies
         
         return parent
+    }
+}
+
+protocol ParentIdProvider {
+    func parentId(_ comment: LMModels.Source.Comment) -> Int?
+}
+
+extension ParentIdProvider {
+    func parentId(_ comment: LMModels.Source.Comment) -> Int? {
+        var split = comment.path.split(separator: ".")
+        split.removeFirst()
+        return Int(split[split.count - 2]) ?? 0
     }
 }

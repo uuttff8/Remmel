@@ -39,13 +39,7 @@ extension RequestsManager {
     ) -> AnyPublisher<LMModels.Api.Comment.CommentResponse, LemmyGenericError> {
         asyncRequestDecodable(path: WSEndpoint.Comment.removeComment.endpoint, parameters: parameters)
     }
-    
-    func asyncMarkCommentAsReadRequest(
-        parameters: LMModels.Api.Comment.MarkCommentAsRead
-    ) -> AnyPublisher<LMModels.Api.Comment.CommentResponse, LemmyGenericError> {
-        asyncRequestDecodable(path: WSEndpoint.Comment.markCommentAsRead.endpoint, parameters: parameters)
-    }
-    
+        
     func asyncSaveComment(
         parameters: LMModels.Api.Comment.SaveComment
     ) -> AnyPublisher<LMModels.Api.Comment.CommentResponse, LemmyGenericError> {

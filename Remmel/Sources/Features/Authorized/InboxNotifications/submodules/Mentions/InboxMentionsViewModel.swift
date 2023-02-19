@@ -62,7 +62,7 @@ final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
             return
         }
         
-        let params = LMModels.Api.Person.GetPersonMentions(sort: .active,
+        let params = LMModels.Api.Person.GetPersonMentions(sort: .hot,
                                                            page: paginationState,
                                                            limit: 50,
                                                            unreadOnly: false,
@@ -85,7 +85,7 @@ final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
             return
         }
         
-        let params = LMModels.Api.Person.GetPersonMentions(sort: .active,
+        let params = LMModels.Api.Person.GetPersonMentions(sort: .hot,
                                                            page: paginationState,
                                                            limit: 50,
                                                            unreadOnly: false,

@@ -81,7 +81,7 @@ final class InboxRepliesView: UIView {
         makeConstraints()
     }
     
-    func appendNew(data: [LMModels.Views.CommentView]) {
+    func appendNew(data: [LMModels.Views.CommentReplyView]) {
         self.tableManager?.appendNew(posts: data) { newIndexpaths in
             tableView.performBatchUpdates {
                 tableView.insertRows(at: newIndexpaths, with: .none)

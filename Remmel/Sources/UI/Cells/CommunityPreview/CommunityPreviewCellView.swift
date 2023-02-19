@@ -91,7 +91,7 @@ final class CommunityPreviewCellView: UIView {
         self.commentsLabel.text = String(community.counts.comments) + " " + "community-users".localized
         self.postsLabel.text = String(community.counts.posts) + " " + "Posts".localized
         
-        self.followButton.bind(isSubcribed: community.subscribed)
+        self.followButton.bind(isSubcribed: community.subscribed == .subscribed)
         
         followButton.addTarget(self, action: #selector(followButtonTapped(sender:)), for: .touchUpInside)
     }

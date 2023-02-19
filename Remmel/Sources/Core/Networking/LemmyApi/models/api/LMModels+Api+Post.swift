@@ -16,15 +16,17 @@ extension LMModels.Api {
             let url: String?
             let body: String?
             let nsfw: Bool?
+            let languageId: Int?
             let communityId: Int
-            let auth: String
             let honeypot: String?
+            let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case name, url, body, nsfw
+                case languageId = "language_id"
                 case communityId = "community_id"
-                case auth
                 case honeypot
+                case auth
             }
         }
         
@@ -37,21 +39,27 @@ extension LMModels.Api {
         }
         
         struct GetPost: Codable {
-            let id: Int
+            let id: Int?
+            let commentId: Int?
             let auth: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case commentId = "comment_id"
+                case auth
+            }
         }
         
         struct GetPostResponse: Codable {
             let postView: LMModels.Views.PostView
             let communityView: LMModels.Views.CommunityView
-            let comments: [LMModels.Views.CommentView]
             let moderators: [LMModels.Views.CommunityModeratorView]
             let online: Int
             
             enum CodingKeys: String, CodingKey {
                 case postView = "post_view"
                 case communityView = "community_view"
-                case comments, moderators, online
+                case moderators, online
             }
         }
         
@@ -105,17 +113,17 @@ extension LMModels.Api {
             let url: String?
             let body: String?
             let nsfw: Bool?
+            let languageId: Int?
             let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case postId = "post_id"
-                case name, url, body, nsfw, auth
+                case name, url, body, nsfw
+                case languageId = "language_id"
+                case auth
             }
         }
 
-        /**
-         * Only admins and mods can remove a post.
-         */
         struct DeletePost: Codable {
             let postId: Int
             let deleted: Bool
@@ -144,6 +152,19 @@ extension LMModels.Api {
             }
         }
         
+        struct MarkPostAsRead: Codable {
+            let postId: Int
+            let read: Bool
+            let auth: String
+            
+            enum CodingKeys: String, CodingKey {
+                case postId = "post_id"
+                case read
+                case auth
+            }
+        }
+
+        
         /**
         * Only admins and mods can lock a post.
         */
@@ -159,16 +180,19 @@ extension LMModels.Api {
         }
         
         /**
-        * Only admins and mods can sticky a post.
+        * Only admins and mods can feature a community a post.
         */
-        struct StickyPost: Codable {
+        struct FeaturePost: Codable {
             let editId: Int
-            let stickied: Bool
+            let featured: Bool
+            let featureType: LMModels.Others.PostFeatureType
             let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case editId = "edit_id"
-                case stickied, auth
+                case featured
+                case featureType = "feature_type"
+                case auth
             }
         }
         

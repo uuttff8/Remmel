@@ -19,9 +19,10 @@ extension LMModels {
             let theme: String
             let defaultSortType: LMModels.Others.SortType
             let defaultListingType: LMModels.Others.ListingType
-            let lang: String
+            let interfaceLanguage: String
             let showAvatars: Bool
             let sendNotificationsToEmail: Bool
+            let validatorTime: String
             let showBotAccounts: Bool?
             let showScores: Bool?
             let showReadPosts: Bool?
@@ -34,8 +35,10 @@ extension LMModels {
                 case showNsfw = "show_nsfw", theme
                 case defaultSortType = "default_sort_type"
                 case defaultListingType = "default_listing_type"
-                case lang, showAvatars = "show_avatars"
+                case interfaceLanguage = "interface_language"
+                case showAvatars = "show_avatars"
                 case sendNotificationsToEmail = "send_notifications_to_email"
+                case validatorTime = "validator_time"
                 case showBotAccounts = "show_bot_accounts"
                 case showScores = "show_scores"
                 case showReadPosts = "show_read_posts"
@@ -59,11 +62,12 @@ extension LMModels {
             let banner: URL?
             let deleted: Bool
             let inboxUrl: URL
-            let sharedInboxURL: URL
+            let sharedInboxURL: URL?
             let admin: Bool
             let matrixUserId: String?
             let botAccount: Bool
             let banExpires: String?
+            let instanceId: Int
 
             enum CodingKeys: String, CodingKey {
                 case id, name
@@ -77,6 +81,7 @@ extension LMModels {
                 case matrixUserId = "matrix_user_id"
                 case botAccount = "bot_account"
                 case banExpires = "ban_expires"
+                case instanceId = "instance_id"
             }
         }
 
@@ -86,47 +91,126 @@ extension LMModels {
             let sidebar: String?
             let published: Date
             let updated: Date
-            let enableDownvotes: Bool
-            let openRegistration: Bool
-            let enableNsfw: Bool
             let icon: URL?
             let banner: URL?
             let description: String?
-            let communityCreationAdminOnly: Bool
-            let requireEmailVerification: Bool
-            let requireApplication: Bool
-            let applicationQuestion: String?
-            let privateInstance: Bool
-            let defaultTheme: String
-            let defaultPostListingType: LMModels.Others.ListingType
             let actorId: String
             let lastRefreshedAt: String
             let inboxUrl: String
             let publicKey: String
-            let legalInformation: String?
+            let instanceId: Int
             
             enum CodingKeys: String, CodingKey {
                 case id
                 case name, sidebar
                 case published, updated
-                case enableDownvotes = "enable_downvotes"
-                case openRegistration = "open_registration"
-                case enableNsfw = "enable_nsfw"
                 case icon, banner, description
-                case communityCreationAdminOnly = "community_creation_admin_only"
-                case requireEmailVerification = "require_email_verification"
-                case requireApplication = "require_application"
-                case applicationQuestion = "application_question"
-                case privateInstance = "private_instance"
-                case defaultTheme = "default_theme"
-                case defaultPostListingType = "default_post_listing_type"
                 case actorId = "actor_id"
                 case lastRefreshedAt = "last_refreshed_at"
                 case inboxUrl = "inbox_url"
                 case publicKey = "public_key"
-                case legalInformation = "legal_information"
+                case instanceId = "instance_id"
             }
         }
+        
+        enum RegistrationMode: String, Codable {
+            case closed = "closed"
+            case requireApplication = "requireapplication"
+            case Open = "open"
+        }
+        
+        struct LocalSite: Codable {
+            let id: Int
+            let siteId: Int
+            let siteSetup: Bool
+            let enableDownvotes: Bool
+            let registrationMode: LMModels.Source.RegistrationMode
+            let enableNsfw: Bool
+            let communityCreationAdminOnly: Bool
+            let requireEmailVerification: Bool
+            let applicationQuestion: String?
+            let privateInstance: Bool
+            let defaultTheme: String
+            let defaultPostListingType: String
+            let legalInformation: String?
+            let hideModlogModNames: Bool
+            let applicationEmailAdmins: Bool
+            let reportsEmailAdmins: Bool
+            let slurFilterRegex: String?
+            let actorNameMaxLength: Int
+            let federationEnabled: Bool
+            let federationDebug: Bool
+            let federationWorkerCount: Int
+            let captchaEnabled: Bool
+            let captchaDifficulty: String
+            let published: Date
+            let updated: Date?
+
+            enum CodingKeys: String, CodingKey {
+                case id
+                case siteId = "site_id"
+                case siteSetup = "site_setup"
+                case enableDownvotes = "enable_downvotes"
+                case registrationMode = "registration_mode"
+                case enableNsfw = "enable_nsfw"
+                case communityCreationAdminOnly = "community_creation_admin_only"
+                case requireEmailVerification = "require_email_verification"
+                case applicationQuestion = "application_question"
+                case privateInstance = "private_instance"
+                case defaultTheme = "default_theme"
+                case defaultPostListingType = "default_post_listing_type"
+                case legalInformation = "legal_information"
+                case hideModlogModNames = "hide_modlog_mod_names"
+                case applicationEmailAdmins = "application_email_admins"
+                case reportsEmailAdmins = "reports_email_admins"
+                case slurFilterRegex = "slur_filter_regex"
+                case actorNameMaxLength = "actor_name_max_length"
+                case federationEnabled = "federation_enabled"
+                case federationDebug = "federation_debug"
+                case federationWorkerCount = "federation_worker_count"
+                case captchaEnabled = "captcha_enabled"
+                case captchaDifficulty = "captcha_difficulty"
+                case published, updated
+            }
+        }
+        
+        struct LocalSiteRateLimit: Codable {
+            let id: Int
+            let localSiteId: Int
+            let message: Int
+            let messagePerSecond: Int
+            let post: Int
+            let postPerSecond: Int
+            let register: Int
+            let registerPerSecond: Int
+            let image: Int
+            let imagePerSecond: Int
+            let comment: Int
+            let commentPerSecond: Int
+            let search: Int
+            let searchPerSecond: Int
+            let published: Date
+            let updated: Date?
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case localSiteId = "local_site_id"
+                case message
+                case messagePerSecond = "message_per_second"
+                case post
+                case postPerSecond = "post_per_second"
+                case register
+                case registerPerSecond = "register_per_second"
+                case image
+                case imagePerSecond = "image_per_second"
+                case comment
+                case commentPerSecond = "comment_per_second"
+                case search = "search"
+                case searchPerSecond = "search_per_second"
+                case published, updated
+            }
+        }
+
         
         struct PrivateMessage: Identifiable, Codable {
             let id: Int
@@ -189,10 +273,9 @@ extension LMModels {
             let updated: Date?
             let deleted: Bool
             let nsfw: Bool
-            let stickied: Bool
             let embedTitle: String?
             let embedDescription: String?
-            let embedHtml: String?
+            let embedVideoUrl: String?
             let thumbnailUrl: URL?
             let apId: String
             let local: Bool
@@ -201,12 +284,12 @@ extension LMModels {
                 case id
                 case name, url, body, removed
                 case locked, published, updated, deleted
-                case nsfw, stickied
+                case nsfw
                 case creatorId = "creator_id"
                 case communityId = "community_id"
                 case embedTitle = "embed_title"
                 case embedDescription = "embed_description"
-                case embedHtml = "embed_html"
+                case embedVideoUrl = "embed_video_url"
                 case thumbnailUrl = "thumbnail_url"
                 case apId = "ap_id"
                 case local
@@ -260,18 +343,20 @@ extension LMModels {
             }
         }
         
-        struct ModStickyPost: Identifiable, Codable {
+        struct ModFeaturePost: Identifiable, Codable {
             let id: Int
             let modPersonId: Int
             let postId: Int
-            let stickied: Bool
+            let featured: Bool
+            let isFeaturedCommunity: Bool
             let when: String
             
             enum CodingKeys: String, CodingKey {
                 case id
                 case modPersonId = "mod_person_id"
                 case postId = "post_id"
-                case stickied
+                case featured
+                case isFeaturedCommunity = "is_featured_community"
                 case when = "when_"
             }
         }
@@ -415,7 +500,9 @@ extension LMModels {
             let local: Bool
             let icon: URL?
             let banner: URL?
+            let hidden: Bool
             let postingRestrictedToMods: Bool
+            let instanceId: Int
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -424,7 +511,9 @@ extension LMModels {
                 case nsfw
                 case actorId = "actor_id"
                 case local, icon, banner
+                case hidden
                 case postingRestrictedToMods = "posting_restricted_to_mods"
+                case instanceId = "instance_id"
             }
         }
         
@@ -454,26 +543,29 @@ extension LMModels {
             let id: Int
             let creatorId: Int
             let postId: Int
-            let parentId: Int?
             let content: String
             let removed: Bool
-            let read: Bool // Whether the recipient has read the comment or not
             let published: Date
             let updated: Date?
             let deleted: Bool
             let apId: String
             let local: Bool
+            let path: String
+            let distinguished: Bool
+            let languageId: Int
             
             enum CodingKeys: String, CodingKey {
                 case id
                 case creatorId = "creator_id"
                 case postId = "post_id"
-                case parentId = "parent_id"
-                case content, removed, read
+                case content, removed
                 case published, updated
                 case deleted
                 case apId = "ap_id"
                 case local
+                case path
+                case distinguished
+                case languageId = "language_id"
             }
         }
                 
@@ -483,6 +575,21 @@ extension LMModels {
             let commentId: Int
             let read: Bool
             let published: Date
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case recipientId = "recipient_id"
+                case commentId = "comment_id"
+                case read, published
+            }
+        }
+        
+        struct CommentReply: Codable {
+            let id: Int
+            let recipientId: Int
+            let commentId: Int
+            let read: Bool
+            let published: String
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -507,6 +614,50 @@ extension LMModels {
                 case adminId = "admin_id"
                 case denyReason = "deny_reason"
                 case published
+            }
+        }
+        
+        struct Language: Codable {
+            let id: Int
+            let code: String
+            let name: String
+        }
+        
+        struct PrivateMessageReport: Codable {
+            let id: Int
+            let creatorId: Int
+            let privateMessageId: Int
+            let originalPmText: String
+            let reason: String
+            let resolved: Bool
+            let resolverId: Int?
+            let published: String
+            let updated: String?
+            
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case creatorId = "creator_id"
+                case privateMessageId = "private_message_id"
+                case originalPmText = "original_pm_text"
+                case reason, resolved
+                case resolverId = "resolver_id"
+                case published, updated
+            }
+        }
+        
+        struct Tagline: Codable {
+            let id: Int
+            let localSiteId: Int
+            let content: String
+            let published: Date
+            let updated: Date?
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case localSiteId = "local_site_id"
+                case content
+                case published, updated
             }
         }
     }

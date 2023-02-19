@@ -45,7 +45,7 @@ class CommunityFollowService: CommunityFollowServiceProtocol {
                 .sink { completion in
                     Logger.logCombineCompletion(completion)
                 } receiveValue: { respCommunity in
-                    followButton.bind(isSubcribed: respCommunity.subscribed)
+                    followButton.bind(isSubcribed: respCommunity.subscribed == .subscribed)
                     
                     promise(.success(respCommunity))
                     
@@ -64,7 +64,7 @@ class CommunityFollowService: CommunityFollowServiceProtocol {
                 .eraseToAnyPublisher()
         }
         
-        let isSubscribed: Bool = community.subscribed
+        let isSubscribed: Bool = community.subscribed == .subscribed
         
         let params = LMModels.Api.Community.FollowCommunity(communityId: community.id,
                                                             follow: !isSubscribed,
