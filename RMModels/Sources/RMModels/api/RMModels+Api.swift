@@ -1,5 +1,5 @@
 //
-//  RMModels.swift
+//  RMModels+Api.swift
 //  Lemmy-iOS
 //
 //  Created by uuttff8 on 15.01.2021.
@@ -8,4 +8,6 @@
 
 import Foundation
 
-enum RMModels { }
+extension RMModels {
+    enum Api { }
+}

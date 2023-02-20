@@ -378,6 +378,7 @@
 		4E1A7E6525573EA400E193B7 /* ProfileScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenUI.swift; sourceTree = "<group>"; };
 		4E1A7E6A25573F1800E193B7 /* ProfileScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewModel.swift; sourceTree = "<group>"; };
 		4E24395C259DE2200006C742 /* IncreasedTapAreaButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncreasedTapAreaButton.swift; sourceTree = "<group>"; };
+		4E26D8BA29A357CF003BD412 /* RMModels */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RMModels; sourceTree = "<group>"; };
 		4E26FE9F2573E36C009DE4A7 /* PostScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenCoordinator.swift; sourceTree = "<group>"; };
 		4E2A0FCF259BC1CB00BF0841 /* UIWindow+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Ext.swift"; sourceTree = "<group>"; };
 		4E2A5CAD25F3C0DD00537E38 /* OnboardingHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingHostingController.swift; sourceTree = "<group>"; };
@@ -495,7 +496,6 @@
 		4E98C01525BCA76B009DA520 /* CommentContentImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentContentImpl.swift; sourceTree = "<group>"; };
 		4E9BBA5325555571004FF2F9 /* LemmySortListingPickersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmySortListingPickersView.swift; sourceTree = "<group>"; };
 		4E9BBA582555560C004FF2F9 /* LemmyImageTextPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemmyImageTextPickerView.swift; sourceTree = "<group>"; };
-		4E9D2B0B29A351A400FC66A5 /* RMModels */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RMModels; sourceTree = "<group>"; };
 		4EB2641225AC8A03003D5183 /* TermsOfUseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseView.swift; sourceTree = "<group>"; };
 		4EB4F683259024B40057BDCC /* InstancesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancesProvider.swift; sourceTree = "<group>"; };
 		4EB4F688259024C40057BDCC /* InstancesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancesViewModel.swift; sourceTree = "<group>"; };
@@ -1041,7 +1041,6 @@
 			children = (
 				4E918504256E9E9900702F04 /* SwiftyComments */,
 				4E9183302566C16C00702F04 /* SettingsTable */,
-				4E9D2B0B29A351A400FC66A5 /* RMModels */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -1310,6 +1309,7 @@
 			children = (
 				4ECCEEA8250B8B6B0075F921 /* Remmel */,
 				4E91832F2566C12E00702F04 /* Libraries */,
+				4E26D8BA29A357CF003BD412 /* RMModels */,
 				4ECCEEC2250B8B6F0075F921 /* Remmel-iOSTests */,
 				4ECCEECD250B8B6F0075F921 /* Remmel-iOSUITests */,
 				4ECCEEA7250B8B6B0075F921 /* Products */,
