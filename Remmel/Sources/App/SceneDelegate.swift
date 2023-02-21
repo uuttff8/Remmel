@@ -14,28 +14,23 @@ import RMFoundation
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    private var appCoordinator: AppCoordinator!
-
-    private let userAccountService: UserAccountServiceProtocol = UserAccountService()
+    var appCoordinator: AppCoordinator!
+    
+    @Injected(\.currentAccountProvider) var currentAccountProvider: UserAccountServiceProtocol
 
     func scene(
         _ scene: UIScene,
         willConnectTo session: UISceneSession,
         options connectionOptions: UIScene.ConnectionOptions
     ) {
-        window = UIWindow(frame: UIScreen.main.bounds)
-        guard let windowScene = scene as? UIWindowScene,
-              let window else {
-            return
-        }
+        guard let windowScene = scene as? UIWindowScene else { return }
+        let window = UIWindow(windowScene: windowScene)
+        self.window = window
 
-        let appCoordinator = AppCoordinator(
-            window: window,
-            windowScene: windowScene,
-            userAccountService: userAccountService
-        )
-        self.appCoordinator = appCoordinator
+        appCoordinator = AppCoordinator(window: window, currentAccountService: currentAccountProvider)
         appCoordinator.start()
+        
+        window.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -52,7 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
-        if userAccountService.isAuthorized {
+        if currentAccountProvider.isAuthorized {
             ApiManager.chainedWsCLient.reconnectIfNeeded()
         }
     }

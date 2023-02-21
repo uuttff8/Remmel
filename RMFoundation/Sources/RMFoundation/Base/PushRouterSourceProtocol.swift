@@ -8,29 +8,29 @@
 
 import UIKit
 
-protocol PushRouterSourceProtocol {
+public protocol PushRouterSourceProtocol {
     func push(module: UIViewController)
     func replace(by module: UIViewController)
 }
 
-protocol PushStackRouterSourceProtocol {
+public protocol PushStackRouterSourceProtocol {
     func push(moduleStack: [UIViewController])
 }
 
 extension UIViewController: PushRouterSourceProtocol, PushStackRouterSourceProtocol {
     @objc
-    func push(module: UIViewController) {
+    public func push(module: UIViewController) {
         self.navigationController?.pushViewController(module, animated: true)
     }
 
     @objc
-    func replace(by module: UIViewController) {
+    public func replace(by module: UIViewController) {
         self.navigationController?.popViewController(animated: false)
         self.push(module: module)
     }
 
     @objc
-    func push(moduleStack: [UIViewController]) {
+    public func push(moduleStack: [UIViewController]) {
         for (index, module) in moduleStack.enumerated() {
             self.navigationController?.pushViewController(module, animated: index == moduleStack.count - 1)
         }

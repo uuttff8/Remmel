@@ -9,37 +9,31 @@
 import UIKit
 import RMServices
 
-class AppCoordinator: BaseCoordinator {
+class AppCoordinator {
     
     private let window: UIWindow
-    private let windowScene: UIWindowScene
+    private let currentAccountService: UserAccountServiceProtocol
+    private var childCoordinators = [Coordinator]()
     
-    private let userAccountService: UserAccountServiceProtocol
-    
-    init(window: UIWindow, windowScene: UIWindowScene, userAccountService: UserAccountServiceProtocol) {
+    init(window: UIWindow, currentAccountService: UserAccountServiceProtocol) {
         self.window = window
-        self.windowScene = windowScene
-        self.userAccountService = userAccountService
+        self.currentAccountService = currentAccountService
     }
     
-    override func start() {
-        
-        if userAccountService.isAuthorized {
-            let myCoordinator = LemmyTabBarCoordinator()
-            self.store(coordinator: myCoordinator)
-            myCoordinator.start()
+    func start() {
+        if currentAccountService.isAuthorized {
+            let tabBarCoordinator = LemmyTabBarCoordinator()
+            childCoordinators.append(tabBarCoordinator)
+            tabBarCoordinator.start()
 
-            window.rootViewController = myCoordinator.rootViewController
+            window.rootViewController = tabBarCoordinator.rootViewController
         } else {
-            let myCoordinator = InstancesCoordinator(router: Router(navigationController: StyledNavigationController()))
-            self.store(coordinator: myCoordinator)
-            myCoordinator.start()
-            myCoordinator.router.setRoot(myCoordinator, isAnimated: true)
+            let instancesCoordinator = InstancesCoordinator(router: Router(navigationController: StyledNavigationController()))
+            childCoordinators.append(instancesCoordinator)
+            instancesCoordinator.start()
+            instancesCoordinator.router.setRoot(instancesCoordinator, isAnimated: true)
             
-            window.rootViewController = myCoordinator.router.navigationController
+            window.rootViewController = instancesCoordinator.router.navigationController
         }
-        
-        window.windowScene = windowScene
-        window.makeKeyAndVisible()
     }
 }
