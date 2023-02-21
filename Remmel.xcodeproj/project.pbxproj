@@ -36,6 +36,8 @@
 		4E0F767729A3D0F5009C0D0C /* RMServices in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0F767629A3D0F5009C0D0C /* RMServices */; };
 		4E0F767B29A4DA36009C0D0C /* Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F767A29A4DA36009C0D0C /* Injection.swift */; };
 		4E0F767D29A4DAD5009C0D0C /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F767C29A4DAD5009C0D0C /* Keys.swift */; };
+		4E0F768029A4FA42009C0D0C /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F767F29A4FA42009C0D0C /* ReusableView.swift */; };
+		4E0F768629A5099B009C0D0C /* RMDesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0F768529A5099B009C0D0C /* RMDesignSystem */; };
 		4E106F6525274325009EABDA /* PostScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106F6425274325009EABDA /* PostScreenViewModel.swift */; };
 		4E107053253476EE009EABDA /* PostsFrontPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E107052253476EE009EABDA /* PostsFrontPageViewController.swift */; };
 		4E10705B253476FC009EABDA /* PostsFrontPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10705A253476FC009EABDA /* PostsFrontPageModel.swift */; };
@@ -366,6 +368,8 @@
 		4E0A8E92255DDE4500B06AF6 /* PostScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenAssembly.swift; sourceTree = "<group>"; };
 		4E0F767A29A4DA36009C0D0C /* Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injection.swift; sourceTree = "<group>"; };
 		4E0F767C29A4DAD5009C0D0C /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		4E0F767F29A4FA42009C0D0C /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
+		4E0F768429A5083E009C0D0C /* RMDesignSystem */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RMDesignSystem; sourceTree = "<group>"; };
 		4E106F6425274325009EABDA /* PostScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenViewModel.swift; sourceTree = "<group>"; };
 		4E107052253476EE009EABDA /* PostsFrontPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsFrontPageViewController.swift; sourceTree = "<group>"; };
 		4E10705A253476FC009EABDA /* PostsFrontPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsFrontPageModel.swift; sourceTree = "<group>"; };
@@ -666,6 +670,7 @@
 				4E2240FD29A3D07700FF4D7B /* RMFoundation in Frameworks */,
 				4EAB0F322970772500B59AFE /* Nuke in Frameworks */,
 				4E004F4025DEBC7C006B81CF /* markymark in Frameworks */,
+				4E0F768629A5099B009C0D0C /* RMDesignSystem in Frameworks */,
 				4E0F767529A3D0F1009C0D0C /* RMNetworking in Frameworks */,
 				4E0F767329A3D0EE009C0D0C /* RMModels in Frameworks */,
 				4E004F6125DFA81B006B81CF /* SwiftMessages in Frameworks */,
@@ -844,12 +849,13 @@
 				4E38252F2974609300731019 /* Comments */,
 				4ECCEF2C2512535F0075F921 /* CustomViews */,
 				4E88B13E28F1F42A0003D64F /* GenericCoordinator */,
+				4EED87192744B2C600DB15A8 /* LemmyLightboxController.swift */,
 				4ECCEEF0250C03910075F921 /* LemmyTabBar */,
-				4EFAB58F2551857C00B32780 /* UIExt */,
+				4E532D3E2976E40A00FFBC6B /* Protocols */,
 				4E532D392976E28C00FFBC6B /* Settings */,
 				4EBB22182559EB3600B88079 /* StyledNavigationController.swift */,
-				4EED87192744B2C600DB15A8 /* LemmyLightboxController.swift */,
-				4E532D3E2976E40A00FFBC6B /* Protocols */,
+				4EFAB58F2551857C00B32780 /* UIExt */,
+				4E0F767F29A4FA42009C0D0C /* ReusableView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1328,6 +1334,7 @@
 			children = (
 				4ECCEEA8250B8B6B0075F921 /* Remmel */,
 				4E91832F2566C12E00702F04 /* Libraries */,
+				4E0F768429A5083E009C0D0C /* RMDesignSystem */,
 				4E2240FE29A3D0D600FF4D7B /* RMModels */,
 				4E26D8BF29A3730B003BD412 /* RMFoundation */,
 				4E26D8C229A39D63003BD412 /* RMServices */,
@@ -1895,6 +1902,7 @@
 				4E0F767229A3D0EE009C0D0C /* RMModels */,
 				4E0F767429A3D0F1009C0D0C /* RMNetworking */,
 				4E0F767629A3D0F5009C0D0C /* RMServices */,
+				4E0F768529A5099B009C0D0C /* RMDesignSystem */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Remmel.app */;
@@ -2234,6 +2242,7 @@
 				4E88B14628F1F58E0003D64F /* GenericCoordinator+Post.swift in Sources */,
 				4E004F8A25DFF8A9006B81CF /* EditPostViewController.swift in Sources */,
 				4E106F6525274325009EABDA /* PostScreenViewModel.swift in Sources */,
+				4E0F768029A4FA42009C0D0C /* ReusableView.swift in Sources */,
 				4E918509256E9EAA00702F04 /* CommentsViewDelegate.swift in Sources */,
 				4EB89AF8251F47A7007129BF /* PostScreenViewController.swift in Sources */,
 				4E38255F2974612600731019 /* Coordinator.swift in Sources */,
@@ -2803,6 +2812,10 @@
 		4E0F767629A3D0F5009C0D0C /* RMServices */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RMServices;
+		};
+		4E0F768529A5099B009C0D0C /* RMDesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RMDesignSystem;
 		};
 		4E1070832534F742009EABDA /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;

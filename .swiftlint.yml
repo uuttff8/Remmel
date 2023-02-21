@@ -6,7 +6,7 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
   - closure_end_indentation
   - closure_spacing
   - collection_alignment
-  - conditional_returns_on_newline
+  # - conditional_returns_on_newline
   - contains_over_filter_count
   - contains_over_filter_is_empty
   - contains_over_first_not_nil
@@ -168,7 +168,7 @@ trailing_whitespace:
 
 # Uncomment and configure this in project's branch
 deployment_target:
-  iOS_deployment_target: "10.0"
+  iOS_deployment_target: "15.0"
  # macOS_deployment_target: "10.14"
  # watchOS_deployment_target: "5.0"
  # tvOS_deployment_target: "12.0"

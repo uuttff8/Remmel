@@ -142,7 +142,7 @@ public extension RMModels.Api {
         */
         public struct GetComments: Codable {
             public let type: RMModels.Others.ListingType?
-            public let sort: RMModels.Others.SortType?
+            public let sort: RMModels.Others.CommentSortType?
             public let maxDepth: Int?
             public let page: Int?
             public let limit: Int?
@@ -153,7 +153,7 @@ public extension RMModels.Api {
             public let savedOnly: Bool?
             public let auth: String?
             
-            public init(type: RMModels.Others.ListingType?, sort: RMModels.Others.SortType?, maxDepth: Int?, page: Int?, limit: Int?, communityId: Int?, communityName: String?, postId: Int?, parentId: Int?, savedOnly: Bool?, auth: String?) {
+            public init(type: RMModels.Others.ListingType?, sort: RMModels.Others.CommentSortType?, maxDepth: Int?, page: Int?, limit: Int?, communityId: Int?, communityName: String?, postId: Int?, parentId: Int?, savedOnly: Bool?, auth: String?) {
                 self.type = type
                 self.sort = sort
                 self.maxDepth = maxDepth

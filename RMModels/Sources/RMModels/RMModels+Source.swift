@@ -135,7 +135,7 @@ public extension RMModels {
             public let legalInformation: String?
             public let hideModlogModNames: Bool
             public let applicationEmailAdmins: Bool
-            public let reportsEmailAdmins: Bool
+            public let reportsEmailAdmins: Bool?
             public let slurFilterRegex: String?
             public let actorNameMaxLength: Int
             public let federationEnabled: Bool

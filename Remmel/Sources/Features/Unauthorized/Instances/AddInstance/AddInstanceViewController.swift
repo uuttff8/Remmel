@@ -83,7 +83,7 @@ final class AddInstanceViewController: UIViewController {
     }
     
     private func setupNavigationItem() {
-        title = "Create Instance"
+        title = "Add Instance"
         navigationItem.rightBarButtonItem = addBarButton
         addBarButton.isEnabled = false
     }

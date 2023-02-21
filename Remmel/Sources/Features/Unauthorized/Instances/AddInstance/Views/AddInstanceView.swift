@@ -8,6 +8,7 @@
 
 import UIKit
 import Nuke
+import RMDesignSystem
 
 protocol AddInstanceViewDelegate: AnyObject {
     func addInstanceView(_ view: AddInstanceView, didTyped text: String?)
@@ -29,13 +30,14 @@ final class AddInstanceView: UIView {
         $0.spacing = 5
     }
     
-    private lazy var textField = SloyTextField().then {
+    private lazy var textField: TextField = {
         $0.placeholder = "instances-new-instance".localized
-        $0.keyboardType = .URL
-        $0.autocapitalizationType = .none
-        $0.autocorrectionType = .no
-        $0.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-    }
+        $0.textField.keyboardType = .URL
+        $0.textField.autocapitalizationType = .none
+        $0.textField.autocorrectionType = .no
+        $0.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        return $0
+    }(TextField())
     
     private lazy var instanceImageView = UIImageView().then {
         $0.frame.size = appearance.iconSize
@@ -82,8 +84,8 @@ final class AddInstanceView: UIView {
 
 extension AddInstanceView: ProgrammaticallyViewProtocol {
     func setupView() {
-        backgroundColor = .systemBackground
-        scrollableStackView.contentInsets = .init(top: 30, left: 0, bottom: 0, right: 0)
+        backgroundColor = .systemGroupedBackground
+        scrollableStackView.contentInsets = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0)
     }
     
     func addSubviews() {
@@ -104,6 +106,10 @@ extension AddInstanceView: ProgrammaticallyViewProtocol {
         scrollableStackView.snp.makeConstraints {
             $0.top.bottom.equalTo(self.safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview().inset(16)
+        }
+        
+        textField.snp.makeConstraints { make in
+            make.height.equalTo(44)
         }
     }
 }

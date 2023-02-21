@@ -150,7 +150,7 @@ public extension RMModels {
             public let community: RMModels.Source.CommunitySafe
             public var counts: RMModels.Aggregates.CommentAggregates
             public let creatorBannedFromCommunity: Bool
-            public let subscribed: Bool
+            public let subscribed: RMModels.Others.SubscribedType
             public let saved: Bool
             public let creatorBlocked: Bool
             public var myVote: Int?

@@ -48,8 +48,9 @@ class CommentsFrontPageModel: NSObject {
     }
     
     func loadComments() {
+        #warning("change to self.currentComentssorttype")
         let parameters = RMModels.Api.Comment.GetComments(type: self.currentListingType,
-                                                          sort: self.currentSortType,
+                                                          sort: .hot,
                                                           maxDepth: nil,
                                                           page: 1,
                                                           limit: 50,
@@ -71,8 +72,9 @@ class CommentsFrontPageModel: NSObject {
     }
     
     func loadMoreComments(completion: @escaping (() -> Void)) {
+        #warning("change to self.currentComentssorttype")
         let parameters = RMModels.Api.Comment.GetComments(type: self.currentListingType,
-                                                          sort: self.currentSortType,
+                                                          sort: .hot,
                                                           maxDepth: nil,
                                                           page: self.currentPage,
                                                           limit: 50,
