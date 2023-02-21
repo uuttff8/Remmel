@@ -9,6 +9,7 @@
 import UIKit
 import RMModels
 import RMServices
+import RMFoundation
 
 protocol InboxMentionsViewControllerProtocol: AnyObject {
     func displayMentions(viewModel: InboxMentions.LoadMentions.ViewModel)
@@ -136,31 +137,31 @@ extension InboxMentionsViewController: UserMentionCellViewDelegate {
         coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
-    func postNameTapped(in userMention: RMModel.Views.PersonMentionView) { }
+    func postNameTapped(in userMention: RMModels.Views.PersonMentionView) { }
     
     func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        userMention: RMModel.Views.PersonMentionView
+        userMention: RMModels.Views.PersonMentionView
     ) {
         scoreView.setVoted(voteButton: voteButton, to: newVote)
         contentScoreService.voteUserMention(for: newVote, userMention: userMention)
     }
     
-    func showContext(in comment: RMModel.Views.PersonMentionView) { }
+    func showContext(in comment: RMModels.Views.PersonMentionView) { }
     
-    func reply(to userMention: RMModel.Views.PersonMentionView) {
+    func reply(to userMention: RMModels.Views.PersonMentionView) {
         coordinator?.goToWriteComment(postSource: userMention.post, parrentComment: userMention.comment) {
             RMMessagesToast.showSuccessCreateComment()
         }
     }
     
-    func onLinkTap(in userMention: RMModel.Views.PersonMentionView, url: URL) {
+    func onLinkTap(in userMention: RMModels.Views.PersonMentionView, url: URL) {
         coordinator?.goToBrowser(with: url)
     }
         
-    func showMoreAction(in userMention: RMModel.Views.PersonMentionView) {
+    func showMoreAction(in userMention: RMModels.Views.PersonMentionView) {
         guard let coordinator = coordinator else {
             return
         }

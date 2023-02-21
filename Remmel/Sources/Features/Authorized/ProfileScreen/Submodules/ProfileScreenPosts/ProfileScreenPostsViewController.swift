@@ -10,6 +10,7 @@ import UIKit
 import SafariServices
 import RMModels
 import RMServices
+import RMFoundation
 
 protocol ProfileScreenPostViewControllerProtocol: AnyObject {
     func displayProfilePosts(viewModel: ProfileScreenPosts.PostsLoad.ViewModel)
@@ -113,7 +114,7 @@ extension ProfileScreenPostsViewController: ProfileScreenPostViewControllerProto
 }
 
 extension ProfileScreenPostsViewController: ProfileScreenPostsViewDelegate {
-    func profileScreenPosts(_ view: View, didPickedNewSort type: RMModel.Others.SortType) {
+    func profileScreenPosts(_ view: View, didPickedNewSort type: RMModels.Others.SortType) {
         guard let profilePostsView = profilePostsView else {
             return
         }
@@ -129,7 +130,7 @@ extension ProfileScreenPostsViewController: ProfileScreenPostsViewDelegate {
 }
 
 extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
-    func postCellDidSelected(postId: RMModel.Views.PostView.ID) {
+    func postCellDidSelected(postId: RMModels.Views.PostView.ID) {
         let post = tableDataSource.viewModels.getElement(by: postId).require()
         self.coordinator?.goToPostScreen(post: post)
     }
@@ -138,7 +139,7 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        post: RMModel.Views.PostView
+        post: RMModels.Views.PostView
     ) {
         guard let coordinator = coordinator else {
             return
@@ -151,7 +152,7 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
         }
     }
     
-    func showMore(in post: RMModel.Views.PostView) {
+    func showMore(in post: RMModels.Views.PostView) {
         guard let coordinator = coordinator else {
             return
         }
@@ -181,7 +182,7 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
         coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
-    func onLinkTap(in post: RMModel.Views.PostView, url: URL) {
+    func onLinkTap(in post: RMModels.Views.PostView, url: URL) {
         coordinator?.goToBrowser(with: url)
     }
     
@@ -194,7 +195,7 @@ extension ProfileScreenPostsViewController: PostsTableDataSourceDelegate {
         viewModel.doNextPostsFetch(request: .init(sortType: profilePostsView.sortType))
     }
     
-    func tableDidSelect(post: RMModel.Views.PostView) {
+    func tableDidSelect(post: RMModels.Views.PostView) {
         coordinator?.goToPostScreen(post: post)
     }
 }

@@ -11,8 +11,8 @@ import RMModels
 
 extension GenericCoordinator {
     func goToWriteComment(
-        postSource: RMModel.Source.Post,
-        parrentComment: RMModel.Source.Comment?,
+        postSource: RMModels.Source.Post,
+        parrentComment: RMModels.Source.Comment?,
         completion: (() -> Void)? = nil
     ) {
         ContinueIfLogined(on: rootViewController, coordinator: self) {
@@ -28,7 +28,7 @@ extension GenericCoordinator {
         }
     }
                     
-    func goToEditComment(comment: RMModel.Source.Comment, completion: (() -> Void)? = nil) {
+    func goToEditComment(comment: RMModels.Source.Comment, completion: (() -> Void)? = nil) {
         goToWriteMessageWrapper(action: .edit(comment: comment), completion: completion)
     }
     

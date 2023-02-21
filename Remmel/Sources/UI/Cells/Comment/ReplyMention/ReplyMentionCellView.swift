@@ -8,6 +8,7 @@
 
 import UIKit
 import RMModels
+import RMFoundation
 
 // MARK: - ReplyMentionCellView: UIView
 class ReplyMentionCellView: UIView {
@@ -42,7 +43,7 @@ class ReplyMentionCellView: UIView {
     }
 
     // MARK: - Public API
-    func configure(reply: RMModel.Views.CommentView) {
+    func configure(reply: RMModels.Views.CommentView) {
         setupTargets(with: reply)
 
         headerView.bind(
@@ -68,7 +69,7 @@ class ReplyMentionCellView: UIView {
         )
     }
     
-    func configure(mention: RMModel.Views.PersonMentionView) {
+    func configure(mention: RMModels.Views.PersonMentionView) {
         setupTargets(with: mention)
 
         headerView.bind(
@@ -107,7 +108,7 @@ class ReplyMentionCellView: UIView {
     }
 
     // MARK: - Private
-    private func setupTargets(with reply: RMModel.Views.CommentView) {
+    private func setupTargets(with reply: RMModels.Views.CommentView) {
         
         // header view
         headerView.communityButtonTap = { [weak self] in
@@ -159,7 +160,7 @@ class ReplyMentionCellView: UIView {
         }
     }
     
-    private func setupTargets(with mention: RMModel.Views.PersonMentionView) {
+    private func setupTargets(with mention: RMModels.Views.PersonMentionView) {
         
         // header view
         headerView.communityButtonTap = { [weak self] in

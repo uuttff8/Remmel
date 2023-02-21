@@ -8,18 +8,29 @@
 
 import Foundation
 
-extension RMModels.Api {
+public extension RMModels.Api {
     enum Post {
         
-        struct CreatePost: Codable {
-            let name: String
-            let url: String?
-            let body: String?
-            let nsfw: Bool?
-            let languageId: Int?
-            let communityId: Int
-            let honeypot: String?
-            let auth: String
+        public struct CreatePost: Codable {
+            public let name: String
+            public let url: String?
+            public let body: String?
+            public let nsfw: Bool?
+            public let languageId: Int?
+            public let communityId: Int
+            public let honeypot: String?
+            public let auth: String
+            
+            public init(name: String, url: String?, body: String?, nsfw: Bool?, languageId: Int?, communityId: Int, honeypot: String?, auth: String) {
+                self.name = name
+                self.url = url
+                self.body = body
+                self.nsfw = nsfw
+                self.languageId = languageId
+                self.communityId = communityId
+                self.honeypot = honeypot
+                self.auth = auth
+            }
             
             enum CodingKeys: String, CodingKey {
                 case name, url, body, nsfw
@@ -30,18 +41,24 @@ extension RMModels.Api {
             }
         }
         
-        struct PostResponse: Codable {
-            let postView: RMModels.Views.PostView
+        public struct PostResponse: Codable {
+            public let postView: RMModels.Views.PostView
             
             enum CodingKeys: String, CodingKey {
                 case postView = "post_view"
             }
         }
         
-        struct GetPost: Codable {
-            let id: Int?
-            let commentId: Int?
-            let auth: String?
+        public struct GetPost: Codable {
+            public let id: Int?
+            public let commentId: Int?
+            public let auth: String?
+            
+            public init(id: Int?, commentId: Int?, auth: String?) {
+                self.id = id
+                self.commentId = commentId
+                self.auth = auth
+            }
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -50,11 +67,11 @@ extension RMModels.Api {
             }
         }
         
-        struct GetPostResponse: Codable {
-            let postView: RMModels.Views.PostView
-            let communityView: RMModels.Views.CommunityView
-            let moderators: [RMModels.Views.CommunityModeratorView]
-            let online: Int
+        public struct GetPostResponse: Codable {
+            public let postView: RMModels.Views.PostView
+            public let communityView: RMModels.Views.CommunityView
+            public let moderators: [RMModels.Views.CommunityModeratorView]
+            public let online: Int
             
             enum CodingKeys: String, CodingKey {
                 case postView = "post_view"
@@ -69,15 +86,26 @@ extension RMModels.Api {
         * `community_name` can only be used for local communities.
         * To get posts for a federated community, pass `community_id` instead.
         */
-        struct GetPosts: Codable {
-            let type: RMModels.Others.ListingType?
-            let sort: RMModels.Others.SortType?
-            let page: Int?
-            let limit: Int?
-            let communityId: Int?
-            let communityName: String? // To get posts for a federated community by name, use `name@instance.tld` .
-            let savedOnly: Bool?
-            let auth: String?
+        public struct GetPosts: Codable {
+            public let type: RMModels.Others.ListingType?
+            public let sort: RMModels.Others.SortType?
+            public let page: Int?
+            public let limit: Int?
+            public let communityId: Int?
+            public let communityName: String? // To get posts for a federated community by name, use `name@instance.tld` .
+            public let savedOnly: Bool?
+            public let auth: String?
+            
+            public init(type: RMModels.Others.ListingType?, sort: RMModels.Others.SortType?, page: Int?, limit: Int?, communityId: Int?, communityName: String?, savedOnly: Bool?, auth: String?) {
+                self.type = type
+                self.sort = sort
+                self.page = page
+                self.limit = limit
+                self.communityId = communityId
+                self.communityName = communityName
+                self.savedOnly = savedOnly
+                self.auth = auth
+            }
             
             enum CodingKeys: String, CodingKey {
                 case type = "type_"
@@ -89,17 +117,23 @@ extension RMModels.Api {
             }
         }
         
-        struct GetPostsResponse: Codable {
-            let posts: [RMModels.Views.PostView]
+        public struct GetPostsResponse: Codable {
+            public let posts: [RMModels.Views.PostView]
         }
         
         /**
         * `score` can be 0, -1, or 1. Anything else will be rejected.
         */
-        struct CreatePostLike: Codable {
-            let postId: Int
-            let score: Int
-            let auth: String
+        public struct CreatePostLike: Codable {
+            public let postId: Int
+            public let score: Int
+            public let auth: String
+            
+            public init(postId: Int, score: Int, auth: String) {
+                self.postId = postId
+                self.score = score
+                self.auth = auth
+            }
             
             enum CodingKeys: String, CodingKey {
                 case postId = "post_id"
@@ -107,14 +141,24 @@ extension RMModels.Api {
             }
         }
         
-        struct EditPost: Codable {
-            let postId: Int
-            let name: String?
-            let url: String?
-            let body: String?
-            let nsfw: Bool?
-            let languageId: Int?
-            let auth: String
+        public struct EditPost: Codable {
+            public let postId: Int
+            public let name: String?
+            public let url: String?
+            public let body: String?
+            public let nsfw: Bool?
+            public let languageId: Int?
+            public let auth: String
+            
+            public init(postId: Int, name: String?, url: String?, body: String?, nsfw: Bool?, languageId: Int?, auth: String) {
+                self.postId = postId
+                self.name = name
+                self.url = url
+                self.body = body
+                self.nsfw = nsfw
+                self.languageId = languageId
+                self.auth = auth
+            }
             
             enum CodingKeys: String, CodingKey {
                 case postId = "post_id"
@@ -124,10 +168,10 @@ extension RMModels.Api {
             }
         }
 
-        struct DeletePost: Codable {
-            let postId: Int
-            let deleted: Bool
-            let auth: String
+        public struct DeletePost: Codable {
+            public let postId: Int
+            public let deleted: Bool
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case postId = "post_id"
@@ -139,11 +183,11 @@ extension RMModels.Api {
         /**
         * Only admins and mods can remove a post.
         */
-        struct RemovePost: Codable {
-            let postId: Int
-            let removed: Bool
-            let reason: String?
-            let auth: String
+        public struct RemovePost: Codable {
+            public let postId: Int
+            public let removed: Bool
+            public let reason: String?
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case postId = "post_id"
@@ -152,10 +196,10 @@ extension RMModels.Api {
             }
         }
         
-        struct MarkPostAsRead: Codable {
-            let postId: Int
-            let read: Bool
-            let auth: String
+        public struct MarkPostAsRead: Codable {
+            public let postId: Int
+            public let read: Bool
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case postId = "post_id"
@@ -164,14 +208,13 @@ extension RMModels.Api {
             }
         }
 
-        
         /**
         * Only admins and mods can lock a post.
         */
-        struct LockPost: Codable {
-            let postId: Int
-            let locked: Bool
-            let auth: String
+        public struct LockPost: Codable {
+            public let postId: Int
+            public let locked: Bool
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case postId = "post_id"
@@ -182,11 +225,11 @@ extension RMModels.Api {
         /**
         * Only admins and mods can feature a community a post.
         */
-        struct FeaturePost: Codable {
-            let editId: Int
-            let featured: Bool
-            let featureType: RMModels.Others.PostFeatureType
-            let auth: String
+        public struct FeaturePost: Codable {
+            public let editId: Int
+            public let featured: Bool
+            public let featureType: RMModels.Others.PostFeatureType
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case editId = "edit_id"
@@ -196,10 +239,10 @@ extension RMModels.Api {
             }
         }
         
-        struct SavePost: Codable {
-            let postId: Int
-            let save: Bool
-            let auth: String
+        public struct SavePost: Codable {
+            public let postId: Int
+            public let save: Bool
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case postId = "post_id"
@@ -207,10 +250,10 @@ extension RMModels.Api {
             }
         }
                 
-        struct CreatePostReport: Codable {
-            let postId: Int
-            let reason: String
-            let auth: String
+        public struct CreatePostReport: Codable {
+            public let postId: Int
+            public let reason: String
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case postId = "post_id"
@@ -218,17 +261,17 @@ extension RMModels.Api {
             }
         }
         
-        struct PostReportResponse: Codable {
-            let postReportView: RMModels.Views.PostReportView
+        public struct PostReportResponse: Codable {
+            public let postReportView: RMModels.Views.PostReportView
         }
         
-        struct ResolvePostReport: Codable {
-            let reportId: Int
+        public struct ResolvePostReport: Codable {
+            public let reportId: Int
             /**
             * Either resolve or unresolve a report.
             */
-            let resolved: Bool
-            let auth: Bool
+            public let resolved: Bool
+            public let auth: Bool
             
             enum CodingKeys: String, CodingKey {
                 case reportId = "report_id"
@@ -236,18 +279,18 @@ extension RMModels.Api {
             }
         }
                 
-        struct ListPostReports: Codable {
-            let page: Int?
-            let limit: Int?
+        public struct ListPostReports: Codable {
+            public let page: Int?
+            public let limit: Int?
             /**
             * if no community is given, it returns reports for all communities moderated by the auth user.
             */
-            let communityId: Int?
+            public let communityId: Int?
             /**
              * Only shows the unresolved reports.
              */
-            let unresolvedOnly: Bool?
-            let auth: String
+            public let unresolvedOnly: Bool?
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case page, limit
@@ -257,20 +300,20 @@ extension RMModels.Api {
             }
         }
         
-        struct ListPostReportsResponse: Codable {
-            let postReports: [RMModels.Views.PostReportView]
+        public struct ListPostReportsResponse: Codable {
+            public let postReports: [RMModels.Views.PostReportView]
             
             enum CodingKeys: String, CodingKey {
                 case postReports = "post_reports"
             }
         }
         
-        struct GetSiteMetadata: Codable {
-            let url: String
+        public struct GetSiteMetadata: Codable {
+            public let url: String
        }
 
-        struct GetSiteMetadataResponse: Codable {
-            let metadata: RMModels.Others.SiteMetadata
+        public struct GetSiteMetadataResponse: Codable {
+            public let metadata: RMModels.Others.SiteMetadata
         }
         
     }

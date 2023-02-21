@@ -33,14 +33,15 @@ class CreatePostViewModel: CreatePostViewModelProtocol {
             return
         }
         
-        let params = RMModel.Api.Post.CreatePost(
+        let params = RMModels.Api.Post.CreatePost(
             name: request.title,
             url: request.url,
             body: request.body,
             nsfw: request.nsfw,
+            languageId: nil,
             communityId: request.communityId,
-            auth: jwtToken,
-            honeypot: nil
+            honeypot: nil,
+            auth: jwtToken
         )
         
         ApiManager.requests.asyncCreatePost(parameters: params)

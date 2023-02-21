@@ -8,32 +8,32 @@
 
 import Foundation
 
-extension RMModels {
+public extension RMModels {
     enum Views {
         
-        struct PersonViewSafe: Codable {
-            let person: RMModels.Source.PersonSafe
-            let counts: RMModels.Aggregates.PersonAggregates
+        public struct PersonViewSafe: Codable {
+            public let person: RMModels.Source.PersonSafe
+            public let counts: RMModels.Aggregates.PersonAggregates
         }
         
-        struct PersonMentionView: Identifiable, Codable/*, VoteGettable*/ {
+        public struct PersonMentionView: Identifiable, Codable/*, VoteGettable*/ {
             
-            var id: Int {
+            public var id: Int {
                 comment.id
             }
             
-            let personMention: RMModels.Source.PersonMention
-            var comment: RMModels.Source.Comment
-            let creator: RMModels.Source.PersonSafe
-            let post: RMModels.Source.Post
-            let community: RMModels.Source.CommunitySafe
-            let recipient: RMModels.Source.PersonSafe
-            let counts: RMModels.Aggregates.CommentAggregates
-            let creatorBannedFromCommunity: Bool
-            let subscribed: RMModels.Others.SubscribedType
-            let saved: Bool
-            let creatorBlocked: Bool
-            let myVote: Int?
+            public let personMention: RMModels.Source.PersonMention
+            public var comment: RMModels.Source.Comment
+            public let creator: RMModels.Source.PersonSafe
+            public let post: RMModels.Source.Post
+            public let community: RMModels.Source.CommunitySafe
+            public let recipient: RMModels.Source.PersonSafe
+            public let counts: RMModels.Aggregates.CommentAggregates
+            public let creatorBannedFromCommunity: Bool
+            public let subscribed: RMModels.Others.SubscribedType
+            public let saved: Bool
+            public let creatorBlocked: Bool
+            public let myVote: Int?
             
             enum CodingKeys: String, CodingKey {
                 case personMention = "person_mention"
@@ -46,10 +46,10 @@ extension RMModels {
             }
         }
         
-        struct LocalUserSettingsView: Codable {
-            let localUser: RMModels.Source.LocalUserSettings
-            let person: RMModels.Source.PersonSafe
-            let counts: RMModels.Aggregates.PersonAggregates
+        public struct LocalUserSettingsView: Codable {
+            public let localUser: RMModels.Source.LocalUserSettings
+            public let person: RMModels.Source.PersonSafe
+            public let counts: RMModels.Aggregates.PersonAggregates
             
             enum CodingKeys: String, CodingKey {
                 case localUser = "local_user"
@@ -57,12 +57,12 @@ extension RMModels {
             }
         }
         
-        struct SiteView: Codable {
-            let site: RMModels.Source.Site
-            let localSite: RMModels.Source.LocalSite
-            let localSiteRateLimit: RMModels.Source.LocalSiteRateLimit
-            let taglines: [RMModels.Source.Tagline]?
-            let counts: RMModels.Aggregates.SiteAggregates
+        public struct SiteView: Codable {
+            public let site: RMModels.Source.Site
+            public let localSite: RMModels.Source.LocalSite
+            public let localSiteRateLimit: RMModels.Source.LocalSiteRateLimit
+            public let taglines: [RMModels.Source.Tagline]?
+            public let counts: RMModels.Aggregates.SiteAggregates
             
             enum CodingKeys: String, CodingKey {
                 case site
@@ -72,10 +72,10 @@ extension RMModels {
             }
         }
         
-        struct PrivateMessageView: Codable {
-            let privateMessage: RMModels.Source.PrivateMessage
-            let creator: RMModels.Source.PersonSafe
-            let recipient: RMModels.Source.PersonSafe
+        public struct PrivateMessageView: Codable {
+            public let privateMessage: RMModels.Source.PrivateMessage
+            public let creator: RMModels.Source.PersonSafe
+            public let recipient: RMModels.Source.PersonSafe
             
             enum CodingKeys: String, CodingKey {
                 case privateMessage = "private_message"
@@ -83,25 +83,25 @@ extension RMModels {
             }
         }
         
-        struct PostView: Identifiable, Codable/*, VoteGettable*/, Hashable, Equatable {
+        public struct PostView: Identifiable, Codable/*, VoteGettable*/, Hashable, Equatable {
             // for uniquness in uitableviewdiffabledatasource
-            let uuid = UUID()
+            public let uuid = UUID()
             
-            var id: Int {
+            public var id: Int {
                 post.id
             }
             
-            let post: RMModels.Source.Post
-            let creator: RMModels.Source.PersonSafe
-            let community: RMModels.Source.CommunitySafe
-            let creatorBannedFromCommunity: Bool
-            var counts: RMModels.Aggregates.PostAggregates
-            let subscribed: RMModels.Others.SubscribedType
-            let saved: Bool
-            let read: Bool
-            let creatorBlocked: Bool
-            var myVote: Int?
-            let unreadComments: Int
+            public let post: RMModels.Source.Post
+            public let creator: RMModels.Source.PersonSafe
+            public let community: RMModels.Source.CommunitySafe
+            public let creatorBannedFromCommunity: Bool
+            public var counts: RMModels.Aggregates.PostAggregates
+            public let subscribed: RMModels.Others.SubscribedType
+            public let saved: Bool
+            public let read: Bool
+            public let creatorBlocked: Bool
+            public var myVote: Int?
+            public let unreadComments: Int
             
             enum CodingKeys: String, CodingKey {
                 case creator, post, community, counts
@@ -113,16 +113,16 @@ extension RMModels {
             }
         }
         
-        struct PostReportView: Codable {
-            let postReport: RMModels.Source.PostReport
-            let post: RMModels.Source.Post
-            let community: RMModels.Source.CommunitySafe
-            let creator: RMModels.Source.PersonSafe
-            let postCreator: RMModels.Source.PersonSafe
-            let creatorBannedFromCommunity: Bool
-            let myVote: Int?
-            let counts: RMModels.Aggregates.PostAggregates
-            let resolver: RMModels.Source.PersonSafe?
+        public struct PostReportView: Codable {
+            public let postReport: RMModels.Source.PostReport
+            public let post: RMModels.Source.Post
+            public let community: RMModels.Source.CommunitySafe
+            public let creator: RMModels.Source.PersonSafe
+            public let postCreator: RMModels.Source.PersonSafe
+            public let creatorBannedFromCommunity: Bool
+            public let myVote: Int?
+            public let counts: RMModels.Aggregates.PostAggregates
+            public let resolver: RMModels.Source.PersonSafe?
             
             enum CodingKeys: String, CodingKey {
                 case postReport = "post_report"
@@ -135,25 +135,25 @@ extension RMModels {
             }
         }
         
-        struct CommentView: Hashable, Equatable, Identifiable/*, VoteGettable*/, Codable {
+        public struct CommentView: Hashable, Equatable, Identifiable/*, VoteGettable*/, Codable {
             // for uniquness in uitableviewdiffabledatasource
-            let uuid = UUID()
+            public let uuid = UUID()
             
-            var id: Int {
+            public var id: Int {
                 comment.id
             }
             
-            let comment: RMModels.Source.Comment
-            let creator: RMModels.Source.PersonSafe
-            let recipient: RMModels.Source.PersonSafe?
-            let post: RMModels.Source.Post
-            let community: RMModels.Source.CommunitySafe
-            var counts: RMModels.Aggregates.CommentAggregates
-            let creatorBannedFromCommunity: Bool
-            let subscribed: Bool
-            let saved: Bool
-            let creatorBlocked: Bool
-            var myVote: Int?
+            public let comment: RMModels.Source.Comment
+            public let creator: RMModels.Source.PersonSafe
+            public let recipient: RMModels.Source.PersonSafe?
+            public let post: RMModels.Source.Post
+            public let community: RMModels.Source.CommunitySafe
+            public var counts: RMModels.Aggregates.CommentAggregates
+            public let creatorBannedFromCommunity: Bool
+            public let subscribed: Bool
+            public let saved: Bool
+            public let creatorBlocked: Bool
+            public var myVote: Int?
             
             enum CodingKeys: String, CodingKey {
                 case comment, creator, recipient, post
@@ -165,47 +165,46 @@ extension RMModels {
             }
         }
         
-            struct CommentReplyView: Codable, Identifiable {
-                var id: Int {
-                    commentReply.id
-                }
-                
-                let commentReply: RMModels.Source.CommentReply
-                let comment: RMModels.Source.Comment
-                let creator: RMModels.Source.PersonSafe
-                let post: RMModels.Source.Post
-                let community: RMModels.Source.CommunitySafe
-                let recipient: RMModels.Source.PersonSafe
-                let counts: RMModels.Aggregates.CommentAggregates
-                let creatorBannedFromCommunity: Bool
-                let subscribed: RMModels.Others.SubscribedType
-                let saved: Bool
-                let creatorBlocked: Bool
-                let myVote: Int?
-                
-                enum CodingKeys: String, CodingKey {
-                    case commentReply = "comment_reply"
-                    case comment, creator, post
-                    case community, recipient, counts
-                    case creatorBannedFromCommunity = "creator_banned_from_community"
-                    case subscribed, saved
-                    case creatorBlocked = "creator_blocked"
-                    case myVote = "my_vote"
-                }
+        public struct CommentReplyView: Codable, Identifiable {
+            public var id: Int {
+                commentReply.id
             }
-
+            
+            public let commentReply: RMModels.Source.CommentReply
+            public let comment: RMModels.Source.Comment
+            public let creator: RMModels.Source.PersonSafe
+            public let post: RMModels.Source.Post
+            public let community: RMModels.Source.CommunitySafe
+            public let recipient: RMModels.Source.PersonSafe
+            public let counts: RMModels.Aggregates.CommentAggregates
+            public let creatorBannedFromCommunity: Bool
+            public let subscribed: RMModels.Others.SubscribedType
+            public let saved: Bool
+            public let creatorBlocked: Bool
+            public let myVote: Int?
+            
+            enum CodingKeys: String, CodingKey {
+                case commentReply = "comment_reply"
+                case comment, creator, post
+                case community, recipient, counts
+                case creatorBannedFromCommunity = "creator_banned_from_community"
+                case subscribed, saved
+                case creatorBlocked = "creator_blocked"
+                case myVote = "my_vote"
+            }
+        }
         
-        struct CommentReportView: Codable {
-            let commentReport: RMModels.Source.CommentReport
-            let comment: RMModels.Source.Comment
-            let post: RMModels.Source.Post
-            let community: RMModels.Source.CommunitySafe
-            let creator: RMModels.Source.PersonSafe
-            let commentCreator: RMModels.Source.PersonSafe
-            let counts: RMModels.Aggregates.CommentAggregates
-            let creatorBannedFromCommunity: Bool
-            let myVote: Int?
-            let resolver: RMModels.Source.PersonSafe?
+        public struct CommentReportView: Codable {
+            public let commentReport: RMModels.Source.CommentReport
+            public let comment: RMModels.Source.Comment
+            public let post: RMModels.Source.Post
+            public let community: RMModels.Source.CommunitySafe
+            public let creator: RMModels.Source.PersonSafe
+            public let commentCreator: RMModels.Source.PersonSafe
+            public let counts: RMModels.Aggregates.CommentAggregates
+            public let creatorBannedFromCommunity: Bool
+            public let myVote: Int?
+            public let resolver: RMModels.Source.PersonSafe?
             
             enum CodingKeys: String, CodingKey {
                 case commentReport = "comment_report"
@@ -218,11 +217,11 @@ extension RMModels {
             }
         }
         
-        struct ModAddCommunityView: Codable {
-            let modAddCommunity: RMModels.Source.ModAddCommunity
-            let moderator: RMModels.Source.PersonSafe?
-            let community: RMModels.Source.CommunitySafe
-            let moddedPerson: RMModels.Source.PersonSafe
+        public struct ModAddCommunityView: Codable {
+            public let modAddCommunity: RMModels.Source.ModAddCommunity
+            public let moderator: RMModels.Source.PersonSafe?
+            public let community: RMModels.Source.CommunitySafe
+            public let moddedPerson: RMModels.Source.PersonSafe
             
             enum CodingKeys: String, CodingKey {
                 case modAddCommunity = "mod_add_community"
@@ -231,23 +230,23 @@ extension RMModels {
             }
         }
         
-        struct ModTransferCommunityView: Codable {
-            let modTransferCommunity: RMModels.Source.ModTransferCommunity
-            let moderator: RMModels.Source.PersonSafe?
-            let community: RMModels.Source.CommunitySafe
-            let moddedPerson: RMModels.Source.PersonSafe
+        public struct ModTransferCommunityView: Codable {
+            public let modTransferCommunity: RMModels.Source.ModTransferCommunity
+            public let moderator: RMModels.Source.PersonSafe?
+            public let community: RMModels.Source.CommunitySafe
+            public let moddedPerson: RMModels.Source.PersonSafe
             
             enum CodingKeys: String, CodingKey {
                 case modTransferCommunity = "mod_transfer_community"
                 case moderator, community
                 case moddedPerson = "modded_person"
             }
-       }
+        }
         
-        struct ModAddView: Codable {
-            let modAdd: RMModels.Source.ModAdd
-            let moderator: RMModels.Source.PersonSafe?
-            let moddedPerson: RMModels.Source.PersonSafe
+        public struct ModAddView: Codable {
+            public let modAdd: RMModels.Source.ModAdd
+            public let moderator: RMModels.Source.PersonSafe?
+            public let moddedPerson: RMModels.Source.PersonSafe
             
             enum CodingKeys: String, CodingKey {
                 case modAdd = "mod_add"
@@ -256,11 +255,11 @@ extension RMModels {
             }
         }
         
-        struct ModBanFromCommunityView: Codable {
-            let modBanFromCommunity: RMModels.Source.ModBanFromCommunity
-            let moderator: RMModels.Source.PersonSafe?
-            let community: RMModels.Source.CommunitySafe
-            let bannedPerson: RMModels.Source.PersonSafe
+        public struct ModBanFromCommunityView: Codable {
+            public let modBanFromCommunity: RMModels.Source.ModBanFromCommunity
+            public let moderator: RMModels.Source.PersonSafe?
+            public let community: RMModels.Source.CommunitySafe
+            public let bannedPerson: RMModels.Source.PersonSafe
             
             enum CodingKeys: String, CodingKey {
                 case modBanFromCommunity = "mod_ban_from_community"
@@ -269,10 +268,10 @@ extension RMModels {
             }
         }
         
-        struct ModBanView: Codable {
-            let modBan: RMModels.Source.ModBan
-            let moderator: RMModels.Source.PersonSafe?
-            let bannedPerson: RMModels.Source.PersonSafe
+        public struct ModBanView: Codable {
+            public let modBan: RMModels.Source.ModBan
+            public let moderator: RMModels.Source.PersonSafe?
+            public let bannedPerson: RMModels.Source.PersonSafe
             
             enum CodingKeys: String, CodingKey {
                 case modBan = "modBan"
@@ -281,11 +280,11 @@ extension RMModels {
             }
         }
         
-        struct ModLockPostView: Codable {
-            let modLockPost: RMModels.Source.ModLockPost
-            let moderator: RMModels.Source.PersonSafe?
-            let post: RMModels.Source.Post
-            let community: RMModels.Source.CommunitySafe
+        public struct ModLockPostView: Codable {
+            public let modLockPost: RMModels.Source.ModLockPost
+            public let moderator: RMModels.Source.PersonSafe?
+            public let post: RMModels.Source.Post
+            public let community: RMModels.Source.CommunitySafe
             
             enum CodingKeys: String, CodingKey {
                 case modLockPost = "mod_lock_post"
@@ -293,13 +292,13 @@ extension RMModels {
             }
         }
         
-        struct ModRemoveCommentView: Codable {
-            let modRemoveComment: RMModels.Source.ModRemoveComment
-            let moderator: RMModels.Source.PersonSafe?
-            let comment: RMModels.Source.Comment
-            let commenter: RMModels.Source.PersonSafe
-            let post: RMModels.Source.Post
-            let community: RMModels.Source.CommunitySafe
+        public struct ModRemoveCommentView: Codable {
+            public let modRemoveComment: RMModels.Source.ModRemoveComment
+            public let moderator: RMModels.Source.PersonSafe?
+            public let comment: RMModels.Source.Comment
+            public let commenter: RMModels.Source.PersonSafe
+            public let post: RMModels.Source.Post
+            public let community: RMModels.Source.CommunitySafe
             
             enum CodingKeys: String, CodingKey {
                 case modRemoveComment = "mod_remove_comment"
@@ -307,10 +306,10 @@ extension RMModels {
             }
         }
         
-        struct ModRemoveCommunityView: Codable {
-            let modRemoveCommunity: RMModels.Source.ModRemoveCommunity
-            let moderator: RMModels.Source.PersonSafe?
-            let community: RMModels.Source.CommunitySafe
+        public struct ModRemoveCommunityView: Codable {
+            public let modRemoveCommunity: RMModels.Source.ModRemoveCommunity
+            public let moderator: RMModels.Source.PersonSafe?
+            public let community: RMModels.Source.CommunitySafe
             
             enum CodingKeys: String, CodingKey {
                 case modRemoveCommunity = "mod_remove_community"
@@ -318,11 +317,11 @@ extension RMModels {
             }
         }
         
-        struct ModRemovePostView: Codable {
-            let modRemovePost: RMModels.Source.ModRemovePost
-            let moderator: RMModels.Source.PersonSafe?
-            let post: RMModels.Source.Post
-            let community: RMModels.Source.CommunitySafe
+        public struct ModRemovePostView: Codable {
+            public let modRemovePost: RMModels.Source.ModRemovePost
+            public let moderator: RMModels.Source.PersonSafe?
+            public let post: RMModels.Source.Post
+            public let community: RMModels.Source.CommunitySafe
             
             enum CodingKeys: String, CodingKey {
                 case modRemovePost = "mod_remove_post"
@@ -330,11 +329,11 @@ extension RMModels {
             }
         }
         
-        struct ModFeaturePostView: Codable {
-            let modFeaturePost: RMModels.Source.ModFeaturePost
-            let moderator: RMModels.Source.PersonSafe?
-            let post: RMModels.Source.Post
-            let community: RMModels.Source.CommunitySafe
+        public struct ModFeaturePostView: Codable {
+            public let modFeaturePost: RMModels.Source.ModFeaturePost
+            public let moderator: RMModels.Source.PersonSafe?
+            public let post: RMModels.Source.Post
+            public let community: RMModels.Source.CommunitySafe
             
             enum CodingKeys: String, CodingKey {
                 case modFeaturePost = "mod_feature_post"
@@ -342,56 +341,56 @@ extension RMModels {
             }
         }
         
-        struct CommunityFollowerView: Codable {
-            let community: RMModels.Source.CommunitySafe
-            let follower: RMModels.Source.PersonSafe
+        public struct CommunityFollowerView: Codable {
+            public let community: RMModels.Source.CommunitySafe
+            public let follower: RMModels.Source.PersonSafe
         }
         
-        struct CommunityBlockView: Codable {
-            let person: RMModels.Source.PersonSafe
-            let community: RMModels.Source.CommunitySafe
-       }
-        
-        struct CommunityModeratorView: Codable {
-            let community: RMModels.Source.CommunitySafe
-            let moderator: RMModels.Source.PersonSafe
+        public struct CommunityBlockView: Codable {
+            public let person: RMModels.Source.PersonSafe
+            public let community: RMModels.Source.CommunitySafe
         }
         
-        struct CommunityPersonBanView: Codable {
-            let community: RMModels.Source.CommunitySafe
-            let person: RMModels.Source.PersonSafe
+        public struct CommunityModeratorView: Codable {
+            public let community: RMModels.Source.CommunitySafe
+            public let moderator: RMModels.Source.PersonSafe
         }
         
-        struct PersonBlockView: Codable {
-            let person: RMModels.Source.PersonSafe
-            let target: RMModels.Source.PersonSafe
-       }
+        public struct CommunityPersonBanView: Codable {
+            public let community: RMModels.Source.CommunitySafe
+            public let person: RMModels.Source.PersonSafe
+        }
         
-        struct CommunityView: Identifiable, Codable {
+        public struct PersonBlockView: Codable {
+            public let person: RMModels.Source.PersonSafe
+            public let target: RMModels.Source.PersonSafe
+        }
+        
+        public struct CommunityView: Identifiable, Codable {
             
-            var id: Int {
+            public var id: Int {
                 community.id
             }
             
-            let community: RMModels.Source.CommunitySafe
-            let subscribed: RMModels.Others.SubscribedType
-            let blocked: Bool
-            let counts: RMModels.Aggregates.CommunityAggregates
+            public let community: RMModels.Source.CommunitySafe
+            public let subscribed: RMModels.Others.SubscribedType
+            public let blocked: Bool
+            public let counts: RMModels.Aggregates.CommunityAggregates
         }
         
-        struct RegistrationApplicationView: Codable {
-            let registration_application: RMModels.Source.RegistrationApplication
-            let creator_local_user: RMModels.Source.LocalUserSettings
-            let creator: RMModels.Source.PersonSafe
-            let admin: RMModels.Source.PersonSafe?
-       }
+        public struct RegistrationApplicationView: Codable {
+            public let registration_application: RMModels.Source.RegistrationApplication
+            public let creator_local_user: RMModels.Source.LocalUserSettings
+            public let creator: RMModels.Source.PersonSafe
+            public let admin: RMModels.Source.PersonSafe?
+        }
         
-        struct PrivateMessageReportView: Codable {
-            let privateMessageReport: RMModels.Source.PrivateMessageReport
-            let privateMessage: RMModels.Source.PrivateMessage
-            let privateMessageCreator: RMModels.Source.PersonSafe
-            let creator: RMModels.Source.PersonSafe
-            let resolver: RMModels.Source.PersonSafe?
+        public struct PrivateMessageReportView: Codable {
+            public let privateMessageReport: RMModels.Source.PrivateMessageReport
+            public let privateMessage: RMModels.Source.PrivateMessage
+            public let privateMessageCreator: RMModels.Source.PersonSafe
+            public let creator: RMModels.Source.PersonSafe
+            public let resolver: RMModels.Source.PersonSafe?
             
             enum CodingKeys: String, CodingKey {
                 case privateMessageReport = "private_message_report"

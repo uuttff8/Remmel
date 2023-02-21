@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import RMModels
+import RMFoundation
 
 protocol FrontPageViewControllerDelegate: AnyObject {
     

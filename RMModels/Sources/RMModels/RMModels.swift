@@ -8,4 +8,4 @@
 
 import Foundation
 
-enum RMModels { }
+public enum RMModels { }

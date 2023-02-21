@@ -89,7 +89,7 @@ extension ProfileScreenSubscribedViewController: ProfileScreenAboutViewControlle
 extension ProfileScreenSubscribedViewController: ProfileScreenSubscribedViewDelegate {
     func tableDidSelect(
         _ manager: View,
-        communityFollower: RMModel.Views.CommunityFollowerView
+        communityFollower: RMModels.Views.CommunityFollowerView
     ) {
         self.coordinator?.goToCommunityScreen(
             communityId: communityFollower.community.id,

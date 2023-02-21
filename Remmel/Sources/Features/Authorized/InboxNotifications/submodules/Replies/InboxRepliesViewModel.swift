@@ -23,14 +23,14 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
     weak var viewController: InboxRepliesViewControllerProtocol?
     
     private weak var wsClient: WSClientProtocol?
-    private let userAccountService: UserAccountSerivceProtocol
+    private let userAccountService: UserAccountServiceProtocol
     
     private var paginationState = 1
     
     private var cancellables = Set<AnyCancellable>()
     
     init(
-        userAccountService: UserAccountSerivceProtocol,
+        userAccountService: UserAccountServiceProtocol,
         wsClient: WSClientProtocol
     ) {
         self.userAccountService = userAccountService
@@ -48,7 +48,7 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
             switch operation {
             case RMUserOperation.CreateCommentLike.rawValue:
                 guard let like = self.wsClient?.decodeWsType(
-                    RMModel.Api.Comment.CommentResponse.self,
+                    RMModels.Api.Comment.CommentResponse.self,
                     data: data
                 ) else { return }
                 
@@ -68,8 +68,8 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
             return
         }
         
-        let params = RMModel.Api.Person.GetReplies(
-            sort: .active,
+        let params = RMModels.Api.Person.GetReplies(
+            sort: .hot,
             page: paginationState,
             limit: 50,
             unreadOnly: false,
@@ -93,8 +93,8 @@ final class InboxRepliesViewModel: InboxRepliesViewModelProtocol {
             return
         }
         
-        let params = RMModel.Api.Person.GetReplies(
-            sort: .active,
+        let params = RMModels.Api.Person.GetReplies(
+            sort: .hot,
             page: paginationState,
             limit: 50,
             unreadOnly: false,
@@ -129,12 +129,12 @@ enum InboxReplies {
     
     enum CreateCommentLike {
         struct ViewModel {
-            let commentView: RMModel.Views.CommentView
+            let commentView: RMModels.Views.CommentView
         }
     }
     
     enum ViewControllerState {
-        case result([RMModel.Views.CommentView])
+        case result([RMModels.Views.CommentReplyView])
         case loading
     }
 }

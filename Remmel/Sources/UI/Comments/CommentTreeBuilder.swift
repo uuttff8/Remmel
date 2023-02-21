@@ -10,15 +10,15 @@ import Foundation
 import RMModels
 
 // MARK: - CommentTreeBuilder -
-class CommentTreeBuilder {
+class CommentTreeBuilder: ParentIdProvider {
     
     // MARK: - Properties
     
-    private let comments: [RMModel.Views.CommentView]
+    private let comments: [RMModels.Views.CommentView]
     
     // MARK: - Init
     
-    init(comments: [RMModel.Views.CommentView]) {
+    init(comments: [RMModels.Views.CommentView]) {
         self.comments = comments
     }
     
@@ -40,7 +40,7 @@ class CommentTreeBuilder {
     
     // MARK: - Private API
     
-    private func sortComments() -> [RMModel.Views.CommentView] {
+    private func sortComments() -> [RMModels.Views.CommentView] {
         let sortedArray = comments.sorted(by: { comm1, comm2 in
             let date1 = comm1.comment.published
             let date2 = comm2.comment.published
@@ -51,10 +51,10 @@ class CommentTreeBuilder {
         return sortedArray
     }
     
-    private func findNotReplyComments(in comments: [RMModel.Views.CommentView]) -> [RMModel.Views.CommentView] {
-        var notReply = [RMModel.Views.CommentView]()
+    private func findNotReplyComments(in comments: [RMModels.Views.CommentView]) -> [RMModels.Views.CommentView] {
+        var notReply = [RMModels.Views.CommentView]()
         
-        for comm in comments where comm.comment.parentId == nil {
+        for comm in comments where parentId(comm.comment) == nil {
             notReply.append(comm)
         }
         
@@ -62,11 +62,11 @@ class CommentTreeBuilder {
     }
     
     private func findCommentsExcludeNotReply(
-        in comments: [RMModel.Views.CommentView]
-    ) -> [RMModel.Views.CommentView] {
-        var repliesOnly = [RMModel.Views.CommentView]()
+        in comments: [RMModels.Views.CommentView]
+    ) -> [RMModels.Views.CommentView] {
+        var repliesOnly = [RMModels.Views.CommentView]()
         
-        for comm in comments where comm.comment.parentId != nil {
+        for comm in comments where parentId(comm.comment) != nil {
             repliesOnly.append(comm)
         }
         
@@ -77,7 +77,7 @@ class CommentTreeBuilder {
         var replies = [LemmyComment]()
                 
         for repliedComm in self.comments
-        where repliedComm.comment.parentId == parent.id {
+        where parentId(repliedComm.comment) == parent.id {
             
             let child = LemmyComment(level: 0, replyTo: nil)
             
@@ -93,5 +93,17 @@ class CommentTreeBuilder {
         parent.replies = replies
         
         return parent
+    }
+}
+
+protocol ParentIdProvider {
+    func parentId(_ comment: RMModels.Source.Comment) -> Int?
+}
+
+extension ParentIdProvider {
+    func parentId(_ comment: RMModels.Source.Comment) -> Int? {
+        var split = comment.path.split(separator: ".")
+        split.removeFirst()
+        return Int(split[split.count - 2]) ?? 0
     }
 }

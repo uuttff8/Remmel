@@ -21,8 +21,8 @@ final class ProfileScreenTableHeaderView: UIView {
         $0.alignment = .leading
     }
         
-//    let contentTypeView = LemmyImageTextTypePicker(cases: RMModel.Others.SortType.allCases,
-//                                                   firstPicked: RMModel.Others.SortType.active,
+//    let contentTypeView = LemmyImageTextTypePicker(cases: RMModels.Others.SortType.allCases,
+//                                                   firstPicked: RMModels.Others.SortType.active,
 //                                                   image: Config.Image.sortType)
     
     init() {

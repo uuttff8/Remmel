@@ -245,7 +245,7 @@ func minePostActions(
     let deleteAction = UIAlertAction(title: deleteOrRestore, style: .destructive) { _ in
         deleteAction()
 //            self.deletePost(postId: post.id, toDelete: true, completion: completion)
-        }
+    }
     
     return [editAction, deleteAction]
 }

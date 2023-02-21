@@ -78,7 +78,7 @@ final class CommunityPreviewCellView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with community: RMModel.Views.CommunityView) {
+    func configure(with community: RMModels.Views.CommunityView) {
         self.viewData = ViewData(id: community.id,
                                  imageUrl: community.community.icon,
                                  name: community.community.name,
@@ -86,13 +86,14 @@ final class CommunityPreviewCellView: UIView {
         
         self.communityImageView.loadImage(urlString: community.community.icon)
         
-        self.originalInstanceLabel.text = "@" + community.community.originalInstance
+        #warning("original instance")
+        self.originalInstanceLabel.text = "@" + "community.community"/*.originalInstance*/
         self.communityNameLabel.text = "!" + community.community.name
         self.subscribersLabel.text = String(community.counts.subscribers) + " " + "community-subscribers".localized
         self.commentsLabel.text = String(community.counts.comments) + " " + "community-users".localized
         self.postsLabel.text = String(community.counts.posts) + " " + "Posts".localized
         
-        self.followButton.bind(isSubcribed: community.subscribed)
+        self.followButton.bind(isSubcribed: community.subscribed == .subscribed)
         
         followButton.addTarget(self, action: #selector(followButtonTapped(sender:)), for: .touchUpInside)
     }

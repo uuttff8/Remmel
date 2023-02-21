@@ -46,7 +46,7 @@ final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
             switch operation {
             case RMUserOperation.CreateCommentLike.rawValue:
                 guard let like = self.wsClient?.decodeWsType(
-                    RMModel.Api.Comment.CommentResponse.self,
+                    RMModels.Api.Comment.CommentResponse.self,
                     data: data
                 ) else { return }
                 
@@ -66,7 +66,7 @@ final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
             return
         }
         
-        let params = RMModel.Api.Person.GetPersonMentions(sort: .active,
+        let params = RMModels.Api.Person.GetPersonMentions(sort: .hot,
                                                            page: paginationState,
                                                            limit: 50,
                                                            unreadOnly: false,
@@ -89,7 +89,7 @@ final class InboxMentionsViewModel: InboxMentionsViewModelProtocol {
             return
         }
         
-        let params = RMModel.Api.Person.GetPersonMentions(sort: .active,
+        let params = RMModels.Api.Person.GetPersonMentions(sort: .hot,
                                                            page: paginationState,
                                                            limit: 50,
                                                            unreadOnly: false,
@@ -123,12 +123,12 @@ enum InboxMentions {
     
     enum CreateCommentLike {
         struct ViewModel {
-            let commentView: RMModel.Views.CommentView
+            let commentView: RMModels.Views.CommentView
         }
     }
     
     enum ViewControllerState {
-        case result([RMModel.Views.PersonMentionView])
+        case result([RMModels.Views.PersonMentionView])
         case loading
     }
 }

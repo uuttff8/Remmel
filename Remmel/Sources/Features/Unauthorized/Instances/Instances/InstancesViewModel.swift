@@ -21,12 +21,12 @@ class InstancesViewModel: InstancesViewModelProtocol {
     
     weak var viewController: InstancesViewControllerProtocol?
     
-    private let userAccountService: UserAccountSerivceProtocol
+    private let userAccountService: UserAccountServiceProtocol
     private let provider: InstancesProviderProtocol
     
     private var cancellable = Set<AnyCancellable>()
     
-    init(provider: InstancesProviderProtocol, userAccountService: UserAccountSerivceProtocol) {
+    init(provider: InstancesProviderProtocol, userAccountService: UserAccountServiceProtocol) {
         self.provider = provider
         self.userAccountService = userAccountService
     }

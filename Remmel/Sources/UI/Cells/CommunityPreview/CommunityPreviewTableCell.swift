@@ -31,7 +31,7 @@ class CommunityPreviewTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind(community: RMModel.Views.CommunityView) {
+    func bind(community: RMModels.Views.CommunityView) {
         self.previewView.configure(with: community)
     }
 }

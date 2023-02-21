@@ -46,7 +46,7 @@ class FrontPageSearchViewController: UIViewController {
 }
 
 extension FrontPageSearchViewController: FrontPageSearchViewDelegate {
-    func searchView(_ searchView: FrontPageSearchView, searchWith query: String, type: RMModel.Others.SearchType) {
+    func searchView(_ searchView: FrontPageSearchView, searchWith query: String, type: RMModels.Others.SearchType) {
         coordinator?.goToSearchResults(searchQuery: query, searchType: type)
     }
 }

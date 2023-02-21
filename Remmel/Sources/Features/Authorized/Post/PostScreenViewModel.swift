@@ -24,12 +24,12 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     
     private var cancellable = Set<AnyCancellable>()
     
-    let postInfo: RMModel.Views.PostView?
+    let postInfo: RMModels.Views.PostView?
     let postId: Int
     
     init(
         postId: Int,
-        postInfo: RMModel.Views.PostView?,
+        postInfo: RMModels.Views.PostView?,
         wsClient: WSClientProtocol?
     ) {
         self.postInfo = postInfo
@@ -38,7 +38,8 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     }
     
     func doPostFetch() {
-        let parameters = RMModel.Api.Post.GetPost(id: self.postId,
+        let parameters = RMModels.Api.Post.GetPost(id: self.postId,
+                                                   commentId: nil,
                                                    auth: LemmyShareData.shared.jwtToken)
         
         self.wsClient?.send(RMUserOperation.GetPost, parameters: parameters)
@@ -55,7 +56,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
             switch operation {
             case RMUserOperation.CreateComment.rawValue:
                 guard let newComment = self.wsClient?.decodeWsType(
-                    RMModel.Api.Comment.CommentResponse.self,
+                    RMModels.Api.Comment.CommentResponse.self,
                     data: data
                 ) else { return }
                                 
@@ -68,7 +69,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
                 
             case RMUserOperation.CreateCommentLike.rawValue:
                 guard let newComment = self.wsClient?.decodeWsType(
-                    RMModel.Api.Comment.CommentResponse.self,
+                    RMModels.Api.Comment.CommentResponse.self,
                     data: data
                 ) else { return }
                 
@@ -85,7 +86,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
                  RMUserOperation.CreatePostLike.rawValue:
                 
                 guard let newPost = self.wsClient?.decodeWsType(
-                    RMModel.Api.Post.PostResponse.self,
+                    RMModels.Api.Post.PostResponse.self,
                     data: data
                 ) else { return }
                 
@@ -98,7 +99,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
                  RMUserOperation.RemoveComment.rawValue:
                 
                 guard let newComment = self.wsClient?.decodeWsType(
-                    RMModel.Api.Comment.CommentResponse.self,
+                    RMModels.Api.Comment.CommentResponse.self,
                     data: data
                 ) else { return }
                 
@@ -110,7 +111,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
                 
             case RMUserOperation.GetPost.rawValue:
                 guard let newPost = self.wsClient?.decodeWsType(
-                    RMModel.Api.Post.GetPostResponse.self,
+                    RMModels.Api.Post.GetPostResponse.self,
                     data: data
                 ) else { return }
                 
@@ -131,7 +132,7 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     }
     
     private func sendPostJoin() {
-        let commJoin = RMModel.Api.Websocket.PostJoin(postId: postId)
+        let commJoin = RMModels.Api.Websocket.PostJoin(postId: postId)
         wsClient?.send(
             RMUserOperation.PostJoin.rawValue,
             parameters: commJoin
@@ -139,10 +140,10 @@ class PostScreenViewModel: PostScreenViewModelProtocol {
     }
     
     private func makeViewData(
-        from data: RMModel.Api.Post.GetPostResponse
+        from data: RMModels.Api.Post.GetPostResponse
     ) -> PostScreenViewController.View.ViewData {
-        let comments = CommentTreeBuilder(comments: data.comments).createCommentsTree()
-        return .init(post: data.postView, comments: comments)
+//        let comments = CommentTreeBuilder(comments: data.comments).createCommentsTree()
+        return .init(post: data.postView, comments: [])
     }
 }
 
@@ -158,19 +159,19 @@ enum PostScreen {
     
     enum OnlyPostLoad {
         struct ViewModel {
-            let postView: RMModel.Views.PostView
+            let postView: RMModels.Views.PostView
         }
     }
     
     enum UpdateComment {
         struct ViewModel {
-            let commentView: RMModel.Views.CommentView
+            let commentView: RMModels.Views.CommentView
         }
     }
     
     enum CreateCommentLike {
         struct ViewModel {
-            let commentView: RMModel.Views.CommentView
+            let commentView: RMModels.Views.CommentView
         }
     }
     
@@ -178,7 +179,7 @@ enum PostScreen {
         struct Request { }
         
         struct ViewModel {
-            let post: RMModel.Views.PostView
+            let post: RMModels.Views.PostView
         }
     }
     
@@ -186,7 +187,7 @@ enum PostScreen {
         struct Request { }
         
         struct ViewModel {
-            let comment: RMModel.Views.CommentView
+            let comment: RMModels.Views.CommentView
         }
     }
     
@@ -199,7 +200,7 @@ enum PostScreen {
     
     enum CreateComment {
         struct ViewModel {
-            let comment: RMModel.Views.CommentView
+            let comment: RMModels.Views.CommentView
         }
     }
     

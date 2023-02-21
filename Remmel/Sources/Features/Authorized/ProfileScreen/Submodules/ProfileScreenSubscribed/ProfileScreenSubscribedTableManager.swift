@@ -11,14 +11,14 @@ import RMModels
 
 class ProfileScreenSubscribedTableManager: NSObject {
     
-    var viewModels: [RMModel.Views.CommunityFollowerView]
+    var viewModels: [RMModels.Views.CommunityFollowerView]
 
-    init(viewModels: [RMModel.Views.CommunityFollowerView] = []) {
+    init(viewModels: [RMModels.Views.CommunityFollowerView] = []) {
         self.viewModels = viewModels
         super.init()
     }
     
-    func update(viewModel: RMModel.Views.CommunityFollowerView) {
+    func update(viewModel: RMModels.Views.CommunityFollowerView) {
         if let index = self.viewModels.firstIndex(where: { $0.community.id == viewModel.community.id }) {
             self.viewModels[index] = viewModel
         }

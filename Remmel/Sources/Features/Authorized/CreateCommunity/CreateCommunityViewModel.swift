@@ -30,7 +30,7 @@ class CreateCommunityViewModel: CreateCommunityViewModelProtocol {
             return
         }
         
-        let params = RMModel.Api.Community.CreateCommunity(
+        let params = RMModels.Api.Community.CreateCommunity(
             name: request.name,
             title: request.displayName,
             description: request.sidebar,
@@ -38,6 +38,7 @@ class CreateCommunityViewModel: CreateCommunityViewModelProtocol {
             banner: request.banner,
             nsfw: request.nsfwOption,
             postingRestrictedToMods: nil,
+            discussionLanguages: nil,
             auth: jwtToken
         )
         ApiManager.requests.asyncCreateCommunity(parameters: params)

@@ -25,15 +25,15 @@ class EditPostViewModel: EditPostViewModelProtocol {
     
     private weak var wsClient: WSClientProtocol?
     
-    private let postSource: RMModel.Source.Post
+    private let postSource: RMModels.Source.Post
     
-    private let userAccountService: UserAccountSerivceProtocol
+    private let userAccountService: UserAccountServiceProtocol
     
     private var cancellable = Set<AnyCancellable>()
     
     init(
-        postSource: RMModel.Source.Post,
-        userAccountService: UserAccountSerivceProtocol,
+        postSource: RMModels.Source.Post,
+        userAccountService: UserAccountServiceProtocol,
         wsClient: WSClientProtocol
     ) {
         self.postSource = postSource
@@ -56,7 +56,9 @@ class EditPostViewModel: EditPostViewModelProtocol {
     }
     
     func doEditPostFormLoad(request: EditPost.FormLoad.Request) {
-        let headerText = FormatterHelper.newMessagePostHeaderText(name: postSource.name, body: postSource.body)
+//        let headerText = FormatterHelper.newMessagePostHeaderText(name: postSource.name, body: postSource.body)
+        #warning("Formatterhelper")
+        let headerText = ""
         
         self.viewController?.displayEditPostForm(
             viewModel: .init(headerText: headerText,
@@ -73,11 +75,12 @@ class EditPostViewModel: EditPostViewModelProtocol {
             return
         }
         
-        let params = RMModel.Api.Post.EditPost(postId: self.postSource.id,
+        let params = RMModels.Api.Post.EditPost(postId: self.postSource.id,
                                                 name: request.name,
                                                 url: request.url,
                                                 body: request.body,
                                                 nsfw: request.nsfw,
+                                                languageId: nil,
                                                 auth: jwtToken)
         
         ApiManager.requests.asyncEditPost(parameters: params)
@@ -142,7 +145,7 @@ enum EditPost {
         }
         
         struct ViewModel {
-            let postView: RMModel.Views.PostView
+            let postView: RMModels.Views.PostView
         }
     }
     

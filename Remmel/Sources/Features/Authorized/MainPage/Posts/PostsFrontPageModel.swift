@@ -28,9 +28,9 @@ class PostsFrontPageModel: NSObject {
     var isFetchingNewContent = false
     var currentPage = 1
     
-    var postsDataSource: [RMModel.Views.PostView] = []
+    var postsDataSource: [RMModels.Views.PostView] = []
     
-    var currentSortType: RMModel.Others.SortType {
+    var currentSortType: RMModels.Others.SortType {
         get { contentPreferenceService.contentSortType }
         set {
             self.currentPage = 1
@@ -38,7 +38,7 @@ class PostsFrontPageModel: NSObject {
         }
     }
     
-    var currentListingType: RMModel.Others.ListingType {
+    var currentListingType: RMModels.Others.ListingType {
         get { contentPreferenceService.listingType }
         set {
             self.currentPage = 1
@@ -53,7 +53,7 @@ class PostsFrontPageModel: NSObject {
             case RMUserOperation.CreatePostLike.rawValue:
                 
                 guard let postLike = self?.wsEvents?.decodeWsType(
-                    RMModel.Api.Post.PostResponse.self,
+                    RMModels.Api.Post.PostResponse.self,
                     data: data
                 ) else { return }
                 
@@ -69,7 +69,7 @@ class PostsFrontPageModel: NSObject {
                  RMUserOperation.SavePost.rawValue:
                 
                 guard let newPost = self?.wsEvents?.decodeWsType(
-                    RMModel.Api.Post.PostResponse.self,
+                    RMModels.Api.Post.PostResponse.self,
                     data: data
                 ) else { return }
                 
@@ -83,7 +83,7 @@ class PostsFrontPageModel: NSObject {
     }
     
     func loadPosts() {
-        let parameters = RMModel.Api.Post.GetPosts(type: self.currentListingType,
+        let parameters = RMModels.Api.Post.GetPosts(type: self.currentListingType,
                                                     sort: self.currentSortType,
                                                     page: 1,
                                                     limit: 50,
@@ -103,7 +103,7 @@ class PostsFrontPageModel: NSObject {
     }
     
     func loadMorePosts(completion: @escaping (() -> Void)) {
-        let parameters = RMModel.Api.Post.GetPosts(type: self.currentListingType,
+        let parameters = RMModels.Api.Post.GetPosts(type: self.currentListingType,
                                                     sort: self.currentSortType,
                                                     page: self.currentPage,
                                                     limit: 50,
@@ -124,7 +124,7 @@ class PostsFrontPageModel: NSObject {
             }.store(in: &cancellable)
     }
     
-    private func saveNewPost(_ post: RMModel.Views.PostView) {
+    private func saveNewPost(_ post: RMModels.Views.PostView) {
         postsDataSource.updateElementById(post)
     }
     
@@ -132,20 +132,21 @@ class PostsFrontPageModel: NSObject {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        post: RMModel.Views.PostView
+        post: RMModels.Views.PostView
     ) {
         scoreView.setVoted(voteButton: voteButton, to: newVote)
         self.contentScoreService.votePost(for: newVote, post: post)
     }
     
-    private func createPostLike(with updatedPost: RMModel.Views.PostView) {
+    private func createPostLike(with updatedPost: RMModels.Views.PostView) {
         if let index = self.postsDataSource.getElementIndex(by: updatedPost.id) {
-            self.postsDataSource[index].updateForCreatePostLike(with: updatedPost)
+            #warning("There is no updateForCreatePostLike")
+//            self.postsDataSource[index].updateForCreatePostLike(with: updatedPost)
             self.createPostLikeUpdate?(index)
         }
     }
     
-    private func updatePost(with updatedPost: RMModel.Views.PostView) {
+    private func updatePost(with updatedPost: RMModels.Views.PostView) {
         if let index = self.postsDataSource.getElementIndex(by: updatedPost.id) {
             self.postsDataSource[index] = updatedPost
         }

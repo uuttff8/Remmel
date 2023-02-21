@@ -32,7 +32,7 @@ final class MessageTableCell: UITableViewCell {
         self.cellView.configure(with: nil)
     }
 
-    func configure(viewModel: RMModel.Views.PrivateMessageView) {
+    func configure(viewModel: RMModels.Views.PrivateMessageView) {
         self.cellView.configure(
             with: .init(
                 id: viewModel.recipient.id,

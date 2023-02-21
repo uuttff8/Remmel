@@ -8,12 +8,12 @@
 
 import Foundation
 
-typealias LMMUserOperation = RMModels.Others.UserOperation
+public typealias RMUserOperation = RMModels.Others.UserOperation
 
-extension RMModels {
+public extension RMModels {
     enum Others {
         
-        enum UserOperation: String {
+        public enum UserOperation: String {
             case
                 Login,
                 Register,
@@ -81,7 +81,7 @@ extension RMModels {
         /**
          * Different post sort types used in lemmy.
          */
-        enum SortType: String, Codable, CaseIterable/*, LemmyTypePickable*/ {
+        public enum SortType: String, Codable, CaseIterable/*, LemmyTypePickable*/ {
             case active = "Active"
             case hot = "Hot"
             case new = "New"
@@ -108,7 +108,7 @@ extension RMModels {
 //                }
 //            }
             
-            var index: Int {
+            public var index: Int {
                 switch self {
                 case .active: return 0
                 case .hot: return 1
@@ -123,7 +123,7 @@ extension RMModels {
                 }
             }
             
-            init?(fromStr: String) {
+            public init?(fromStr: String) {
                 switch fromStr {
                 case "Active": self = .active
                 case "Hot": self = .hot
@@ -140,7 +140,7 @@ extension RMModels {
                 }
             }
             
-            init(from decoder: Decoder) throws {
+            public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
                 let rawValueInt = try? container.decode(Int.self)
                 let rawValueString = try? container.decode(String.self)
@@ -175,7 +175,7 @@ extension RMModels {
                 case unknownValue
             }
             
-            func encode(to encoder: Encoder) throws {
+            public func encode(to encoder: Encoder) throws {
                 var container = encoder.singleValueContainer()
                 switch self {
                 case .active: try container.encode("Active")
@@ -192,7 +192,7 @@ extension RMModels {
             }
         }
         
-        enum ListingType: String, Codable/*, LemmyTypePickable*/ {
+        public enum ListingType: String, Codable/*, LemmyTypePickable*/ {
             case all = "All"
             case local = "Local"
             case subscribed = "Subscribed"
@@ -207,7 +207,7 @@ extension RMModels {
 //                }
 //            }
             
-            var index: Int {
+            public var index: Int {
                 switch self {
                 case .all: return 0
                 case .local: return 1
@@ -227,7 +227,7 @@ extension RMModels {
                 }
             }
             
-            init(from decoder: Decoder) throws {
+            public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
                 let rawValueInt = try? container.decode(Int.self)
                 let rawValueString = try? container.decode(String.self)
@@ -246,7 +246,7 @@ extension RMModels {
                 }
             }
             
-            func encode(to encoder: Encoder) throws {
+            public func encode(to encoder: Encoder) throws {
                 var container = encoder.singleValueContainer()
                 switch self {
                 case .all: try container.encode("All")
@@ -264,7 +264,7 @@ extension RMModels {
         /**
          * Different comment sort types used in lemmy.
          */
-        enum CommentSortType: String, Codable {
+        public enum CommentSortType: String, Codable {
             /**
              * Comments sorted by a decaying rank.
              */
@@ -283,8 +283,7 @@ extension RMModels {
             case old = "Old"
         }
         
-        
-        enum SearchType: String, CaseIterable, Codable {
+        public enum SearchType: String, CaseIterable, Codable {
             case all = "All"
             case comments = "Comments"
             case posts = "Posts"
@@ -314,35 +313,35 @@ extension RMModels {
         * }
         * ```
         */
-        struct WebSocketResponse<ResponseType: Codable> {
-            let op: String
+        public struct WebSocketResponse<ResponseType: Codable> {
+            public let op: String
             /**
             * This contains the data for a websocket response.
             *
             * The correct response type if given is in [[LemmyHttp]].
             */
-            let data: ResponseType
+            public let data: ResponseType
         }
         
         /**
         * A websocket JSON response that includes the errors.
         */
-        struct WebSocketJsonResponse<ResponseType: Codable> {
-            let op: String?
+        public struct WebSocketJsonResponse<ResponseType: Codable> {
+            public let op: String?
             /**
             * This contains the data for a websocket response.
             *
             * The correct response type if given is in [[LemmyHttp]].
             */
-            let data: ResponseType?
-            let error: String?
-            let reconnect: Bool?
+            public let data: ResponseType?
+            public let error: String?
+            public let reconnect: Bool?
         }
         
         /**
          * Different Subscribed states
          */
-        enum SubscribedType: String, Codable {
+        public enum SubscribedType: String, Codable {
             case subscribed = "Subscribed"
             case notSubscribed = "NotSubscribed"
             case Pending = "Pending"
@@ -351,7 +350,7 @@ extension RMModels {
         /**
          * Different Subscribed states
          */
-        enum PostFeatureType: String, Codable {
+        public enum PostFeatureType: String, Codable {
             case local = "Local"
             case community = "Community"
         }
@@ -359,11 +358,11 @@ extension RMModels {
         /**
         * A holder for a site's metadata ( such as opengraph tags ), used for post links.
         */
-        struct SiteMetadata: Codable {
-            let title: String?
-            let description: String?
-            let image: String?
-            let html: String?
+        public struct SiteMetadata: Codable {
+            public let title: String?
+            public let description: String?
+            public let image: String?
+            public let html: String?
        }
     }
 }

@@ -14,8 +14,8 @@ final class WriteMessageAssembly: Assembly {
     
     enum Action {
         case replyToPrivateMessage(recipientId: Int)
-        case writeComment(parentComment: RMModel.Source.Comment?, postSource: RMModel.Source.Post)
-        case edit(comment: RMModel.Source.Comment)
+        case writeComment(parentComment: RMModels.Source.Comment?, postSource: RMModels.Source.Post)
+        case edit(comment: RMModels.Source.Comment)
     }
     
     private let action: Action

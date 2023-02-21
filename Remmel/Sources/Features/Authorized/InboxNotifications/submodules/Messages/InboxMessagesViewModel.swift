@@ -41,7 +41,7 @@ final class InboxMessagesViewModel: InboxMessagesViewModelProtocol {
             return
         }
         
-        let params = RMModel.Api.Person.GetPrivateMessages(
+        let params = RMModels.Api.Person.GetPrivateMessages(
             unreadOnly: false,
             page: paginationState,
             limit: 50,
@@ -67,7 +67,7 @@ final class InboxMessagesViewModel: InboxMessagesViewModelProtocol {
             return
         }
         
-        let params = RMModel.Api.Person.GetPrivateMessages(
+        let params = RMModels.Api.Person.GetPrivateMessages(
             unreadOnly: false,
             page: paginationState,
             limit: 50,
@@ -103,7 +103,7 @@ enum InboxMessages {
     }
     
     enum ViewControllerState {
-        case result([RMModel.Views.PrivateMessageView])
+        case result([RMModels.Views.PrivateMessageView])
         case loading
     }
 }

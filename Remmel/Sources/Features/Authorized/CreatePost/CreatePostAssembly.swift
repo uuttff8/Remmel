@@ -11,9 +11,9 @@ import RMModels
 
 final class CreatePostAssembly: Assembly {
     
-    private let predefinedCommunity: RMModel.Views.CommunityView?
+    private let predefinedCommunity: RMModels.Views.CommunityView?
     
-    init(predefinedCommunity: RMModel.Views.CommunityView? = nil) {
+    init(predefinedCommunity: RMModels.Views.CommunityView? = nil) {
         self.predefinedCommunity = predefinedCommunity
     }
     

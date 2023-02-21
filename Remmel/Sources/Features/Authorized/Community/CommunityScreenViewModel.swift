@@ -29,15 +29,15 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
     
     private var paginationState = 1
     
-    private let communityId: RMModel.Views.CommunityView.ID?
+    private let communityId: RMModels.Views.CommunityView.ID?
     private let communityName: String?
     
-    var loadedCommunity: RMModel.Views.CommunityView?
+    var loadedCommunity: RMModels.Views.CommunityView?
     
     private var cancellable = Set<AnyCancellable>()
     
     init(
-        communityId: RMModel.Views.CommunityView.ID?,
+        communityId: RMModels.Views.CommunityView.ID?,
         communityName: String?,
         wsClient: WSClientProtocol?
     ) {
@@ -57,7 +57,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
                  RMUserOperation.SavePost.rawValue:
                 
                 guard let newPost = self?.wsClient?.decodeWsType(
-                    RMModel.Api.Post.PostResponse.self,
+                    RMModels.Api.Post.PostResponse.self,
                     data: data
                 ) else { return }
                 
@@ -66,7 +66,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
                 }
             case RMUserOperation.CreatePostLike.rawValue:
                 guard let newPost = self?.wsClient?.decodeWsType(
-                    RMModel.Api.Post.PostResponse.self,
+                    RMModels.Api.Post.PostResponse.self,
                     data: data
                 ) else { return }
                 
@@ -76,7 +76,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
                 
             case RMUserOperation.GetCommunity.rawValue:
                 guard let newComm = self?.wsClient?.decodeWsType(
-                    RMModel.Api.Community.CommunityResponse.self,
+                    RMModels.Api.Community.CommunityResponse.self,
                     data: data
                 ) else { return }
                 
@@ -98,7 +98,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
     }
     
     func doCommunityFetch() {
-        let parameters = RMModel.Api.Community.GetCommunity(id: self.communityId,
+        let parameters = RMModels.Api.Community.GetCommunity(id: self.communityId,
                                                              name: self.communityName,
                                                              auth: LoginData.shared.jwtToken)
         
@@ -108,7 +108,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
     func doPostsFetch(request: CommunityScreen.CommunityPostsLoad.Request) {
         self.paginationState = 1
         
-        let parameters = RMModel.Api.Post.GetPosts(type: .community,
+        let parameters = RMModels.Api.Post.GetPosts(type: .community,
                                                     sort: request.contentType,
                                                     page: self.paginationState,
                                                     limit: 50,
@@ -133,7 +133,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
     func doNextPostsFetch(request: CommunityScreen.NextCommunityPostsLoad.Request) {
         self.paginationState += 1
         
-        let parameters = RMModel.Api.Post.GetPosts(type: .community,
+        let parameters = RMModels.Api.Post.GetPosts(type: .community,
                                                     sort: request.contentType,
                                                     page: self.paginationState,
                                                     limit: 50,
@@ -169,7 +169,7 @@ final class CommunityScreenViewModel: CommunityScreenViewModelProtocol {
 enum CommunityScreen {
     enum CommunityPostsLoad {
         struct Request {
-            let contentType: RMModel.Others.SortType
+            let contentType: RMModels.Others.SortType
         }
         
         struct ViewModel {
@@ -179,7 +179,7 @@ enum CommunityScreen {
     
     enum NextCommunityPostsLoad {
         struct Request {
-            let contentType: RMModel.Others.SortType
+            let contentType: RMModels.Others.SortType
         }
         
         struct ViewModel {
@@ -196,19 +196,19 @@ enum CommunityScreen {
     enum CommunityShowMore {
         struct Request { }
         struct ViewModel {
-            let community: RMModel.Views.CommunityView
+            let community: RMModels.Views.CommunityView
         }
     }
     
     enum UpdatePost {
         struct ViewModel {
-            let postView: RMModel.Views.PostView
+            let postView: RMModels.Views.PostView
         }
     }
     
     enum CreateCommentLike {
         struct ViewModel {
-            let postView: RMModel.Views.PostView
+            let postView: RMModels.Views.PostView
         }
     }
     
@@ -216,11 +216,11 @@ enum CommunityScreen {
     
     enum ViewControllerState {
         case loading
-        case result(data: [RMModel.Views.PostView])
+        case result(data: [RMModels.Views.PostView])
     }
     
     enum PaginationState {
-        case result(data: [RMModel.Views.PostView])
+        case result(data: [RMModels.Views.PostView])
         case error(message: String)
     }
 }

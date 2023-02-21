@@ -31,6 +31,9 @@
 		4E0A8E7C255D590800B06AF6 /* ProfileScreenSubscribedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E7B255D590800B06AF6 /* ProfileScreenSubscribedViewController.swift */; };
 		4E0A8E8B255DD01500B06AF6 /* FrontPageSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E8A255DD01500B06AF6 /* FrontPageSearchView.swift */; };
 		4E0A8E93255DDE4500B06AF6 /* PostScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A8E92255DDE4500B06AF6 /* PostScreenAssembly.swift */; };
+		4E0F767329A3D0EE009C0D0C /* RMModels in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0F767229A3D0EE009C0D0C /* RMModels */; };
+		4E0F767529A3D0F1009C0D0C /* RMNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0F767429A3D0F1009C0D0C /* RMNetworking */; };
+		4E0F767729A3D0F5009C0D0C /* RMServices in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0F767629A3D0F5009C0D0C /* RMServices */; };
 		4E106F6525274325009EABDA /* PostScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106F6425274325009EABDA /* PostScreenViewModel.swift */; };
 		4E107053253476EE009EABDA /* PostsFrontPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E107052253476EE009EABDA /* PostsFrontPageViewController.swift */; };
 		4E10705B253476FC009EABDA /* PostsFrontPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10705A253476FC009EABDA /* PostsFrontPageModel.swift */; };
@@ -49,6 +52,7 @@
 		4E1A7E6125573CC900E193B7 /* LoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A7E6025573CC900E193B7 /* LoadingTableViewCell.swift */; };
 		4E1A7E6625573EA400E193B7 /* ProfileScreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A7E6525573EA400E193B7 /* ProfileScreenUI.swift */; };
 		4E1A7E6B25573F1800E193B7 /* ProfileScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A7E6A25573F1800E193B7 /* ProfileScreenViewModel.swift */; };
+		4E2240FD29A3D07700FF4D7B /* RMFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2240FC29A3D07700FF4D7B /* RMFoundation */; };
 		4E24395D259DE2200006C742 /* IncreasedTapAreaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24395C259DE2200006C742 /* IncreasedTapAreaButton.swift */; };
 		4E26FEA02573E36C009DE4A7 /* PostScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E26FE9F2573E36C009DE4A7 /* PostScreenCoordinator.swift */; };
 		4E2A0FD0259BC1CB00BF0841 /* UIWindow+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A0FCF259BC1CB00BF0841 /* UIWindow+Ext.swift */; };
@@ -166,7 +170,6 @@
 		4E98C01625BCA76B009DA520 /* CommentContentImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E98C01525BCA76B009DA520 /* CommentContentImpl.swift */; };
 		4E9BBA5425555571004FF2F9 /* LemmySortListingPickersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA5325555571004FF2F9 /* LemmySortListingPickersView.swift */; };
 		4E9BBA592555560C004FF2F9 /* LemmyImageTextPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BBA582555560C004FF2F9 /* LemmyImageTextPickerView.swift */; };
-		4E9D2B0D29A3544400FC66A5 /* RMModels in Frameworks */ = {isa = PBXBuildFile; productRef = 4E9D2B0C29A3544400FC66A5 /* RMModels */; };
 		4EAB0F322970772500B59AFE /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 4EAB0F312970772500B59AFE /* Nuke */; };
 		4EAB0F372971623800B59AFE /* Lightbox in Frameworks */ = {isa = PBXBuildFile; productRef = 4EAB0F362971623800B59AFE /* Lightbox */; };
 		4EAB0F3A297162B800B59AFE /* Pageboy in Frameworks */ = {isa = PBXBuildFile; productRef = 4EAB0F39297162B800B59AFE /* Pageboy */; };
@@ -377,8 +380,11 @@
 		4E1A7E6025573CC900E193B7 /* LoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTableViewCell.swift; sourceTree = "<group>"; };
 		4E1A7E6525573EA400E193B7 /* ProfileScreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenUI.swift; sourceTree = "<group>"; };
 		4E1A7E6A25573F1800E193B7 /* ProfileScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewModel.swift; sourceTree = "<group>"; };
+		4E2240FE29A3D0D600FF4D7B /* RMModels */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RMModels; sourceTree = "<group>"; };
 		4E24395C259DE2200006C742 /* IncreasedTapAreaButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncreasedTapAreaButton.swift; sourceTree = "<group>"; };
-		4E26D8BA29A357CF003BD412 /* RMModels */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RMModels; sourceTree = "<group>"; };
+		4E26D8BF29A3730B003BD412 /* RMFoundation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RMFoundation; sourceTree = "<group>"; };
+		4E26D8C229A39D63003BD412 /* RMServices */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RMServices; sourceTree = "<group>"; };
+		4E26D8C329A39D65003BD412 /* RMNetworking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RMNetworking; sourceTree = "<group>"; };
 		4E26FE9F2573E36C009DE4A7 /* PostScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreenCoordinator.swift; sourceTree = "<group>"; };
 		4E2A0FCF259BC1CB00BF0841 /* UIWindow+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Ext.swift"; sourceTree = "<group>"; };
 		4E2A5CAD25F3C0DD00537E38 /* OnboardingHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingHostingController.swift; sourceTree = "<group>"; };
@@ -655,15 +661,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E2240FD29A3D07700FF4D7B /* RMFoundation in Frameworks */,
 				4EAB0F322970772500B59AFE /* Nuke in Frameworks */,
 				4E004F4025DEBC7C006B81CF /* markymark in Frameworks */,
+				4E0F767529A3D0F1009C0D0C /* RMNetworking in Frameworks */,
+				4E0F767329A3D0EE009C0D0C /* RMModels in Frameworks */,
 				4E004F6125DFA81B006B81CF /* SwiftMessages in Frameworks */,
 				4EAB0F372971623800B59AFE /* Lightbox in Frameworks */,
 				4E1070842534F742009EABDA /* KeychainSwift in Frameworks */,
 				4ECCEEFB250C13240075F921 /* SnapKit in Frameworks */,
-				4E9D2B0D29A3544400FC66A5 /* RMModels in Frameworks */,
 				4EAB0F3A297162B800B59AFE /* Pageboy in Frameworks */,
 				4EBF1D5E25923723004068CD /* XCGLogger in Frameworks */,
+				4E0F767729A3D0F5009C0D0C /* RMServices in Frameworks */,
 				4E98BFC125BB2438009DA520 /* IQKeyboardManagerSwift in Frameworks */,
 				4E9184FC256E9E4E00702F04 /* SwipeCellKit in Frameworks */,
 			);
@@ -1309,7 +1318,10 @@
 			children = (
 				4ECCEEA8250B8B6B0075F921 /* Remmel */,
 				4E91832F2566C12E00702F04 /* Libraries */,
-				4E26D8BA29A357CF003BD412 /* RMModels */,
+				4E2240FE29A3D0D600FF4D7B /* RMModels */,
+				4E26D8BF29A3730B003BD412 /* RMFoundation */,
+				4E26D8C229A39D63003BD412 /* RMServices */,
+				4E26D8C329A39D65003BD412 /* RMNetworking */,
 				4ECCEEC2250B8B6F0075F921 /* Remmel-iOSTests */,
 				4ECCEECD250B8B6F0075F921 /* Remmel-iOSUITests */,
 				4ECCEEA7250B8B6B0075F921 /* Products */,
@@ -1868,7 +1880,10 @@
 				4EAB0F312970772500B59AFE /* Nuke */,
 				4EAB0F362971623800B59AFE /* Lightbox */,
 				4EAB0F39297162B800B59AFE /* Pageboy */,
-				4E9D2B0C29A3544400FC66A5 /* RMModels */,
+				4E2240FC29A3D07700FF4D7B /* RMFoundation */,
+				4E0F767229A3D0EE009C0D0C /* RMModels */,
+				4E0F767429A3D0F1009C0D0C /* RMNetworking */,
+				4E0F767629A3D0F5009C0D0C /* RMServices */,
 			);
 			productName = "Lemmy-iOS";
 			productReference = 4ECCEEA6250B8B6B0075F921 /* Remmel.app */;
@@ -2500,7 +2515,7 @@
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = Remmel/Resources/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2529,7 +2544,7 @@
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = Remmel/Resources/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2693,7 +2708,7 @@
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 19.0.0;
+				minimumVersion = 20.0.0;
 			};
 		};
 		4E9184FA256E9E4E00702F04 /* XCRemoteSwiftPackageReference "SwipeCellKit" */ = {
@@ -2765,10 +2780,26 @@
 			package = 4E004F5F25DFA81B006B81CF /* XCRemoteSwiftPackageReference "SwiftMessages" */;
 			productName = SwiftMessages;
 		};
+		4E0F767229A3D0EE009C0D0C /* RMModels */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RMModels;
+		};
+		4E0F767429A3D0F1009C0D0C /* RMNetworking */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RMNetworking;
+		};
+		4E0F767629A3D0F5009C0D0C /* RMServices */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RMServices;
+		};
 		4E1070832534F742009EABDA /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4E1070822534F742009EABDA /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
+		};
+		4E2240FC29A3D07700FF4D7B /* RMFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RMFoundation;
 		};
 		4E9184FB256E9E4E00702F04 /* SwipeCellKit */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -2779,10 +2810,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E98BFBF25BB2438009DA520 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
 			productName = IQKeyboardManagerSwift;
-		};
-		4E9D2B0C29A3544400FC66A5 /* RMModels */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = RMModels;
 		};
 		4EAB0F312970772500B59AFE /* Nuke */ = {
 			isa = XCSwiftPackageProductDependency;

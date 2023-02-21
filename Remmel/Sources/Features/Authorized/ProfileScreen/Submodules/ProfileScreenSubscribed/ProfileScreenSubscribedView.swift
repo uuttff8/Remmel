@@ -12,7 +12,7 @@ import RMModels
 protocol ProfileScreenSubscribedViewDelegate: AnyObject {
     func tableDidSelect(
         _ view: ProfileScreenSubscribedViewController.View,
-        communityFollower: RMModel.Views.CommunityFollowerView
+        communityFollower: RMModels.Views.CommunityFollowerView
     )
 }
 
@@ -20,7 +20,7 @@ extension ProfileScreenSubscribedViewController {
     
     class View: UIView {
         struct ViewData {
-            let subscribers: [RMModel.Views.CommunityFollowerView]
+            let subscribers: [RMModels.Views.CommunityFollowerView]
         }
         
         weak var delegate: ProfileScreenSubscribedViewDelegate?

@@ -8,6 +8,7 @@
 
 import UIKit
 import RMModels
+import RMFoundation
 
 extension VoteButton {
     struct Appearance {

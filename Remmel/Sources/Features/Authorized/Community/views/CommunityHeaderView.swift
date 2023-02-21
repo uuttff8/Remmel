@@ -11,7 +11,7 @@ import Nuke
 import RMModels
 
 protocol CommunityHeaderViewDelegate: AnyObject {
-    func headerViewDidTapped(followButton: FollowButton, in community: RMModel.Views.CommunityView)
+    func headerViewDidTapped(followButton: FollowButton, in community: RMModels.Views.CommunityView)
 }
 
 extension CommunityHeaderView {
@@ -26,7 +26,7 @@ class CommunityHeaderView: UIView {
     
     let appearance = Appearance()
     
-    var communityData: RMModel.Views.CommunityView?
+    var communityData: RMModels.Views.CommunityView?
     
     let descriptionReadMoreButton = ResizableButton().then {
         $0.setTitle("readmore-text".localized, for: .normal)
@@ -114,14 +114,14 @@ class CommunityHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind(with data: RMModel.Views.CommunityView) {
+    func bind(with data: RMModels.Views.CommunityView) {
         self.communityData = data
         commImageView.loadImage(urlString: data.community.icon, imageSize: appearance.iconSize)
         
         commNameLabel.text = data.community.name
         subscribersLabel.text = String(data.counts.subscribers) + " " + "community-subscribers".localized
         postsCountLabel.text = String(data.counts.posts) + " " + "content-posts".localized
-        self.followButton.bind(isSubcribed: data.subscribed)
+        self.followButton.bind(isSubcribed: data.subscribed == .subscribed)
         
         if let communityDesciption = data.community.description {
             communityDescriptionLabel.text = communityDesciption.removeNewLines()

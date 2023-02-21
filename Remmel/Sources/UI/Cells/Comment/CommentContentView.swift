@@ -8,6 +8,7 @@
 
 import UIKit
 import RMModels
+import RMFoundation
 
 // MARK: - CommentContentView: UIView
 class CommentContentView: UIView {
@@ -43,7 +44,7 @@ class CommentContentView: UIView {
     }
 
     // MARK: - Public API
-    func bind(with comment: RMModel.Views.CommentView, setting: Setting) {
+    func bind(with comment: RMModels.Views.CommentView, setting: Setting) {
         self.currentSetting = setting
         
         setupTargets(with: comment)
@@ -71,7 +72,7 @@ class CommentContentView: UIView {
         )
     }
     
-    func updateForCreateCommentLike(comment: RMModel.Views.CommentView) {
+    func updateForCreateCommentLike(comment: RMModels.Views.CommentView) {
         guard let setting = currentSetting else {
             debugPrint("Could not determine comment cell setting, so not updating comment like")
             return
@@ -99,7 +100,7 @@ class CommentContentView: UIView {
     }
 
     // MARK: - Private
-    private func setupTargets(with comment: RMModel.Views.CommentView) {
+    private func setupTargets(with comment: RMModels.Views.CommentView) {
         
         // header view
         headerView.communityButtonTap = { [weak self] in

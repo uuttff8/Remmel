@@ -13,17 +13,17 @@ protocol ProfileScreenSubmoduleProtocol: AnyObject {
     func handleControllerAppearance()
     func updatePostsData(
         profile: ProfileScreenViewModel.ProfileData,
-        posts: [RMModel.Views.PostView]
+        posts: [RMModels.Views.PostView]
     )
     
     func updateCommentsData(
         profile: ProfileScreenViewModel.ProfileData,
-        comments: [RMModel.Views.CommentView]
+        comments: [RMModels.Views.CommentView]
     )
     
     func updateFollowersData(
         profile: ProfileScreenViewModel.ProfileData,
-        subscribers: [RMModel.Views.CommunityFollowerView]
+        subscribers: [RMModels.Views.CommunityFollowerView]
     )
 
     func registerSubmodule()
@@ -32,16 +32,16 @@ protocol ProfileScreenSubmoduleProtocol: AnyObject {
 extension ProfileScreenSubmoduleProtocol {
     func updatePostsData(
         profile: ProfileScreenViewModel.ProfileData,
-        posts: [RMModel.Views.PostView]
+        posts: [RMModels.Views.PostView]
     ) {}
     
     func updateCommentsData(
         profile: ProfileScreenViewModel.ProfileData,
-        comments: [RMModel.Views.CommentView]
+        comments: [RMModels.Views.CommentView]
     ) {}
     
     func updateFollowersData(
         profile: ProfileScreenViewModel.ProfileData,
-        subscribers: [RMModel.Views.CommunityFollowerView]
+        subscribers: [RMModels.Views.CommunityFollowerView]
     ) {}
 }

@@ -44,7 +44,7 @@ class CreatePostCommunityCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind(with data: RMModel.Views.CommunityView) {
+    func bind(with data: RMModels.Views.CommunityView) {
         if let url = data.community.icon {
             Nuke.loadImage(with: ImageRequest(url: url), into: communityImageView)
         } else {

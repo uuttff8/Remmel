@@ -30,7 +30,7 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
     func doPostFetch(request: ProfileScreenPosts.NextProfilePostsLoad.Request) {
         self.paginationState.page = 1
         
-        let params = RMModel.Api.Person.GetPersonDetails(personId: loadedProfile?.id,
+        let params = RMModels.Api.Person.GetPersonDetails(personId: loadedProfile?.id,
                                                           username: loadedProfile?.viewData.name,
                                                           sort: request.sortType,
                                                           page: paginationState.page,
@@ -55,7 +55,7 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
     func doNextPostsFetch(request: ProfileScreenPosts.NextProfilePostsLoad.Request) {
         self.paginationState.page += 1
         
-        let params = RMModel.Api.Person.GetPersonDetails(personId: loadedProfile?.id,
+        let params = RMModels.Api.Person.GetPersonDetails(personId: loadedProfile?.id,
                                                           username: loadedProfile?.viewData.name,
                                                           sort: request.sortType,
                                                           page: paginationState.page,
@@ -83,7 +83,7 @@ class ProfileScreenPostsViewModel: ProfileScreenPostsViewModelProtocol {
 extension ProfileScreenPostsViewModel: ProfileScreenPostsInputProtocol {
     func updatePostsData(
         profile: ProfileScreenViewModel.ProfileData,
-        posts: [RMModel.Views.PostView]
+        posts: [RMModels.Views.PostView]
     ) {
         self.loadedProfile = profile
         self.viewController?.displayProfilePosts(
@@ -99,7 +99,7 @@ extension ProfileScreenPostsViewModel: ProfileScreenPostsInputProtocol {
 enum ProfileScreenPosts {
     enum PostsLoad {
         struct Request {
-            let sortType: RMModel.Others.SortType
+            let sortType: RMModels.Others.SortType
         }
         
         struct ViewModel {
@@ -109,7 +109,7 @@ enum ProfileScreenPosts {
     
     enum NextProfilePostsLoad {
         struct Request {
-            let sortType: RMModel.Others.SortType
+            let sortType: RMModels.Others.SortType
         }
         
         struct ViewModel {
@@ -124,7 +124,7 @@ enum ProfileScreenPosts {
     }
     
     enum PaginationState {
-        case result(data: [RMModel.Views.PostView])
+        case result(data: [RMModels.Views.PostView])
         case error(message: String)
     }
 }

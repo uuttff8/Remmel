@@ -41,7 +41,6 @@ extension UIColor {
     }
 }
 
-
 extension UIColor {
     convenience init(rgb: UInt, alphaVal: CGFloat) {
         self.init(

@@ -26,13 +26,13 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
     
     var action: WriteMessageAssembly.Action
 
-    private let userAccountService: UserAccountSerivceProtocol
+    private let userAccountService: UserAccountServiceProtocol
     
     private var cancellable = Set<AnyCancellable>()
     
     init(
         action: WriteMessageAssembly.Action,
-        userAccountService: UserAccountSerivceProtocol
+        userAccountService: UserAccountServiceProtocol
     ) {
         self.action = action
         self.userAccountService = userAccountService
@@ -48,7 +48,9 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
             if let parrentCommentText = parentComment?.content {
                 headerText = parrentCommentText
             } else {
-                headerText = FormatterHelper.newMessagePostHeaderText(name: postSource.name, body: postSource.body)
+//                headerText = FormatterHelper.newMessagePostHeaderText(name: postSource.name, body: postSource.body)
+                headerText = ""
+                #warning("FormatterHelper")
             }
         case let .edit(comment: comment):
             headerText = comment.content
@@ -77,7 +79,7 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
     }
     
     private func sendReplyToAPrivateMessageRequest(auth: String, text: String, recipientId: Int) {
-        let params = RMModel.Api.Person.CreatePrivateMessage(
+        let params = RMModels.Api.Person.CreatePrivateMessage(
             content: text,
             recipientId: recipientId,
             auth: auth
@@ -101,9 +103,11 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
     }
     
     private func sendEditCommentRequest(auth: String, text: String, commentId: Int) {
-        let params = RMModel.Api.Comment.EditComment(
+        let params = RMModels.Api.Comment.EditComment(
             content: text,
             commentId: commentId,
+            distinguished: nil,
+            languageId: nil,
             formId: nil,
             auth: auth
         )
@@ -126,8 +130,9 @@ class WriteMessageViewModel: WriteMessageViewModelProtocol {
     }
     
     private func sendWriteCommentRequest(auth: String, parentId: Int?, postId: Int, text: String) {
-        let params = RMModel.Api.Comment.CreateComment(content: text,
+        let params = RMModels.Api.Comment.CreateComment(content: text,
                                                         parentId: parentId,
+                                                        languageId: nil,
                                                         postId: postId,
                                                         formId: nil,
                                                         auth: auth)

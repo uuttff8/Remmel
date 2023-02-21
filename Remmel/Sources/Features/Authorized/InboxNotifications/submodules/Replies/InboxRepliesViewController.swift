@@ -9,6 +9,7 @@
 import UIKit
 import RMModels
 import RMServices
+import RMFoundation
 
 protocol InboxRepliesViewControllerProtocol: AnyObject {
     func displayReplies(viewModel: InboxReplies.LoadReplies.ViewModel)
@@ -111,7 +112,8 @@ extension InboxRepliesViewController: InboxRepliesViewControllerProtocol {
     }
     
     func displayCreateCommentLike(viewModel: InboxReplies.CreateCommentLike.ViewModel) {
-        self.tableManager.viewModels.updateElementById(viewModel.commentView)
+        #warning("No comment view")
+//        self.tableManager.viewModels.updateElementById(viewModel.commentView.)
     }
 }
 
@@ -135,7 +137,7 @@ extension InboxRepliesViewController: ReplyCellViewDelegate {
         self.coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
-    func postNameTapped(in reply: RMModel.Views.CommentView) {
+    func postNameTapped(in reply: RMModels.Views.CommentView) {
         self.coordinator?.goToPostScreen(postId: reply.post.id)
     }
     
@@ -143,33 +145,32 @@ extension InboxRepliesViewController: ReplyCellViewDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        reply: RMModel.Views.CommentView
+        reply: RMModels.Views.CommentView
     ) {
         scoreView.setVoted(voteButton: voteButton, to: newVote)
         self.contentScoreService.voteReply(for: newVote, reply: reply)
     }
     
-    func showContext(in reply: RMModel.Views.CommentView) {
+    func showContext(in reply: RMModels.Views.CommentView) {
         self.coordinator?.goToPostAndScroll(to: reply)
     }
     
-    func reply(to reply: RMModel.Views.CommentView) {
+    func reply(to reply: RMModels.Views.CommentView) {
         self.coordinator?.goToWriteComment(postSource: reply.post, parrentComment: reply.comment) {
             RMMessagesToast.showSuccessCreateComment()
         }
     }
     
-    func onLinkTap(in reply: RMModel.Views.CommentView, url: URL) {
+    func onLinkTap(in reply: RMModels.Views.CommentView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }
         
-    func showMoreAction(in reply: RMModel.Views.CommentView) {
+    func showMoreAction(in reply: RMModels.Views.CommentView) {
         
         if let reply = self.tableManager.viewModels.getElement(by: reply.id) {
             guard let coordinator = coordinator else {
                 return
             }
-            
             
 //            self.showMoreService.showMoreInReply(on: self, coordinator: coordinator, reply: reply) { updatedReply in
 //                self.tableManager.viewModels.updateElementById(updatedReply)

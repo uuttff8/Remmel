@@ -24,11 +24,11 @@ final class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
     
     weak var viewController: ProfileSettingsViewControllerProtocol?
     
-    private var userAccountService: UserAccountSerivceProtocol
+    private var userAccountService: UserAccountServiceProtocol
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(userAccountService: UserAccountSerivceProtocol) {
+    init(userAccountService: UserAccountServiceProtocol) {
         self.userAccountService = userAccountService
     }
     
@@ -40,7 +40,7 @@ final class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
             return
         }
         
-        let params = RMModel.Api.Site.GetSite(auth: currentUserJwt)
+        let params = RMModels.Api.Site.GetSite(auth: currentUserJwt)
         
         ApiManager.requests
             .asyncGetSite(parameters: params)
@@ -81,12 +81,12 @@ final class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
         }
         let newData = request.data
         
-        let params = RMModel.Api.Person.SaveUserSettings(
+        let params = RMModels.Api.Person.SaveUserSettings(
             showNsfw: newData.showNsfwContent,
             theme: prevData.localUserView.localUser.theme,
             defaultSortType: prevData.localUserView.localUser.defaultSortType.index,
             defaultListingType: prevData.localUserView.localUser.defaultListingType.index,
-            lang: prevData.localUserView.localUser.lang,
+            interfaceLanguage: prevData.localUserView.localUser.interfaceLanguage,
             avatar: prevData.localUserView.person.avatar?.absoluteString,
             banner: prevData.localUserView.person.banner?.absoluteString,
             displayName: newData.displayName,
@@ -100,6 +100,7 @@ final class ProfileSettingsViewModel: ProfileSettingsViewModelProtocol {
             showBotAccounts: nil,
             showReadPosts: nil,
             showNewPostNotifs: nil,
+            discussionLanguages: nil,
             auth: currentUserJwt
         )
         

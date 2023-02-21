@@ -43,13 +43,13 @@ class ReplyMentionTableCell: UITableViewCell, ContentFocusable {
     }
 
     // MARK: - Public API
-    func configure(with reply: RMModel.Views.CommentView, level: Int, appearance: Appearance = Appearance()) {
+    func configure(with reply: RMModels.Views.CommentView, level: Int, appearance: Appearance = Appearance()) {
         self.appearance = appearance
         
         commentContentView.configure(reply: reply)
     }
     
-    func configure(with mention: RMModel.Views.PersonMentionView, level: Int, appearance: Appearance = Appearance()) {
+    func configure(with mention: RMModels.Views.PersonMentionView, level: Int, appearance: Appearance = Appearance()) {
         self.appearance = appearance
         
         commentContentView.configure(mention: mention)

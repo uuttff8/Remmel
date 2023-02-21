@@ -18,7 +18,7 @@ class ChooseCommunityViewController: UIViewController {
     weak var coordinator: CreatePostCoordinator?
     private let viewModel: ChooseCommunityViewModelProtocol
 
-    var onCommunitySelected: ((RMModel.Views.CommunityView) -> Void)?
+    var onCommunitySelected: ((RMModels.Views.CommunityView) -> Void)?
     
     lazy var chooseCommunityView = self.view as? ChooseCommunityUI
     
@@ -68,7 +68,7 @@ extension ChooseCommunityViewController: ChooseCommunityViewControllerProtocol {
 }
 
 extension ChooseCommunityViewController: ChooseCommunityTableDataSourceDelegate {
-    func tableDidSelect(community: RMModel.Views.CommunityView) {
+    func tableDidSelect(community: RMModels.Views.CommunityView) {
         onCommunitySelected?(community)
         navigationController?.popViewController(animated: true)
     }

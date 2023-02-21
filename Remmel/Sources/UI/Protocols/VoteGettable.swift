@@ -14,7 +14,7 @@ import Foundation
 //
 //    var myVote: Int? { get }
 //
-//    var post: RMModel.Source.Post { get }
+//    var post: RMModels.Source.Post { get }
 //
 //    // optional
 //    func getVoteType() -> LemmyVoteType

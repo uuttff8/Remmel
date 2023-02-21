@@ -9,6 +9,7 @@
 import UIKit
 import RMModels
 import RMServices
+import RMFoundation
 
 extension CommentsFrontPageViewController {
     struct Appearance {
@@ -18,7 +19,7 @@ extension CommentsFrontPageViewController {
 
 class CommentsFrontPageViewController: UIViewController {
 
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, RMModel.Views.CommentView>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, RMModels.Views.CommentView>
     
     enum Section {
         case comments
@@ -142,8 +143,8 @@ class CommentsFrontPageViewController: UIViewController {
 //        }
     }
 
-    private func makeDataSource() -> UITableViewDiffableDataSource<Section, RMModel.Views.CommentView> {
-        return UITableViewDiffableDataSource<Section, RMModel.Views.CommentView>(
+    private func makeDataSource() -> UITableViewDiffableDataSource<Section, RMModels.Views.CommentView> {
+        return UITableViewDiffableDataSource<Section, RMModels.Views.CommentView>(
             tableView: tableView,
             cellProvider: { tableView, indexPath, _ -> UITableViewCell? in
                 let cell = tableView.cell(forClass: CommentContentTableCell.self)
@@ -182,7 +183,7 @@ extension CommentsFrontPageViewController: ProgrammaticallyViewProtocol {
 }
 
 extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
-    func postNameTapped(in comment: RMModel.Views.CommentView) {
+    func postNameTapped(in comment: RMModels.Views.CommentView) {
         self.coordinator?.goToPostScreen(postId: comment.post.id)
     }
     
@@ -198,7 +199,7 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        comment: RMModel.Views.CommentView
+        comment: RMModels.Views.CommentView
     ) {
         guard let coordinator = coordinator else {
             return
@@ -209,21 +210,21 @@ extension CommentsFrontPageViewController: CommentContentTableCellDelegate {
         }
     }
     
-    func showContext(in comment: RMModel.Views.CommentView) {
+    func showContext(in comment: RMModels.Views.CommentView) {
         self.coordinator?.goToPostAndScroll(to: comment)
     }
     
-    func reply(to comment: RMModel.Views.CommentView) {
+    func reply(to comment: RMModels.Views.CommentView) {
         coordinator?.goToWriteComment(postSource: comment.post, parrentComment: comment.comment) {
             RMMessagesToast.showSuccessCreateComment()
         }
     }
     
-    func onLinkTap(in comment: RMModel.Views.CommentView, url: URL) {
+    func onLinkTap(in comment: RMModels.Views.CommentView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }
     
-    func showMoreAction(in comment: RMModel.Views.CommentView) {
+    func showMoreAction(in comment: RMModels.Views.CommentView) {
         if let index = self.viewModel.commentsDataSource.getElementIndex(by: comment.id) {
             guard let coordinator = coordinator else {
                 return

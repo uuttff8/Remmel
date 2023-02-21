@@ -12,7 +12,7 @@ import RMModels
 protocol SearchResultsTableDataSourceDelegate: PostContentPreviewTableCellDelegate, CommentContentTableCellDelegate {
     func tableDidRequestPagination(_ tableDataSource: SearchResultsTableDataSource)
     func tableDidSelect(viewModel: SearchResults.Results, indexPath: IndexPath)
-    func tableDidTapped(followButton: FollowButton, in community: RMModel.Views.CommunityView)
+    func tableDidTapped(followButton: FollowButton, in community: RMModels.Views.CommunityView)
 }
 
 final class SearchResultsTableDataSource: NSObject {
@@ -73,7 +73,7 @@ final class SearchResultsTableDataSource: NSObject {
         }
     }
         
-    func saveNewPost(post: RMModel.Views.PostView) {
+    func saveNewPost(post: RMModels.Views.PostView) {
         guard case .posts(var data) = viewModels else {
             return
         }
@@ -84,7 +84,7 @@ final class SearchResultsTableDataSource: NSObject {
         }
     }
     
-    func saveNewComment(comment: RMModel.Views.CommentView) {
+    func saveNewComment(comment: RMModels.Views.CommentView) {
         guard case .comments(var data) = viewModels else {
             return
         }
@@ -95,7 +95,7 @@ final class SearchResultsTableDataSource: NSObject {
         }
     }
     
-    func saveNewCommunity(community: RMModel.Views.CommunityView) {
+    func saveNewCommunity(community: RMModels.Views.CommunityView) {
         guard case .communities(var data) = viewModels else {
             return
         }
@@ -107,7 +107,7 @@ final class SearchResultsTableDataSource: NSObject {
     }
     
     private func createPostCell(
-        post: RMModel.Views.PostView,
+        post: RMModels.Views.PostView,
         tableView: UITableView,
         indexPath: IndexPath
     ) -> UITableViewCell {
@@ -118,7 +118,7 @@ final class SearchResultsTableDataSource: NSObject {
     }
     
     private func createCommentCell(
-        comment: RMModel.Views.CommentView,
+        comment: RMModels.Views.CommentView,
         tableView: UITableView,
         indexPath: IndexPath
     ) -> UITableViewCell {
@@ -129,7 +129,7 @@ final class SearchResultsTableDataSource: NSObject {
     }
     
     private func createCommunityCell(
-        community: RMModel.Views.CommunityView,
+        community: RMModels.Views.CommunityView,
         tableView: UITableView,
         indexPath: IndexPath
     ) -> UITableViewCell {
@@ -140,7 +140,7 @@ final class SearchResultsTableDataSource: NSObject {
     }
     
     private func createUserPreviewCell(
-        user: RMModel.Views.PersonViewSafe,
+        user: RMModels.Views.PersonViewSafe,
         tableView: UITableView,
         indexPath: IndexPath
     ) -> UITableViewCell {

@@ -9,6 +9,7 @@
 import UIKit
 import SwiftUI
 import RMFoundation
+import RMServices
 
 final class InstancesCoordinator: BaseCoordinator {
     

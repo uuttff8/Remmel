@@ -12,7 +12,7 @@ import RMModels
 final class ChooseCommunityAssembly: Assembly {
     typealias ViewController = ChooseCommunityViewController
     
-    var onCommunitySelected: ((RMModel.Views.CommunityView) -> Void)?
+    var onCommunitySelected: ((RMModels.Views.CommunityView) -> Void)?
     
     func makeModule() -> ChooseCommunityViewController {
         let viewModel = ChooseCommunityViewModel()

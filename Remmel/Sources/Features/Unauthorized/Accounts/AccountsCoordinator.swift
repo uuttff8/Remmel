@@ -15,7 +15,7 @@ final class AccountsCoordinator: BaseCoordinator {
     var rootViewController: AccountsViewController
     let router: RouterProtocol
     
-    private let userAccountService: UserAccountSerivceProtocol = UserAccountService()
+    private let userAccountService: UserAccountServiceProtocol = UserAccountService()
     
     init(router: RouterProtocol, instance: Instance) {
         let assembly = AccountsAssembly(instance: instance)

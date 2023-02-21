@@ -115,7 +115,9 @@ class PostContentCenterView: UIView {
             thumbailImageView.loadImage(urlString: data.imageUrl, imageSize: previewImageSize)
             
             if var subtitle = data.subtitle?.removeNewLines() {
-                subtitle = FormatterHelper.removeImageTag(fromMarkdown: subtitle)
+//                subtitle = FormatterHelper.removeImageTag(fromMarkdown: subtitle)
+                subtitle = ""
+                #warning("FormatterHelper")
                 subtitleTextView.onDidPreconfigureTextView = { tv in
                     tv.textContainer.maximumNumberOfLines = 6
                     tv.textContainer.lineBreakMode = .byTruncatingTail

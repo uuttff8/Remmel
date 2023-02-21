@@ -34,7 +34,7 @@ enum CreateCommunity {
         struct Request { }
         
         struct ViewModel {
-            let community: RMModel.Views.CommunityView
+            let community: RMModels.Views.CommunityView
         }
     }
     

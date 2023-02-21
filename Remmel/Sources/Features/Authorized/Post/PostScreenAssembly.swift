@@ -14,13 +14,13 @@ import RMServices
 class PostScreenAssembly: Assembly {
     
     private let postId: Int
-    private let postInfo: RMModel.Views.PostView? // show post if have pre-generated
-    private let scrollToComment: RMModel.Views.CommentView?
+    private let postInfo: RMModels.Views.PostView? // show post if have pre-generated
+    private let scrollToComment: RMModels.Views.CommentView?
     
     init(
         postId: Int,
-        postInfo: RMModel.Views.PostView? = nil,
-        scrollToComment: RMModel.Views.CommentView? = nil
+        postInfo: RMModels.Views.PostView? = nil,
+        scrollToComment: RMModels.Views.CommentView? = nil
     ) {
         self.postId = postId
         self.postInfo = postInfo
@@ -35,7 +35,7 @@ class PostScreenAssembly: Assembly {
         )
         
         let vc = PostScreenViewController(
-            viewModel: viewModel, 
+            viewModel: viewModel,
             scrollToComment: scrollToComment,
             contentScoreService: ContentScoreService(userAccountService: UserAccountService()),
             showMoreHandlerService: ShowMoreHandlerServiceImp()

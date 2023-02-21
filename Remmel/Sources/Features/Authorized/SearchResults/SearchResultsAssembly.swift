@@ -12,9 +12,9 @@ import RMServices
 
 class SearchResultsAssembly: Assembly {
     private let searchQuery: String
-    private let searchType: RMModel.Others.SearchType
+    private let searchType: RMModels.Others.SearchType
     
-    init(searchQuery: String, type: RMModel.Others.SearchType) {
+    init(searchQuery: String, type: RMModels.Others.SearchType) {
         self.searchQuery = searchQuery
         self.searchType = type
     }

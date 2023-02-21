@@ -10,6 +10,7 @@ import UIKit
 import SwiftMessages
 import RMModels
 import RMServices
+import RMFoundation
 
 protocol PostScreenViewControllerProtocol: AnyObject {
     func displayPostWithComments(viewModel: PostScreen.PostLoad.ViewModel)
@@ -29,7 +30,7 @@ class PostScreenViewController: UIViewController, Containered {
         $0.delegate = self
     }
     
-    private let scrollToComment: RMModel.Views.CommentView?
+    private let scrollToComment: RMModels.Views.CommentView?
     
     private lazy var commentsViewController = FoldableLemmyCommentsViewController().then {
         $0.commentDelegate = self
@@ -43,7 +44,7 @@ class PostScreenViewController: UIViewController, Containered {
     init(
         viewModel: PostScreenViewModelProtocol,
         state: PostScreen.ViewControllerState = .loading,
-        scrollToComment: RMModel.Views.CommentView?,
+        scrollToComment: RMModels.Views.CommentView?,
         contentScoreService: ContentScoreServiceProtocol,
         showMoreHandlerService: ShowMoreHandlerService
     ) {
@@ -126,7 +127,7 @@ extension PostScreenViewController: PostScreenViewControllerProtocol {
 }
 
 extension PostScreenViewController: PostContentTableCellDelegate {
-    func postCellDidSelected(postId: RMModel.Views.PostView.ID) {
+    func postCellDidSelected(postId: RMModels.Views.PostView.ID) {
         let post = postScreenView.postData.require()
         self.coordinator?.goToPostScreen(post: post)
     }
@@ -135,7 +136,7 @@ extension PostScreenViewController: PostContentTableCellDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        post: RMModel.Views.PostView
+        post: RMModels.Views.PostView
     ) {
         guard let coordinator = coordinator else {
             return
@@ -147,11 +148,11 @@ extension PostScreenViewController: PostContentTableCellDelegate {
         }
     }
         
-    func onLinkTap(in post: RMModel.Views.PostView, url: URL) {
+    func onLinkTap(in post: RMModels.Views.PostView, url: URL) {
         coordinator?.goToBrowser(with: url)
     }
     
-    func showMore(in post: RMModel.Views.PostView) {
+    func showMore(in post: RMModels.Views.PostView) {
         
         if let post = postScreenView.postData {
             guard let coordinator = coordinator else {
@@ -169,7 +170,7 @@ extension PostScreenViewController: PostContentTableCellDelegate {
 }
 
 extension PostScreenViewController: CommentsViewControllerDelegate {
-    func postNameTapped(in comment: RMModel.Views.CommentView) { }
+    func postNameTapped(in comment: RMModels.Views.CommentView) { }
     
     func usernameTapped(with mention: LemmyUserMention) {
         coordinator?.goToProfileScreen(userId: mention.absoluteId, username: mention.absoluteUsername)
@@ -183,7 +184,7 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        comment: RMModel.Views.CommentView
+        comment: RMModels.Views.CommentView
     ) {
         guard let coordinator = coordinator else {
             return
@@ -195,19 +196,19 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
         }
     }
         
-    func showContext(in comment: RMModel.Views.CommentView) { }
+    func showContext(in comment: RMModels.Views.CommentView) { }
     
-    func reply(to comment: RMModel.Views.CommentView) {
+    func reply(to comment: RMModels.Views.CommentView) {
         coordinator?.goToWriteComment(postSource: comment.post, parrentComment: comment.comment) {
             RMMessagesToast.showSuccessCreateComment()
         }
     }
     
-    func onLinkTap(in comment: RMModel.Views.CommentView, url: URL) {
+    func onLinkTap(in comment: RMModels.Views.CommentView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }
     
-    func showMoreAction(in comment: RMModel.Views.CommentView) {
+    func showMoreAction(in comment: RMModels.Views.CommentView) {
         if let index = commentsViewController.commentDataSource.getElementIndex(by: comment.id) {
             guard let coordinator = coordinator, let commentContent = commentsViewController.commentDataSource[index].commentContent else {
                 return
@@ -230,7 +231,7 @@ extension PostScreenViewController: CommentsViewControllerDelegate {
 }
 
 extension PostScreenViewController: PostScreenViewDelegate {
-    func postView(_ postView: View, didWriteCommentTappedWith post: RMModel.Views.PostView) {
+    func postView(_ postView: View, didWriteCommentTappedWith post: RMModels.Views.PostView) {
         coordinator?.goToWriteComment(postSource: post.post, parrentComment: nil) {
             RMMessagesToast.showSuccessCreateComment()
         }

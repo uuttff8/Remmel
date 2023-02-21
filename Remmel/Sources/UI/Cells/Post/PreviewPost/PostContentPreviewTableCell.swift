@@ -8,18 +8,19 @@
 
 import UIKit
 import RMModels
+import RMFoundation
 
 protocol PostContentPreviewTableCellDelegate: AnyObject {
     func voteContent(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        post: RMModel.Views.PostView
+        post: RMModels.Views.PostView
     )
     func usernameTapped(with mention: LemmyUserMention)
     func communityTapped(with mention: LemmyCommunityMention)
-    func showMore(in post: RMModel.Views.PostView)
-    func postCellDidSelected(postId: RMModel.Views.PostView.ID)
+    func showMore(in post: RMModels.Views.PostView)
+    func postCellDidSelected(postId: RMModels.Views.PostView.ID)
 }
 
 class PostContentPreviewTableCell: UITableViewCell {
@@ -44,7 +45,7 @@ class PostContentPreviewTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func bind(with post: RMModel.Views.PostView, isInsideCommunity: Bool) {
+    func bind(with post: RMModels.Views.PostView, isInsideCommunity: Bool) {
         if isInsideCommunity {
             postContentView.bind(with: post, config: .insideComminity)
         } else {
@@ -52,7 +53,7 @@ class PostContentPreviewTableCell: UITableViewCell {
         }
     }
     
-    func updateForCreatePostLike(post: RMModel.Views.PostView) {
+    func updateForCreatePostLike(post: RMModels.Views.PostView) {
         postContentView.updateForCreatePostLike(post: post)
     }
     

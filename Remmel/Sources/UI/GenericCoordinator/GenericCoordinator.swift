@@ -17,11 +17,11 @@ class GenericCoordinator<T: UIViewController>: BaseCoordinator, SFSafariViewCont
     var rootViewController: T! // implement it
     var router: RouterProtocol?
     
-    let userAccountService: UserAccountSerivceProtocol
+    let userAccountService: UserAccountServiceProtocol
     
     // MARK: - Init
     
-    init(router: RouterProtocol?, userAccountService: UserAccountSerivceProtocol = UserAccountService()) {
+    init(router: RouterProtocol?, userAccountService: UserAccountServiceProtocol = UserAccountService()) {
         self.router = router
         self.userAccountService = userAccountService
         super.init()

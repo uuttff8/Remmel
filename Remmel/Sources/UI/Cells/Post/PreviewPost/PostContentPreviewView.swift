@@ -8,6 +8,7 @@
 
 import UIKit
 import RMModels
+import RMFoundation
 
 class PostContentPreviewView: UIView {
     
@@ -31,7 +32,7 @@ class PostContentPreviewView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind(with post: RMModel.Views.PostView, config: PostContentType) {
+    func bind(with post: RMModels.Views.PostView, config: PostContentType) {
         setupTargets(with: post)
         
         headerView.bind(
@@ -65,7 +66,7 @@ class PostContentPreviewView: UIView {
         
     }
     
-    func updateForCreatePostLike(post: RMModel.Views.PostView) {
+    func updateForCreatePostLike(post: RMModels.Views.PostView) {
         footerView.bind(
             with: .init(
                 score: post.counts.score,
@@ -76,7 +77,7 @@ class PostContentPreviewView: UIView {
         )
     }
     
-    private func setupTargets(with post: RMModel.Views.PostView) {
+    private func setupTargets(with post: RMModels.Views.PostView) {
         headerView.communityButtonTap = { [weak self] in
             let mention = LemmyCommunityMention(name: post.community.name, id: post.community.id)
             self?.delegate?.communityTapped(with: mention)

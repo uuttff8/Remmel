@@ -22,8 +22,8 @@ class CommunityHeaderCell: UITableViewCell {
     }
         
     let communityHeaderView = CommunityHeaderView()
-//    let contentTypeView = LemmyImageTextTypePicker(cases: RMModel.Others.SortType.allCases,
-//                                                   firstPicked: RMModel.Others.SortType.active,
+//    let contentTypeView = LemmyImageTextTypePicker(cases: RMModels.Others.SortType.allCases,
+//                                                   firstPicked: RMModels.Others.SortType.active,
 //                                                   image: Config.Image.sortType)
         
     init() {
@@ -35,7 +35,7 @@ class CommunityHeaderCell: UITableViewCell {
         contentView.addSubview(mainStackView)
     }
     
-    func bindData(community: RMModel.Views.CommunityView) {
+    func bindData(community: RMModels.Views.CommunityView) {
         communityHeaderView.bind(with: community)
     }
     

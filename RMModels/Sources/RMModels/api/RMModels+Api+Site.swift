@@ -8,23 +8,36 @@
 
 import Foundation
 
-extension RMModels.Api {
+public extension RMModels.Api {
     enum Site {
                 
         /**
         * Search types are `All, Comments, Posts, Communities, Users, Url`
         */
-        struct Search: Codable {
-            let query: String
-            let type: RMModels.Others.SearchType?
-            let communityId: Int?
-            let communityName: String?
-            let creatorId: String?
-            let sort: RMModels.Others.SortType?
-            let listingType: RMModels.Others.ListingType?
-            let page: Int?
-            let limit: Int?
-            let auth: String?
+        public struct Search: Codable {
+            public let query: String
+            public let type: RMModels.Others.SearchType?
+            public let communityId: Int?
+            public let communityName: String?
+            public let creatorId: String?
+            public let sort: RMModels.Others.SortType?
+            public let listingType: RMModels.Others.ListingType?
+            public let page: Int?
+            public let limit: Int?
+            public let auth: String?
+            
+            public init(query: String, type: RMModels.Others.SearchType?, communityId: Int?, communityName: String?, creatorId: String?, sort: RMModels.Others.SortType?, listingType: RMModels.Others.ListingType?, page: Int?, limit: Int?, auth: String?) {
+                self.query = query
+                self.type = type
+                self.communityId = communityId
+                self.communityName = communityName
+                self.creatorId = creatorId
+                self.sort = sort
+                self.listingType = listingType
+                self.page = page
+                self.limit = limit
+                self.auth = auth
+            }
             
             enum CodingKeys: String, CodingKey {
                 case query = "q"
@@ -37,12 +50,12 @@ extension RMModels.Api {
             }
         }
         
-        struct SearchResponse: Codable {
-            let type: RMModels.Others.SearchType
-            let comments: [RMModels.Views.CommentView]
-            let posts: [RMModels.Views.PostView]
-            let communities: [RMModels.Views.CommunityView]
-            let users: [RMModels.Views.PersonViewSafe]
+        public struct SearchResponse: Codable {
+            public let type: RMModels.Others.SearchType
+            public let comments: [RMModels.Views.CommentView]
+            public let posts: [RMModels.Views.PostView]
+            public let communities: [RMModels.Views.CommunityView]
+            public let users: [RMModels.Views.PersonViewSafe]
             
             enum CodingKeys: String, CodingKey {
                 case type = "type_"
@@ -50,12 +63,12 @@ extension RMModels.Api {
             }
         }
         
-        struct GetModlog: Codable {
-            let modPersonId: Int?
-            let communityId: Int?
-            let page: Int?
-            let limit: Int?
-            let auth: String?
+        public struct GetModlog: Codable {
+            public let modPersonId: Int?
+            public let communityId: Int?
+            public let page: Int?
+            public let limit: Int?
+            public let auth: String?
             
             enum CodingKeys: String, CodingKey {
                 case modPersonId = "mod_person_id"
@@ -64,17 +77,17 @@ extension RMModels.Api {
             }
         }
         
-        struct GetModlogResponse: Codable {
-            let removedPosts: [RMModels.Views.ModRemovePostView]
-            let lockedPosts: [RMModels.Views.ModLockPostView]
-            let featuredPosts: [RMModels.Views.ModFeaturePostView]
-            let removedComments: [RMModels.Views.ModRemoveCommentView]
-            let removedCommunities: [RMModels.Views.ModRemoveCommunityView]
-            let bannedFromCommunity: [RMModels.Views.ModBanFromCommunityView]
-            let banned: [RMModels.Views.ModBanView]
-            let addedToCommunity: [RMModels.Views.ModAddCommunityView]
-            let transferredToCommunity: [RMModels.Views.ModTransferCommunityView]
-            let added: [RMModels.Views.ModAddView]
+        public struct GetModlogResponse: Codable {
+            public let removedPosts: [RMModels.Views.ModRemovePostView]
+            public let lockedPosts: [RMModels.Views.ModLockPostView]
+            public let featuredPosts: [RMModels.Views.ModFeaturePostView]
+            public let removedComments: [RMModels.Views.ModRemoveCommentView]
+            public let removedCommunities: [RMModels.Views.ModRemoveCommunityView]
+            public let bannedFromCommunity: [RMModels.Views.ModBanFromCommunityView]
+            public let banned: [RMModels.Views.ModBanView]
+            public let addedToCommunity: [RMModels.Views.ModAddCommunityView]
+            public let transferredToCommunity: [RMModels.Views.ModTransferCommunityView]
+            public let added: [RMModels.Views.ModAddView]
             
             enum CodingKeys: String, CodingKey {
                 case removedPosts = "removed_posts"
@@ -90,23 +103,23 @@ extension RMModels.Api {
             }
         }
         
-        struct CreateSite: Codable {
-            let name: String
-            let sidebar: String?
-            let description: String?
-            let icon: String?
-            let banner: String?
-            let enableDownvotes: Bool?
-            let openRegistration: Bool?
-            let enableNsfw: Bool?
-            let communityCreationAdminOnly: Bool?
-            let requireEmailVerification: Bool?
-            let registrationMode: RMModels.Source.RegistrationMode?
-            let applicationQuestion: Bool?
-            let privateInstance: Bool?
-            let defaultTheme: String?
-            let defaultPostListingType: String?
-            let auth: String
+        public struct CreateSite: Codable {
+            public let name: String
+            public let sidebar: String?
+            public let description: String?
+            public let icon: String?
+            public let banner: String?
+            public let enableDownvotes: Bool?
+            public let openRegistration: Bool?
+            public let enableNsfw: Bool?
+            public let communityCreationAdminOnly: Bool?
+            public let requireEmailVerification: Bool?
+            public let registrationMode: RMModels.Source.RegistrationMode?
+            public let applicationQuestion: Bool?
+            public let privateInstance: Bool?
+            public let defaultTheme: String?
+            public let defaultPostListingType: String?
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case name, description, icon, banner, sidebar
@@ -124,24 +137,24 @@ extension RMModels.Api {
             }
         }
         
-        struct EditSite: Codable {
-            let name: String?
-            let sidebar: String?
-            let description: String?
-            let icon: String?
-            let banner: String?
-            let enableDownvotes: Bool?
-            let openRegistration: Bool?
-            let enableNsfw: Bool?
-            let communityCreationAdminOnly: Bool?
-            let requireEmailVerification: Bool?
-            let requireApplication: Bool?
-            let applicationQuestion: Bool?
-            let privateInstance: Bool?
-            let defaultTheme: String?
-            let legalInformation: String?
-            let defaultPostListingType: String?
-            let auth: String
+        public struct EditSite: Codable {
+            public let name: String?
+            public let sidebar: String?
+            public let description: String?
+            public let icon: String?
+            public let banner: String?
+            public let enableDownvotes: Bool?
+            public let openRegistration: Bool?
+            public let enableNsfw: Bool?
+            public let communityCreationAdminOnly: Bool?
+            public let requireEmailVerification: Bool?
+            public let requireApplication: Bool?
+            public let applicationQuestion: Bool?
+            public let privateInstance: Bool?
+            public let defaultTheme: String?
+            public let legalInformation: String?
+            public let defaultPostListingType: String?
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case name, description, icon, banner, sidebar
@@ -160,28 +173,32 @@ extension RMModels.Api {
             }
         }
         
-        struct GetSite: Codable {
-            let auth: String?
+        public struct GetSite: Codable {
+            public let auth: String?
+            
+            public init(auth: String?) {
+                self.auth = auth
+            }
         }
         
-        struct SiteResponse: Codable {
-            let siteView: RMModels.Views.SiteView
+        public struct SiteResponse: Codable {
+            public let siteView: RMModels.Views.SiteView
             
             enum CodingKeys: String, CodingKey {
                 case siteView = "site_view"
             }
         }
         
-        struct GetSiteResponse: Codable {
-            let siteView: RMModels.Views.SiteView
-            let admins: [RMModels.Views.PersonViewSafe]
-            let online: Int
-            let version: String
-            let myUser: MyUserInfo? // If you're logged in, you'll get back extra user info.
-            let federatedInstances: FederatedInstances?
-            let allLanguages: [RMModels.Source.Language]
-            let discussionLanguages: [Int]
-            let taglines: [RMModels.Source.Tagline]?
+        public struct GetSiteResponse: Codable {
+            public let siteView: RMModels.Views.SiteView
+            public let admins: [RMModels.Views.PersonViewSafe]
+            public let online: Int
+            public let version: String
+            public let myUser: MyUserInfo? // If you're logged in, you'll get back extra user info.
+            public let federatedInstances: FederatedInstances?
+            public let allLanguages: [RMModels.Source.Language]
+            public let discussionLanguages: [Int]
+            public let taglines: [RMModels.Source.Tagline]?
             
             enum CodingKeys: String, CodingKey {
                 case siteView = "site_view"
@@ -197,13 +214,13 @@ extension RMModels.Api {
         /**
         * Your user info, such as blocks, follows, etc.
         */
-        struct MyUserInfo: Codable {
-            let localUserView: RMModels.Views.LocalUserSettingsView
-            let follows: [RMModels.Views.CommunityFollowerView]
-            let moderates: [RMModels.Views.CommunityModeratorView]
-            let communityBlocks: [RMModels.Views.CommunityBlockView]
-            let personBlocks: [RMModels.Views.PersonBlockView]
-            let discussionLanguages: [Int]
+        public struct MyUserInfo: Codable {
+            public let localUserView: RMModels.Views.LocalUserSettingsView
+            public let follows: [RMModels.Views.CommunityFollowerView]
+            public let moderates: [RMModels.Views.CommunityModeratorView]
+            public let communityBlocks: [RMModels.Views.CommunityBlockView]
+            public let personBlocks: [RMModels.Views.PersonBlockView]
+            public let discussionLanguages: [Int]
             
             enum CodingKeys: String, CodingKey {
                 case localUserView = "local_user_view"
@@ -215,32 +232,32 @@ extension RMModels.Api {
 
        }
 
-        struct LeaveAdmin: Codable {
-            let auth: String
+        public struct LeaveAdmin: Codable {
+            public let auth: String
         }
                 
-        struct FederatedInstances: Codable {
-            let linked: [String]
-            let allowed: [String]?
-            let blocked: [String]?
+        public struct FederatedInstances: Codable {
+            public let linked: [String]
+            public let allowed: [String]?
+            public let blocked: [String]?
          }
         
-        struct ResolveObject: Codable {
-            let q: String
-            let auth: String?
+        public struct ResolveObject: Codable {
+            public let q: String
+            public let auth: String?
        }
 
-        struct ResolveObjectResponse: Codable {
-           let comment: RMModels.Views.CommentView?
-           let post: RMModels.Views.PostView?
-           let community: RMModels.Views.CommunityView?
-           let person: RMModels.Views.PersonViewSafe?
+        public struct ResolveObjectResponse: Codable {
+            public let comment: RMModels.Views.CommentView?
+            public let post: RMModels.Views.PostView?
+            public let community: RMModels.Views.CommunityView?
+            public let person: RMModels.Views.PersonViewSafe?
         }
         
-        struct PurgePerson {
-            let personId: Int
-            let reason: String?
-            let auth: String
+        public struct PurgePerson {
+            public let personId: Int
+            public let reason: String?
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case personId = "person_id"
@@ -248,10 +265,10 @@ extension RMModels.Api {
             }
         }
         
-        struct PurgeCommunity {
-            let communityId: Int
-            let reason: String?
-            let auth: String
+        public struct PurgeCommunity {
+            public let communityId: Int
+            public let reason: String?
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
@@ -259,10 +276,10 @@ extension RMModels.Api {
             }
         }
         
-        struct PurgePost {
-            let postId: Int
-            let reason: String?
-            let auth: String
+        public struct PurgePost {
+            public let postId: Int
+            public let reason: String?
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case postId = "post_id"
@@ -270,10 +287,10 @@ extension RMModels.Api {
             }
         }
         
-        struct PurgeComment {
-            let commentId: Int
-            let reason: String?
-            let auth: String
+        public struct PurgeComment {
+            public let commentId: Int
+            public let reason: String?
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case commentId = "comment_id"
@@ -281,18 +298,18 @@ extension RMModels.Api {
             }
         }
         
-        struct PurgeItemResponse {
-            let success: Bool
+        public struct PurgeItemResponse {
+            public let success: Bool
         }
         
-        struct ListRegistrationApplications: Codable {
+        public struct ListRegistrationApplications: Codable {
           /**
            * Only shows the unread applications (IE those without an admin actor)
            */
-            let unreadOnly: Bool?
-            let page: Int?
-            let limit: Int?
-            let auth: String
+            public let unreadOnly: Bool?
+            public let page: Int?
+            public let limit: Int?
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case unreadOnly = "unread_only"
@@ -302,35 +319,35 @@ extension RMModels.Api {
             }
         }
 
-        struct ListRegistrationApplicationsResponse: Codable {
-            let registrationApplications: [RMModels.Views.RegistrationApplicationView]
+        public struct ListRegistrationApplicationsResponse: Codable {
+            public let registrationApplications: [RMModels.Views.RegistrationApplicationView]
             
             enum CodingKeys: String, CodingKey {
                 case registrationApplications = "registration_applications"
             }
         }
         
-        struct ApproveRegistrationApplication {
-            let id: Int
-            let approve: Bool
-            let deny_reason: String?
-            let auth: String
+        public struct ApproveRegistrationApplication {
+            public let id: Int
+            public let approve: Bool
+            public let deny_reason: String?
+            public let auth: String
         }
         
-        struct RegistrationApplicationResponse: Codable {
-            let registrationApplications: RMModels.Views.RegistrationApplicationView
+        public struct RegistrationApplicationResponse: Codable {
+            public let registrationApplications: RMModels.Views.RegistrationApplicationView
             
             enum CodingKeys: String, CodingKey {
                 case registrationApplications = "registration_applications"
             }
         }
         
-        struct GetUnreadRegistrationApplicationCount {
-            let auth: String
+        public struct GetUnreadRegistrationApplicationCount {
+            public let auth: String
         }
         
-        struct GetUnreadRegistrationApplicationCountResponse: Codable {
-            let registrationApplications: Int
+        public struct GetUnreadRegistrationApplicationCountResponse: Codable {
+            public let registrationApplications: Int
             
             enum CodingKeys: String, CodingKey {
                 case registrationApplications = "registration_applications"

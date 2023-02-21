@@ -15,7 +15,7 @@ protocol CommunityScreenViewDelegate: CommunityTableHeaderViewDelegate {
         toVc: UIViewController
     )
     func communityViewDidPickerTapped(_ communityView: CommunityScreenViewController.View, toVc: UIViewController)
-    func communityView(_ view: CommunityScreenViewController.View, didPickedNewSort type: RMModel.Others.SortType)
+    func communityView(_ view: CommunityScreenViewController.View, didPickedNewSort type: RMModels.Others.SortType)
 }
 
 extension CommunityScreenViewController.View {
@@ -31,16 +31,16 @@ extension CommunityScreenViewController {
         private let appearance: Appearance
         
         struct HeaderViewData {
-            let communityView: RMModel.Views.CommunityView
+            let communityView: RMModels.Views.CommunityView
         }
         
         struct TableViewData {
-            let posts: [RMModel.Views.PostView]
+            let posts: [RMModels.Views.PostView]
         }
         
         weak var delegate: CommunityScreenViewDelegate?
         
-        open var contentType: RMModel.Others.SortType = .active
+        open var contentType: RMModels.Others.SortType = .active
         
         weak var tableManager: CommunityScreenTableDataSource?
         
@@ -57,7 +57,7 @@ extension CommunityScreenViewController {
             $0.textColor = .tertiaryLabel
         }
         
-        var communityHeaderViewData: RMModel.Views.CommunityView? {
+        var communityHeaderViewData: RMModels.Views.CommunityView? {
             didSet {
                 communityHeaderView.delegate = self.delegate
                 communityHeaderView.bindData(community: communityHeaderViewData.require())
@@ -110,7 +110,7 @@ extension CommunityScreenViewController {
             tableView.layoutTableHeaderView()
         }
         
-        func appendNew(data: [RMModel.Views.PostView]) {
+        func appendNew(data: [RMModels.Views.PostView]) {
             self.tableManager?.appendNew(posts: data) { newIndexpaths in
                 tableView.performBatchUpdates {
                     tableView.insertRows(at: newIndexpaths, with: .none)

@@ -10,12 +10,12 @@ import UIKit
 import RMModels
 
 protocol FrontPageSearchViewDelegate: AnyObject {
-    func searchView(_ searchView: FrontPageSearchView, searchWith query: String, type: RMModel.Others.SearchType)
+    func searchView(_ searchView: FrontPageSearchView, searchWith query: String, type: RMModels.Others.SearchType)
 }
 
 extension FrontPageSearchView {
     struct Appearance {
-        let searchTypeConfig: [RMModel.Others.SearchType] = [.comments, .posts, .communities, .users]
+        let searchTypeConfig: [RMModels.Others.SearchType] = [.comments, .posts, .communities, .users]
         let fadeAnimationDuratation: TimeInterval = 0.3
         let alphaAtInit: CGFloat = 0.0
         

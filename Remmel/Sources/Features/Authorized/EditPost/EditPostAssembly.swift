@@ -13,9 +13,9 @@ import RMNetworking
 
 final class EditPostAssembly: Assembly {
         
-    private let postSource: RMModel.Source.Post
+    private let postSource: RMModels.Source.Post
     
-    init(postSource: RMModel.Source.Post) {
+    init(postSource: RMModels.Source.Post) {
         self.postSource = postSource
     }
     

@@ -93,7 +93,7 @@ extension CommunitiesPreviewViewController: CommunitiesPreviewViewControllerProt
 }
 
 extension CommunitiesPreviewViewController: CommunitiesPreviewTableDataSourceDelegate {
-    func tableDidTapped(followButton: FollowButton, in community: RMModel.Views.CommunityView) {
+    func tableDidTapped(followButton: FollowButton, in community: RMModels.Views.CommunityView) {
         
         guard let coord = coordinator else {
             return
@@ -103,13 +103,13 @@ extension CommunitiesPreviewViewController: CommunitiesPreviewTableDataSourceDel
             followButton.followState = .pending
             self.followService.followUi(to: community)
                 .sink { community in
-                    followButton.bind(isSubcribed: community.subscribed)
+                    followButton.bind(isSubcribed: community.subscribed == .subscribed)
                     self.tableManager.viewModels.updateElementById(community)
                 }.store(in: &self.cancellable)
         }
     }
     
-    func tableDidSelect(community: RMModel.Views.CommunityView) {
+    func tableDidSelect(community: RMModels.Views.CommunityView) {
         coordinator?.goToCommunityScreen(communityId: community.id)
     }
 }

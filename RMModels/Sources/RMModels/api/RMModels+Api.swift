@@ -8,6 +8,6 @@
 
 import Foundation
 
-extension RMModels {
+public extension RMModels {
     enum Api { }
 }

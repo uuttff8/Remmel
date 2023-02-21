@@ -20,13 +20,13 @@ protocol SearchResultsViewModelProtocol: AnyObject {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        post: RMModel.Views.PostView
+        post: RMModels.Views.PostView
     ) // refactor
     func doCommentLike(
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        comment: RMModel.Views.CommentView
+        comment: RMModels.Views.CommentView
     )
 }
 
@@ -36,18 +36,18 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
     private var cancellable = Set<AnyCancellable>()
     
     private let searchQuery: String
-    private let searchType: RMModel.Others.SearchType
+    private let searchType: RMModels.Others.SearchType
     
     private var paginationState = 1
     private var searchData: SearchResults.Results = .posts([])
     
-    private let userAccountService: UserAccountSerivceProtocol
+    private let userAccountService: UserAccountServiceProtocol
     private let contentScoreService: ContentScoreServiceProtocol
     
     init(
         searchQuery: String,
-        searchType: RMModel.Others.SearchType,
-        userAccountService: UserAccountSerivceProtocol,
+        searchType: RMModels.Others.SearchType,
+        userAccountService: UserAccountServiceProtocol,
         contentScoreService: ContentScoreServiceProtocol
     ) {
         self.searchQuery = searchQuery
@@ -57,7 +57,7 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
     }
     
     func doLoadContent(request: SearchResults.LoadContent.Request) {
-        let params = RMModel.Api.Site.Search(query: self.searchQuery,
+        let params = RMModels.Api.Site.Search(query: self.searchQuery,
                                               type: self.searchType,
                                               communityId: nil,
                                               communityName: nil,
@@ -86,7 +86,7 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
     func doLoadMoreContent(request: SearchResults.LoadMoreContent.Request) {
         paginationState += 1
         
-        let params = RMModel.Api.Site.Search(query: self.searchQuery,
+        let params = RMModels.Api.Site.Search(query: self.searchQuery,
                                               type: self.searchType,
                                               communityId: nil,
                                               communityName: nil,
@@ -116,7 +116,7 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        post: RMModel.Views.PostView
+        post: RMModels.Views.PostView
     ) {
         scoreView.setVoted(voteButton: voteButton, to: newVote)
         contentScoreService.votePost(for: newVote, post: post)
@@ -126,15 +126,15 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         for newVote: LemmyVoteType,
-        comment: RMModel.Views.CommentView
+        comment: RMModels.Views.CommentView
     ) {
         scoreView.setVoted(voteButton: voteButton, to: newVote)
         contentScoreService.voteComment(for: newVote, comment: comment)
     }
     
     private func makeViewModelAndPresent(
-        type: RMModel.Others.SearchType,
-        response: RMModel.Api.Site.SearchResponse
+        type: RMModels.Others.SearchType,
+        response: RMModels.Api.Site.SearchResponse
     ) {
         
         let result: SearchResults.Results
@@ -159,8 +159,8 @@ class SearchResultsViewModel: SearchResultsViewModelProtocol {
     }
     
     private func makePaginationViewModelAndPresent(
-        type: RMModel.Others.SearchType,
-        response: RMModel.Api.Site.SearchResponse
+        type: RMModels.Others.SearchType,
+        response: RMModels.Api.Site.SearchResponse
     ) {
         
         let result: SearchResults.Results
@@ -208,7 +208,7 @@ enum SearchResults {
         struct Request { }
         
         struct ViewModel {
-            let post: RMModel.Views.PostView
+            let post: RMModels.Views.PostView
         }
     }
     
@@ -216,15 +216,15 @@ enum SearchResults {
         struct Request { }
         
         struct ViewModel {
-            let comment: RMModel.Views.CommentView
+            let comment: RMModels.Views.CommentView
         }
     }
     
     enum Results {
-        case comments([RMModel.Views.CommentView])
-        case posts([RMModel.Views.PostView])
-        case communities([RMModel.Views.CommunityView])
-        case users([RMModel.Views.PersonViewSafe])
+        case comments([RMModels.Views.CommentView])
+        case posts([RMModels.Views.PostView])
+        case communities([RMModels.Views.CommunityView])
+        case users([RMModels.Views.PersonViewSafe])
     }
     
     enum ViewControllerState {

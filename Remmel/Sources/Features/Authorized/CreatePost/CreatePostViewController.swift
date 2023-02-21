@@ -46,7 +46,7 @@ class CreatePostScreenViewController: UIViewController, CatalystDismissable {
     // TODO: refactor this
     private var inputWithImageCell: SettingsInputWithImageTableViewCell?
         
-    private let predefinedCommunity: RMModel.Views.CommunityView?
+    private let predefinedCommunity: RMModels.Views.CommunityView?
     
     private var createPostData: FormData = {
         .init(
@@ -81,7 +81,7 @@ class CreatePostScreenViewController: UIViewController, CatalystDismissable {
     
     init(
         viewModel: CreatePostViewModelProtocol,
-        predefinedCommunity: RMModel.Views.CommunityView? = nil,
+        predefinedCommunity: RMModels.Views.CommunityView? = nil,
         appearance: Appearance = Appearance()
     ) {
         self.viewModel = viewModel
@@ -162,7 +162,7 @@ class CreatePostScreenViewController: UIViewController, CatalystDismissable {
     }
     
     struct FormData {
-        var communityView: RMModel.Views.CommunityView?
+        var communityView: RMModels.Views.CommunityView?
         var title: String?
         var body: String?
         var url: String?

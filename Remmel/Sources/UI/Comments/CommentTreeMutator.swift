@@ -10,7 +10,7 @@ import Foundation
 import RMModels
 
 // MARK: - CommentTreeMutator -
-class CommentTreeMutator {
+class CommentTreeMutator: ParentIdProvider {
     
     // MARK: - Properties
     
@@ -24,11 +24,11 @@ class CommentTreeMutator {
     
     // MARK: - API
     
-    func insert(comment: RMModel.Views.CommentView) {
+    func insert(comment: RMModels.Views.CommentView) {
         let newComment = LemmyComment(level: 0, replyTo: nil)
         newComment.commentContent = comment
         
-        if let parentId = comment.comment.parentId {
+        if let parentId = parentId(comment.comment) {
             
             // shift newComment to a parentComment
             if let parentComment = buildedComments.getElement(by: parentId) {

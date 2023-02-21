@@ -16,22 +16,22 @@ protocol CommunityScreenTableDataSourceDelegate: PostContentPreviewTableCellDele
 final class CommunityScreenTableDataSource: NSObject {
     weak var delegate: CommunityScreenTableDataSourceDelegate?
     
-    var viewModels: [RMModel.Views.PostView]
+    var viewModels: [RMModels.Views.PostView]
     
-    init(viewModels: [RMModel.Views.PostView] = []) {
+    init(viewModels: [RMModels.Views.PostView] = []) {
         self.viewModels = viewModels
         super.init()
     }
     
     // MARK: - Public API
     
-    func update(viewModel: RMModel.Views.PostView) {
+    func update(viewModel: RMModels.Views.PostView) {
         if let index = self.viewModels.firstIndex(where: { $0.id == viewModel.id }) {
             self.viewModels[index] = viewModel
         }
     }
     
-    func appendNew(posts: [RMModel.Views.PostView], completion: (_ indexPaths: [IndexPath]) -> Void) {
+    func appendNew(posts: [RMModels.Views.PostView], completion: (_ indexPaths: [IndexPath]) -> Void) {
         let startIndex = viewModels.count - posts.count
         let endIndex = startIndex + posts.count
         

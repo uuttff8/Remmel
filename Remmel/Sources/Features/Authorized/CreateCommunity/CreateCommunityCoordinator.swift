@@ -28,7 +28,7 @@ class CreateCommunityCoordinator: Coordinator {
         navigationController?.presentationController?.delegate = rootViewController
     }
 
-    func goToCommunity(comm: RMModel.Views.CommunityView) {
+    func goToCommunity(comm: RMModels.Views.CommunityView) {
         self.rootViewController.dismiss(animated: true)
         
         if let presentingVc = rootViewController.presentingViewController as? LemmyTabBarController {

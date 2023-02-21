@@ -62,13 +62,13 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         self.tableView.reloadData()
     }
     
-    func updateExistingComment(_ comment: RMModel.Views.CommentView) {
+    func updateExistingComment(_ comment: RMModels.Views.CommentView) {
         if let index = self.commentDataSource.getElementIndex(by: comment.id) {
             commentDataSource[index].commentContent = comment
         }
     }
     
-    func displayCreatedComment(comment: RMModel.Views.CommentView) {
+    func displayCreatedComment(comment: RMModels.Views.CommentView) {
         self.updateExistingComment(comment)
         
         // TODO: just paste a new comment
@@ -81,7 +81,7 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
 //        }
     }
     
-    func displayCommentLike(commentView: RMModel.Views.CommentView) {
+    func displayCommentLike(commentView: RMModels.Views.CommentView) {
         self.updateExistingComment(commentView)
         
         guard let index = commentDataSource.firstIndex(where: { $0.commentContent?.comment.id == commentView.id })
@@ -101,7 +101,7 @@ final class FoldableLemmyCommentsViewController: CommentsViewController, SwiftyC
         }
     }
     
-    func scrollTo(_ comment: RMModel.Views.CommentView) {
+    func scrollTo(_ comment: RMModels.Views.CommentView) {
         guard let index = commentDataSource.firstIndex(where: { $0.commentContent?.comment.id == comment.id }) else {
             return
         }

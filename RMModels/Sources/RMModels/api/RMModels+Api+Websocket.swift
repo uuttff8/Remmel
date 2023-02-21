@@ -8,56 +8,68 @@
 
 import Foundation
 
-extension RMModels.Api {
+public extension RMModels.Api {
     
     enum Websocket {
         
-        struct UserJoin: Codable {
-            let auth: String
+        public struct UserJoin: Codable {
+            public let auth: String
+            
+            public init(auth: String) {
+                self.auth = auth
+            }
         }
         
-        struct UserJoinResponse: Codable {
-            let joined: Bool
+        public struct UserJoinResponse: Codable {
+            public let joined: Bool
         }
         
         /**
          * The main / frontpage community is `community_id: 0`.
          */
         
-        struct CommunityJoin: Codable {
-            let communityId: Int
+        public struct CommunityJoin: Codable {
+            public let communityId: Int
+            
+            public init(communityId: Int) {
+                self.communityId = communityId
+            }
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
             }
         }
         
-        struct CommunityJoinResponse: Codable {
-            let joined: Bool
+        public struct CommunityJoinResponse: Codable {
+            public let joined: Bool
         }
         
-        struct ModJoin: Codable {
-            let communityId: Int
+        public struct ModJoin: Codable {
+            public let communityId: Int
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
             }
         }
         
-        struct ModJoinResponse: Codable {
-            let joined: Bool
+        public struct ModJoinResponse: Codable {
+            public let joined: Bool
         }
         
-        struct PostJoin: Codable {
-            let postId: Int
+        public struct PostJoin: Codable {
+            public let postId: Int
+            
+            public init(postId: Int) {
+                self.postId = postId
+            }
             
             enum CodingKeys: String, CodingKey {
                 case postId = "post_id"
             }
         }
         
-        struct PostJoinResponse: Codable {
-            let joined: Bool
+        public struct PostJoinResponse: Codable {
+            public let joined: Bool
         }
     }
     

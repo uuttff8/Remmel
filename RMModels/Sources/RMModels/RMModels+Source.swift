@@ -8,27 +8,27 @@
 
 import Foundation
 
-extension RMModels {
+public extension RMModels {
     
     enum Source {
-        struct LocalUserSettings: Identifiable, Codable, Hashable, Equatable {
-            let id: Int
-            let personId: Int
-            let email: String?
-            let showNsfw: Bool
-            let theme: String
-            let defaultSortType: RMModels.Others.SortType
-            let defaultListingType: RMModels.Others.ListingType
-            let interfaceLanguage: String
-            let showAvatars: Bool
-            let sendNotificationsToEmail: Bool
-            let validatorTime: String
-            let showBotAccounts: Bool?
-            let showScores: Bool?
-            let showReadPosts: Bool?
-            let showNewPostNotifs: Bool?
-            let emailVerified: Bool
-            let acceptedApplication: Bool
+        public struct LocalUserSettings: Identifiable, Codable, Hashable, Equatable {
+            public let id: Int
+            public let personId: Int
+            public let email: String?
+            public let showNsfw: Bool
+            public let theme: String
+            public let defaultSortType: RMModels.Others.SortType
+            public let defaultListingType: RMModels.Others.ListingType
+            public let interfaceLanguage: String
+            public let showAvatars: Bool
+            public let sendNotificationsToEmail: Bool
+            public let validatorTime: String
+            public let showBotAccounts: Bool?
+            public let showScores: Bool?
+            public let showReadPosts: Bool?
+            public let showNewPostNotifs: Bool?
+            public let emailVerified: Bool
+            public let acceptedApplication: Bool
             
             enum CodingKeys: String, CodingKey {
                 case id, personId = "person_id", email
@@ -48,26 +48,26 @@ extension RMModels {
             }
         }
 
-        struct PersonSafe: Identifiable, Codable, Hashable, Equatable {
-            let id: Int
-            let name: String
-            let displayName: String?
-            let avatar: URL?
-            let banned: Bool
-            let published: Date
-            let updated: Date?
-            let actorId: URL
-            let bio: String?
-            let local: Bool
-            let banner: URL?
-            let deleted: Bool
-            let inboxUrl: URL
-            let sharedInboxURL: URL?
-            let admin: Bool
-            let matrixUserId: String?
-            let botAccount: Bool
-            let banExpires: String?
-            let instanceId: Int
+        public struct PersonSafe: Identifiable, Codable, Hashable, Equatable {
+            public let id: Int
+            public let name: String
+            public let displayName: String?
+            public let avatar: URL?
+            public let banned: Bool
+            public let published: Date
+            public let updated: Date?
+            public let actorId: URL
+            public let bio: String?
+            public let local: Bool
+            public let banner: URL?
+            public let deleted: Bool
+            public let inboxUrl: URL
+            public let sharedInboxURL: URL?
+            public let admin: Bool
+            public let matrixUserId: String?
+            public let botAccount: Bool
+            public let banExpires: String?
+            public let instanceId: Int
 
             enum CodingKeys: String, CodingKey {
                 case id, name
@@ -85,20 +85,20 @@ extension RMModels {
             }
         }
 
-        struct Site: Identifiable, Codable {
-            let id: Int
-            let name: String
-            let sidebar: String?
-            let published: Date
-            let updated: Date
-            let icon: URL?
-            let banner: URL?
-            let description: String?
-            let actorId: String
-            let lastRefreshedAt: String
-            let inboxUrl: String
-            let publicKey: String
-            let instanceId: Int
+        public struct Site: Identifiable, Codable {
+            public let id: Int
+            public let name: String
+            public let sidebar: String?
+            public let published: Date
+            public let updated: Date
+            public let icon: URL?
+            public let banner: URL?
+            public let description: String?
+            public let actorId: String
+            public let lastRefreshedAt: String
+            public let inboxUrl: String
+            public let publicKey: String
+            public let instanceId: Int
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -113,38 +113,38 @@ extension RMModels {
             }
         }
         
-        enum RegistrationMode: String, Codable {
+        public enum RegistrationMode: String, Codable {
             case closed = "closed"
             case requireApplication = "requireapplication"
             case Open = "open"
         }
         
-        struct LocalSite: Codable {
-            let id: Int
-            let siteId: Int
-            let siteSetup: Bool
-            let enableDownvotes: Bool
-            let registrationMode: RMModels.Source.RegistrationMode
-            let enableNsfw: Bool
-            let communityCreationAdminOnly: Bool
-            let requireEmailVerification: Bool
-            let applicationQuestion: String?
-            let privateInstance: Bool
-            let defaultTheme: String
-            let defaultPostListingType: String
-            let legalInformation: String?
-            let hideModlogModNames: Bool
-            let applicationEmailAdmins: Bool
-            let reportsEmailAdmins: Bool
-            let slurFilterRegex: String?
-            let actorNameMaxLength: Int
-            let federationEnabled: Bool
-            let federationDebug: Bool
-            let federationWorkerCount: Int
-            let captchaEnabled: Bool
-            let captchaDifficulty: String
-            let published: Date
-            let updated: Date?
+        public struct LocalSite: Codable {
+            public let id: Int
+            public let siteId: Int
+            public let siteSetup: Bool
+            public let enableDownvotes: Bool
+            public let registrationMode: RMModels.Source.RegistrationMode
+            public let enableNsfw: Bool
+            public let communityCreationAdminOnly: Bool
+            public let requireEmailVerification: Bool
+            public let applicationQuestion: String?
+            public let privateInstance: Bool
+            public let defaultTheme: String
+            public let defaultPostListingType: String
+            public let legalInformation: String?
+            public let hideModlogModNames: Bool
+            public let applicationEmailAdmins: Bool
+            public let reportsEmailAdmins: Bool
+            public let slurFilterRegex: String?
+            public let actorNameMaxLength: Int
+            public let federationEnabled: Bool
+            public let federationDebug: Bool
+            public let federationWorkerCount: Int
+            public let captchaEnabled: Bool
+            public let captchaDifficulty: String
+            public let published: Date
+            public let updated: Date?
 
             enum CodingKeys: String, CodingKey {
                 case id
@@ -174,23 +174,23 @@ extension RMModels {
             }
         }
         
-        struct LocalSiteRateLimit: Codable {
-            let id: Int
-            let localSiteId: Int
-            let message: Int
-            let messagePerSecond: Int
-            let post: Int
-            let postPerSecond: Int
-            let register: Int
-            let registerPerSecond: Int
-            let image: Int
-            let imagePerSecond: Int
-            let comment: Int
-            let commentPerSecond: Int
-            let search: Int
-            let searchPerSecond: Int
-            let published: Date
-            let updated: Date?
+        public struct LocalSiteRateLimit: Codable {
+            public let id: Int
+            public let localSiteId: Int
+            public let message: Int
+            public let messagePerSecond: Int
+            public let post: Int
+            public let postPerSecond: Int
+            public let register: Int
+            public let registerPerSecond: Int
+            public let image: Int
+            public let imagePerSecond: Int
+            public let comment: Int
+            public let commentPerSecond: Int
+            public let search: Int
+            public let searchPerSecond: Int
+            public let published: Date
+            public let updated: Date?
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -211,18 +211,17 @@ extension RMModels {
             }
         }
 
-        
-        struct PrivateMessage: Identifiable, Codable {
-            let id: Int
-            let creatorId: Int
-            let recipientId: Int
-            let content: String
-            let deleted: Bool
-            let read: Bool
-            let published: Date
-            let updated: Date?
-            let apId: String
-            let local: Bool
+        public struct PrivateMessage: Identifiable, Codable {
+            public let id: Int
+            public let creatorId: Int
+            public let recipientId: Int
+            public let content: String
+            public let deleted: Bool
+            public let read: Bool
+            public let published: Date
+            public let updated: Date?
+            public let apId: String
+            public let local: Bool
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -234,18 +233,18 @@ extension RMModels {
             }
         }
         
-        struct PostReport: Identifiable, Codable {
-            let id: Int
-            let creatorId: Int
-            let postId: Int
-            let originalPostName: String
-            let originalPostUrl: URL?
-            let originalPostBody: String
-            let reason: String
-            let resolved: Bool
-            let resolverId: Int?
-            let published: Date
-            let updated: String?
+        public struct PostReport: Identifiable, Codable {
+            public let id: Int
+            public let creatorId: Int
+            public let postId: Int
+            public let originalPostName: String
+            public let originalPostUrl: URL?
+            public let originalPostBody: String
+            public let reason: String
+            public let resolved: Bool
+            public let resolverId: Int?
+            public let published: Date
+            public let updated: String?
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -260,25 +259,25 @@ extension RMModels {
             }
         }
         
-        struct Post: Identifiable, Codable, Hashable, Equatable {
-            let id: Int
-            let name: String
-            let url: String? // sometimes may return image in base 64 encoding
-            let body: String?
-            let creatorId: Int
-            let communityId: Int
-            let removed: Bool
-            let locked: Bool
-            let published: Date
-            let updated: Date?
-            let deleted: Bool
-            let nsfw: Bool
-            let embedTitle: String?
-            let embedDescription: String?
-            let embedVideoUrl: String?
-            let thumbnailUrl: URL?
-            let apId: String
-            let local: Bool
+        public struct Post: Identifiable, Codable, Hashable, Equatable {
+            public let id: Int
+            public let name: String
+            public let url: String? // sometimes may return image in base 64 encoding
+            public let body: String?
+            public let creatorId: Int
+            public let communityId: Int
+            public let removed: Bool
+            public let locked: Bool
+            public let published: Date
+            public let updated: Date?
+            public let deleted: Bool
+            public let nsfw: Bool
+            public let embedTitle: String?
+            public let embedDescription: String?
+            public let embedVideoUrl: String?
+            public let thumbnailUrl: URL?
+            public let apId: String
+            public let local: Bool
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -296,11 +295,11 @@ extension RMModels {
             }
         }
         
-        struct PasswordResetRequest: Identifiable, Codable {
-            let id: Int
-            let localUserId: Int
-            let tokenEncrypted: String
-            let published: Date
+        public struct PasswordResetRequest: Identifiable, Codable {
+            public let id: Int
+            public let localUserId: Int
+            public let tokenEncrypted: String
+            public let published: Date
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -310,13 +309,13 @@ extension RMModels {
             }
         }
         
-        struct ModRemovePost: Identifiable, Codable {
-            let id: Int
-            let modPersonId: Int
-            let postId: Int
-            let reason: String?
-            let removed: Bool
-            let when: String
+        public struct ModRemovePost: Identifiable, Codable {
+            public let id: Int
+            public let modPersonId: Int
+            public let postId: Int
+            public let reason: String?
+            public let removed: Bool
+            public let when: String
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -327,12 +326,12 @@ extension RMModels {
             }
         }
         
-        struct ModLockPost: Identifiable, Codable {
-            let id: Int
-            let modPersonId: Int
-            let postId: Int
-            let locked: Bool?
-            let when: String
+        public struct ModLockPost: Identifiable, Codable {
+            public let id: Int
+            public let modPersonId: Int
+            public let postId: Int
+            public let locked: Bool?
+            public let when: String
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -343,13 +342,13 @@ extension RMModels {
             }
         }
         
-        struct ModFeaturePost: Identifiable, Codable {
-            let id: Int
-            let modPersonId: Int
-            let postId: Int
-            let featured: Bool
-            let isFeaturedCommunity: Bool
-            let when: String
+        public struct ModFeaturePost: Identifiable, Codable {
+            public let id: Int
+            public let modPersonId: Int
+            public let postId: Int
+            public let featured: Bool
+            public let isFeaturedCommunity: Bool
+            public let when: String
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -361,13 +360,13 @@ extension RMModels {
             }
         }
         
-        struct ModRemoveComment: Identifiable, Codable {
-            let id: Int
-            let modPersonId: Int
-            let commentId: Int
-            let reason: String?
-            let removed: Bool?
-            let when: String
+        public struct ModRemoveComment: Identifiable, Codable {
+            public let id: Int
+            public let modPersonId: Int
+            public let commentId: Int
+            public let reason: String?
+            public let removed: Bool?
+            public let when: String
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -378,14 +377,14 @@ extension RMModels {
             }
         }
         
-        struct ModRemoveCommunity: Identifiable, Codable {
-            let id: Int
-            let modPersonId: Int
-            let communityId: Int
-            let reason: String?
-            let removed: Bool?
-            let expires: Bool?
-            let when: String
+        public struct ModRemoveCommunity: Identifiable, Codable {
+            public let id: Int
+            public let modPersonId: Int
+            public let communityId: Int
+            public let reason: String?
+            public let removed: Bool?
+            public let expires: Bool?
+            public let when: String
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -396,15 +395,15 @@ extension RMModels {
             }
         }
         
-        struct ModBanFromCommunity: Identifiable, Codable {
-            let id: Int
-            let modPersonId: Int
-            let otherPersonId: Int
-            let communityId: Int
-            let reason: String?
-            let banned: Bool?
-            let expires: String?
-            let when: String
+        public struct ModBanFromCommunity: Identifiable, Codable {
+            public let id: Int
+            public let modPersonId: Int
+            public let otherPersonId: Int
+            public let communityId: Int
+            public let reason: String?
+            public let banned: Bool?
+            public let expires: String?
+            public let when: String
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -416,14 +415,14 @@ extension RMModels {
             }
         }
         
-        struct ModBan: Identifiable, Codable {
-            let id: Int
-            let modPersonId: Int
-            let otherPersonId: Int
-            let reason: String?
-            let banned: Bool?
-            let expires: String?
-            let when: String
+        public struct ModBan: Identifiable, Codable {
+            public let id: Int
+            public let modPersonId: Int
+            public let otherPersonId: Int
+            public let reason: String?
+            public let banned: Bool?
+            public let expires: String?
+            public let when: String
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -434,13 +433,13 @@ extension RMModels {
             }
         }
         
-        struct ModAddCommunity: Identifiable, Codable {
-            let id: Int
-            let modPersonId: Int
-            let otherPersonId: Int
-            let communityId: Int
-            let removed: Bool?
-            let when: String
+        public struct ModAddCommunity: Identifiable, Codable {
+            public let id: Int
+            public let modPersonId: Int
+            public let otherPersonId: Int
+            public let communityId: Int
+            public let removed: Bool?
+            public let when: String
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -452,13 +451,13 @@ extension RMModels {
             }
         }
         
-        struct ModTransferCommunity: Codable {
-            let id: Int
-            let modPersonId: Int
-            let otherPersonId: Int
-            let communityId: Int
-            let removed: Bool?
-            let when: String
+        public struct ModTransferCommunity: Codable {
+            public let id: Int
+            public let modPersonId: Int
+            public let otherPersonId: Int
+            public let communityId: Int
+            public let removed: Bool?
+            public let when: String
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -470,12 +469,12 @@ extension RMModels {
             }
        }
         
-        struct ModAdd: Identifiable, Codable {
-            let id: Int
-            let modPersonId: Int
-            let otherPersonId: Int
-            let removed: Bool?
-            let when: String
+        public struct ModAdd: Identifiable, Codable {
+            public let id: Int
+            public let modPersonId: Int
+            public let otherPersonId: Int
+            public let removed: Bool?
+            public let when: String
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -486,23 +485,23 @@ extension RMModels {
             }
         }
         
-        struct CommunitySafe: Identifiable, Codable, Hashable, Equatable {
-            let id: Int
-            let name: String
-            let title: String
-            let description: String?
-            let removed: Bool
-            let published: Date
-            let updated: Date?
-            let deleted: Bool
-            let nsfw: Bool
-            let actorId: URL
-            let local: Bool
-            let icon: URL?
-            let banner: URL?
-            let hidden: Bool
-            let postingRestrictedToMods: Bool
-            let instanceId: Int
+        public struct CommunitySafe: Identifiable, Codable, Hashable, Equatable {
+            public let id: Int
+            public let name: String
+            public let title: String
+            public let description: String?
+            public let removed: Bool
+            public let published: Date
+            public let updated: Date?
+            public let deleted: Bool
+            public let nsfw: Bool
+            public let actorId: URL
+            public let local: Bool
+            public let icon: URL?
+            public let banner: URL?
+            public let hidden: Bool
+            public let postingRestrictedToMods: Bool
+            public let instanceId: Int
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -517,16 +516,16 @@ extension RMModels {
             }
         }
         
-        struct CommentReport: Identifiable, Codable {
-            let id: Int
-            let creatorId: Int
-            let commentId: Int
-            let originalCommentText: String
-            let reason: String
-            let resolved: Bool
-            let resolverId: Int?
-            let published: Date
-            let updated: String?
+        public struct CommentReport: Identifiable, Codable {
+            public let id: Int
+            public let creatorId: Int
+            public let commentId: Int
+            public let originalCommentText: String
+            public let reason: String
+            public let resolved: Bool
+            public let resolverId: Int?
+            public let published: Date
+            public let updated: String?
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -539,20 +538,20 @@ extension RMModels {
             }
         }
         
-        struct Comment: Identifiable, Codable, Hashable, Equatable {
-            let id: Int
-            let creatorId: Int
-            let postId: Int
-            let content: String
-            let removed: Bool
-            let published: Date
-            let updated: Date?
-            let deleted: Bool
-            let apId: String
-            let local: Bool
-            let path: String
-            let distinguished: Bool
-            let languageId: Int
+        public struct Comment: Identifiable, Codable, Hashable, Equatable {
+            public let id: Int
+            public let creatorId: Int
+            public let postId: Int
+            public let content: String
+            public let removed: Bool
+            public let published: Date
+            public let updated: Date?
+            public let deleted: Bool
+            public let apId: String
+            public let local: Bool
+            public let path: String
+            public let distinguished: Bool
+            public let languageId: Int
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -569,12 +568,12 @@ extension RMModels {
             }
         }
                 
-        struct PersonMention: Identifiable, Codable {
-            let id: Int
-            let recipientId: Int
-            let commentId: Int
-            let read: Bool
-            let published: Date
+        public struct PersonMention: Identifiable, Codable {
+            public let id: Int
+            public let recipientId: Int
+            public let commentId: Int
+            public let read: Bool
+            public let published: Date
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -584,12 +583,12 @@ extension RMModels {
             }
         }
         
-        struct CommentReply: Codable {
-            let id: Int
-            let recipientId: Int
-            let commentId: Int
-            let read: Bool
-            let published: String
+        public struct CommentReply: Codable {
+            public let id: Int
+            public let recipientId: Int
+            public let commentId: Int
+            public let read: Bool
+            public let published: String
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -599,13 +598,13 @@ extension RMModels {
             }
         }
         
-        struct RegistrationApplication: Identifiable, Codable {
-            let id: Int
-            let localUserId: Int
-            let answer: Int
-            let adminId: Int?
-            let denyReason: String?
-            let published: String
+        public struct RegistrationApplication: Identifiable, Codable {
+            public let id: Int
+            public let localUserId: Int
+            public let answer: Int
+            public let adminId: Int?
+            public let denyReason: String?
+            public let published: String
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -617,23 +616,22 @@ extension RMModels {
             }
         }
         
-        struct Language: Codable {
-            let id: Int
-            let code: String
-            let name: String
+        public struct Language: Codable {
+            public let id: Int
+            public let code: String
+            public let name: String
         }
         
-        struct PrivateMessageReport: Codable {
-            let id: Int
-            let creatorId: Int
-            let privateMessageId: Int
-            let originalPmText: String
-            let reason: String
-            let resolved: Bool
-            let resolverId: Int?
-            let published: String
-            let updated: String?
-            
+        public struct PrivateMessageReport: Codable {
+            public let id: Int
+            public let creatorId: Int
+            public let privateMessageId: Int
+            public let originalPmText: String
+            public let reason: String
+            public let resolved: Bool
+            public let resolverId: Int?
+            public let published: String
+            public let updated: String?
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -646,12 +644,12 @@ extension RMModels {
             }
         }
         
-        struct Tagline: Codable {
-            let id: Int
-            let localSiteId: Int
-            let content: String
-            let published: Date
-            let updated: Date?
+        public struct Tagline: Codable {
+            public let id: Int
+            public let localSiteId: Int
+            public let content: String
+            public let published: Date
+            public let updated: Date?
             
             enum CodingKeys: String, CodingKey {
                 case id

@@ -37,7 +37,7 @@ final class ProfileChangePasswordViewModel: ProfileChangePasswordViewModelProtoc
             switch operation {
             case RMUserOperation.ChangePassword.rawValue:
                 guard let login = self.wsClient?.decodeWsType(
-                    RMModel.Api.Person.LoginResponse.self,
+                    RMModels.Api.Person.LoginResponse.self,
                     data: data
                 ) else { return }
                 

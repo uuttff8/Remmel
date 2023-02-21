@@ -26,8 +26,8 @@ final class CommunityTableHeaderView: UIView {
     }
         
     let communityHeaderView = CommunityHeaderView()
-//    let contentTypeView = LemmyImageTextTypePicker(cases: RMModel.Others.SortType.allCases,
-//                                                   firstPicked: RMModel.Others.SortType.active,
+//    let contentTypeView = LemmyImageTextTypePicker(cases: RMModels.Others.SortType.allCases,
+//                                                   firstPicked: RMModels.Others.SortType.active,
 //                                                   image: Config.Image.sortType)
     
     init() {
@@ -43,7 +43,7 @@ final class CommunityTableHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bindData(community: RMModel.Views.CommunityView) {
+    func bindData(community: RMModels.Views.CommunityView) {
         communityHeaderView.bind(with: community)
         communityHeaderView.delegate = delegate
     }

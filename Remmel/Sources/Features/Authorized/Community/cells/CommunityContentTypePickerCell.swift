@@ -10,7 +10,7 @@ import UIKit
 import RMModels
 
 class CommunityContentTypePickerCell: UITableViewCell {
-//    let customView = LemmyImageTextTypePicker(cases: RMModel.Others.SortType.allCases,
+//    let customView = LemmyImageTextTypePicker(cases: RMModels.Others.SortType.allCases,
 //                                              firstPicked: .active,
 //                                              image: Config.Image.sortType)
     

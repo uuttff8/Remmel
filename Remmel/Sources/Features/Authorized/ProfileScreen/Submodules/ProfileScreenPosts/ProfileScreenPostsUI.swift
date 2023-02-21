@@ -14,7 +14,7 @@ protocol ProfileScreenPostsViewDelegate: AnyObject {
     func profileScreenPostsViewDidPickerTapped(toVc: UIViewController)
     func profileScreenPosts(
         _ view: ProfileScreenPostsViewController.View,
-        didPickedNewSort type: RMModel.Others.SortType
+        didPickedNewSort type: RMModels.Others.SortType
     )
 }
 
@@ -29,13 +29,13 @@ extension ProfileScreenPostsViewController {
     class View: UIView {
         
         struct ViewData {
-            let posts: [RMModel.Views.PostView]
+            let posts: [RMModels.Views.PostView]
         }
         
         weak var delegate: ProfileScreenPostsViewDelegate?
         
         let appearance: Appearance
-        var sortType: RMModel.Others.SortType = .active {
+        var sortType: RMModels.Others.SortType = .active {
             didSet {
                 self.delegate?.profileScreenPosts(self, didPickedNewSort: sortType)
             }
@@ -120,7 +120,7 @@ extension ProfileScreenPostsViewController {
             self.hideLoadingIndicator()
         }
         
-        func appendNew(data: [RMModel.Views.PostView]) {
+        func appendNew(data: [RMModels.Views.PostView]) {
             self.tableManager?.appendNew(posts: data) { newIndexpaths in
                 tableView.performBatchUpdates {
                     tableView.insertRows(at: newIndexpaths, with: .none)

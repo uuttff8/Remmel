@@ -30,7 +30,7 @@ extension ProfileScreenViewModel {
     struct ProfileData: Identifiable {
         let id: Int
         let viewData: ProfileScreenHeaderView.ViewData
-        let userDetails: RMModel.Api.Person.GetPersonDetailsResponse
+        let userDetails: RMModels.Api.Person.GetPersonDetailsResponse
     }
 }
 
@@ -42,7 +42,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     
     private weak var wsClient: WSClientProtocol?
     
-    private let userAccountService: UserAccountSerivceProtocol
+    private let userAccountService: UserAccountServiceProtocol
     
     private var cancellable = Set<AnyCancellable>()
     
@@ -58,7 +58,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     init(
         profileId: Int?,
         profileUsername: String?,
-        userAccountService: UserAccountSerivceProtocol,
+        userAccountService: UserAccountServiceProtocol,
         wsClient: WSClientProtocol
     ) {
         self.profileId = profileId
@@ -76,7 +76,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
             switch operation {
             case RMUserOperation.GetPersonDetails.rawValue:
                 guard let userDetails = self.wsClient?.decodeWsType(
-                    RMModel.Api.Person.GetPersonDetailsResponse.self,
+                    RMModels.Api.Person.GetPersonDetailsResponse.self,
                     data: data
                 ) else { return }
                 
@@ -92,7 +92,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
     func doProfileFetch() {
         self.viewController?.displayNotBlockingActivityIndicator(viewModel: .init(shouldDismiss: false))
         
-        let parameters = RMModel.Api.Person.GetPersonDetails(personId: profileId,
+        let parameters = RMModels.Api.Person.GetPersonDetails(personId: profileId,
                                                               username: profileUsername,
                                                               sort: .active,
                                                               page: 1,
@@ -140,7 +140,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
         self.pushCurrentCourseToSubmodules(submodules: Array(self.submodules.values))
     }
     
-    private func fetchProfile(with response: RMModel.Api.Person.GetPersonDetailsResponse) {
+    private func fetchProfile(with response: RMModels.Api.Person.GetPersonDetailsResponse) {
         self.viewController?.displayNotBlockingActivityIndicator(viewModel: .init(shouldDismiss: true))
         
         let loadedProfile = self.initializeProfileData(with: response)
@@ -202,7 +202,7 @@ class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
         }
     }
     
-    private func initializeProfileData(with response: RMModel.Api.Person.GetPersonDetailsResponse) -> ProfileData {
+    private func initializeProfileData(with response: RMModels.Api.Person.GetPersonDetailsResponse) -> ProfileData {
         let userView = response.personView
         
         return ProfileData(
@@ -267,8 +267,8 @@ enum ProfileScreenDataFlow {
     enum SubmoduleDataFilling {
         struct Request {
             let submodules: [Int: ProfileScreenSubmoduleProtocol]
-            let posts: [RMModel.Views.PostView]
-            let comments: [RMModel.Views.CommentView]
+            let posts: [RMModels.Views.PostView]
+            let comments: [RMModels.Views.CommentView]
         }
     }
     
@@ -302,8 +302,8 @@ enum ProfileScreenDataFlow {
     enum ViewControllerState {
         case loading
         case result(profile: ProfileScreenHeaderView.ViewData,
-                    posts: [RMModel.Views.PostView],
-                    comments: [RMModel.Views.CommentView])
+                    posts: [RMModels.Views.PostView],
+                    comments: [RMModels.Views.CommentView])
         case blockedUser
     }
 }

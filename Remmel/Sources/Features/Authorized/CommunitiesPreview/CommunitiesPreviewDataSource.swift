@@ -10,16 +10,16 @@ import UIKit
 import RMModels
 
 protocol CommunitiesPreviewTableDataSourceDelegate: AnyObject {
-    func tableDidSelect(community: RMModel.Views.CommunityView)
-    func tableDidTapped(followButton: FollowButton, in community: RMModel.Views.CommunityView)
+    func tableDidSelect(community: RMModels.Views.CommunityView)
+    func tableDidTapped(followButton: FollowButton, in community: RMModels.Views.CommunityView)
 }
 
 class CommunitiesPreviewDataSource: NSObject {
     weak var delegate: CommunitiesPreviewTableDataSourceDelegate?
     
-    var viewModels: [RMModel.Views.CommunityView]
+    var viewModels: [RMModels.Views.CommunityView]
     
-    init(viewModels: [RMModel.Views.CommunityView] = []) {
+    init(viewModels: [RMModels.Views.CommunityView] = []) {
         self.viewModels = viewModels
         super.init()
     }

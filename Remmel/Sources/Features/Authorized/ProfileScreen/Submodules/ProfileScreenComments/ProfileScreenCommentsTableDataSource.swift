@@ -14,22 +14,22 @@ protocol ProfileScreenCommentsTableDataSourceDelegate: CommentContentTableCellDe
 }
 
 class ProfileScreenCommentsTableDataSource: NSObject {
-    var viewModels: [RMModel.Views.CommentView]
+    var viewModels: [RMModels.Views.CommentView]
 
     weak var delegate: ProfileScreenCommentsTableDataSourceDelegate?
     
-    init(viewModels: [RMModel.Views.CommentView] = []) {
+    init(viewModels: [RMModels.Views.CommentView] = []) {
         self.viewModels = viewModels
         super.init()
     }
     
-    func update(viewModel: RMModel.Views.CommentView) {
+    func update(viewModel: RMModels.Views.CommentView) {
         if let index = self.viewModels.firstIndex(where: { $0.id == viewModel.id }) {
             self.viewModels[index] = viewModel
         }
     }
     
-    func appendNew(comments: [RMModel.Views.CommentView], completion: (_ indexPaths: [IndexPath]) -> Void) {
+    func appendNew(comments: [RMModels.Views.CommentView], completion: (_ indexPaths: [IndexPath]) -> Void) {
         let startIndex = viewModels.count - comments.count
         let endIndex = startIndex + comments.count
         

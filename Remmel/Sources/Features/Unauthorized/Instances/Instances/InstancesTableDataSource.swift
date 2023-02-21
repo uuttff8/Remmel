@@ -8,6 +8,7 @@
 
 import UIKit
 import RMFoundation
+import RMServices
 
 protocol InstancesTableDataSourceDelegate: AnyObject {
     func tableDidRequestDelete(_ instance: Instance)

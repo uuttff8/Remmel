@@ -76,7 +76,7 @@ class LoginViewController: UIViewController {
         }
     }
         
-    private func checkRegisterData() -> RMModel.Api.Person.Register? {
+    private func checkRegisterData() -> RMModels.Api.Person.Register? {
         guard let signUpView = signUpView else {
             return nil
         }
@@ -118,7 +118,7 @@ class LoginViewController: UIViewController {
             email = nil
         }
         
-        return RMModel.Api.Person.Register(
+        return RMModels.Api.Person.Register(
             username: username,
             email: email,
             password: password,
@@ -175,7 +175,7 @@ class LoginViewController: UIViewController {
               let password = signInView.passwordTextField.text
         else { return }
         
-        let parameters = RMModel.Api.Person.Login(
+        let parameters = RMModels.Api.Person.Login(
             usernameOrEmail: emailOrUsername,
             password: password
         )
@@ -207,10 +207,10 @@ class LoginViewController: UIViewController {
         
     private func loadUserOnSuccessResponse(
         jwt: String,
-        completion: @escaping ((RMModel.Api.Site.MyUserInfo) -> Void)
+        completion: @escaping ((RMModels.Api.Site.MyUserInfo) -> Void)
     ) {
         
-        let params = RMModel.Api.Site.GetSite(auth: jwt)
+        let params = RMModels.Api.Site.GetSite(auth: jwt)
         
         ApiManager.requests.asyncGetSite(parameters: params)
             .receive(on: DispatchQueue.main)

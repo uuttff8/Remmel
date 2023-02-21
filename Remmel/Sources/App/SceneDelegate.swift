@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     private var appCoordinator: AppCoordinator!
 
-    private let userAccountService: UserAccountSerivceProtocol = UserAccountService()
+    private let userAccountService: UserAccountServiceProtocol = UserAccountService()
 
     func scene(
         _ scene: UIScene,
@@ -24,7 +24,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         options connectionOptions: UIScene.ConnectionOptions
     ) {
         window = UIWindow(frame: UIScreen.main.bounds)
-        guard let windowScene = (scene as? UIWindowScene), let window = window else {
+        guard let windowScene = scene as? UIWindowScene,
+              let window else {
             return
         }
 

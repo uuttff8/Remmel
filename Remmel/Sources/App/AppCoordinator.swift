@@ -14,9 +14,9 @@ class AppCoordinator: BaseCoordinator {
     private let window: UIWindow
     private let windowScene: UIWindowScene
     
-    private let userAccountService: UserAccountSerivceProtocol
+    private let userAccountService: UserAccountServiceProtocol
     
-    init(window: UIWindow, windowScene: UIWindowScene, userAccountService: UserAccountSerivceProtocol) {
+    init(window: UIWindow, windowScene: UIWindowScene, userAccountService: UserAccountServiceProtocol) {
         self.window = window
         self.windowScene = windowScene
         self.userAccountService = userAccountService

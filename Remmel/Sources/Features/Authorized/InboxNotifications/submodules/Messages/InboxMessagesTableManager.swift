@@ -16,22 +16,22 @@ protocol InboxMessagesTableManagerDelegate: MessageCellViewDelegate {
 final class InboxMessagesTableManager: NSObject {
     weak var delegate: InboxMessagesTableManagerDelegate?
     
-    var viewModels: [RMModel.Views.PrivateMessageView]
+    var viewModels: [RMModels.Views.PrivateMessageView]
     
-    init(viewModels: [RMModel.Views.PrivateMessageView] = []) {
+    init(viewModels: [RMModels.Views.PrivateMessageView] = []) {
         self.viewModels = viewModels
         super.init()
     }
     
     // MARK: - Public API
     
-    func update(viewModel: RMModel.Views.PrivateMessageView) {
+    func update(viewModel: RMModels.Views.PrivateMessageView) {
         if let index = self.viewModels.firstIndex(where: { $0.privateMessage.id == viewModel.privateMessage.id }) {
             self.viewModels[index] = viewModel
         }
     }
     
-    func appendNew(posts: [RMModel.Views.PrivateMessageView], completion: (_ indexPaths: [IndexPath]) -> Void) {
+    func appendNew(posts: [RMModels.Views.PrivateMessageView], completion: (_ indexPaths: [IndexPath]) -> Void) {
         let startIndex = viewModels.count - posts.count
         let endIndex = startIndex + posts.count
         

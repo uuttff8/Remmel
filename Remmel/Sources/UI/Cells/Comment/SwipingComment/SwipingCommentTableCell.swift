@@ -53,7 +53,7 @@ class SwipingCommentContentTableCell: CommentCell, ContentFocusable {
     }
 
     // MARK: - Public API
-    func bind(with comment: RMModel.Views.CommentView, level: Int, appearance: Appearance = Appearance()) {
+    func bind(with comment: RMModels.Views.CommentView, level: Int, appearance: Appearance = Appearance()) {
         self.appearance = appearance
         
         commentContentView.bind(with: comment, setting: appearance.config)
@@ -65,7 +65,7 @@ class SwipingCommentContentTableCell: CommentCell, ContentFocusable {
         }
     }
     
-    func updateForCreateCommentLike(comment: RMModel.Views.CommentView) {
+    func updateForCreateCommentLike(comment: RMModels.Views.CommentView) {
         commentContentView.updateForCreateCommentLike(comment: comment)
     }
     

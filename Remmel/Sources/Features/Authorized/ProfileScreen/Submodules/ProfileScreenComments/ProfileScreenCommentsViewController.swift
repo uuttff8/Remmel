@@ -9,6 +9,7 @@
 import UIKit
 import RMServices
 import RMModels
+import RMFoundation
 
 protocol ProfileScreenCommentsViewControllerProtocol: AnyObject {
     func displayProfileComments(viewModel: ProfileScreenComments.CommentsLoad.ViewModel)
@@ -129,7 +130,7 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
         coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
     
-    func postNameTapped(in comment: RMModel.Views.CommentView) {
+    func postNameTapped(in comment: RMModels.Views.CommentView) {
         coordinator?.goToPostScreen(postId: comment.post.id)
     }
         
@@ -137,7 +138,7 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        comment: RMModel.Views.CommentView
+        comment: RMModels.Views.CommentView
     ) {
         guard let coordinator = coordinator else {
             return
@@ -153,21 +154,21 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
         }
     }
     
-    func showContext(in comment: RMModel.Views.CommentView) {
+    func showContext(in comment: RMModels.Views.CommentView) {
         self.coordinator?.goToPostAndScroll(to: comment)
     }
     
-    func reply(to comment: RMModel.Views.CommentView) {
+    func reply(to comment: RMModels.Views.CommentView) {
         self.coordinator?.goToWriteComment(postSource: comment.post, parrentComment: comment.comment) {
             RMMessagesToast.showSuccessCreateComment()
         }
     }
     
-    func onLinkTap(in comment: RMModel.Views.CommentView, url: URL) {
+    func onLinkTap(in comment: RMModels.Views.CommentView, url: URL) {
         self.coordinator?.goToBrowser(with: url)
     }
     
-    func showMoreAction(in comment: RMModel.Views.CommentView) {
+    func showMoreAction(in comment: RMModels.Views.CommentView) {
         guard let coordinator = coordinator else {
             return
         }
@@ -187,7 +188,7 @@ extension ProfileScreenCommentsViewController: ProfileScreenCommentsTableDataSou
 }
 
 extension ProfileScreenCommentsViewController: ProfileScreenCommentsViewDelegate {
-    func profileScreenComments(_ view: View, didPickedNewSort type: RMModel.Others.SortType) {
+    func profileScreenComments(_ view: View, didPickedNewSort type: RMModels.Others.SortType) {
         commentsPostsView?.showLoadingIndicator()
         commentsPostsView?.deleteAllContent()
         viewModel.doProfileCommentsFetch(request: .init(sortType: type))

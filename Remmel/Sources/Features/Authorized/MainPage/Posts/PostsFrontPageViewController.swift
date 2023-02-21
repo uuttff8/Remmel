@@ -9,6 +9,7 @@
 import UIKit
 import SafariServices
 import RMModels
+import RMFoundation
 
 extension PostsFrontPageViewController {
     struct Appearance {
@@ -18,7 +19,7 @@ extension PostsFrontPageViewController {
 
 class PostsFrontPageViewController: UIViewController {
     
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, RMModel.Views.PostView>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, RMModels.Views.PostView>
     
     enum Section: Hashable, CaseIterable {
         case posts
@@ -133,8 +134,8 @@ class PostsFrontPageViewController: UIViewController {
 //        }
     }
     
-    private func makeDataSource() -> UITableViewDiffableDataSource<Section, RMModel.Views.PostView> {
-        return UITableViewDiffableDataSource<Section, RMModel.Views.PostView>(
+    private func makeDataSource() -> UITableViewDiffableDataSource<Section, RMModels.Views.PostView> {
+        return UITableViewDiffableDataSource<Section, RMModels.Views.PostView>(
             tableView: tableView,
             cellProvider: { tableView, indexPath, _ -> UITableViewCell? in
                 let cell = tableView.cell(forClass: PostContentPreviewTableCell.self)
@@ -202,7 +203,7 @@ extension PostsFrontPageViewController: SFSafariViewControllerDelegate {
 }
 
 extension PostsFrontPageViewController: PostContentPreviewTableCellDelegate {
-    func postCellDidSelected(postId: RMModel.Views.PostView.ID) {
+    func postCellDidSelected(postId: RMModels.Views.PostView.ID) {
         let post = viewModel.postsDataSource.getElement(by: postId).require()
         self.coordinator?.goToPostScreen(post: post)
     }
@@ -211,7 +212,7 @@ extension PostsFrontPageViewController: PostContentPreviewTableCellDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        post: RMModel.Views.PostView
+        post: RMModels.Views.PostView
     ) {
         guard let coordinator = coordinator else {
             return
@@ -230,7 +231,7 @@ extension PostsFrontPageViewController: PostContentPreviewTableCellDelegate {
         self.coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
-    func showMore(in post: RMModel.Views.PostView) {
+    func showMore(in post: RMModels.Views.PostView) {
         
         if let post = self.viewModel.postsDataSource.getElement(by: post.id) {
             guard let coordinator = coordinator else {

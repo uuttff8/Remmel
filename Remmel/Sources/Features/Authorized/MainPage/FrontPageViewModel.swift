@@ -18,21 +18,21 @@ protocol FrontPageViewModelProtocol {
 }
 
 class FrontPageViewModel: FrontPageViewModelProtocol {
-    private let userAccountService: UserAccountSerivceProtocol
+    private let userAccountService: UserAccountServiceProtocol
     
     private let wsEvents = ApiManager.chainedWsCLient
     
     weak var viewController: FrontPageViewControllerProtocol?
     
     init(
-        userAccountService: UserAccountSerivceProtocol
+        userAccountService: UserAccountServiceProtocol
     ) {
         self.userAccountService = userAccountService
     }
     
     func receiveMessages() {
         
-        let commJoin = RMModel.Api.Websocket.CommunityJoin(communityId: 0)
+        let commJoin = RMModels.Api.Websocket.CommunityJoin(communityId: 0)
 
         wsEvents.send(
             WSEndpoint.Community.communityJoin.endpoint,
@@ -44,7 +44,7 @@ class FrontPageViewModel: FrontPageViewModelProtocol {
             return
         }
         
-        let userJoin = RMModel.Api.Websocket.UserJoin(auth: jwtToken)
+        let userJoin = RMModels.Api.Websocket.UserJoin(auth: jwtToken)
         wsEvents.send(WSEndpoint.User.userJoin.endpoint, parameters: userJoin)
     }
     
@@ -62,7 +62,7 @@ enum FrontPage {
     enum ProfileAction {
         
         struct ViewModel {
-            let user: RMModel.Views.LocalUserSettingsView
+            let user: RMModels.Views.LocalUserSettingsView
         }
     }
 }

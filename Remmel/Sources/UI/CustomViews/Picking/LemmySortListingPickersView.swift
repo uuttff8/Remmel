@@ -11,20 +11,20 @@ import RMModels
 
 class LemmySortListingPickersView: UIView {
 
-//    var sortFirstPick: RMModel.Others.SortType = .active {
+//    var sortFirstPick: RMModels.Others.SortType = .active {
 //        didSet {
 //            sortTypeView.currentPick = sortFirstPick
 //        }
 //    }
 //
-//    var listingFirstPick: RMModel.Others.ListingType = .all {
+//    var listingFirstPick: RMModels.Others.ListingType = .all {
 //        didSet {
 //            listingTypeView.currentPick = listingFirstPick
 //        }
 //    }
     
 //    lazy var sortTypeView = LemmyImageTextTypePicker(
-//        cases: RMModel.Others.SortType.allCases,
+//        cases: RMModels.Others.SortType.allCases,
 //        firstPicked: sortFirstPick,
 //        image: Config.Image.sortType
 //    )

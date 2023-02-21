@@ -8,22 +8,28 @@
 
 import Foundation
 
-extension RMModels.Api {
+public extension RMModels.Api {
     enum Community {
         
-        struct GetCommunity: Codable {
-            let id: Int?
-            let name: String?
-            let auth: String?
+        public struct GetCommunity: Codable {
+            public let id: Int?
+            public let name: String?
+            public let auth: String?
+            
+            public init(id: Int?, name: String?, auth: String?) {
+                self.id = id
+                self.name = name
+                self.auth = auth
+            }
         }
         
-        struct GetCommunityResponse: Codable {
-            let communityView: RMModels.Views.CommunityView
-            let site: RMModels.Source.Site?
-            let moderators: [RMModels.Views.CommunityModeratorView]
-            let online: Int
-            let discussionLanguages: [Int]
-            let defaultPostLanguage: Int?
+        public struct GetCommunityResponse: Codable {
+            public let communityView: RMModels.Views.CommunityView
+            public let site: RMModels.Source.Site?
+            public let moderators: [RMModels.Views.CommunityModeratorView]
+            public let online: Int
+            public let discussionLanguages: [Int]
+            public let defaultPostLanguage: Int?
             
             enum CodingKeys: String, CodingKey {
                 case communityView = "community_view"
@@ -33,16 +39,28 @@ extension RMModels.Api {
             }
         }
         
-        struct CreateCommunity: Codable {
-            let name: String
-            let title: String
-            let description: String?
-            let icon: String?
-            let banner: String?
-            let nsfw: Bool?
-            let postingRestrictedToMods: Bool?
-            let discussionLanguages: [Int]?
-            let auth: String
+        public struct CreateCommunity: Codable {
+            public let name: String
+            public let title: String
+            public let description: String?
+            public let icon: String?
+            public let banner: String?
+            public let nsfw: Bool?
+            public let postingRestrictedToMods: Bool?
+            public let discussionLanguages: [Int]?
+            public let auth: String
+            
+            public init(name: String, title: String, description: String?, icon: String?, banner: String?, nsfw: Bool?, postingRestrictedToMods: Bool?, discussionLanguages: [Int]?, auth: String) {
+                self.name = name
+                self.title = title
+                self.description = description
+                self.icon = icon
+                self.banner = banner
+                self.nsfw = nsfw
+                self.postingRestrictedToMods = postingRestrictedToMods
+                self.discussionLanguages = discussionLanguages
+                self.auth = auth
+            }
             
             enum CodingKeys: String, CodingKey {
                 case name, title, description, icon, banner
@@ -52,20 +70,28 @@ extension RMModels.Api {
             }
         }
         
-        struct CommunityResponse: Codable {
-            let communityView: RMModels.Views.CommunityView
+        public struct CommunityResponse: Codable {
+            public let communityView: RMModels.Views.CommunityView
             
             enum CodingKeys: String, CodingKey {
                 case communityView = "community_view"
             }
         }
         
-        struct ListCommunities: Codable {
-            let type: RMModels.Others.ListingType?
-            let sort: RMModels.Others.SortType?
-            let page: Int?
-            let limit: Int?
-            let auth: String?
+        public struct ListCommunities: Codable {
+            public let type: RMModels.Others.ListingType?
+            public let sort: RMModels.Others.SortType?
+            public let page: Int?
+            public let limit: Int?
+            public let auth: String?
+            
+            public init(type: RMModels.Others.ListingType?, sort: RMModels.Others.SortType?, page: Int?, limit: Int?, auth: String?) {
+                self.type = type
+                self.sort = sort
+                self.page = page
+                self.limit = limit
+                self.auth = auth
+            }
             
             enum CodingKeys: String, CodingKey {
                 case type = "type_"
@@ -73,18 +99,18 @@ extension RMModels.Api {
             }
         }
         
-        struct ListCommunitiesResponse: Codable {
-            let communities: [RMModels.Views.CommunityView]
+        public struct ListCommunitiesResponse: Codable {
+            public let communities: [RMModels.Views.CommunityView]
         }
         
-        struct BanFromCommunity: Codable {
-            let communityId: Int
-            let personId: Int
-            let ban: Bool
-            let removeData: Bool? // Removes/Restores their comments and posts for that community
-            let reason: String?
-            let expires: Int?
-            let auth: String
+        public struct BanFromCommunity: Codable {
+            public let communityId: Int
+            public let personId: Int
+            public let ban: Bool
+            public let removeData: Bool? // Removes/Restores their comments and posts for that community
+            public let reason: String?
+            public let expires: Int?
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
@@ -95,9 +121,9 @@ extension RMModels.Api {
             }
         }
         
-        struct BanFromCommunityResponse: Codable {
-            let personView: RMModels.Views.PersonViewSafe
-            let banned: Bool
+        public struct BanFromCommunityResponse: Codable {
+            public let personView: RMModels.Views.PersonViewSafe
+            public let banned: Bool
             
             enum CodingKeys: String, CodingKey {
                 case personView = "person_view"
@@ -105,11 +131,11 @@ extension RMModels.Api {
             }
         }
         
-        struct AddModToCommunity: Codable {
-            let communityId: Int
-            let personId: Int
-            let added: Bool
-            let auth: String
+        public struct AddModToCommunity: Codable {
+            public let communityId: Int
+            public let personId: Int
+            public let added: Bool
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
@@ -118,23 +144,23 @@ extension RMModels.Api {
             }
         }
         
-        struct AddModToCommunityResponse: Codable {
-            let moderators: [RMModels.Views.CommunityModeratorView]
+        public struct AddModToCommunityResponse: Codable {
+            public let moderators: [RMModels.Views.CommunityModeratorView]
         }
         
         /**
         * Only mods can edit a community.
         */
-        struct EditCommunity: Codable {
-            let communityId: Int
-            let title: String?
-            let description: String?
-            let icon: String?
-            let banner: String?
-            let nsfw: Bool?
-            let postingRestrictedToMods: Bool?
-            let discussionLanguages: [Int]?
-            let auth: String
+        public struct EditCommunity: Codable {
+            public let communityId: Int
+            public let title: String?
+            public let description: String?
+            public let icon: String?
+            public let banner: String?
+            public let nsfw: Bool?
+            public let postingRestrictedToMods: Bool?
+            public let discussionLanguages: [Int]?
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
@@ -145,10 +171,10 @@ extension RMModels.Api {
             }
         }
         
-        struct DeleteCommunity: Codable {
-            let communityId: Int
-            let deleted: Bool
-            let auth: String
+        public struct DeleteCommunity: Codable {
+            public let communityId: Int
+            public let deleted: Bool
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
@@ -156,12 +182,12 @@ extension RMModels.Api {
             }
         }
         
-        struct RemoveCommunity: Codable {
-            let communityId: Int
-            let removed: Bool
-            let reason: String?
-            let expires: Int? /// The expire time in Unix seconds
-            let auth: String
+        public struct RemoveCommunity: Codable {
+            public let communityId: Int
+            public let removed: Bool
+            public let reason: String?
+            public let expires: Int? /// The expire time in Unix seconds
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
@@ -169,10 +195,16 @@ extension RMModels.Api {
             }
         }
         
-        struct FollowCommunity: Codable {
-            let communityId: Int
-            let follow: Bool
-            let auth: String
+        public struct FollowCommunity: Codable {
+            public let communityId: Int
+            public let follow: Bool
+            public let auth: String
+            
+            public init(communityId: Int, follow: Bool, auth: String) {
+                self.communityId = communityId
+                self.follow = follow
+                self.auth = auth
+            }
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
@@ -180,10 +212,10 @@ extension RMModels.Api {
             }
         }
                 
-        struct TransferCommunity: Codable {
-            let communityId: Int
-            let personId: Int
-            let auth: String
+        public struct TransferCommunity: Codable {
+            public let communityId: Int
+            public let personId: Int
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
@@ -192,10 +224,10 @@ extension RMModels.Api {
             }
         }
 
-        struct BlockCommunity: Codable {
-            let communityId: Int
-            let block: Bool
-            let auth: String
+        public struct BlockCommunity: Codable {
+            public let communityId: Int
+            public let block: Bool
+            public let auth: String
 
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
@@ -203,9 +235,9 @@ extension RMModels.Api {
             }
         }
 
-        struct BlockCommunityResponse: Codable {
-            let communityView: RMModels.Views.CommunityView
-            let blocked: Bool
+        public struct BlockCommunityResponse: Codable {
+            public let communityView: RMModels.Views.CommunityView
+            public let blocked: Bool
 
             enum CodingKeys: String, CodingKey {
                 case communityView = "community_view"

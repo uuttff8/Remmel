@@ -28,7 +28,7 @@ class ProfileScreenSubscribedViewModel: ProfileScreenAboutViewModelProtocol {
 extension ProfileScreenSubscribedViewModel: ProfileScreenSubscribedInputProtocol {
     func updateFollowersData(
         profile: ProfileScreenViewModel.ProfileData,
-        subscribers: [RMModel.Views.CommunityFollowerView]
+        subscribers: [RMModels.Views.CommunityFollowerView]
     ) {
         self.loadedProfile = profile
         self.viewController?.displayProfileSubscribers(
@@ -44,7 +44,7 @@ extension ProfileScreenSubscribedViewModel: ProfileScreenSubscribedInputProtocol
 enum ProfileScreenAbout {
     enum SubscribersLoad {
         struct Response {
-            let subscribers: [RMModel.Views.CommunityFollowerView]
+            let subscribers: [RMModels.Views.CommunityFollowerView]
         }
         
         struct ViewModel {

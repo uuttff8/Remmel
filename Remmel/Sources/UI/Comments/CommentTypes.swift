@@ -13,7 +13,7 @@ class LemmyComment: BaseComment, Identifiable {
     var id: Int? {
         commentContent?.comment.id
     }
-    var commentContent: RMModel.Views.CommentView?
+    var commentContent: RMModels.Views.CommentView?
     var isFolded: Bool = true
 }
 

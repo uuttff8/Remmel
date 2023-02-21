@@ -54,7 +54,7 @@ final class AccountsViewModel: AccountsViewModelProtocol {
     }
     
     func doAccountUserSelect(request: AccountsDataFlow.AccountSelected.Request) {
-        let parameters = RMModel.Api.Person.Login(
+        let parameters = RMModels.Api.Person.Login(
             usernameOrEmail: request.account.login,
             password: request.account.password
         )
@@ -83,7 +83,7 @@ final class AccountsViewModel: AccountsViewModelProtocol {
     }
         
     private func fetchUser(with jwtToken: String) {
-        self.loadUserOnSuccessResponse(jwt: jwtToken) { (currentUser: RMModel.Api.Site.MyUserInfo) in
+        self.loadUserOnSuccessResponse(jwt: jwtToken) { (currentUser: RMModels.Api.Site.MyUserInfo) in
             self.shareData.userdata = currentUser
             self.viewController?.displayAccountSelected(viewModel: .init(myUser: currentUser))
         }
@@ -91,11 +91,11 @@ final class AccountsViewModel: AccountsViewModelProtocol {
         
     private func loadUserOnSuccessResponse(
         jwt: String,
-        completion: @escaping ((RMModel.Api.Site.MyUserInfo) -> Void)
+        completion: @escaping ((RMModels.Api.Site.MyUserInfo) -> Void)
     ) {
         self.shareData.loginData.login(jwt: jwt)
         
-        let params = RMModel.Api.Site.GetSite(auth: jwt)
+        let params = RMModels.Api.Site.GetSite(auth: jwt)
         
         ApiManager.requests.asyncGetSite(parameters: params)
             .receive(on: DispatchQueue.main)
@@ -136,7 +136,7 @@ enum AccountsDataFlow {
         }
         
         struct ViewModel {
-            let myUser: RMModel.Api.Site.MyUserInfo
+            let myUser: RMModels.Api.Site.MyUserInfo
         }
     }
     

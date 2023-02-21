@@ -8,6 +8,7 @@
 
 import UIKit
 import RMModels
+import RMFoundation
 
 // MARK: - CommentFooterView: UIView
 class CommentFooterView: UIView {

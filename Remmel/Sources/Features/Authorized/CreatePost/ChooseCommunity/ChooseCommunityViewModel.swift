@@ -23,8 +23,8 @@ class ChooseCommunityViewModel: ChooseCommunityViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     
     func doCommunitiesLoad(request: ChooseCommunity.CommunitiesLoad.Request) {
-        let parameters = RMModel.Api.Community.ListCommunities(type: .all,
-                                                                sort: RMModel.Others.SortType.topAll,
+        let parameters = RMModels.Api.Community.ListCommunities(type: .all,
+                                                                sort: RMModels.Others.SortType.topAll,
                                                                 page: nil,
                                                                 limit: 100,
                                                                 auth: LemmyShareData.shared.jwtToken)
@@ -45,7 +45,7 @@ class ChooseCommunityViewModel: ChooseCommunityViewModelProtocol {
     }
     
     func doSearchCommunities(request: ChooseCommunity.SearchCommunities.Request) {
-        let params = RMModel.Api.Site.Search(query: request.query,
+        let params = RMModels.Api.Site.Search(query: request.query,
                                               type: .communities,
                                               communityId: nil,
                                               communityName: nil,
@@ -93,6 +93,6 @@ enum ChooseCommunity {
     
     enum ViewControllerState {
         case loading
-        case result([RMModel.Views.CommunityView])
+        case result([RMModels.Views.CommunityView])
     }
 }

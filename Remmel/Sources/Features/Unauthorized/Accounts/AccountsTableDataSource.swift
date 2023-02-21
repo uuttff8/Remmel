@@ -8,6 +8,7 @@
 
 import UIKit
 import RMFoundation
+import RMServices
 
 protocol AccountsTableDataSourceDelegate: AnyObject {
     func tableDidRequestDelete(_ account: Account)

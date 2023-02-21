@@ -42,7 +42,7 @@ class CommentContentCellView: UIView {
     }
     
     // MARK: - Public API
-    func bind(with comment: RMModel.Views.CommentView, level: Int, appearance: Appearance = Appearance()) {
+    func bind(with comment: RMModels.Views.CommentView, level: Int, appearance: Appearance = Appearance()) {
         self.appearance = appearance
         
         commentContentView.bind(with: comment, setting: appearance.config)

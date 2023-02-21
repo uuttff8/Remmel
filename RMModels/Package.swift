@@ -6,13 +6,14 @@ import PackageDescription
 let package = Package(
     name: "RMModels",
     platforms: [
-        .iOS(.v15),
+        .iOS(.v15)
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "RMModels",
-            targets: ["RMModels"]),
+            targets: ["RMModels"]
+        )
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -23,9 +24,11 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "RMModels",
-            dependencies: []),
+            dependencies: []
+        ),
         .testTarget(
             name: "RMModelsTests",
-            dependencies: ["RMModels"]),
+            dependencies: ["RMModels"]
+        )
     ]
 )

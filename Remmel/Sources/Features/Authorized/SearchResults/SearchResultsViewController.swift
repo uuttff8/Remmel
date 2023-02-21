@@ -147,7 +147,7 @@ extension SearchResultsViewController: SearchResultsViewControllerProtocol {
 }
 
 extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
-    func postCellDidSelected(postId: RMModel.Views.PostView.ID) {
+    func postCellDidSelected(postId: RMModels.Views.PostView.ID) {
         guard case .posts(let posts) = tableManager.viewModels else {
             return
         }
@@ -155,7 +155,7 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
         coordinator?.goToPostScreen(post: post)
     }
     
-    func tableDidTapped(followButton: FollowButton, in community: RMModel.Views.CommunityView) {
+    func tableDidTapped(followButton: FollowButton, in community: RMModels.Views.CommunityView) {
         guard let coord = coordinator else {
             return
         }
@@ -164,13 +164,13 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
             followButton.followState = .pending
             self.followService.followUi(to: community)
                 .sink { community in
-                    followButton.bind(isSubcribed: community.subscribed)
+                    followButton.bind(isSubcribed: community.subscribed == .subscribed)
                     self.tableManager.saveNewCommunity(community: community)
                 }.store(in: &self.cancellable)
         }
     }
         
-    func onMentionTap(in post: RMModel.Views.CommentView, mention: LemmyUserMention) {
+    func onMentionTap(in post: RMModels.Views.CommentView, mention: LemmyUserMention) {
         coordinator?.goToProfileScreen(userId: mention.absoluteId, username: mention.absoluteUsername)
     }
     
@@ -178,7 +178,7 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        post: RMModel.Views.PostView
+        post: RMModels.Views.PostView
     ) {
         guard let coordinator = coordinator else {
             return
@@ -189,11 +189,11 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
         }
     }
         
-    func onLinkTap(in post: RMModel.Views.PostView, url: URL) {
+    func onLinkTap(in post: RMModels.Views.PostView, url: URL) {
         coordinator?.goToBrowser(with: url)
     }
     
-    func showMore(in post: RMModel.Views.PostView) {
+    func showMore(in post: RMModels.Views.PostView) {
         guard let coordinator = coordinator else {
             return
         }
@@ -210,7 +210,7 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
         coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
-    func postNameTapped(in comment: RMModel.Views.CommentView) {
+    func postNameTapped(in comment: RMModels.Views.CommentView) {
         coordinator?.goToPostScreen(postId: comment.post.id)
     }
     
@@ -218,7 +218,7 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        comment: RMModel.Views.CommentView
+        comment: RMModels.Views.CommentView
     ) {
         guard let coordinator = coordinator else {
             return
@@ -229,21 +229,21 @@ extension SearchResultsViewController: SearchResultsTableDataSourceDelegate {
         }
     }
     
-    func showContext(in comment: RMModel.Views.CommentView) {
+    func showContext(in comment: RMModels.Views.CommentView) {
         coordinator?.goToPostAndScroll(to: comment)
     }
     
-    func reply(to comment: RMModel.Views.CommentView) {
+    func reply(to comment: RMModels.Views.CommentView) {
         coordinator?.goToWriteComment(postSource: comment.post, parrentComment: comment.comment) {
             RMMessagesToast.showSuccessCreateComment()
         }
     }
     
-    func onLinkTap(in comment: RMModel.Views.CommentView, url: URL) {
+    func onLinkTap(in comment: RMModels.Views.CommentView, url: URL) {
         coordinator?.goToBrowser(with: url)
     }
     
-    func showMoreAction(in comment: RMModel.Views.CommentView) {
+    func showMoreAction(in comment: RMModels.Views.CommentView) {
         guard let coordinator = coordinator else {
             return
         }

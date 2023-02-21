@@ -16,22 +16,22 @@ protocol InboxMentionsTableManagerDelegate: UserMentionCellViewDelegate {
 final class InboxMentionsTableManager: NSObject {
     weak var delegate: InboxMentionsTableManagerDelegate?
     
-    var viewModels: [RMModel.Views.PersonMentionView]
+    var viewModels: [RMModels.Views.PersonMentionView]
     
-    init(viewModels: [RMModel.Views.PersonMentionView] = []) {
+    init(viewModels: [RMModels.Views.PersonMentionView] = []) {
         self.viewModels = viewModels
         super.init()
     }
     
     // MARK: - Public API
     
-    func update(viewModel: RMModel.Views.PersonMentionView) {
+    func update(viewModel: RMModels.Views.PersonMentionView) {
         if let index = self.viewModels.firstIndex(where: { $0.id == viewModel.id }) {
             self.viewModels[index] = viewModel
         }
     }
     
-    func appendNew(posts: [RMModel.Views.PersonMentionView], completion: (_ indexPaths: [IndexPath]) -> Void) {
+    func appendNew(posts: [RMModels.Views.PersonMentionView], completion: (_ indexPaths: [IndexPath]) -> Void) {
         let startIndex = viewModels.count - posts.count
         let endIndex = startIndex + posts.count
         

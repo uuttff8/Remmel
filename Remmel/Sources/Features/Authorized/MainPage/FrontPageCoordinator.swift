@@ -47,7 +47,7 @@ class FrontPageCoordinator: GenericCoordinator<FrontPageViewController> {
         self.rootViewController.present(navController, animated: true)
     }
     
-    func goToSearchResults(searchQuery: String, searchType: RMModel.Others.SearchType) {
+    func goToSearchResults(searchQuery: String, searchType: RMModels.Others.SearchType) {
         let assembly = SearchResultsAssembly(searchQuery: searchQuery, type: searchType)
         let vc = assembly.makeModule()
         vc.coordinator = self

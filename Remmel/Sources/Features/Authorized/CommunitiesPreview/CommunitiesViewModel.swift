@@ -39,7 +39,7 @@ class CommunitiesPreviewViewModel: CommunitiesPreviewViewModelProtocol {
             switch operation {
             case RMUserOperation.ListCommunities.rawValue:
                 guard let comms = self.wsClient?.decodeWsType(
-                        RMModel.Api.Community.ListCommunitiesResponse.self,
+                        RMModels.Api.Community.ListCommunitiesResponse.self,
                         data: data
                 ) else { return }
                 
@@ -52,9 +52,9 @@ class CommunitiesPreviewViewModel: CommunitiesPreviewViewModelProtocol {
     }
     
     func doLoadCommunities(request: CommunitiesPreview.CommunitiesLoad.Request) {
-        let parameters = RMModel.Api.Community.ListCommunities(
+        let parameters = RMModels.Api.Community.ListCommunities(
             type: .all,
-            sort: RMModel.Others.SortType.topAll,
+            sort: RMModels.Others.SortType.topAll,
             page: 1,
             limit: 100,
             auth: LemmyShareData.shared.jwtToken
@@ -63,9 +63,9 @@ class CommunitiesPreviewViewModel: CommunitiesPreviewViewModelProtocol {
         self.wsClient?.send(RMUserOperation.ListCommunities, parameters: parameters)
     }
     
-    private func fetchCommunities(with response: RMModel.Api.Community.ListCommunitiesResponse) {
+    private func fetchCommunities(with response: RMModels.Api.Community.ListCommunitiesResponse) {
         let sortedCommunities = response.communities
-            .sorted { $0.subscribed && !$1.subscribed }
+            .sorted { ($0.subscribed == .subscribed) && !($1.subscribed == .subscribed) }
         
         self.viewContoller?.displayCommunities(
             viewModel: .init(state: .result(sortedCommunities))
@@ -85,6 +85,6 @@ enum CommunitiesPreview {
     
     enum ViewControllerState {
         case loading
-        case result([RMModel.Views.CommunityView])
+        case result([RMModels.Views.CommunityView])
     }
 }

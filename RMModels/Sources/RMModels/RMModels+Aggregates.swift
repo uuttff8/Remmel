@@ -8,15 +8,15 @@
 
 import Foundation
 
-extension RMModels {
+public extension RMModels {
     enum Aggregates {
-        struct PersonAggregates: Identifiable, Codable {
-            let id: Int
-            let personId: Int
-            let postCount: Int
-            let postScore: Int
-            let commentCount: Int
-            let commentScore: Int
+        public struct PersonAggregates: Identifiable, Codable {
+            public let id: Int
+            public let personId: Int
+            public let postCount: Int
+            public let postScore: Int
+            public let commentCount: Int
+            public let commentScore: Int
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -28,17 +28,17 @@ extension RMModels {
             }
         }
         
-        struct SiteAggregates: Identifiable, Codable {
-            let id: Int
-            let siteId: Int
-            let users: Int
-            let posts: Int
-            let comments: Int
-            let communities: Int
-            let usersActiveDay: Int
-            let usersActiveWeek: Int
-            let usersActiveMonth: Int
-            let usersActiveHalfYear: Int
+        public struct SiteAggregates: Identifiable, Codable {
+            public let id: Int
+            public let siteId: Int
+            public let users: Int
+            public let posts: Int
+            public let comments: Int
+            public let communities: Int
+            public let usersActiveDay: Int
+            public let usersActiveWeek: Int
+            public let usersActiveMonth: Int
+            public let usersActiveHalfYear: Int
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -51,17 +51,17 @@ extension RMModels {
             }
         }
         
-        struct PostAggregates: Identifiable, Codable, Hashable, Equatable {
-            let id: Int
-            let postId: Int
-            let comments: Int
-            var score: Int
-            var upvotes: Int
-            var downvotes: Int
-            let newestCommentTime: String
-            let newestCommentTimeNecro: String
-            let featuredCommunity: Bool
-            let featuredLocal: Bool
+        public struct PostAggregates: Identifiable, Codable, Hashable, Equatable {
+            public let id: Int
+            public let postId: Int
+            public let comments: Int
+            public var score: Int
+            public var upvotes: Int
+            public var downvotes: Int
+            public let newestCommentTime: String
+            public let newestCommentTimeNecro: String
+            public let featuredCommunity: Bool
+            public let featuredLocal: Bool
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -74,16 +74,16 @@ extension RMModels {
             }
         }
         
-        struct CommunityAggregates: Identifiable, Codable {
-            let id: Int
-            let communityId: Int
-            let subscribers: Int
-            let posts: Int
-            let comments: Int
-            let usersActiveDay: Int
-            let usersActiveWeek: Int
-            let usersActiveMonth: Int
-            let usersActiveHalfYear: Int
+        public struct CommunityAggregates: Identifiable, Codable {
+            public let id: Int
+            public let communityId: Int
+            public let subscribers: Int
+            public let posts: Int
+            public let comments: Int
+            public let usersActiveDay: Int
+            public let usersActiveWeek: Int
+            public let usersActiveMonth: Int
+            public let usersActiveHalfYear: Int
             
             enum CodingKeys: String, CodingKey {
                 case id
@@ -97,13 +97,13 @@ extension RMModels {
             }
         }
         
-        struct CommentAggregates: Identifiable, Codable, Hashable, Equatable {
-            let id: Int
-            let commentId: Int
-            var score: Int
-            var upvotes: Int
-            var downvotes: Int
-            let childCount: Int
+        public struct CommentAggregates: Identifiable, Codable, Hashable, Equatable {
+            public let id: Int
+            public let commentId: Int
+            public var score: Int
+            public var upvotes: Int
+            public var downvotes: Int
+            public let childCount: Int
             
             enum CodingKeys: String, CodingKey {
                 case id

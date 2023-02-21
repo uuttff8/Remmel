@@ -13,7 +13,7 @@ protocol ProfileScreenCommentsViewDelegate: AnyObject {
     func profileScreenPostsViewDidPickerTapped(toVc: UIViewController)
     func profileScreenComments(
         _ view: ProfileScreenCommentsViewController.View,
-        didPickedNewSort type: RMModel.Others.SortType
+        didPickedNewSort type: RMModels.Others.SortType
     )
 }
 
@@ -27,13 +27,13 @@ extension ProfileScreenCommentsViewController {
     
     class View: UIView {
         struct ViewData {
-            let comments: [RMModel.Views.CommentView]
+            let comments: [RMModels.Views.CommentView]
         }
         
         weak var delegate: ProfileScreenCommentsViewDelegate?
         
         let appearance: Appearance
-        var sortType: RMModel.Others.SortType = .active {
+        var sortType: RMModels.Others.SortType = .active {
             didSet {
                 self.delegate?.profileScreenComments(self, didPickedNewSort: sortType)
             }
@@ -54,8 +54,8 @@ extension ProfileScreenCommentsViewController {
         
         private lazy var commentsHeaderView = ProfileScreenTableHeaderView().then { view in
 //            view.contentTypeView.addTap {
-////                let vc = view.contentTypeView.configuredAlert
-////                self.delegate?.profileScreenPostsViewDidPickerTapped(toVc: vc)
+//                let vc = view.contentTypeView.configuredAlert
+//                self.delegate?.profileScreenPostsViewDidPickerTapped(toVc: vc)
 //            }
 
 //            view.contentTypeView.newCasePicked = { newCase in
@@ -111,7 +111,7 @@ extension ProfileScreenCommentsViewController {
             self.hideLoadingIndicator()
         }
         
-        func appendNew(data: [RMModel.Views.CommentView]) {
+        func appendNew(data: [RMModels.Views.CommentView]) {
             self.tableManager?.appendNew(comments: data) { newIndexpaths in
                 tableView.performBatchUpdates {
                     tableView.insertRows(at: newIndexpaths, with: .none)

@@ -12,11 +12,11 @@ import RMServices
 import RMNetworking
 
 class CommunityScreenAssembly: Assembly {
-    private let communityId: RMModel.Views.CommunityView.ID?
+    private let communityId: RMModels.Views.CommunityView.ID?
     private let communityName: String?
     
     init(
-        communityId: RMModel.Views.CommunityView.ID?,
+        communityId: RMModels.Views.CommunityView.ID?,
         communityName: String?
     ) {
         self.communityId = communityId

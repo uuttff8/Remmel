@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import RMServices
 import RMModels
+import RMFoundation
 
 protocol CommunityScreenViewControllerProtocol: AnyObject {
     func displayCommunityHeader(viewModel: CommunityScreen.CommunityHeaderLoad.ViewModel)
@@ -192,13 +193,13 @@ extension CommunityScreenViewController: CommunityScreenViewControllerProtocol {
 }
 
 extension CommunityScreenViewController: CommunityScreenViewDelegate {
-    func communityView(_ view: View, didPickedNewSort type: RMModel.Others.SortType) {
+    func communityView(_ view: View, didPickedNewSort type: RMModels.Others.SortType) {
         communityView?.deleteAllContent()
         communityView?.showLoadingIndicator()
         viewModel.doPostsFetch(request: .init(contentType: type))
     }
     
-    func headerViewDidTapped(followButton: FollowButton, in community: RMModel.Views.CommunityView) {
+    func headerViewDidTapped(followButton: FollowButton, in community: RMModels.Views.CommunityView) {
         guard let coord = coordinator else {
             return
         }
@@ -207,7 +208,7 @@ extension CommunityScreenViewController: CommunityScreenViewDelegate {
             followButton.followState = .pending
             self.followService.followUi(to: community)
                 .sink { community in
-                    followButton.bind(isSubcribed: community.subscribed)
+                    followButton.bind(isSubcribed: community.subscribed == .subscribed)
                     self.communityView?.communityHeaderViewData = community
                 }.store(in: &self.cancellable)
         }
@@ -238,7 +239,7 @@ extension CommunityScreenViewController: PostContentPreviewTableCellDelegate {
         scoreView: VoteButtonsWithScoreView,
         voteButton: VoteButton,
         newVote: LemmyVoteType,
-        post: RMModel.Views.PostView
+        post: RMModels.Views.PostView
     ) {
         guard let coordinator = coordinator else {
             return
@@ -258,7 +259,7 @@ extension CommunityScreenViewController: PostContentPreviewTableCellDelegate {
         coordinator?.goToCommunityScreen(communityId: mention.absoluteId, communityName: mention.absoluteName)
     }
 
-    func showMore(in post: RMModel.Views.PostView) {
+    func showMore(in post: RMModels.Views.PostView) {
         if let post = self.tableDataSource.viewModels.getElement(by: post.id) {
             guard let coordinator = coordinator else {
                 return
@@ -270,7 +271,7 @@ extension CommunityScreenViewController: PostContentPreviewTableCellDelegate {
         }
     }
     
-    func postCellDidSelected(postId: RMModel.Views.PostView.ID) {
+    func postCellDidSelected(postId: RMModels.Views.PostView.ID) {
         coordinator?.goToPostScreen(postId: postId)
     }
 }

@@ -82,7 +82,7 @@ final class InboxMentionsView: UIView {
         makeConstraints()
     }
     
-    func appendNew(data: [RMModel.Views.PersonMentionView]) {
+    func appendNew(data: [RMModels.Views.PersonMentionView]) {
         self.tableManager?.appendNew(posts: data) { newIndexpaths in
             tableView.performBatchUpdates {
                 tableView.insertRows(at: newIndexpaths, with: .none)

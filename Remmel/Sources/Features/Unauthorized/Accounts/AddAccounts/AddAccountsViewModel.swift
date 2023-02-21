@@ -11,6 +11,7 @@ import Combine
 import RMModels
 import RMFoundation
 import RMNetworking
+import RMServices
 
 protocol AddAccountViewModelProtocol {
     func doRemoteAuthentication(request: AddAccountDataFlow.Authentication.AuthRequest)
@@ -35,7 +36,7 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
     }
     
     func doRemoteAuthentication(request: AddAccountDataFlow.Authentication.AuthRequest) {
-        let parameters = RMModel.Api.Person.Login(
+        let parameters = RMModels.Api.Person.Login(
             usernameOrEmail: request.emailOrUsername,
             password: request.password
         )
@@ -63,7 +64,7 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
     }
     
     func doRemoteRegister(request: AddAccountDataFlow.Authentication.RegisterRequest) {
-        let parameters = RMModel.Api.Person.Register(
+        let parameters = RMModels.Api.Person.Register(
             username: request.username,
             email: request.email,
             password: request.password,
@@ -97,7 +98,7 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
     }
     
     private func fetchUser(with jwtToken: String) {
-        self.loadUserOnSuccessResponse(jwt: jwtToken) { (currentUser: RMModel.Source.PersonSafe) in
+        self.loadUserOnSuccessResponse(jwt: jwtToken) { (currentUser: RMModels.Source.PersonSafe) in
             
             guard let password = self.authPassword,
                   let login = self.authLogin
@@ -122,10 +123,10 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
         
     private func loadUserOnSuccessResponse(
         jwt: String,
-        completion: @escaping ((RMModel.Source.PersonSafe) -> Void)
+        completion: @escaping ((RMModels.Source.PersonSafe) -> Void)
     ) {
         
-        let params = RMModel.Api.Site.GetSite(auth: jwt)
+        let params = RMModels.Api.Site.GetSite(auth: jwt)
         
         ApiManager.requests.asyncGetSite(parameters: params)
             .receive(on: DispatchQueue.main)
@@ -147,7 +148,7 @@ final class AddAccountViewModel: AddAccountViewModelProtocol {
 
 enum AddAccountDataFlow {
     
-    // since backend returns RMModel.Source.User_ in both situation, we generalize it
+    // since backend returns RMModels.Source.User_ in both situation, we generalize it
     enum Authentication {
         struct AuthRequest {
             let emailOrUsername: String
@@ -165,7 +166,7 @@ enum AddAccountDataFlow {
         }
         
         struct ViewModel {
-            let currentUser: RMModel.Source.PersonSafe
+            let currentUser: RMModels.Source.PersonSafe
         }
     }
     

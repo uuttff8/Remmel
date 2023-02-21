@@ -15,7 +15,7 @@ class CreatePostCoordinator: Coordinator {
 
     var navigationController: UINavigationController?
 
-    init(navigationController: UINavigationController?, predefinedCommunity: RMModel.Views.CommunityView? = nil) {
+    init(navigationController: UINavigationController?, predefinedCommunity: RMModels.Views.CommunityView? = nil) {
         let assembly = CreatePostAssembly(predefinedCommunity: predefinedCommunity)
         self.rootViewController = assembly.makeModule()
         self.navigationController = navigationController
@@ -29,14 +29,14 @@ class CreatePostCoordinator: Coordinator {
     }
 
     func goToChoosingCommunity(
-        choosedCommunity: @escaping ((RMModel.Views.CommunityView) -> Void)
+        choosedCommunity: @escaping ((RMModels.Views.CommunityView) -> Void)
     ) {
         let assembly = ChooseCommunityAssembly()
         assembly.onCommunitySelected = choosedCommunity
         navigationController?.pushViewController(assembly.makeModule(), animated: true)
     }
 
-    func goToPost(post: RMModel.Views.PostView) {
+    func goToPost(post: RMModels.Views.PostView) {
         rootViewController.dismiss(animated: true, completion: nil)
 
         if let presentingVc = rootViewController.presentingViewController as? LemmyTabBarController {

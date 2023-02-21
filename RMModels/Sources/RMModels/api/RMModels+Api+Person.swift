@@ -8,12 +8,17 @@
 
 import Foundation
 
-extension RMModels.Api {
+public extension RMModels.Api {
     enum Person {
         
-        struct Login: Codable {
-            let usernameOrEmail: String
-            let password: String
+        public struct Login: Codable {
+            public let usernameOrEmail: String
+            public let password: String
+            
+            public init(usernameOrEmail: String, password: String) {
+                self.usernameOrEmail = usernameOrEmail
+                self.password = password
+            }
             
             enum CodingKeys: String, CodingKey {
                 case usernameOrEmail = "username_or_email"
@@ -26,25 +31,37 @@ extension RMModels.Api {
          *
          * Only the first user to register will be able to be the admin.
          */
-        struct Register: Codable {
-            let username: String
+        public struct Register: Codable {
+            public let username: String
             /**
              * Email is mandatory if email verification is enabled on the server
              */
-            let email: String?
-            let password: String
-            let passwordVerify: String
-            let showNsfw: Bool
+            public let email: String?
+            public let password: String
+            public let passwordVerify: String
+            public let showNsfw: Bool
             /**
              * Captcha is only checked if these are enabled in the server.
              */
-            let captchaUuid: String? // Only checked if these are enabled in the server
-            let captchaAnswer: String?
-            let honeypot: String?
+            public let captchaUuid: String? // Only checked if these are enabled in the server
+            public let captchaAnswer: String?
+            public let honeypot: String?
             /**
              * An answer is mandatory if require application is enabled on the server
              */
-            let answer: String?
+            public let answer: String?
+            
+            public init(username: String, email: String?, password: String, passwordVerify: String, showNsfw: Bool, captchaUuid: String?, captchaAnswer: String?, honeypot: String?, answer: String?) {
+                self.username = username
+                self.email = email
+                self.password = password
+                self.passwordVerify = passwordVerify
+                self.showNsfw = showNsfw
+                self.captchaUuid = captchaUuid
+                self.captchaAnswer = captchaAnswer
+                self.honeypot = honeypot
+                self.answer = answer
+            }
             
             enum CodingKeys: String, CodingKey {
                 case username, email
@@ -57,39 +74,64 @@ extension RMModels.Api {
             }
         }
         
-        struct GetCaptcha: Codable {}
-        
-        struct GetCaptchaResponse: Codable {
-            let ok: CaptchaResponse? // Will be undefined if captchas are disabled
+        public struct GetCaptcha: Codable {
+            public init() {}
         }
         
-        struct CaptchaResponse: Codable {
-            let png: String  // A Base64 encoded png
-            let wav: String  // A Base64 encoded wav file
-            let uuid: String // A UUID to match the one given on request.
+        public struct GetCaptchaResponse: Codable {
+            public let ok: CaptchaResponse? // Will be undefined if captchas are disabled
         }
         
-        struct SaveUserSettings: Codable {
-            let showNsfw: Bool?
-            let theme: String? // Default 'browser'
-            let defaultSortType: Int? // The Sort types from above, zero indexed as a number
-            let defaultListingType: Int? // Post listing types are `All, Subscribed, Community`, number
-            let interfaceLanguage: String?
-            let avatar: String?
-            let banner: String?
-            let displayName: String? // The display name
-            let email: String?
-            let bio: String?
-            let matrixUserId: String?
-            let showAvatars: Bool?
-            let showScores: Bool?
-            let sendNotificationsToEmail: Bool?
-            let botAccount: Bool?
-            let showBotAccounts: Bool?
-            let showReadPosts: Bool?
-            let showNewPostNotifs: Bool?
-            let discussionLanguages: [Int]?
-            let auth: String
+        public struct CaptchaResponse: Codable {
+            public let png: String  // A Base64 encoded png
+            public let wav: String  // A Base64 encoded wav file
+            public let uuid: String // A UUID to match the one given on request.
+        }
+        
+        public struct SaveUserSettings: Codable {
+            public let showNsfw: Bool?
+            public let theme: String? // Default 'browser'
+            public let defaultSortType: Int? // The Sort types from above, zero indexed as a number
+            public let defaultListingType: Int? // Post listing types are `All, Subscribed, Community`, number
+            public let interfaceLanguage: String?
+            public let avatar: String?
+            public let banner: String?
+            public let displayName: String? // The display name
+            public let email: String?
+            public let bio: String?
+            public let matrixUserId: String?
+            public let showAvatars: Bool?
+            public let showScores: Bool?
+            public let sendNotificationsToEmail: Bool?
+            public let botAccount: Bool?
+            public let showBotAccounts: Bool?
+            public let showReadPosts: Bool?
+            public let showNewPostNotifs: Bool?
+            public let discussionLanguages: [Int]?
+            public let auth: String
+            
+            public init(showNsfw: Bool?, theme: String?, defaultSortType: Int?, defaultListingType: Int?, interfaceLanguage: String?, avatar: String?, banner: String?, displayName: String?, email: String?, bio: String?, matrixUserId: String?, showAvatars: Bool?, showScores: Bool?, sendNotificationsToEmail: Bool?, botAccount: Bool?, showBotAccounts: Bool?, showReadPosts: Bool?, showNewPostNotifs: Bool?, discussionLanguages: [Int]?, auth: String) {
+                self.showNsfw = showNsfw
+                self.theme = theme
+                self.defaultSortType = defaultSortType
+                self.defaultListingType = defaultListingType
+                self.interfaceLanguage = interfaceLanguage
+                self.avatar = avatar
+                self.banner = banner
+                self.displayName = displayName
+                self.email = email
+                self.bio = bio
+                self.matrixUserId = matrixUserId
+                self.showAvatars = showAvatars
+                self.showScores = showScores
+                self.sendNotificationsToEmail = sendNotificationsToEmail
+                self.botAccount = botAccount
+                self.showBotAccounts = showBotAccounts
+                self.showReadPosts = showReadPosts
+                self.showNewPostNotifs = showNewPostNotifs
+                self.discussionLanguages = discussionLanguages
+                self.auth = auth
+            }
             
             enum CodingKeys: String, CodingKey {
                 case showNsfw = "show_nsfw"
@@ -113,11 +155,11 @@ extension RMModels.Api {
             }
         }
         
-        struct ChangePassword: Codable {
-            let newPassword: String
-            let newPasswordVerify: String
-            let oldPassword: String
-            let auth: String
+        public struct ChangePassword: Codable {
+            public let newPassword: String
+            public let newPasswordVerify: String
+            public let oldPassword: String
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case newPassword = "new_password"
@@ -130,13 +172,13 @@ extension RMModels.Api {
         /**
          * The `jwt` string should be stored and used anywhere `auth` is called for.
          */
-        struct LoginResponse: Codable {
+        public struct LoginResponse: Codable {
             /**
              * This is None in response to `Register` if email verification is enabled, or the server requires registration applications.
              */
-            let jwt: String?
-            let verifyEmailSent: Bool
-            let registrationCreated: Bool
+            public let jwt: String?
+            public let verifyEmailSent: Bool
+            public let registrationCreated: Bool
             
             enum CodingKeys: String, CodingKey {
                 case jwt
@@ -146,18 +188,29 @@ extension RMModels.Api {
             
         }
         
-        struct GetPersonDetails: Codable {
+        public struct GetPersonDetails: Codable {
             let personId: Int?
             /**
              * To get details for a federated user, use `person@instance.tld`.
              */
-            let username: String?
-            let sort: RMModels.Others.SortType?
-            let page: Int?
-            let limit: Int?
-            let communityId: Int?
-            let savedOnly: Bool?
-            let auth: String?
+            public let username: String?
+            public let sort: RMModels.Others.SortType?
+            public let page: Int?
+            public let limit: Int?
+            public let communityId: Int?
+            public let savedOnly: Bool?
+            public let auth: String?
+            
+            public init(personId: Int?, username: String?, sort: RMModels.Others.SortType?, page: Int?, limit: Int?, communityId: Int?, savedOnly: Bool?, auth: String?) {
+                self.personId = personId
+                self.username = username
+                self.sort = sort
+                self.page = page
+                self.limit = limit
+                self.communityId = communityId
+                self.savedOnly = savedOnly
+                self.auth = auth
+            }
             
             enum CodingKeys: String, CodingKey {
                 case personId = "person_id"
@@ -171,11 +224,11 @@ extension RMModels.Api {
             }
         }
         
-        struct GetPersonDetailsResponse: Codable {
-            let personView: RMModels.Views.PersonViewSafe
-            let comments: [RMModels.Views.CommentView]
-            let posts: [RMModels.Views.PostView]
-            let moderates: [RMModels.Views.CommunityModeratorView]
+        public struct GetPersonDetailsResponse: Codable {
+            public let personView: RMModels.Views.PersonViewSafe
+            public let comments: [RMModels.Views.CommentView]
+            public let posts: [RMModels.Views.PostView]
+            public let moderates: [RMModels.Views.CommunityModeratorView]
             
             enum CodingKeys: String, CodingKey {
                 case personView = "person_view"
@@ -185,22 +238,22 @@ extension RMModels.Api {
             }
         }
 
-        struct MarkAllAsRead: Codable {
-            let auth: String
+        public struct MarkAllAsRead: Codable {
+            public let auth: String
         }
         
-        struct GetRepliesResponse: Codable {
-            let replies: [RMModels.Views.CommentReplyView]
+        public struct GetRepliesResponse: Codable {
+            public let replies: [RMModels.Views.CommentReplyView]
         }
         
-        struct GetPersonMentionsResponse: Codable {
-            let mentions: [RMModels.Views.PersonMentionView]
+        public struct GetPersonMentionsResponse: Codable {
+            public let mentions: [RMModels.Views.PersonMentionView]
         }
                 
-        struct AddAdmin: Codable {
-            let personId: Int
-            let added: Bool
-            let auth: String
+        public struct AddAdmin: Codable {
+            public let personId: Int
+            public let added: Bool
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case personId = "person_id"
@@ -209,20 +262,20 @@ extension RMModels.Api {
             }
         }
         
-        struct AddAdminResponse: Codable {
-            let admins: [RMModels.Views.PersonViewSafe]
+        public struct AddAdminResponse: Codable {
+            public let admins: [RMModels.Views.PersonViewSafe]
         }
         
-        struct BanPerson: Codable {
-            let personId: Int
-            let ban: Bool
-            let removeData: Bool? // Removes/Restores their comments, posts, and communities
-            let reason: String?
+        public struct BanPerson: Codable {
+            public let personId: Int
+            public let ban: Bool
+            public let removeData: Bool? // Removes/Restores their comments, posts, and communities
+            public let reason: String?
             /**
             * The expire time in Unix seconds
             */
-            let expires: Int?
-            let auth: String
+            public let expires: Int?
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case personId = "person_id"
@@ -234,9 +287,9 @@ extension RMModels.Api {
             }
         }
         
-        struct BanPersonResponse: Codable {
-            let personView: RMModels.Views.PersonViewSafe
-            let banned: Bool
+        public struct BanPersonResponse: Codable {
+            public let personView: RMModels.Views.PersonViewSafe
+            public let banned: Bool
             
             enum CodingKeys: String, CodingKey {
                 case personView = "person_view"
@@ -244,12 +297,20 @@ extension RMModels.Api {
             }
         }
         
-        struct GetReplies: Codable {
-            let sort: RMModels.Others.CommentSortType?
-            let page: Int?
-            let limit: Int?
-            let unreadOnly: Bool?
-            let auth: String
+        public struct GetReplies: Codable {
+            public let sort: RMModels.Others.CommentSortType?
+            public let page: Int?
+            public let limit: Int?
+            public let unreadOnly: Bool?
+            public let auth: String
+            
+            public init(sort: RMModels.Others.CommentSortType?, page: Int?, limit: Int?, unreadOnly: Bool?, auth: String) {
+                self.sort = sort
+                self.page = page
+                self.limit = limit
+                self.unreadOnly = unreadOnly
+                self.auth = auth
+            }
             
             enum CodingKeys: String, CodingKey {
                 case sort
@@ -260,12 +321,20 @@ extension RMModels.Api {
             }
         }
         
-        struct GetPersonMentions: Codable {
-            let sort: RMModels.Others.CommentSortType?
-            let page: Int?
-            let limit: Int?
-            let unreadOnly: Bool?
-            let auth: String
+        public struct GetPersonMentions: Codable {
+            public let sort: RMModels.Others.CommentSortType?
+            public let page: Int?
+            public let limit: Int?
+            public let unreadOnly: Bool?
+            public let auth: String
+            
+            public init(sort: RMModels.Others.CommentSortType?, page: Int?, limit: Int?, unreadOnly: Bool?, auth: String) {
+                self.sort = sort
+                self.page = page
+                self.limit = limit
+                self.unreadOnly = unreadOnly
+                self.auth = auth
+            }
             
             enum CodingKeys: String, CodingKey {
                 case sort
@@ -276,10 +345,10 @@ extension RMModels.Api {
             }
         }
         
-        struct MarkPersonMentionAsRead: Codable {
-            let personMentionId: Int
-            let read: Bool
-            let auth: String
+        public struct MarkPersonMentionAsRead: Codable {
+            public let personMentionId: Int
+            public let read: Bool
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case personMentionId = "person_mention_id"
@@ -288,18 +357,18 @@ extension RMModels.Api {
             }
         }
         
-        struct PersonMentionResponse: Codable {
-            let personMentionView: RMModels.Views.PersonMentionView
+        public struct PersonMentionResponse: Codable {
+            public let personMentionView: RMModels.Views.PersonMentionView
             
             enum CodingKeys: String, CodingKey {
                 case personMentionView = "person_mention_view"
             }
         }
         
-        struct MarkCommentReplyAsRead: Codable {
-            let commentReplyId: Int
-            let read: Bool
-            let auth: String
+        public struct MarkCommentReplyAsRead: Codable {
+            public let commentReplyId: Int
+            public let read: Bool
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case commentReplyId = "comment_reply_id"
@@ -307,8 +376,8 @@ extension RMModels.Api {
             }
         }
         
-        struct CommentReplyResponse: Codable {
-            let commentReplyView: RMModels.Views.CommentReplyView
+        public struct CommentReplyResponse: Codable {
+            public let commentReplyView: RMModels.Views.CommentReplyView
             
             enum CodingKeys: String, CodingKey {
                 case commentReplyView = "comment_reply_view"
@@ -318,23 +387,23 @@ extension RMModels.Api {
         /**
          * Permanently deletes your posts and comments
          */
-        struct DeleteAccount: Codable {
-            let password: String
-            let auth: String
+        public struct DeleteAccount: Codable {
+            public let password: String
+            public let auth: String
         }
         
-        struct DeleteAccountResponse: Codable {}
+        public struct DeleteAccountResponse: Codable {}
         
         struct PasswordReset: Codable {
-            let email: String
+            public let email: String
         }
         
-        struct PasswordResetResponse: Codable {}
+        public struct PasswordResetResponse: Codable {}
         
-        struct PasswordChange: Codable {
-            let token: String
-            let password: String
-            let passwordVerify: String
+        public struct PasswordChange: Codable {
+            public let token: String
+            public let password: String
+            public let passwordVerify: String
             
             enum CodingKeys: String, CodingKey {
                 case token
@@ -343,10 +412,16 @@ extension RMModels.Api {
             }
         }
         
-        struct CreatePrivateMessage: Codable {
-            let content: String
-            let recipientId: Int
-            let auth: String
+        public struct CreatePrivateMessage: Codable {
+            public let content: String
+            public let recipientId: Int
+            public let auth: String
+            
+            public init(content: String, recipientId: Int, auth: String) {
+                self.content = content
+                self.recipientId = recipientId
+                self.auth = auth
+            }
             
             enum CodingKeys: String, CodingKey {
                 case content
@@ -355,10 +430,10 @@ extension RMModels.Api {
             }
         }
         
-        struct EditPrivateMessage: Codable {
-            let privateMessageId: Int
-            let content: String
-            let auth: String
+        public struct EditPrivateMessage: Codable {
+            public let privateMessageId: Int
+            public let content: String
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case privateMessageId = "private_message_id"
@@ -367,10 +442,10 @@ extension RMModels.Api {
             }
         }
         
-        struct DeletePrivateMessage: Codable {
-            let privateMessageId: Int
-            let deleted: Bool
-            let auth: String
+        public struct DeletePrivateMessage: Codable {
+            public let privateMessageId: Int
+            public let deleted: Bool
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case privateMessageId = "private_message_id"
@@ -379,10 +454,10 @@ extension RMModels.Api {
             }
         }
         
-        struct MarkPrivateMessageAsRead: Codable {
-            let privateMessageId: Int
-            let read: Bool
-            let auth: Bool
+        public struct MarkPrivateMessageAsRead: Codable {
+            public let privateMessageId: Int
+            public let read: Bool
+            public let auth: Bool
             
             enum CodingKeys: String, CodingKey {
                 case privateMessageId = "private_message_id"
@@ -391,11 +466,18 @@ extension RMModels.Api {
             }
         }
         
-        struct GetPrivateMessages: Codable {
-            let unreadOnly: Bool?
-            let page: Int?
-            let limit: Int?
-            let auth: String
+        public struct GetPrivateMessages: Codable {
+            public let unreadOnly: Bool?
+            public let page: Int?
+            public let limit: Int?
+            public let auth: String
+            
+            public init(unreadOnly: Bool?, page: Int?, limit: Int?, auth: String) {
+                self.unreadOnly = unreadOnly
+                self.page = page
+                self.limit = limit
+                self.auth = auth
+            }
             
             enum CodingKeys: String, CodingKey {
                 case unreadOnly = "unread_only"
@@ -405,26 +487,26 @@ extension RMModels.Api {
             }
         }
         
-        struct PrivateMessagesResponse: Codable {
-            let privateMessages: [RMModels.Views.PrivateMessageView]
+        public struct PrivateMessagesResponse: Codable {
+            public let privateMessages: [RMModels.Views.PrivateMessageView]
             
             enum CodingKeys: String, CodingKey {
                 case privateMessages = "private_messages"
             }
         }
         
-        struct PrivateMessageResponse: Codable {
-            let privateMessageView: RMModels.Views.PrivateMessageView
+        public struct PrivateMessageResponse: Codable {
+            public let privateMessageView: RMModels.Views.PrivateMessageView
             
             enum CodingKeys: String, CodingKey {
                 case privateMessageView = "private_message_view"
             }
         }
         
-        struct CreatePrivateMessageReport: Codable {
-            let privateMessageId: Int
-            let reason: String
-            let auth: String
+        public struct CreatePrivateMessageReport: Codable {
+            public let privateMessageId: Int
+            public let reason: String
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case privateMessageId = "private_message_id"
@@ -432,18 +514,18 @@ extension RMModels.Api {
             }
         }
         
-        struct PrivateMessageReportResponse: Codable {
-            let privateMessageReportView: RMModels.Views.PrivateMessageReportView
+        public struct PrivateMessageReportResponse: Codable {
+            public let privateMessageReportView: RMModels.Views.PrivateMessageReportView
             
             enum CodingKeys: String, CodingKey {
                 case privateMessageReportView = "private_message_report_view"
             }
         }
         
-        struct ResolvePrivateMessageReport: Codable {
-            let reportId: Int
-            let resolved: Bool
-            let auth: String
+        public struct ResolvePrivateMessageReport: Codable {
+            public let reportId: Int
+            public let resolved: Bool
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case reportId = "report_id"
@@ -451,12 +533,12 @@ extension RMModels.Api {
             }
         }
         
-        struct ListPrivateMessageReports: Codable {
-            let page: Int
-            let limit: Int
+        public struct ListPrivateMessageReports: Codable {
+            public let page: Int
+            public let limit: Int
             /// Only shows the unresolved reports
-            let unresolvedOnly: Bool?
-            let auth: String
+            public let unresolvedOnly: Bool?
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case page, limit
@@ -465,27 +547,27 @@ extension RMModels.Api {
             }
         }
         
-        struct ListPrivateMessageReportsResponse: Codable {
-            let privateMessageReports: [RMModels.Views.PrivateMessageReportView]
+        public struct ListPrivateMessageReportsResponse: Codable {
+            public let privateMessageReports: [RMModels.Views.PrivateMessageReportView]
             
             enum CodingKeys: String, CodingKey {
                 case privateMessageReports = "private_message_reports"
             }
         }
         
-        struct GetReportCount: Codable {
+        public struct GetReportCount: Codable {
             /**
             * If a community is supplied, returns the report count for only that community, otherwise returns the report count for all communities the user moderates.
             */
-            let communityId: Int?
-            let auth: String
+            public let communityId: Int?
+            public let auth: String
         }
         
         struct GetReportCountResponse: Codable {
-            let communityId: Int?
-            let commentReports: Int
-            let postReports: Int
-            let privateMessageReports: Int?
+            public let communityId: Int?
+            public let commentReports: Int
+            public let postReports: Int
+            public let privateMessageReports: Int?
             
             enum CodingKeys: String, CodingKey {
                 case communityId = "community_id"
@@ -495,14 +577,14 @@ extension RMModels.Api {
             }
         }
         
-        struct GetUnreadCount: Codable {
-            let auth: String
+        public struct GetUnreadCount: Codable {
+            public let auth: String
         }
 
-        struct GetUnreadCountResponse: Codable {
-            let replies: Int
-            let mentions: Int
-            let privateMessages: Int
+        public struct GetUnreadCountResponse: Codable {
+            public let replies: Int
+            public let mentions: Int
+            public let privateMessages: Int
             
             enum CodingKeys: String, CodingKey {
                 case replies, mentions
@@ -510,16 +592,16 @@ extension RMModels.Api {
             }
         }
 
-        struct VerifyEmail: Codable {
-            let token: String
+        public struct VerifyEmail: Codable {
+            public let token: String
         }
         
-        struct VerifyEmailResponse: Codable {}
+        public struct VerifyEmailResponse: Codable {}
 
-        struct BlockPerson: Codable {
-            let personId: Int
-            let block: Bool
-            let auth: String
+        public struct BlockPerson: Codable {
+            public let personId: Int
+            public let block: Bool
+            public let auth: String
             
             enum CodingKeys: String, CodingKey {
                 case personId = "person_id"
@@ -527,9 +609,9 @@ extension RMModels.Api {
             }
         }
         
-        struct BlockPersonResponse: Codable {
-            let personView: RMModels.Views.PersonViewSafe
-            let blocked: Bool
+        public struct BlockPersonResponse: Codable {
+            public let personView: RMModels.Views.PersonViewSafe
+            public let blocked: Bool
             
             enum CodingKeys: String, CodingKey {
                 case personView = "person_view"
@@ -537,12 +619,12 @@ extension RMModels.Api {
             }
         }
         
-        struct GetBannedPersons: Codable {
-            let auth: String
+        public struct GetBannedPersons: Codable {
+            public let auth: String
         }
         
-        struct BannedPersonsResponse: Codable {
-            let banned: [RMModels.Views.PersonViewSafe]
+        public struct BannedPersonsResponse: Codable {
+            public let banned: [RMModels.Views.PersonViewSafe]
         }
     }
 }
