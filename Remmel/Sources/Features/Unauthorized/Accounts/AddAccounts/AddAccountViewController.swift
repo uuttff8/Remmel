@@ -69,14 +69,14 @@ final class AddAccountViewController: UIViewController {
             return
         }
         
-        guard authView.passwordTextField.hasText && authView.emailOrUsernameTextField.hasText else {
+        guard authView.passwordTextField.textField.hasText && authView.emailOrUsernameTextField.textField.hasText else {
             UIAlertController.createOkAlert(message: "login-error-email-user".localized)
             self.addBarButton.isEnabled = true
             return
         }
         
-        guard let login = authView.emailOrUsernameTextField.text, login.isEmpty == false,
-              let password = authView.passwordTextField.text, password.isEmpty == false
+        guard let login = authView.emailOrUsernameTextField.textField.text, login.isEmpty == false,
+              let password = authView.passwordTextField.textField.text, password.isEmpty == false
         else {
             UIAlertController.createOkAlert(message: "login-error-email-user".localized)
             self.addBarButton.isEnabled = true

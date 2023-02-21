@@ -8,6 +8,7 @@
 
 import UIKit
 import RMFoundation
+import RMDesignSystem
 
 class AuthenticationView: UIView {
     var onSignIn: ((_ emailOrUsername: String, _ password: String) -> Void)?
@@ -17,23 +18,25 @@ class AuthenticationView: UIView {
         $0.font = .boldSystemFont(ofSize: 23)
     }
 
-    lazy var emailOrUsernameTextField = UITextField().then {
+    lazy var emailOrUsernameTextField: TextField = {
         $0.placeholder = "sign-in-email-username".localized
-        $0.autocapitalizationType = .none
-        $0.textContentType = .username
-        $0.autocorrectionType = .no
-    }
+        $0.textField.autocapitalizationType = .none
+        $0.textField.textContentType = .username
+        $0.textField.autocorrectionType = .no
+        return $0
+    }(TextField())
 
-    lazy var passwordTextField = UITextField().then {
+    lazy var passwordTextField: TextField = {
         $0.placeholder = "sign-in-password".localized
-        $0.isSecureTextEntry = true
-        $0.textContentType = .password
-        $0.autocorrectionType = .no
-    }
+        $0.textField.isSecureTextEntry = true
+        $0.textField.textContentType = .password
+        $0.textField.autocorrectionType = .no
+        return $0
+    }(TextField())
 
     init() {
         super.init(frame: .zero)
-        self.backgroundColor = UIColor.systemBackground
+        self.backgroundColor = UIColor.systemGroupedBackground
 
         [signInLabel, emailOrUsernameTextField, passwordTextField].forEach { [self] view in
             self.addSubview(view)
@@ -55,13 +58,13 @@ class AuthenticationView: UIView {
         emailOrUsernameTextField.snp.makeConstraints { make in
             make.top.equalTo(signInLabel.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(35)
+            make.height.equalTo(44)
         }
 
         passwordTextField.snp.makeConstraints { make in
             make.top.equalTo(emailOrUsernameTextField.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(35)
+            make.height.equalTo(44)
         }
     }
 }

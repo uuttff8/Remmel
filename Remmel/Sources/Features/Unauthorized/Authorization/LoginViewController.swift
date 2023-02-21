@@ -167,12 +167,12 @@ class LoginViewController: UIViewController {
             return
         }
         
-        if (!signInView.passwordTextField.hasText) || (!signInView.emailOrUsernameTextField.hasText) {
+        if (!signInView.passwordTextField.textField.hasText) || (!signInView.emailOrUsernameTextField.textField.hasText) {
             UIAlertController.createOkAlert(message: "login-error-email-user".localized)
         }
         
-        guard let emailOrUsername = signInView.emailOrUsernameTextField.text,
-              let password = signInView.passwordTextField.text
+        guard let emailOrUsername = signInView.emailOrUsernameTextField.textField.text,
+              let password = signInView.passwordTextField.textField.text
         else { return }
         
         let parameters = RMModels.Api.Person.Login(
