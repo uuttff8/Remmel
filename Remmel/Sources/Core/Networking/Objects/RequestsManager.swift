@@ -29,6 +29,7 @@ class RequestsManager {
         
     init(instanceUrl: InstanceUrl) {
         // swiftlint:disable:next force_unwrapping
+        #warning("Unexpectedly found nil here when want to delete some symbols from Create Instance screen")
         wsClient = WSLemmyClient(url: URL(string: instanceUrl.wssLink)!)
     }
     

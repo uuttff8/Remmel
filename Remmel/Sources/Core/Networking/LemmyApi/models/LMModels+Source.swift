@@ -135,7 +135,7 @@ extension LMModels {
             let legalInformation: String?
             let hideModlogModNames: Bool
             let applicationEmailAdmins: Bool
-            let reportsEmailAdmins: Bool
+            let reportsEmailAdmins: Bool?
             let slurFilterRegex: String?
             let actorNameMaxLength: Int
             let federationEnabled: Bool

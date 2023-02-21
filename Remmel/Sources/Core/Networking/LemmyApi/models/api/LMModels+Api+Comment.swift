@@ -119,7 +119,7 @@ extension LMModels.Api {
         */
         struct GetComments: Codable {
             let type: LMModels.Others.ListingType?
-            let sort: LMModels.Others.SortType?
+            let sort: LMModels.Others.CommentSortType?
             let maxDepth: Int?
             let page: Int?
             let limit: Int?

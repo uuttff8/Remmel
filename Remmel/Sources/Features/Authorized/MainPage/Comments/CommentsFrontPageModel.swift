@@ -45,7 +45,7 @@ class CommentsFrontPageModel: NSObject {
     
     func loadComments() {
         let parameters = LMModels.Api.Comment.GetComments(type: self.currentListingType,
-                                                          sort: self.currentSortType,
+                                                          sort: .hot,
                                                           maxDepth: nil,
                                                           page: 1,
                                                           limit: 50,
@@ -68,7 +68,7 @@ class CommentsFrontPageModel: NSObject {
     
     func loadMoreComments(completion: @escaping (() -> Void)) {
         let parameters = LMModels.Api.Comment.GetComments(type: currentListingType,
-                                                          sort: currentSortType,
+                                                          sort: .hot,
                                                           maxDepth: nil,
                                                           page: currentPage,
                                                           limit: 50,

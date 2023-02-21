@@ -150,7 +150,7 @@ extension LMModels {
             let community: LMModels.Source.CommunitySafe
             var counts: LMModels.Aggregates.CommentAggregates
             let creatorBannedFromCommunity: Bool
-            let subscribed: Bool
+            let subscribed: LMModels.Others.SubscribedType
             let saved: Bool
             let creatorBlocked: Bool
             var myVote: Int?
