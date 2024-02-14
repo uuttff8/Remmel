@@ -1,0 +1,201 @@
+/* 
+  Localizable.strings
+  Lemmy-iOS
+
+  Created by uuttff8 on 22.01.2021.
+  Copyright © 2021 Anton Kuzmin. All rights reserved.
+*/
+
+"action-create" = "Sortu";
+"enter-as-guest" = "Sartu gonbidatu gisa";
+
+"activity-open-in-safari" = "Ireki Safari-n";
+
+"community-subscribers" = "Harpidedunak";
+"community-posts" = "Bidalketak";
+"community-users" = "Erabiltzaileak";
+"community-ago" = "·";
+"community-joined" = "Batze-data:";
+"community-create-post" = "Sortu bidalketa";
+
+"really-exit-alert" = "Ziur irten nahi duzula?";
+
+"content-posts" = "Bidalketak";
+"content-comments" = "Iruzkinak";
+"content-subscribed" = "Harpidetuta";
+"content-replies" = "Erantzunak";
+"content-mentions" = "Aipamenak";
+"content-messages" = "Mezuak";
+
+"profile-edit" = "Editatu";
+"profile-update" = "Eguneratu";
+"profile-display-name" = "Pantaila izena";
+"profile-display-name-hint" = "Jendeak ikusiko duen izena";
+"profile-bio" = "Biografia";
+"profile-bio-hint" = "Zure biografia";
+"profile-bio-footer" = "Markdown erabil daiteke";
+"profile-email-and-matrix" = "ePosta eta Matrix";
+"profile-email-hint" = "ePosta";
+"profile-matrix-hint" = "@erabiltzailea:adibidea.eus";
+"profile-password" = "Pasahitza";
+"profile-new-password-hint" = "Pasahitz berria";
+"profile-verify-password-hint" = "Idatzi berriro pasahitza";
+"profile-old-password-hint" = "Pasahitz zaharra";
+"profile-password-footer" = "Pasahitz berria ezartzen ari bazara, hiru eremuak bete behar dituzu";
+"profile-show-nsfw" = "Erakutsi lanerako aproposa izan ez daitekeen (NSFW) edukia";
+"profile-send-notification-to-email" = "Bidali jakinarazpenak ePostara";
+
+"nodata-posts" = "Oraindik bidalketarik ez…";
+"nodata-comments" = "Oraindik iruzkinik ez…";
+"nodata-about" = "Oraindik jarraitzen duzun komunitaterik ez…";
+"nodata-mentions" = "Oraindik aipamenik ez…";
+"nodata-replies" = "Oraindik erantzunik ez…";
+"nodata-messages" = "Oraindik mezurik ez…";
+"nodata-search" = "Emaitzarik ez";
+
+"sort-active" = "Aktibo";
+"sort-hot" = "Bogan";
+"sort-new" = "Berria";
+"sort-day" = "Eguneko ikusiena";
+"sort-week" = "Asteko ikusiena";
+"sort-month" = "Hilabeteko ikusiena";
+"sort-year" = "Urteko ikusiena";
+"sort-all" = "Betidanik ikusiena";
+"sort-most-comments" = "Iruzkin gehien";
+"sort-new-comments" = "Iruzkin berriak";
+
+"listing-all" = "Guztia";
+"listing-subscribed" = "Harpidetuta";
+"listing-local" = "Lokala";
+"listing-community" = "Komunitatea";
+
+"searchtype-all" = "guztia";
+"searchtype-comments" = "iruzkinak";
+"searchtype-posts" = "bidalketak";
+"searchtype-communities" = "komunitateak";
+"searchtype-users" = "erabiltzaileak";
+"searchtype-url" = "url-a";
+
+"searchbar-placeholder" = "Bilatu";
+
+"settings-appinfo" = "Aplikazioari buruzko informazioa";
+"settings-author" = "Egilea: @uuttff8";
+"settings-contactinfo" = "Harremanetarako informazioa";
+"settings-community-matrix" = "Komunitatea Matrix-en";
+"settings-instances" = "Instantziak";
+"settings-instances-change-instance" = "Aldatu instantzia";
+"settings-opensource" = "Kode irekia";
+"settings-opensource-code" = "Kodea, lizentziak, parte-hartzaileak eta gehiago";
+"settings-app" = "Aplikazioa";
+"settings-appicon" = "Aplikazioaren ikonoa";
+"settings-version" = "Bertsioa";
+"settings-build" = "Build";
+"settings-api-version" = "API bertsioa";
+
+"profile-settings-title" = "Profilaren ezarpenak";
+
+"inbox-notifications" = "Jakinarazpenak";
+
+"communities" = "Komunitateak";
+
+"follow-follow" = "Jarraitu";
+"follow-unfollow" = "Utzi jarraitzeari";
+
+"readmore-text" = "Irakurri gehiago";
+
+"alert-share" = "Partekatu";
+"alert-report" = "Salatu";
+"alert-logout" = "Amaitu saioa";
+"alert-choose-instance" = "Aukeratu beste instantzia bat";
+"alert-block" = "Blokeatu";
+"alert-block-done" = "Erabiltzailea blokeatu duzu!";
+"alert-unblock" = "Utzi blokeatzeari";
+"alert-unblock-done" = "Erabiltzailea blokeatzeari utzi diozu!";
+"alert-blocked-user" = "Blokeatutako erabiltzailea da!";
+"alert-send-message" = "Bidali mezua";
+"alert-login" = "Hasi saioa";
+"alert-register" = "Eman izena";
+"alert-login-or-register" = "Hasi saioa edo eman izena uneko instantzian jarraitzeko";
+"alert-cancel" = "Utzi";
+"alert-yes" = "Bai";
+"alert-no" = "Ez";
+"alert-reason" = "Zergatia";
+"alert-thanks" = "Eskerrik asko!";
+
+"create-comment" = "Iruzkin berria";
+"create-comment-agree" = "Ados!";
+"create-comment-placeholder" = "Idatzi iruzkina";
+
+"create-content-create-post" = "Bidalketa berria";
+"create-content-create-community" = "Komunitate berria";
+"create-content-post" = "Bidalketa";
+"create-content-community" = "Komunitatea";
+"create-content-choose-community" = "Aukeratu komunitatea";
+"create-content-create-url" = "Sortu helbideaa";
+"create-content-create-url-placeholder" = "Idatzi url-a";
+"create-content-create-title-placeholder" = "Titulua";
+"create-content-create-body-placeholder" = "Gorputza";
+"create-content-create-nsfw" = "NSFW";
+"create-content-community-name" = "Izena";
+"create-content-community-name-placeholder" = "Idatzi izena";
+"create-content-community-name-description" = "Izena – komunitatearen identifikatzaile gisa erabiliko da, ezin da aldatu. Hizki txikiak eta azpiko marrak soilik.";
+"create-content-community-display-name" = "Pantaila izena";
+"create-content-community-display-name-description" = "Pantaila izena — komunitatearen orrialdearen titulu gisa erabiliko da, geroago alda dezakezu.";
+"create-content-community-name-placeholder" = "Idatzi pantaila izena";
+"create-content-community-choose-category" = "Aukeratu kategoria";
+"create-content-community-category" = "Kategoria";
+"create-content-community-description" = "Deskribapena";
+"create-content-community-description-placeholder" = "Alboko barra";
+"create-content-create-nsfw" = "NSFW";
+"create-content-title-error" = "Komunitatearen titulua";
+"create-content-name-error" = "Idatzi komunitatearen titulua";
+
+"instances" = "Instantziak";
+"instances-terms-1" = "Aurrera jarraituz gero";
+"instances-terms-2" = "erabilera baldintzak";
+"instances-terms-3" = " eta pribatutasun politika ";
+"instances-terms-4" = "onartuko dituzu";
+"instances-add-top" = "Gehitu instantzia";
+"instances-add" = "Gehitu";
+"instances-new-instance" = "Idatzi instantziaren esteka hemen";
+
+"accounts" = "Kontuak";
+"accounts-add-top" = "Hasi saioa";
+"accounts-add" = "Gehitu";
+
+"sign-in-signin" = "Saio hasiera";
+"sign-in-login" = "Hasi saioa";
+"sign-in-email-username" = "ePosta edo erabiltzaile izena";
+"sign-in-password" = "Pasahitza";
+
+"sign-up-register" = "Izen ematea";
+"sign-up-signup" = "Eman izena";
+"sign-up-username" = "Erabiltzaile izena";
+"sign-up-email" = "ePosta";
+"sign-up-email-description" = "Ezin izango duzu pasahitza berrezarri helbide elektronikorik gabe.";
+"sign-up-password" = "Pasahitza";
+"sign-up-password-verify" = "Baieztatu pasahitza";
+"sign-up-code" = "Captcha kodea";
+"sign-up-show-nsfw" = "Erakutsi lanerako aproposa izan ez daitekeen (NSFW) edukia";
+
+"login-error-email-user" = "Sartu helbide elektroniko, erabiltzaile izen edo pasahitz egokia";
+"login-error-password-dont-match" = "Pasahitzak ez datoz bat";
+"login-error-nocaptcha" = "Bete captcha";
+
+"front-search-search" = "Bilatu";
+"front-search-posts" = "Honakoa duten bidalketak";
+"front-search-users" = "Honakoa duten erabiltzaileak";
+"front-search-communities" = "Honakoa duten komunitateak";
+"front-search-comments" = "Honakoa duten iruzkinak";
+
+"toast-success" = "Primeran";
+"toast-error" = "Errorea";
+"toast-creating-comment-success" = "Iruzkin berri bat egin duzu!";
+"toast-edit-post-success" = "Bidalketa editatu duzu!";
+"toast-edit-comment-success" = "Iruzkina editatu duzu!";
+"toast-delete-post-success" = "Bidalketa ezabatu/lehengoratu duzu!";
+"toast-delete-post-error" = "Errorea gertatu da bidalketa ezabatu/lehengoratzean…";
+"toast-save-post-success" = "Bidalketa gorde/baztertu duzu!";
+"toast-save-post-error" = "Errorea gertatu da bidalketa gorde/baztertzerakoan!";
+"toast-save-comment-success" = "Iruzkina gorde/baztertu duzu!";
+"toast-save-comment-error" = "Errorea iruzkina gorde/baztertzerakoan!";
